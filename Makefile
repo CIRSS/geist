@@ -40,10 +40,10 @@ test: test-code
 ## 
 
 build-code:             ## Build and install custom code.
-	$(RUN_IN_REPRO) 'make -C $(REPRO_DIR)/go install'
+	$(RUN_IN_REPRO) 'make -f Makefile.code install'
 
 test-code:              ## Run tests on custom code.
-	$(RUN_IN_REPRO) 'make -C $(REPRO_DIR)/go test'
+	$(RUN_IN_REPRO) 'make -f Makefile.code test'
 
 
 ## ------------------------------------------------------------------------------
