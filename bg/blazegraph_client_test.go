@@ -6,6 +6,7 @@ import (
 
 func ExampleBlazegraphClient_EmptyStore_GetAllTriplesAsJSON() {
 	bc := NewBlazegraphClient()
+	bc.deleteAllTriples()
 	result := bc.GetAllTriplesAsJSON()
 	fmt.Println(result)
 	// Output:
@@ -14,13 +15,14 @@ func ExampleBlazegraphClient_EmptyStore_GetAllTriplesAsJSON() {
 	//     "vars" : [ "s", "p", "o" ]
 	//   },
 	//   "results" : {
-	//     "bindings" : [ { } ]
+	//     "bindings" : [ ]
 	//   }
 	// }
 }
 
 func ExampleBlazegraph_Client_EmptyStore_OneTriple() {
 	bc := NewBlazegraphClient()
+	bc.deleteAllTriples()
 	result := bc.PostNewData(`
 	@prefix ab:    <http://learningsparql.com/ns/addressbook#> .
 	@prefix d:     <http://learningsparql.com/ns/data#> .
@@ -34,6 +36,7 @@ func ExampleBlazegraph_Client_EmptyStore_OneTriple() {
 
 func ExampleBlazegraph_Client_EmptyStore_PostTwoTriples() {
 	bc := NewBlazegraphClient()
+	bc.deleteAllTriples()
 	result := bc.PostNewData(`
 		@prefix ab:    <http://learningsparql.com/ns/addressbook#> .
 		@prefix d:     <http://learningsparql.com/ns/data#> .

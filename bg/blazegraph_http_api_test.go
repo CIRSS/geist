@@ -134,3 +134,17 @@ func ExampleBlazegraph_PostData_TwoTriples() {
 	// Output:
 	// <?xml version="1.0"?><data modified="2" milliseconds="
 }
+
+// func ExampleBlazegraph_DeleteDataset() {
+// 	client := &http.Client{}
+// 	request, _ := http.NewRequest("DELETE", SparqlEndpoint+"/kb", nil)
+// 	response, err := client.Do(request)
+// 	if err != nil {
+// 		fmt.Println(err)
+// 	}
+// 	b, _ := ioutil.ReadAll(response.Body)
+// 	response.Body.Close()
+// 	fmt.Println(string(b))
+// 	// Output:
+// 	//
+// }

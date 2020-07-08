@@ -18,6 +18,14 @@ func NewBlazegraphClient() *BlazegraphClient {
 	return bc
 }
 
+func (bc *BlazegraphClient) deleteAllTriples() string {
+	request, _ := http.NewRequest("DELETE", bc.endpoint, nil)
+	response, _ := bc.httpClient.Do(request)
+	responseBody, _ := ioutil.ReadAll(response.Body)
+	response.Body.Close()
+	return string(responseBody)
+}
+
 func (bc *BlazegraphClient) postRequest(contentType string, acceptType string,
 	requestBody string) string {
 	request, _ := http.NewRequest("POST", bc.endpoint, strings.NewReader(requestBody))
@@ -42,7 +50,7 @@ func (bc *BlazegraphClient) GetAllTriplesAsJSON() string {
 		"application/json",
 		`SELECT ?s ?p ?o
 		 WHERE
-		 {}`,
+		 { ?s ?p ?o }`,
 	)
 	return result
 }
