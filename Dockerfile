@@ -51,14 +51,14 @@ ENV BLAZEGRAPH_JAR $HOME/blazegraph-${BLAZEGRAPH_VER}.jar
 RUN echo '***** Download Blazegraph jar *****'                              \
     && wget -O ${BLAZEGRAPH_JAR} ${BLAZEGRAPH_DOWNLOAD_JAR}
 
-ENV BLAZEGRAPH_DIR ${REPRO_MNT}/blazegraph
-ENV BLAZEGRAPH_PROPERTY_FILE=${BLAZEGRAPH_DIR}/blazegraph.properties
+ENV BLAZEGRAPH_DOT_DIR ${REPRO_MNT}/.blazegraph
+ENV BLAZEGRAPH_PROPERTY_FILE=${BLAZEGRAPH_DOT_DIR}/.properties
 ENV BLAZEGRAPH_OPTIONS "-server -Xmx4g -Dbigdata.propertyFile=${BLAZEGRAPH_PROPERTY_FILE}"
 ENV BLAZEGRAPH_CMD "java ${BLAZEGRAPH_OPTIONS} -jar ${BLAZEGRAPH_JAR}"
-ENV BLAZEGRAPH_LOG ${BLAZEGRAPH_DIR}/blazegraph_`date +%s`.log
+ENV BLAZEGRAPH_LOG ${BLAZEGRAPH_DOT_DIR}/blazegraph_`date +%s`.log
 
 RUN echo '***** Start Blazegraph at login *****'                            \
-    && echo "cd ${BLAZEGRAPH_DIR} && ${BLAZEGRAPH_CMD} 2>&1 > ${BLAZEGRAPH_LOG} &" >> ${BASHRC}
+    && echo "cd ${BLAZEGRAPH_DOT_DIR} && ${BLAZEGRAPH_CMD} 2>&1 > ${BLAZEGRAPH_LOG} &" >> ${BASHRC}
 
 RUN echo 'PATH=~/go/bin:/usr/local/go/bin:$PATH' >> ${BASHRC}
 RUN echo "export IN_RUNNING_REPRO=${REPRO_NAME}" >> ${BASHRC}
