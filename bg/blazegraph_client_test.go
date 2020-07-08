@@ -19,6 +19,19 @@ func ExampleBlazegraphClient_EmptyStore_GetAllTriplesAsJSON() {
 	// }
 }
 
+func ExampleBlazegraph_Client_EmptyStore_OneTriple() {
+	bc := NewBlazegraphClient()
+	result := bc.PostNewData(`
+	@prefix ab:    <http://learningsparql.com/ns/addressbook#> .
+	@prefix d:     <http://learningsparql.com/ns/data#> .
+
+	d:y ab:tag "seven" .
+	`)
+	fmt.Println(result[0:54])
+	// Output:
+	// <?xml version="1.0"?><data modified="1" milliseconds="
+}
+
 func ExampleBlazegraph_Client_EmptyStore_PostTwoTriples() {
 	bc := NewBlazegraphClient()
 	result := bc.PostNewData(`

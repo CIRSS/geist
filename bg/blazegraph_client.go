@@ -18,23 +18,23 @@ func NewBlazegraphClient() *BlazegraphClient {
 	return bc
 }
 
-func (bc *BlazegraphClient) PostSparqlQuery(resultFormat string, query string) string {
-	request, _ := http.NewRequest("POST", bc.endpoint, strings.NewReader(query))
-	request.Header.Add("Content-Type", "application/sparql-query")
-	request.Header.Add("Accept", resultFormat)
+func (bc *BlazegraphClient) postRequest(contentType string, acceptType string,
+	requestBody string) string {
+	request, _ := http.NewRequest("POST", bc.endpoint, strings.NewReader(requestBody))
+	request.Header.Add("Content-Type", contentType)
+	request.Header.Add("Accept", acceptType)
 	response, _ := bc.httpClient.Do(request)
-	body, _ := ioutil.ReadAll(response.Body)
+	responseBody, _ := ioutil.ReadAll(response.Body)
 	response.Body.Close()
-	return string(body)
+	return string(responseBody)
+}
+
+func (bc *BlazegraphClient) PostSparqlQuery(resultFormat string, query string) string {
+	return bc.postRequest("application/sparql-query", resultFormat, query)
 }
 
 func (bc *BlazegraphClient) PostNewData(data string) string {
-	request, _ := http.NewRequest("POST", bc.endpoint, strings.NewReader(data))
-	request.Header.Add("Content-Type", "application/x-turtle")
-	response, _ := bc.httpClient.Do(request)
-	body, _ := ioutil.ReadAll(response.Body)
-	response.Body.Close()
-	return string(body)
+	return bc.postRequest("application/x-turtle", "text/plain", data)
 }
 
 func (bc *BlazegraphClient) GetAllTriplesAsJSON() string {
