@@ -8,7 +8,7 @@ import (
 func TestBlazegraphClient_GetAllTriplesAsJSON(t *testing.T) {
 	bc := NewBlazegraphClient()
 	bc.deleteAllTriples()
-	assertJSONEquals(t, bc.GetAllTriplesAsJSON(),
+	AssertJSONEquals(t, bc.GetAllTriplesAsJSON(),
 		`{
 			"head" : {
 				"vars" : [ "s", "p", "o" ]
