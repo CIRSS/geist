@@ -5,10 +5,10 @@ import (
 	"testing"
 )
 
-func TestBlazegraphClient_GetAllTriplesAsJSON(t *testing.T) {
+func TestBlazegraphClient_GetAllTriplesAsJSON_EmptyStore(t *testing.T) {
 	bc := NewBlazegraphClient()
 	bc.deleteAllTriples()
-	AssertJSONEquals(t, bc.GetAllTriplesAsJSON(),
+	AssertJSONEquals(t, bc.SelectAllTriples(),
 		`{
 			"head" : {
 				"vars" : [ "s", "p", "o" ]
@@ -19,18 +19,42 @@ func TestBlazegraphClient_GetAllTriplesAsJSON(t *testing.T) {
 		}`)
 }
 
-func ExampleBlazegraph_Client_EmptyStore_OneTriple() {
+func TestBlazegraphClient_InsertOneTriple(t *testing.T) {
 	bc := NewBlazegraphClient()
 	bc.deleteAllTriples()
-	result := bc.PostNewData(`
+	bc.PostNewData(`
 	@prefix ab:    <http://learningsparql.com/ns/addressbook#> .
 	@prefix d:     <http://learningsparql.com/ns/data#> .
 
 	d:y ab:tag "seven" .
 	`)
-	fmt.Println(result[0:54])
-	// Output:
-	// <?xml version="1.0"?><data modified="1" milliseconds="
+
+	queryResult := bc.PostSparqlQuery(
+		`prefix ab: <http://learningsparql.com/ns/addressbook#>
+		 SELECT ?s ?o
+		 WHERE
+		 { ?s ab:tag ?o }
+		 `)
+
+	AssertJSONEquals(t,
+		queryResult,
+		`{
+			"head" : {
+			  "vars" : [ "s", "o" ]
+			},
+			"results" : {
+			  "bindings" : [ {
+				"s" : {
+				  "type" : "uri",
+				  "value" : "http://learningsparql.com/ns/data#y"
+				},
+				"o" : {
+				  "type" : "literal",
+				  "value" : "seven"
+				}
+			  } ]
+			}
+		  }`)
 }
 
 func ExampleBlazegraph_Client_EmptyStore_PostTwoTriples() {

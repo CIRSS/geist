@@ -38,22 +38,22 @@ func (bc *BlazegraphClient) postRequest(contentType string, acceptType string,
 	return string(responseBody)
 }
 
-func (bc *BlazegraphClient) PostSparqlQuery(resultFormat string, query string) string {
-	return bc.postRequest("application/sparql-query", resultFormat, query)
+func (bc *BlazegraphClient) PostSparqlQuery(query string) interface{} {
+	resultString := bc.postRequest("application/sparql-query", "application/json", query)
+	var resultJSON interface{}
+	json.Unmarshal([]byte(resultString), &resultJSON)
+	return resultJSON
 }
 
 func (bc *BlazegraphClient) PostNewData(data string) string {
 	return bc.postRequest("application/x-turtle", "text/plain", data)
 }
 
-func (bc *BlazegraphClient) GetAllTriplesAsJSON() interface{} {
-	resultString := bc.PostSparqlQuery(
-		"application/json",
+func (bc *BlazegraphClient) SelectAllTriples() interface{} {
+	resultJSON := bc.PostSparqlQuery(
 		`SELECT ?s ?p ?o
 		 WHERE
 		 { ?s ?p ?o }`,
 	)
-	var resultJSON interface{}
-	json.Unmarshal([]byte(resultString), &resultJSON)
 	return resultJSON
 }
