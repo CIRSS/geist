@@ -6,25 +6,17 @@ import (
 )
 
 func TestBlazegraphClient_GetAllTriplesAsJSON(t *testing.T) {
-
-	expected := `{
-		"head" : {
-		  "vars" : [ "s", "p", "o" ]
-		},
-		"results" : {
-		  "bindings" : [ ]
-		}
-	}`
-	expectedCanonical, _ := CanonicalJSONFromString(expected)
-
 	bc := NewBlazegraphClient()
 	bc.deleteAllTriples()
-	result := bc.GetAllTriplesAsJSON()
-	resultCanonical, _ := CanonicalJSON(result)
-
-	if expectedCanonical != resultCanonical {
-		t.Fail()
-	}
+	assertJSONEquals(t, bc.GetAllTriplesAsJSON(),
+		`{
+			"head" : {
+				"vars" : [ "s", "p", "o" ]
+			},
+			"results" : {
+				"bindings" : [ ]
+			}
+		}`)
 }
 
 func ExampleBlazegraph_Client_EmptyStore_OneTriple() {

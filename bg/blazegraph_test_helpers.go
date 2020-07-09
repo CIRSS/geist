@@ -2,6 +2,7 @@ package bg
 
 import (
 	"encoding/json"
+	"testing"
 
 	"github.com/ucarion/jcs"
 )
@@ -17,4 +18,22 @@ func CanonicalJSONFromString(jsonString string) (string, error) {
 func CanonicalJSON(originalJSON interface{}) (string, error) {
 	canonicalJSONString, err := jcs.Format(originalJSON)
 	return canonicalJSONString, err
+}
+
+func assertStringEquals(t *testing.T, actual string, expected string) {
+	if actual != expected {
+		t.Log("assertStringEquals:\n\nexpected: " + expected + "\nactual:   " + actual + "\n")
+		t.Fail()
+	}
+}
+
+func assertJSONEquals(t *testing.T, actual interface{}, expected string) {
+	actualCanonical, _ := CanonicalJSON(actual)
+	expectedCanonical, _ := CanonicalJSONFromString(expected)
+	if actualCanonical != expectedCanonical {
+		t.Log("assertEquivalentJSON:\n" +
+			"\nexpected: " + expectedCanonical +
+			"\nactual:   " + actualCanonical + "\n")
+		t.Fail()
+	}
 }
