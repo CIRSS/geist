@@ -1,6 +1,7 @@
 package bg
 
 import (
+	"encoding/json"
 	"io/ioutil"
 	"net/http"
 	"strings"
@@ -45,12 +46,14 @@ func (bc *BlazegraphClient) PostNewData(data string) string {
 	return bc.postRequest("application/x-turtle", "text/plain", data)
 }
 
-func (bc *BlazegraphClient) GetAllTriplesAsJSON() string {
-	result := bc.PostSparqlQuery(
+func (bc *BlazegraphClient) GetAllTriplesAsJSON() interface{} {
+	resultString := bc.PostSparqlQuery(
 		"application/json",
 		`SELECT ?s ?p ?o
 		 WHERE
 		 { ?s ?p ?o }`,
 	)
-	return result
+	var resultJSON interface{}
+	json.Unmarshal([]byte(resultString), &resultJSON)
+	return resultJSON
 }
