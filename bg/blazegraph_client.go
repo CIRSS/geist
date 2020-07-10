@@ -19,7 +19,7 @@ func NewBlazegraphClient() *BlazegraphClient {
 	return bc
 }
 
-func (bc *BlazegraphClient) deleteAllTriples() string {
+func (bc *BlazegraphClient) DeleteAllTriples() string {
 	request, _ := http.NewRequest("DELETE", bc.endpoint, nil)
 	response, _ := bc.httpClient.Do(request)
 	responseBody, _ := ioutil.ReadAll(response.Body)
@@ -27,7 +27,7 @@ func (bc *BlazegraphClient) deleteAllTriples() string {
 	return string(responseBody)
 }
 
-func (bc *BlazegraphClient) postRequest(contentType string, acceptType string,
+func (bc *BlazegraphClient) PostRequest(contentType string, acceptType string,
 	requestBody string) string {
 	request, _ := http.NewRequest("POST", bc.endpoint, strings.NewReader(requestBody))
 	request.Header.Add("Content-Type", contentType)
@@ -39,14 +39,14 @@ func (bc *BlazegraphClient) postRequest(contentType string, acceptType string,
 }
 
 func (bc *BlazegraphClient) PostSparqlQuery(query string) interface{} {
-	resultString := bc.postRequest("application/sparql-query", "application/json", query)
+	resultString := bc.PostRequest("application/sparql-query", "application/json", query)
 	var resultJSON interface{}
 	json.Unmarshal([]byte(resultString), &resultJSON)
 	return resultJSON
 }
 
 func (bc *BlazegraphClient) PostNewData(data string) string {
-	return bc.postRequest("application/x-turtle", "text/plain", data)
+	return bc.PostRequest("application/x-turtle", "text/plain", data)
 }
 
 func (bc *BlazegraphClient) SelectAllTriples() interface{} {

@@ -6,7 +6,7 @@ import (
 
 func TestBlazegraphClient_GetAllTriplesAsJSON_EmptyStore(t *testing.T) {
 	bc := NewBlazegraphClient()
-	bc.deleteAllTriples()
+	bc.DeleteAllTriples()
 	AssertJSONEquals(t, bc.SelectAllTriples(),
 		`{
 			"head" : {
@@ -20,7 +20,7 @@ func TestBlazegraphClient_GetAllTriplesAsJSON_EmptyStore(t *testing.T) {
 
 func TestBlazegraphClient_InsertOneTriple(t *testing.T) {
 	bc := NewBlazegraphClient()
-	bc.deleteAllTriples()
+	bc.DeleteAllTriples()
 	bc.PostNewData(`
 	@prefix t: <http://tmcphill.net/tags#> .
 	@prefix d: <http://tmcphill.net/data#> .
@@ -49,7 +49,7 @@ func TestBlazegraphClient_InsertOneTriple(t *testing.T) {
 
 func TestBlazegraphClient_InsertTwoTriples(t *testing.T) {
 	bc := NewBlazegraphClient()
-	bc.deleteAllTriples()
+	bc.DeleteAllTriples()
 	bc.PostNewData(`
 		@prefix t: <http://tmcphill.net/tags#> .
 		@prefix d: <http://tmcphill.net/data#> .

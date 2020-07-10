@@ -1,4 +1,4 @@
-module github.com/tmcphillips/blazegraph-util/bg
+module github.com/tmcphillips/blazegraph-util
 
 go 1.13
 

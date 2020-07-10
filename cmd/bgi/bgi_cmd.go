@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/tmcphillips/blazegraph-util/bg"
 	"github.com/tmcphillips/main-wrapper/mw"
 )
 
@@ -28,4 +29,13 @@ func main() {
 		flags.Usage()
 		return
 	}
+
+	command := os.Args[1]
+
+	switch command {
+	case "drop":
+		bc := bg.NewBlazegraphClient()
+		bc.DeleteAllTriples()
+	}
+
 }
