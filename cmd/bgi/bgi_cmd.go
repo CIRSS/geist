@@ -24,7 +24,7 @@ func main() {
 
 	flags := MW.InitFlagSet()
 	err = flags.Parse(os.Args[1:])
-	if err != nil {
+	if err != nil || len(os.Args) < 2 {
 		fmt.Println(err)
 		flags.Usage()
 		return
@@ -36,6 +36,14 @@ func main() {
 	case "drop":
 		bc := bg.NewBlazegraphClient()
 		bc.DeleteAllTriples()
+
+	case "dump":
+		bc := bg.NewBlazegraphClient()
+		jsonDump := bc.SelectAllTriples()
+		fmt.Println(jsonDump)
+
+	default:
+		fmt.Printf("Unrecognized command: %s\n", command)
 	}
 
 }
