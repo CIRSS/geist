@@ -93,14 +93,20 @@ func TestBlazegraphClient_InsertTwoTriples_Struct(t *testing.T) {
 		d:x t:tag "seven" .
 		d:y t:tag "eight" .
 	`)
-	queryResult, _ := bc.SparqlQuery(
+	qr, _ := bc.SparqlQuery(
 		`prefix ab: <http://tmcphill.net/tags#>
 		 SELECT ?s ?o
 		 WHERE
 		 { ?s ab:tag ?o }
 		 `)
 
-	AssertStringEquals(t, strings.Join(queryResult.Head.Vars, ","), "s,o")
-	AssertStringEquals(t, queryResult.Results.Bindings[0].S["type"], "uri")
-
+	AssertStringEquals(t, strings.Join(qr.Head.Vars, ","), "s,o")
+	AssertStringEquals(t, qr.Results.Bindings[0].S.Type, "uri")
+	AssertStringEquals(t, qr.Results.Bindings[0].S.Value, "http://tmcphill.net/data#x")
+	AssertStringEquals(t, qr.Results.Bindings[0].O.Type, "literal")
+	AssertStringEquals(t, qr.Results.Bindings[0].O.Value, "seven")
+	AssertStringEquals(t, qr.Results.Bindings[1].S.Type, "uri")
+	AssertStringEquals(t, qr.Results.Bindings[1].S.Value, "http://tmcphill.net/data#y")
+	AssertStringEquals(t, qr.Results.Bindings[1].O.Type, "literal")
+	AssertStringEquals(t, qr.Results.Bindings[1].O.Value, "eight")
 }

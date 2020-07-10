@@ -64,8 +64,14 @@ type SparqlResult struct {
 	}
 	Results struct {
 		Bindings []struct {
-			S map[string]string
-			O map[string]string
+			S struct {
+				Type  string
+				Value string
+			}
+			O struct {
+				Type  string
+				Value string
+			}
 		}
 	}
 }
