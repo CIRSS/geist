@@ -1,6 +1,7 @@
 package bg
 
 import (
+	"strings"
 	"testing"
 )
 
@@ -27,12 +28,14 @@ func TestBlazegraphClient_InsertOneTriple(t *testing.T) {
 	d:y t:tag "seven" .
 	`)
 
-	queryResult := bc.PostSparqlQuery(
+	queryResult, err := bc.PostSparqlQuery(
 		`prefix t: <http://tmcphill.net/tags#>
 		 SELECT ?s ?o
 		 WHERE
 		 { ?s t:tag ?o }
 		 `)
+
+	t.Log(err)
 
 	AssertJSONEquals(t,
 		queryResult,
@@ -57,7 +60,7 @@ func TestBlazegraphClient_InsertTwoTriples(t *testing.T) {
 		d:x t:tag "seven" .
 		d:y t:tag "eight" .
 	`)
-	queryResult := bc.PostSparqlQuery(
+	queryResult, _ := bc.PostSparqlQuery(
 		`prefix ab: <http://tmcphill.net/tags#>
 		 SELECT ?s ?o
 		 WHERE
@@ -78,4 +81,26 @@ func TestBlazegraphClient_InsertTwoTriples(t *testing.T) {
 			  } ]
 			}
 		  }`)
+}
+
+func TestBlazegraphClient_InsertTwoTriples_Struct(t *testing.T) {
+	bc := NewBlazegraphClient()
+	bc.DeleteAllTriples()
+	bc.PostNewData(`
+		@prefix t: <http://tmcphill.net/tags#> .
+		@prefix d: <http://tmcphill.net/data#> .
+
+		d:x t:tag "seven" .
+		d:y t:tag "eight" .
+	`)
+	queryResult, _ := bc.SparqlQuery(
+		`prefix ab: <http://tmcphill.net/tags#>
+		 SELECT ?s ?o
+		 WHERE
+		 { ?s ab:tag ?o }
+		 `)
+
+	AssertStringEquals(t, strings.Join(queryResult.Head.Vars, ","), "s,o")
+	AssertStringEquals(t, queryResult.Results.Bindings[0].S["type"], "uri")
+
 }

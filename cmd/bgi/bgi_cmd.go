@@ -33,6 +33,7 @@ func main() {
 	command := os.Args[1]
 
 	switch command {
+
 	case "drop":
 		bc := bg.NewBlazegraphClient()
 		bc.DeleteAllTriples()

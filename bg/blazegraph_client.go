@@ -38,11 +38,11 @@ func (bc *BlazegraphClient) PostRequest(contentType string, acceptType string,
 	return string(responseBody)
 }
 
-func (bc *BlazegraphClient) PostSparqlQuery(query string) interface{} {
+func (bc *BlazegraphClient) PostSparqlQuery(query string) (interface{}, error) {
 	resultString := bc.PostRequest("application/sparql-query", "application/json", query)
 	var resultJSON interface{}
-	json.Unmarshal([]byte(resultString), &resultJSON)
-	return resultJSON
+	err := json.Unmarshal([]byte(resultString), &resultJSON)
+	return resultJSON, err
 }
 
 func (bc *BlazegraphClient) PostNewData(data string) string {
@@ -50,10 +50,34 @@ func (bc *BlazegraphClient) PostNewData(data string) string {
 }
 
 func (bc *BlazegraphClient) SelectAllTriples() interface{} {
-	resultJSON := bc.PostSparqlQuery(
+	resultJSON, _ := bc.PostSparqlQuery(
 		`SELECT ?s ?p ?o
 		 WHERE
 		 { ?s ?p ?o }`,
 	)
 	return resultJSON
 }
+
+type SparqlResult struct {
+	Head struct {
+		Vars []string
+	}
+	Results struct {
+		Bindings []struct {
+			S map[string]string
+			O map[string]string
+		}
+	}
+}
+
+func (bc *BlazegraphClient) SparqlQuery(query string) (SparqlResult, error) {
+	resultString := bc.PostRequest("application/sparql-query", "application/json", query)
+	var result SparqlResult
+	err := json.Unmarshal([]byte(resultString), &result)
+	return result, err
+}
+
+// func SparqlResultVars(sr SparqlResult) string {
+// 	var s string
+// 	fmt.Sprintf("%s %s", sr.Head.Vars[0], sr.Head.Vars[1])
+// 	return
