@@ -24,7 +24,7 @@ func TestBlazegraphClient_InsertOneTriple(t *testing.T) {
 	bc.PostNewData(`
 	@prefix t: <http://tmcphill.net/tags#> .
 	@prefix d: <http://tmcphill.net/data#> .
-	d:y ab:tag "seven" .
+	d:y t:tag "seven" .
 	`)
 
 	queryResult := bc.PostSparqlQuery(
