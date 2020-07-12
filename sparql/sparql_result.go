@@ -1,21 +1,19 @@
 package sparql
 
 type SparqlResult struct {
-	Head    HeadT
-	Results ResultsT
+	Head    Head
+	Results Results
 }
 
-type HeadT struct {
+type Head struct {
 	Vars []string
 }
 
-type ResultsT struct {
-	Bindings []BindingT
+type Results struct {
+	Bindings []Binding
 }
 
-type BindingT map[string]TypedValueT
-
-type TypedValueT struct {
+type Binding map[string]struct {
 	Type  string
 	Value string
 }
@@ -24,7 +22,7 @@ func (sr *SparqlResult) Vars() []string {
 	return sr.Head.Vars
 }
 
-func (sr *SparqlResult) Bindings() []BindingT {
+func (sr *SparqlResult) Bindings() []Binding {
 	return sr.Results.Bindings
 }
 

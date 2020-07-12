@@ -5,21 +5,21 @@ import (
 	"testing"
 )
 
-// var sr SparqlResult
-
-// func init() {
-
-func TestSparqlResult(t *testing.T) {
-
-	sr := SparqlResult{Head: HeadT{Vars: []string{"s, o"}}, Results: ResultsT{[]BindingT{{
-		"s": {Type: "uri", Value: "http://tmcphill.net/data#x"},
-		"o": {Type: "literal", Value: "seven"},
+var sr = SparqlResult{
+	Head{[]string{"s, o"}},
+	Results{[]Binding{{
+		"s": {"uri", "http://tmcphill.net/data#x"},
+		"o": {"literal", "seven"},
 	}, {
-		"s": {Type: "uri", Value: "http://tmcphill.net/data#y"},
-		"o": {Type: "literal", Value: "eight"},
+		"s": {"uri", "http://tmcphill.net/data#y"},
+		"o": {"literal", "eight"},
 	}}}}
 
+func TestSparqlResult_Vars(t *testing.T) {
 	AssertStringEquals(t, strings.Join(sr.Vars(), ", "), "s, o")
+}
+
+func TestSparqlResult_Bindings(t *testing.T) {
 
 	AssertStringEquals(t, sr.Bindings()[0]["s"].Type, "uri")
 	AssertStringEquals(t, sr.Bindings()[0]["s"].Value, "http://tmcphill.net/data#x")
