@@ -11,7 +11,7 @@ import (
 
 func TestSparqlResult(t *testing.T) {
 
-	sr := SparqlResult{HeadT{[]string{"s, o"}}, ResultsT{[]BindingT{{
+	sr := SparqlResult{Head: HeadT{Vars: []string{"s, o"}}, Results: ResultsT{[]BindingT{{
 		"s": {Type: "uri", Value: "http://tmcphill.net/data#x"},
 		"o": {Type: "literal", Value: "seven"},
 	}, {
