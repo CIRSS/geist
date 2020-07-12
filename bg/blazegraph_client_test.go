@@ -106,13 +106,15 @@ func TestBlazegraphClient_InsertTwoTriples_Struct(t *testing.T) {
 		 { ?s ab:tag ?o }
 		 `)
 
-	AssertStringEquals(t, strings.Join(qr.Head.Vars, ","), "s,o")
-	AssertStringEquals(t, qr.Results.Bindings[0].S.Type, "uri")
-	AssertStringEquals(t, qr.Results.Bindings[0].S.Value, "http://tmcphill.net/data#x")
-	AssertStringEquals(t, qr.Results.Bindings[0].O.Type, "literal")
-	AssertStringEquals(t, qr.Results.Bindings[0].O.Value, "seven")
-	AssertStringEquals(t, qr.Results.Bindings[1].S.Type, "uri")
-	AssertStringEquals(t, qr.Results.Bindings[1].S.Value, "http://tmcphill.net/data#y")
-	AssertStringEquals(t, qr.Results.Bindings[1].O.Type, "literal")
-	AssertStringEquals(t, qr.Results.Bindings[1].O.Value, "eight")
+	AssertStringEquals(t, strings.Join(qr.Vars(), ", "), "s, o")
+
+	AssertStringEquals(t, qr.Bindings()[0]["s"].Type, "uri")
+	AssertStringEquals(t, qr.Bindings()[0]["s"].Value, "http://tmcphill.net/data#x")
+	AssertStringEquals(t, qr.Bindings()[0]["o"].Type, "literal")
+	AssertStringEquals(t, qr.Bindings()[0]["o"].Value, "seven")
+
+	AssertStringEquals(t, qr.Bindings()[1]["s"].Type, "uri")
+	AssertStringEquals(t, qr.Bindings()[1]["s"].Value, "http://tmcphill.net/data#y")
+	AssertStringEquals(t, qr.Bindings()[1]["o"].Type, "literal")
+	AssertStringEquals(t, qr.Bindings()[1]["o"].Value, "eight")
 }

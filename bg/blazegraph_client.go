@@ -5,6 +5,8 @@ import (
 	"io/ioutil"
 	"net/http"
 	"strings"
+
+	"github.com/tmcphillips/blazegraph-util/sparql"
 )
 
 type BlazegraphClient struct {
@@ -24,7 +26,7 @@ func (bc *BlazegraphClient) DeleteAllTriples() (responseBody []byte) {
 	response, _ := bc.httpClient.Do(request)
 	responseBody, _ = ioutil.ReadAll(response.Body)
 	response.Body.Close()
-	return responseBody
+	return
 }
 
 func (bc *BlazegraphClient) PostRequest(contentType string, acceptType string,
@@ -35,11 +37,12 @@ func (bc *BlazegraphClient) PostRequest(contentType string, acceptType string,
 	response, _ := bc.httpClient.Do(request)
 	responseBody, _ = ioutil.ReadAll(response.Body)
 	response.Body.Close()
-	return responseBody
+	return
 }
 
 func (bc *BlazegraphClient) PostNewData(data string) (responseBody []byte) {
-	return bc.PostRequest("application/x-turtle", "text/plain", data)
+	responseBody = bc.PostRequest("application/x-turtle", "text/plain", data)
+	return
 }
 
 func (bc *BlazegraphClient) SelectAllTriples() interface{} {
@@ -53,31 +56,12 @@ func (bc *BlazegraphClient) SelectAllTriples() interface{} {
 	return resultJSON
 }
 
-type SparqlResult struct {
-	Head struct {
-		Vars []string
-	}
-	Results struct {
-		Bindings []struct {
-			S struct {
-				Type  string
-				Value string
-			}
-			O struct {
-				Type  string
-				Value string
-			}
-		}
-	}
-}
-
 func (bc *BlazegraphClient) PostSparqlQuery(query string) (responseBody []byte) {
 	return bc.PostRequest("application/sparql-query", "application/json", query)
 }
 
-func (bc *BlazegraphClient) SparqlQuery(query string) (SparqlResult, error) {
+func (bc *BlazegraphClient) SparqlQuery(query string) (sr sparql.SparqlResult, err error) {
 	responseBody := bc.PostSparqlQuery(query)
-	var sr SparqlResult
-	err := json.Unmarshal(responseBody, &sr)
-	return sr, err
+	err = json.Unmarshal(responseBody, &sr)
+	return
 }
