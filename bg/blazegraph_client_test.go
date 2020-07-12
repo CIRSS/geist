@@ -99,22 +99,22 @@ func TestBlazegraphClient_InsertTwoTriples_Struct(t *testing.T) {
 		d:x t:tag "seven" .
 		d:y t:tag "eight" .
 	`)
-	qr, _ := bc.SparqlQuery(
+	sr, _ := bc.SparqlQuery(
 		`prefix ab: <http://tmcphill.net/tags#>
 		 SELECT ?s ?o
 		 WHERE
 		 { ?s ab:tag ?o }
 		 `)
 
-	AssertStringEquals(t, strings.Join(qr.Vars(), ", "), "s, o")
+	AssertStringEquals(t, strings.Join(sr.Vars(), ", "), "s, o")
 
-	AssertStringEquals(t, qr.Bindings()[0]["s"].Type, "uri")
-	AssertStringEquals(t, qr.Bindings()[0]["s"].Value, "http://tmcphill.net/data#x")
-	AssertStringEquals(t, qr.Bindings()[0]["o"].Type, "literal")
-	AssertStringEquals(t, qr.Bindings()[0]["o"].Value, "seven")
+	AssertStringEquals(t, sr.Bindings()[0]["s"].Type, "uri")
+	AssertStringEquals(t, sr.Bindings()[0]["s"].Value, "http://tmcphill.net/data#x")
+	AssertStringEquals(t, sr.Bindings()[0]["o"].Type, "literal")
+	AssertStringEquals(t, sr.Bindings()[0]["o"].Value, "seven")
 
-	AssertStringEquals(t, qr.Bindings()[1]["s"].Type, "uri")
-	AssertStringEquals(t, qr.Bindings()[1]["s"].Value, "http://tmcphill.net/data#y")
-	AssertStringEquals(t, qr.Bindings()[1]["o"].Type, "literal")
-	AssertStringEquals(t, qr.Bindings()[1]["o"].Value, "eight")
+	AssertStringEquals(t, sr.Bindings()[1]["s"].Type, "uri")
+	AssertStringEquals(t, sr.Bindings()[1]["s"].Value, "http://tmcphill.net/data#y")
+	AssertStringEquals(t, sr.Bindings()[1]["o"].Type, "literal")
+	AssertStringEquals(t, sr.Bindings()[1]["o"].Value, "eight")
 }
