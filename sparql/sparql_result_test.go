@@ -1,6 +1,7 @@
 package sparql
 
 import (
+	"strings"
 	"testing"
 )
 
@@ -10,21 +11,23 @@ import (
 
 func TestSparqlResult(t *testing.T) {
 
-	vars := []string{"s, o"}
-
-	head := HeadT{vars}
-
-	bindings := []BindingT{{
-		"s": TypedValueT{Type: "uri", Value: "http://tmcphill.net/data#x"},
-		"o": TypedValueT{Type: "literal", Value: "seven"},
+	sr := SparqlResult{HeadT{[]string{"s, o"}}, ResultsT{[]BindingT{{
+		"s": {Type: "uri", Value: "http://tmcphill.net/data#x"},
+		"o": {Type: "literal", Value: "seven"},
 	}, {
-		"s": TypedValueT{Type: "uri", Value: "http://tmcphill.net/data#y"},
-		"o": TypedValueT{Type: "literal", Value: "eight"},
-	}}
+		"s": {Type: "uri", Value: "http://tmcphill.net/data#y"},
+		"o": {Type: "literal", Value: "eight"},
+	}}}}
 
-	results := ResultsT{bindings}
+	AssertStringEquals(t, strings.Join(sr.Vars(), ", "), "s, o")
 
-	sr := SparqlResult{head, results}
-	t.Log(sr)
+	AssertStringEquals(t, sr.Bindings()[0]["s"].Type, "uri")
+	AssertStringEquals(t, sr.Bindings()[0]["s"].Value, "http://tmcphill.net/data#x")
+	AssertStringEquals(t, sr.Bindings()[0]["o"].Type, "literal")
+	AssertStringEquals(t, sr.Bindings()[0]["o"].Value, "seven")
 
+	AssertStringEquals(t, sr.Bindings()[1]["s"].Type, "uri")
+	AssertStringEquals(t, sr.Bindings()[1]["s"].Value, "http://tmcphill.net/data#y")
+	AssertStringEquals(t, sr.Bindings()[1]["o"].Type, "literal")
+	AssertStringEquals(t, sr.Bindings()[1]["o"].Value, "eight")
 }
