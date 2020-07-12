@@ -1,4 +1,4 @@
-package bg
+package testutil
 
 import (
 	"encoding/json"

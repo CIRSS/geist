@@ -3,6 +3,8 @@ package sparql
 import (
 	"strings"
 	"testing"
+
+	tu "github.com/tmcphillips/blazegraph-util/testutil"
 )
 
 var sr = SparqlResult{
@@ -16,18 +18,18 @@ var sr = SparqlResult{
 	}}}}
 
 func TestSparqlResult_Vars(t *testing.T) {
-	AssertStringEquals(t, strings.Join(sr.Vars(), ", "), "s, o")
+	tu.AssertStringEquals(t, strings.Join(sr.Vars(), ", "), "s, o")
 }
 
 func TestSparqlResult_Bindings(t *testing.T) {
 
-	AssertStringEquals(t, sr.Bindings()[0]["s"].Type, "uri")
-	AssertStringEquals(t, sr.Bindings()[0]["s"].Value, "http://tmcphill.net/data#x")
-	AssertStringEquals(t, sr.Bindings()[0]["o"].Type, "literal")
-	AssertStringEquals(t, sr.Bindings()[0]["o"].Value, "seven")
+	tu.AssertStringEquals(t, sr.Bindings()[0]["s"].Type, "uri")
+	tu.AssertStringEquals(t, sr.Bindings()[0]["s"].Value, "http://tmcphill.net/data#x")
+	tu.AssertStringEquals(t, sr.Bindings()[0]["o"].Type, "literal")
+	tu.AssertStringEquals(t, sr.Bindings()[0]["o"].Value, "seven")
 
-	AssertStringEquals(t, sr.Bindings()[1]["s"].Type, "uri")
-	AssertStringEquals(t, sr.Bindings()[1]["s"].Value, "http://tmcphill.net/data#y")
-	AssertStringEquals(t, sr.Bindings()[1]["o"].Type, "literal")
-	AssertStringEquals(t, sr.Bindings()[1]["o"].Value, "eight")
+	tu.AssertStringEquals(t, sr.Bindings()[1]["s"].Type, "uri")
+	tu.AssertStringEquals(t, sr.Bindings()[1]["s"].Value, "http://tmcphill.net/data#y")
+	tu.AssertStringEquals(t, sr.Bindings()[1]["o"].Type, "literal")
+	tu.AssertStringEquals(t, sr.Bindings()[1]["o"].Value, "eight")
 }
