@@ -23,10 +23,16 @@ func NewBlazegraphClient() *BlazegraphClient {
 	return bc
 }
 
-func (bc *BlazegraphClient) DeleteAllTriples() (responseBody []byte) {
+func (bc *BlazegraphClient) DeleteAllTriples() (responseBody []byte, err error) {
 	request, _ := http.NewRequest("DELETE", bc.endpoint, nil)
-	response, _ := bc.httpClient.Do(request)
+	response, err := bc.httpClient.Do(request)
+	if err != nil {
+		return nil, err
+	}
 	responseBody, _ = ioutil.ReadAll(response.Body)
+	if err != nil {
+		return responseBody, err
+	}
 	response.Body.Close()
 	return
 }
