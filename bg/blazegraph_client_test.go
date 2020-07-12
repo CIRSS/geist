@@ -1,6 +1,7 @@
 package bg
 
 import (
+	"encoding/json"
 	"strings"
 	"testing"
 )
@@ -28,17 +29,18 @@ func TestBlazegraphClient_InsertOneTriple(t *testing.T) {
 	d:y t:tag "seven" .
 	`)
 
-	queryResult, err := bc.PostSparqlQuery(
+	responseBody := bc.PostSparqlQuery(
 		`prefix t: <http://tmcphill.net/tags#>
 		 SELECT ?s ?o
 		 WHERE
 		 { ?s t:tag ?o }
 		 `)
 
-	t.Log(err)
+	var resultJSON interface{}
+	json.Unmarshal(responseBody, &resultJSON)
 
 	AssertJSONEquals(t,
-		queryResult,
+		resultJSON,
 		`{
 			"head" : { "vars" : [ "s", "o" ] },
 			"results" : {
@@ -60,15 +62,19 @@ func TestBlazegraphClient_InsertTwoTriples(t *testing.T) {
 		d:x t:tag "seven" .
 		d:y t:tag "eight" .
 	`)
-	queryResult, _ := bc.PostSparqlQuery(
+
+	responseBody := bc.PostSparqlQuery(
 		`prefix ab: <http://tmcphill.net/tags#>
 		 SELECT ?s ?o
 		 WHERE
 		 { ?s ab:tag ?o }
 		 `)
 
+	var resultJSON interface{}
+	json.Unmarshal(responseBody, &resultJSON)
+
 	AssertJSONEquals(t,
-		queryResult,
+		resultJSON,
 		`{
 			"head" : { "vars" : [ "s", "o" ] },
 			"results" : {

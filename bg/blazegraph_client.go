@@ -19,42 +19,37 @@ func NewBlazegraphClient() *BlazegraphClient {
 	return bc
 }
 
-func (bc *BlazegraphClient) DeleteAllTriples() string {
+func (bc *BlazegraphClient) DeleteAllTriples() (responseBody []byte) {
 	request, _ := http.NewRequest("DELETE", bc.endpoint, nil)
 	response, _ := bc.httpClient.Do(request)
-	responseBody, _ := ioutil.ReadAll(response.Body)
+	responseBody, _ = ioutil.ReadAll(response.Body)
 	response.Body.Close()
-	return string(responseBody)
+	return responseBody
 }
 
 func (bc *BlazegraphClient) PostRequest(contentType string, acceptType string,
-	requestBody string) string {
+	requestBody string) (responseBody []byte) {
 	request, _ := http.NewRequest("POST", bc.endpoint, strings.NewReader(requestBody))
 	request.Header.Add("Content-Type", contentType)
 	request.Header.Add("Accept", acceptType)
 	response, _ := bc.httpClient.Do(request)
-	responseBody, _ := ioutil.ReadAll(response.Body)
+	responseBody, _ = ioutil.ReadAll(response.Body)
 	response.Body.Close()
-	return string(responseBody)
+	return responseBody
 }
 
-func (bc *BlazegraphClient) PostSparqlQuery(query string) (interface{}, error) {
-	resultString := bc.PostRequest("application/sparql-query", "application/json", query)
-	var resultJSON interface{}
-	err := json.Unmarshal([]byte(resultString), &resultJSON)
-	return resultJSON, err
-}
-
-func (bc *BlazegraphClient) PostNewData(data string) string {
+func (bc *BlazegraphClient) PostNewData(data string) (responseBody []byte) {
 	return bc.PostRequest("application/x-turtle", "text/plain", data)
 }
 
 func (bc *BlazegraphClient) SelectAllTriples() interface{} {
-	resultJSON, _ := bc.PostSparqlQuery(
+	responseBody := bc.PostSparqlQuery(
 		`SELECT ?s ?p ?o
 		 WHERE
 		 { ?s ?p ?o }`,
 	)
+	var resultJSON interface{}
+	json.Unmarshal(responseBody, &resultJSON)
 	return resultJSON
 }
 
@@ -76,14 +71,13 @@ type SparqlResult struct {
 	}
 }
 
-func (bc *BlazegraphClient) SparqlQuery(query string) (SparqlResult, error) {
-	resultString := bc.PostRequest("application/sparql-query", "application/json", query)
-	var result SparqlResult
-	err := json.Unmarshal([]byte(resultString), &result)
-	return result, err
+func (bc *BlazegraphClient) PostSparqlQuery(query string) (responseBody []byte) {
+	return bc.PostRequest("application/sparql-query", "application/json", query)
 }
 
-// func SparqlResultVars(sr SparqlResult) string {
-// 	var s string
-// 	fmt.Sprintf("%s %s", sr.Head.Vars[0], sr.Head.Vars[1])
-// 	return
+func (bc *BlazegraphClient) SparqlQuery(query string) (SparqlResult, error) {
+	responseBody := bc.PostSparqlQuery(query)
+	var sr SparqlResult
+	err := json.Unmarshal(responseBody, &sr)
+	return sr, err
+}
