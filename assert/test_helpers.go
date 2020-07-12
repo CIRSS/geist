@@ -1,4 +1,4 @@
-package testutil
+package assert
 
 import (
 	"encoding/json"
@@ -20,14 +20,14 @@ func CanonicalJSON(originalJSON interface{}) (string, error) {
 	return canonicalJSONString, err
 }
 
-func AssertStringEquals(t *testing.T, actual string, expected string) {
+func StringEquals(t *testing.T, actual string, expected string) {
 	if actual != expected {
 		t.Log("assertStringEquals:\n\nexpected: " + expected + "\nactual:   " + actual + "\n")
 		t.Fail()
 	}
 }
 
-func AssertJSONEquals(t *testing.T, actual interface{}, expected string) {
+func JSONEquals(t *testing.T, actual interface{}, expected string) {
 	actualCanonical, _ := CanonicalJSON(actual)
 	expectedCanonical, _ := CanonicalJSONFromString(expected)
 	if actualCanonical != expectedCanonical {

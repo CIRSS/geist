@@ -5,13 +5,13 @@ import (
 	"strings"
 	"testing"
 
-	tu "github.com/tmcphillips/blazegraph-util/testutil"
+	"github.com/tmcphillips/blazegraph-util/assert"
 )
 
 func TestBlazegraphClient_GetAllTriplesAsJSON_EmptyStore(t *testing.T) {
 	bc := NewBlazegraphClient()
 	bc.DeleteAllTriples()
-	tu.AssertJSONEquals(t, bc.SelectAllTriples(),
+	assert.JSONEquals(t, bc.SelectAllTriples(),
 		`{
 			"head" : {
 				"vars" : [ "s", "p", "o" ]
@@ -41,7 +41,7 @@ func TestBlazegraphClient_InsertOneTriple(t *testing.T) {
 	var resultJSON interface{}
 	json.Unmarshal(responseBody, &resultJSON)
 
-	tu.AssertJSONEquals(t,
+	assert.JSONEquals(t,
 		resultJSON,
 		`{
 			"head" : { "vars" : [ "s", "o" ] },
@@ -75,7 +75,7 @@ func TestBlazegraphClient_InsertTwoTriples(t *testing.T) {
 	var resultJSON interface{}
 	json.Unmarshal(responseBody, &resultJSON)
 
-	tu.AssertJSONEquals(t,
+	assert.JSONEquals(t,
 		resultJSON,
 		`{
 			"head" : { "vars" : [ "s", "o" ] },
@@ -108,15 +108,15 @@ func TestBlazegraphClient_InsertTwoTriples_Struct(t *testing.T) {
 		 { ?s ab:tag ?o }
 		 `)
 
-	tu.AssertStringEquals(t, strings.Join(sr.Vars(), ", "), "s, o")
+	assert.StringEquals(t, strings.Join(sr.Vars(), ", "), "s, o")
 
-	tu.AssertStringEquals(t, sr.Bindings()[0]["s"].Type, "uri")
-	tu.AssertStringEquals(t, sr.Bindings()[0]["s"].Value, "http://tmcphill.net/data#x")
-	tu.AssertStringEquals(t, sr.Bindings()[0]["o"].Type, "literal")
-	tu.AssertStringEquals(t, sr.Bindings()[0]["o"].Value, "seven")
+	assert.StringEquals(t, sr.Bindings()[0]["s"].Type, "uri")
+	assert.StringEquals(t, sr.Bindings()[0]["s"].Value, "http://tmcphill.net/data#x")
+	assert.StringEquals(t, sr.Bindings()[0]["o"].Type, "literal")
+	assert.StringEquals(t, sr.Bindings()[0]["o"].Value, "seven")
 
-	tu.AssertStringEquals(t, sr.Bindings()[1]["s"].Type, "uri")
-	tu.AssertStringEquals(t, sr.Bindings()[1]["s"].Value, "http://tmcphill.net/data#y")
-	tu.AssertStringEquals(t, sr.Bindings()[1]["o"].Type, "literal")
-	tu.AssertStringEquals(t, sr.Bindings()[1]["o"].Value, "eight")
+	assert.StringEquals(t, sr.Bindings()[1]["s"].Type, "uri")
+	assert.StringEquals(t, sr.Bindings()[1]["s"].Value, "http://tmcphill.net/data#y")
+	assert.StringEquals(t, sr.Bindings()[1]["o"].Type, "literal")
+	assert.StringEquals(t, sr.Bindings()[1]["o"].Value, "eight")
 }
