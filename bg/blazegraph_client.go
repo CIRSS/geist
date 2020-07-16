@@ -1,6 +1,7 @@
 package bg
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -39,8 +40,8 @@ func (bc *BlazegraphClient) DeleteAllTriples() (responseBody []byte, err error) 
 }
 
 func (bc *BlazegraphClient) PostRequest(contentType string, acceptType string,
-	requestBody string) (responseBody []byte) {
-	request, _ := http.NewRequest("POST", bc.endpoint, strings.NewReader(requestBody))
+	requestBody []byte) (responseBody []byte) {
+	request, _ := http.NewRequest("POST", bc.endpoint, bytes.NewReader(requestBody))
 	request.Header.Add("Content-Type", contentType)
 	request.Header.Add("Accept", acceptType)
 	response, _ := bc.httpClient.Do(request)
@@ -49,8 +50,13 @@ func (bc *BlazegraphClient) PostRequest(contentType string, acceptType string,
 	return
 }
 
-func (bc *BlazegraphClient) PostNewData(data string) (responseBody []byte) {
+func (bc *BlazegraphClient) PostNewData(data []byte) (responseBody []byte) {
 	responseBody = bc.PostRequest("application/x-turtle", "text/plain", data)
+	return
+}
+
+func (bc *BlazegraphClient) PostNewStringData(data string) (responseBody []byte) {
+	responseBody = bc.PostNewData([]byte(data))
 	return
 }
 
@@ -84,7 +90,7 @@ func (bc *BlazegraphClient) DumpAsNTriples() string {
 }
 
 func (bc *BlazegraphClient) PostSparqlQuery(query string) (responseBody []byte) {
-	return bc.PostRequest("application/sparql-query", "application/json", query)
+	return bc.PostRequest("application/sparql-query", "application/json", []byte(query))
 }
 
 func (bc *BlazegraphClient) SparqlQuery(query string) (sr sparql.SparqlResult, err error) {
