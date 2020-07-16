@@ -2,6 +2,7 @@ package bg
 
 import (
 	"encoding/json"
+	"fmt"
 	"strings"
 	"testing"
 
@@ -11,7 +12,7 @@ import (
 func TestBlazegraphClient_GetAllTriplesAsJSON_EmptyStore(t *testing.T) {
 	bc := NewBlazegraphClient()
 	bc.DeleteAllTriples()
-	assert.JSONEquals(t, bc.SelectAllTriples(),
+	assert.JSONEquals(t, bc.RequestAllTriplesAsJSON(),
 		`{
 			"head" : {
 				"vars" : [ "s", "p", "o" ]
@@ -119,4 +120,23 @@ func TestBlazegraphClient_InsertTwoTriples_Struct(t *testing.T) {
 	assert.StringEquals(t, sr.Bindings()[1]["s"].Value, "http://tmcphill.net/data#y")
 	assert.StringEquals(t, sr.Bindings()[1]["o"].Type, "literal")
 	assert.StringEquals(t, sr.Bindings()[1]["o"].Value, "eight")
+}
+
+func ExampleBlazegraphClient_DumpAsNTriples() {
+	bc := NewBlazegraphClient()
+	bc.DeleteAllTriples()
+	bc.PostNewData(`
+		@prefix t: <http://tmcphill.net/tags#> .
+		@prefix d: <http://tmcphill.net/data#> .
+
+		d:x t:tag "seven" .
+		d:y t:tag "eight" .
+	`)
+	dump := bc.DumpAsNTriples()
+	fmt.Println(dump)
+	// Output:
+	// <http://tmcphill.net/data#y> <http://tmcphill.net/tags#tag> "eight" .
+	// <http://tmcphill.net/tags#tag> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+	// <http://tmcphill.net/tags#tag> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://tmcphill.net/tags#tag> .
+	// <http://tmcphill.net/data#x> <http://tmcphill.net/tags#tag> "seven" .
 }

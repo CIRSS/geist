@@ -18,6 +18,17 @@ type Binding map[string]struct {
 	Value string
 }
 
+func (b Binding) DelimitedValue(name string) (delimitedValue string) {
+	value := b[name].Value
+	switch b[name].Type {
+	case "uri":
+		delimitedValue = "<" + value + ">"
+	case "literal":
+		delimitedValue = "\"" + value + "\""
+	}
+	return
+}
+
 func (sr *SparqlResult) Vars() []string {
 	return sr.Head.Vars
 }

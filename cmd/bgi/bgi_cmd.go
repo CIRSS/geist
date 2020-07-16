@@ -40,8 +40,8 @@ func main() {
 
 	case "dump":
 		bc := bg.NewBlazegraphClient()
-		jsonDump := bc.SelectAllTriples()
-		fmt.Println(jsonDump)
+		dump := bc.DumpAsNTriples()
+		fmt.Println(dump)
 
 	default:
 		fmt.Printf("Unrecognized command: %s\n", command)

@@ -2,6 +2,7 @@ package bg
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 	"strings"
@@ -53,15 +54,33 @@ func (bc *BlazegraphClient) PostNewData(data string) (responseBody []byte) {
 	return
 }
 
-func (bc *BlazegraphClient) SelectAllTriples() interface{} {
-	responseBody := bc.PostSparqlQuery(
+func (bc *BlazegraphClient) RequestAllTriples() (responseBody []byte) {
+	responseBody = bc.PostSparqlQuery(
 		`SELECT ?s ?p ?o
 		 WHERE
 		 { ?s ?p ?o }`,
 	)
+	return
+}
+
+func (bc *BlazegraphClient) RequestAllTriplesAsJSON() interface{} {
+	responseBody := bc.RequestAllTriples()
 	var resultJSON interface{}
 	json.Unmarshal(responseBody, &resultJSON)
 	return resultJSON
+}
+
+func (bc *BlazegraphClient) DumpAsNTriples() string {
+	responseBody := bc.RequestAllTriples()
+	var sr sparql.SparqlResult
+	json.Unmarshal(responseBody, &sr)
+	var dump strings.Builder
+	for _, b := range sr.Bindings() {
+		triple := fmt.Sprintf("%s %s %s .\n",
+			b.DelimitedValue("s"), b.DelimitedValue("p"), b.DelimitedValue("o"))
+		dump.WriteString(triple)
+	}
+	return dump.String()
 }
 
 func (bc *BlazegraphClient) PostSparqlQuery(query string) (responseBody []byte) {
