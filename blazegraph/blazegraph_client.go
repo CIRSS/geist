@@ -1,4 +1,4 @@
-package bg
+package blazegraph
 
 import (
 	"bytes"

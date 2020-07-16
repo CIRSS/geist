@@ -5,7 +5,7 @@ import (
 	"io/ioutil"
 	"os"
 
-	"github.com/tmcphillips/blazegraph-util/bg"
+	"github.com/tmcphillips/blazegraph-util/blazegraph"
 	"github.com/tmcphillips/main-wrapper/mw"
 )
 
@@ -39,17 +39,17 @@ func main() {
 	switch command {
 
 	case "drop":
-		bc := bg.NewBlazegraphClient()
+		bc := blazegraph.NewBlazegraphClient()
 		bc.DeleteAllTriples()
 
 	case "dump":
-		bc := bg.NewBlazegraphClient()
+		bc := blazegraph.NewBlazegraphClient()
 		dump := bc.DumpAsNTriples()
 		fmt.Println(dump)
 
 	case "load":
 		df := *dataFile
-		bc := bg.NewBlazegraphClient()
+		bc := blazegraph.NewBlazegraphClient()
 		data, err := ioutil.ReadFile(df)
 		if err != nil {
 			fmt.Println(err)
