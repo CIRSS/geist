@@ -1,14 +1,16 @@
-package blazegraph
+package blazegraphtests
 
 import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
 	"strings"
+
+	"github.com/tmcphillips/blazegraph-util/blazegraph"
 )
 
 func ExampleBlazegraph_EmptyRequest_HttpGet_StatusOK() {
-	response, _ := http.Get(SparqlEndpoint)
+	response, _ := http.Get(blazegraph.SparqlEndpoint)
 	fmt.Println(response.Status)
 	// Output:
 	// 200 OK
@@ -16,7 +18,7 @@ func ExampleBlazegraph_EmptyRequest_HttpGet_StatusOK() {
 
 func ExampleBlazegraph_EmptyRequest_HttpClientGet_StatusOK() {
 	client := &http.Client{}
-	response, _ := client.Get(SparqlEndpoint)
+	response, _ := client.Get(blazegraph.SparqlEndpoint)
 	fmt.Println(response.Status)
 	// Output:
 	// 200 OK
@@ -24,7 +26,7 @@ func ExampleBlazegraph_EmptyRequest_HttpClientGet_StatusOK() {
 
 func ExampleBlazegraph_EmptyRequest_HttpClientDoGet_StatusOK() {
 	client := &http.Client{}
-	request, _ := http.NewRequest("GET", SparqlEndpoint, nil)
+	request, _ := http.NewRequest("GET", blazegraph.SparqlEndpoint, nil)
 	response, _ := client.Do(request)
 	fmt.Println(response.Status)
 	// Output:
@@ -33,7 +35,7 @@ func ExampleBlazegraph_EmptyRequest_HttpClientDoGet_StatusOK() {
 
 func ExampleBlazegraph_EmptyRequest_HttpClientDoGet_ResponseContentType_RdfXml() {
 	client := &http.Client{}
-	request, _ := http.NewRequest("GET", SparqlEndpoint, nil)
+	request, _ := http.NewRequest("GET", blazegraph.SparqlEndpoint, nil)
 	response, _ := client.Do(request)
 	fmt.Println(response.Header["Content-Type"])
 	// Output:
@@ -42,7 +44,7 @@ func ExampleBlazegraph_EmptyRequest_HttpClientDoGet_ResponseContentType_RdfXml()
 
 func ExampleBlazegraph_EmptyRequest_HttpClientDoGet_ResponseContentType_JSON() {
 	client := &http.Client{}
-	request, _ := http.NewRequest("GET", SparqlEndpoint, nil)
+	request, _ := http.NewRequest("GET", blazegraph.SparqlEndpoint, nil)
 	request.Header.Add("Accept", "application/json")
 	response, _ := client.Do(request)
 	fmt.Println(response.Header["Content-Type"])
@@ -52,7 +54,7 @@ func ExampleBlazegraph_EmptyRequest_HttpClientDoGet_ResponseContentType_JSON() {
 
 func ExampleBlazegraph_EmptyRequest_Body_First100Bytes() {
 	client := &http.Client{}
-	request, _ := http.NewRequest("GET", SparqlEndpoint, nil)
+	request, _ := http.NewRequest("GET", blazegraph.SparqlEndpoint, nil)
 	request.Header.Add("Accept", "application/json")
 	response, _ := client.Do(request)
 	b, _ := ioutil.ReadAll(response.Body)
@@ -68,7 +70,7 @@ func ExampleBlazegraph_EmptyRequest_Body_First100Bytes() {
 
 func ExampleBlazegraph_PostSparqlRequest_SelectAllTriples() {
 	client := &http.Client{}
-	request, _ := http.NewRequest("POST", SparqlEndpoint, strings.NewReader(`
+	request, _ := http.NewRequest("POST", blazegraph.SparqlEndpoint, strings.NewReader(`
 		SELECT ?s ?p ?o
 		WHERE
 		{}
@@ -92,7 +94,7 @@ func ExampleBlazegraph_PostSparqlRequest_SelectAllTriples() {
 
 func ExampleBlazegraph_PostData_EmptyBody() {
 	client := &http.Client{}
-	request, _ := http.NewRequest("POST", SparqlEndpoint, strings.NewReader(""))
+	request, _ := http.NewRequest("POST", blazegraph.SparqlEndpoint, strings.NewReader(""))
 	request.Header.Add("Content-Type", "application/x-turtle")
 	response, _ := client.Do(request)
 	b, _ := ioutil.ReadAll(response.Body)
@@ -104,7 +106,7 @@ func ExampleBlazegraph_PostData_EmptyBody() {
 
 func ExampleBlazegraph_PostData_NamespaceDeclarationsOnly() {
 	client := &http.Client{}
-	request, _ := http.NewRequest("POST", SparqlEndpoint, strings.NewReader(`
+	request, _ := http.NewRequest("POST", blazegraph.SparqlEndpoint, strings.NewReader(`
 		@prefix ab:    <http://learningsparql.com/ns/addressbook#> .
 		@prefix d:     <http://learningsparql.com/ns/data#> .
 	`))
@@ -119,7 +121,7 @@ func ExampleBlazegraph_PostData_NamespaceDeclarationsOnly() {
 
 func ExampleBlazegraph_PostData_TwoTriples() {
 	client := &http.Client{}
-	request, _ := http.NewRequest("POST", SparqlEndpoint, strings.NewReader(`
+	request, _ := http.NewRequest("POST", blazegraph.SparqlEndpoint, strings.NewReader(`
 		@prefix ab:    <http://learningsparql.com/ns/addressbook#> .
 		@prefix d:     <http://learningsparql.com/ns/data#> .
 

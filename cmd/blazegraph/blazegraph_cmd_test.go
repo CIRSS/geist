@@ -11,14 +11,14 @@ func runWithArgs(commandLine string) {
 	Main.Run()
 }
 
-func Example_drop_then_dump() {
+func ExampleBlazegraphCmd_drop_then_dump() {
 	runWithArgs("blazegraph drop")
 	runWithArgs("blazegraph dump")
 	// Output:
 	//
 }
 
-func Example_drop_load_turtle_then_dump() {
+func ExampleBlazegraphCmd_drop_load_turtle_then_dump() {
 	runWithArgs("blazegraph drop")
 	runWithArgs("blazegraph -f testdata/in.nt load")
 	runWithArgs("blazegraph dump")
@@ -29,7 +29,7 @@ func Example_drop_load_turtle_then_dump() {
 	// <http://tmcphill.net/data#x> <http://tmcphill.net/tags#tag> "seven" .
 }
 
-func Example_drop_load_jsonld_then_dump() {
+func ExampleBlazegraphCmd_drop_load_jsonld_then_dump() {
 	runWithArgs("blazegraph drop")
 	runWithArgs("blazegraph -f testdata/address-book.jsonld load-jsonld")
 	runWithArgs("blazegraph dump")

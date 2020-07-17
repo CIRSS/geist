@@ -1,15 +1,16 @@
-package sparql
+package sparqltests
 
 import (
 	"strings"
 	"testing"
 
 	"github.com/tmcphillips/blazegraph-util/assert"
+	"github.com/tmcphillips/blazegraph-util/sparql"
 )
 
-var sr = Result{
-	Head{[]string{"s", "o"}},
-	Results{[]Binding{{
+var sr = sparql.Result{
+	sparql.Head{[]string{"s", "o"}},
+	sparql.Results{[]sparql.Binding{{
 		"s": {"uri", "http://tmcphill.net/data#x"},
 		"o": {"literal", "seven"},
 	}, {
