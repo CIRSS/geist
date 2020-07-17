@@ -40,10 +40,12 @@ test: test-code
 ## 
 
 build-code:             ## Build and install custom code.
-	$(RUN_IN_REPRO) 'make -f Makefile.code install'
+	$(RUN_IN_REPRO) 'make -C sparql build'
+	$(RUN_IN_REPRO) 'make -C blazegraph build'
 
 test-code:              ## Run tests on custom code.
-	$(RUN_IN_REPRO) 'make -f Makefile.code test'
+	$(RUN_IN_REPRO) 'make -C sparql test'
+	$(RUN_IN_REPRO) 'make -C blazegraph test'
 
 
 ## ------------------------------------------------------------------------------

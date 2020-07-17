@@ -1,9 +1,0 @@
-
-
-install: bgi
-
-bgi:
-	go install ./cmd/blazegraph
-
-test:
-	go test -v ./...
