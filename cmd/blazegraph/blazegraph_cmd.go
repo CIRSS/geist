@@ -44,7 +44,11 @@ func main() {
 
 	case "dump":
 		bc := blazegraph.NewBlazegraphClient()
-		dump := bc.DumpAsNTriples()
+		dump, err := bc.DumpAsNTriples()
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
 		fmt.Println(dump)
 
 	case "load":
@@ -55,7 +59,21 @@ func main() {
 			fmt.Println(err)
 			return
 		}
-		bc.PostNewData(data)
+		bc.PostTurtleBytes(data)
+
+	case "load-jsonld":
+		df := *dataFile
+		bc := blazegraph.NewBlazegraphClient()
+		data, err := ioutil.ReadFile(df)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+		_, err = bc.PostJSONLDBytes(data)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
 
 	default:
 		fmt.Printf("Unrecognized command: %s\n", command)

@@ -12,7 +12,8 @@ import (
 func TestBlazegraphClient_GetAllTriplesAsJSON_EmptyStore(t *testing.T) {
 	bc := NewBlazegraphClient()
 	bc.DeleteAllTriples()
-	assert.JSONEquals(t, bc.RequestAllTriplesAsJSON(),
+	triples, _ := bc.RequestAllTriplesAsJSON()
+	assert.JSONEquals(t, triples,
 		`{
 			"head" : {
 				"vars" : [ "s", "p", "o" ]
@@ -26,13 +27,13 @@ func TestBlazegraphClient_GetAllTriplesAsJSON_EmptyStore(t *testing.T) {
 func TestBlazegraphClient_InsertOneTriple(t *testing.T) {
 	bc := NewBlazegraphClient()
 	bc.DeleteAllTriples()
-	bc.PostNewStringData(`
+	bc.PostTurtleString(`
 	@prefix t: <http://tmcphill.net/tags#> .
 	@prefix d: <http://tmcphill.net/data#> .
 	d:y t:tag "seven" .
 	`)
 
-	responseBody := bc.PostSparqlQuery(
+	responseBody, _ := bc.PostSparqlQuery(
 		`prefix t: <http://tmcphill.net/tags#>
 		 SELECT ?s ?o
 		 WHERE
@@ -58,7 +59,7 @@ func TestBlazegraphClient_InsertOneTriple(t *testing.T) {
 func TestBlazegraphClient_InsertTwoTriples(t *testing.T) {
 	bc := NewBlazegraphClient()
 	bc.DeleteAllTriples()
-	bc.PostNewStringData(`
+	bc.PostTurtleString(`
 		@prefix t: <http://tmcphill.net/tags#> .
 		@prefix d: <http://tmcphill.net/data#> .
 
@@ -66,7 +67,7 @@ func TestBlazegraphClient_InsertTwoTriples(t *testing.T) {
 		d:y t:tag "eight" .
 	`)
 
-	responseBody := bc.PostSparqlQuery(
+	responseBody, _ := bc.PostSparqlQuery(
 		`prefix ab: <http://tmcphill.net/tags#>
 		 SELECT ?s ?o
 		 WHERE
@@ -95,7 +96,7 @@ func TestBlazegraphClient_InsertTwoTriples(t *testing.T) {
 func TestBlazegraphClient_InsertTwoTriples_Struct(t *testing.T) {
 	bc := NewBlazegraphClient()
 	bc.DeleteAllTriples()
-	bc.PostNewStringData(`
+	bc.PostTurtleString(`
 		@prefix t: <http://tmcphill.net/tags#> .
 		@prefix d: <http://tmcphill.net/data#> .
 
@@ -125,15 +126,15 @@ func TestBlazegraphClient_InsertTwoTriples_Struct(t *testing.T) {
 func ExampleBlazegraphClient_DumpAsNTriples() {
 	bc := NewBlazegraphClient()
 	bc.DeleteAllTriples()
-	bc.PostNewStringData(`
+	bc.PostTurtleString(`
 		@prefix t: <http://tmcphill.net/tags#> .
 		@prefix d: <http://tmcphill.net/data#> .
 
 		d:x t:tag "seven" .
 		d:y t:tag "eight" .
 	`)
-	dump := bc.DumpAsNTriples()
-	fmt.Println(dump)
+	triples, _ := bc.DumpAsNTriples()
+	fmt.Println(triples)
 	// Output:
 	// <http://tmcphill.net/data#y> <http://tmcphill.net/tags#tag> "eight" .
 	// <http://tmcphill.net/tags#tag> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .

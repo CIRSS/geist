@@ -1,4 +1,4 @@
-FROM debian:10.2
+FROM ubuntu:20.04
 
 ENV REPRO_NAME  blazegraph-util
 ENV REPRO_MNT   /mnt/${REPRO_NAME}
@@ -7,16 +7,18 @@ ENV REPRO_UID   1000
 ENV REPRO_GID   1000
 
 RUN echo '***** Update packages *****'                                      \
-    && apt-get -y update                                                    \
-                                                                            \
-    && echo '***** Install packages required for creating this image *****' \
-    && apt-get -y install apt-utils wget curl makepasswd gcc make git       \
-                                                                            \
-    && echo '***** Install run-time dependencies *****'                     \
-    && apt -y install default-jdk graphviz                                  \
+    && apt-get -y update
+
+RUN echo '***** Install JDK and set timezone noninteractively *****'
+RUN DEBIAN_FRONTEND="noninteractive" TZ="America/Los_Angeles"               \
+    apt -y install tzdata openjdk-8-jdk
+
+RUN echo '***** Install packages required for creating this image *****'    \
+    && apt -y install apt-utils wget curl makepasswd gcc make git           \
                                                                             \
     && echo '***** Install command-line utility packages *****'             \
-    && apt -y install sudo man less file tree jq
+    && apt -y install sudo man less file tree jq graphviz
+
 
 ENV GO_VERSION       1.13.5
 ENV GO_DOWNLOADS_URL https://dl.google.com/go
@@ -42,7 +44,7 @@ USER  ${REPRO_USER}
 WORKDIR $HOME
 
 
-ENV BLAZEGRAPH_VER 2_1_6_RC
+ENV BLAZEGRAPH_VER RELEASE_2_1_5
 ENV BLAZEGRAPH_RELEASES https://github.com/blazegraph/database/releases
 ENV BLAZEGRAPH_DOWNLOAD_DIR ${BLAZEGRAPH_RELEASES}/download/BLAZEGRAPH_${BLAZEGRAPH_VER}
 ENV BLAZEGRAPH_DOWNLOAD_JAR ${BLAZEGRAPH_DOWNLOAD_DIR}/blazegraph.jar

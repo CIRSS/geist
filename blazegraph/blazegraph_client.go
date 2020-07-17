@@ -29,39 +29,58 @@ func (bc *BlazegraphClient) DeleteAllTriples() (responseBody []byte, err error) 
 	request, _ := http.NewRequest("DELETE", bc.endpoint, nil)
 	response, err := bc.httpClient.Do(request)
 	if err != nil {
-		return nil, err
+		return
 	}
-	responseBody, _ = ioutil.ReadAll(response.Body)
-	if err != nil {
-		return responseBody, err
+	if responseBody, err = ioutil.ReadAll(response.Body); err != nil {
+		return
 	}
 	response.Body.Close()
 	return
 }
 
 func (bc *BlazegraphClient) PostRequest(contentType string, acceptType string,
-	requestBody []byte) (responseBody []byte) {
-	request, _ := http.NewRequest("POST", bc.endpoint, bytes.NewReader(requestBody))
+	requestBody []byte) (responseBody []byte, err error) {
+
+	// create the http requeest using the provided body
+	request, err := http.NewRequest("POST", bc.endpoint, bytes.NewReader(requestBody))
+	if err != nil {
+		return
+	}
 	request.Header.Add("Content-Type", contentType)
 	request.Header.Add("Accept", acceptType)
-	response, _ := bc.httpClient.Do(request)
-	responseBody, _ = ioutil.ReadAll(response.Body)
+
+	// perform the request and obtain the response
+	response, err := bc.httpClient.Do(request)
+	if err != nil {
+		return
+	}
+
+	// read the response
+	responseBody, err = ioutil.ReadAll(response.Body)
+	if err != nil {
+		return
+	}
 	response.Body.Close()
 	return
 }
 
-func (bc *BlazegraphClient) PostNewData(data []byte) (responseBody []byte) {
-	responseBody = bc.PostRequest("application/x-turtle", "text/plain", data)
+func (bc *BlazegraphClient) PostJSONLDBytes(data []byte) (responseBody []byte, err error) {
+	responseBody, err = bc.PostRequest("application/ld+json", "text/plain", data)
 	return
 }
 
-func (bc *BlazegraphClient) PostNewStringData(data string) (responseBody []byte) {
-	responseBody = bc.PostNewData([]byte(data))
+func (bc *BlazegraphClient) PostTurtleBytes(data []byte) (responseBody []byte, err error) {
+	responseBody, err = bc.PostRequest("application/x-turtle", "text/plain", data)
 	return
 }
 
-func (bc *BlazegraphClient) RequestAllTriples() (responseBody []byte) {
-	responseBody = bc.PostSparqlQuery(
+func (bc *BlazegraphClient) PostTurtleString(data string) (responseBody []byte, err error) {
+	responseBody, err = bc.PostTurtleBytes([]byte(data))
+	return
+}
+
+func (bc *BlazegraphClient) RequestAllTriples() (responseBody []byte, err error) {
+	responseBody, err = bc.PostSparqlQuery(
 		`SELECT ?s ?p ?o
 		 WHERE
 		 { ?s ?p ?o }`,
@@ -69,32 +88,44 @@ func (bc *BlazegraphClient) RequestAllTriples() (responseBody []byte) {
 	return
 }
 
-func (bc *BlazegraphClient) RequestAllTriplesAsJSON() interface{} {
-	responseBody := bc.RequestAllTriples()
-	var resultJSON interface{}
-	json.Unmarshal(responseBody, &resultJSON)
-	return resultJSON
+func (bc *BlazegraphClient) RequestAllTriplesAsJSON() (resultJSON interface{}, err error) {
+	responseBody, err := bc.RequestAllTriples()
+	if err != nil {
+		return nil, err
+	}
+	err = json.Unmarshal(responseBody, &resultJSON)
+	return
 }
 
-func (bc *BlazegraphClient) DumpAsNTriples() string {
-	responseBody := bc.RequestAllTriples()
+func (bc *BlazegraphClient) DumpAsNTriples() (triples string, err error) {
+	responseBody, err := bc.RequestAllTriples()
+	if err != nil {
+		return
+	}
+
 	var sr sparql.SparqlResult
-	json.Unmarshal(responseBody, &sr)
+	err = json.Unmarshal(responseBody, &sr)
+	if err != nil {
+		return
+	}
+
 	var dump strings.Builder
 	for _, b := range sr.Bindings() {
 		triple := fmt.Sprintf("%s %s %s .\n",
 			b.DelimitedValue("s"), b.DelimitedValue("p"), b.DelimitedValue("o"))
 		dump.WriteString(triple)
 	}
-	return dump.String()
+	triples = dump.String()
+
+	return
 }
 
-func (bc *BlazegraphClient) PostSparqlQuery(query string) (responseBody []byte) {
+func (bc *BlazegraphClient) PostSparqlQuery(query string) (responseBody []byte, err error) {
 	return bc.PostRequest("application/sparql-query", "application/json", []byte(query))
 }
 
 func (bc *BlazegraphClient) SparqlQuery(query string) (sr sparql.SparqlResult, err error) {
-	responseBody := bc.PostSparqlQuery(query)
+	responseBody, err := bc.PostSparqlQuery(query)
 	err = json.Unmarshal(responseBody, &sr)
 	return
 }
