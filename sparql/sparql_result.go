@@ -1,6 +1,6 @@
 package sparql
 
-type SparqlResult struct {
+type Result struct {
 	Head    Head
 	Results Results
 }
@@ -29,15 +29,15 @@ func (b Binding) DelimitedValue(name string) (delimitedValue string) {
 	return
 }
 
-func (sr *SparqlResult) Vars() []string {
+func (sr *Result) Vars() []string {
 	return sr.Head.Vars
 }
 
-func (sr *SparqlResult) Bindings() []Binding {
+func (sr *Result) Bindings() []Binding {
 	return sr.Results.Bindings
 }
 
-func (sr *SparqlResult) BoundValues(bindingIndex int) []string {
+func (sr *Result) BoundValues(bindingIndex int) []string {
 	variables := sr.Vars()
 	values := make([]string, len(variables))
 	binding := sr.Bindings()[bindingIndex]

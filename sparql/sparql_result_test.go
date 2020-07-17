@@ -7,7 +7,7 @@ import (
 	"github.com/tmcphillips/blazegraph-util/assert"
 )
 
-var sr = SparqlResult{
+var sr = Result{
 	Head{[]string{"s", "o"}},
 	Results{[]Binding{{
 		"s": {"uri", "http://tmcphill.net/data#x"},
@@ -17,11 +17,11 @@ var sr = SparqlResult{
 		"o": {"literal", "eight"},
 	}}}}
 
-func TestSparqlResult_Vars(t *testing.T) {
+func TestResult_Vars(t *testing.T) {
 	assert.StringEquals(t, strings.Join(sr.Vars(), ", "), "s, o")
 }
 
-func TestSparqlResult_Bindings(t *testing.T) {
+func TestResult_Bindings(t *testing.T) {
 
 	assert.StringEquals(t, sr.Bindings()[0]["s"].Type, "uri")
 	assert.StringEquals(t, sr.Bindings()[0]["s"].Value, "http://tmcphill.net/data#x")
@@ -34,7 +34,7 @@ func TestSparqlResult_Bindings(t *testing.T) {
 	assert.StringEquals(t, sr.Bindings()[1]["o"].Value, "eight")
 }
 
-func TestSparqlResult_BoundValues(t *testing.T) {
+func TestResult_BoundValues(t *testing.T) {
 	assert.StringEquals(t,
 		strings.Join(sr.BoundValues(0), ", "),
 		"http://tmcphill.net/data#x, seven")

@@ -9,8 +9,8 @@ import (
 	"github.com/tmcphillips/blazegraph-util/assert"
 )
 
-func TestBlazegraphClient_GetAllTriplesAsJSON_EmptyStore(t *testing.T) {
-	bc := NewBlazegraphClient()
+func TestClient_GetAllTriplesAsJSON_EmptyStore(t *testing.T) {
+	bc := NewClient()
 	bc.DeleteAllTriples()
 	triples, _ := bc.RequestAllTriplesAsJSON()
 	assert.JSONEquals(t, triples,
@@ -24,8 +24,8 @@ func TestBlazegraphClient_GetAllTriplesAsJSON_EmptyStore(t *testing.T) {
 		}`)
 }
 
-func TestBlazegraphClient_InsertOneTriple(t *testing.T) {
-	bc := NewBlazegraphClient()
+func TestClient_InsertOneTriple(t *testing.T) {
+	bc := NewClient()
 	bc.DeleteAllTriples()
 	bc.PostTurtleString(`
 	@prefix t: <http://tmcphill.net/tags#> .
@@ -56,8 +56,8 @@ func TestBlazegraphClient_InsertOneTriple(t *testing.T) {
 		  }`)
 }
 
-func TestBlazegraphClient_InsertTwoTriples(t *testing.T) {
-	bc := NewBlazegraphClient()
+func TestClient_InsertTwoTriples(t *testing.T) {
+	bc := NewClient()
 	bc.DeleteAllTriples()
 	bc.PostTurtleString(`
 		@prefix t: <http://tmcphill.net/tags#> .
@@ -93,8 +93,8 @@ func TestBlazegraphClient_InsertTwoTriples(t *testing.T) {
 		  }`)
 }
 
-func TestBlazegraphClient_InsertTwoTriples_Struct(t *testing.T) {
-	bc := NewBlazegraphClient()
+func TestClient_InsertTwoTriples_Struct(t *testing.T) {
+	bc := NewClient()
 	bc.DeleteAllTriples()
 	bc.PostTurtleString(`
 		@prefix t: <http://tmcphill.net/tags#> .
@@ -123,8 +123,8 @@ func TestBlazegraphClient_InsertTwoTriples_Struct(t *testing.T) {
 	assert.StringEquals(t, sr.Bindings()[1]["o"].Value, "eight")
 }
 
-func ExampleBlazegraphClient_DumpAsNTriples() {
-	bc := NewBlazegraphClient()
+func ExampleClient_DumpAsNTriples() {
+	bc := NewClient()
 	bc.DeleteAllTriples()
 	bc.PostTurtleString(`
 		@prefix t: <http://tmcphill.net/tags#> .

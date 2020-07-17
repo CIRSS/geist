@@ -13,19 +13,19 @@ import (
 
 var SparqlEndpoint = "http://127.0.0.1:9999/blazegraph/sparql"
 
-type BlazegraphClient struct {
+type Client struct {
 	httpClient *http.Client
 	endpoint   string
 }
 
-func NewBlazegraphClient() *BlazegraphClient {
-	bc := new(BlazegraphClient)
+func NewClient() *Client {
+	bc := new(Client)
 	bc.httpClient = &http.Client{}
 	bc.endpoint = "http://127.0.0.1:9999/blazegraph/sparql"
 	return bc
 }
 
-func (bc *BlazegraphClient) DeleteAllTriples() (responseBody []byte, err error) {
+func (bc *Client) DeleteAllTriples() (responseBody []byte, err error) {
 	request, _ := http.NewRequest("DELETE", bc.endpoint, nil)
 	response, err := bc.httpClient.Do(request)
 	if err != nil {
@@ -38,7 +38,7 @@ func (bc *BlazegraphClient) DeleteAllTriples() (responseBody []byte, err error) 
 	return
 }
 
-func (bc *BlazegraphClient) PostRequest(contentType string, acceptType string,
+func (bc *Client) PostRequest(contentType string, acceptType string,
 	requestBody []byte) (responseBody []byte, err error) {
 
 	// create the http requeest using the provided body
@@ -64,22 +64,22 @@ func (bc *BlazegraphClient) PostRequest(contentType string, acceptType string,
 	return
 }
 
-func (bc *BlazegraphClient) PostJSONLDBytes(data []byte) (responseBody []byte, err error) {
+func (bc *Client) PostJSONLDBytes(data []byte) (responseBody []byte, err error) {
 	responseBody, err = bc.PostRequest("application/ld+json", "text/plain", data)
 	return
 }
 
-func (bc *BlazegraphClient) PostTurtleBytes(data []byte) (responseBody []byte, err error) {
+func (bc *Client) PostTurtleBytes(data []byte) (responseBody []byte, err error) {
 	responseBody, err = bc.PostRequest("application/x-turtle", "text/plain", data)
 	return
 }
 
-func (bc *BlazegraphClient) PostTurtleString(data string) (responseBody []byte, err error) {
+func (bc *Client) PostTurtleString(data string) (responseBody []byte, err error) {
 	responseBody, err = bc.PostTurtleBytes([]byte(data))
 	return
 }
 
-func (bc *BlazegraphClient) RequestAllTriples() (responseBody []byte, err error) {
+func (bc *Client) RequestAllTriples() (responseBody []byte, err error) {
 	responseBody, err = bc.PostSparqlQuery(
 		`SELECT ?s ?p ?o
 		 WHERE
@@ -88,7 +88,7 @@ func (bc *BlazegraphClient) RequestAllTriples() (responseBody []byte, err error)
 	return
 }
 
-func (bc *BlazegraphClient) RequestAllTriplesAsJSON() (resultJSON interface{}, err error) {
+func (bc *Client) RequestAllTriplesAsJSON() (resultJSON interface{}, err error) {
 	responseBody, err := bc.RequestAllTriples()
 	if err != nil {
 		return nil, err
@@ -97,13 +97,13 @@ func (bc *BlazegraphClient) RequestAllTriplesAsJSON() (resultJSON interface{}, e
 	return
 }
 
-func (bc *BlazegraphClient) DumpAsNTriples() (triples string, err error) {
+func (bc *Client) DumpAsNTriples() (triples string, err error) {
 	responseBody, err := bc.RequestAllTriples()
 	if err != nil {
 		return
 	}
 
-	var sr sparql.SparqlResult
+	var sr sparql.Result
 	err = json.Unmarshal(responseBody, &sr)
 	if err != nil {
 		return
@@ -120,11 +120,11 @@ func (bc *BlazegraphClient) DumpAsNTriples() (triples string, err error) {
 	return
 }
 
-func (bc *BlazegraphClient) PostSparqlQuery(query string) (responseBody []byte, err error) {
+func (bc *Client) PostSparqlQuery(query string) (responseBody []byte, err error) {
 	return bc.PostRequest("application/sparql-query", "application/json", []byte(query))
 }
 
-func (bc *BlazegraphClient) SparqlQuery(query string) (sr sparql.SparqlResult, err error) {
+func (bc *Client) SparqlQuery(query string) (sr sparql.Result, err error) {
 	responseBody, err := bc.PostSparqlQuery(query)
 	err = json.Unmarshal(responseBody, &sr)
 	return

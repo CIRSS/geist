@@ -39,11 +39,11 @@ func main() {
 	switch command {
 
 	case "drop":
-		bc := blazegraph.NewBlazegraphClient()
+		bc := blazegraph.NewClient()
 		bc.DeleteAllTriples()
 
 	case "dump":
-		bc := blazegraph.NewBlazegraphClient()
+		bc := blazegraph.NewClient()
 		dump, err := bc.DumpAsNTriples()
 		if err != nil {
 			fmt.Println(err)
@@ -53,7 +53,7 @@ func main() {
 
 	case "load":
 		df := *dataFile
-		bc := blazegraph.NewBlazegraphClient()
+		bc := blazegraph.NewClient()
 		data, err := ioutil.ReadFile(df)
 		if err != nil {
 			fmt.Println(err)
@@ -63,7 +63,7 @@ func main() {
 
 	case "load-jsonld":
 		df := *dataFile
-		bc := blazegraph.NewBlazegraphClient()
+		bc := blazegraph.NewClient()
 		data, err := ioutil.ReadFile(df)
 		if err != nil {
 			fmt.Println(err)

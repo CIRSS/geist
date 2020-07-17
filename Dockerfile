@@ -19,7 +19,6 @@ RUN echo '***** Install packages required for creating this image *****'    \
     && echo '***** Install command-line utility packages *****'             \
     && apt -y install sudo man less file tree jq graphviz
 
-
 ENV GO_VERSION       1.13.5
 ENV GO_DOWNLOADS_URL https://dl.google.com/go
 ENV GO_ARCHIVE       go${GO_VERSION}.linux-amd64.tar.gz
