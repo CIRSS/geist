@@ -51,6 +51,15 @@ func main() {
 		}
 		fmt.Println(dump)
 
+	case "dump-jsonld":
+		bc := blazegraph.NewClient()
+		dump, err := bc.DumpAsJSONLD()
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+		fmt.Fprintf(Main.OutWriter, dump)
+
 	case "load":
 		df := *dataFile
 		bc := blazegraph.NewClient()
@@ -59,7 +68,7 @@ func main() {
 			fmt.Println(err)
 			return
 		}
-		bc.PostTurtleBytes(data)
+		bc.PostTurtle(data)
 
 	case "load-jsonld":
 		df := *dataFile
@@ -69,7 +78,7 @@ func main() {
 			fmt.Println(err)
 			return
 		}
-		_, err = bc.PostJSONLDBytes(data)
+		_, err = bc.PostJSONLD(data)
 		if err != nil {
 			fmt.Println(err)
 			return

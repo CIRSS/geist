@@ -64,18 +64,13 @@ func (bc *Client) PostRequest(contentType string, acceptType string,
 	return
 }
 
-func (bc *Client) PostJSONLDBytes(data []byte) (responseBody []byte, err error) {
+func (bc *Client) PostJSONLD(data []byte) (responseBody []byte, err error) {
 	responseBody, err = bc.PostRequest("application/ld+json", "text/plain", data)
 	return
 }
 
-func (bc *Client) PostTurtleBytes(data []byte) (responseBody []byte, err error) {
+func (bc *Client) PostTurtle(data []byte) (responseBody []byte, err error) {
 	responseBody, err = bc.PostRequest("application/x-turtle", "text/plain", data)
-	return
-}
-
-func (bc *Client) PostTurtleString(data string) (responseBody []byte, err error) {
-	responseBody, err = bc.PostTurtleBytes([]byte(data))
 	return
 }
 
@@ -85,6 +80,18 @@ func (bc *Client) RequestAllTriples() (responseBody []byte, err error) {
 		 WHERE
 		 { ?s ?p ?o }`,
 	)
+	return
+}
+
+func (bc *Client) ConstructAllTriples() (responseBody []byte, err error) {
+	responseBody, err = bc.PostRequest(
+		"application/sparql-query",
+		"application/ld+json", []byte(`
+			CONSTRUCT
+			{ ?s ?p ?o }
+		 	WHERE
+		 	{ ?s ?p ?o }`,
+		))
 	return
 }
 
@@ -117,6 +124,15 @@ func (bc *Client) DumpAsNTriples() (triples string, err error) {
 	}
 	triples = dump.String()
 
+	return
+}
+
+func (bc *Client) DumpAsJSONLD() (jsonld string, err error) {
+	responseBody, err := bc.ConstructAllTriples()
+	if err != nil {
+		return
+	}
+	jsonld = string(responseBody)
 	return
 }
 

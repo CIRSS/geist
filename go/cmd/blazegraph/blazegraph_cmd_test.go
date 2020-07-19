@@ -3,6 +3,9 @@ package main
 import (
 	"os"
 	"strings"
+	"testing"
+
+	"github.com/tmcphillips/blazegraph-util/assert"
 )
 
 func runWithArgs(commandLine string) {
@@ -61,4 +64,105 @@ func ExampleBlazegraphCmd_drop_load_jsonld_then_dump() {
 	// <http://learningsparql.com/ns/data#i9771> <http://learningsparql.com/ns/addressbook#homeTel> "(245) 646-5488" .
 	// <http://learningsparql.com/ns/data#i9771> <http://learningsparql.com/ns/addressbook#lastname> "Marshall" .
 	// <http://learningsparql.com/ns/data#i9771> <http://learningsparql.com/ns/addressbook#mobileTel> "(245) 732-8991" .
+}
+
+func TestBlazegraphCmd_drop_load_jsonld_then_dump_jsonld(t *testing.T) {
+	var resultsBuffer strings.Builder
+	Main.OutWriter = &resultsBuffer
+
+	runWithArgs("blazegraph drop")
+	runWithArgs("blazegraph -f testdata/address-book.jsonld load-jsonld")
+	runWithArgs("blazegraph dump-jsonld")
+
+	actualJSON, _ := assert.CanonicalJSONFromString(resultsBuffer.String())
+	expectedJSON, _ := assert.CanonicalJSONFromString(`
+	[ {
+	"@id" : "http://learningsparql.com/ns/addressbook#email",
+	"@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
+	"http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+		"@id" : "http://learningsparql.com/ns/addressbook#email"
+	} ]
+	}, {
+	"@id" : "http://learningsparql.com/ns/addressbook#firstname",
+	"@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
+	"http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+		"@id" : "http://learningsparql.com/ns/addressbook#firstname"
+	} ]
+	}, {
+	"@id" : "http://learningsparql.com/ns/addressbook#homeTel",
+	"@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
+	"http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+		"@id" : "http://learningsparql.com/ns/addressbook#homeTel"
+	} ]
+	}, {
+	"@id" : "http://learningsparql.com/ns/addressbook#lastname",
+	"@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
+	"http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+		"@id" : "http://learningsparql.com/ns/addressbook#lastname"
+	} ]
+	}, {
+	"@id" : "http://learningsparql.com/ns/addressbook#mobileTel",
+	"@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
+	"http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+		"@id" : "http://learningsparql.com/ns/addressbook#mobileTel"
+	} ]
+	}, {
+	"@id" : "http://learningsparql.com/ns/addressbook#nickname",
+	"@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
+	"http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+		"@id" : "http://learningsparql.com/ns/addressbook#nickname"
+	} ]
+	}, {
+	"@id" : "http://learningsparql.com/ns/data#i0432",
+	"http://learningsparql.com/ns/addressbook#email" : [ {
+		"@value" : "richard49@hotmail.com"
+	} ],
+	"http://learningsparql.com/ns/addressbook#firstname" : [ {
+		"@value" : "Richard"
+	} ],
+	"http://learningsparql.com/ns/addressbook#homeTel" : [ {
+		"@value" : "(229) 276-5135"
+	} ],
+	"http://learningsparql.com/ns/addressbook#lastname" : [ {
+		"@value" : "Mutt"
+	} ],
+	"http://learningsparql.com/ns/addressbook#nickname" : [ {
+		"@value" : "Dick"
+	} ]
+	}, {
+	"@id" : "http://learningsparql.com/ns/data#i8301",
+	"http://learningsparql.com/ns/addressbook#email" : [ {
+		"@value" : "c.ellis@usairwaysgroup.com"
+	}, {
+		"@value" : "craigellis@yahoo.com"
+	} ],
+	"http://learningsparql.com/ns/addressbook#firstname" : [ {
+		"@value" : "Craig"
+	} ],
+	"http://learningsparql.com/ns/addressbook#homeTel" : [ {
+		"@value" : "(194) 966-1505"
+	} ],
+	"http://learningsparql.com/ns/addressbook#lastname" : [ {
+		"@value" : "Ellis"
+	} ]
+	}, {
+	"@id" : "http://learningsparql.com/ns/data#i9771",
+	"http://learningsparql.com/ns/addressbook#email" : [ {
+		"@value" : "cindym@gmail.com"
+	} ],
+	"http://learningsparql.com/ns/addressbook#firstname" : [ {
+		"@value" : "Cindy"
+	} ],
+	"http://learningsparql.com/ns/addressbook#homeTel" : [ {
+		"@value" : "(245) 646-5488"
+	} ],
+	"http://learningsparql.com/ns/addressbook#lastname" : [ {
+		"@value" : "Marshall"
+	} ],
+	"http://learningsparql.com/ns/addressbook#mobileTel" : [ {
+		"@value" : "(245) 732-8991"
+	} ]
+	} ]`)
+
+	assert.StringEquals(t, actualJSON, expectedJSON)
 }
