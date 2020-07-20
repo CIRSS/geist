@@ -1,4 +1,4 @@
-package blazegraphtests
+package tests
 
 import (
 	"fmt"

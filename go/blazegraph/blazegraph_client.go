@@ -3,10 +3,8 @@ package blazegraph
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"net/http"
-	"strings"
 
 	"github.com/tmcphillips/blazegraph-util/sparql"
 )
@@ -83,18 +81,6 @@ func (bc *Client) RequestAllTriples() (responseBody []byte, err error) {
 	return
 }
 
-func (bc *Client) ConstructAllTriples() (responseBody []byte, err error) {
-	responseBody, err = bc.PostRequest(
-		"application/sparql-query",
-		"application/ld+json", []byte(`
-			CONSTRUCT
-			{ ?s ?p ?o }
-		 	WHERE
-		 	{ ?s ?p ?o }`,
-		))
-	return
-}
-
 func (bc *Client) RequestAllTriplesAsJSON() (resultJSON interface{}, err error) {
 	responseBody, err := bc.RequestAllTriples()
 	if err != nil {
@@ -104,35 +90,24 @@ func (bc *Client) RequestAllTriplesAsJSON() (resultJSON interface{}, err error) 
 	return
 }
 
-func (bc *Client) DumpAsNTriples() (triples string, err error) {
-	responseBody, err := bc.RequestAllTriples()
-	if err != nil {
-		return
-	}
-
-	var sr sparql.Result
-	err = json.Unmarshal(responseBody, &sr)
-	if err != nil {
-		return
-	}
-
-	var dump strings.Builder
-	for _, b := range sr.Bindings() {
-		triple := fmt.Sprintf("%s %s %s .\n",
-			b.DelimitedValue("s"), b.DelimitedValue("p"), b.DelimitedValue("o"))
-		dump.WriteString(triple)
-	}
-	triples = dump.String()
-
+func (bc *Client) ConstructAllTriples(format string) (responseBody []byte, err error) {
+	responseBody, err = bc.PostRequest(
+		"application/sparql-query",
+		format, []byte(`
+			CONSTRUCT
+			{ ?s ?p ?o }
+		 	WHERE
+		 	{ ?s ?p ?o }`,
+		))
 	return
 }
 
-func (bc *Client) DumpAsJSONLD() (jsonld string, err error) {
-	responseBody, err := bc.ConstructAllTriples()
+func (bc *Client) Dump(format string) (dump string, err error) {
+	responseBody, err := bc.ConstructAllTriples(format)
 	if err != nil {
 		return
 	}
-	jsonld = string(responseBody)
+	dump = string(responseBody)
 	return
 }
 
@@ -145,3 +120,26 @@ func (bc *Client) SparqlQuery(query string) (sr sparql.Result, err error) {
 	err = json.Unmarshal(responseBody, &sr)
 	return
 }
+
+// func (bc *Client) DumpAsNTriples() (triples string, err error) {
+// 	responseBody, err := bc.RequestAllTriples()
+// 	if err != nil {
+// 		return
+// 	}
+
+// 	var sr sparql.Result
+// 	err = json.Unmarshal(responseBody, &sr)
+// 	if err != nil {
+// 		return
+// 	}
+
+// 	var dump strings.Builder
+// 	for _, b := range sr.Bindings() {
+// 		triple := fmt.Sprintf("%s %s %s .\n",
+// 			b.DelimitedValue("s"), b.DelimitedValue("p"), b.DelimitedValue("o"))
+// 		dump.WriteString(triple)
+// 	}
+// 	triples = dump.String()
+
+// 	return
+// }

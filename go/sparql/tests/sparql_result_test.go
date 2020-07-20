@@ -1,4 +1,4 @@
-package sparqltests
+package tests
 
 import (
 	"strings"

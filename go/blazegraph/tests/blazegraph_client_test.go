@@ -1,4 +1,4 @@
-package blazegraphtests
+package tests
 
 import (
 	"encoding/json"
@@ -134,7 +134,7 @@ func ExampleBlazegraphClient_DumpAsNTriples() {
 		d:x t:tag "seven" .
 		d:y t:tag "eight" .
 	`))
-	triples, _ := bc.DumpAsNTriples()
+	triples, _ := bc.Dump("text/plain")
 	fmt.Println(triples)
 	// Output:
 	// <http://tmcphill.net/data#y> <http://tmcphill.net/tags#tag> "eight" .

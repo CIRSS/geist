@@ -71,26 +71,6 @@ func drop() {
 	bc.DeleteAllTriples()
 }
 
-func dump(format string) {
-	bc := blazegraph.NewClient()
-	var err error
-	var triples string
-
-	switch format {
-	case "n-triples":
-		triples, err = bc.DumpAsNTriples()
-	case "json-ld":
-		triples, err = bc.DumpAsJSONLD()
-	}
-
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-
-	fmt.Fprintf(Main.OutWriter, triples)
-}
-
 func load(file string, format string) {
 	bc := blazegraph.NewClient()
 	data, err := ioutil.ReadFile(file)
@@ -111,4 +91,24 @@ func load(file string, format string) {
 		fmt.Println(err)
 		return
 	}
+}
+
+func dump(format string) {
+	bc := blazegraph.NewClient()
+	var err error
+	var triples string
+
+	switch format {
+	case "n-triples":
+		triples, err = bc.Dump("text/plain")
+	case "json-ld":
+		triples, err = bc.Dump("application/ld+json")
+	}
+
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	fmt.Fprintf(Main.OutWriter, triples)
 }
