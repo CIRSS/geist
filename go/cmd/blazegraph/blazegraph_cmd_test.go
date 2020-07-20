@@ -22,7 +22,7 @@ func ExampleBlazegraphCmd_drop_then_dump() {
 	//
 }
 
-func ExampleBlazegraphCmd_drop_load_turtle_then_dump() {
+func ExampleBlazegraphCmd_drop_load_turtle_then_dump_default() {
 	Main.OutWriter = os.Stdout
 	Main.ErrWriter = os.Stdout
 	runWithArgs("blazegraph drop")
@@ -35,7 +35,64 @@ func ExampleBlazegraphCmd_drop_load_turtle_then_dump() {
 	// <http://tmcphill.net/data#x> <http://tmcphill.net/tags#tag> "seven" .
 }
 
-func ExampleBlazegraphCmd_drop_load_jsonld_then_dump() {
+func ExampleBlazegraphCmd_drop_load_turtle_then_dump_turtle() {
+	Main.OutWriter = os.Stdout
+	Main.ErrWriter = os.Stdout
+	runWithArgs("blazegraph drop")
+	runWithArgs("blazegraph load --file testdata/in.nt --format turtle")
+	runWithArgs("blazegraph dump --format turtle")
+	// Output:
+	// <http://tmcphill.net/data#y> <http://tmcphill.net/tags#tag> "eight" .
+	// <http://tmcphill.net/tags#tag> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+	// <http://tmcphill.net/tags#tag> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://tmcphill.net/tags#tag> .
+	// <http://tmcphill.net/data#x> <http://tmcphill.net/tags#tag> "seven" .
+}
+
+func TestBlazegraphCmd_drop_load_turtle_then_dump_jsonld(t *testing.T) {
+	var resultsBuffer strings.Builder
+	Main.OutWriter = &resultsBuffer
+	Main.ErrWriter = &resultsBuffer
+
+	runWithArgs("blazegraph drop")
+	runWithArgs("blazegraph load --file testdata/in.nt --format turtle")
+	runWithArgs("blazegraph dump --format json-ld")
+
+	actualJSON, _ := assert.CanonicalJSONFromString(resultsBuffer.String())
+	expectedJSON, _ := assert.CanonicalJSONFromString(`
+	[
+		{
+		  "@id": "http://tmcphill.net/data#x",
+		  "http://tmcphill.net/tags#tag": [
+			{
+			  "@value": "seven"
+			}
+		  ]
+		},
+		{
+		  "@id": "http://tmcphill.net/data#y",
+		  "http://tmcphill.net/tags#tag": [
+			{
+			  "@value": "eight"
+			}
+		  ]
+		},
+		{
+		  "@id": "http://tmcphill.net/tags#tag",
+		  "@type": [
+			"http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
+		  ],
+		  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf": [
+			{
+			  "@id": "http://tmcphill.net/tags#tag"
+			}
+		  ]
+		}
+	  ]
+	`)
+	assert.StringEquals(t, actualJSON, expectedJSON)
+}
+
+func ExampleBlazegraphCmd_drop_load_jsonld_then_dump_jsonld() {
 	Main.OutWriter = os.Stdout
 	Main.ErrWriter = os.Stdout
 	runWithArgs("blazegraph drop")
