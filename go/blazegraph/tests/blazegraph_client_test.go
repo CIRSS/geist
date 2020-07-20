@@ -12,9 +12,11 @@ import (
 
 func TestBlazegraphClient_GetAllTriplesAsJSON_EmptyStore(t *testing.T) {
 	bc := blazegraph.NewClient()
-	bc.DeleteAllTriples()
-	triples, _ := bc.RequestAllTriplesAsJSON()
-	assert.JSONEquals(t, triples,
+	bc.DeleteAll()
+	triples, _ := bc.SelectAll()
+	var resultJSON interface{}
+	json.Unmarshal(triples, &resultJSON)
+	assert.JSONEquals(t, resultJSON,
 		`{
 			"head" : {
 				"vars" : [ "s", "p", "o" ]
@@ -27,7 +29,7 @@ func TestBlazegraphClient_GetAllTriplesAsJSON_EmptyStore(t *testing.T) {
 
 func TestBlazegraphClient_InsertOneTriple(t *testing.T) {
 	bc := blazegraph.NewClient()
-	bc.DeleteAllTriples()
+	bc.DeleteAll()
 	bc.PostData("application/x-turtle", []byte(`
 	@prefix t: <http://tmcphill.net/tags#> .
 	@prefix d: <http://tmcphill.net/data#> .
@@ -59,7 +61,7 @@ func TestBlazegraphClient_InsertOneTriple(t *testing.T) {
 
 func TestBlazegraphClient_InsertTwoTriples(t *testing.T) {
 	bc := blazegraph.NewClient()
-	bc.DeleteAllTriples()
+	bc.DeleteAll()
 	bc.PostData("application/x-turtle", []byte(`
 		@prefix t: <http://tmcphill.net/tags#> .
 		@prefix d: <http://tmcphill.net/data#> .
@@ -96,7 +98,7 @@ func TestBlazegraphClient_InsertTwoTriples(t *testing.T) {
 
 func TestBlazegraphClient_InsertTwoTriples_Struct(t *testing.T) {
 	bc := blazegraph.NewClient()
-	bc.DeleteAllTriples()
+	bc.DeleteAll()
 	bc.PostData("application/x-turtle", []byte(`
 		@prefix t: <http://tmcphill.net/tags#> .
 		@prefix d: <http://tmcphill.net/data#> .
@@ -126,7 +128,7 @@ func TestBlazegraphClient_InsertTwoTriples_Struct(t *testing.T) {
 
 func ExampleBlazegraphClient_DumpAsNTriples() {
 	bc := blazegraph.NewClient()
-	bc.DeleteAllTriples()
+	bc.DeleteAll()
 	bc.PostData("application/x-turtle", []byte(`
 		@prefix t: <http://tmcphill.net/tags#> .
 		@prefix d: <http://tmcphill.net/data#> .
@@ -134,7 +136,7 @@ func ExampleBlazegraphClient_DumpAsNTriples() {
 		d:x t:tag "seven" .
 		d:y t:tag "eight" .
 	`))
-	triples, _ := bc.Dump("text/plain")
+	triples, _ := bc.ConstructAll("text/plain")
 	fmt.Println(triples)
 	// Output:
 	// <http://tmcphill.net/data#y> <http://tmcphill.net/tags#tag> "eight" .

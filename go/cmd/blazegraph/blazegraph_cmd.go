@@ -68,7 +68,7 @@ func main() {
 
 func drop() {
 	bc := blazegraph.NewClient()
-	bc.DeleteAllTriples()
+	bc.DeleteAll()
 }
 
 func load(file string, format string) {
@@ -100,9 +100,9 @@ func dump(format string) {
 
 	switch format {
 	case "n-triples":
-		triples, err = bc.Dump("text/plain")
+		triples, err = bc.ConstructAll("text/plain")
 	case "json-ld":
-		triples, err = bc.Dump("application/ld+json")
+		triples, err = bc.ConstructAll("application/ld+json")
 	}
 
 	if err != nil {

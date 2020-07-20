@@ -23,7 +23,7 @@ func NewClient() *Client {
 	return bc
 }
 
-func (bc *Client) DeleteAllTriples() (responseBody []byte, err error) {
+func (bc *Client) DeleteAll() (responseBody []byte, err error) {
 	request, _ := http.NewRequest("DELETE", bc.endpoint, nil)
 	response, err := bc.httpClient.Do(request)
 	if err != nil {
@@ -67,8 +67,13 @@ func (bc *Client) PostData(format string, data []byte) (responseBody []byte, err
 	return
 }
 
-func (bc *Client) RequestAllTriples() (responseBody []byte, err error) {
-	responseBody, err = bc.PostSparqlQuery(
+func (bc *Client) Select(query string) (responseBody []byte, err error) {
+	responseBody, err = bc.PostSparqlQuery(query)
+	return
+}
+
+func (bc *Client) SelectAll() (responseBody []byte, err error) {
+	responseBody, err = bc.Select(
 		`SELECT ?s ?p ?o
 		 WHERE
 		 { ?s ?p ?o }`,
@@ -76,33 +81,21 @@ func (bc *Client) RequestAllTriples() (responseBody []byte, err error) {
 	return
 }
 
-func (bc *Client) RequestAllTriplesAsJSON() (resultJSON interface{}, err error) {
-	responseBody, err := bc.RequestAllTriples()
-	if err != nil {
-		return nil, err
-	}
-	err = json.Unmarshal(responseBody, &resultJSON)
+func (bc *Client) Construct(format string, query string) (responseBody []byte, err error) {
+	responseBody, err = bc.PostRequest("application/sparql-query", format, []byte(query))
 	return
 }
 
-func (bc *Client) ConstructAllTriples(format string) (responseBody []byte, err error) {
-	responseBody, err = bc.PostRequest(
-		"application/sparql-query",
-		format, []byte(`
-			CONSTRUCT
-			{ ?s ?p ?o }
-		 	WHERE
-		 	{ ?s ?p ?o }`,
-		))
-	return
-}
-
-func (bc *Client) Dump(format string) (dump string, err error) {
-	responseBody, err := bc.ConstructAllTriples(format)
-	if err != nil {
-		return
+func (bc *Client) ConstructAll(format string) (triples string, err error) {
+	responseBody, err := bc.Construct(format, `
+		CONSTRUCT
+		{ ?s ?p ?o }
+		WHERE
+		{ ?s ?p ?o }`,
+	)
+	if err == nil {
+		triples = string(responseBody)
 	}
-	dump = string(responseBody)
 	return
 }
 
