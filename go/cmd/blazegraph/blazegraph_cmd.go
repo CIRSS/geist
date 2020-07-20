@@ -23,69 +23,92 @@ func main() {
 
 	var err error
 
-	flags := Main.InitFlagSet()
-	dataFile := flags.String("f", "-", "file to read or write")
-	err = flags.Parse(os.Args[1:])
-	if err != nil || len(os.Args) < 2 {
-		if err != nil {
-			fmt.Println(err)
-		}
-		flags.Usage()
+	if len(os.Args) < 2 {
+		fmt.Fprintln(Main.ErrWriter, "Usage: blazegraph <command> [args...]")
 		return
 	}
 
-	command := flags.Args()[0]
+	command := os.Args[1]
+	flags := Main.InitFlagSet()
 
 	switch command {
 
 	case "drop":
-		bc := blazegraph.NewClient()
-		bc.DeleteAllTriples()
+		if len(os.Args) > 2 {
+			fmt.Fprintln(Main.ErrWriter,
+				"Error: The 'blazegraph drop' command takes no arguments and no flags.")
+			return
+		}
+		drop()
 
 	case "dump":
-		bc := blazegraph.NewClient()
-		dump, err := bc.DumpAsNTriples()
-		if err != nil {
+		format := flags.String("format", "n-triples", "Format for dumped triples")
+		if err = flags.Parse(os.Args[2:]); err != nil {
 			fmt.Println(err)
+			flags.Usage()
 			return
 		}
-		fmt.Println(dump)
-
-	case "dump-jsonld":
-		bc := blazegraph.NewClient()
-		dump, err := bc.DumpAsJSONLD()
-		if err != nil {
-			fmt.Println(err)
-			return
-		}
-		fmt.Fprintf(Main.OutWriter, dump)
+		dump(*format)
 
 	case "load":
-		df := *dataFile
-		bc := blazegraph.NewClient()
-		data, err := ioutil.ReadFile(df)
-		if err != nil {
+		file := flags.String("file", "-", "File containing triples to load")
+		format := flags.String("format", "n-triples", "Format of triples to load")
+		if err = flags.Parse(os.Args[2:]); err != nil {
 			fmt.Println(err)
+			flags.Usage()
 			return
 		}
-		bc.PostTurtle(data)
-
-	case "load-jsonld":
-		df := *dataFile
-		bc := blazegraph.NewClient()
-		data, err := ioutil.ReadFile(df)
-		if err != nil {
-			fmt.Println(err)
-			return
-		}
-		_, err = bc.PostJSONLD(data)
-		if err != nil {
-			fmt.Println(err)
-			return
-		}
+		load(*file, *format)
 
 	default:
 		fmt.Printf("Unrecognized command: %s\n", command)
 	}
 
+}
+
+func drop() {
+	bc := blazegraph.NewClient()
+	bc.DeleteAllTriples()
+}
+
+func dump(format string) {
+	bc := blazegraph.NewClient()
+	var err error
+	var triples string
+
+	switch format {
+	case "n-triples":
+		triples, err = bc.DumpAsNTriples()
+	case "json-ld":
+		triples, err = bc.DumpAsJSONLD()
+	}
+
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	fmt.Fprintf(Main.OutWriter, triples)
+}
+
+func load(file string, format string) {
+	bc := blazegraph.NewClient()
+	data, err := ioutil.ReadFile(file)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	switch format {
+
+	case "turtle":
+		_, err = bc.PostTurtle(data)
+
+	case "json-ld":
+		_, err = bc.PostJSONLD(data)
+	}
+
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
 }
