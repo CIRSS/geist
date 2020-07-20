@@ -8,7 +8,7 @@ import (
 	"github.com/tmcphillips/blazegraph-util/sparql"
 )
 
-var sr = sparql.Result{
+var sr = sparql.ResultSet{
 	sparql.Head{[]string{"s", "o"}},
 	sparql.Results{[]sparql.Binding{{
 		"s": {"uri", "http://tmcphill.net/data#x"},
