@@ -81,10 +81,10 @@ func load(file string, format string) {
 	switch format {
 
 	case "turtle":
-		_, err = bc.PostTurtle(data)
+		_, err = bc.PostData("application/x-turtle", data)
 
 	case "json-ld":
-		_, err = bc.PostJSONLD(data)
+		_, err = bc.PostData("application/ld+json", data)
 	}
 
 	if err != nil {

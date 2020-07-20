@@ -62,13 +62,8 @@ func (bc *Client) PostRequest(contentType string, acceptType string,
 	return
 }
 
-func (bc *Client) PostJSONLD(data []byte) (responseBody []byte, err error) {
-	responseBody, err = bc.PostRequest("application/ld+json", "text/plain", data)
-	return
-}
-
-func (bc *Client) PostTurtle(data []byte) (responseBody []byte, err error) {
-	responseBody, err = bc.PostRequest("application/x-turtle", "text/plain", data)
+func (bc *Client) PostData(format string, data []byte) (responseBody []byte, err error) {
+	responseBody, err = bc.PostRequest(format, "text/plain", data)
 	return
 }
 

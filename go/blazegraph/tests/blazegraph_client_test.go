@@ -28,7 +28,7 @@ func TestBlazegraphClient_GetAllTriplesAsJSON_EmptyStore(t *testing.T) {
 func TestBlazegraphClient_InsertOneTriple(t *testing.T) {
 	bc := blazegraph.NewClient()
 	bc.DeleteAllTriples()
-	bc.PostTurtle([]byte(`
+	bc.PostData("application/x-turtle", []byte(`
 	@prefix t: <http://tmcphill.net/tags#> .
 	@prefix d: <http://tmcphill.net/data#> .
 	d:y t:tag "seven" .
@@ -60,7 +60,7 @@ func TestBlazegraphClient_InsertOneTriple(t *testing.T) {
 func TestBlazegraphClient_InsertTwoTriples(t *testing.T) {
 	bc := blazegraph.NewClient()
 	bc.DeleteAllTriples()
-	bc.PostTurtle([]byte(`
+	bc.PostData("application/x-turtle", []byte(`
 		@prefix t: <http://tmcphill.net/tags#> .
 		@prefix d: <http://tmcphill.net/data#> .
 
@@ -97,7 +97,7 @@ func TestBlazegraphClient_InsertTwoTriples(t *testing.T) {
 func TestBlazegraphClient_InsertTwoTriples_Struct(t *testing.T) {
 	bc := blazegraph.NewClient()
 	bc.DeleteAllTriples()
-	bc.PostTurtle([]byte(`
+	bc.PostData("application/x-turtle", []byte(`
 		@prefix t: <http://tmcphill.net/tags#> .
 		@prefix d: <http://tmcphill.net/data#> .
 
@@ -127,7 +127,7 @@ func TestBlazegraphClient_InsertTwoTriples_Struct(t *testing.T) {
 func ExampleBlazegraphClient_DumpAsNTriples() {
 	bc := blazegraph.NewClient()
 	bc.DeleteAllTriples()
-	bc.PostTurtle([]byte(`
+	bc.PostData("application/x-turtle", []byte(`
 		@prefix t: <http://tmcphill.net/tags#> .
 		@prefix d: <http://tmcphill.net/data#> .
 
