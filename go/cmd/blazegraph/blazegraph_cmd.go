@@ -5,6 +5,8 @@ import (
 	"io/ioutil"
 	"os"
 
+	"github.com/tmcphillips/blazegraph-util/sparql"
+
 	"github.com/tmcphillips/blazegraph-util/blazegraph"
 	"github.com/tmcphillips/main-wrapper/mw"
 )
@@ -60,6 +62,16 @@ func main() {
 		}
 		load(*file, *format)
 
+	case "query":
+		file := flags.String("file", "-", "File containing query to execute")
+		format := flags.String("format", "json", "Format of result set to produce")
+		if err = flags.Parse(os.Args[2:]); err != nil {
+			fmt.Println(err)
+			flags.Usage()
+			return
+		}
+		query(*file, *format)
+
 	default:
 		fmt.Printf("Unrecognized command: %s\n", command)
 	}
@@ -91,6 +103,31 @@ func load(file string, format string) {
 		fmt.Println(err)
 		return
 	}
+}
+
+func query(file string, format string) {
+	bc := blazegraph.NewClient()
+	q, err := ioutil.ReadFile(file)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	var rs sparql.ResultSet
+
+	switch format {
+
+	case "json":
+		rs, err = bc.Select(string(q))
+	}
+
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	resultJSON, _ := rs.JSONString()
+	fmt.Fprintf(Main.OutWriter, resultJSON)
 }
 
 func dump(format string) {
