@@ -8,11 +8,6 @@ import (
 	"github.com/tmcphillips/blazegraph-util/assert"
 )
 
-func runWithArgs(commandLine string) {
-	os.Args = strings.Fields(commandLine)
-	Main.Run()
-}
-
 func ExampleBlazegraphCmd_drop_then_dump() {
 	Main.OutWriter = os.Stdout
 	Main.ErrWriter = os.Stdout
@@ -274,49 +269,4 @@ func TestBlazegraphCmd_drop_load_jsonld_then_dump_jsonld(t *testing.T) {
 		"@value" : "(245) 732-8991"
 	} ]
 	} ]`)
-}
-
-func TestBlazegraphCmd_query_json(t *testing.T) {
-
-	var resultsBuffer strings.Builder
-	Main.OutWriter = &resultsBuffer
-	Main.ErrWriter = &resultsBuffer
-
-	runWithArgs("blazegraph drop")
-	runWithArgs("blazegraph load --file testdata/in.nt --format ttl")
-	runWithArgs("blazegraph query --file testdata/q1.sparql")
-
-	assert.JSONEquals(t, resultsBuffer.String(), `{
-		"head": {
-		  "vars": [
-			"s",
-			"o"
-		  ]
-		},
-		"results": {
-		  "bindings": [
-			{
-			  "o": {
-				"type": "literal",
-				"value": "seven"
-			  },
-			  "s": {
-				"type": "uri",
-				"value": "http://tmcphill.net/data#x"
-			  }
-			},
-			{
-			  "o": {
-				"type": "literal",
-				"value": "eight"
-			  },
-			  "s": {
-				"type": "uri",
-				"value": "http://tmcphill.net/data#y"
-			  }
-			}
-		  ]
-		}
-	  }
-	`)
 }
