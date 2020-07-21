@@ -22,12 +22,39 @@ func ExampleBlazegraphCmd_drop_then_dump() {
 	//
 }
 
-func ExampleBlazegraphCmd_drop_load_turtle_then_dump_default() {
+func ExampleBlazegraphCmd_drop_load_ttl_then_dump_ttl() {
 	Main.OutWriter = os.Stdout
 	Main.ErrWriter = os.Stdout
 	runWithArgs("blazegraph drop")
-	runWithArgs("blazegraph load --file testdata/in.nt --format turtle")
-	runWithArgs("blazegraph dump")
+	runWithArgs("blazegraph load --file testdata/in.nt --format ttl")
+	runWithArgs("blazegraph dump --format ttl")
+	// Output:
+	// @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+	// @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+	// @prefix sesame: <http://www.openrdf.org/schema/sesame#> .
+	// @prefix owl: <http://www.w3.org/2002/07/owl#> .
+	// @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+	// @prefix fn: <http://www.w3.org/2005/xpath-functions#> .
+	// @prefix foaf: <http://xmlns.com/foaf/0.1/> .
+	// @prefix dc: <http://purl.org/dc/elements/1.1/> .
+	// @prefix hint: <http://www.bigdata.com/queryHints#> .
+	// @prefix bd: <http://www.bigdata.com/rdf#> .
+	// @prefix bds: <http://www.bigdata.com/rdf/search#> .
+
+	// <http://tmcphill.net/data#y> <http://tmcphill.net/tags#tag> "eight" .
+
+	// <http://tmcphill.net/tags#tag> a rdf:Property ;
+	// 	rdfs:subPropertyOf <http://tmcphill.net/tags#tag> .
+
+	// <http://tmcphill.net/data#x> <http://tmcphill.net/tags#tag> "seven" .
+}
+
+func ExampleBlazegraphCmd_drop_load_ttl_then_dump_ntriples() {
+	Main.OutWriter = os.Stdout
+	Main.ErrWriter = os.Stdout
+	runWithArgs("blazegraph drop")
+	runWithArgs("blazegraph load --file testdata/in.nt --format ttl")
+	runWithArgs("blazegraph dump --format nt")
 	// Output:
 	// <http://tmcphill.net/data#y> <http://tmcphill.net/tags#tag> "eight" .
 	// <http://tmcphill.net/tags#tag> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
@@ -35,27 +62,51 @@ func ExampleBlazegraphCmd_drop_load_turtle_then_dump_default() {
 	// <http://tmcphill.net/data#x> <http://tmcphill.net/tags#tag> "seven" .
 }
 
-func ExampleBlazegraphCmd_drop_load_turtle_then_dump_ntriples() {
+func ExampleBlazegraphCmd_drop_load_ttl_then_dump_xml() {
 	Main.OutWriter = os.Stdout
 	Main.ErrWriter = os.Stdout
 	runWithArgs("blazegraph drop")
-	runWithArgs("blazegraph load --file testdata/in.nt --format turtle")
-	runWithArgs("blazegraph dump --format n-triples")
+	runWithArgs("blazegraph load --file testdata/in.nt --format ttl")
+	runWithArgs("blazegraph dump --format xml")
 	// Output:
-	// <http://tmcphill.net/data#y> <http://tmcphill.net/tags#tag> "eight" .
-	// <http://tmcphill.net/tags#tag> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-	// <http://tmcphill.net/tags#tag> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://tmcphill.net/tags#tag> .
-	// <http://tmcphill.net/data#x> <http://tmcphill.net/tags#tag> "seven" .
+	// <?xml version="1.0" encoding="UTF-8"?>
+	// <rdf:RDF
+	// 	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	// 	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	// 	xmlns:sesame="http://www.openrdf.org/schema/sesame#"
+	// 	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	// 	xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+	// 	xmlns:fn="http://www.w3.org/2005/xpath-functions#"
+	// 	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	// 	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	// 	xmlns:hint="http://www.bigdata.com/queryHints#"
+	// 	xmlns:bd="http://www.bigdata.com/rdf#"
+	// 	xmlns:bds="http://www.bigdata.com/rdf/search#">
+	//
+	// <rdf:Description rdf:about="http://tmcphill.net/data#y">
+	// 	<tag xmlns="http://tmcphill.net/tags#">eight</tag>
+	// </rdf:Description>
+	//
+	// <rdf:Description rdf:about="http://tmcphill.net/tags#tag">
+	// 	<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+	// 	<rdfs:subPropertyOf rdf:resource="http://tmcphill.net/tags#tag"/>
+	// </rdf:Description>
+	//
+	// <rdf:Description rdf:about="http://tmcphill.net/data#x">
+	// 	<tag xmlns="http://tmcphill.net/tags#">seven</tag>
+	// </rdf:Description>
+	//
+	// </rdf:RDF>
 }
 
-func TestBlazegraphCmd_drop_load_turtle_then_dump_jsonld(t *testing.T) {
+func TestBlazegraphCmd_drop_load_ttl_then_dump_jsonld(t *testing.T) {
 	var resultsBuffer strings.Builder
 	Main.OutWriter = &resultsBuffer
 	Main.ErrWriter = &resultsBuffer
 
 	runWithArgs("blazegraph drop")
-	runWithArgs("blazegraph load --file testdata/in.nt --format turtle")
-	runWithArgs("blazegraph dump --format json-ld")
+	runWithArgs("blazegraph load --file testdata/in.nt --format ttl")
+	runWithArgs("blazegraph dump --format jsonld")
 
 	assert.JSONEquals(t, resultsBuffer.String(), `
 	[
@@ -94,8 +145,8 @@ func ExampleBlazegraphCmd_drop_load_jsonld_then_dump_ntriples() {
 	Main.OutWriter = os.Stdout
 	Main.ErrWriter = os.Stdout
 	runWithArgs("blazegraph drop")
-	runWithArgs("blazegraph load --file testdata/address-book.jsonld --format json-ld")
-	runWithArgs("blazegraph dump")
+	runWithArgs("blazegraph load --file testdata/address-book.jsonld --format jsonld")
+	runWithArgs("blazegraph dump --format nt")
 	// Output:
 	// <http://learningsparql.com/ns/addressbook#email> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
 	// <http://learningsparql.com/ns/addressbook#email> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://learningsparql.com/ns/addressbook#email> .
@@ -132,8 +183,8 @@ func TestBlazegraphCmd_drop_load_jsonld_then_dump_jsonld(t *testing.T) {
 	Main.ErrWriter = &resultsBuffer
 
 	runWithArgs("blazegraph drop")
-	runWithArgs("blazegraph load --file testdata/address-book.jsonld --format json-ld")
-	runWithArgs("blazegraph dump --format json-ld")
+	runWithArgs("blazegraph load --file testdata/address-book.jsonld --format jsonld")
+	runWithArgs("blazegraph dump --format jsonld")
 
 	assert.JSONEquals(t, resultsBuffer.String(), `
 	[ {

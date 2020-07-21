@@ -42,7 +42,7 @@ func main() {
 		drop()
 
 	case "dump":
-		format := flags.String("format", "n-triples", "Format for dumped triples")
+		format := flags.String("format", "nt", "Format for dumped triples")
 		if err = flags.Parse(os.Args[2:]); err != nil {
 			fmt.Println(err)
 			flags.Usage()
@@ -52,7 +52,7 @@ func main() {
 
 	case "load":
 		file := flags.String("file", "-", "File containing triples to load")
-		format := flags.String("format", "n-triples", "Format of triples to load")
+		format := flags.String("format", "ttl", "Format of triples to load")
 		if err = flags.Parse(os.Args[2:]); err != nil {
 			fmt.Println(err)
 			flags.Usage()
@@ -80,11 +80,11 @@ func load(file string, format string) {
 	}
 	switch format {
 
-	case "turtle":
-		_, err = bc.PostData("application/x-turtle", data)
-
-	case "json-ld":
+	case "jsonld":
 		_, err = bc.PostData("application/ld+json", data)
+
+	case "ttl":
+		_, err = bc.PostData("application/x-turtle", data)
 	}
 
 	if err != nil {
@@ -99,10 +99,14 @@ func dump(format string) {
 	var triples string
 
 	switch format {
-	case "n-triples":
-		triples, err = bc.ConstructAll("text/plain")
-	case "json-ld":
+	case "jsonld":
 		triples, err = bc.ConstructAll("application/ld+json")
+	case "nt":
+		triples, err = bc.ConstructAll("text/plain")
+	case "ttl":
+		triples, err = bc.ConstructAll("application/x-ttl")
+	case "xml":
+		triples, err = bc.ConstructAll("application/rdf+xml")
 	}
 
 	if err != nil {
