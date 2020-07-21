@@ -9,13 +9,9 @@ import (
 
 var SparqlEndpoint = "http://127.0.0.1:9999/blazegraph/sparql"
 
-func CanonicalJSONFromString(jsonString string) (string, error) {
+func CanonicalJSON(jsonString string) (string, error) {
 	var originalJSON interface{}
 	json.Unmarshal([]byte(jsonString), &originalJSON)
-	return CanonicalJSON(originalJSON)
-}
-
-func CanonicalJSON(originalJSON interface{}) (string, error) {
 	canonicalJSONString, err := jcs.Format(originalJSON)
 	return canonicalJSONString, err
 }
@@ -27,9 +23,9 @@ func StringEquals(t *testing.T, actual string, expected string) {
 	}
 }
 
-func JSONEquals(t *testing.T, actual interface{}, expected string) {
+func JSONEquals(t *testing.T, actual string, expected string) {
 	actualCanonical, _ := CanonicalJSON(actual)
-	expectedCanonical, _ := CanonicalJSONFromString(expected)
+	expectedCanonical, _ := CanonicalJSON(expected)
 	if actualCanonical != expectedCanonical {
 		t.Log("assertEquivalentJSON:\n" +
 			"\nexpected: " + expectedCanonical +

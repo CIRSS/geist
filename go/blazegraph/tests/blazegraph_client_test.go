@@ -1,7 +1,6 @@
 package tests
 
 import (
-	"encoding/json"
 	"fmt"
 	"strings"
 	"testing"
@@ -14,9 +13,8 @@ func TestBlazegraphClient_GetAllTriplesAsJSON_EmptyStore(t *testing.T) {
 	bc := blazegraph.NewClient()
 	bc.DeleteAll()
 	triples, _ := bc.SelectAll()
-	var resultJSON interface{}
-	json.Unmarshal(triples, &resultJSON)
-	assert.JSONEquals(t, resultJSON,
+	actual, _ := triples.JSONString()
+	assert.JSONEquals(t, actual,
 		`{
 			"head" : {
 				"vars" : [ "s", "p", "o" ]
@@ -36,18 +34,17 @@ func TestBlazegraphClient_InsertOneTriple(t *testing.T) {
 	d:y t:tag "seven" .
 	`))
 
-	responseBody, _ := bc.PostSparqlQuery(
+	resultSet, _ := bc.Select(
 		`prefix t: <http://tmcphill.net/tags#>
 		 SELECT ?s ?o
 		 WHERE
 		 { ?s t:tag ?o }
 		 `)
 
-	var resultJSON interface{}
-	json.Unmarshal(responseBody, &resultJSON)
+	actual, _ := resultSet.JSONString()
 
 	assert.JSONEquals(t,
-		resultJSON,
+		actual,
 		`{
 			"head" : { "vars" : [ "s", "o" ] },
 			"results" : {
@@ -70,18 +67,17 @@ func TestBlazegraphClient_InsertTwoTriples(t *testing.T) {
 		d:y t:tag "eight" .
 	`))
 
-	responseBody, _ := bc.PostSparqlQuery(
+	resultSet, _ := bc.Select(
 		`prefix ab: <http://tmcphill.net/tags#>
 		 SELECT ?s ?o
 		 WHERE
 		 { ?s ab:tag ?o }
 		 `)
 
-	var resultJSON interface{}
-	json.Unmarshal(responseBody, &resultJSON)
+	actual, _ := resultSet.JSONString()
 
 	assert.JSONEquals(t,
-		resultJSON,
+		actual,
 		`{
 			"head" : { "vars" : [ "s", "o" ] },
 			"results" : {
@@ -106,24 +102,24 @@ func TestBlazegraphClient_InsertTwoTriples_Struct(t *testing.T) {
 		d:x t:tag "seven" .
 		d:y t:tag "eight" .
 	`))
-	sr, _ := bc.SparqlQuery(
+	rs, _ := bc.Select(
 		`prefix ab: <http://tmcphill.net/tags#>
 		 SELECT ?s ?o
 		 WHERE
 		 { ?s ab:tag ?o }
 		 `)
 
-	assert.StringEquals(t, strings.Join(sr.Vars(), ", "), "s, o")
+	assert.StringEquals(t, strings.Join(rs.Vars(), ", "), "s, o")
 
-	assert.StringEquals(t, sr.Bindings()[0]["s"].Type, "uri")
-	assert.StringEquals(t, sr.Bindings()[0]["s"].Value, "http://tmcphill.net/data#x")
-	assert.StringEquals(t, sr.Bindings()[0]["o"].Type, "literal")
-	assert.StringEquals(t, sr.Bindings()[0]["o"].Value, "seven")
+	assert.StringEquals(t, rs.Bindings()[0]["s"].Type, "uri")
+	assert.StringEquals(t, rs.Bindings()[0]["s"].Value, "http://tmcphill.net/data#x")
+	assert.StringEquals(t, rs.Bindings()[0]["o"].Type, "literal")
+	assert.StringEquals(t, rs.Bindings()[0]["o"].Value, "seven")
 
-	assert.StringEquals(t, sr.Bindings()[1]["s"].Type, "uri")
-	assert.StringEquals(t, sr.Bindings()[1]["s"].Value, "http://tmcphill.net/data#y")
-	assert.StringEquals(t, sr.Bindings()[1]["o"].Type, "literal")
-	assert.StringEquals(t, sr.Bindings()[1]["o"].Value, "eight")
+	assert.StringEquals(t, rs.Bindings()[1]["s"].Type, "uri")
+	assert.StringEquals(t, rs.Bindings()[1]["s"].Value, "http://tmcphill.net/data#y")
+	assert.StringEquals(t, rs.Bindings()[1]["o"].Type, "literal")
+	assert.StringEquals(t, rs.Bindings()[1]["o"].Value, "eight")
 }
 
 func ExampleBlazegraphClient_DumpAsNTriples() {

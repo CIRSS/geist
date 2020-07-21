@@ -67,13 +67,14 @@ func (bc *Client) PostData(format string, data []byte) (responseBody []byte, err
 	return
 }
 
-func (bc *Client) Select(query string) (responseBody []byte, err error) {
-	responseBody, err = bc.PostSparqlQuery(query)
+func (bc *Client) Select(query string) (rs sparql.ResultSet, err error) {
+	responseBody, err := bc.PostRequest("application/sparql-query", "application/json", []byte(query))
+	err = json.Unmarshal(responseBody, &rs)
 	return
 }
 
-func (bc *Client) SelectAll() (responseBody []byte, err error) {
-	responseBody, err = bc.Select(
+func (bc *Client) SelectAll() (rs sparql.ResultSet, err error) {
+	rs, err = bc.Select(
 		`SELECT ?s ?p ?o
 		 WHERE
 		 { ?s ?p ?o }`,
@@ -81,8 +82,8 @@ func (bc *Client) SelectAll() (responseBody []byte, err error) {
 	return
 }
 
-func (bc *Client) Construct(format string, query string) (responseBody []byte, err error) {
-	responseBody, err = bc.PostRequest("application/sparql-query", format, []byte(query))
+func (bc *Client) Construct(format string, query string) (triples []byte, err error) {
+	triples, err = bc.PostRequest("application/sparql-query", format, []byte(query))
 	return
 }
 
@@ -96,16 +97,6 @@ func (bc *Client) ConstructAll(format string) (triples string, err error) {
 	if err == nil {
 		triples = string(responseBody)
 	}
-	return
-}
-
-func (bc *Client) PostSparqlQuery(query string) (responseBody []byte, err error) {
-	return bc.PostRequest("application/sparql-query", "application/json", []byte(query))
-}
-
-func (bc *Client) SparqlQuery(query string) (sr sparql.Result, err error) {
-	responseBody, err := bc.PostSparqlQuery(query)
-	err = json.Unmarshal(responseBody, &sr)
 	return
 }
 

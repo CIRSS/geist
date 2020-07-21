@@ -1,21 +1,23 @@
 package sparql
 
+import "encoding/json"
+
 type ResultSet struct {
-	Head    Head
-	Results Results
+	Head    Head    `json:"head"`
+	Results Results `json:"results"`
 }
 
 type Head struct {
-	Vars []string
+	Vars []string `json:"vars"`
 }
 
 type Results struct {
-	Bindings []Binding
+	Bindings []Binding `json:"bindings"`
 }
 
 type Binding map[string]struct {
-	Type  string
-	Value string
+	Type  string `json:"type"`
+	Value string `json:"value"`
 }
 
 func (b Binding) DelimitedValue(name string) (delimitedValue string) {
@@ -26,6 +28,12 @@ func (b Binding) DelimitedValue(name string) (delimitedValue string) {
 	case "literal":
 		delimitedValue = "\"" + value + "\""
 	}
+	return
+}
+
+func (rs *ResultSet) JSONString() (jsonString string, err error) {
+	jsonBytes, err := json.Marshal(*rs)
+	jsonString = string(jsonBytes)
 	return
 }
 
