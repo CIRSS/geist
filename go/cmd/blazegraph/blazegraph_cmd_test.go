@@ -57,8 +57,7 @@ func TestBlazegraphCmd_drop_load_turtle_then_dump_jsonld(t *testing.T) {
 	runWithArgs("blazegraph load --file testdata/in.nt --format turtle")
 	runWithArgs("blazegraph dump --format json-ld")
 
-	actualJSON, _ := assert.CanonicalJSON(resultsBuffer.String())
-	expectedJSON, _ := assert.CanonicalJSON(`
+	assert.JSONEquals(t, resultsBuffer.String(), `
 	[
 		{
 		  "@id": "http://tmcphill.net/data#x",
@@ -89,7 +88,6 @@ func TestBlazegraphCmd_drop_load_turtle_then_dump_jsonld(t *testing.T) {
 		}
 	  ]
 	`)
-	assert.StringEquals(t, actualJSON, expectedJSON)
 }
 
 func ExampleBlazegraphCmd_drop_load_jsonld_then_dump_ntriples() {
@@ -137,8 +135,7 @@ func TestBlazegraphCmd_drop_load_jsonld_then_dump_jsonld(t *testing.T) {
 	runWithArgs("blazegraph load --file testdata/address-book.jsonld --format json-ld")
 	runWithArgs("blazegraph dump --format json-ld")
 
-	actualJSON, _ := assert.CanonicalJSON(resultsBuffer.String())
-	expectedJSON, _ := assert.CanonicalJSON(`
+	assert.JSONEquals(t, resultsBuffer.String(), `
 	[ {
 	"@id" : "http://learningsparql.com/ns/addressbook#email",
 	"@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
@@ -226,6 +223,4 @@ func TestBlazegraphCmd_drop_load_jsonld_then_dump_jsonld(t *testing.T) {
 		"@value" : "(245) 732-8991"
 	} ]
 	} ]`)
-
-	assert.StringEquals(t, actualJSON, expectedJSON)
 }
