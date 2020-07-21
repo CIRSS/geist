@@ -2,6 +2,7 @@ package assert
 
 import (
 	"encoding/json"
+	"strings"
 	"testing"
 
 	"github.com/ucarion/jcs"
@@ -20,6 +21,22 @@ func StringEquals(t *testing.T, actual string, expected string) {
 	if actual != expected {
 		t.Log("assertStringEquals:\n\nexpected: " + expected + "\nactual:   " + actual + "\n")
 		t.Fail()
+	}
+}
+
+func trim(s string) string {
+	return strings.Trim(s, " \n\r\t")
+}
+
+func LineContentsEqual(t *testing.T, actual string, expect string) {
+	actualContent := strings.Split(trim(actual), "\n")
+	expectContent := strings.Split(trim(expect), "\n")
+	lineCount := len(actualContent)
+	if lineCount != len(expectContent) {
+		StringEquals(t, actual, expect)
+	}
+	for i := 0; i < lineCount; i++ {
+		StringEquals(t, trim(actualContent[i]), trim(expectContent[i]))
 	}
 }
 
