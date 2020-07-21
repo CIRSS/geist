@@ -79,6 +79,12 @@ func (bc *Client) SelectCSV(query string) (csv string, err error) {
 	return
 }
 
+func (bc *Client) SelectXML(query string) (csv string, err error) {
+	responseBody, err := bc.PostRequest("application/sparql-query", "sparql-results+xml", []byte(query))
+	csv = string(responseBody)
+	return
+}
+
 func (bc *Client) SelectAll() (rs sparql.ResultSet, err error) {
 	rs, err = bc.Select(
 		`SELECT ?s ?p ?o

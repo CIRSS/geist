@@ -115,6 +115,12 @@ func query(file string, format string) {
 
 	switch format {
 
+	case "csv":
+		resultCSV, _ := bc.SelectCSV(string(q))
+		if err == nil {
+			fmt.Fprintf(Main.OutWriter, resultCSV)
+		}
+
 	case "json":
 		var rs sparql.ResultSet
 		rs, err = bc.Select(string(q))
@@ -123,10 +129,10 @@ func query(file string, format string) {
 			fmt.Fprintf(Main.OutWriter, resultJSON)
 		}
 
-	case "csv":
-		resultCSV, _ := bc.SelectCSV(string(q))
+	case "xml":
+		resultXML, _ := bc.SelectXML(string(q))
 		if err == nil {
-			fmt.Fprintf(Main.OutWriter, resultCSV)
+			fmt.Fprintf(Main.OutWriter, resultXML)
 		}
 	}
 
