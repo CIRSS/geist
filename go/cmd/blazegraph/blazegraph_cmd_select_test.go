@@ -9,17 +9,30 @@ import (
 
 func TestBlazegraphCmd_query_json(t *testing.T) {
 
-	var resultsBuffer strings.Builder
-	Main.OutWriter = &resultsBuffer
-	Main.ErrWriter = &resultsBuffer
+	var outputBuffer strings.Builder
+	Main.OutWriter = &outputBuffer
+	Main.ErrWriter = &outputBuffer
 
 	runWithArgs("blazegraph drop")
-	runWithArgs("blazegraph load --file testdata/in.nt --format ttl")
+
+	Main.InReader = strings.NewReader(`
+		<http://tmcphill.net/data#y> <http://tmcphill.net/tags#tag> "eight" .
+		<http://tmcphill.net/data#x> <http://tmcphill.net/tags#tag> "seven" .
+	`)
+	runWithArgs("blazegraph load --format ttl")
+
+	query := `
+		prefix ab: <http://tmcphill.net/tags#>
+		SELECT ?s ?o
+		WHERE
+		{ ?s ab:tag ?o }
+	`
 
 	t.Run("json", func(t *testing.T) {
-		resultsBuffer.Reset()
-		runWithArgs("blazegraph query --file testdata/q1.sparql --format json")
-		assert.JSONEquals(t, resultsBuffer.String(), `{
+		outputBuffer.Reset()
+		Main.InReader = strings.NewReader(query)
+		runWithArgs("blazegraph query --format json")
+		assert.JSONEquals(t, outputBuffer.String(), `{
 			"head": { "vars": ["s", "o"] },
 			"results": { "bindings": [
 				{
@@ -35,9 +48,10 @@ func TestBlazegraphCmd_query_json(t *testing.T) {
 	})
 
 	t.Run("xml", func(t *testing.T) {
-		resultsBuffer.Reset()
-		runWithArgs("blazegraph query --file testdata/q1.sparql --format xml")
-		assert.LineContentsEqual(t, resultsBuffer.String(), `
+		outputBuffer.Reset()
+		Main.InReader = strings.NewReader(query)
+		runWithArgs("blazegraph query --format xml")
+		assert.LineContentsEqual(t, outputBuffer.String(), `
 			<?xml version='1.0' encoding='UTF-8'?>
             <sparql xmlns='http://www.w3.org/2005/sparql-results#'>
             	<head>
@@ -67,10 +81,10 @@ func TestBlazegraphCmd_query_json(t *testing.T) {
 	})
 
 	t.Run("csv", func(t *testing.T) {
-		resultsBuffer.Reset()
-		runWithArgs("blazegraph query --file testdata/q1.sparql --format csv")
-		results := resultsBuffer.String()
-		assert.LineContentsEqual(t, results, `
+		outputBuffer.Reset()
+		Main.InReader = strings.NewReader(query)
+		runWithArgs("blazegraph query --format csv")
+		assert.LineContentsEqual(t, outputBuffer.String(), `
 			s,o
 			http://tmcphill.net/data#x,seven
 			http://tmcphill.net/data#y,eight`)

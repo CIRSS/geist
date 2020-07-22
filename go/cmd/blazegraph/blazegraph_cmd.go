@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"io"
 	"io/ioutil"
 	"os"
 
@@ -83,13 +84,24 @@ func drop() {
 	bc.DeleteAll()
 }
 
+func readFileOrStdin(filePath string) (bytes []byte, err error) {
+	var r io.Reader
+	if filePath == "-" {
+		r = Main.InReader
+	} else {
+		r, _ = os.Open(filePath)
+	}
+	return ioutil.ReadAll(r)
+}
+
 func load(file string, format string) {
 	bc := blazegraph.NewClient()
-	data, err := ioutil.ReadFile(file)
+	data, err := readFileOrStdin(file)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
+
 	switch format {
 
 	case "jsonld":
@@ -107,7 +119,7 @@ func load(file string, format string) {
 
 func query(file string, format string) {
 	bc := blazegraph.NewClient()
-	q, err := ioutil.ReadFile(file)
+	q, err := readFileOrStdin(file)
 	if err != nil {
 		fmt.Println(err)
 		return

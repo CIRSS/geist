@@ -1,4 +1,0 @@
-prefix ab: <http://tmcphill.net/tags#>
-SELECT ?s ?o
-WHERE
-{ ?s ab:tag ?o }
