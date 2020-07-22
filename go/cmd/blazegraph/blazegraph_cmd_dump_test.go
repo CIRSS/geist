@@ -8,13 +8,64 @@ import (
 	"github.com/tmcphillips/blazegraph-util/assert"
 )
 
-func ExampleBlazegraphCmd_export_empty_store() {
-	Main.OutWriter = os.Stdout
-	Main.ErrWriter = os.Stdout
+func TestBlazegraphCmd_export_empty_store(t *testing.T) {
+
+	var outputBuffer strings.Builder
+	Main.OutWriter = &outputBuffer
+	Main.ErrWriter = &outputBuffer
+
 	run("blazegraph drop")
-	run("blazegraph export")
-	// Output:
-	//
+
+	t.Run("jsonld", func(t *testing.T) {
+		outputBuffer.Reset()
+		run("blazegraph export --format jsonld")
+		assert.LineContentsEqual(t, outputBuffer.String(), `[ ]`)
+	})
+
+	t.Run("nt", func(t *testing.T) {
+		outputBuffer.Reset()
+		run("blazegraph export --format nt")
+		assert.LineContentsEqual(t, outputBuffer.String(), ``)
+	})
+
+	t.Run("ttl", func(t *testing.T) {
+		outputBuffer.Reset()
+		run("blazegraph export --format ttl")
+		assert.LineContentsEqual(t, outputBuffer.String(), `
+			@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+			@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+			@prefix sesame: <http://www.openrdf.org/schema/sesame#> .
+			@prefix owl: <http://www.w3.org/2002/07/owl#> .
+			@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+			@prefix fn: <http://www.w3.org/2005/xpath-functions#> .
+			@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+			@prefix dc: <http://purl.org/dc/elements/1.1/> .
+			@prefix hint: <http://www.bigdata.com/queryHints#> .
+			@prefix bd: <http://www.bigdata.com/rdf#> .
+			@prefix bds: <http://www.bigdata.com/rdf/search#> .		`)
+	})
+
+	t.Run("xml", func(t *testing.T) {
+		outputBuffer.Reset()
+		run("blazegraph export --format xml")
+		assert.LineContentsEqual(t, outputBuffer.String(), `
+		<?xml version="1.0" encoding="UTF-8"?>
+	        <rdf:RDF
+	        	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	        	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	        	xmlns:sesame="http://www.openrdf.org/schema/sesame#"
+	        	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	        	xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+	        	xmlns:fn="http://www.w3.org/2005/xpath-functions#"
+	        	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	        	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	        	xmlns:hint="http://www.bigdata.com/queryHints#"
+	        	xmlns:bd="http://www.bigdata.com/rdf#"
+	        	xmlns:bds="http://www.bigdata.com/rdf/search#">
+
+			</rdf:RDF>
+		`)
+	})
 }
 
 func ExampleBlazegraphCmd_drop_import_ttl_then_export_ttl() {

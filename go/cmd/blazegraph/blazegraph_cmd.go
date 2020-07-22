@@ -172,7 +172,7 @@ func export(format string) {
 	case "nt":
 		triples, err = bc.ConstructAll("text/plain")
 	case "ttl":
-		triples, err = bc.ConstructAll("application/x-ttl")
+		triples, err = bc.ConstructAll("application/x-turtle")
 	case "xml":
 		triples, err = bc.ConstructAll("application/rdf+xml")
 	}
