@@ -44,24 +44,24 @@ func main() {
 		}
 		drop()
 
-	case "dump":
-		format := flags.String("format", "nt", "Format for dumped triples")
+	case "export":
+		format := flags.String("format", "nt", "Format for exported triples")
 		if err = flags.Parse(os.Args[2:]); err != nil {
-			fmt.Println(err)
+			fmt.Fprintf(Main.ErrWriter, err.Error())
 			flags.Usage()
 			return
 		}
-		dump(*format)
+		export(*format)
 
-	case "load":
-		file := flags.String("file", "-", "File containing triples to load")
-		format := flags.String("format", "ttl", "Format of triples to load")
+	case "import":
+		file := flags.String("file", "-", "File containing triples to import")
+		format := flags.String("format", "ttl", "Format of triples to import")
 		if err = flags.Parse(os.Args[2:]); err != nil {
-			fmt.Println(err)
+			fmt.Fprintf(Main.ErrWriter, err.Error())
 			flags.Usage()
 			return
 		}
-		load(*file, *format)
+		inport(*file, *format)
 
 	case "query":
 		file := flags.String("file", "-", "File containing query to execute")
@@ -74,7 +74,7 @@ func main() {
 		query(*file, *format)
 
 	default:
-		fmt.Printf("Unrecognized command: %s\n", command)
+		fmt.Fprintf(Main.ErrWriter, "Unrecognized command: %s\n", command)
 	}
 
 }
@@ -94,11 +94,11 @@ func readFileOrStdin(filePath string) (bytes []byte, err error) {
 	return ioutil.ReadAll(r)
 }
 
-func load(file string, format string) {
+func inport(file string, format string) {
 	bc := blazegraph.NewClient()
 	data, err := readFileOrStdin(file)
 	if err != nil {
-		fmt.Println(err)
+		fmt.Fprintf(Main.ErrWriter, err.Error())
 		return
 	}
 
@@ -112,7 +112,7 @@ func load(file string, format string) {
 	}
 
 	if err != nil {
-		fmt.Println(err)
+		fmt.Fprintf(Main.ErrWriter, err.Error())
 		return
 	}
 }
@@ -121,7 +121,7 @@ func query(file string, format string) {
 	bc := blazegraph.NewClient()
 	q, err := readFileOrStdin(file)
 	if err != nil {
-		fmt.Println(err)
+		fmt.Fprintf(Main.ErrWriter, err.Error())
 		return
 	}
 
@@ -129,33 +129,39 @@ func query(file string, format string) {
 
 	case "csv":
 		resultCSV, _ := bc.SelectCSV(string(q))
-		if err == nil {
-			fmt.Fprintf(Main.OutWriter, resultCSV)
+		if err != nil {
+			break
 		}
+		fmt.Fprintf(Main.OutWriter, resultCSV)
+		return
 
 	case "json":
 		var rs sparql.ResultSet
 		rs, err = bc.Select(string(q))
-		if err == nil {
-			resultJSON, _ := rs.JSONString()
-			fmt.Fprintf(Main.OutWriter, resultJSON)
+		if err != nil {
+			break
 		}
+		resultJSON, _ := rs.JSONString()
+		fmt.Fprintf(Main.OutWriter, resultJSON)
+		return
 
 	case "xml":
-		resultXML, _ := bc.SelectXML(string(q))
-		if err == nil {
-			fmt.Fprintf(Main.OutWriter, resultXML)
+		resultXML, err := bc.SelectXML(string(q))
+		if err != nil {
+			break
 		}
+		fmt.Fprintf(Main.OutWriter, resultXML)
+		return
 	}
 
 	if err != nil {
-		fmt.Println(err)
+		fmt.Fprintf(Main.ErrWriter, err.Error())
 		return
 	}
 
 }
 
-func dump(format string) {
+func export(format string) {
 	bc := blazegraph.NewClient()
 	var err error
 	var triples string
@@ -172,7 +178,7 @@ func dump(format string) {
 	}
 
 	if err != nil {
-		fmt.Println(err)
+		fmt.Fprintf(Main.ErrWriter, err.Error())
 		return
 	}
 

@@ -13,13 +13,13 @@ func TestBlazegraphCmd_query_json(t *testing.T) {
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
 
-	runWithArgs("blazegraph drop")
+	run("blazegraph drop")
 
 	Main.InReader = strings.NewReader(`
 		<http://tmcphill.net/data#y> <http://tmcphill.net/tags#tag> "eight" .
 		<http://tmcphill.net/data#x> <http://tmcphill.net/tags#tag> "seven" .
 	`)
-	runWithArgs("blazegraph load --format ttl")
+	run("blazegraph import --format ttl")
 
 	query := `
 		prefix ab: <http://tmcphill.net/tags#>
@@ -31,7 +31,7 @@ func TestBlazegraphCmd_query_json(t *testing.T) {
 	t.Run("json", func(t *testing.T) {
 		outputBuffer.Reset()
 		Main.InReader = strings.NewReader(query)
-		runWithArgs("blazegraph query --format json")
+		run("blazegraph query --format json")
 		assert.JSONEquals(t, outputBuffer.String(), `{
 			"head": { "vars": ["s", "o"] },
 			"results": { "bindings": [
@@ -50,7 +50,7 @@ func TestBlazegraphCmd_query_json(t *testing.T) {
 	t.Run("xml", func(t *testing.T) {
 		outputBuffer.Reset()
 		Main.InReader = strings.NewReader(query)
-		runWithArgs("blazegraph query --format xml")
+		run("blazegraph query --format xml")
 		assert.LineContentsEqual(t, outputBuffer.String(), `
 			<?xml version='1.0' encoding='UTF-8'?>
             <sparql xmlns='http://www.w3.org/2005/sparql-results#'>
@@ -83,7 +83,7 @@ func TestBlazegraphCmd_query_json(t *testing.T) {
 	t.Run("csv", func(t *testing.T) {
 		outputBuffer.Reset()
 		Main.InReader = strings.NewReader(query)
-		runWithArgs("blazegraph query --format csv")
+		run("blazegraph query --format csv")
 		assert.LineContentsEqual(t, outputBuffer.String(), `
 			s,o
 			http://tmcphill.net/data#x,seven

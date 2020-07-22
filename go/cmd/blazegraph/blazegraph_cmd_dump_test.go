@@ -8,21 +8,21 @@ import (
 	"github.com/tmcphillips/blazegraph-util/assert"
 )
 
-func ExampleBlazegraphCmd_drop_then_dump() {
+func ExampleBlazegraphCmd_export_empty_store() {
 	Main.OutWriter = os.Stdout
 	Main.ErrWriter = os.Stdout
-	runWithArgs("blazegraph drop")
-	runWithArgs("blazegraph dump")
+	run("blazegraph drop")
+	run("blazegraph export")
 	// Output:
 	//
 }
 
-func ExampleBlazegraphCmd_drop_load_ttl_then_dump_ttl() {
+func ExampleBlazegraphCmd_drop_import_ttl_then_export_ttl() {
 	Main.OutWriter = os.Stdout
 	Main.ErrWriter = os.Stdout
-	runWithArgs("blazegraph drop")
-	runWithArgs("blazegraph load --file testdata/in.nt --format ttl")
-	runWithArgs("blazegraph dump --format ttl")
+	run("blazegraph drop")
+	run("blazegraph import --file testdata/in.nt --format ttl")
+	run("blazegraph export --format ttl")
 	// Output:
 	// @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 	// @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -44,12 +44,12 @@ func ExampleBlazegraphCmd_drop_load_ttl_then_dump_ttl() {
 	// <http://tmcphill.net/data#x> <http://tmcphill.net/tags#tag> "seven" .
 }
 
-func ExampleBlazegraphCmd_drop_load_ttl_then_dump_ntriples() {
+func ExampleBlazegraphCmd_drop_import_ttl_then_export_ntriples() {
 	Main.OutWriter = os.Stdout
 	Main.ErrWriter = os.Stdout
-	runWithArgs("blazegraph drop")
-	runWithArgs("blazegraph load --file testdata/in.nt --format ttl")
-	runWithArgs("blazegraph dump --format nt")
+	run("blazegraph drop")
+	run("blazegraph import --file testdata/in.nt --format ttl")
+	run("blazegraph export --format nt")
 	// Output:
 	// <http://tmcphill.net/data#y> <http://tmcphill.net/tags#tag> "eight" .
 	// <http://tmcphill.net/tags#tag> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
@@ -57,12 +57,12 @@ func ExampleBlazegraphCmd_drop_load_ttl_then_dump_ntriples() {
 	// <http://tmcphill.net/data#x> <http://tmcphill.net/tags#tag> "seven" .
 }
 
-func ExampleBlazegraphCmd_drop_load_ttl_then_dump_xml() {
+func ExampleBlazegraphCmd_drop_import_ttl_then_export_xml() {
 	Main.OutWriter = os.Stdout
 	Main.ErrWriter = os.Stdout
-	runWithArgs("blazegraph drop")
-	runWithArgs("blazegraph load --file testdata/in.nt --format ttl")
-	runWithArgs("blazegraph dump --format xml")
+	run("blazegraph drop")
+	run("blazegraph import --file testdata/in.nt --format ttl")
+	run("blazegraph export --format xml")
 	// Output:
 	// <?xml version="1.0" encoding="UTF-8"?>
 	// <rdf:RDF
@@ -94,14 +94,14 @@ func ExampleBlazegraphCmd_drop_load_ttl_then_dump_xml() {
 	// </rdf:RDF>
 }
 
-func TestBlazegraphCmd_drop_load_ttl_then_dump_jsonld(t *testing.T) {
+func TestBlazegraphCmd_drop_import_ttl_then_export_jsonld(t *testing.T) {
 	var resultsBuffer strings.Builder
 	Main.OutWriter = &resultsBuffer
 	Main.ErrWriter = &resultsBuffer
 
-	runWithArgs("blazegraph drop")
-	runWithArgs("blazegraph load --file testdata/in.nt --format ttl")
-	runWithArgs("blazegraph dump --format jsonld")
+	run("blazegraph drop")
+	run("blazegraph import --file testdata/in.nt --format ttl")
+	run("blazegraph export --format jsonld")
 
 	assert.JSONEquals(t, resultsBuffer.String(), `
 	[
@@ -136,12 +136,12 @@ func TestBlazegraphCmd_drop_load_ttl_then_dump_jsonld(t *testing.T) {
 	`)
 }
 
-func ExampleBlazegraphCmd_drop_load_jsonld_then_dump_ntriples() {
+func ExampleBlazegraphCmd_drop_import_jsonld_then_export_ntriples() {
 	Main.OutWriter = os.Stdout
 	Main.ErrWriter = os.Stdout
-	runWithArgs("blazegraph drop")
-	runWithArgs("blazegraph load --file testdata/address-book.jsonld --format jsonld")
-	runWithArgs("blazegraph dump --format nt")
+	run("blazegraph drop")
+	run("blazegraph import --file testdata/address-book.jsonld --format jsonld")
+	run("blazegraph export --format nt")
 	// Output:
 	// <http://learningsparql.com/ns/addressbook#email> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
 	// <http://learningsparql.com/ns/addressbook#email> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://learningsparql.com/ns/addressbook#email> .
@@ -172,14 +172,14 @@ func ExampleBlazegraphCmd_drop_load_jsonld_then_dump_ntriples() {
 	// <http://learningsparql.com/ns/data#i9771> <http://learningsparql.com/ns/addressbook#mobileTel> "(245) 732-8991"^^<http://www.w3.org/2001/XMLSchema#string> .
 }
 
-func TestBlazegraphCmd_drop_load_jsonld_then_dump_jsonld(t *testing.T) {
+func TestBlazegraphCmd_drop_import_jsonld_then_export_jsonld(t *testing.T) {
 	var resultsBuffer strings.Builder
 	Main.OutWriter = &resultsBuffer
 	Main.ErrWriter = &resultsBuffer
 
-	runWithArgs("blazegraph drop")
-	runWithArgs("blazegraph load --file testdata/address-book.jsonld --format jsonld")
-	runWithArgs("blazegraph dump --format jsonld")
+	run("blazegraph drop")
+	run("blazegraph import --file testdata/address-book.jsonld --format jsonld")
+	run("blazegraph export --format jsonld")
 
 	assert.JSONEquals(t, resultsBuffer.String(), `
 	[ {

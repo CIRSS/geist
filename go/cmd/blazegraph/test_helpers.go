@@ -5,7 +5,7 @@ import (
 	"strings"
 )
 
-func runWithArgs(commandLine string) {
+func run(commandLine string) {
 	os.Args = strings.Fields(commandLine)
 	Main.Run()
 }
