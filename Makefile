@@ -39,6 +39,12 @@ test: test-code
 
 ## 
 
+run-examples:           ## Run all of the examples.
+	$(RUN_IN_REPRO) 'make -C $(REPRO_DIR)/examples/jena all'
+
+clean-examples:         ## Delete all products of examples.
+	$(RUN_IN_REPRO) 'make -C $(REPRO_DIR)/examples/jena clean'
+
 build-code:             ## Build and install custom code.
 	$(RUN_IN_REPRO) 'make -C sparql build'
 	$(RUN_IN_REPRO) 'make -C blazegraph build'
