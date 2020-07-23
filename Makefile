@@ -40,10 +40,10 @@ test: test-code
 ## 
 
 run-examples:           ## Run all of the examples.
-	$(RUN_IN_REPRO) 'make -C $(REPRO_DIR)/examples/jena all'
+	$(RUN_IN_REPRO) 'make -C $(REPRO_DIR)/examples/01-jena all'
 
 clean-examples:         ## Delete all products of examples.
-	$(RUN_IN_REPRO) 'make -C $(REPRO_DIR)/examples/jena clean'
+	$(RUN_IN_REPRO) 'make -C $(REPRO_DIR)/examples/01-jena clean'
 
 build-code:             ## Build and install custom code.
 	$(RUN_IN_REPRO) 'make -C sparql build'
