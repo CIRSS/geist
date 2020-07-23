@@ -9,8 +9,6 @@ all:
 	done
 
 clean:
-	rm -rfv common/rules/*.xwam
-
 	for dir in $(EXAMPLE_DIRS); do                                          \
 		echo;                                                               \
 		echo "------- Cleaning example $$dir ----------------" ;            \
