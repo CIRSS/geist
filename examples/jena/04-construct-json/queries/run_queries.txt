@@ -1,0 +1,72 @@
+{
+    "@context": [
+        {
+            "ab": "http://learningsparql.com/ns/addressbook#",
+            "d": "http://learningsparql.com/ns/data#"
+        }
+    ],
+    "@graph": [
+        {
+            "@id": "d:i0432",
+            "ab:firstname": "Richard",
+            "ab:lastname": "Mutt",
+            "ab:homeTel": "(229) 276-5135", 
+            "ab:nickname": "Dick",
+            "ab:email": "richard49@hotmail.com"
+        },
+        {
+            "@id": "d:i9771",
+            "ab:firstname": "Cindy",
+            "ab:lastname": "Marshall",
+            "ab:homeTel": "(245) 646-5488",
+            "ab:mobileTel": "(245) 732-8991",
+            "ab:email": "cindym@gmail.com"
+        },
+        {
+            "@id": "d:i8301",
+            "ab:firstname": "Craig",
+            "ab:lastname": "Ellis",
+            "ab:homeTel": "(194) 966-1505",
+            "ab:email": [
+                "craigellis@yahoo.com", 
+                "c.ellis@usairwaysgroup.com"
+            ]
+        }
+    ]
+}
+
+**************************** QUERY Q1 **********************************
+
+# Construct new triples for everyone's name and email addresses as JSON
+
+PREFIX afn: <http://jena.apache.org/ARQ/function#>
+PREFIX ab: <http://learningsparql.com/ns/addressbook#>
+JSON {
+    "firstname": ?firstname, 
+    "email": ?email
+}
+WHERE {
+    ?person ab:email ?email.
+    ?person ab:firstname ?firstname .
+}
+
+--------------------- RESULTS FOR QUERY Q1------------------------------
+
+[ { 
+    "firstname" : "Craig" ,
+    "email" : "c.ellis@usairwaysgroup.com"
+  } ,
+  { 
+    "firstname" : "Cindy" ,
+    "email" : "cindym@gmail.com"
+  } ,
+  { 
+    "firstname" : "Richard" ,
+    "email" : "richard49@hotmail.com"
+  } ,
+  { 
+    "firstname" : "Craig" ,
+    "email" : "craigellis@yahoo.com"
+  }
+]
+

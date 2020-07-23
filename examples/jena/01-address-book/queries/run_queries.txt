@@ -1,0 +1,229 @@
+{
+    "@context": [
+        {
+            "ab": "http://learningsparql.com/ns/addressbook#",
+            "d": "http://learningsparql.com/ns/data#"
+        }
+    ],
+    "@graph": [
+        {
+            "@id": "d:i0432",
+            "ab:firstname": "Richard",
+            "ab:lastname": "Mutt",
+            "ab:homeTel": "(229) 276-5135", 
+            "ab:nickname": "Dick",
+            "ab:email": "richard49@hotmail.com"
+        },
+        {
+            "@id": "d:i9771",
+            "ab:firstname": "Cindy",
+            "ab:lastname": "Marshall",
+            "ab:homeTel": "(245) 646-5488",
+            "ab:mobileTel": "(245) 732-8991",
+            "ab:email": "cindym@gmail.com"
+        },
+        {
+            "@id": "d:i8301",
+            "ab:firstname": "Craig",
+            "ab:lastname": "Ellis",
+            "ab:homeTel": "(194) 966-1505",
+            "ab:email": [
+                "craigellis@yahoo.com", 
+                "c.ellis@usairwaysgroup.com"
+            ]
+        }
+    ]
+}
+
+**************************** QUERY Q1 **********************************
+
+# What are Craig's email addresses?
+
+PREFIX ab: <http://learningsparql.com/ns/addressbook#>
+SELECT ?email
+WHERE
+{
+    ?person ab:firstname "Craig"    .
+    ?person ab:email     ?email     .
+}
+
+--------------------- RESULTS FOR QUERY Q1------------------------------
+
+--------------------------------
+| email                        |
+================================
+| "c.ellis@usairwaysgroup.com" |
+| "craigellis@yahoo.com"       |
+--------------------------------
+
+
+**************************** QUERY Q2 **********************************
+
+# Whose telephone number is (245) 646-5488?
+
+PREFIX ab: <http://learningsparql.com/ns/addressbook#> 
+SELECT ?name
+WHERE
+{
+    ?person ab:homeTel   "(245) 646-5488"   ; 
+            ab:firstname ?name              .
+}
+
+--------------------- RESULTS FOR QUERY Q2------------------------------
+
+-----------
+| name    |
+===========
+| "Cindy" |
+-----------
+
+
+**************************** QUERY Q3 **********************************
+
+# List phone numbers by nickname or else first name.
+
+PREFIX ab: <http://learningsparql.com/ns/addressbook#> 
+SELECT ?firstname ?phone
+WHERE
+{
+    ?person ab:homeTel   ?phone .
+    OPTIONAL { ?person ab:nickname ?firstname . }
+    OPTIONAL { ?person ab:firstname ?firstname . }
+}
+
+--------------------- RESULTS FOR QUERY Q3------------------------------
+
+--------------------------------
+| firstname | phone            |
+================================
+| "Dick"    | "(229) 276-5135" |
+| "Craig"   | "(194) 966-1505" |
+| "Cindy"   | "(245) 646-5488" |
+--------------------------------
+
+
+**************************** QUERY Q4 **********************************
+
+# List everything known about Cindy.
+
+PREFIX ab: <http://learningsparql.com/ns/addressbook#> 
+SELECT ?propertyName ?propertyValue
+WHERE
+{
+    ?person ab:firstname  "Cindy"           ;
+            ?propertyName ?propertyValue    . 
+}
+
+--------------------- RESULTS FOR QUERY Q4------------------------------
+
+-------------------------------------
+| propertyName | propertyValue      |
+=====================================
+| ab:mobileTel | "(245) 732-8991"   |
+| ab:email     | "cindym@gmail.com" |
+| ab:lastname  | "Marshall"         |
+| ab:homeTel   | "(245) 646-5488"   |
+| ab:firstname | "Cindy"            |
+-------------------------------------
+
+
+**************************** QUERY Q5 **********************************
+
+# List everyone who has a yahoo email address.
+
+PREFIX ab: <http://learningsparql.com/ns/addressbook#> 
+SELECT ?firstname ?lastname ?email
+WHERE
+{
+    ?person ab:email     ?email             ;
+            ab:firstname ?firstname         ;
+            ab:lastname  ?lastname          .
+    FILTER (regex(?email, "yahoo", "i"))    .
+}
+
+--------------------- RESULTS FOR QUERY Q5------------------------------
+
+-------------------------------------------------
+| firstname | lastname | email                  |
+=================================================
+| "Craig"   | "Ellis"  | "craigellis@yahoo.com" |
+-------------------------------------------------
+
+
+**************************** QUERY Q6 **********************************
+
+# List everyone's home and mobile phone number.
+
+PREFIX ab: <http://learningsparql.com/ns/addressbook#> 
+SELECT ?firstname ?lastname ?home ?mobile
+WHERE
+{
+    ?person ab:lastname  ?lastname      ;
+            ab:firstname ?firstname     ;
+            ab:homeTel   ?home          . 
+    OPTIONAL {
+        ?person ab:mobileTel  ?mobile   . 
+    }
+}
+
+--------------------- RESULTS FOR QUERY Q6------------------------------
+
+----------------------------------------------------------------
+| firstname | lastname   | home             | mobile           |
+================================================================
+| "Cindy"   | "Marshall" | "(245) 646-5488" | "(245) 732-8991" |
+| "Craig"   | "Ellis"    | "(194) 966-1505" |                  |
+| "Richard" | "Mutt"     | "(229) 276-5135" |                  |
+----------------------------------------------------------------
+
+
+**************************** QUERY Q6 **********************************
+
+# List everyone who does not have a mobile number.
+
+PREFIX ab: <http://learningsparql.com/ns/addressbook#> 
+SELECT ?firstname ?lastname
+WHERE
+{
+    ?person ab:lastname  ?lastname      ;
+            ab:firstname ?firstname     .
+    FILTER NOT EXISTS {
+        ?person ab:mobileTel ?mobile   . 
+    }
+}
+
+--------------------- RESULTS FOR QUERY Q6------------------------------
+
+------------------------
+| firstname | lastname |
+========================
+| "Craig"   | "Ellis"  |
+| "Richard" | "Mutt"   |
+------------------------
+
+
+**************************** QUERY Q7 **********************************
+
+# List everyone who either has a nickname or a mobile number.
+
+PREFIX ab: <http://learningsparql.com/ns/addressbook#> 
+SELECT ?firstname ?lastname ?nickname ?mobile
+WHERE
+{
+    ?person ab:lastname  ?lastname      ;
+            ab:firstname ?firstname     .
+    OPTIONAL{ ?person ab:nickname ?nickname . }
+    OPTIONAL{ ?person ab:mobileTel ?mobile . }
+    FILTER( bound(?nickname) || bound(?mobile))
+
+}
+
+--------------------- RESULTS FOR QUERY Q7------------------------------
+
+--------------------------------------------------------
+| firstname | lastname   | nickname | mobile           |
+========================================================
+| "Cindy"   | "Marshall" |          | "(245) 732-8991" |
+| "Richard" | "Mutt"     | "Dick"   |                  |
+--------------------------------------------------------
+

@@ -12,7 +12,7 @@ import (
 	"github.com/tmcphillips/main-wrapper/mw"
 )
 
-// MW wraps the main() function.  It enables tests to manipulate the
+// Main wraps the main() function.  It enables tests to manipulate the
 // input and output streams used by main(), and provides a new FlagSet
 // for each execution so that main() can be called by multiple tests.
 var Main mw.MainWrapper

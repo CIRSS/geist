@@ -42,6 +42,18 @@ ENV BASHRC ${HOME}/.bashrc
 USER  ${REPRO_USER}
 WORKDIR $HOME
 
+# Download Apache Jena and add arq to PATH
+ENV JENA_VERSION 3.16.0
+ENV JENA_BINARIES http://apache.spinellicreations.com/jena/binaries
+ENV JENA_VERSION_NAME apache-jena-${JENA_VERSION}
+ENV JENA_HOME $HOME/${JENA_VERSION_NAME}
+ENV JENA_CLASSPATH=${JENA_HOME}/lib/*
+ENV JENA_ARCHIVE ${JENA_VERSION_NAME}.tar.gz
+
+RUN wget ${JENA_BINARIES}/${JENA_ARCHIVE}                                   \
+ && tar xvvf ${JENA_ARCHIVE}                                                \
+ && rm ${JENA_ARCHIVE}                                                      \
+ && echo 'PATH=~/${JENA_VERSION_NAME}/bin:$PATH' >> ${BASHRC}
 
 ENV BLAZEGRAPH_VER RELEASE_2_1_5
 ENV BLAZEGRAPH_RELEASES https://github.com/blazegraph/database/releases

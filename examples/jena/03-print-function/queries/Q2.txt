@@ -1,0 +1,31 @@
+Craig
+c.ellis@usairwaysgroup.com
+cindym@gmail.com
+richard49@hotmail.com
+craigellis@yahoo.com
+Richard
+c.ellis@usairwaysgroup.com
+cindym@gmail.com
+richard49@hotmail.com
+craigellis@yahoo.com
+Cindy
+c.ellis@usairwaysgroup.com
+cindym@gmail.com
+richard49@hotmail.com
+craigellis@yahoo.com
+--------------------------------------------
+| firstname | email                        |
+============================================
+| "Craig"   | "c.ellis@usairwaysgroup.com" |
+| "Craig"   | "cindym@gmail.com"           |
+| "Craig"   | "richard49@hotmail.com"      |
+| "Craig"   | "craigellis@yahoo.com"       |
+| "Richard" | "c.ellis@usairwaysgroup.com" |
+| "Richard" | "cindym@gmail.com"           |
+| "Richard" | "richard49@hotmail.com"      |
+| "Richard" | "craigellis@yahoo.com"       |
+| "Cindy"   | "c.ellis@usairwaysgroup.com" |
+| "Cindy"   | "cindym@gmail.com"           |
+| "Cindy"   | "richard49@hotmail.com"      |
+| "Cindy"   | "craigellis@yahoo.com"       |
+--------------------------------------------

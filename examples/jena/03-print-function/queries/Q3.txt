@@ -1,0 +1,21 @@
+c.ellis@usairwaysgroup.com
+Craig
+cindym@gmail.com
+Cindy
+richard49@hotmail.com
+Richard
+craigellis@yahoo.com
+Craig
+@prefix ab:    <http://learningsparql.com/ns/addressbook#> .
+@prefix d:     <http://learningsparql.com/ns/data#> .
+@prefix afn:   <http://jena.apache.org/ARQ/function#> .
+@prefix tm:    <http://learningsparql.com/tm#> .
+
+d:i9771  tm:email     "cindym@gmail.com" ;
+        tm:firstname  "Cindy" .
+
+d:i0432  tm:email     "richard49@hotmail.com" ;
+        tm:firstname  "Richard" .
+
+d:i8301  tm:email     "craigellis@yahoo.com" , "c.ellis@usairwaysgroup.com" ;
+        tm:firstname  "Craig" .

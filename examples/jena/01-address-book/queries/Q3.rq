@@ -1,0 +1,10 @@
+# List phone numbers by nickname or else first name.
+
+PREFIX ab: <http://learningsparql.com/ns/addressbook#> 
+SELECT ?firstname ?phone
+WHERE
+{
+    ?person ab:homeTel   ?phone .
+    OPTIONAL { ?person ab:nickname ?firstname . }
+    OPTIONAL { ?person ab:firstname ?firstname . }
+}

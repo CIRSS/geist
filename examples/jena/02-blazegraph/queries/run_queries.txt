@@ -1,0 +1,41 @@
+
+**************************** QUERY Q1 **********************************
+
+# List all triples in blazegraph.
+
+PREFIX ab: <http://learningsparql.com/ns/addressbook#> 
+CONSTRUCT 
+{ ?s ?p ?o }
+FROM <http://172.17.0.1:9999/blazegraph/sparql>
+WHERE 
+{ ?s ?p ?o }
+
+--------------------- RESULTS FOR QUERY Q1------------------------------
+
+@prefix ab:    <http://learningsparql.com/ns/addressbook#> .
+@prefix d:     <http://learningsparql.com/ns/data#> .
+
+
+**************************** QUERY Q2 **********************************
+
+# Select all triples in blazegraph.
+
+PREFIX ab: <http://learningsparql.com/ns/addressbook#> 
+SELECT ?s ?p ?o 
+WHERE
+{
+    SERVICE <http://172.17.0.2:9999/blazegraph/sparql> 
+    {
+        SELECT ?s ?p ?o 
+        WHERE {}
+    }
+}
+
+--------------------- RESULTS FOR QUERY Q2------------------------------
+
+-------------
+| s | p | o |
+=============
+|   |   |   |
+-------------
+

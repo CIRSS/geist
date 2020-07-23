@@ -1,0 +1,9 @@
+# What are Craig's email addresses?
+
+PREFIX ab: <http://learningsparql.com/ns/addressbook#>
+SELECT ?email
+WHERE
+{
+    ?person ab:firstname "Craig"    .
+    ?person ab:email     ?email     .
+}

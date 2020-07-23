@@ -1,0 +1,15 @@
+# Construct new triples for everyone's name and email addresses (and print them in subqueries)?
+
+PREFIX afn: <http://jena.apache.org/ARQ/function#>
+PREFIX ab: <http://learningsparql.com/ns/addressbook#>
+PREFIX tm: <http://learningsparql.com/tm#>
+CONSTRUCT {
+    ?person tm:firstname ?firstname . 
+    ?person tm:email ?email .
+}
+WHERE {
+    ?person ab:email ?email.
+    ?person ab:firstname ?firstname .
+    FILTER(afn:print(?firstname))
+    FILTER(afn:print(?email))
+}

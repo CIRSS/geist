@@ -1,0 +1,169 @@
+{
+    "@context": [
+        {
+            "ab": "http://learningsparql.com/ns/addressbook#",
+            "d": "http://learningsparql.com/ns/data#"
+        }
+    ],
+    "@graph": [
+        {
+            "@id": "d:i0432",
+            "ab:firstname": "Richard",
+            "ab:lastname": "Mutt",
+            "ab:homeTel": "(229) 276-5135", 
+            "ab:nickname": "Dick",
+            "ab:email": "richard49@hotmail.com"
+        },
+        {
+            "@id": "d:i9771",
+            "ab:firstname": "Cindy",
+            "ab:lastname": "Marshall",
+            "ab:homeTel": "(245) 646-5488",
+            "ab:mobileTel": "(245) 732-8991",
+            "ab:email": "cindym@gmail.com"
+        },
+        {
+            "@id": "d:i8301",
+            "ab:firstname": "Craig",
+            "ab:lastname": "Ellis",
+            "ab:homeTel": "(194) 966-1505",
+            "ab:email": [
+                "craigellis@yahoo.com", 
+                "c.ellis@usairwaysgroup.com"
+            ]
+        }
+    ]
+}
+
+**************************** QUERY Q1 **********************************
+
+# What is everyone's email addresses (and print them too)?
+
+PREFIX afn: <http://jena.apache.org/ARQ/function#>
+PREFIX ab: <http://learningsparql.com/ns/addressbook#>
+SELECT ?firstname ?email
+WHERE
+{
+    ?person ab:firstname ?firstname .
+    ?person ab:email     ?email     .
+    FILTER(CONTAINS(?firstname, "i"))
+    FILTER(afn:print(?email))
+}
+
+--------------------- RESULTS FOR QUERY Q1------------------------------
+
+c.ellis@usairwaysgroup.com
+craigellis@yahoo.com
+richard49@hotmail.com
+cindym@gmail.com
+--------------------------------------------
+| firstname | email                        |
+============================================
+| "Craig"   | "c.ellis@usairwaysgroup.com" |
+| "Craig"   | "craigellis@yahoo.com"       |
+| "Richard" | "richard49@hotmail.com"      |
+| "Cindy"   | "cindym@gmail.com"           |
+--------------------------------------------
+
+
+**************************** QUERY Q2 **********************************
+
+# What is everyone's email addresses (and print them in subqueries)?
+
+PREFIX afn: <http://jena.apache.org/ARQ/function#>
+PREFIX ab: <http://learningsparql.com/ns/addressbook#>
+SELECT *
+WHERE {
+    {
+        SELECT ?firstname
+        WHERE { 
+            ?person ab:firstname ?firstname
+            FILTER(afn:print(?firstname))
+        }
+    }
+    {
+        SELECT ?email
+        WHERE { 
+            ?person ab:email ?email
+            FILTER(afn:print(?email))
+        }
+    }
+}
+
+--------------------- RESULTS FOR QUERY Q2------------------------------
+
+Craig
+c.ellis@usairwaysgroup.com
+cindym@gmail.com
+richard49@hotmail.com
+craigellis@yahoo.com
+Richard
+c.ellis@usairwaysgroup.com
+cindym@gmail.com
+richard49@hotmail.com
+craigellis@yahoo.com
+Cindy
+c.ellis@usairwaysgroup.com
+cindym@gmail.com
+richard49@hotmail.com
+craigellis@yahoo.com
+--------------------------------------------
+| firstname | email                        |
+============================================
+| "Craig"   | "c.ellis@usairwaysgroup.com" |
+| "Craig"   | "cindym@gmail.com"           |
+| "Craig"   | "richard49@hotmail.com"      |
+| "Craig"   | "craigellis@yahoo.com"       |
+| "Richard" | "c.ellis@usairwaysgroup.com" |
+| "Richard" | "cindym@gmail.com"           |
+| "Richard" | "richard49@hotmail.com"      |
+| "Richard" | "craigellis@yahoo.com"       |
+| "Cindy"   | "c.ellis@usairwaysgroup.com" |
+| "Cindy"   | "cindym@gmail.com"           |
+| "Cindy"   | "richard49@hotmail.com"      |
+| "Cindy"   | "craigellis@yahoo.com"       |
+--------------------------------------------
+
+
+**************************** QUERY Q3 **********************************
+
+# Construct new triples for everyone's name and email addresses (and print them in subqueries)?
+
+PREFIX afn: <http://jena.apache.org/ARQ/function#>
+PREFIX ab: <http://learningsparql.com/ns/addressbook#>
+PREFIX tm: <http://learningsparql.com/tm#>
+CONSTRUCT {
+    ?person tm:firstname ?firstname . 
+    ?person tm:email ?email .
+}
+WHERE {
+    ?person ab:email ?email.
+    ?person ab:firstname ?firstname .
+    FILTER(afn:print(?firstname))
+    FILTER(afn:print(?email))
+}
+
+--------------------- RESULTS FOR QUERY Q3------------------------------
+
+c.ellis@usairwaysgroup.com
+Craig
+cindym@gmail.com
+Cindy
+richard49@hotmail.com
+Richard
+craigellis@yahoo.com
+Craig
+@prefix ab:    <http://learningsparql.com/ns/addressbook#> .
+@prefix d:     <http://learningsparql.com/ns/data#> .
+@prefix afn:   <http://jena.apache.org/ARQ/function#> .
+@prefix tm:    <http://learningsparql.com/tm#> .
+
+d:i9771  tm:email     "cindym@gmail.com" ;
+        tm:firstname  "Cindy" .
+
+d:i0432  tm:email     "richard49@hotmail.com" ;
+        tm:firstname  "Richard" .
+
+d:i8301  tm:email     "craigellis@yahoo.com" , "c.ellis@usairwaysgroup.com" ;
+        tm:firstname  "Craig" .
+

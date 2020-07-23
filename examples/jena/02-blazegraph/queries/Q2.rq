@@ -1,0 +1,12 @@
+# Select all triples in blazegraph.
+
+PREFIX ab: <http://learningsparql.com/ns/addressbook#> 
+SELECT ?s ?p ?o 
+WHERE
+{
+    SERVICE <http://172.17.0.2:9999/blazegraph/sparql> 
+    {
+        SELECT ?s ?p ?o 
+        WHERE {}
+    }
+}
