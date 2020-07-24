@@ -31,11 +31,17 @@ else
 endif
 ## 
 
+## run:                    Alias for run-examples.
+run: run-examples
+
 ## build:                  Alias for build-code.
 build: build-code
 
 ## test:                   Alias for test-code.
 test: test-code
+
+## install:                Alias for install-code.
+install: install-code
 
 ## 
 
@@ -45,14 +51,17 @@ run-examples:           ## Run all of the examples.
 clean-examples:         ## Delete all products of examples.
 	$(RUN_IN_REPRO) 'make -C $(REPRO_DIR)/examples/ clean'
 
+clean-code:             ## Build and install custom code.
+	$(RUN_IN_REPRO) 'make -C ./go/ clean'
+	
 build-code:             ## Build and install custom code.
-	$(RUN_IN_REPRO) 'make -C sparql build'
-	$(RUN_IN_REPRO) 'make -C blazegraph build'
+	$(RUN_IN_REPRO) 'make -C ./go/ build'
 
 test-code:              ## Run tests on custom code.
-	$(RUN_IN_REPRO) 'make -C sparql test'
-	$(RUN_IN_REPRO) 'make -C blazegraph test'
+	$(RUN_IN_REPRO) 'make -C ./go/ test'
 
+install-code:         	## Install custom code.
+	$(RUN_IN_REPRO) 'make -C ./go/ install'
 
 ## ------------------------------------------------------------------------------
 ##            Make targets available only OUTSIDE a running REPRO
