@@ -1,3 +1,3 @@
-# EXPORT ADDRESS BOOK AS JSON-LD
+# EXPORT ADDRESS BOOK AS RDF-XML
 
-blazegraph export --format jsonld
+blazegraph export --format xml

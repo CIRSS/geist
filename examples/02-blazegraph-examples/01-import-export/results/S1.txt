@@ -1,87 +1,69 @@
-[ {
-  "@id" : "http://learningsparql.com/ns/addressbook#email",
-  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
-  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
-    "@id" : "http://learningsparql.com/ns/addressbook#email"
-  } ]
-}, {
-  "@id" : "http://learningsparql.com/ns/addressbook#firstname",
-  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
-  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
-    "@id" : "http://learningsparql.com/ns/addressbook#firstname"
-  } ]
-}, {
-  "@id" : "http://learningsparql.com/ns/addressbook#homeTel",
-  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
-  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
-    "@id" : "http://learningsparql.com/ns/addressbook#homeTel"
-  } ]
-}, {
-  "@id" : "http://learningsparql.com/ns/addressbook#lastname",
-  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
-  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
-    "@id" : "http://learningsparql.com/ns/addressbook#lastname"
-  } ]
-}, {
-  "@id" : "http://learningsparql.com/ns/addressbook#mobileTel",
-  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
-  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
-    "@id" : "http://learningsparql.com/ns/addressbook#mobileTel"
-  } ]
-}, {
-  "@id" : "http://learningsparql.com/ns/addressbook#nickname",
-  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
-  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
-    "@id" : "http://learningsparql.com/ns/addressbook#nickname"
-  } ]
-}, {
-  "@id" : "http://learningsparql.com/ns/data#i0432",
-  "http://learningsparql.com/ns/addressbook#email" : [ {
-    "@value" : "richard49@hotmail.com"
-  } ],
-  "http://learningsparql.com/ns/addressbook#firstname" : [ {
-    "@value" : "Richard"
-  } ],
-  "http://learningsparql.com/ns/addressbook#homeTel" : [ {
-    "@value" : "(229) 276-5135"
-  } ],
-  "http://learningsparql.com/ns/addressbook#lastname" : [ {
-    "@value" : "Mutt"
-  } ],
-  "http://learningsparql.com/ns/addressbook#nickname" : [ {
-    "@value" : "Dick"
-  } ]
-}, {
-  "@id" : "http://learningsparql.com/ns/data#i8301",
-  "http://learningsparql.com/ns/addressbook#email" : [ {
-    "@value" : "c.ellis@usairwaysgroup.com"
-  }, {
-    "@value" : "craigellis@yahoo.com"
-  } ],
-  "http://learningsparql.com/ns/addressbook#firstname" : [ {
-    "@value" : "Craig"
-  } ],
-  "http://learningsparql.com/ns/addressbook#homeTel" : [ {
-    "@value" : "(194) 966-1505"
-  } ],
-  "http://learningsparql.com/ns/addressbook#lastname" : [ {
-    "@value" : "Ellis"
-  } ]
-}, {
-  "@id" : "http://learningsparql.com/ns/data#i9771",
-  "http://learningsparql.com/ns/addressbook#email" : [ {
-    "@value" : "cindym@gmail.com"
-  } ],
-  "http://learningsparql.com/ns/addressbook#firstname" : [ {
-    "@value" : "Cindy"
-  } ],
-  "http://learningsparql.com/ns/addressbook#homeTel" : [ {
-    "@value" : "(245) 646-5488"
-  } ],
-  "http://learningsparql.com/ns/addressbook#lastname" : [ {
-    "@value" : "Marshall"
-  } ],
-  "http://learningsparql.com/ns/addressbook#mobileTel" : [ {
-    "@value" : "(245) 732-8991"
-  } ]
-} ]
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:sesame="http://www.openrdf.org/schema/sesame#"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+	xmlns:fn="http://www.w3.org/2005/xpath-functions#"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:hint="http://www.bigdata.com/queryHints#"
+	xmlns:bd="http://www.bigdata.com/rdf#"
+	xmlns:bds="http://www.bigdata.com/rdf/search#">
+
+<rdf:Description rdf:about="http://learningsparql.com/ns/addressbook#email">
+	<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+	<rdfs:subPropertyOf rdf:resource="http://learningsparql.com/ns/addressbook#email"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://learningsparql.com/ns/addressbook#firstname">
+	<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+	<rdfs:subPropertyOf rdf:resource="http://learningsparql.com/ns/addressbook#firstname"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://learningsparql.com/ns/addressbook#homeTel">
+	<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+	<rdfs:subPropertyOf rdf:resource="http://learningsparql.com/ns/addressbook#homeTel"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://learningsparql.com/ns/addressbook#lastname">
+	<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+	<rdfs:subPropertyOf rdf:resource="http://learningsparql.com/ns/addressbook#lastname"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://learningsparql.com/ns/addressbook#mobileTel">
+	<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+	<rdfs:subPropertyOf rdf:resource="http://learningsparql.com/ns/addressbook#mobileTel"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://learningsparql.com/ns/addressbook#nickname">
+	<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+	<rdfs:subPropertyOf rdf:resource="http://learningsparql.com/ns/addressbook#nickname"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://learningsparql.com/ns/data#i0432">
+	<email xmlns="http://learningsparql.com/ns/addressbook#" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">richard49@hotmail.com</email>
+	<firstname xmlns="http://learningsparql.com/ns/addressbook#" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Richard</firstname>
+	<homeTel xmlns="http://learningsparql.com/ns/addressbook#" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">(229) 276-5135</homeTel>
+	<lastname xmlns="http://learningsparql.com/ns/addressbook#" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Mutt</lastname>
+	<nickname xmlns="http://learningsparql.com/ns/addressbook#" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Dick</nickname>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://learningsparql.com/ns/data#i8301">
+	<email xmlns="http://learningsparql.com/ns/addressbook#" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">c.ellis@usairwaysgroup.com</email>
+	<email xmlns="http://learningsparql.com/ns/addressbook#" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">craigellis@yahoo.com</email>
+	<firstname xmlns="http://learningsparql.com/ns/addressbook#" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Craig</firstname>
+	<homeTel xmlns="http://learningsparql.com/ns/addressbook#" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">(194) 966-1505</homeTel>
+	<lastname xmlns="http://learningsparql.com/ns/addressbook#" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Ellis</lastname>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://learningsparql.com/ns/data#i9771">
+	<email xmlns="http://learningsparql.com/ns/addressbook#" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">cindym@gmail.com</email>
+	<firstname xmlns="http://learningsparql.com/ns/addressbook#" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Cindy</firstname>
+	<homeTel xmlns="http://learningsparql.com/ns/addressbook#" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">(245) 646-5488</homeTel>
+	<lastname xmlns="http://learningsparql.com/ns/addressbook#" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Marshall</lastname>
+	<mobileTel xmlns="http://learningsparql.com/ns/addressbook#" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">(245) 732-8991</mobileTel>
+</rdf:Description>
+
+</rdf:RDF>
