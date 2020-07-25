@@ -1,13 +1,22 @@
 
-**************************** SCRIPT S1 **********************************
+**************************** EXAMPLE SETUP *********************************
 
-# Export address book as JSON-LD
+# INITIALIZE BLAZEGRAPH INSTANCE WITH ADDRESS BOOK
 
 blazegraph drop
 blazegraph import --file ../data/address-book.jsonld --format jsonld
+
+---------------------------- SETUP OUTPUTS ---------------------------------
+
+
+
+**************************** EXAMPLE S1 *********************************
+
+# EXPORT ADDRESS BOOK AS JSON-LD
+
 blazegraph export --format jsonld
 
---------------------- RESULTS FOR SCRIPT S1------------------------------
+---------------------------- S1 OUTPUTS ---------------------------------
 
 [ {
   "@id" : "http://learningsparql.com/ns/addressbook#email",

@@ -21,11 +21,11 @@ bash ${script_file} > ${result_file}
 
 # print the script results
 echo
-echo "**************************** SCRIPT ${script_id} **********************************"
+echo "**************************** EXAMPLE ${script_id} *********************************"
 echo
 cat ${script_file}
 echo
-echo "--------------------- RESULTS FOR SCRIPT ${script_id}------------------------------"
+echo "---------------------------- ${script_id} OUTPUTS ---------------------------------"
 echo
 cat ${result_file}
 echo

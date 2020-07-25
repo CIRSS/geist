@@ -1,9 +1,12 @@
 #!/usr/bin/env bash
 
- runner='../common/run_example.sh'
+RUNNER='../common/run_script_example.sh'
 
-bash ${runner} S1 "Export address book as JSON-LD" << END_SCRIPT
+bash ${RUNNER} SETUP "INITIALIZE BLAZEGRAPH INSTANCE WITH ADDRESS BOOK" << END_SCRIPT
 blazegraph drop
 blazegraph import --file ../data/address-book.jsonld --format jsonld
+END_SCRIPT
+
+bash ${RUNNER} S1 "EXPORT ADDRESS BOOK AS JSON-LD" << END_SCRIPT
 blazegraph export --format jsonld
 END_SCRIPT
