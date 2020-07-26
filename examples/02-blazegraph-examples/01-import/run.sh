@@ -25,14 +25,45 @@ blazegraph export --format nt
 
 END_SCRIPT
 
-# bash ${RUNNER} S1 "EXPORT ADDRESS BOOK AS TURTLE" << END_SCRIPT
-# blazegraph export --format ttl
-# END_SCRIPT
+# *****************************************************************************
 
-# bash ${RUNNER} S1 "EXPORT ADDRESS BOOK AS N-TRIPLES" << END_SCRIPT
-# blazegraph export --format nt
-# END_SCRIPT
+bash ${RUNNER} S2 "IMPORT TWO TRIPLES AS TURTLE" << END_SCRIPT
 
-# bash ${RUNNER} S1 "EXPORT ADDRESS BOOK AS RDF-XML" << END_SCRIPT
-# blazegraph export --format xml
-# END_SCRIPT
+blazegraph drop
+blazegraph import --format ttl << END_DATA
+
+	@prefix data: <http://tmcphill.net/data#> .
+	@prefix tags: <http://tmcphill.net/tags#> .
+
+	data:y tags:tag "eight" .
+	data:x tags:tag "seven" .
+
+END_DATA
+
+blazegraph export --format nt
+
+END_SCRIPT
+
+# *****************************************************************************
+
+bash ${RUNNER} S3 "IMPORT TWO TRIPLES AS JSON-LD" << END_SCRIPT
+
+blazegraph drop
+blazegraph import --format jsonld << END_DATA
+
+    [
+        {
+            "@id": "http://tmcphill.net/data#x",
+            "http://tmcphill.net/tags#tag": [ { "@value": "seven" } ]
+        },
+        {
+            "@id": "http://tmcphill.net/data#y",
+            "http://tmcphill.net/tags#tag": [ { "@value": "eight" } ]
+        }
+    ]
+
+END_DATA
+
+blazegraph export --format nt
+
+END_SCRIPT

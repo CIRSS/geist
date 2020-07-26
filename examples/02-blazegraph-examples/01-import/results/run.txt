@@ -27,3 +27,56 @@ blazegraph export --format nt
 <http://tmcphill.net/tags#tag> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
 <http://tmcphill.net/tags#tag> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://tmcphill.net/tags#tag> .
 <http://tmcphill.net/data#x> <http://tmcphill.net/tags#tag> "seven" .
+
+**************************** EXAMPLE S2 *********************************
+
+# IMPORT TWO TRIPLES AS TURTLE
+
+blazegraph drop
+blazegraph import --format ttl << END_DATA
+
+	@prefix data: <http://tmcphill.net/data#> .
+	@prefix tags: <http://tmcphill.net/tags#> .
+
+	data:y tags:tag "eight" .
+	data:x tags:tag "seven" .
+
+END_DATA
+
+blazegraph export --format nt
+
+---------------------------- S2 OUTPUTS ---------------------------------
+
+<http://tmcphill.net/data#y> <http://tmcphill.net/tags#tag> "eight" .
+<http://tmcphill.net/tags#tag> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<http://tmcphill.net/tags#tag> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://tmcphill.net/tags#tag> .
+<http://tmcphill.net/data#x> <http://tmcphill.net/tags#tag> "seven" .
+
+**************************** EXAMPLE S3 *********************************
+
+# IMPORT TWO TRIPLES AS JSON-LD
+
+blazegraph drop
+blazegraph import --format jsonld << END_DATA
+
+    [
+        {
+            "@id": "http://tmcphill.net/data#x",
+            "http://tmcphill.net/tags#tag": [ { "@value": "seven" } ]
+        },
+        {
+            "@id": "http://tmcphill.net/data#y",
+            "http://tmcphill.net/tags#tag": [ { "@value": "eight" } ]
+        }
+    ]
+
+END_DATA
+
+blazegraph export --format nt
+
+---------------------------- S3 OUTPUTS ---------------------------------
+
+<http://tmcphill.net/data#y> <http://tmcphill.net/tags#tag> "eight"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://tmcphill.net/tags#tag> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<http://tmcphill.net/tags#tag> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://tmcphill.net/tags#tag> .
+<http://tmcphill.net/data#x> <http://tmcphill.net/tags#tag> "seven"^^<http://www.w3.org/2001/XMLSchema#string> .
