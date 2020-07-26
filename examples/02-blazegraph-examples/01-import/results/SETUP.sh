@@ -1,0 +1,4 @@
+# INITIALIZE BLAZEGRAPH INSTANCE
+
+blazegraph drop
+

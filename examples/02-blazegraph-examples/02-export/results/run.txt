@@ -9,7 +9,6 @@ blazegraph import --file ../data/address-book.jsonld --format jsonld
 ---------------------------- SETUP OUTPUTS ---------------------------------
 
 
-
 **************************** EXAMPLE S1 *********************************
 
 # EXPORT ADDRESS BOOK AS JSON-LD
@@ -105,7 +104,6 @@ blazegraph export --format jsonld
     "@value" : "(245) 732-8991"
   } ]
 } ]
-
 **************************** EXAMPLE S1 *********************************
 
 # EXPORT ADDRESS BOOK AS TURTLE
@@ -161,7 +159,6 @@ blazegraph export --format ttl
 	<http://learningsparql.com/ns/addressbook#lastname> "Marshall"^^xsd:string ;
 	<http://learningsparql.com/ns/addressbook#mobileTel> "(245) 732-8991"^^xsd:string .
 
-
 **************************** EXAMPLE S1 *********************************
 
 # EXPORT ADDRESS BOOK AS N-TRIPLES
@@ -197,7 +194,6 @@ blazegraph export --format nt
 <http://learningsparql.com/ns/data#i9771> <http://learningsparql.com/ns/addressbook#homeTel> "(245) 646-5488"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://learningsparql.com/ns/data#i9771> <http://learningsparql.com/ns/addressbook#lastname> "Marshall"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://learningsparql.com/ns/data#i9771> <http://learningsparql.com/ns/addressbook#mobileTel> "(245) 732-8991"^^<http://www.w3.org/2001/XMLSchema#string> .
-
 
 **************************** EXAMPLE S1 *********************************
 

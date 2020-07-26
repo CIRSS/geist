@@ -10,7 +10,7 @@ script_file=results/${script_id}.sh
 result_file=results/${script_id}.txt
 
 # copy query from stdin to the query file
-printf "# ${script_description}\n\n" > ${script_file}
+printf "# ${script_description}\n" > ${script_file}
 IFS=''; while read line
 do
     printf "$line\n" >> ${script_file}
@@ -24,8 +24,6 @@ echo
 echo "**************************** EXAMPLE ${script_id} *********************************"
 echo
 cat ${script_file}
-echo
 echo "---------------------------- ${script_id} OUTPUTS ---------------------------------"
 echo
 cat ${result_file}
-echo

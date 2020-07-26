@@ -2,3 +2,4 @@
 
 blazegraph drop
 blazegraph import --file ../data/address-book.jsonld --format jsonld
+
