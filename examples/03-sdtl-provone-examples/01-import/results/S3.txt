@@ -1,80 +1,4 @@
 [ {
-  "@id" : "_:t127",
-  "http://SDTLnamespaceURLcommand" : [ {
-    "@value" : "compute"
-  } ],
-  "http://SDTLnamespaceURLexpression" : [ {
-    "@id" : "_:t128"
-  } ],
-  "http://SDTLnamespaceURLsourceInformation" : [ {
-    "@id" : "_:t129"
-  } ],
-  "http://SDTLnamespaceURLtype" : [ {
-    "@value" : "Compute"
-  } ],
-  "http://SDTLnamespaceURLvariable" : [ {
-    "@id" : "_:t130"
-  } ]
-}, {
-  "@id" : "_:t128",
-  "http://SDTLnamespaceURL$type" : [ {
-    "@value" : "NumericConstantExpression"
-  } ],
-  "http://SDTLnamespaceURLnumericType" : [ {
-    "@value" : "int"
-  } ],
-  "http://SDTLnamespaceURLvalue" : [ {
-    "@value" : "0"
-  } ]
-}, {
-  "@id" : "_:t129",
-  "http://SDTLnamespaceURLlineNumberEnd" : [ {
-    "@type" : "http://www.w3.org/2001/XMLSchema#integer",
-    "@value" : "1"
-  } ],
-  "http://SDTLnamespaceURLlineNumberStart" : [ {
-    "@type" : "http://www.w3.org/2001/XMLSchema#integer",
-    "@value" : "1"
-  } ],
-  "http://SDTLnamespaceURLoriginalSourceText" : [ {
-    "@value" : "compute newVar = 0."
-  } ],
-  "http://SDTLnamespaceURLsourceStartIndex" : [ {
-    "@type" : "http://www.w3.org/2001/XMLSchema#integer",
-    "@value" : "1"
-  } ],
-  "http://SDTLnamespaceURLsourceStopIndex" : [ {
-    "@type" : "http://www.w3.org/2001/XMLSchema#integer",
-    "@value" : "19"
-  } ]
-}, {
-  "@id" : "_:t130",
-  "http://SDTLnamespaceURLtype" : [ {
-    "@value" : "VariableSymbolExpression"
-  } ],
-  "http://SDTLnamespaceURLvariableName" : [ {
-    "@value" : "newVar"
-  } ]
-}, {
-  "@id" : "_:t131",
-  "http://SDTLnamespaceURLnumericType" : [ {
-    "@value" : "int"
-  } ],
-  "http://SDTLnamespaceURLtype" : [ {
-    "@value" : "NumericConstantExpression"
-  } ],
-  "http://SDTLnamespaceURLvalue" : [ {
-    "@value" : "0"
-  } ]
-}, {
-  "@id" : "_:t132",
-  "http://SDTLnamespaceURLtype" : [ {
-    "@value" : "VariableSymbolExpression"
-  } ],
-  "http://SDTLnamespaceURLvariableName" : [ {
-    "@value" : "newVar"
-  } ]
-}, {
   "@id" : "http://127.0.0.1:9999/blazegraph/sparql#associated_plan",
   "@type" : [ "http://127.0.0.1:9999/blazegraph/Association" ],
   "http://purl.dataone.org/provone/2015/01/15/ontology#hadPlan" : [ {
@@ -123,7 +47,7 @@
   "@id" : "http://127.0.0.1:9999/blazegraph/sparql#create_variable_command",
   "@type" : [ "http://purl.dataone.org/provone/2015/01/15/ontology#Program" ],
   "http://SDTLnamespaceURLcommands" : [ {
-    "@id" : "_:t127"
+    "@id" : "http://127.0.0.1:9999/blazegraph/sparql#statement_1"
   } ],
   "http://purl.dataone.org/provone/2015/01/15/ontology#hasOutPort" : [ {
     "@value" : "#create_variable_port"
@@ -150,10 +74,24 @@
   "@id" : "http://127.0.0.1:9999/blazegraph/sparql#create_variable_port",
   "@type" : [ "http://purl.dataone.org/provone/2015/01/15/ontology#Port" ],
   "http://SDTLnamespaceURLexpression" : [ {
-    "@id" : "_:t131"
+    "@id" : "http://127.0.0.1:9999/blazegraph/sparql#expression_1"
   } ],
   "http://SDTLnamespaceURLvariable" : [ {
-    "@id" : "_:t132"
+    "@id" : "http://127.0.0.1:9999/blazegraph/sparql#variable_1"
+  } ]
+}, {
+  "@id" : "http://127.0.0.1:9999/blazegraph/sparql#expression_1",
+  "http://SDTLnamespaceURL$type" : [ {
+    "@value" : "NumericConstantExpression"
+  } ],
+  "http://SDTLnamespaceURLnumericType" : [ {
+    "@value" : "int"
+  } ],
+  "http://SDTLnamespaceURLtype" : [ {
+    "@value" : "NumericConstantExpression"
+  } ],
+  "http://SDTLnamespaceURLvalue" : [ {
+    "@value" : "0"
   } ]
 }, {
   "@id" : "http://127.0.0.1:9999/blazegraph/sparql#generated_variable",
@@ -166,6 +104,52 @@
   "@type" : [ "http://purl.dataone.org/provone/2015/01/15/ontology#Execution" ],
   "http://www.w3.org/ns/prov#qualifiedAssociation" : [ {
     "@value" : "#associated_plan"
+  } ]
+}, {
+  "@id" : "http://127.0.0.1:9999/blazegraph/sparql#source_info_1",
+  "http://SDTLnamespaceURLlineNumberEnd" : [ {
+    "@type" : "http://www.w3.org/2001/XMLSchema#integer",
+    "@value" : "1"
+  } ],
+  "http://SDTLnamespaceURLlineNumberStart" : [ {
+    "@type" : "http://www.w3.org/2001/XMLSchema#integer",
+    "@value" : "1"
+  } ],
+  "http://SDTLnamespaceURLoriginalSourceText" : [ {
+    "@value" : "compute newVar = 0."
+  } ],
+  "http://SDTLnamespaceURLsourceStartIndex" : [ {
+    "@type" : "http://www.w3.org/2001/XMLSchema#integer",
+    "@value" : "1"
+  } ],
+  "http://SDTLnamespaceURLsourceStopIndex" : [ {
+    "@type" : "http://www.w3.org/2001/XMLSchema#integer",
+    "@value" : "19"
+  } ]
+}, {
+  "@id" : "http://127.0.0.1:9999/blazegraph/sparql#statement_1",
+  "http://SDTLnamespaceURLcommand" : [ {
+    "@value" : "compute"
+  } ],
+  "http://SDTLnamespaceURLexpression" : [ {
+    "@id" : "http://127.0.0.1:9999/blazegraph/sparql#expression_1"
+  } ],
+  "http://SDTLnamespaceURLsourceInformation" : [ {
+    "@id" : "http://127.0.0.1:9999/blazegraph/sparql#source_info_1"
+  } ],
+  "http://SDTLnamespaceURLtype" : [ {
+    "@value" : "Compute"
+  } ],
+  "http://SDTLnamespaceURLvariable" : [ {
+    "@id" : "http://127.0.0.1:9999/blazegraph/sparql#variable_1"
+  } ]
+}, {
+  "@id" : "http://127.0.0.1:9999/blazegraph/sparql#variable_1",
+  "http://SDTLnamespaceURLtype" : [ {
+    "@value" : "VariableSymbolExpression"
+  } ],
+  "http://SDTLnamespaceURLvariableName" : [ {
+    "@value" : "newVar"
   } ]
 }, {
   "@id" : "http://SDTLnamespaceURL$type",

@@ -44,9 +44,11 @@
            "provone:hasOutPort": "#create_variable_port",
            "sdtl:commands": [
              {
+               "@id": "#statement_1",
                "sdtl:type": "Compute",
                "sdtl:command": "compute",
                "sdtl:sourceInformation": {
+                 "@id": "#source_info_1",
                  "sdtl:lineNumberStart": 1,
                  "sdtl:lineNumberEnd": 1,
                  "sdtl:sourceStartIndex": 1,
@@ -55,10 +57,12 @@
                },
 
                "sdtl:variable": {
-                 "sdtl:type": "VariableSymbolExpression",
+                "@id": "#variable_1",
+                "sdtl:type": "VariableSymbolExpression",
                  "sdtl:variableName": "newVar"
                },
                "sdtl:expression": {
+                 "@id": "#expression_1",
                  "sdtl:$type": "NumericConstantExpression",
                  "sdtl:value": "0",
                  "sdtl:numericType": "int"
@@ -71,11 +75,13 @@
            "@id": "#create_variable_port",
            "@type": "provone:Port",
            "sdtl:variable": {
-             "sdtl:type": "VariableSymbolExpression",
+            "@id": "#variable_1",
+            "sdtl:type": "VariableSymbolExpression",
              "sdtl:variableName": "newVar"
            },
            "sdtl:expression": {
-             "sdtl:type":"NumericConstantExpression",
+            "@id": "#expression_1",
+            "sdtl:type":"NumericConstantExpression",
              "sdtl:value": "0",
              "sdtl:numericType": "int"
            }

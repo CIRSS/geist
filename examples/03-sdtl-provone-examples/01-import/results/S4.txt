@@ -12,35 +12,6 @@
 	xmlns:bd="http://www.bigdata.com/rdf#"
 	xmlns:bds="http://www.bigdata.com/rdf/search#">
 
-<rdf:Description rdf:nodeID="t128">
-	<SDTLnamespaceURLnumericType xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">int</SDTLnamespaceURLnumericType>
-	<SDTLnamespaceURLvalue xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0</SDTLnamespaceURLvalue>
-</rdf:Description>
-
-<rdf:Description rdf:nodeID="t129">
-	<SDTLnamespaceURLlineNumberEnd xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</SDTLnamespaceURLlineNumberEnd>
-	<SDTLnamespaceURLlineNumberStart xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</SDTLnamespaceURLlineNumberStart>
-	<SDTLnamespaceURLoriginalSourceText xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">compute newVar = 0.</SDTLnamespaceURLoriginalSourceText>
-	<SDTLnamespaceURLsourceStartIndex xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</SDTLnamespaceURLsourceStartIndex>
-	<SDTLnamespaceURLsourceStopIndex xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">19</SDTLnamespaceURLsourceStopIndex>
-</rdf:Description>
-
-<rdf:Description rdf:nodeID="t130">
-	<SDTLnamespaceURLtype xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VariableSymbolExpression</SDTLnamespaceURLtype>
-	<SDTLnamespaceURLvariableName xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">newVar</SDTLnamespaceURLvariableName>
-</rdf:Description>
-
-<rdf:Description rdf:nodeID="t131">
-	<SDTLnamespaceURLnumericType xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">int</SDTLnamespaceURLnumericType>
-	<SDTLnamespaceURLtype xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">NumericConstantExpression</SDTLnamespaceURLtype>
-	<SDTLnamespaceURLvalue xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0</SDTLnamespaceURLvalue>
-</rdf:Description>
-
-<rdf:Description rdf:nodeID="t132">
-	<SDTLnamespaceURLtype xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VariableSymbolExpression</SDTLnamespaceURLtype>
-	<SDTLnamespaceURLvariableName xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">newVar</SDTLnamespaceURLvariableName>
-</rdf:Description>
-
 <rdf:Description rdf:about="http://127.0.0.1:9999/blazegraph/sparql#associated_plan">
 	<hadPlan xmlns="http://purl.dataone.org/provone/2015/01/15/ontology#" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">#create_var.sps</hadPlan>
 	<rdf:type rdf:resource="http://127.0.0.1:9999/blazegraph/Association"/>
@@ -66,7 +37,7 @@
 
 <rdf:Description rdf:about="http://127.0.0.1:9999/blazegraph/sparql#create_variable_command">
 	<hasOutPort xmlns="http://purl.dataone.org/provone/2015/01/15/ontology#" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">#create_variable_port</hasOutPort>
-	<SDTLnamespaceURLcommands xmlns="http://" rdf:nodeID="t127"/>
+	<SDTLnamespaceURLcommands xmlns="http://" rdf:resource="http://127.0.0.1:9999/blazegraph/sparql#statement_1"/>
 	<rdf:type rdf:resource="http://purl.dataone.org/provone/2015/01/15/ontology#Program"/>
 </rdf:Description>
 
@@ -83,8 +54,8 @@
 </rdf:Description>
 
 <rdf:Description rdf:about="http://127.0.0.1:9999/blazegraph/sparql#create_variable_port">
-	<SDTLnamespaceURLexpression xmlns="http://" rdf:nodeID="t131"/>
-	<SDTLnamespaceURLvariable xmlns="http://" rdf:nodeID="t132"/>
+	<SDTLnamespaceURLexpression xmlns="http://" rdf:resource="http://127.0.0.1:9999/blazegraph/sparql#expression_1"/>
+	<SDTLnamespaceURLvariable xmlns="http://" rdf:resource="http://127.0.0.1:9999/blazegraph/sparql#variable_1"/>
 	<rdf:type rdf:resource="http://purl.dataone.org/provone/2015/01/15/ontology#Port"/>
 </rdf:Description>
 
@@ -258,16 +229,32 @@
 	<rdfs:subPropertyOf rdf:resource="http://www.w3.org/ns/prov#wasGeneratedBy"/>
 </rdf:Description>
 
-<rdf:Description rdf:nodeID="t127">
-	<SDTLnamespaceURLcommand xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">compute</SDTLnamespaceURLcommand>
-	<SDTLnamespaceURLexpression xmlns="http://" rdf:nodeID="t128"/>
-	<SDTLnamespaceURLsourceInformation xmlns="http://" rdf:nodeID="t129"/>
-	<SDTLnamespaceURLtype xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Compute</SDTLnamespaceURLtype>
-	<SDTLnamespaceURLvariable xmlns="http://" rdf:nodeID="t130"/>
+<rdf:Description rdf:about="http://127.0.0.1:9999/blazegraph/sparql#expression_1">
+	<type xmlns="http://SDTLnamespaceURL$" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">NumericConstantExpression</type>
+	<SDTLnamespaceURLnumericType xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">int</SDTLnamespaceURLnumericType>
+	<SDTLnamespaceURLtype xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">NumericConstantExpression</SDTLnamespaceURLtype>
+	<SDTLnamespaceURLvalue xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0</SDTLnamespaceURLvalue>
 </rdf:Description>
 
-<rdf:Description rdf:nodeID="t128">
-	<type xmlns="http://SDTLnamespaceURL$" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">NumericConstantExpression</type>
+<rdf:Description rdf:about="http://127.0.0.1:9999/blazegraph/sparql#statement_1">
+	<SDTLnamespaceURLcommand xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">compute</SDTLnamespaceURLcommand>
+	<SDTLnamespaceURLexpression xmlns="http://" rdf:resource="http://127.0.0.1:9999/blazegraph/sparql#expression_1"/>
+	<SDTLnamespaceURLsourceInformation xmlns="http://" rdf:resource="http://127.0.0.1:9999/blazegraph/sparql#source_info_1"/>
+	<SDTLnamespaceURLtype xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Compute</SDTLnamespaceURLtype>
+	<SDTLnamespaceURLvariable xmlns="http://" rdf:resource="http://127.0.0.1:9999/blazegraph/sparql#variable_1"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://127.0.0.1:9999/blazegraph/sparql#variable_1">
+	<SDTLnamespaceURLtype xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VariableSymbolExpression</SDTLnamespaceURLtype>
+	<SDTLnamespaceURLvariableName xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">newVar</SDTLnamespaceURLvariableName>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://127.0.0.1:9999/blazegraph/sparql#source_info_1">
+	<SDTLnamespaceURLlineNumberEnd xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</SDTLnamespaceURLlineNumberEnd>
+	<SDTLnamespaceURLlineNumberStart xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</SDTLnamespaceURLlineNumberStart>
+	<SDTLnamespaceURLoriginalSourceText xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">compute newVar = 0.</SDTLnamespaceURLoriginalSourceText>
+	<SDTLnamespaceURLsourceStartIndex xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</SDTLnamespaceURLsourceStartIndex>
+	<SDTLnamespaceURLsourceStopIndex xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">19</SDTLnamespaceURLsourceStopIndex>
 </rdf:Description>
 
 </rdf:RDF>
