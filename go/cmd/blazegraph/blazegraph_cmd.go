@@ -107,8 +107,14 @@ func inport(file string, format string) {
 	case "jsonld":
 		_, err = bc.PostData("application/ld+json", data)
 
+	case "nt":
+		_, err = bc.PostData("text/plain", data)
+
 	case "ttl":
 		_, err = bc.PostData("application/x-turtle", data)
+
+	case "xml":
+		_, err = bc.PostData("application/rdf+xml", data)
 	}
 
 	if err != nil {
