@@ -680,6 +680,25 @@ blazegraph export --format xml
 	xmlns:bd="http://www.bigdata.com/rdf#"
 	xmlns:bds="http://www.bigdata.com/rdf/search#">
 
+<rdf:Description rdf:about="http://127.0.0.1:9999/blazegraph/sparql#statement_1">
+	<SDTLnamespaceURLsourceInformation xmlns="http://" rdf:resource="http://127.0.0.1:9999/blazegraph/sparql#source_info_1"/>
+	<SDTLnamespaceURLtype xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Compute</SDTLnamespaceURLtype>
+	<SDTLnamespaceURLvariable xmlns="http://" rdf:resource="http://127.0.0.1:9999/blazegraph/sparql#variable_1"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://127.0.0.1:9999/blazegraph/sparql#variable_1">
+	<SDTLnamespaceURLtype xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VariableSymbolExpression</SDTLnamespaceURLtype>
+	<SDTLnamespaceURLvariableName xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">newVar</SDTLnamespaceURLvariableName>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://127.0.0.1:9999/blazegraph/sparql#source_info_1">
+	<SDTLnamespaceURLlineNumberEnd xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</SDTLnamespaceURLlineNumberEnd>
+	<SDTLnamespaceURLlineNumberStart xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</SDTLnamespaceURLlineNumberStart>
+	<SDTLnamespaceURLoriginalSourceText xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">compute newVar = 0.</SDTLnamespaceURLoriginalSourceText>
+	<SDTLnamespaceURLsourceStartIndex xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</SDTLnamespaceURLsourceStartIndex>
+	<SDTLnamespaceURLsourceStopIndex xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">19</SDTLnamespaceURLsourceStopIndex>
+</rdf:Description>
+
 <rdf:Description rdf:about="http://127.0.0.1:9999/blazegraph/sparql#associated_plan">
 	<hadPlan xmlns="http://purl.dataone.org/provone/2015/01/15/ontology#" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">#create_var.sps</hadPlan>
 	<rdf:type rdf:resource="http://127.0.0.1:9999/blazegraph/Association"/>
@@ -907,22 +926,6 @@ blazegraph export --format xml
 <rdf:Description rdf:about="http://127.0.0.1:9999/blazegraph/sparql#statement_1">
 	<SDTLnamespaceURLcommand xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">compute</SDTLnamespaceURLcommand>
 	<SDTLnamespaceURLexpression xmlns="http://" rdf:resource="http://127.0.0.1:9999/blazegraph/sparql#expression_1"/>
-	<SDTLnamespaceURLsourceInformation xmlns="http://" rdf:resource="http://127.0.0.1:9999/blazegraph/sparql#source_info_1"/>
-	<SDTLnamespaceURLtype xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Compute</SDTLnamespaceURLtype>
-	<SDTLnamespaceURLvariable xmlns="http://" rdf:resource="http://127.0.0.1:9999/blazegraph/sparql#variable_1"/>
-</rdf:Description>
-
-<rdf:Description rdf:about="http://127.0.0.1:9999/blazegraph/sparql#variable_1">
-	<SDTLnamespaceURLtype xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VariableSymbolExpression</SDTLnamespaceURLtype>
-	<SDTLnamespaceURLvariableName xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">newVar</SDTLnamespaceURLvariableName>
-</rdf:Description>
-
-<rdf:Description rdf:about="http://127.0.0.1:9999/blazegraph/sparql#source_info_1">
-	<SDTLnamespaceURLlineNumberEnd xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</SDTLnamespaceURLlineNumberEnd>
-	<SDTLnamespaceURLlineNumberStart xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</SDTLnamespaceURLlineNumberStart>
-	<SDTLnamespaceURLoriginalSourceText xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">compute newVar = 0.</SDTLnamespaceURLoriginalSourceText>
-	<SDTLnamespaceURLsourceStartIndex xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</SDTLnamespaceURLsourceStartIndex>
-	<SDTLnamespaceURLsourceStopIndex xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">19</SDTLnamespaceURLsourceStopIndex>
 </rdf:Description>
 
 </rdf:RDF>
