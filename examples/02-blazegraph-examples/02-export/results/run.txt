@@ -163,7 +163,7 @@ blazegraph export --format ttl
 
 # EXPORT ADDRESS BOOK AS N-TRIPLES
 
-blazegraph export --format nt
+blazegraph export --format nt | sort
 
 ---------------------------- S1 OUTPUTS ---------------------------------
 

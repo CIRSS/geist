@@ -31,7 +31,7 @@ END_SCRIPT
 
 bash ${RUNNER} S1 "EXPORT ADDRESS BOOK AS N-TRIPLES" << END_SCRIPT
 
-blazegraph export --format nt
+blazegraph export --format nt | sort
 
 END_SCRIPT
 

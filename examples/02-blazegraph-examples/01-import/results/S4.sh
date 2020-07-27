@@ -17,5 +17,5 @@ blazegraph import --format xml << END_DATA
 
 END_DATA
 
-blazegraph export --format nt
+blazegraph export --format nt | sort
 
