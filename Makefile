@@ -46,7 +46,7 @@ install: install-code
 ## 
 
 run-examples:           ## Run all of the examples.
-	$(RUN_IN_REPRO) 'make -C $(REPRO_DIR)/examples/ all'
+	$(RUN_IN_REPRO) 'sleep 1 && make -C $(REPRO_DIR)/examples/ all'
 
 clean-examples:         ## Delete all products of examples.
 	$(RUN_IN_REPRO) 'make -C $(REPRO_DIR)/examples/ clean'
