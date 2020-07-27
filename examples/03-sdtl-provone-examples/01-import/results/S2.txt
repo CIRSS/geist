@@ -10,19 +10,6 @@
 @prefix bd: <http://www.bigdata.com/rdf#> .
 @prefix bds: <http://www.bigdata.com/rdf/search#> .
 
-<http://127.0.0.1:9999/blazegraph/sparql#statement_1> <http://SDTLnamespaceURLsourceInformation> <http://127.0.0.1:9999/blazegraph/sparql#source_info_1> ;
-	<http://SDTLnamespaceURLtype> "Compute"^^xsd:string ;
-	<http://SDTLnamespaceURLvariable> <http://127.0.0.1:9999/blazegraph/sparql#variable_1> .
-
-<http://127.0.0.1:9999/blazegraph/sparql#variable_1> <http://SDTLnamespaceURLtype> "VariableSymbolExpression"^^xsd:string ;
-	<http://SDTLnamespaceURLvariableName> "newVar"^^xsd:string .
-
-<http://127.0.0.1:9999/blazegraph/sparql#source_info_1> <http://SDTLnamespaceURLlineNumberEnd> "1"^^xsd:integer ;
-	<http://SDTLnamespaceURLlineNumberStart> "1"^^xsd:integer ;
-	<http://SDTLnamespaceURLoriginalSourceText> "compute newVar = 0."^^xsd:string ;
-	<http://SDTLnamespaceURLsourceStartIndex> "1"^^xsd:integer ;
-	<http://SDTLnamespaceURLsourceStopIndex> "19"^^xsd:integer .
-
 <http://127.0.0.1:9999/blazegraph/sparql#associated_plan> <http://purl.dataone.org/provone/2015/01/15/ontology#hadPlan> "#create_var.sps"^^xsd:string ;
 	a <http://127.0.0.1:9999/blazegraph/Association> .
 
@@ -56,11 +43,31 @@
 	<http://SDTLnamespaceURLvariable> <http://127.0.0.1:9999/blazegraph/sparql#variable_1> ;
 	a <http://purl.dataone.org/provone/2015/01/15/ontology#Port> .
 
+<http://127.0.0.1:9999/blazegraph/sparql#expression_1> <http://SDTLnamespaceURL$type> "NumericConstantExpression"^^xsd:string ;
+	<http://SDTLnamespaceURLnumericType> "int"^^xsd:string ;
+	<http://SDTLnamespaceURLtype> "NumericConstantExpression"^^xsd:string ;
+	<http://SDTLnamespaceURLvalue> "0"^^xsd:string .
+
 <http://127.0.0.1:9999/blazegraph/sparql#generated_variable> <http://www.w3.org/ns/prov#wasGeneratedBy> "#create_variable_command_exection"^^xsd:string ;
 	a <http://www.w3.org/ns/prov#Entity> .
 
 <http://127.0.0.1:9999/blazegraph/sparql#script_execution> <http://www.w3.org/ns/prov#qualifiedAssociation> "#associated_plan"^^xsd:string ;
 	a <http://purl.dataone.org/provone/2015/01/15/ontology#Execution> .
+
+<http://127.0.0.1:9999/blazegraph/sparql#source_info_1> <http://SDTLnamespaceURLlineNumberEnd> "1"^^xsd:integer ;
+	<http://SDTLnamespaceURLlineNumberStart> "1"^^xsd:integer ;
+	<http://SDTLnamespaceURLoriginalSourceText> "compute newVar = 0."^^xsd:string ;
+	<http://SDTLnamespaceURLsourceStartIndex> "1"^^xsd:integer ;
+	<http://SDTLnamespaceURLsourceStopIndex> "19"^^xsd:integer .
+
+<http://127.0.0.1:9999/blazegraph/sparql#statement_1> <http://SDTLnamespaceURLcommand> "compute"^^xsd:string ;
+	<http://SDTLnamespaceURLexpression> <http://127.0.0.1:9999/blazegraph/sparql#expression_1> ;
+	<http://SDTLnamespaceURLsourceInformation> <http://127.0.0.1:9999/blazegraph/sparql#source_info_1> ;
+	<http://SDTLnamespaceURLtype> "Compute"^^xsd:string ;
+	<http://SDTLnamespaceURLvariable> <http://127.0.0.1:9999/blazegraph/sparql#variable_1> .
+
+<http://127.0.0.1:9999/blazegraph/sparql#variable_1> <http://SDTLnamespaceURLtype> "VariableSymbolExpression"^^xsd:string ;
+	<http://SDTLnamespaceURLvariableName> "newVar"^^xsd:string .
 
 <http://purl.dataone.org/provone/2015/01/15/ontology#hadPlan> a rdf:Property ;
 	rdfs:subPropertyOf <http://purl.dataone.org/provone/2015/01/15/ontology#hadPlan> .
@@ -157,11 +164,3 @@
 
 <http://www.w3.org/ns/prov#wasGeneratedBy> a rdf:Property ;
 	rdfs:subPropertyOf <http://www.w3.org/ns/prov#wasGeneratedBy> .
-
-<http://127.0.0.1:9999/blazegraph/sparql#expression_1> <http://SDTLnamespaceURL$type> "NumericConstantExpression"^^xsd:string ;
-	<http://SDTLnamespaceURLnumericType> "int"^^xsd:string ;
-	<http://SDTLnamespaceURLtype> "NumericConstantExpression"^^xsd:string ;
-	<http://SDTLnamespaceURLvalue> "0"^^xsd:string .
-
-<http://127.0.0.1:9999/blazegraph/sparql#statement_1> <http://SDTLnamespaceURLcommand> "compute"^^xsd:string ;
-	<http://SDTLnamespaceURLexpression> <http://127.0.0.1:9999/blazegraph/sparql#expression_1> .

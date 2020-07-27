@@ -13,23 +13,12 @@ blazegraph import --format jsonld --file ../data/single-command.jsonld
 
 # EXPORT AS N-TRIPLES
 
-blazegraph export --format nt
+blazegraph export --format nt | sort
 
 ---------------------------- S1 OUTPUTS ---------------------------------
 
-<http://www.w3.org/ns/prov#hadPlan> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-<http://www.w3.org/ns/prov#hadPlan> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/ns/prov#hadPlan> .
-<http://www.w3.org/ns/prov#hasOutPort> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-<http://www.w3.org/ns/prov#hasOutPort> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/ns/prov#hasOutPort> .
-<http://www.w3.org/ns/prov#qualifiedAssociation> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-<http://www.w3.org/ns/prov#qualifiedAssociation> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/ns/prov#qualifiedAssociation> .
-<http://www.w3.org/ns/prov#qualifiedGeneration> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-<http://www.w3.org/ns/prov#qualifiedGeneration> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/ns/prov#qualifiedGeneration> .
-<http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-<http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/ns/prov#wasGeneratedBy> .
 <http://127.0.0.1:9999/blazegraph/sparql#associated_plan> <http://purl.dataone.org/provone/2015/01/15/ontology#hadPlan> "#create_var.sps"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://127.0.0.1:9999/blazegraph/sparql#associated_plan> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://127.0.0.1:9999/blazegraph/Association> .
-<http://127.0.0.1:9999/blazegraph/sparql#create_var.sps> <http://purl.dataone.org/provone/2015/01/15/ontology#hasSubProgram> "#create_variable_command"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://127.0.0.1:9999/blazegraph/sparql#create_var.sps> <http://SDTLnamespaceURLcommandCount> "1"^^<http://www.w3.org/2001/XMLSchema#integer> .
 <http://127.0.0.1:9999/blazegraph/sparql#create_var.sps> <http://SDTLnamespaceURLlineCount> "1"^^<http://www.w3.org/2001/XMLSchema#integer> .
 <http://127.0.0.1:9999/blazegraph/sparql#create_var.sps> <http://SDTLnamespaceURLscriptMD5> "518001a968c359366bf7ceb12bf209ea"^^<http://www.w3.org/2001/XMLSchema#string> .
@@ -38,18 +27,19 @@ blazegraph export --format nt
 <http://127.0.0.1:9999/blazegraph/sparql#create_var.sps> <http://SDTLnamespaceURLsourceFileName> ""^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://127.0.0.1:9999/blazegraph/sparql#create_var.sps> <http://SDTLnamespaceURLsourceFileSize> "19"^^<http://www.w3.org/2001/XMLSchema#integer> .
 <http://127.0.0.1:9999/blazegraph/sparql#create_var.sps> <http://SDTLnamespaceURLsourceLanguage> "spss"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://127.0.0.1:9999/blazegraph/sparql#create_var.sps> <http://purl.dataone.org/provone/2015/01/15/ontology#hasSubProgram> "#create_variable_command"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://127.0.0.1:9999/blazegraph/sparql#create_var.sps> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.dataone.org/provone/2015/01/15/ontology#Program> .
-<http://127.0.0.1:9999/blazegraph/sparql#create_variable_associated_plan> <http://www.w3.org/ns/prov#hadPlan> "#create_variable_command"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://127.0.0.1:9999/blazegraph/sparql#create_variable_associated_plan> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.dataone.org/provone/2015/01/15/ontology#Association> .
-<http://127.0.0.1:9999/blazegraph/sparql#create_variable_command> <http://purl.dataone.org/provone/2015/01/15/ontology#hasOutPort> "#create_variable_port"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://127.0.0.1:9999/blazegraph/sparql#create_variable_associated_plan> <http://www.w3.org/ns/prov#hadPlan> "#create_variable_command"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://127.0.0.1:9999/blazegraph/sparql#create_variable_command> <http://SDTLnamespaceURLcommands> <http://127.0.0.1:9999/blazegraph/sparql#statement_1> .
+<http://127.0.0.1:9999/blazegraph/sparql#create_variable_command> <http://purl.dataone.org/provone/2015/01/15/ontology#hasOutPort> "#create_variable_port"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://127.0.0.1:9999/blazegraph/sparql#create_variable_command> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.dataone.org/provone/2015/01/15/ontology#Program> .
+<http://127.0.0.1:9999/blazegraph/sparql#create_variable_command_exection> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.dataone.org/provone/2015/01/15/ontology#Execution> .
 <http://127.0.0.1:9999/blazegraph/sparql#create_variable_command_exection> <http://www.w3.org/ns/prov#qualifiedAssociation> "#create_variable_command"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://127.0.0.1:9999/blazegraph/sparql#create_variable_command_exection> <http://www.w3.org/ns/prov#qualifiedGeneration> "#create_variable_command_exection"^^<http://www.w3.org/2001/XMLSchema#string> .
-<http://127.0.0.1:9999/blazegraph/sparql#create_variable_command_exection> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.dataone.org/provone/2015/01/15/ontology#Execution> .
+<http://127.0.0.1:9999/blazegraph/sparql#create_variable_command_generation> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/prov#qualifiedGeneration> .
 <http://127.0.0.1:9999/blazegraph/sparql#create_variable_command_generation> <http://www.w3.org/ns/prov#hadEntity> "#generated_variable"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://127.0.0.1:9999/blazegraph/sparql#create_variable_command_generation> <http://www.w3.org/ns/prov#hasOutPort> "#create_variable_port"^^<http://www.w3.org/2001/XMLSchema#string> .
-<http://127.0.0.1:9999/blazegraph/sparql#create_variable_command_generation> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/prov#qualifiedGeneration> .
 <http://127.0.0.1:9999/blazegraph/sparql#create_variable_port> <http://SDTLnamespaceURLexpression> <http://127.0.0.1:9999/blazegraph/sparql#expression_1> .
 <http://127.0.0.1:9999/blazegraph/sparql#create_variable_port> <http://SDTLnamespaceURLvariable> <http://127.0.0.1:9999/blazegraph/sparql#variable_1> .
 <http://127.0.0.1:9999/blazegraph/sparql#create_variable_port> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.dataone.org/provone/2015/01/15/ontology#Port> .
@@ -57,10 +47,10 @@ blazegraph export --format nt
 <http://127.0.0.1:9999/blazegraph/sparql#expression_1> <http://SDTLnamespaceURLnumericType> "int"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://127.0.0.1:9999/blazegraph/sparql#expression_1> <http://SDTLnamespaceURLtype> "NumericConstantExpression"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://127.0.0.1:9999/blazegraph/sparql#expression_1> <http://SDTLnamespaceURLvalue> "0"^^<http://www.w3.org/2001/XMLSchema#string> .
-<http://127.0.0.1:9999/blazegraph/sparql#generated_variable> <http://www.w3.org/ns/prov#wasGeneratedBy> "#create_variable_command_exection"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://127.0.0.1:9999/blazegraph/sparql#generated_variable> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/prov#Entity> .
-<http://127.0.0.1:9999/blazegraph/sparql#script_execution> <http://www.w3.org/ns/prov#qualifiedAssociation> "#associated_plan"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://127.0.0.1:9999/blazegraph/sparql#generated_variable> <http://www.w3.org/ns/prov#wasGeneratedBy> "#create_variable_command_exection"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://127.0.0.1:9999/blazegraph/sparql#script_execution> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.dataone.org/provone/2015/01/15/ontology#Execution> .
+<http://127.0.0.1:9999/blazegraph/sparql#script_execution> <http://www.w3.org/ns/prov#qualifiedAssociation> "#associated_plan"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://127.0.0.1:9999/blazegraph/sparql#source_info_1> <http://SDTLnamespaceURLlineNumberEnd> "1"^^<http://www.w3.org/2001/XMLSchema#integer> .
 <http://127.0.0.1:9999/blazegraph/sparql#source_info_1> <http://SDTLnamespaceURLlineNumberStart> "1"^^<http://www.w3.org/2001/XMLSchema#integer> .
 <http://127.0.0.1:9999/blazegraph/sparql#source_info_1> <http://SDTLnamespaceURLoriginalSourceText> "compute newVar = 0."^^<http://www.w3.org/2001/XMLSchema#string> .
@@ -73,12 +63,6 @@ blazegraph export --format nt
 <http://127.0.0.1:9999/blazegraph/sparql#statement_1> <http://SDTLnamespaceURLvariable> <http://127.0.0.1:9999/blazegraph/sparql#variable_1> .
 <http://127.0.0.1:9999/blazegraph/sparql#variable_1> <http://SDTLnamespaceURLtype> "VariableSymbolExpression"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://127.0.0.1:9999/blazegraph/sparql#variable_1> <http://SDTLnamespaceURLvariableName> "newVar"^^<http://www.w3.org/2001/XMLSchema#string> .
-<http://purl.dataone.org/provone/2015/01/15/ontology#hadPlan> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-<http://purl.dataone.org/provone/2015/01/15/ontology#hadPlan> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://purl.dataone.org/provone/2015/01/15/ontology#hadPlan> .
-<http://purl.dataone.org/provone/2015/01/15/ontology#hasOutPort> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-<http://purl.dataone.org/provone/2015/01/15/ontology#hasOutPort> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://purl.dataone.org/provone/2015/01/15/ontology#hasOutPort> .
-<http://purl.dataone.org/provone/2015/01/15/ontology#hasSubProgram> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-<http://purl.dataone.org/provone/2015/01/15/ontology#hasSubProgram> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://purl.dataone.org/provone/2015/01/15/ontology#hasSubProgram> .
 <http://SDTLnamespaceURL$type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
 <http://SDTLnamespaceURL$type> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://SDTLnamespaceURL$type> .
 <http://SDTLnamespaceURLcommand> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
@@ -125,8 +109,24 @@ blazegraph export --format nt
 <http://SDTLnamespaceURLvariable> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://SDTLnamespaceURLvariable> .
 <http://SDTLnamespaceURLvariableName> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
 <http://SDTLnamespaceURLvariableName> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://SDTLnamespaceURLvariableName> .
+<http://purl.dataone.org/provone/2015/01/15/ontology#hadPlan> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<http://purl.dataone.org/provone/2015/01/15/ontology#hadPlan> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://purl.dataone.org/provone/2015/01/15/ontology#hadPlan> .
+<http://purl.dataone.org/provone/2015/01/15/ontology#hasOutPort> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<http://purl.dataone.org/provone/2015/01/15/ontology#hasOutPort> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://purl.dataone.org/provone/2015/01/15/ontology#hasOutPort> .
+<http://purl.dataone.org/provone/2015/01/15/ontology#hasSubProgram> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<http://purl.dataone.org/provone/2015/01/15/ontology#hasSubProgram> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://purl.dataone.org/provone/2015/01/15/ontology#hasSubProgram> .
 <http://www.w3.org/ns/prov#hadEntity> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
 <http://www.w3.org/ns/prov#hadEntity> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/ns/prov#hadEntity> .
+<http://www.w3.org/ns/prov#hadPlan> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<http://www.w3.org/ns/prov#hadPlan> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/ns/prov#hadPlan> .
+<http://www.w3.org/ns/prov#hasOutPort> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<http://www.w3.org/ns/prov#hasOutPort> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/ns/prov#hasOutPort> .
+<http://www.w3.org/ns/prov#qualifiedAssociation> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<http://www.w3.org/ns/prov#qualifiedAssociation> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/ns/prov#qualifiedAssociation> .
+<http://www.w3.org/ns/prov#qualifiedGeneration> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<http://www.w3.org/ns/prov#qualifiedGeneration> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/ns/prov#qualifiedGeneration> .
+<http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/ns/prov#wasGeneratedBy> .
 
 **************************** EXAMPLE S2 *********************************
 
@@ -147,21 +147,6 @@ blazegraph export --format ttl
 @prefix hint: <http://www.bigdata.com/queryHints#> .
 @prefix bd: <http://www.bigdata.com/rdf#> .
 @prefix bds: <http://www.bigdata.com/rdf/search#> .
-
-<http://www.w3.org/ns/prov#hadPlan> a rdf:Property ;
-	rdfs:subPropertyOf <http://www.w3.org/ns/prov#hadPlan> .
-
-<http://www.w3.org/ns/prov#hasOutPort> a rdf:Property ;
-	rdfs:subPropertyOf <http://www.w3.org/ns/prov#hasOutPort> .
-
-<http://www.w3.org/ns/prov#qualifiedAssociation> a rdf:Property ;
-	rdfs:subPropertyOf <http://www.w3.org/ns/prov#qualifiedAssociation> .
-
-<http://www.w3.org/ns/prov#qualifiedGeneration> a rdf:Property ;
-	rdfs:subPropertyOf <http://www.w3.org/ns/prov#qualifiedGeneration> .
-
-<http://www.w3.org/ns/prov#wasGeneratedBy> a rdf:Property ;
-	rdfs:subPropertyOf <http://www.w3.org/ns/prov#wasGeneratedBy> .
 
 <http://127.0.0.1:9999/blazegraph/sparql#associated_plan> <http://purl.dataone.org/provone/2015/01/15/ontology#hadPlan> "#create_var.sps"^^xsd:string ;
 	a <http://127.0.0.1:9999/blazegraph/Association> .
@@ -302,6 +287,21 @@ blazegraph export --format ttl
 
 <http://www.w3.org/ns/prov#hadEntity> a rdf:Property ;
 	rdfs:subPropertyOf <http://www.w3.org/ns/prov#hadEntity> .
+
+<http://www.w3.org/ns/prov#hadPlan> a rdf:Property ;
+	rdfs:subPropertyOf <http://www.w3.org/ns/prov#hadPlan> .
+
+<http://www.w3.org/ns/prov#hasOutPort> a rdf:Property ;
+	rdfs:subPropertyOf <http://www.w3.org/ns/prov#hasOutPort> .
+
+<http://www.w3.org/ns/prov#qualifiedAssociation> a rdf:Property ;
+	rdfs:subPropertyOf <http://www.w3.org/ns/prov#qualifiedAssociation> .
+
+<http://www.w3.org/ns/prov#qualifiedGeneration> a rdf:Property ;
+	rdfs:subPropertyOf <http://www.w3.org/ns/prov#qualifiedGeneration> .
+
+<http://www.w3.org/ns/prov#wasGeneratedBy> a rdf:Property ;
+	rdfs:subPropertyOf <http://www.w3.org/ns/prov#wasGeneratedBy> .
 
 **************************** EXAMPLE S3 *********************************
 
@@ -661,257 +661,256 @@ blazegraph export --format jsonld
 
 # EXPORT AS RDF/XML
 
-blazegraph export --format xml | xmllint - --c14n
+blazegraph export --format xml | xmllint - --c14n11
 
 ---------------------------- S4 OUTPUTS ---------------------------------
 
 <?xml version="1.0" encoding="UTF-8"?>
 <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:sesame="http://www.openrdf.org/schema/sesame#" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:xsd="http://www.w3.org/2001/XMLSchema#" xmlns:fn="http://www.w3.org/2005/xpath-functions#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:hint="http://www.bigdata.com/queryHints#" xmlns:bd="http://www.bigdata.com/rdf#" xmlns:bds="http://www.bigdata.com/rdf/search#">
 
-<rdf:Description rdf:about="http://www.w3.org/ns/prov#hadPlan">
-        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
-        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/ns/prov#hadPlan"/>
-</rdf:Description>
-
-<rdf:Description rdf:about="http://www.w3.org/ns/prov#hasOutPort">
-        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
-        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/ns/prov#hasOutPort"/>
-</rdf:Description>
-
-<rdf:Description rdf:about="http://www.w3.org/ns/prov#qualifiedAssociation">
-        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
-        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/ns/prov#qualifiedAssociation"/>
-</rdf:Description>
-
-<rdf:Description rdf:about="http://www.w3.org/ns/prov#qualifiedGeneration">
-        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
-        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/ns/prov#qualifiedGeneration"/>
-</rdf:Description>
-
-<rdf:Description rdf:about="http://www.w3.org/ns/prov#wasGeneratedBy">
-        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
-        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/ns/prov#wasGeneratedBy"/>
-</rdf:Description>
-
 <rdf:Description rdf:about="http://127.0.0.1:9999/blazegraph/sparql#associated_plan">
-        <hadPlan xmlns="http://purl.dataone.org/provone/2015/01/15/ontology#" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">#create_var.sps</hadPlan>
-        <rdf:type rdf:resource="http://127.0.0.1:9999/blazegraph/Association"/>
+	<hadPlan xmlns="http://purl.dataone.org/provone/2015/01/15/ontology#" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">#create_var.sps</hadPlan>
+	<rdf:type rdf:resource="http://127.0.0.1:9999/blazegraph/Association"/>
 </rdf:Description>
 
 <rdf:Description rdf:about="http://127.0.0.1:9999/blazegraph/sparql#create_var.sps">
-        <hasSubProgram xmlns="http://purl.dataone.org/provone/2015/01/15/ontology#" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">#create_variable_command</hasSubProgram>
-        <SDTLnamespaceURLcommandCount xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</SDTLnamespaceURLcommandCount>
-        <SDTLnamespaceURLlineCount xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</SDTLnamespaceURLlineCount>
-        <SDTLnamespaceURLscriptMD5 xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">518001a968c359366bf7ceb12bf209ea</SDTLnamespaceURLscriptMD5>
-        <SDTLnamespaceURLscriptSHA1 xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3dead21a7b31e1409d2ab364cbf4f734366186ad</SDTLnamespaceURLscriptSHA1>
-        <SDTLnamespaceURLsourceFileLastUpdate xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2020-04-14T18:38:10+00:00</SDTLnamespaceURLsourceFileLastUpdate>
-        <SDTLnamespaceURLsourceFileName xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#string"/>
-        <SDTLnamespaceURLsourceFileSize xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">19</SDTLnamespaceURLsourceFileSize>
-        <SDTLnamespaceURLsourceLanguage xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">spss</SDTLnamespaceURLsourceLanguage>
-        <rdf:type rdf:resource="http://purl.dataone.org/provone/2015/01/15/ontology#Program"/>
+	<hasSubProgram xmlns="http://purl.dataone.org/provone/2015/01/15/ontology#" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">#create_variable_command</hasSubProgram>
+	<SDTLnamespaceURLcommandCount xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</SDTLnamespaceURLcommandCount>
+	<SDTLnamespaceURLlineCount xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</SDTLnamespaceURLlineCount>
+	<SDTLnamespaceURLscriptMD5 xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">518001a968c359366bf7ceb12bf209ea</SDTLnamespaceURLscriptMD5>
+	<SDTLnamespaceURLscriptSHA1 xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">3dead21a7b31e1409d2ab364cbf4f734366186ad</SDTLnamespaceURLscriptSHA1>
+	<SDTLnamespaceURLsourceFileLastUpdate xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2020-04-14T18:38:10+00:00</SDTLnamespaceURLsourceFileLastUpdate>
+	<SDTLnamespaceURLsourceFileName xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#string"/>
+	<SDTLnamespaceURLsourceFileSize xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">19</SDTLnamespaceURLsourceFileSize>
+	<SDTLnamespaceURLsourceLanguage xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">spss</SDTLnamespaceURLsourceLanguage>
+	<rdf:type rdf:resource="http://purl.dataone.org/provone/2015/01/15/ontology#Program"/>
 </rdf:Description>
 
 <rdf:Description rdf:about="http://127.0.0.1:9999/blazegraph/sparql#create_variable_associated_plan">
-        <hadPlan xmlns="http://www.w3.org/ns/prov#" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">#create_variable_command</hadPlan>
-        <rdf:type rdf:resource="http://purl.dataone.org/provone/2015/01/15/ontology#Association"/>
+	<hadPlan xmlns="http://www.w3.org/ns/prov#" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">#create_variable_command</hadPlan>
+	<rdf:type rdf:resource="http://purl.dataone.org/provone/2015/01/15/ontology#Association"/>
 </rdf:Description>
 
 <rdf:Description rdf:about="http://127.0.0.1:9999/blazegraph/sparql#create_variable_command">
-        <hasOutPort xmlns="http://purl.dataone.org/provone/2015/01/15/ontology#" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">#create_variable_port</hasOutPort>
-        <SDTLnamespaceURLcommands xmlns="http://" rdf:resource="http://127.0.0.1:9999/blazegraph/sparql#statement_1"/>
-        <rdf:type rdf:resource="http://purl.dataone.org/provone/2015/01/15/ontology#Program"/>
+	<hasOutPort xmlns="http://purl.dataone.org/provone/2015/01/15/ontology#" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">#create_variable_port</hasOutPort>
+	<SDTLnamespaceURLcommands xmlns="http://" rdf:resource="http://127.0.0.1:9999/blazegraph/sparql#statement_1"/>
+	<rdf:type rdf:resource="http://purl.dataone.org/provone/2015/01/15/ontology#Program"/>
 </rdf:Description>
 
 <rdf:Description rdf:about="http://127.0.0.1:9999/blazegraph/sparql#create_variable_command_exection">
-        <qualifiedAssociation xmlns="http://www.w3.org/ns/prov#" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">#create_variable_command</qualifiedAssociation>
-        <qualifiedGeneration xmlns="http://www.w3.org/ns/prov#" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">#create_variable_command_exection</qualifiedGeneration>
-        <rdf:type rdf:resource="http://purl.dataone.org/provone/2015/01/15/ontology#Execution"/>
+	<qualifiedAssociation xmlns="http://www.w3.org/ns/prov#" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">#create_variable_command</qualifiedAssociation>
+	<qualifiedGeneration xmlns="http://www.w3.org/ns/prov#" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">#create_variable_command_exection</qualifiedGeneration>
+	<rdf:type rdf:resource="http://purl.dataone.org/provone/2015/01/15/ontology#Execution"/>
 </rdf:Description>
 
 <rdf:Description rdf:about="http://127.0.0.1:9999/blazegraph/sparql#create_variable_command_generation">
-        <hadEntity xmlns="http://www.w3.org/ns/prov#" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">#generated_variable</hadEntity>
-        <hasOutPort xmlns="http://www.w3.org/ns/prov#" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">#create_variable_port</hasOutPort>
-        <rdf:type rdf:resource="http://www.w3.org/ns/prov#qualifiedGeneration"/>
+	<hadEntity xmlns="http://www.w3.org/ns/prov#" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">#generated_variable</hadEntity>
+	<hasOutPort xmlns="http://www.w3.org/ns/prov#" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">#create_variable_port</hasOutPort>
+	<rdf:type rdf:resource="http://www.w3.org/ns/prov#qualifiedGeneration"/>
 </rdf:Description>
 
 <rdf:Description rdf:about="http://127.0.0.1:9999/blazegraph/sparql#create_variable_port">
-        <SDTLnamespaceURLexpression xmlns="http://" rdf:resource="http://127.0.0.1:9999/blazegraph/sparql#expression_1"/>
-        <SDTLnamespaceURLvariable xmlns="http://" rdf:resource="http://127.0.0.1:9999/blazegraph/sparql#variable_1"/>
-        <rdf:type rdf:resource="http://purl.dataone.org/provone/2015/01/15/ontology#Port"/>
+	<SDTLnamespaceURLexpression xmlns="http://" rdf:resource="http://127.0.0.1:9999/blazegraph/sparql#expression_1"/>
+	<SDTLnamespaceURLvariable xmlns="http://" rdf:resource="http://127.0.0.1:9999/blazegraph/sparql#variable_1"/>
+	<rdf:type rdf:resource="http://purl.dataone.org/provone/2015/01/15/ontology#Port"/>
 </rdf:Description>
 
 <rdf:Description rdf:about="http://127.0.0.1:9999/blazegraph/sparql#expression_1">
-        <type xmlns="http://SDTLnamespaceURL$" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">NumericConstantExpression</type>
-        <SDTLnamespaceURLnumericType xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">int</SDTLnamespaceURLnumericType>
-        <SDTLnamespaceURLtype xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">NumericConstantExpression</SDTLnamespaceURLtype>
-        <SDTLnamespaceURLvalue xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0</SDTLnamespaceURLvalue>
+	<type xmlns="http://SDTLnamespaceURL$" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">NumericConstantExpression</type>
+	<SDTLnamespaceURLnumericType xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">int</SDTLnamespaceURLnumericType>
+	<SDTLnamespaceURLtype xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">NumericConstantExpression</SDTLnamespaceURLtype>
+	<SDTLnamespaceURLvalue xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0</SDTLnamespaceURLvalue>
 </rdf:Description>
 
 <rdf:Description rdf:about="http://127.0.0.1:9999/blazegraph/sparql#generated_variable">
-        <wasGeneratedBy xmlns="http://www.w3.org/ns/prov#" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">#create_variable_command_exection</wasGeneratedBy>
-        <rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
+	<wasGeneratedBy xmlns="http://www.w3.org/ns/prov#" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">#create_variable_command_exection</wasGeneratedBy>
+	<rdf:type rdf:resource="http://www.w3.org/ns/prov#Entity"/>
 </rdf:Description>
 
 <rdf:Description rdf:about="http://127.0.0.1:9999/blazegraph/sparql#script_execution">
-        <qualifiedAssociation xmlns="http://www.w3.org/ns/prov#" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">#associated_plan</qualifiedAssociation>
-        <rdf:type rdf:resource="http://purl.dataone.org/provone/2015/01/15/ontology#Execution"/>
+	<qualifiedAssociation xmlns="http://www.w3.org/ns/prov#" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">#associated_plan</qualifiedAssociation>
+	<rdf:type rdf:resource="http://purl.dataone.org/provone/2015/01/15/ontology#Execution"/>
 </rdf:Description>
 
 <rdf:Description rdf:about="http://127.0.0.1:9999/blazegraph/sparql#source_info_1">
-        <SDTLnamespaceURLlineNumberEnd xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</SDTLnamespaceURLlineNumberEnd>
-        <SDTLnamespaceURLlineNumberStart xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</SDTLnamespaceURLlineNumberStart>
-        <SDTLnamespaceURLoriginalSourceText xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">compute newVar = 0.</SDTLnamespaceURLoriginalSourceText>
-        <SDTLnamespaceURLsourceStartIndex xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</SDTLnamespaceURLsourceStartIndex>
-        <SDTLnamespaceURLsourceStopIndex xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">19</SDTLnamespaceURLsourceStopIndex>
+	<SDTLnamespaceURLlineNumberEnd xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</SDTLnamespaceURLlineNumberEnd>
+	<SDTLnamespaceURLlineNumberStart xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</SDTLnamespaceURLlineNumberStart>
+	<SDTLnamespaceURLoriginalSourceText xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">compute newVar = 0.</SDTLnamespaceURLoriginalSourceText>
+	<SDTLnamespaceURLsourceStartIndex xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</SDTLnamespaceURLsourceStartIndex>
+	<SDTLnamespaceURLsourceStopIndex xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">19</SDTLnamespaceURLsourceStopIndex>
 </rdf:Description>
 
 <rdf:Description rdf:about="http://127.0.0.1:9999/blazegraph/sparql#statement_1">
-        <SDTLnamespaceURLcommand xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">compute</SDTLnamespaceURLcommand>
-        <SDTLnamespaceURLexpression xmlns="http://" rdf:resource="http://127.0.0.1:9999/blazegraph/sparql#expression_1"/>
-        <SDTLnamespaceURLsourceInformation xmlns="http://" rdf:resource="http://127.0.0.1:9999/blazegraph/sparql#source_info_1"/>
-        <SDTLnamespaceURLtype xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Compute</SDTLnamespaceURLtype>
-        <SDTLnamespaceURLvariable xmlns="http://" rdf:resource="http://127.0.0.1:9999/blazegraph/sparql#variable_1"/>
+	<SDTLnamespaceURLcommand xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">compute</SDTLnamespaceURLcommand>
+	<SDTLnamespaceURLexpression xmlns="http://" rdf:resource="http://127.0.0.1:9999/blazegraph/sparql#expression_1"/>
+	<SDTLnamespaceURLsourceInformation xmlns="http://" rdf:resource="http://127.0.0.1:9999/blazegraph/sparql#source_info_1"/>
+	<SDTLnamespaceURLtype xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Compute</SDTLnamespaceURLtype>
+	<SDTLnamespaceURLvariable xmlns="http://" rdf:resource="http://127.0.0.1:9999/blazegraph/sparql#variable_1"/>
 </rdf:Description>
 
 <rdf:Description rdf:about="http://127.0.0.1:9999/blazegraph/sparql#variable_1">
-        <SDTLnamespaceURLtype xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VariableSymbolExpression</SDTLnamespaceURLtype>
-        <SDTLnamespaceURLvariableName xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">newVar</SDTLnamespaceURLvariableName>
+	<SDTLnamespaceURLtype xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">VariableSymbolExpression</SDTLnamespaceURLtype>
+	<SDTLnamespaceURLvariableName xmlns="http://" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">newVar</SDTLnamespaceURLvariableName>
 </rdf:Description>
 
 <rdf:Description rdf:about="http://purl.dataone.org/provone/2015/01/15/ontology#hadPlan">
-        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
-        <rdfs:subPropertyOf rdf:resource="http://purl.dataone.org/provone/2015/01/15/ontology#hadPlan"/>
+	<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+	<rdfs:subPropertyOf rdf:resource="http://purl.dataone.org/provone/2015/01/15/ontology#hadPlan"/>
 </rdf:Description>
 
 <rdf:Description rdf:about="http://purl.dataone.org/provone/2015/01/15/ontology#hasOutPort">
-        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
-        <rdfs:subPropertyOf rdf:resource="http://purl.dataone.org/provone/2015/01/15/ontology#hasOutPort"/>
+	<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+	<rdfs:subPropertyOf rdf:resource="http://purl.dataone.org/provone/2015/01/15/ontology#hasOutPort"/>
 </rdf:Description>
 
 <rdf:Description rdf:about="http://purl.dataone.org/provone/2015/01/15/ontology#hasSubProgram">
-        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
-        <rdfs:subPropertyOf rdf:resource="http://purl.dataone.org/provone/2015/01/15/ontology#hasSubProgram"/>
+	<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+	<rdfs:subPropertyOf rdf:resource="http://purl.dataone.org/provone/2015/01/15/ontology#hasSubProgram"/>
 </rdf:Description>
 
 <rdf:Description rdf:about="http://SDTLnamespaceURL$type">
-        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
-        <rdfs:subPropertyOf rdf:resource="http://SDTLnamespaceURL$type"/>
+	<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+	<rdfs:subPropertyOf rdf:resource="http://SDTLnamespaceURL$type"/>
 </rdf:Description>
 
 <rdf:Description rdf:about="http://SDTLnamespaceURLcommand">
-        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
-        <rdfs:subPropertyOf rdf:resource="http://SDTLnamespaceURLcommand"/>
+	<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+	<rdfs:subPropertyOf rdf:resource="http://SDTLnamespaceURLcommand"/>
 </rdf:Description>
 
 <rdf:Description rdf:about="http://SDTLnamespaceURLcommandCount">
-        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
-        <rdfs:subPropertyOf rdf:resource="http://SDTLnamespaceURLcommandCount"/>
+	<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+	<rdfs:subPropertyOf rdf:resource="http://SDTLnamespaceURLcommandCount"/>
 </rdf:Description>
 
 <rdf:Description rdf:about="http://SDTLnamespaceURLcommands">
-        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
-        <rdfs:subPropertyOf rdf:resource="http://SDTLnamespaceURLcommands"/>
+	<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+	<rdfs:subPropertyOf rdf:resource="http://SDTLnamespaceURLcommands"/>
 </rdf:Description>
 
 <rdf:Description rdf:about="http://SDTLnamespaceURLexpression">
-        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
-        <rdfs:subPropertyOf rdf:resource="http://SDTLnamespaceURLexpression"/>
+	<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+	<rdfs:subPropertyOf rdf:resource="http://SDTLnamespaceURLexpression"/>
 </rdf:Description>
 
 <rdf:Description rdf:about="http://SDTLnamespaceURLlineCount">
-        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
-        <rdfs:subPropertyOf rdf:resource="http://SDTLnamespaceURLlineCount"/>
+	<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+	<rdfs:subPropertyOf rdf:resource="http://SDTLnamespaceURLlineCount"/>
 </rdf:Description>
 
 <rdf:Description rdf:about="http://SDTLnamespaceURLlineNumberEnd">
-        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
-        <rdfs:subPropertyOf rdf:resource="http://SDTLnamespaceURLlineNumberEnd"/>
+	<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+	<rdfs:subPropertyOf rdf:resource="http://SDTLnamespaceURLlineNumberEnd"/>
 </rdf:Description>
 
 <rdf:Description rdf:about="http://SDTLnamespaceURLlineNumberStart">
-        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
-        <rdfs:subPropertyOf rdf:resource="http://SDTLnamespaceURLlineNumberStart"/>
+	<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+	<rdfs:subPropertyOf rdf:resource="http://SDTLnamespaceURLlineNumberStart"/>
 </rdf:Description>
 
 <rdf:Description rdf:about="http://SDTLnamespaceURLnumericType">
-        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
-        <rdfs:subPropertyOf rdf:resource="http://SDTLnamespaceURLnumericType"/>
+	<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+	<rdfs:subPropertyOf rdf:resource="http://SDTLnamespaceURLnumericType"/>
 </rdf:Description>
 
 <rdf:Description rdf:about="http://SDTLnamespaceURLoriginalSourceText">
-        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
-        <rdfs:subPropertyOf rdf:resource="http://SDTLnamespaceURLoriginalSourceText"/>
+	<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+	<rdfs:subPropertyOf rdf:resource="http://SDTLnamespaceURLoriginalSourceText"/>
 </rdf:Description>
 
 <rdf:Description rdf:about="http://SDTLnamespaceURLscriptMD5">
-        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
-        <rdfs:subPropertyOf rdf:resource="http://SDTLnamespaceURLscriptMD5"/>
+	<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+	<rdfs:subPropertyOf rdf:resource="http://SDTLnamespaceURLscriptMD5"/>
 </rdf:Description>
 
 <rdf:Description rdf:about="http://SDTLnamespaceURLscriptSHA1">
-        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
-        <rdfs:subPropertyOf rdf:resource="http://SDTLnamespaceURLscriptSHA1"/>
+	<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+	<rdfs:subPropertyOf rdf:resource="http://SDTLnamespaceURLscriptSHA1"/>
 </rdf:Description>
 
 <rdf:Description rdf:about="http://SDTLnamespaceURLsourceFileLastUpdate">
-        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
-        <rdfs:subPropertyOf rdf:resource="http://SDTLnamespaceURLsourceFileLastUpdate"/>
+	<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+	<rdfs:subPropertyOf rdf:resource="http://SDTLnamespaceURLsourceFileLastUpdate"/>
 </rdf:Description>
 
 <rdf:Description rdf:about="http://SDTLnamespaceURLsourceFileName">
-        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
-        <rdfs:subPropertyOf rdf:resource="http://SDTLnamespaceURLsourceFileName"/>
+	<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+	<rdfs:subPropertyOf rdf:resource="http://SDTLnamespaceURLsourceFileName"/>
 </rdf:Description>
 
 <rdf:Description rdf:about="http://SDTLnamespaceURLsourceFileSize">
-        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
-        <rdfs:subPropertyOf rdf:resource="http://SDTLnamespaceURLsourceFileSize"/>
+	<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+	<rdfs:subPropertyOf rdf:resource="http://SDTLnamespaceURLsourceFileSize"/>
 </rdf:Description>
 
 <rdf:Description rdf:about="http://SDTLnamespaceURLsourceInformation">
-        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
-        <rdfs:subPropertyOf rdf:resource="http://SDTLnamespaceURLsourceInformation"/>
+	<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+	<rdfs:subPropertyOf rdf:resource="http://SDTLnamespaceURLsourceInformation"/>
 </rdf:Description>
 
 <rdf:Description rdf:about="http://SDTLnamespaceURLsourceLanguage">
-        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
-        <rdfs:subPropertyOf rdf:resource="http://SDTLnamespaceURLsourceLanguage"/>
+	<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+	<rdfs:subPropertyOf rdf:resource="http://SDTLnamespaceURLsourceLanguage"/>
 </rdf:Description>
 
 <rdf:Description rdf:about="http://SDTLnamespaceURLsourceStartIndex">
-        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
-        <rdfs:subPropertyOf rdf:resource="http://SDTLnamespaceURLsourceStartIndex"/>
+	<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+	<rdfs:subPropertyOf rdf:resource="http://SDTLnamespaceURLsourceStartIndex"/>
 </rdf:Description>
 
 <rdf:Description rdf:about="http://SDTLnamespaceURLsourceStopIndex">
-        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
-        <rdfs:subPropertyOf rdf:resource="http://SDTLnamespaceURLsourceStopIndex"/>
+	<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+	<rdfs:subPropertyOf rdf:resource="http://SDTLnamespaceURLsourceStopIndex"/>
 </rdf:Description>
 
 <rdf:Description rdf:about="http://SDTLnamespaceURLtype">
-        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
-        <rdfs:subPropertyOf rdf:resource="http://SDTLnamespaceURLtype"/>
+	<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+	<rdfs:subPropertyOf rdf:resource="http://SDTLnamespaceURLtype"/>
 </rdf:Description>
 
 <rdf:Description rdf:about="http://SDTLnamespaceURLvalue">
-        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
-        <rdfs:subPropertyOf rdf:resource="http://SDTLnamespaceURLvalue"/>
+	<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+	<rdfs:subPropertyOf rdf:resource="http://SDTLnamespaceURLvalue"/>
 </rdf:Description>
 
 <rdf:Description rdf:about="http://SDTLnamespaceURLvariable">
-        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
-        <rdfs:subPropertyOf rdf:resource="http://SDTLnamespaceURLvariable"/>
+	<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+	<rdfs:subPropertyOf rdf:resource="http://SDTLnamespaceURLvariable"/>
 </rdf:Description>
 
 <rdf:Description rdf:about="http://SDTLnamespaceURLvariableName">
-        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
-        <rdfs:subPropertyOf rdf:resource="http://SDTLnamespaceURLvariableName"/>
+	<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+	<rdfs:subPropertyOf rdf:resource="http://SDTLnamespaceURLvariableName"/>
 </rdf:Description>
 
 <rdf:Description rdf:about="http://www.w3.org/ns/prov#hadEntity">
-        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
-        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/ns/prov#hadEntity"/>
+	<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+	<rdfs:subPropertyOf rdf:resource="http://www.w3.org/ns/prov#hadEntity"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://www.w3.org/ns/prov#hadPlan">
+	<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+	<rdfs:subPropertyOf rdf:resource="http://www.w3.org/ns/prov#hadPlan"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://www.w3.org/ns/prov#hasOutPort">
+	<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+	<rdfs:subPropertyOf rdf:resource="http://www.w3.org/ns/prov#hasOutPort"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://www.w3.org/ns/prov#qualifiedAssociation">
+	<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+	<rdfs:subPropertyOf rdf:resource="http://www.w3.org/ns/prov#qualifiedAssociation"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://www.w3.org/ns/prov#qualifiedGeneration">
+	<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+	<rdfs:subPropertyOf rdf:resource="http://www.w3.org/ns/prov#qualifiedGeneration"/>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://www.w3.org/ns/prov#wasGeneratedBy">
+	<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+	<rdfs:subPropertyOf rdf:resource="http://www.w3.org/ns/prov#wasGeneratedBy"/>
 </rdf:Description>
 
 </rdf:RDF>
-
