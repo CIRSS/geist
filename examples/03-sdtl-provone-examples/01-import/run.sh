@@ -39,6 +39,6 @@ END_SCRIPT
 
 bash ${RUNNER} S4 "EXPORT AS RDF/XML" << END_SCRIPT
 
-blazegraph export --format xml
+blazegraph export --format xml | xmllint - --c14n
 
 END_SCRIPT

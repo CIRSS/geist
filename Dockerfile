@@ -17,7 +17,7 @@ RUN echo '***** Install packages required for creating this image *****'    \
     && apt -y install apt-utils wget curl makepasswd gcc make git           \
                                                                             \
     && echo '***** Install command-line utility packages *****'             \
-    && apt -y install sudo man less file tree jq graphviz
+    && apt -y install sudo man less file tree jq graphviz libxml2-utils
 
 ENV GO_VERSION       1.13.5
 ENV GO_DOWNLOADS_URL https://dl.google.com/go
@@ -54,6 +54,8 @@ RUN wget ${JENA_BINARIES}/${JENA_ARCHIVE}                                   \
  && tar xvvf ${JENA_ARCHIVE}                                                \
  && rm ${JENA_ARCHIVE}                                                      \
  && echo 'PATH=~/${JENA_VERSION_NAME}/bin:$PATH' >> ${BASHRC}
+
+ ENV FOO bar
 
 ENV BLAZEGRAPH_VER RELEASE_2_1_5
 ENV BLAZEGRAPH_RELEASES https://github.com/blazegraph/database/releases
