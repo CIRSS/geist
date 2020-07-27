@@ -1,4 +1,4 @@
-# EXPORT AS TURTLE
+# EXPORT AS JSON-LD
 
-blazegraph export --format ttl
+blazegraph export --format jsonld
 

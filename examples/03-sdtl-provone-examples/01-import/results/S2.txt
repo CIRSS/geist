@@ -1,166 +1,346 @@
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix sesame: <http://www.openrdf.org/schema/sesame#> .
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix fn: <http://www.w3.org/2005/xpath-functions#> .
-@prefix foaf: <http://xmlns.com/foaf/0.1/> .
-@prefix dc: <http://purl.org/dc/elements/1.1/> .
-@prefix hint: <http://www.bigdata.com/queryHints#> .
-@prefix bd: <http://www.bigdata.com/rdf#> .
-@prefix bds: <http://www.bigdata.com/rdf/search#> .
-
-<http://127.0.0.1:9999/blazegraph/sparql#associated_plan> <http://purl.dataone.org/provone/2015/01/15/ontology#hadPlan> "#create_var.sps"^^xsd:string ;
-	a <http://127.0.0.1:9999/blazegraph/Association> .
-
-<http://127.0.0.1:9999/blazegraph/sparql#create_var.sps> <http://purl.dataone.org/provone/2015/01/15/ontology#hasSubProgram> "#create_variable_command"^^xsd:string ;
-	<http://SDTLnamespaceURLcommandCount> "1"^^xsd:integer ;
-	<http://SDTLnamespaceURLlineCount> "1"^^xsd:integer ;
-	<http://SDTLnamespaceURLscriptMD5> "518001a968c359366bf7ceb12bf209ea"^^xsd:string ;
-	<http://SDTLnamespaceURLscriptSHA1> "3dead21a7b31e1409d2ab364cbf4f734366186ad"^^xsd:string ;
-	<http://SDTLnamespaceURLsourceFileLastUpdate> "2020-04-14T18:38:10+00:00"^^xsd:string ;
-	<http://SDTLnamespaceURLsourceFileName> ""^^xsd:string ;
-	<http://SDTLnamespaceURLsourceFileSize> "19"^^xsd:integer ;
-	<http://SDTLnamespaceURLsourceLanguage> "spss"^^xsd:string ;
-	a <http://purl.dataone.org/provone/2015/01/15/ontology#Program> .
-
-<http://127.0.0.1:9999/blazegraph/sparql#create_variable_associated_plan> <http://www.w3.org/ns/prov#hadPlan> "#create_variable_command"^^xsd:string ;
-	a <http://purl.dataone.org/provone/2015/01/15/ontology#Association> .
-
-<http://127.0.0.1:9999/blazegraph/sparql#create_variable_command> <http://purl.dataone.org/provone/2015/01/15/ontology#hasOutPort> "#create_variable_port"^^xsd:string ;
-	<http://SDTLnamespaceURLcommands> <http://127.0.0.1:9999/blazegraph/sparql#statement_1> ;
-	a <http://purl.dataone.org/provone/2015/01/15/ontology#Program> .
-
-<http://127.0.0.1:9999/blazegraph/sparql#create_variable_command_exection> <http://www.w3.org/ns/prov#qualifiedAssociation> "#create_variable_command"^^xsd:string ;
-	<http://www.w3.org/ns/prov#qualifiedGeneration> "#create_variable_command_exection"^^xsd:string ;
-	a <http://purl.dataone.org/provone/2015/01/15/ontology#Execution> .
-
-<http://127.0.0.1:9999/blazegraph/sparql#create_variable_command_generation> <http://www.w3.org/ns/prov#hadEntity> "#generated_variable"^^xsd:string ;
-	<http://www.w3.org/ns/prov#hasOutPort> "#create_variable_port"^^xsd:string ;
-	a <http://www.w3.org/ns/prov#qualifiedGeneration> .
-
-<http://127.0.0.1:9999/blazegraph/sparql#create_variable_port> <http://SDTLnamespaceURLexpression> <http://127.0.0.1:9999/blazegraph/sparql#expression_1> ;
-	<http://SDTLnamespaceURLvariable> <http://127.0.0.1:9999/blazegraph/sparql#variable_1> ;
-	a <http://purl.dataone.org/provone/2015/01/15/ontology#Port> .
-
-<http://127.0.0.1:9999/blazegraph/sparql#expression_1> <http://SDTLnamespaceURL$type> "NumericConstantExpression"^^xsd:string ;
-	<http://SDTLnamespaceURLnumericType> "int"^^xsd:string ;
-	<http://SDTLnamespaceURLtype> "NumericConstantExpression"^^xsd:string ;
-	<http://SDTLnamespaceURLvalue> "0"^^xsd:string .
-
-<http://127.0.0.1:9999/blazegraph/sparql#generated_variable> <http://www.w3.org/ns/prov#wasGeneratedBy> "#create_variable_command_exection"^^xsd:string ;
-	a <http://www.w3.org/ns/prov#Entity> .
-
-<http://127.0.0.1:9999/blazegraph/sparql#script_execution> <http://www.w3.org/ns/prov#qualifiedAssociation> "#associated_plan"^^xsd:string ;
-	a <http://purl.dataone.org/provone/2015/01/15/ontology#Execution> .
-
-<http://127.0.0.1:9999/blazegraph/sparql#source_info_1> <http://SDTLnamespaceURLlineNumberEnd> "1"^^xsd:integer ;
-	<http://SDTLnamespaceURLlineNumberStart> "1"^^xsd:integer ;
-	<http://SDTLnamespaceURLoriginalSourceText> "compute newVar = 0."^^xsd:string ;
-	<http://SDTLnamespaceURLsourceStartIndex> "1"^^xsd:integer ;
-	<http://SDTLnamespaceURLsourceStopIndex> "19"^^xsd:integer .
-
-<http://127.0.0.1:9999/blazegraph/sparql#statement_1> <http://SDTLnamespaceURLcommand> "compute"^^xsd:string ;
-	<http://SDTLnamespaceURLexpression> <http://127.0.0.1:9999/blazegraph/sparql#expression_1> ;
-	<http://SDTLnamespaceURLsourceInformation> <http://127.0.0.1:9999/blazegraph/sparql#source_info_1> ;
-	<http://SDTLnamespaceURLtype> "Compute"^^xsd:string ;
-	<http://SDTLnamespaceURLvariable> <http://127.0.0.1:9999/blazegraph/sparql#variable_1> .
-
-<http://127.0.0.1:9999/blazegraph/sparql#variable_1> <http://SDTLnamespaceURLtype> "VariableSymbolExpression"^^xsd:string ;
-	<http://SDTLnamespaceURLvariableName> "newVar"^^xsd:string .
-
-<http://purl.dataone.org/provone/2015/01/15/ontology#hadPlan> a rdf:Property ;
-	rdfs:subPropertyOf <http://purl.dataone.org/provone/2015/01/15/ontology#hadPlan> .
-
-<http://purl.dataone.org/provone/2015/01/15/ontology#hasOutPort> a rdf:Property ;
-	rdfs:subPropertyOf <http://purl.dataone.org/provone/2015/01/15/ontology#hasOutPort> .
-
-<http://purl.dataone.org/provone/2015/01/15/ontology#hasSubProgram> a rdf:Property ;
-	rdfs:subPropertyOf <http://purl.dataone.org/provone/2015/01/15/ontology#hasSubProgram> .
-
-<http://SDTLnamespaceURL$type> a rdf:Property ;
-	rdfs:subPropertyOf <http://SDTLnamespaceURL$type> .
-
-<http://SDTLnamespaceURLcommand> a rdf:Property ;
-	rdfs:subPropertyOf <http://SDTLnamespaceURLcommand> .
-
-<http://SDTLnamespaceURLcommandCount> a rdf:Property ;
-	rdfs:subPropertyOf <http://SDTLnamespaceURLcommandCount> .
-
-<http://SDTLnamespaceURLcommands> a rdf:Property ;
-	rdfs:subPropertyOf <http://SDTLnamespaceURLcommands> .
-
-<http://SDTLnamespaceURLexpression> a rdf:Property ;
-	rdfs:subPropertyOf <http://SDTLnamespaceURLexpression> .
-
-<http://SDTLnamespaceURLlineCount> a rdf:Property ;
-	rdfs:subPropertyOf <http://SDTLnamespaceURLlineCount> .
-
-<http://SDTLnamespaceURLlineNumberEnd> a rdf:Property ;
-	rdfs:subPropertyOf <http://SDTLnamespaceURLlineNumberEnd> .
-
-<http://SDTLnamespaceURLlineNumberStart> a rdf:Property ;
-	rdfs:subPropertyOf <http://SDTLnamespaceURLlineNumberStart> .
-
-<http://SDTLnamespaceURLnumericType> a rdf:Property ;
-	rdfs:subPropertyOf <http://SDTLnamespaceURLnumericType> .
-
-<http://SDTLnamespaceURLoriginalSourceText> a rdf:Property ;
-	rdfs:subPropertyOf <http://SDTLnamespaceURLoriginalSourceText> .
-
-<http://SDTLnamespaceURLscriptMD5> a rdf:Property ;
-	rdfs:subPropertyOf <http://SDTLnamespaceURLscriptMD5> .
-
-<http://SDTLnamespaceURLscriptSHA1> a rdf:Property ;
-	rdfs:subPropertyOf <http://SDTLnamespaceURLscriptSHA1> .
-
-<http://SDTLnamespaceURLsourceFileLastUpdate> a rdf:Property ;
-	rdfs:subPropertyOf <http://SDTLnamespaceURLsourceFileLastUpdate> .
-
-<http://SDTLnamespaceURLsourceFileName> a rdf:Property ;
-	rdfs:subPropertyOf <http://SDTLnamespaceURLsourceFileName> .
-
-<http://SDTLnamespaceURLsourceFileSize> a rdf:Property ;
-	rdfs:subPropertyOf <http://SDTLnamespaceURLsourceFileSize> .
-
-<http://SDTLnamespaceURLsourceInformation> a rdf:Property ;
-	rdfs:subPropertyOf <http://SDTLnamespaceURLsourceInformation> .
-
-<http://SDTLnamespaceURLsourceLanguage> a rdf:Property ;
-	rdfs:subPropertyOf <http://SDTLnamespaceURLsourceLanguage> .
-
-<http://SDTLnamespaceURLsourceStartIndex> a rdf:Property ;
-	rdfs:subPropertyOf <http://SDTLnamespaceURLsourceStartIndex> .
-
-<http://SDTLnamespaceURLsourceStopIndex> a rdf:Property ;
-	rdfs:subPropertyOf <http://SDTLnamespaceURLsourceStopIndex> .
-
-<http://SDTLnamespaceURLtype> a rdf:Property ;
-	rdfs:subPropertyOf <http://SDTLnamespaceURLtype> .
-
-<http://SDTLnamespaceURLvalue> a rdf:Property ;
-	rdfs:subPropertyOf <http://SDTLnamespaceURLvalue> .
-
-<http://SDTLnamespaceURLvariable> a rdf:Property ;
-	rdfs:subPropertyOf <http://SDTLnamespaceURLvariable> .
-
-<http://SDTLnamespaceURLvariableName> a rdf:Property ;
-	rdfs:subPropertyOf <http://SDTLnamespaceURLvariableName> .
-
-<http://www.w3.org/ns/prov#hadEntity> a rdf:Property ;
-	rdfs:subPropertyOf <http://www.w3.org/ns/prov#hadEntity> .
-
-<http://www.w3.org/ns/prov#hadPlan> a rdf:Property ;
-	rdfs:subPropertyOf <http://www.w3.org/ns/prov#hadPlan> .
-
-<http://www.w3.org/ns/prov#hasOutPort> a rdf:Property ;
-	rdfs:subPropertyOf <http://www.w3.org/ns/prov#hasOutPort> .
-
-<http://www.w3.org/ns/prov#qualifiedAssociation> a rdf:Property ;
-	rdfs:subPropertyOf <http://www.w3.org/ns/prov#qualifiedAssociation> .
-
-<http://www.w3.org/ns/prov#qualifiedGeneration> a rdf:Property ;
-	rdfs:subPropertyOf <http://www.w3.org/ns/prov#qualifiedGeneration> .
-
-<http://www.w3.org/ns/prov#wasGeneratedBy> a rdf:Property ;
-	rdfs:subPropertyOf <http://www.w3.org/ns/prov#wasGeneratedBy> .
+[ {
+  "@id" : "http://127.0.0.1:9999/blazegraph/sparql#associated_plan",
+  "@type" : [ "http://127.0.0.1:9999/blazegraph/Association" ],
+  "http://purl.dataone.org/provone/2015/01/15/ontology#hadPlan" : [ {
+    "@value" : "#create_var.sps"
+  } ]
+}, {
+  "@id" : "http://127.0.0.1:9999/blazegraph/sparql#create_var.sps",
+  "@type" : [ "http://purl.dataone.org/provone/2015/01/15/ontology#Program" ],
+  "http://SDTLnamespaceURLcommandCount" : [ {
+    "@type" : "http://www.w3.org/2001/XMLSchema#integer",
+    "@value" : "1"
+  } ],
+  "http://SDTLnamespaceURLlineCount" : [ {
+    "@type" : "http://www.w3.org/2001/XMLSchema#integer",
+    "@value" : "1"
+  } ],
+  "http://SDTLnamespaceURLscriptMD5" : [ {
+    "@value" : "518001a968c359366bf7ceb12bf209ea"
+  } ],
+  "http://SDTLnamespaceURLscriptSHA1" : [ {
+    "@value" : "3dead21a7b31e1409d2ab364cbf4f734366186ad"
+  } ],
+  "http://SDTLnamespaceURLsourceFileLastUpdate" : [ {
+    "@value" : "2020-04-14T18:38:10+00:00"
+  } ],
+  "http://SDTLnamespaceURLsourceFileName" : [ {
+    "@value" : ""
+  } ],
+  "http://SDTLnamespaceURLsourceFileSize" : [ {
+    "@type" : "http://www.w3.org/2001/XMLSchema#integer",
+    "@value" : "19"
+  } ],
+  "http://SDTLnamespaceURLsourceLanguage" : [ {
+    "@value" : "spss"
+  } ],
+  "http://purl.dataone.org/provone/2015/01/15/ontology#hasSubProgram" : [ {
+    "@value" : "#create_variable_command"
+  } ]
+}, {
+  "@id" : "http://127.0.0.1:9999/blazegraph/sparql#create_variable_associated_plan",
+  "@type" : [ "http://purl.dataone.org/provone/2015/01/15/ontology#Association" ],
+  "http://www.w3.org/ns/prov#hadPlan" : [ {
+    "@value" : "#create_variable_command"
+  } ]
+}, {
+  "@id" : "http://127.0.0.1:9999/blazegraph/sparql#create_variable_command",
+  "@type" : [ "http://purl.dataone.org/provone/2015/01/15/ontology#Program" ],
+  "http://SDTLnamespaceURLcommands" : [ {
+    "@id" : "http://127.0.0.1:9999/blazegraph/sparql#statement_1"
+  } ],
+  "http://purl.dataone.org/provone/2015/01/15/ontology#hasOutPort" : [ {
+    "@value" : "#create_variable_port"
+  } ]
+}, {
+  "@id" : "http://127.0.0.1:9999/blazegraph/sparql#create_variable_command_exection",
+  "@type" : [ "http://purl.dataone.org/provone/2015/01/15/ontology#Execution" ],
+  "http://www.w3.org/ns/prov#qualifiedAssociation" : [ {
+    "@value" : "#create_variable_command"
+  } ],
+  "http://www.w3.org/ns/prov#qualifiedGeneration" : [ {
+    "@value" : "#create_variable_command_exection"
+  } ]
+}, {
+  "@id" : "http://127.0.0.1:9999/blazegraph/sparql#create_variable_command_generation",
+  "@type" : [ "http://www.w3.org/ns/prov#qualifiedGeneration" ],
+  "http://www.w3.org/ns/prov#hadEntity" : [ {
+    "@value" : "#generated_variable"
+  } ],
+  "http://www.w3.org/ns/prov#hasOutPort" : [ {
+    "@value" : "#create_variable_port"
+  } ]
+}, {
+  "@id" : "http://127.0.0.1:9999/blazegraph/sparql#create_variable_port",
+  "@type" : [ "http://purl.dataone.org/provone/2015/01/15/ontology#Port" ],
+  "http://SDTLnamespaceURLexpression" : [ {
+    "@id" : "http://127.0.0.1:9999/blazegraph/sparql#expression_1"
+  } ],
+  "http://SDTLnamespaceURLvariable" : [ {
+    "@id" : "http://127.0.0.1:9999/blazegraph/sparql#variable_1"
+  } ]
+}, {
+  "@id" : "http://127.0.0.1:9999/blazegraph/sparql#expression_1",
+  "http://SDTLnamespaceURL$type" : [ {
+    "@value" : "NumericConstantExpression"
+  } ],
+  "http://SDTLnamespaceURLnumericType" : [ {
+    "@value" : "int"
+  } ],
+  "http://SDTLnamespaceURLtype" : [ {
+    "@value" : "NumericConstantExpression"
+  } ],
+  "http://SDTLnamespaceURLvalue" : [ {
+    "@value" : "0"
+  } ]
+}, {
+  "@id" : "http://127.0.0.1:9999/blazegraph/sparql#generated_variable",
+  "@type" : [ "http://www.w3.org/ns/prov#Entity" ],
+  "http://www.w3.org/ns/prov#wasGeneratedBy" : [ {
+    "@value" : "#create_variable_command_exection"
+  } ]
+}, {
+  "@id" : "http://127.0.0.1:9999/blazegraph/sparql#script_execution",
+  "@type" : [ "http://purl.dataone.org/provone/2015/01/15/ontology#Execution" ],
+  "http://www.w3.org/ns/prov#qualifiedAssociation" : [ {
+    "@value" : "#associated_plan"
+  } ]
+}, {
+  "@id" : "http://127.0.0.1:9999/blazegraph/sparql#source_info_1",
+  "http://SDTLnamespaceURLlineNumberEnd" : [ {
+    "@type" : "http://www.w3.org/2001/XMLSchema#integer",
+    "@value" : "1"
+  } ],
+  "http://SDTLnamespaceURLlineNumberStart" : [ {
+    "@type" : "http://www.w3.org/2001/XMLSchema#integer",
+    "@value" : "1"
+  } ],
+  "http://SDTLnamespaceURLoriginalSourceText" : [ {
+    "@value" : "compute newVar = 0."
+  } ],
+  "http://SDTLnamespaceURLsourceStartIndex" : [ {
+    "@type" : "http://www.w3.org/2001/XMLSchema#integer",
+    "@value" : "1"
+  } ],
+  "http://SDTLnamespaceURLsourceStopIndex" : [ {
+    "@type" : "http://www.w3.org/2001/XMLSchema#integer",
+    "@value" : "19"
+  } ]
+}, {
+  "@id" : "http://127.0.0.1:9999/blazegraph/sparql#statement_1",
+  "http://SDTLnamespaceURLcommand" : [ {
+    "@value" : "compute"
+  } ],
+  "http://SDTLnamespaceURLexpression" : [ {
+    "@id" : "http://127.0.0.1:9999/blazegraph/sparql#expression_1"
+  } ],
+  "http://SDTLnamespaceURLsourceInformation" : [ {
+    "@id" : "http://127.0.0.1:9999/blazegraph/sparql#source_info_1"
+  } ],
+  "http://SDTLnamespaceURLtype" : [ {
+    "@value" : "Compute"
+  } ],
+  "http://SDTLnamespaceURLvariable" : [ {
+    "@id" : "http://127.0.0.1:9999/blazegraph/sparql#variable_1"
+  } ]
+}, {
+  "@id" : "http://127.0.0.1:9999/blazegraph/sparql#variable_1",
+  "http://SDTLnamespaceURLtype" : [ {
+    "@value" : "VariableSymbolExpression"
+  } ],
+  "http://SDTLnamespaceURLvariableName" : [ {
+    "@value" : "newVar"
+  } ]
+}, {
+  "@id" : "http://SDTLnamespaceURL$type",
+  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "http://SDTLnamespaceURL$type"
+  } ]
+}, {
+  "@id" : "http://SDTLnamespaceURLcommand",
+  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "http://SDTLnamespaceURLcommand"
+  } ]
+}, {
+  "@id" : "http://SDTLnamespaceURLcommandCount",
+  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "http://SDTLnamespaceURLcommandCount"
+  } ]
+}, {
+  "@id" : "http://SDTLnamespaceURLcommands",
+  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "http://SDTLnamespaceURLcommands"
+  } ]
+}, {
+  "@id" : "http://SDTLnamespaceURLexpression",
+  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "http://SDTLnamespaceURLexpression"
+  } ]
+}, {
+  "@id" : "http://SDTLnamespaceURLlineCount",
+  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "http://SDTLnamespaceURLlineCount"
+  } ]
+}, {
+  "@id" : "http://SDTLnamespaceURLlineNumberEnd",
+  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "http://SDTLnamespaceURLlineNumberEnd"
+  } ]
+}, {
+  "@id" : "http://SDTLnamespaceURLlineNumberStart",
+  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "http://SDTLnamespaceURLlineNumberStart"
+  } ]
+}, {
+  "@id" : "http://SDTLnamespaceURLnumericType",
+  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "http://SDTLnamespaceURLnumericType"
+  } ]
+}, {
+  "@id" : "http://SDTLnamespaceURLoriginalSourceText",
+  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "http://SDTLnamespaceURLoriginalSourceText"
+  } ]
+}, {
+  "@id" : "http://SDTLnamespaceURLscriptMD5",
+  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "http://SDTLnamespaceURLscriptMD5"
+  } ]
+}, {
+  "@id" : "http://SDTLnamespaceURLscriptSHA1",
+  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "http://SDTLnamespaceURLscriptSHA1"
+  } ]
+}, {
+  "@id" : "http://SDTLnamespaceURLsourceFileLastUpdate",
+  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "http://SDTLnamespaceURLsourceFileLastUpdate"
+  } ]
+}, {
+  "@id" : "http://SDTLnamespaceURLsourceFileName",
+  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "http://SDTLnamespaceURLsourceFileName"
+  } ]
+}, {
+  "@id" : "http://SDTLnamespaceURLsourceFileSize",
+  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "http://SDTLnamespaceURLsourceFileSize"
+  } ]
+}, {
+  "@id" : "http://SDTLnamespaceURLsourceInformation",
+  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "http://SDTLnamespaceURLsourceInformation"
+  } ]
+}, {
+  "@id" : "http://SDTLnamespaceURLsourceLanguage",
+  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "http://SDTLnamespaceURLsourceLanguage"
+  } ]
+}, {
+  "@id" : "http://SDTLnamespaceURLsourceStartIndex",
+  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "http://SDTLnamespaceURLsourceStartIndex"
+  } ]
+}, {
+  "@id" : "http://SDTLnamespaceURLsourceStopIndex",
+  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "http://SDTLnamespaceURLsourceStopIndex"
+  } ]
+}, {
+  "@id" : "http://SDTLnamespaceURLtype",
+  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "http://SDTLnamespaceURLtype"
+  } ]
+}, {
+  "@id" : "http://SDTLnamespaceURLvalue",
+  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "http://SDTLnamespaceURLvalue"
+  } ]
+}, {
+  "@id" : "http://SDTLnamespaceURLvariable",
+  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "http://SDTLnamespaceURLvariable"
+  } ]
+}, {
+  "@id" : "http://SDTLnamespaceURLvariableName",
+  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "http://SDTLnamespaceURLvariableName"
+  } ]
+}, {
+  "@id" : "http://purl.dataone.org/provone/2015/01/15/ontology#hadPlan",
+  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "http://purl.dataone.org/provone/2015/01/15/ontology#hadPlan"
+  } ]
+}, {
+  "@id" : "http://purl.dataone.org/provone/2015/01/15/ontology#hasOutPort",
+  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "http://purl.dataone.org/provone/2015/01/15/ontology#hasOutPort"
+  } ]
+}, {
+  "@id" : "http://purl.dataone.org/provone/2015/01/15/ontology#hasSubProgram",
+  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "http://purl.dataone.org/provone/2015/01/15/ontology#hasSubProgram"
+  } ]
+}, {
+  "@id" : "http://www.w3.org/ns/prov#hadEntity",
+  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "http://www.w3.org/ns/prov#hadEntity"
+  } ]
+}, {
+  "@id" : "http://www.w3.org/ns/prov#hadPlan",
+  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "http://www.w3.org/ns/prov#hadPlan"
+  } ]
+}, {
+  "@id" : "http://www.w3.org/ns/prov#hasOutPort",
+  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "http://www.w3.org/ns/prov#hasOutPort"
+  } ]
+}, {
+  "@id" : "http://www.w3.org/ns/prov#qualifiedAssociation",
+  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "http://www.w3.org/ns/prov#qualifiedAssociation"
+  } ]
+}, {
+  "@id" : "http://www.w3.org/ns/prov#qualifiedGeneration",
+  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "http://www.w3.org/ns/prov#qualifiedGeneration"
+  } ]
+}, {
+  "@id" : "http://www.w3.org/ns/prov#wasGeneratedBy",
+  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "http://www.w3.org/ns/prov#wasGeneratedBy"
+  } ]
+} ]
