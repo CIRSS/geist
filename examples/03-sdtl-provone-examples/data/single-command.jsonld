@@ -8,23 +8,26 @@
        },
        {
            "sdtl": "http://SDTLnamespaceURL"
+       },
+       {
+           "run": "http://wholetale.org/tale38/run15#"
        }
     ],
     "@graph":[
        {
-           "@id":"#script_execution",
+           "@id":"run:script_execution",
            "@type":"provone:Execution",
-           "prov:qualifiedAssociation": "#associated_plan"
+           "prov:qualifiedAssociation": "run:associated_plan"
        },
 
        {
-           "@id": "#associated_plan",
+           "@id": "run:associated_plan",
            "@type": "Association",
-           "provone:hadPlan": "#create_var.sps"
+           "provone:hadPlan": "run:create_var.sps"
        },
 
        {
-           "@id": "#create_var.sps",
+           "@id": "run:create_var.sps",
            "@type": "provone:Program",
            "provone:hasSubProgram": "#create_variable_command",
 
@@ -39,16 +42,16 @@
        },
 
        {
-           "@id": "#create_variable_command",
+           "@id": "run:create_variable_command",
            "@type": "provone:Program",
            "provone:hasOutPort": "#create_variable_port",
            "sdtl:commands": [
              {
-               "@id": "#statement_1",
+               "@id": "run:sdtl_statement_1",
                "sdtl:type": "Compute",
                "sdtl:command": "compute",
                "sdtl:sourceInformation": {
-                 "@id": "#source_info_1",
+                 "@id": "run:sdtl_source_info_1",
                  "sdtl:lineNumberStart": 1,
                  "sdtl:lineNumberEnd": 1,
                  "sdtl:sourceStartIndex": 1,
@@ -57,12 +60,12 @@
                },
 
                "sdtl:variable": {
-                "@id": "#variable_1",
+                "@id": "run:sdtl_variable_1",
                 "sdtl:type": "VariableSymbolExpression",
                  "sdtl:variableName": "newVar"
                },
                "sdtl:expression": {
-                 "@id": "#expression_1",
+                 "@id": "run:sdtl_expression_1",
                  "sdtl:$type": "NumericConstantExpression",
                  "sdtl:value": "0",
                  "sdtl:numericType": "int"
@@ -72,43 +75,42 @@
        },
 
        {
-           "@id": "#create_variable_port",
+           "@id": "run:create_variable_port",
            "@type": "provone:Port",
            "sdtl:variable": {
-            "@id": "#variable_1",
+            "@id": "run:sdtl_variable_1",
             "sdtl:type": "VariableSymbolExpression",
              "sdtl:variableName": "newVar"
            },
            "sdtl:expression": {
-            "@id": "#expression_1",
+            "@id": "run:sdtl_expression_1",
             "sdtl:type":"NumericConstantExpression",
              "sdtl:value": "0",
              "sdtl:numericType": "int"
            }
        },
 
-
        {
-         "@id": "#create_variable_command_exection",
+         "@id": "run:create_variable_command_exection",
          "@type": "provone:Execution",
-         "prov:qualifiedAssociation": "#create_variable_command",
-         "prov:qualifiedGeneration": "#create_variable_command_exection"
+         "prov:qualifiedAssociation": "run:create_variable_command",
+         "prov:qualifiedGeneration": "run:create_variable_command_exection"
        },
 
        {
-         "@id": "#create_variable_associated_plan",
+         "@id": "run:create_variable_associated_plan",
          "@type": "provone:Association",
-         "prov:hadPlan": "#create_variable_command"
+         "prov:hadPlan": "run:create_variable_command"
        },
 
        {
-         "@id": "#generated_variable",
+         "@id": "run:generated_variable",
          "@type": "prov:Entity",
-         "prov:wasGeneratedBy": "#create_variable_command_exection"
+         "prov:wasGeneratedBy": "run:create_variable_command_exection"
        },
 
        {
-         "@id": "#create_variable_command_generation",
+         "@id": "run:create_variable_command_generation",
          "@type": "prov:qualifiedGeneration",
          "prov:hasOutPort": "#create_variable_port",
          "prov:hadEntity": "#generated_variable"
