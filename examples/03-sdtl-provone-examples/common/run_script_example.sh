@@ -1,13 +1,14 @@
 #!/usr/bin/env bash
 
 # save command line arguments
-# data_file=$1
 script_id=$1
 script_description=$2
 
+scratch_dir=.scratch
+
 # define name of result file
-script_file=results/${script_id}.sh
-result_file=results/${script_id}.txt
+script_file=${scratch_dir}/${script_id}.sh
+output_file=${scratch_dir}/${script_id}.txt
 
 # copy query from stdin to the query file
 printf "# ${script_description}\n" > ${script_file}
@@ -17,7 +18,7 @@ do
 done
 
 # execute the script on the given data file and save results
-bash ${script_file} > ${result_file}
+bash ${script_file} > ${output_file}
 
 # print the script results
 echo
@@ -26,4 +27,4 @@ echo
 cat ${script_file}
 echo "---------------------------- ${script_id} OUTPUTS ---------------------------------"
 echo
-cat ${result_file}
+cat ${output_file}
