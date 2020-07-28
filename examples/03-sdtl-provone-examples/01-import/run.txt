@@ -133,6 +133,7 @@ blazegraph export --format nt | sort
 # EXPORT AS JSON-LD
 
 blazegraph export --format jsonld
+
 ---------------------------- S2 OUTPUTS ---------------------------------
 
 [ {
