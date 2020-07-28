@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-RUNNER='../common/run_script_example.sh'
+RUNNER='../../common/run_script_example.sh'
 
 # *****************************************************************************
 
