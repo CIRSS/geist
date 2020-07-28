@@ -1,0 +1,51 @@
+
+**************************** EXAMPLE SETUP *********************************
+
+# IMPORT SDTL-PROVONE TRACE
+
+blazegraph drop
+blazegraph import --format jsonld --file ../data/single-command.jsonld
+
+---------------------------- SETUP OUTPUTS ---------------------------------
+
+
+**************************** EXAMPLE Q1 *********************************
+
+# WHAT IS THE TOP-LEVEL PROGRAM IN THE TRACE?
+
+blazegraph query --format csv << END_QUERY
+
+    prefix provone: <http://purl.dataone.org/provone/2015/01/15/ontology#>
+
+    SELECT ?program
+    WHERE {
+        ?program rdf:type provone:Program .
+        FILTER NOT EXISTS { ?parentProgram provone:hasSubProgram ?program . }
+    }
+
+END_QUERY
+
+---------------------------- Q1 OUTPUTS ---------------------------------
+
+program
+http://wholetale.org/tale38/run15#create_var.sps
+
+**************************** EXAMPLE Q2 *********************************
+
+# WHAT ARE THE SUB-PROGRAMS IN THE TRACE?
+
+blazegraph query --format csv << END_QUERY
+
+    prefix provone: <http://purl.dataone.org/provone/2015/01/15/ontology#>
+
+    SELECT ?subProgram
+    WHERE {
+        ?parentProgram provone:hasSubProgram ?subProgram .
+    }
+
+END_QUERY
+
+---------------------------- Q2 OUTPUTS ---------------------------------
+
+subProgram
+http://wholetale.org/tale38/run15#create_variable_command

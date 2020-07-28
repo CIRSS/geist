@@ -29,7 +29,7 @@
        {
            "@id": "run:create_var.sps",
            "@type": "provone:Program",
-           "provone:hasSubProgram": "#create_variable_command",
+           "provone:hasSubProgram": { "@id": "run:create_variable_command" },
 
            "sdtl:sourceFileName": "",
            "sdtl:sourceLanguage": "spss",
@@ -44,7 +44,7 @@
        {
            "@id": "run:create_variable_command",
            "@type": "provone:Program",
-           "provone:hasOutPort": "#create_variable_port",
+           "provone:hasOutPort": { "@id": "run:create_variable_port" },
            "sdtl:commands": [
              {
                "@id": "run:sdtl_statement_1",
@@ -93,27 +93,27 @@
        {
          "@id": "run:create_variable_command_exection",
          "@type": "provone:Execution",
-         "prov:qualifiedAssociation": "run:create_variable_command",
-         "prov:qualifiedGeneration": "run:create_variable_command_exection"
+         "prov:qualifiedAssociation": { "@id": "run:create_variable_command" },
+         "prov:qualifiedGeneration": { "@id": "run:create_variable_command_exection" }
        },
 
        {
          "@id": "run:create_variable_associated_plan",
          "@type": "provone:Association",
-         "prov:hadPlan": "run:create_variable_command"
+         "prov:hadPlan": { "@id": "run:create_variable_command" }
        },
 
        {
          "@id": "run:generated_variable",
          "@type": "prov:Entity",
-         "prov:wasGeneratedBy": "run:create_variable_command_exection"
+         "prov:wasGeneratedBy": { "@id": "run:create_variable_command_exection" }
        },
 
        {
          "@id": "run:create_variable_command_generation",
          "@type": "prov:qualifiedGeneration",
-         "prov:hasOutPort": "#create_variable_port",
-         "prov:hadEntity": "#generated_variable"
+         "prov:hasOutPort": { "@id": "run:create_variable_port" },
+         "prov:hadEntity": { "@id": "run:generated_variable" }
        }
 
     ]
