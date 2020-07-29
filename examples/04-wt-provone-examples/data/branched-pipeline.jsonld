@@ -1,20 +1,10 @@
 {
   "@context": [
-    {
-      "prov": "http://www.w3.org/ns/prov#"
-    },
-    {
-      "provone": "http://purl.dataone.org/provone/2015/01/15/ontology#"
-    },
-    {
-      "wt": "http://wholetale.org/ontology/wt#"
-    },
-    {
-      "tale": "http://wholetale.org/tale2035/version1021#"
-    },
-    {
-      "run": "http://wholetale.org/tale2035/version1021/run1119#"
-    }
+    { "prov": "http://www.w3.org/ns/prov#" },
+    { "provone": "http://purl.dataone.org/provone/2015/01/15/ontology#" },
+    { "wt": "http://wholetale.org/ontology/wt#" },
+    { "tale": "http://wholetale.org/tale2035/version1021#" },
+    { "run": "http://wholetale.org/tale2035/version1021/run1119#" }
   ],
   "@graph": [
     {

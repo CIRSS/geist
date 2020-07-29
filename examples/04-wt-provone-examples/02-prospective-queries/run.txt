@@ -19,12 +19,12 @@ blazegraph select --format csv << END_QUERY
     prefix provone: <http://purl.dataone.org/provone/2015/01/15/ontology#>
     prefix wt: <http://wholetale.org/ontology/wt#>
 
-
     SELECT ?tale_input_file_path
     WHERE {
-        ?execution rdf:type provone:Execution .
-        ?execution prov:used ?tale_input_file_id .
-        ?tale_input_file_id wt:FilePath ?tale_input_file_path .
+        ?execution rdf:type provone:Execution .         # find the Tale execution
+        ?execution prov:used ?tale_input .              # find all inputs to the Tale
+        ?tale_input rdf:type wt:DataFile .              # select just the inputs that are data files
+        ?tale_input wt:FilePath ?tale_input_file_path . # get the file path for each input data file
     }
 
 END_QUERY
