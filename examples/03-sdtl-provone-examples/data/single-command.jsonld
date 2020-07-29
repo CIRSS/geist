@@ -7,7 +7,7 @@
            "provone":"http://purl.dataone.org/provone/2015/01/15/ontology#"
        },
        {
-           "sdtl": "http://SDTLnamespaceURL"
+           "sdtl": "http://SDTLnamespaceURL#"
        },
        {
            "run": "http://wholetale.org/tale38/run15#"
@@ -66,7 +66,7 @@
                },
                "sdtl:expression": {
                  "@id": "run:sdtl_expression_1",
-                 "sdtl:$type": "NumericConstantExpression",
+                 "sdtl:type": "NumericConstantExpression",
                  "sdtl:value": "0",
                  "sdtl:numericType": "int"
                }
@@ -80,7 +80,7 @@
            "sdtl:variable": {
             "@id": "run:sdtl_variable_1",
             "sdtl:type": "VariableSymbolExpression",
-             "sdtl:variableName": "newVar"
+            "sdtl:variableName": "newVar"
            },
            "sdtl:expression": {
             "@id": "run:sdtl_expression_1",
