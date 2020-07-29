@@ -9,7 +9,7 @@ blazegraph import --format jsonld --file ../data/single-command.jsonld
 ---------------------------- SETUP OUTPUTS ---------------------------------
 
 
-**************************** EXAMPLE Q1 *********************************
+**************************** EXAMPLE PROSPECTIVE-1 *********************************
 
 # WHAT IS THE TOP-LEVEL PROGRAM IN THE TRACE?
 
@@ -25,12 +25,12 @@ blazegraph select --format csv << END_QUERY
 
 END_QUERY
 
----------------------------- Q1 OUTPUTS ---------------------------------
+---------------------------- PROSPECTIVE-1 OUTPUTS ---------------------------------
 
 program
 http://wholetale.org/tale38/run15#create_var.sps
 
-**************************** EXAMPLE Q2 *********************************
+**************************** EXAMPLE PROSPECTIVE-2 *********************************
 
 # WHAT ARE THE SUB-PROGRAMS IN THE TRACE?
 
@@ -45,12 +45,12 @@ blazegraph select --format csv << END_QUERY
 
 END_QUERY
 
----------------------------- Q2 OUTPUTS ---------------------------------
+---------------------------- PROSPECTIVE-2 OUTPUTS ---------------------------------
 
 subProgram
 http://wholetale.org/tale38/run15#create_variable_command
 
-**************************** EXAMPLE Q2 *********************************
+**************************** EXAMPLE PROSPECTIVE-3 *********************************
 
 # WHAT ARE THE OUTPUT PORTS AND ASSOCIATED VARIABLES IN THE TRACE?
 
@@ -69,7 +69,7 @@ blazegraph select --format csv << END_QUERY
 
 END_QUERY
 
----------------------------- Q2 OUTPUTS ---------------------------------
+---------------------------- PROSPECTIVE-3 OUTPUTS ---------------------------------
 
 program,port,variableName
 http://wholetale.org/tale38/run15#create_variable_command,http://wholetale.org/tale38/run15#create_variable_port,newVar

@@ -17,13 +17,13 @@
        {
            "@id":"run:script_execution",
            "@type":"provone:Execution",
-           "prov:qualifiedAssociation": "run:associated_plan"
+           "prov:qualifiedAssociation": { "@id": "run:associated_plan" }
        },
 
        {
            "@id": "run:associated_plan",
            "@type": "Association",
-           "provone:hadPlan": "run:create_var.sps"
+           "provone:hadPlan": { "@id": "run:create_var.sps" }
        },
 
        {

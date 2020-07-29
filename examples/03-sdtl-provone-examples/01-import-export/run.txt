@@ -67,7 +67,7 @@ blazegraph export --format nt | sort
 <http://purl.dataone.org/provone/2015/01/15/ontology#hasOutPort> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://purl.dataone.org/provone/2015/01/15/ontology#hasOutPort> .
 <http://purl.dataone.org/provone/2015/01/15/ontology#hasSubProgram> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
 <http://purl.dataone.org/provone/2015/01/15/ontology#hasSubProgram> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://purl.dataone.org/provone/2015/01/15/ontology#hasSubProgram> .
-<http://wholetale.org/tale38/run15#associated_plan> <http://purl.dataone.org/provone/2015/01/15/ontology#hadPlan> "run:create_var.sps"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/tale38/run15#associated_plan> <http://purl.dataone.org/provone/2015/01/15/ontology#hadPlan> <http://wholetale.org/tale38/run15#create_var.sps> .
 <http://wholetale.org/tale38/run15#associated_plan> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://127.0.0.1:9999/blazegraph/Association> .
 <http://wholetale.org/tale38/run15#create_var.sps> <http://SDTLnamespaceURL#commandCount> "1"^^<http://www.w3.org/2001/XMLSchema#integer> .
 <http://wholetale.org/tale38/run15#create_var.sps> <http://SDTLnamespaceURL#lineCount> "1"^^<http://www.w3.org/2001/XMLSchema#integer> .
@@ -96,7 +96,7 @@ blazegraph export --format nt | sort
 <http://wholetale.org/tale38/run15#generated_variable> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/prov#Entity> .
 <http://wholetale.org/tale38/run15#generated_variable> <http://www.w3.org/ns/prov#wasGeneratedBy> <http://wholetale.org/tale38/run15#create_variable_command_exection> .
 <http://wholetale.org/tale38/run15#script_execution> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.dataone.org/provone/2015/01/15/ontology#Execution> .
-<http://wholetale.org/tale38/run15#script_execution> <http://www.w3.org/ns/prov#qualifiedAssociation> "run:associated_plan"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/tale38/run15#script_execution> <http://www.w3.org/ns/prov#qualifiedAssociation> <http://wholetale.org/tale38/run15#associated_plan> .
 <http://wholetale.org/tale38/run15#sdtl_expression_1> <http://SDTLnamespaceURL#numericType> "int"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://wholetale.org/tale38/run15#sdtl_expression_1> <http://SDTLnamespaceURL#type> "NumericConstantExpression"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://wholetale.org/tale38/run15#sdtl_expression_1> <http://SDTLnamespaceURL#value> "0"^^<http://www.w3.org/2001/XMLSchema#string> .
@@ -287,7 +287,7 @@ blazegraph export --format jsonld
   "@id" : "http://wholetale.org/tale38/run15#associated_plan",
   "@type" : [ "http://127.0.0.1:9999/blazegraph/Association" ],
   "http://purl.dataone.org/provone/2015/01/15/ontology#hadPlan" : [ {
-    "@value" : "run:create_var.sps"
+    "@id" : "http://wholetale.org/tale38/run15#create_var.sps"
   } ]
 }, {
   "@id" : "http://wholetale.org/tale38/run15#create_var.sps",
@@ -374,7 +374,7 @@ blazegraph export --format jsonld
   "@id" : "http://wholetale.org/tale38/run15#script_execution",
   "@type" : [ "http://purl.dataone.org/provone/2015/01/15/ontology#Execution" ],
   "http://www.w3.org/ns/prov#qualifiedAssociation" : [ {
-    "@value" : "run:associated_plan"
+    "@id" : "http://wholetale.org/tale38/run15#associated_plan"
   } ]
 }, {
   "@id" : "http://wholetale.org/tale38/run15#sdtl_expression_1",
