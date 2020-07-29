@@ -17,13 +17,13 @@ blazegraph export --format nt | sort
 
 ---------------------------- S1 OUTPUTS ---------------------------------
 
-<file://./inputs/i1.txt> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.dataone.org/provone/2015/01/15/ontology#Data> .
-<file://./inputs/i2.txt> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.dataone.org/provone/2015/01/15/ontology#Data> .
-<file://./inputs/i3.txt> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.dataone.org/provone/2015/01/15/ontology#Data> .
-<file://./inputs/i4.txt> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.dataone.org/provone/2015/01/15/ontology#Data> .
+<file://./inputs/i1.txt> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://wholtetale.org/ns/wt#DataFile> .
+<file://./inputs/i2.txt> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://wholtetale.org/ns/wt#DataFile> .
+<file://./inputs/i3.txt> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://wholtetale.org/ns/wt#DataFile> .
+<file://./inputs/i4.txt> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://wholtetale.org/ns/wt#DataFile> .
 <file://./outputs/o12.txt> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.dataone.org/provone/2015/01/15/ontology#Data> .
 <file://./outputs/o12.txt> <http://www.w3.org/ns/prov#wasGeneratedBy> "tale_execution"^^<http://www.w3.org/2001/XMLSchema#string> .
-<file://./outputs/o1234.txt> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.dataone.org/provone/2015/01/15/ontology#Data> .
+<file://./outputs/o1234.txt> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://wholtetale.org/ns/wt#DataFile> .
 <file://./outputs/o1234.txt> <http://www.w3.org/ns/prov#wasGeneratedBy> "tale_execution"^^<http://www.w3.org/2001/XMLSchema#string> .
 <file://./outputs/o4.txt> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.dataone.org/provone/2015/01/15/ontology#Data> .
 <file://./outputs/o4.txt> <http://www.w3.org/ns/prov#wasGeneratedBy> "tale_execution"^^<http://www.w3.org/2001/XMLSchema#string> .
@@ -47,16 +47,16 @@ blazegraph export --format jsonld
 
 [ {
   "@id" : "file://./inputs/i1.txt",
-  "@type" : [ "http://purl.dataone.org/provone/2015/01/15/ontology#Data" ]
+  "@type" : [ "http://wholtetale.org/ns/wt#DataFile" ]
 }, {
   "@id" : "file://./inputs/i2.txt",
-  "@type" : [ "http://purl.dataone.org/provone/2015/01/15/ontology#Data" ]
+  "@type" : [ "http://wholtetale.org/ns/wt#DataFile" ]
 }, {
   "@id" : "file://./inputs/i3.txt",
-  "@type" : [ "http://purl.dataone.org/provone/2015/01/15/ontology#Data" ]
+  "@type" : [ "http://wholtetale.org/ns/wt#DataFile" ]
 }, {
   "@id" : "file://./inputs/i4.txt",
-  "@type" : [ "http://purl.dataone.org/provone/2015/01/15/ontology#Data" ]
+  "@type" : [ "http://wholtetale.org/ns/wt#DataFile" ]
 }, {
   "@id" : "file://./outputs/o12.txt",
   "@type" : [ "http://purl.dataone.org/provone/2015/01/15/ontology#Data" ],
@@ -65,7 +65,7 @@ blazegraph export --format jsonld
   } ]
 }, {
   "@id" : "file://./outputs/o1234.txt",
-  "@type" : [ "http://purl.dataone.org/provone/2015/01/15/ontology#Data" ],
+  "@type" : [ "http://wholtetale.org/ns/wt#DataFile" ],
   "http://www.w3.org/ns/prov#wasGeneratedBy" : [ {
     "@value" : "tale_execution"
   } ]
