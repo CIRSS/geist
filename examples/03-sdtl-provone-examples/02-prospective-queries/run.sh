@@ -15,7 +15,7 @@ END_SCRIPT
 
 bash ${RUNNER} Q1 "WHAT IS THE TOP-LEVEL PROGRAM IN THE TRACE?" << END_SCRIPT
 
-blazegraph query --format csv << END_QUERY
+blazegraph select --format csv << END_QUERY
 
     prefix provone: <http://purl.dataone.org/provone/2015/01/15/ontology#>
 
@@ -33,7 +33,7 @@ END_SCRIPT
 
 bash ${RUNNER} Q2 "WHAT ARE THE SUB-PROGRAMS IN THE TRACE?" << END_SCRIPT
 
-blazegraph query --format csv << END_QUERY
+blazegraph select --format csv << END_QUERY
 
     prefix provone: <http://purl.dataone.org/provone/2015/01/15/ontology#>
 

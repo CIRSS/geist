@@ -31,8 +31,8 @@ else
 endif
 ## 
 
-## run:                    Alias for run-examples.
-run: run-examples
+## examples:               Alias for run-examples.
+examples: run-examples
 
 ## build:                  Alias for build-code.
 build: build-code

@@ -63,15 +63,15 @@ func main() {
 		}
 		inport(*file, *format)
 
-	case "query":
-		file := flags.String("file", "-", "File containing query to execute")
+	case "select":
+		file := flags.String("file", "-", "File containing select query to execute")
 		format := flags.String("format", "json", "Format of result set to produce")
 		if err = flags.Parse(os.Args[2:]); err != nil {
 			fmt.Println(err)
 			flags.Usage()
 			return
 		}
-		query(*file, *format)
+		select_query(*file, *format)
 
 	default:
 		fmt.Fprintf(Main.ErrWriter, "Unrecognized command: %s\n", command)
@@ -123,7 +123,7 @@ func inport(file string, format string) {
 	}
 }
 
-func query(file string, format string) {
+func select_query(file string, format string) {
 	bc := blazegraph.NewClient()
 	q, err := readFileOrStdin(file)
 	if err != nil {
