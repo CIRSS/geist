@@ -1,0 +1,102 @@
+
+**************************** EXAMPLE SETUP *********************************
+
+# IMPORT PROVONE TRACE
+
+blazegraph drop
+blazegraph import --format jsonld --file ../data/branched-pipeline.jsonld
+
+---------------------------- SETUP OUTPUTS ---------------------------------
+
+
+**************************** EXAMPLE S1 *********************************
+
+# EXPORT AS N-TRIPLES
+
+blazegraph export --format nt | sort
+
+---------------------------- S1 OUTPUTS ---------------------------------
+
+<file://./inputs/i1.txt> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.dataone.org/provone/2015/01/15/ontology#Data> .
+<file://./inputs/i2.txt> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.dataone.org/provone/2015/01/15/ontology#Data> .
+<file://./inputs/i3.txt> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.dataone.org/provone/2015/01/15/ontology#Data> .
+<file://./inputs/i4.txt> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.dataone.org/provone/2015/01/15/ontology#Data> .
+<file://./outputs/o12.txt> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.dataone.org/provone/2015/01/15/ontology#Data> .
+<file://./outputs/o12.txt> <http://www.w3.org/ns/prov#wasGeneratedBy> "tale_execution"^^<http://www.w3.org/2001/XMLSchema#string> .
+<file://./outputs/o1234.txt> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.dataone.org/provone/2015/01/15/ontology#Data> .
+<file://./outputs/o1234.txt> <http://www.w3.org/ns/prov#wasGeneratedBy> "tale_execution"^^<http://www.w3.org/2001/XMLSchema#string> .
+<file://./outputs/o4.txt> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.dataone.org/provone/2015/01/15/ontology#Data> .
+<file://./outputs/o4.txt> <http://www.w3.org/ns/prov#wasGeneratedBy> "tale_execution"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://127.0.0.1:9999/blazegraph/tale_execution> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.dataone.org/provone/2015/01/15/ontology#Execution> .
+<http://127.0.0.1:9999/blazegraph/tale_execution> <http://www.w3.org/ns/prov#used> <file://./inputs/i1.txt> .
+<http://127.0.0.1:9999/blazegraph/tale_execution> <http://www.w3.org/ns/prov#used> <file://./inputs/i2.txt> .
+<http://127.0.0.1:9999/blazegraph/tale_execution> <http://www.w3.org/ns/prov#used> <file://./inputs/i3.txt> .
+<http://127.0.0.1:9999/blazegraph/tale_execution> <http://www.w3.org/ns/prov#used> <file://./inputs/i4.txt> .
+<http://www.w3.org/ns/prov#used> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<http://www.w3.org/ns/prov#used> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/ns/prov#used> .
+<http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/ns/prov#wasGeneratedBy> .
+
+**************************** EXAMPLE S2 *********************************
+
+# EXPORT AS JSON-LD
+
+blazegraph export --format jsonld
+
+---------------------------- S2 OUTPUTS ---------------------------------
+
+[ {
+  "@id" : "file://./inputs/i1.txt",
+  "@type" : [ "http://purl.dataone.org/provone/2015/01/15/ontology#Data" ]
+}, {
+  "@id" : "file://./inputs/i2.txt",
+  "@type" : [ "http://purl.dataone.org/provone/2015/01/15/ontology#Data" ]
+}, {
+  "@id" : "file://./inputs/i3.txt",
+  "@type" : [ "http://purl.dataone.org/provone/2015/01/15/ontology#Data" ]
+}, {
+  "@id" : "file://./inputs/i4.txt",
+  "@type" : [ "http://purl.dataone.org/provone/2015/01/15/ontology#Data" ]
+}, {
+  "@id" : "file://./outputs/o12.txt",
+  "@type" : [ "http://purl.dataone.org/provone/2015/01/15/ontology#Data" ],
+  "http://www.w3.org/ns/prov#wasGeneratedBy" : [ {
+    "@value" : "tale_execution"
+  } ]
+}, {
+  "@id" : "file://./outputs/o1234.txt",
+  "@type" : [ "http://purl.dataone.org/provone/2015/01/15/ontology#Data" ],
+  "http://www.w3.org/ns/prov#wasGeneratedBy" : [ {
+    "@value" : "tale_execution"
+  } ]
+}, {
+  "@id" : "file://./outputs/o4.txt",
+  "@type" : [ "http://purl.dataone.org/provone/2015/01/15/ontology#Data" ],
+  "http://www.w3.org/ns/prov#wasGeneratedBy" : [ {
+    "@value" : "tale_execution"
+  } ]
+}, {
+  "@id" : "http://127.0.0.1:9999/blazegraph/tale_execution",
+  "@type" : [ "http://purl.dataone.org/provone/2015/01/15/ontology#Execution" ],
+  "http://www.w3.org/ns/prov#used" : [ {
+    "@id" : "file://./inputs/i1.txt"
+  }, {
+    "@id" : "file://./inputs/i2.txt"
+  }, {
+    "@id" : "file://./inputs/i3.txt"
+  }, {
+    "@id" : "file://./inputs/i4.txt"
+  } ]
+}, {
+  "@id" : "http://www.w3.org/ns/prov#used",
+  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "http://www.w3.org/ns/prov#used"
+  } ]
+}, {
+  "@id" : "http://www.w3.org/ns/prov#wasGeneratedBy",
+  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "http://www.w3.org/ns/prov#wasGeneratedBy"
+  } ]
+} ]
