@@ -9,7 +9,7 @@ ENV REPRO_GID   1000
 RUN echo '***** Update packages *****'                                      \
     && apt-get -y update
 
-RUN echo '***** Install JDK and set timezone noninteractively *****'
+RUN echo '***** Set timezone noninteractively install JDK8 *****'
 RUN DEBIAN_FRONTEND="noninteractive" TZ="America/Los_Angeles"               \
     apt -y install tzdata openjdk-8-jdk
 
@@ -54,8 +54,6 @@ RUN wget ${JENA_BINARIES}/${JENA_ARCHIVE}                                   \
  && tar xvvf ${JENA_ARCHIVE}                                                \
  && rm ${JENA_ARCHIVE}                                                      \
  && echo 'PATH=~/${JENA_VERSION_NAME}/bin:$PATH' >> ${BASHRC}
-
- ENV FOO bar
 
 ENV BLAZEGRAPH_VER RELEASE_2_1_5
 ENV BLAZEGRAPH_RELEASES https://github.com/blazegraph/database/releases
