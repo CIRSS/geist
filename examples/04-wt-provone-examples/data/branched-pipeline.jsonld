@@ -1,10 +1,20 @@
 {
   "@context": [
-    { "prov": "http://www.w3.org/ns/prov#" },
-    { "provone": "http://purl.dataone.org/provone/2015/01/15/ontology#" },
-    { "wt": "http://wholetale.org/ontology/wt#" },
-    { "tale": "http://wholetale.org/tale2035/version1021#" },
-    { "run": "http://wholetale.org/tale2035/version1021/run1119#" }
+    {
+      "prov": "http://www.w3.org/ns/prov#"
+    },
+    {
+      "provone": "http://purl.dataone.org/provone/2015/01/15/ontology#"
+    },
+    {
+      "wt": "http://wholetale.org/ontology/wt#"
+    },
+    {
+      "tale": "http://wholetale.org/tale2035/version1021#"
+    },
+    {
+      "run": "http://wholetale.org/tale2035/version1021/run1119#"
+    }
   ],
   "@graph": [
     {
@@ -12,44 +22,50 @@
       "@type": "provone:Execution",
       "prov:used": [
         {
-          "@id": "run:data_file_1",
+          "@id": "run:data_file_i28",
           "@type": "wt:DataFile",
-          "wt:FilePath": "./inputs/i1.txt"
-            },
-        {
-          "@id": "run:data_file_2",
-          "@type": "wt:DataFile",
-          "wt:FilePath": "./inputs/i2.txt"
+          "wt:FilePath": "./inputs/i4.txt"
         },
         {
-          "@id": "run:data_file_3",
+          "@id": "run:data_file_i23",
+          "@type": "wt:DataFile",
+          "wt:FilePath": "./inputs/i1.txt"
+        },
+        {
+          "@id": "run:data_file_i26",
           "@type": "wt:DataFile",
           "wt:FilePath": "./inputs/i3.txt"
         },
         {
-          "@id": "run:data_file_4",
+          "@id": "run:data_file_i24",
           "@type": "wt:DataFile",
-          "wt:FilePath": "./inputs/i4.txt"
+          "wt:FilePath": "./inputs/i2.txt"
         }
       ]
     },
     {
-      "@id": "run:data_file_8",
+      "@id": "run:data_file_i30",
       "@type": "wt:DataFile",
       "wt:FilePath": "./outputs/o1234.txt",
-      "prov:wasGeneratedBy": { "@id": "run:execution_1" }
+      "prov:wasGeneratedBy": {
+        "id": "run:execution_1"
+      }
     },
     {
-      "@id": "run:data_file_9",
+      "@id": "run:data_file_i29",
       "@type": "wt:DataFile",
       "wt:FilePath": "./outputs/o12.txt",
-      "prov:wasGeneratedBy": { "@id": "run:execution_1" }
+      "prov:wasGeneratedBy": {
+        "id": "run:execution_1"
+      }
     },
     {
-      "@id": "run:data_file_10",
+      "@id": "run:data_file_i31",
       "@type": "wt:DataFile",
       "wt:FilePath": "./outputs/o4.txt",
-      "prov:wasGeneratedBy": { "@id": "run:execution_1" }
+      "prov:wasGeneratedBy": {
+        "id": "run:execution_1"
+      }
     }
   ]
 }
