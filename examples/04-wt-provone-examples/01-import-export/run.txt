@@ -29,22 +29,22 @@ blazegraph export --format nt | sort
 <http://wholetale.org/tale2035/version1021/run1119#data_file_i28> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://wholetale.org/ontology/wt#DataFile> .
 <http://wholetale.org/tale2035/version1021/run1119#data_file_i29> <http://wholetale.org/ontology/wt#FilePath> "./outputs/o12.txt"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://wholetale.org/tale2035/version1021/run1119#data_file_i29> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://wholetale.org/ontology/wt#DataFile> .
-<http://wholetale.org/tale2035/version1021/run1119#data_file_i29> <http://www.w3.org/ns/prov#wasGeneratedBy> _:t157 .
 <http://wholetale.org/tale2035/version1021/run1119#data_file_i30> <http://wholetale.org/ontology/wt#FilePath> "./outputs/o1234.txt"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://wholetale.org/tale2035/version1021/run1119#data_file_i30> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://wholetale.org/ontology/wt#DataFile> .
-<http://wholetale.org/tale2035/version1021/run1119#data_file_i30> <http://www.w3.org/ns/prov#wasGeneratedBy> _:t156 .
 <http://wholetale.org/tale2035/version1021/run1119#data_file_i31> <http://wholetale.org/ontology/wt#FilePath> "./outputs/o4.txt"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://wholetale.org/tale2035/version1021/run1119#data_file_i31> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://wholetale.org/ontology/wt#DataFile> .
-<http://wholetale.org/tale2035/version1021/run1119#data_file_i31> <http://www.w3.org/ns/prov#wasGeneratedBy> _:t158 .
 <http://wholetale.org/tale2035/version1021/run1119#execution_1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.dataone.org/provone/2015/01/15/ontology#Execution> .
+<http://wholetale.org/tale2035/version1021/run1119#execution_1> <http://www.w3.org/ns/prov#generated> <http://wholetale.org/tale2035/version1021/run1119#data_file_i29> .
+<http://wholetale.org/tale2035/version1021/run1119#execution_1> <http://www.w3.org/ns/prov#generated> <http://wholetale.org/tale2035/version1021/run1119#data_file_i30> .
+<http://wholetale.org/tale2035/version1021/run1119#execution_1> <http://www.w3.org/ns/prov#generated> <http://wholetale.org/tale2035/version1021/run1119#data_file_i31> .
 <http://wholetale.org/tale2035/version1021/run1119#execution_1> <http://www.w3.org/ns/prov#used> <http://wholetale.org/tale2035/version1021/run1119#data_file_i23> .
 <http://wholetale.org/tale2035/version1021/run1119#execution_1> <http://www.w3.org/ns/prov#used> <http://wholetale.org/tale2035/version1021/run1119#data_file_i24> .
 <http://wholetale.org/tale2035/version1021/run1119#execution_1> <http://www.w3.org/ns/prov#used> <http://wholetale.org/tale2035/version1021/run1119#data_file_i26> .
 <http://wholetale.org/tale2035/version1021/run1119#execution_1> <http://www.w3.org/ns/prov#used> <http://wholetale.org/tale2035/version1021/run1119#data_file_i28> .
+<http://www.w3.org/ns/prov#generated> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<http://www.w3.org/ns/prov#generated> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/ns/prov#generated> .
 <http://www.w3.org/ns/prov#used> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
 <http://www.w3.org/ns/prov#used> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/ns/prov#used> .
-<http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-<http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/ns/prov#wasGeneratedBy> .
 
 **************************** EXAMPLE S2 *********************************
 
@@ -89,31 +89,29 @@ blazegraph export --format jsonld
   "@type" : [ "http://wholetale.org/ontology/wt#DataFile" ],
   "http://wholetale.org/ontology/wt#FilePath" : [ {
     "@value" : "./outputs/o12.txt"
-  } ],
-  "http://www.w3.org/ns/prov#wasGeneratedBy" : [ {
-    "@id" : "_:t157"
   } ]
 }, {
   "@id" : "http://wholetale.org/tale2035/version1021/run1119#data_file_i30",
   "@type" : [ "http://wholetale.org/ontology/wt#DataFile" ],
   "http://wholetale.org/ontology/wt#FilePath" : [ {
     "@value" : "./outputs/o1234.txt"
-  } ],
-  "http://www.w3.org/ns/prov#wasGeneratedBy" : [ {
-    "@id" : "_:t156"
   } ]
 }, {
   "@id" : "http://wholetale.org/tale2035/version1021/run1119#data_file_i31",
   "@type" : [ "http://wholetale.org/ontology/wt#DataFile" ],
   "http://wholetale.org/ontology/wt#FilePath" : [ {
     "@value" : "./outputs/o4.txt"
-  } ],
-  "http://www.w3.org/ns/prov#wasGeneratedBy" : [ {
-    "@id" : "_:t158"
   } ]
 }, {
   "@id" : "http://wholetale.org/tale2035/version1021/run1119#execution_1",
   "@type" : [ "http://purl.dataone.org/provone/2015/01/15/ontology#Execution" ],
+  "http://www.w3.org/ns/prov#generated" : [ {
+    "@id" : "http://wholetale.org/tale2035/version1021/run1119#data_file_i29"
+  }, {
+    "@id" : "http://wholetale.org/tale2035/version1021/run1119#data_file_i30"
+  }, {
+    "@id" : "http://wholetale.org/tale2035/version1021/run1119#data_file_i31"
+  } ],
   "http://www.w3.org/ns/prov#used" : [ {
     "@id" : "http://wholetale.org/tale2035/version1021/run1119#data_file_i23"
   }, {
@@ -124,15 +122,15 @@ blazegraph export --format jsonld
     "@id" : "http://wholetale.org/tale2035/version1021/run1119#data_file_i28"
   } ]
 }, {
+  "@id" : "http://www.w3.org/ns/prov#generated",
+  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
+  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
+    "@id" : "http://www.w3.org/ns/prov#generated"
+  } ]
+}, {
   "@id" : "http://www.w3.org/ns/prov#used",
   "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
   "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
     "@id" : "http://www.w3.org/ns/prov#used"
-  } ]
-}, {
-  "@id" : "http://www.w3.org/ns/prov#wasGeneratedBy",
-  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
-  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
-    "@id" : "http://www.w3.org/ns/prov#wasGeneratedBy"
   } ]
 } ]

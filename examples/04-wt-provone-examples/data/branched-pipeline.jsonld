@@ -41,31 +41,24 @@
           "@type": "wt:DataFile",
           "wt:FilePath": "./inputs/i2.txt"
         }
+      ],
+      "prov:generated": [
+        {
+          "@id": "run:data_file_i29",
+          "@type": "wt:DataFile",
+          "wt:FilePath": "./outputs/o12.txt"
+        },
+        {
+          "@id": "run:data_file_i31",
+          "@type": "wt:DataFile",
+          "wt:FilePath": "./outputs/o4.txt"
+        },
+        {
+          "@id": "run:data_file_i30",
+          "@type": "wt:DataFile",
+          "wt:FilePath": "./outputs/o1234.txt"
+        }
       ]
-    },
-    {
-      "@id": "run:data_file_i30",
-      "@type": "wt:DataFile",
-      "wt:FilePath": "./outputs/o1234.txt",
-      "prov:wasGeneratedBy": {
-        "id": "run:execution_1"
-      }
-    },
-    {
-      "@id": "run:data_file_i29",
-      "@type": "wt:DataFile",
-      "wt:FilePath": "./outputs/o12.txt",
-      "prov:wasGeneratedBy": {
-        "id": "run:execution_1"
-      }
-    },
-    {
-      "@id": "run:data_file_i31",
-      "@type": "wt:DataFile",
-      "wt:FilePath": "./outputs/o4.txt",
-      "prov:wasGeneratedBy": {
-        "id": "run:execution_1"
-      }
     }
   ]
 }
