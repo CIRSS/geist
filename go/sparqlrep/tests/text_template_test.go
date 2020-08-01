@@ -1,4 +1,4 @@
-package sparqlrep
+package tests
 
 import (
 	"fmt"
