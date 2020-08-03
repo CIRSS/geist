@@ -42,16 +42,16 @@ func main() {
 				"Error: The 'blazegraph drop' command takes no arguments and no flags.")
 			return
 		}
-		drop()
+		doDrop()
 
 	case "export":
-		format := flags.String("format", "nt", "Format for exported triples")
+		format := flags.String("format", "nt", "Format for doExported triples")
 		if err = flags.Parse(os.Args[2:]); err != nil {
 			fmt.Fprintf(Main.ErrWriter, err.Error())
 			flags.Usage()
 			return
 		}
-		export(*format)
+		doExport(*format)
 
 	case "import":
 		file := flags.String("file", "-", "File containing triples to import")
@@ -61,7 +61,7 @@ func main() {
 			flags.Usage()
 			return
 		}
-		inport(*file, *format)
+		doImport(*file, *format)
 
 	case "select":
 		file := flags.String("file", "-", "File containing select query to execute")
@@ -71,7 +71,7 @@ func main() {
 			flags.Usage()
 			return
 		}
-		select_query(*file, *format)
+		doSelectQuery(*file, *format)
 
 	default:
 		fmt.Fprintf(Main.ErrWriter, "Unrecognized command: %s\n", command)
@@ -79,7 +79,7 @@ func main() {
 
 }
 
-func drop() {
+func doDrop() {
 	bc := blazegraph.NewClient()
 	bc.DeleteAll()
 }
@@ -94,7 +94,7 @@ func readFileOrStdin(filePath string) (bytes []byte, err error) {
 	return ioutil.ReadAll(r)
 }
 
-func inport(file string, format string) {
+func doImport(file string, format string) {
 	bc := blazegraph.NewClient()
 	data, err := readFileOrStdin(file)
 	if err != nil {
@@ -123,7 +123,7 @@ func inport(file string, format string) {
 	}
 }
 
-func select_query(file string, format string) {
+func doSelectQuery(file string, format string) {
 	bc := blazegraph.NewClient()
 	q, err := readFileOrStdin(file)
 	if err != nil {
@@ -167,7 +167,7 @@ func select_query(file string, format string) {
 
 }
 
-func export(format string) {
+func doExport(format string) {
 	bc := blazegraph.NewClient()
 	var err error
 	var triples string
