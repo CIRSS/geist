@@ -1,4 +1,4 @@
-package assert
+package util
 
 import (
 	"encoding/json"

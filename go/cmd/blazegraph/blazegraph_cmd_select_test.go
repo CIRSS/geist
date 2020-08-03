@@ -4,7 +4,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/tmcphillips/blazegraph-util/assert"
+	"github.com/tmcphillips/blazegraph-util/util"
 )
 
 func TestBlazegraphCmd_query_json(t *testing.T) {
@@ -32,7 +32,7 @@ func TestBlazegraphCmd_query_json(t *testing.T) {
 		outputBuffer.Reset()
 		Main.InReader = strings.NewReader(query)
 		run("blazegraph select --format json")
-		assert.JSONEquals(t, outputBuffer.String(), `{
+		util.JSONEquals(t, outputBuffer.String(), `{
 			"head": { "vars": ["s", "o"] },
 			"results": { "bindings": [
 				{
@@ -51,7 +51,7 @@ func TestBlazegraphCmd_query_json(t *testing.T) {
 		outputBuffer.Reset()
 		Main.InReader = strings.NewReader(query)
 		run("blazegraph select --format xml")
-		assert.LineContentsEqual(t, outputBuffer.String(), `
+		util.LineContentsEqual(t, outputBuffer.String(), `
 			<?xml version='1.0' encoding='UTF-8'?>
             <sparql xmlns='http://www.w3.org/2005/sparql-results#'>
             	<head>
@@ -84,7 +84,7 @@ func TestBlazegraphCmd_query_json(t *testing.T) {
 		outputBuffer.Reset()
 		Main.InReader = strings.NewReader(query)
 		run("blazegraph select --format csv")
-		assert.LineContentsEqual(t, outputBuffer.String(), `
+		util.LineContentsEqual(t, outputBuffer.String(), `
 			s,o
 			http://tmcphill.net/data#x,seven
 			http://tmcphill.net/data#y,eight`)

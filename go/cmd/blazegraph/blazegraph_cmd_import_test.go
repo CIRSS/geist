@@ -4,7 +4,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/tmcphillips/blazegraph-util/assert"
+	"github.com/tmcphillips/blazegraph-util/util"
 )
 
 func TestBlazegraphCmd_import_two_triples(t *testing.T) {
@@ -25,7 +25,7 @@ func TestBlazegraphCmd_import_two_triples(t *testing.T) {
 
 		outputBuffer.Reset()
 		run("blazegraph export --format nt")
-		assert.LineContentsEqual(t, outputBuffer.String(), `
+		util.LineContentsEqual(t, outputBuffer.String(), `
 			<http://tmcphill.net/data#y> <http://tmcphill.net/tags#tag> "eight" .
 			<http://tmcphill.net/tags#tag> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
 			<http://tmcphill.net/tags#tag> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://tmcphill.net/tags#tag> .
@@ -48,7 +48,7 @@ func TestBlazegraphCmd_import_two_triples(t *testing.T) {
 
 		outputBuffer.Reset()
 		run("blazegraph export --format nt")
-		assert.LineContentsEqual(t, outputBuffer.String(), `
+		util.LineContentsEqual(t, outputBuffer.String(), `
 			<http://tmcphill.net/data#y> <http://tmcphill.net/tags#tag> "eight" .
 			<http://tmcphill.net/tags#tag> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
 			<http://tmcphill.net/tags#tag> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://tmcphill.net/tags#tag> .
@@ -76,7 +76,7 @@ func TestBlazegraphCmd_import_two_triples(t *testing.T) {
 
 		outputBuffer.Reset()
 		run("blazegraph export --format nt")
-		assert.LineContentsEqual(t, outputBuffer.String(), `
+		util.LineContentsEqual(t, outputBuffer.String(), `
 			<http://tmcphill.net/data#y> <http://tmcphill.net/tags#tag> "eight"^^<http://www.w3.org/2001/XMLSchema#string> .
 			<http://tmcphill.net/tags#tag> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
 			<http://tmcphill.net/tags#tag> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://tmcphill.net/tags#tag> .
@@ -99,7 +99,7 @@ func TestBlazegraphCmd_import_two_triples(t *testing.T) {
 
 		outputBuffer.Reset()
 		run("blazegraph export --format nt")
-		assert.LineContentsEqual(t, outputBuffer.String(), `
+		util.LineContentsEqual(t, outputBuffer.String(), `
 			<http://tmcphill.net/data#y> <http://tmcphill.net/tags#tag> "eight" .
 			<http://tmcphill.net/tags#tag> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
 			<http://tmcphill.net/tags#tag> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://tmcphill.net/tags#tag> .
@@ -128,7 +128,7 @@ func TestBlazegraphCmd_import_two_triples(t *testing.T) {
 
 		outputBuffer.Reset()
 		run("blazegraph export --format nt")
-		assert.LineContentsEqual(t, outputBuffer.String(), `
+		util.LineContentsEqual(t, outputBuffer.String(), `
 			<http://tmcphill.net/data#y> <http://tmcphill.net/tags#tag> "eight" .
 			<http://tmcphill.net/tags#tag> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
 			<http://tmcphill.net/tags#tag> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://tmcphill.net/tags#tag> .

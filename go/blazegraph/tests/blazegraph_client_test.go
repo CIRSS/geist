@@ -5,8 +5,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/tmcphillips/blazegraph-util/assert"
 	"github.com/tmcphillips/blazegraph-util/blazegraph"
+	"github.com/tmcphillips/blazegraph-util/util"
 )
 
 func TestBlazegraphClient_GetAllTriplesAsJSON_EmptyStore(t *testing.T) {
@@ -14,7 +14,7 @@ func TestBlazegraphClient_GetAllTriplesAsJSON_EmptyStore(t *testing.T) {
 	bc.DeleteAll()
 	triples, _ := bc.SelectAll()
 	actual, _ := triples.JSONString()
-	assert.JSONEquals(t, actual,
+	util.JSONEquals(t, actual,
 		`{
 			"head" : {
 				"vars" : [ "s", "p", "o" ]
@@ -43,7 +43,7 @@ func TestBlazegraphClient_InsertOneTriple(t *testing.T) {
 
 	actual, _ := resultSet.JSONString()
 
-	assert.JSONEquals(t,
+	util.JSONEquals(t,
 		actual,
 		`{
 			"head" : { "vars" : [ "s", "o" ] },
@@ -76,7 +76,7 @@ func TestBlazegraphClient_InsertTwoTriples(t *testing.T) {
 
 	actual, _ := resultSet.JSONString()
 
-	assert.JSONEquals(t,
+	util.JSONEquals(t,
 		actual,
 		`{
 			"head" : { "vars" : [ "s", "o" ] },
@@ -109,17 +109,17 @@ func TestBlazegraphClient_InsertTwoTriples_Struct(t *testing.T) {
 		 { ?s ab:tag ?o }
 		 `)
 
-	assert.StringEquals(t, strings.Join(rs.Vars(), ", "), "s, o")
+	util.StringEquals(t, strings.Join(rs.Vars(), ", "), "s, o")
 
-	assert.StringEquals(t, rs.Bindings()[0]["s"].Type, "uri")
-	assert.StringEquals(t, rs.Bindings()[0]["s"].Value, "http://tmcphill.net/data#x")
-	assert.StringEquals(t, rs.Bindings()[0]["o"].Type, "literal")
-	assert.StringEquals(t, rs.Bindings()[0]["o"].Value, "seven")
+	util.StringEquals(t, rs.Bindings()[0]["s"].Type, "uri")
+	util.StringEquals(t, rs.Bindings()[0]["s"].Value, "http://tmcphill.net/data#x")
+	util.StringEquals(t, rs.Bindings()[0]["o"].Type, "literal")
+	util.StringEquals(t, rs.Bindings()[0]["o"].Value, "seven")
 
-	assert.StringEquals(t, rs.Bindings()[1]["s"].Type, "uri")
-	assert.StringEquals(t, rs.Bindings()[1]["s"].Value, "http://tmcphill.net/data#y")
-	assert.StringEquals(t, rs.Bindings()[1]["o"].Type, "literal")
-	assert.StringEquals(t, rs.Bindings()[1]["o"].Value, "eight")
+	util.StringEquals(t, rs.Bindings()[1]["s"].Type, "uri")
+	util.StringEquals(t, rs.Bindings()[1]["s"].Value, "http://tmcphill.net/data#y")
+	util.StringEquals(t, rs.Bindings()[1]["o"].Type, "literal")
+	util.StringEquals(t, rs.Bindings()[1]["o"].Value, "eight")
 }
 
 func ExampleBlazegraphClient_DumpAsNTriples() {

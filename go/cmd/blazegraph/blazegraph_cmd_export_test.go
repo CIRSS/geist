@@ -4,7 +4,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/tmcphillips/blazegraph-util/assert"
+	"github.com/tmcphillips/blazegraph-util/util"
 )
 
 func TestBlazegraphCmd_export_empty_store(t *testing.T) {
@@ -18,19 +18,19 @@ func TestBlazegraphCmd_export_empty_store(t *testing.T) {
 	t.Run("jsonld", func(t *testing.T) {
 		outputBuffer.Reset()
 		run("blazegraph export --format jsonld")
-		assert.LineContentsEqual(t, outputBuffer.String(), `[ ]`)
+		util.LineContentsEqual(t, outputBuffer.String(), `[ ]`)
 	})
 
 	t.Run("nt", func(t *testing.T) {
 		outputBuffer.Reset()
 		run("blazegraph export --format nt")
-		assert.LineContentsEqual(t, outputBuffer.String(), ``)
+		util.LineContentsEqual(t, outputBuffer.String(), ``)
 	})
 
 	t.Run("ttl", func(t *testing.T) {
 		outputBuffer.Reset()
 		run("blazegraph export --format ttl")
-		assert.LineContentsEqual(t, outputBuffer.String(), `
+		util.LineContentsEqual(t, outputBuffer.String(), `
 			@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 			@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 			@prefix sesame: <http://www.openrdf.org/schema/sesame#> .
@@ -47,7 +47,7 @@ func TestBlazegraphCmd_export_empty_store(t *testing.T) {
 	t.Run("xml", func(t *testing.T) {
 		outputBuffer.Reset()
 		run("blazegraph export --format xml")
-		assert.LineContentsEqual(t, outputBuffer.String(), `
+		util.LineContentsEqual(t, outputBuffer.String(), `
 		<?xml version="1.0" encoding="UTF-8"?>
 	        <rdf:RDF
 	        	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -84,7 +84,7 @@ func TestBlazegraphCmd_export_two_triples(t *testing.T) {
 	t.Run("jsonld", func(t *testing.T) {
 		outputBuffer.Reset()
 		run("blazegraph export --format jsonld")
-		assert.JSONEquals(t, outputBuffer.String(), `
+		util.JSONEquals(t, outputBuffer.String(), `
 		[
 			{
 			  "@id": "http://tmcphill.net/data#x",
@@ -120,7 +120,7 @@ func TestBlazegraphCmd_export_two_triples(t *testing.T) {
 	t.Run("nt", func(t *testing.T) {
 		outputBuffer.Reset()
 		run("blazegraph export --format nt")
-		assert.LineContentsEqual(t, outputBuffer.String(), `
+		util.LineContentsEqual(t, outputBuffer.String(), `
 			<http://tmcphill.net/data#y> <http://tmcphill.net/tags#tag> "eight" .
 			<http://tmcphill.net/tags#tag> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
 			<http://tmcphill.net/tags#tag> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://tmcphill.net/tags#tag> .
@@ -131,7 +131,7 @@ func TestBlazegraphCmd_export_two_triples(t *testing.T) {
 	t.Run("ttl", func(t *testing.T) {
 		outputBuffer.Reset()
 		run("blazegraph export --format ttl")
-		assert.LineContentsEqual(t, outputBuffer.String(), `
+		util.LineContentsEqual(t, outputBuffer.String(), `
 			@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 			@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 			@prefix sesame: <http://www.openrdf.org/schema/sesame#> .
@@ -156,7 +156,7 @@ func TestBlazegraphCmd_export_two_triples(t *testing.T) {
 	t.Run("xml", func(t *testing.T) {
 		outputBuffer.Reset()
 		run("blazegraph export --format xml")
-		assert.LineContentsEqual(t, outputBuffer.String(), `
+		util.LineContentsEqual(t, outputBuffer.String(), `
 			<?xml version="1.0" encoding="UTF-8"?>
 			<rdf:RDF
 				xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -203,7 +203,7 @@ func TestBlazegraphCmd_export_address_book(t *testing.T) {
 	t.Run("jsonld", func(t *testing.T) {
 		outputBuffer.Reset()
 		run("blazegraph export --format jsonld")
-		assert.LineContentsEqual(t, outputBuffer.String(), `
+		util.LineContentsEqual(t, outputBuffer.String(), `
 			[ {
 			"@id" : "http://learningsparql.com/ns/addressbook#email",
 			"@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
@@ -297,7 +297,7 @@ func TestBlazegraphCmd_export_address_book(t *testing.T) {
 	t.Run("nt", func(t *testing.T) {
 		outputBuffer.Reset()
 		run("blazegraph export --format nt")
-		assert.LineContentsEqual(t, outputBuffer.String(), `
+		util.LineContentsEqual(t, outputBuffer.String(), `
 			<http://learningsparql.com/ns/addressbook#email> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
 			<http://learningsparql.com/ns/addressbook#email> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://learningsparql.com/ns/addressbook#email> .
 			<http://learningsparql.com/ns/addressbook#firstname> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
@@ -331,7 +331,7 @@ func TestBlazegraphCmd_export_address_book(t *testing.T) {
 	t.Run("ttl", func(t *testing.T) {
 		outputBuffer.Reset()
 		run("blazegraph export --format ttl")
-		assert.LineContentsEqual(t, outputBuffer.String(), `
+		util.LineContentsEqual(t, outputBuffer.String(), `
 			@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 			@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 			@prefix sesame: <http://www.openrdf.org/schema/sesame#> .
@@ -384,7 +384,7 @@ func TestBlazegraphCmd_export_address_book(t *testing.T) {
 	t.Run("xml", func(t *testing.T) {
 		outputBuffer.Reset()
 		run("blazegraph export --format xml")
-		assert.LineContentsEqual(t, outputBuffer.String(), `
+		util.LineContentsEqual(t, outputBuffer.String(), `
 			<?xml version="1.0" encoding="UTF-8"?>
 			<rdf:RDF
 				xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
