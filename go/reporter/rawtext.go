@@ -1,4 +1,4 @@
-package sparqlrep
+package reporter
 
 import "strings"
 

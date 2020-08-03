@@ -6,7 +6,7 @@ import (
 	"strings"
 	"text/template"
 
-	"github.com/tmcphillips/blazegraph-util/sparqlrep"
+	"github.com/tmcphillips/blazegraph-util/reporter"
 )
 
 func uppercase(s string) string {
@@ -15,7 +15,7 @@ func uppercase(s string) string {
 
 func ExampleReportParser_Expand() {
 
-	dp := sparqlrep.DelimiterPair{
+	dp := reporter.DelimiterPair{
 		Start: "<%",
 		End:   "%>",
 	}
@@ -25,7 +25,7 @@ food
 bar
 %>}}{{$result}}{{end}}`
 
-	rt := sparqlrep.NewReportTemplate(dp, nil, t)
+	rt := reporter.NewReportTemplate(dp, nil, t)
 	err := rt.Expand(os.Stdout, nil)
 
 	if err != nil {
@@ -42,7 +42,7 @@ func up(s string) string {
 
 func ExampleReportParser_Expand_MultilineFunctionArgument() {
 
-	dp := sparqlrep.DelimiterPair{
+	dp := reporter.DelimiterPair{
 		Start: "<%",
 		End:   "%>",
 	}
@@ -56,7 +56,7 @@ foo
 bar
 %>}}{{$result}}{{end}}`
 
-	rt := sparqlrep.NewReportTemplate(dp, funcs, t)
+	rt := reporter.NewReportTemplate(dp, funcs, t)
 	err := rt.Expand(os.Stdout, nil)
 
 	if err != nil {
