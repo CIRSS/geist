@@ -14,7 +14,7 @@ END_SCRIPT
 
 bash ${RUNNER} S1 "IMPORT TWO TRIPLES AS N-TRIPLES" << END_SCRIPT
 
-blazegraph import --format nt << END_DATA
+blazegraph import --format nt | sort << END_DATA
 
 	<http://tmcphill.net/data#y> <http://tmcphill.net/tags#tag> "eight" .
 	<http://tmcphill.net/data#x> <http://tmcphill.net/tags#tag> "seven" .

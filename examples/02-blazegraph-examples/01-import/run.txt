@@ -12,7 +12,7 @@ blazegraph drop
 
 # IMPORT TWO TRIPLES AS N-TRIPLES
 
-blazegraph import --format nt << END_DATA
+blazegraph import --format nt | sort << END_DATA
 
 	<http://tmcphill.net/data#y> <http://tmcphill.net/tags#tag> "eight" .
 	<http://tmcphill.net/data#x> <http://tmcphill.net/tags#tag> "seven" .
@@ -23,10 +23,10 @@ blazegraph export --format nt
 
 ---------------------------- S1 OUTPUTS ---------------------------------
 
-<http://tmcphill.net/data#x> <http://tmcphill.net/tags#tag> "seven" .
-<http://tmcphill.net/data#y> <http://tmcphill.net/tags#tag> "eight" .
-<http://tmcphill.net/tags#tag> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-<http://tmcphill.net/tags#tag> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://tmcphill.net/tags#tag> .
+
+
+	<http://tmcphill.net/data#x> <http://tmcphill.net/tags#tag> "seven" .
+	<http://tmcphill.net/data#y> <http://tmcphill.net/tags#tag> "eight" .
 
 **************************** EXAMPLE S2 *********************************
 
@@ -47,10 +47,10 @@ blazegraph export --format nt
 
 ---------------------------- S2 OUTPUTS ---------------------------------
 
-<http://tmcphill.net/data#x> <http://tmcphill.net/tags#tag> "seven" .
 <http://tmcphill.net/data#y> <http://tmcphill.net/tags#tag> "eight" .
 <http://tmcphill.net/tags#tag> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
 <http://tmcphill.net/tags#tag> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://tmcphill.net/tags#tag> .
+<http://tmcphill.net/data#x> <http://tmcphill.net/tags#tag> "seven" .
 
 **************************** EXAMPLE S3 *********************************
 
@@ -76,10 +76,10 @@ blazegraph export --format nt
 
 ---------------------------- S3 OUTPUTS ---------------------------------
 
-<http://tmcphill.net/data#x> <http://tmcphill.net/tags#tag> "seven"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://tmcphill.net/data#y> <http://tmcphill.net/tags#tag> "eight"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://tmcphill.net/tags#tag> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
 <http://tmcphill.net/tags#tag> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://tmcphill.net/tags#tag> .
+<http://tmcphill.net/data#x> <http://tmcphill.net/tags#tag> "seven"^^<http://www.w3.org/2001/XMLSchema#string> .
 
 **************************** EXAMPLE S4 *********************************
 
