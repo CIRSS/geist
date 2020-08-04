@@ -2,14 +2,15 @@ package reporter
 
 import (
 	"io"
-	"os"
 	"text/template"
 )
 
 var GraveDelimiters DelimiterPair
+var JSPDelimiters DelimiterPair
 
 func init() {
 	GraveDelimiters = DelimiterPair{"`", "`"}
+	JSPDelimiters = DelimiterPair{Start: "<%", End: "%>"}
 }
 
 // ReportTemplate is customizable to create reports from different kinds of templates.
@@ -31,6 +32,6 @@ func NewReportTemplate(delimiters DelimiterPair, funcs template.FuncMap, text st
 }
 
 func (rp *ReportTemplate) Expand(wr io.Writer, data interface{}) error {
-	err := rp.template.Execute(os.Stdout, data)
+	err := rp.template.Execute(wr, data)
 	return err
 }

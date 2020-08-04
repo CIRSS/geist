@@ -1,68 +1,82 @@
 package tests
 
 import (
-	"fmt"
-	"os"
 	"strings"
+	"testing"
 	"text/template"
 
 	"github.com/tmcphillips/blazegraph-util/reporter"
+	"github.com/tmcphillips/blazegraph-util/util"
 )
 
-func uppercase(s string) string {
-	return strings.ToUpper(s)
-}
+func TestReportTemplate_AnonymouStructInstance(t *testing.T) {
 
-func ExampleReportParser_Expand() {
-
-	dp := reporter.DelimiterPair{
-		Start: "<%",
-		End:   "%>",
+	sweaters := struct {
+		Material string
+		Count    uint
+	}{
+		Material: "cotton",
+		Count:    42,
 	}
 
-	t := `{{with $result := <%
-food
-bar
-%>}}{{$result}}{{end}}`
+	rt := reporter.NewReportTemplate(reporter.JSPDelimiters, nil,
+		`
+		{{.Count}} items 
+		are made of 
+		{{.Material}}
+		`)
 
-	rt := reporter.NewReportTemplate(dp, nil, t)
-	err := rt.Expand(os.Stdout, nil)
+	var buffer strings.Builder
+	rt.Expand(&buffer, sweaters)
 
-	if err != nil {
-		fmt.Println(err)
-	}
-	// Output:
-	// food
-	// bar
+	util.LineContentsEqual(t, buffer.String(),
+		`
+		42 items
+		are made of
+		cotton
+	`)
 }
 
-func up(s string) string {
-	return strings.ToUpper(s)
+func TestReportTemplate_MultilineVariableValue(t *testing.T) {
+
+	rt := reporter.NewReportTemplate(reporter.JSPDelimiters, nil,
+		`
+		{{with $result := <%
+			foo
+			bar
+		%>}}{{$result}}{{end}}
+	`)
+
+	var buffer strings.Builder
+	rt.Expand(&buffer, nil)
+
+	util.LineContentsEqual(t, buffer.String(), `
+		foo
+		bar
+	`)
+
 }
 
-func ExampleReportParser_Expand_MultilineFunctionArgument() {
-
-	dp := reporter.DelimiterPair{
-		Start: "<%",
-		End:   "%>",
-	}
+func TestReportTemplate_MultilineFunctionArgument(t *testing.T) {
 
 	funcs := template.FuncMap{
-		"up": up,
+		"up": func(s string) string {
+			return strings.ToUpper(s)
+		},
 	}
 
-	t := `{{with $result := up <%
-foo
-bar
-%>}}{{$result}}{{end}}`
+	rt := reporter.NewReportTemplate(reporter.JSPDelimiters, funcs,
+		`{{with $result := up <%
+				foo
+				bar
+		%>}}{{$result}}{{end}}
+	`)
 
-	rt := reporter.NewReportTemplate(dp, funcs, t)
-	err := rt.Expand(os.Stdout, nil)
+	var buffer strings.Builder
+	rt.Expand(&buffer, nil)
 
-	if err != nil {
-		fmt.Println(err)
-	}
-	// Output:
-	// FOO
-	// BAR
+	util.LineContentsEqual(t, buffer.String(), `
+		FOO
+		BAR
+	`)
 }

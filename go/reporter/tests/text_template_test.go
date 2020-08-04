@@ -7,7 +7,7 @@ import (
 	"text/template"
 )
 
-func ExampleTemplate_NamedStruct() {
+func ExampleTemplate_NamedStructInstance() {
 	type Inventory struct {
 		Material string
 		Count    uint
@@ -19,7 +19,7 @@ func ExampleTemplate_NamedStruct() {
 	// 17 items are made of wool
 }
 
-func ExampleTemplate_Struct() {
+func ExampleTemplate_AnonymouStructInstance() {
 	sweaters := struct {
 		Material string
 		Count    uint
