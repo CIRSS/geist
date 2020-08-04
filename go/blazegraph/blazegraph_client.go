@@ -111,26 +111,3 @@ func (bc *Client) ConstructAll(format string) (triples string, err error) {
 	}
 	return
 }
-
-// func (bc *Client) DumpAsNTriples() (triples string, err error) {
-// 	responseBody, err := bc.RequestAllTriples()
-// 	if err != nil {
-// 		return
-// 	}
-
-// 	var sr sparql.Result
-// 	err = json.Unmarshal(responseBody, &sr)
-// 	if err != nil {
-// 		return
-// 	}
-
-// 	var dump strings.Builder
-// 	for _, b := range sr.Bindings() {
-// 		triple := fmt.Sprintf("%s %s %s .\n",
-// 			b.DelimitedValue("s"), b.DelimitedValue("p"), b.DelimitedValue("o"))
-// 		dump.WriteString(triple)
-// 	}
-// 	triples = dump.String()
-
-// 	return
-// }

@@ -47,6 +47,32 @@ func TestBlazegraphCmd_query_json(t *testing.T) {
 		`)
 	})
 
+	t.Run("table-with-separators", func(t *testing.T) {
+		outputBuffer.Reset()
+		Main.InReader = strings.NewReader(query)
+		run("blazegraph select --format table")
+		util.LineContentsEqual(t, outputBuffer.String(), `
+			s                          | o
+            ----------------------------------
+            http://tmcphill.net/data#x | seven
+            http://tmcphill.net/data#y | eight
+
+		`)
+	})
+
+	t.Run("table-without-separators", func(t *testing.T) {
+		outputBuffer.Reset()
+		Main.InReader = strings.NewReader(query)
+		run("blazegraph select --format table --columnseparators=false")
+		util.LineContentsEqual(t, outputBuffer.String(), `
+			s                            o
+            ----------------------------------
+            http://tmcphill.net/data#x   seven
+            http://tmcphill.net/data#y   eight
+
+		`)
+	})
+
 	t.Run("xml", func(t *testing.T) {
 		outputBuffer.Reset()
 		Main.InReader = strings.NewReader(query)

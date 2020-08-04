@@ -1,6 +1,10 @@
 package sparql
 
-import "encoding/json"
+import (
+	"encoding/json"
+
+	"github.com/tmcphillips/blazegraph-util/reporter"
+)
 
 type ResultSet struct {
 	Head    Head    `json:"head"`
@@ -31,6 +35,14 @@ func (b Binding) DelimitedValue(name string) (delimitedValue string) {
 	return
 }
 
+func (rs *ResultSet) ColumnCount() int {
+	return len(rs.Head.Vars)
+}
+
+func (rs *ResultSet) RowCount() int {
+	return len(rs.Results.Bindings)
+}
+
 func (rs *ResultSet) JSONString() (jsonString string, err error) {
 	jsonBytes, err := json.Marshal(*rs)
 	jsonString = string(jsonBytes)
@@ -53,4 +65,17 @@ func (sr *ResultSet) BoundValues(bindingIndex int) []string {
 		values[columnIndex] = binding[varName].Value
 	}
 	return values
+}
+
+func (rs *ResultSet) ValueTable() (table [][]string) {
+	table = append(table, rs.Head.Vars)
+	for i, _ := range rs.Results.Bindings {
+		table = append(table, rs.BoundValues(i))
+	}
+	return table
+}
+
+func (rs *ResultSet) Table(columnSeparator bool) string {
+	table := rs.ValueTable()
+	return reporter.WriteStringTable(table, columnSeparator)
 }

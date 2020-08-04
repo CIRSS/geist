@@ -66,12 +66,13 @@ func main() {
 	case "select":
 		file := flags.String("file", "-", "File containing select query to execute")
 		format := flags.String("format", "json", "Format of result set to produce")
+		separators := flags.Bool("columnseparators", true, "Display column separators in table format")
 		if err = flags.Parse(os.Args[2:]); err != nil {
 			fmt.Println(err)
 			flags.Usage()
 			return
 		}
-		doSelectQuery(*file, *format)
+		doSelectQuery(*file, *format, *separators)
 
 	default:
 		fmt.Fprintf(Main.ErrWriter, "Unrecognized command: %s\n", command)
@@ -123,7 +124,7 @@ func doImport(file string, format string) {
 	}
 }
 
-func doSelectQuery(file string, format string) {
+func doSelectQuery(file string, format string, columnSeparators bool) {
 	bc := blazegraph.NewClient()
 	q, err := readFileOrStdin(file)
 	if err != nil {
@@ -149,6 +150,16 @@ func doSelectQuery(file string, format string) {
 		}
 		resultJSON, _ := rs.JSONString()
 		fmt.Fprintf(Main.OutWriter, resultJSON)
+		return
+
+	case "table":
+		var rs sparql.ResultSet
+		rs, err = bc.Select(string(q))
+		if err != nil {
+			break
+		}
+		table := rs.Table(columnSeparators)
+		fmt.Fprintf(Main.OutWriter, table)
 		return
 
 	case "xml":
