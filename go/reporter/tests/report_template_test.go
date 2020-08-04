@@ -80,3 +80,24 @@ func TestReportTemplate_MultilineFunctionArgument(t *testing.T) {
 		BAR
 	`)
 }
+
+func TestReportTemplate_RangeOverStringSlice(t *testing.T) {
+
+	colors := []string{"red", "blue", "yellow"}
+
+	rt := reporter.NewReportTemplate(reporter.JSPDelimiters, nil,
+		`
+		{{range .}} the color is {{.}}
+		{{end}}
+		`)
+
+	var buffer strings.Builder
+	rt.Expand(&buffer, colors)
+
+	util.LineContentsEqual(t, buffer.String(),
+		`
+		the color is red
+		the color is blue
+		the color is yellow
+		`)
+}
