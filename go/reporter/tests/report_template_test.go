@@ -92,3 +92,30 @@ func TestReportTemplate_RangeOverStringSlice(t *testing.T) {
 		the color is yellow
 		`)
 }
+
+func TestReportTemplate_TableOfValues(t *testing.T) {
+
+	contacts := [][]string{
+		{"Tim", "Oakland  ", "530-219-4754"},
+		{"Bob", "Concord  ", "510-320-9943"},
+		{"Joe", "San Diego", "213-101-9313"},
+	}
+
+	rt := reporter.NewReportTemplate(reporter.JSPDelimiters, nil,
+		`
+		Name   | City      | Phone
+		-------|-----------|--------------
+		{{range .}}{{index . 0}}    | {{index . 1}} | {{index . 2}}
+		{{end}}
+	`)
+
+	actual, _ := rt.Expand(contacts)
+	util.LineContentsEqual(t, actual,
+		`
+        Name   | City      | Phone
+        -------|-----------|--------------
+        Tim    | Oakland   | 530-219-4754
+        Bob    | Concord   | 510-320-9943
+        Joe    | San Diego | 213-101-9313
+		`)
+}
