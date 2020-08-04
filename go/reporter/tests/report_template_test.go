@@ -26,10 +26,8 @@ func TestReportTemplate_AnonymouStructInstance(t *testing.T) {
 		{{.Material}}
 		`)
 
-	var buffer strings.Builder
-	rt.Expand(&buffer, sweaters)
-
-	util.LineContentsEqual(t, buffer.String(),
+	actual, _ := rt.Expand(sweaters)
+	util.LineContentsEqual(t, actual,
 		`
 		42 items
 		are made of
@@ -47,14 +45,11 @@ func TestReportTemplate_MultilineVariableValue(t *testing.T) {
 		%>}}{{$result}}{{end}}
 	`)
 
-	var buffer strings.Builder
-	rt.Expand(&buffer, nil)
-
-	util.LineContentsEqual(t, buffer.String(), `
+	actual, _ := rt.Expand(nil)
+	util.LineContentsEqual(t, actual, `
 		foo
 		bar
 	`)
-
 }
 
 func TestReportTemplate_MultilineFunctionArgument(t *testing.T) {
@@ -72,10 +67,8 @@ func TestReportTemplate_MultilineFunctionArgument(t *testing.T) {
 		%>}}{{$result}}{{end}}
 	`)
 
-	var buffer strings.Builder
-	rt.Expand(&buffer, nil)
-
-	util.LineContentsEqual(t, buffer.String(), `
+	actual, _ := rt.Expand(nil)
+	util.LineContentsEqual(t, actual, `
 		FOO
 		BAR
 	`)
@@ -91,10 +84,8 @@ func TestReportTemplate_RangeOverStringSlice(t *testing.T) {
 		{{end}}
 		`)
 
-	var buffer strings.Builder
-	rt.Expand(&buffer, colors)
-
-	util.LineContentsEqual(t, buffer.String(),
+	actual, _ := rt.Expand(colors)
+	util.LineContentsEqual(t, actual,
 		`
 		the color is red
 		the color is blue

@@ -1,7 +1,7 @@
 package reporter
 
 import (
-	"io"
+	"strings"
 	"text/template"
 )
 
@@ -31,7 +31,11 @@ func NewReportTemplate(delimiters DelimiterPair, funcs template.FuncMap, text st
 	return rt
 }
 
-func (rp *ReportTemplate) Expand(wr io.Writer, data interface{}) error {
-	err := rp.template.Execute(wr, data)
-	return err
+func (rp *ReportTemplate) Expand(data interface{}) (result string, err error) {
+	var buffer strings.Builder
+	err = rp.template.Execute(&buffer, data)
+	if err == nil {
+		result = buffer.String()
+	}
+	return
 }
