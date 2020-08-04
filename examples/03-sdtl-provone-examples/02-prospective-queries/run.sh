@@ -16,7 +16,7 @@ END_SCRIPT
 bash ${RUNNER} PROSPECTIVE-1 "WHAT IS THE TOP-LEVEL PROGRAM IN THE TRACE?" \
     << END_SCRIPT
 
-blazegraph select --format csv << END_QUERY
+blazegraph select --format table << END_QUERY
 
     prefix provone: <http://purl.dataone.org/provone/2015/01/15/ontology#>
 
@@ -35,7 +35,7 @@ END_SCRIPT
 bash ${RUNNER} PROSPECTIVE-2 "WHAT ARE THE SUB-PROGRAMS IN THE TRACE?" \
     << END_SCRIPT
 
-blazegraph select --format csv << END_QUERY
+blazegraph select --format table << END_QUERY
 
     prefix provone: <http://purl.dataone.org/provone/2015/01/15/ontology#>
 
@@ -53,7 +53,7 @@ END_SCRIPT
 bash ${RUNNER} PROSPECTIVE-3 "WHAT ARE THE OUTPUT PORTS AND ASSOCIATED VARIABLES IN THE TRACE?" \
     << END_SCRIPT
 
-blazegraph select --format csv << END_QUERY
+blazegraph select --format table << END_QUERY
 
     prefix provone: <http://purl.dataone.org/provone/2015/01/15/ontology#>
     prefix sdtl: <http://SDTLnamespaceURL#>

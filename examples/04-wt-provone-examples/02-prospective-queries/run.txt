@@ -13,7 +13,7 @@ blazegraph import --format jsonld --file ../data/branched-pipeline.jsonld
 
 # WHAT FILES WERE PROVIDED AS INPUT TO THE TALE?
 
-blazegraph select --format csv << END_QUERY
+blazegraph select --format table << END_QUERY
 
     prefix prov: <http://www.w3.org/ns/prov#>
     prefix provone: <http://purl.dataone.org/provone/2015/01/15/ontology#>
@@ -32,6 +32,7 @@ END_QUERY
 ---------------------------- RETROSPECTIVE-1 OUTPUTS ---------------------------------
 
 tale_input_file_path
+-------------------
 ./inputs/i1.txt
 ./inputs/i2.txt
 ./inputs/i3.txt
@@ -41,7 +42,7 @@ tale_input_file_path
 
 # WHAT FILES WERE PRODUCED AS OUTPUTS OF THE TALE?
 
-blazegraph select --format csv << END_QUERY
+blazegraph select --format table << END_QUERY
 
     prefix prov: <http://www.w3.org/ns/prov#>
     prefix provone: <http://purl.dataone.org/provone/2015/01/15/ontology#>
@@ -60,6 +61,7 @@ END_QUERY
 ---------------------------- RETROSPECTIVE-1 OUTPUTS ---------------------------------
 
 tale_out_file_path
+------------------
 ./outputs/o12.txt
 ./outputs/o1234.txt
 ./outputs/o4.txt
