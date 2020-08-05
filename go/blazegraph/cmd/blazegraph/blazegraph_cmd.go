@@ -138,13 +138,18 @@ func doImport(file string, format string) {
 
 func doReport(file string) {
 
+	bc := blazegraph.NewClient()
+
 	funcs := template.FuncMap{
-		"select": func(q string) string {
+		"up": func(q string) string {
 			return strings.ToUpper(q)
+		},
+		"select": func(q string) string {
+			sr, _ := bc.Select(q)
+			return sr.Table(true)
 		},
 	}
 
-	// bc := blazegraph.NewClient()
 	template, err := readFileOrStdin(file)
 	if err != nil {
 		fmt.Fprintf(Main.ErrWriter, err.Error())

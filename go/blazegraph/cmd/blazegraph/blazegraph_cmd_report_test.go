@@ -34,7 +34,7 @@ func TestBlazegraphCmd_report(t *testing.T) {
 	t.Run("function-with-quoted-argument", func(t *testing.T) {
 		outputBuffer.Reset()
 		template := `
-			{{select "A constant template"}}
+			{{up "A constant template"}}
 		`
 		Main.InReader = strings.NewReader(template)
 		run("blazegraph report")
@@ -46,7 +46,7 @@ func TestBlazegraphCmd_report(t *testing.T) {
 	t.Run("function-with-delimited-one-line-argument", func(t *testing.T) {
 		outputBuffer.Reset()
 		template := `
-			{{select <% A constant template %>}}
+			{{up <% A constant template %>}}
 		`
 		Main.InReader = strings.NewReader(template)
 		run("blazegraph report")
@@ -58,7 +58,7 @@ func TestBlazegraphCmd_report(t *testing.T) {
 	t.Run("function-with-delimited-two-line-argument", func(t *testing.T) {
 		outputBuffer.Reset()
 		template := `
-			{{select <% A constant 
+			{{up <% A constant 
 				template %>}}
 		`
 		Main.InReader = strings.NewReader(template)
@@ -66,6 +66,30 @@ func TestBlazegraphCmd_report(t *testing.T) {
 		util.LineContentsEqual(t, outputBuffer.String(), `
 			A CONSTANT
 			TEMPLATE
+		`)
+	})
+
+	t.Run("select-with-delimited-two-line-argument", func(t *testing.T) {
+		outputBuffer.Reset()
+		template := `
+			Example select query with tabular output in report
+
+			{{select <%  
+				prefix ab: <http://tmcphill.net/tags#>
+				SELECT ?s ?o
+				WHERE
+				{ ?s ab:tag ?o }
+			%>}}
+		`
+		Main.InReader = strings.NewReader(template)
+		run("blazegraph report")
+		util.LineContentsEqual(t, outputBuffer.String(), `
+			Example select query with tabular output in report
+
+			s                          | o
+			----------------------------------
+			http://tmcphill.net/data#x | seven
+			http://tmcphill.net/data#y | eight
 		`)
 	})
 
