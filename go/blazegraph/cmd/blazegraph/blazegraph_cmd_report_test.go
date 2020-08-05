@@ -31,13 +31,41 @@ func TestBlazegraphCmd_report(t *testing.T) {
 		`)
 	})
 
-	t.Run("table-with-separators", func(t *testing.T) {
+	t.Run("function-with-quoted-argument", func(t *testing.T) {
 		outputBuffer.Reset()
-		template := `{{select <% A constant template %>}}`
+		template := `
+			{{select "A constant template"}}
+		`
 		Main.InReader = strings.NewReader(template)
 		run("blazegraph report")
 		util.LineContentsEqual(t, outputBuffer.String(), `
 			A CONSTANT TEMPLATE
+		`)
+	})
+
+	t.Run("function-with-delimited-one-line-argument", func(t *testing.T) {
+		outputBuffer.Reset()
+		template := `
+			{{select <% A constant template %>}}
+		`
+		Main.InReader = strings.NewReader(template)
+		run("blazegraph report")
+		util.LineContentsEqual(t, outputBuffer.String(), `
+			A CONSTANT TEMPLATE
+		`)
+	})
+
+	t.Run("function-with-delimited-two-line-argument", func(t *testing.T) {
+		outputBuffer.Reset()
+		template := `
+			{{select <% A constant 
+				template %>}}
+		`
+		Main.InReader = strings.NewReader(template)
+		run("blazegraph report")
+		util.LineContentsEqual(t, outputBuffer.String(), `
+			A CONSTANT
+			TEMPLATE
 		`)
 	})
 
