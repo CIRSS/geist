@@ -5,7 +5,10 @@ import (
 	"io"
 	"io/ioutil"
 	"os"
+	"strings"
+	"text/template"
 
+	"github.com/tmcphillips/blazegraph-util/reporter"
 	"github.com/tmcphillips/blazegraph-util/sparql"
 
 	"github.com/tmcphillips/blazegraph-util/blazegraph"
@@ -62,6 +65,15 @@ func main() {
 			return
 		}
 		doImport(*file, *format)
+
+	case "report":
+		file := flags.String("file", "-", "File containing report template to expand")
+		if err = flags.Parse(os.Args[2:]); err != nil {
+			fmt.Fprintf(Main.ErrWriter, err.Error())
+			flags.Usage()
+			return
+		}
+		doReport(*file)
 
 	case "select":
 		file := flags.String("file", "-", "File containing select query to execute")
@@ -122,6 +134,28 @@ func doImport(file string, format string) {
 		fmt.Fprintf(Main.ErrWriter, err.Error())
 		return
 	}
+}
+
+func doReport(file string) {
+
+	funcs := template.FuncMap{
+		"select": func(q string) string {
+			return strings.ToUpper(q)
+		},
+	}
+
+	// bc := blazegraph.NewClient()
+	template, err := readFileOrStdin(file)
+	if err != nil {
+		fmt.Fprintf(Main.ErrWriter, err.Error())
+		return
+	}
+
+	rt := reporter.NewReportTemplate(reporter.JSPDelimiters,
+		funcs, string(template))
+	report, err := rt.Expand(nil)
+	fmt.Fprintf(Main.OutWriter, report)
+	return
 }
 
 func doSelectQuery(file string, format string, columnSeparators bool) {
