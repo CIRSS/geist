@@ -15,7 +15,18 @@ func (bc *Client) ExpandReport(reportTemplate string) (report string, err error)
 		"up": func(s string) string {
 			return strings.ToUpper(s)
 		},
-		"select": func(query string) (rs sparql.ResultSet) {
+		"select": func(queryTemplate string, args ...interface{}) (rs sparql.ResultSet) {
+			qt := reporter.NewReportTemplate(reporter.TripleSingleQuoteDelimiters,
+				nil, queryTemplate)
+
+			var data interface{}
+			if len(args) == 1 {
+				data = args[0]
+			}
+			query, err := qt.Expand(data)
+			if err != nil {
+				return
+			}
 			rs, _ = bc.Select(query)
 			return
 		},

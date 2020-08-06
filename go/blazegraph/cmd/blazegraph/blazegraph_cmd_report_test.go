@@ -81,7 +81,7 @@ func TestBlazegraphCmd_report_two_triples(t *testing.T) {
 		template := `
 			Example select query with tabular output in report
 
-			{{select '''  
+			{{select '''
 					prefix ab: <http://tmcphill.net/tags#>
 					SELECT ?s ?o
 					WHERE
@@ -158,14 +158,14 @@ func TestBlazegraphCmd_report_two_triples(t *testing.T) {
 					SELECT ?s ?o
 					WHERE
 					{ ?s ab:tag ?o }
-				''') }} 
-			
+				''') }}
+
 				Variables:
 				{{join (.Head.Vars) ", " }}
 
-				Values: 
+				Values:
 				{{ range (rows .) }}{{ join . ", " | println}}{{end}}
-				
+
 			{{end}}
 		`
 		Main.InReader = strings.NewReader(template)
@@ -174,13 +174,72 @@ func TestBlazegraphCmd_report_two_triples(t *testing.T) {
 
 			Example select query with tabular output in report
 
-			Variables: 
+			Variables:
 			s, o
-			
+
 			Values:
 			http://tmcphill.net/data#x, seven
 			http://tmcphill.net/data#y, eight
+
+		`)
+	})
+
+}
+
+func TestBlazegraphCmd_report_multiple_queries(t *testing.T) {
+
+	var outputBuffer strings.Builder
+	Main.OutWriter = &outputBuffer
+	Main.ErrWriter = &outputBuffer
+
+	run("blazegraph drop")
+
+	Main.InReader = strings.NewReader(`
+		<http://tmcphill.net/data#y> <http://tmcphill.net/tags#tag> "eight" .
+		<http://tmcphill.net/data#x> <http://tmcphill.net/tags#tag> "seven" .
+	`)
+	run("blazegraph import --format ttl")
+
+	t.Run("select-result-to-select", func(t *testing.T) {
+
+		outputBuffer.Reset()
+		template := `
+
+			{{with $subjects := (select '''
+					prefix ab: <http://tmcphill.net/tags#>
+					SELECT ?s
+					WHERE
+					{ ?s ab:tag ?o }
+				''') }}
+				
+				{{ range $subjectRow := (rows $subjects) }}
+					{{ range $subject := $subjectRow }}
+						{{with $objects := (select '''
+							
+								prefix ab: <http://tmcphill.net/tags#>
+								SELECT ?o
+								WHERE
+								{ <{{.}}> ab:tag ?o }
+								
+							''' $subject)}}
+							{{ tabulate $objects }}
+						{{end}}
+					{{end}}
+				{{ end }}
+
+			{{ end }}
+
+	`
+		Main.InReader = strings.NewReader(template)
+		run("blazegraph report")
+		util.LineContentsEqual(t, outputBuffer.String(), `
+			o
+			----
+			eight
 			
+			o
+			----
+			seven
 		`)
 	})
 
