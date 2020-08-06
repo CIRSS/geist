@@ -136,17 +136,21 @@ func doImport(file string, format string) {
 	}
 }
 
-func doReport(file string) {
+func doReport(file string) (err error) {
 
 	bc := blazegraph.NewClient()
 
 	funcs := template.FuncMap{
-		"up": func(q string) string {
-			return strings.ToUpper(q)
+		"up": func(s string) string {
+			return strings.ToUpper(s)
 		},
-		"select": func(q string) string {
-			sr, _ := bc.Select(q)
-			return sr.Table(true)
+		"select": func(query string) (rs sparql.ResultSet) {
+			rs, _ = bc.Select(query)
+			return
+		},
+		"tabulate": func(rs sparql.ResultSet) (table string) {
+			table = rs.Table(true)
+			return
 		},
 	}
 
