@@ -5,12 +5,8 @@ import (
 	"io"
 	"io/ioutil"
 	"os"
-	"strings"
-	"text/template"
 
-	"github.com/tmcphillips/blazegraph-util/reporter"
 	"github.com/tmcphillips/blazegraph-util/sparql"
-	"github.com/tmcphillips/blazegraph-util/util"
 
 	"github.com/tmcphillips/blazegraph-util/blazegraph"
 	"github.com/tmcphillips/main-wrapper/mw"
@@ -90,7 +86,21 @@ func main() {
 	default:
 		fmt.Fprintf(Main.ErrWriter, "Unrecognized command: %s\n", command)
 	}
+}
 
+func doReport(file string) {
+	bc := blazegraph.NewClient()
+	reportTemplate, err := readFileOrStdin(file)
+	if err != nil {
+		fmt.Fprintf(Main.ErrWriter, err.Error())
+		return
+	}
+	report, err := bc.ExpandReport(string(reportTemplate))
+	if err != nil {
+		fmt.Fprintf(Main.ErrWriter, err.Error())
+		return
+	}
+	fmt.Fprintf(Main.OutWriter, report)
 }
 
 func doDrop() {
@@ -135,46 +145,6 @@ func doImport(file string, format string) {
 		fmt.Fprintf(Main.ErrWriter, err.Error())
 		return
 	}
-}
-
-func doReport(file string) (err error) {
-
-	bc := blazegraph.NewClient()
-
-	funcs := template.FuncMap{
-		"up": func(s string) string {
-			return strings.ToUpper(s)
-		},
-		"select": func(query string) (rs sparql.ResultSet) {
-			rs, _ = bc.Select(query)
-			return
-		},
-		"tabulate": func(rs sparql.ResultSet) (table string) {
-			table = rs.Table(true)
-			return
-		},
-		"rows": func(rs sparql.ResultSet) (values [][]string) {
-			variablesAndValues := rs.ValueTable()
-			values = variablesAndValues[1:]
-			return
-		},
-		"join": func(elems []string, sep string) (js string) {
-			js = strings.Join(elems, sep)
-			return
-		},
-	}
-
-	template, err := readFileOrStdin(file)
-	if err != nil {
-		fmt.Fprintf(Main.ErrWriter, err.Error())
-		return
-	}
-
-	rt := reporter.NewReportTemplate(reporter.TripleSingleQuoteDelimiters,
-		funcs, string(template))
-	report, err := rt.Expand(nil)
-	fmt.Fprintf(Main.OutWriter, util.TrimByLine(report))
-	return
 }
 
 func doSelectQuery(file string, format string, columnSeparators bool) {
