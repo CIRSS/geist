@@ -76,7 +76,7 @@ func TestBlazegraphCmd_report_two_triples(t *testing.T) {
 	`)
 	run("blazegraph import --format ttl")
 
-	t.Run("select-piped-to-table", func(t *testing.T) {
+	t.Run("select-piped-to-tabulate", func(t *testing.T) {
 		outputBuffer.Reset()
 		template := `
 			Example select query with tabular output in report
@@ -100,7 +100,7 @@ func TestBlazegraphCmd_report_two_triples(t *testing.T) {
 		`)
 	})
 
-	t.Run("select-to-variable-to-table", func(t *testing.T) {
+	t.Run("select-to-variable-to-tabulate", func(t *testing.T) {
 		outputBuffer.Reset()
 		template := `
 			Example select query with tabular output in report
@@ -121,6 +121,65 @@ func TestBlazegraphCmd_report_two_triples(t *testing.T) {
 			----------------------------------
 			http://tmcphill.net/data#x | seven
 			http://tmcphill.net/data#y | eight
+		`)
+	})
+
+	t.Run("select-to-dot-to-tabulate", func(t *testing.T) {
+		outputBuffer.Reset()
+		template := `
+			Example select query with tabular output in report
+
+			{{ with (select '''
+					prefix ab: <http://tmcphill.net/tags#>
+					SELECT ?s ?o
+					WHERE
+					{ ?s ab:tag ?o }
+				''') }} {{ tabulate . }} {{end}}
+		`
+		Main.InReader = strings.NewReader(template)
+		run("blazegraph report")
+		util.LineContentsEqual(t, outputBuffer.String(), `
+			Example select query with tabular output in report
+
+			s                          | o
+			----------------------------------
+			http://tmcphill.net/data#x | seven
+			http://tmcphill.net/data#y | eight
+		`)
+	})
+
+	t.Run("select-to-variable-to-range", func(t *testing.T) {
+		outputBuffer.Reset()
+		template := `
+			Example select query with tabular output in report
+
+			{{ with (select '''
+					prefix ab: <http://tmcphill.net/tags#>
+					SELECT ?s ?o
+					WHERE
+					{ ?s ab:tag ?o }
+				''') }} 
+			
+				Variables: {{join (.Head.Vars) "," }}
+
+				Values: 
+				{{ range (rows .) }}{{ join . "," | println}}{{end}}
+				
+			{{end}}
+		`
+		Main.InReader = strings.NewReader(template)
+		run("blazegraph report")
+		util.LineContentsEqual(t, outputBuffer.String(), `
+		Example select query with tabular output in report
+            
+                                 
+            
+		Variables: s,o
+
+		Values: 
+		http://tmcphill.net/data#x,seven
+		http://tmcphill.net/data#y,eight
+
 		`)
 	})
 

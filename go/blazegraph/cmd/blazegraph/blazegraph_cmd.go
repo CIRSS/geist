@@ -152,6 +152,15 @@ func doReport(file string) (err error) {
 			table = rs.Table(true)
 			return
 		},
+		"rows": func(rs sparql.ResultSet) (values [][]string) {
+			variablesAndValues := rs.ValueTable()
+			values = variablesAndValues[1:]
+			return
+		},
+		"join": func(elems []string, sep string) (js string) {
+			js = strings.Join(elems, sep)
+			return
+		},
 	}
 
 	template, err := readFileOrStdin(file)
