@@ -10,6 +10,7 @@ import (
 
 	"github.com/tmcphillips/blazegraph-util/reporter"
 	"github.com/tmcphillips/blazegraph-util/sparql"
+	"github.com/tmcphillips/blazegraph-util/util"
 
 	"github.com/tmcphillips/blazegraph-util/blazegraph"
 	"github.com/tmcphillips/main-wrapper/mw"
@@ -172,7 +173,7 @@ func doReport(file string) (err error) {
 	rt := reporter.NewReportTemplate(reporter.TripleSingleQuoteDelimiters,
 		funcs, string(template))
 	report, err := rt.Expand(nil)
-	fmt.Fprintf(Main.OutWriter, report)
+	fmt.Fprintf(Main.OutWriter, util.TrimByLine(report))
 	return
 }
 

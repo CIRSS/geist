@@ -24,6 +24,28 @@ func StringEquals(t *testing.T, actual string, expected string) {
 	}
 }
 
+func TrimByLine(s string) string {
+	s = trim(s)
+	lastLineBlank := false
+	var buffer strings.Builder
+	lines := strings.Split(s, "\n")
+	for _, line := range lines {
+		trimmedLine := trim(line)
+		lineLength := len(trimmedLine)
+		if lineLength > 0 {
+			buffer.WriteString(trimmedLine)
+			buffer.WriteString("\n")
+			lastLineBlank = false
+			continue
+		}
+		if !lastLineBlank {
+			buffer.WriteString("\n")
+			lastLineBlank = true
+		}
+	}
+	return buffer.String()
+}
+
 func trim(s string) string {
 	return strings.Trim(s, " \n\r\t")
 }

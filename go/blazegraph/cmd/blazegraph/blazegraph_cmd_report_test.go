@@ -160,26 +160,27 @@ func TestBlazegraphCmd_report_two_triples(t *testing.T) {
 					{ ?s ab:tag ?o }
 				''') }} 
 			
-				Variables: {{join (.Head.Vars) "," }}
+				Variables:
+				{{join (.Head.Vars) ", " }}
 
 				Values: 
-				{{ range (rows .) }}{{ join . "," | println}}{{end}}
+				{{ range (rows .) }}{{ join . ", " | println}}{{end}}
 				
 			{{end}}
 		`
 		Main.InReader = strings.NewReader(template)
 		run("blazegraph report")
 		util.LineContentsEqual(t, outputBuffer.String(), `
-		Example select query with tabular output in report
-            
-                                 
-            
-		Variables: s,o
 
-		Values: 
-		http://tmcphill.net/data#x,seven
-		http://tmcphill.net/data#y,eight
+			Example select query with tabular output in report
 
+			Variables: 
+			s, o
+			
+			Values:
+			http://tmcphill.net/data#x, seven
+			http://tmcphill.net/data#y, eight
+			
 		`)
 	})
 
