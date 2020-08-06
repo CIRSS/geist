@@ -7,10 +7,12 @@ import (
 
 var GraveDelimiters DelimiterPair
 var JSPDelimiters DelimiterPair
+var TripleSingleQuoteDelimiters DelimiterPair
 
 func init() {
 	GraveDelimiters = DelimiterPair{"`", "`"}
 	JSPDelimiters = DelimiterPair{Start: "<%", End: "%>"}
+	TripleSingleQuoteDelimiters = DelimiterPair{Start: "'''", End: "'''"}
 }
 
 // ReportTemplate is customizable to create reports from different kinds of templates.

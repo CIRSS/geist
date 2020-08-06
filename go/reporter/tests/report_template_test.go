@@ -60,11 +60,11 @@ func TestReportTemplate_MultilineFunctionArgument(t *testing.T) {
 		},
 	}
 
-	rt := reporter.NewReportTemplate(reporter.JSPDelimiters, funcs,
-		`{{with $result := up <%
+	rt := reporter.NewReportTemplate(reporter.TripleSingleQuoteDelimiters, funcs,
+		`{{with $result := up '''
 				foo
 				bar
-		%>}}{{$result}}{{end}}
+		''' }}{{$result}}{{end}}
 	`)
 
 	actual, _ := rt.Expand(nil)

@@ -38,7 +38,7 @@ func TestBlazegraphCmd_report_static_content(t *testing.T) {
 	t.Run("function-with-delimited-one-line-argument", func(t *testing.T) {
 		outputBuffer.Reset()
 		template := `
-			{{up <% A constant template %>}}
+			{{up '''A constant template'''}}
 		`
 		Main.InReader = strings.NewReader(template)
 		run("blazegraph report")
@@ -50,8 +50,8 @@ func TestBlazegraphCmd_report_static_content(t *testing.T) {
 	t.Run("function-with-delimited-two-line-argument", func(t *testing.T) {
 		outputBuffer.Reset()
 		template := `
-			{{up <% A constant 
-				template %>}}
+			{{up '''A constant 
+				template'''}}
 		`
 		Main.InReader = strings.NewReader(template)
 		run("blazegraph report")
@@ -81,12 +81,12 @@ func TestBlazegraphCmd_report_two_triples(t *testing.T) {
 		template := `
 			Example select query with tabular output in report
 
-			{{select <%  
+			{{select '''  
 					prefix ab: <http://tmcphill.net/tags#>
 					SELECT ?s ?o
 					WHERE
 					{ ?s ab:tag ?o }
-				%> | tabulate }}
+				''' | tabulate }}
 		`
 		Main.InReader = strings.NewReader(template)
 		run("blazegraph report")
@@ -105,12 +105,12 @@ func TestBlazegraphCmd_report_two_triples(t *testing.T) {
 		template := `
 			Example select query with tabular output in report
 
-			{{ with $rs := (select <%
+			{{ with $tags := (select '''
 					prefix ab: <http://tmcphill.net/tags#>
 					SELECT ?s ?o
 					WHERE
 					{ ?s ab:tag ?o }
-				%>) }} {{ tabulate $rs }} {{end}}
+				''') }} {{ tabulate $tags }} {{end}}
 		`
 		Main.InReader = strings.NewReader(template)
 		run("blazegraph report")

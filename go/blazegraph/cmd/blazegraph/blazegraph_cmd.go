@@ -160,7 +160,7 @@ func doReport(file string) (err error) {
 		return
 	}
 
-	rt := reporter.NewReportTemplate(reporter.JSPDelimiters,
+	rt := reporter.NewReportTemplate(reporter.TripleSingleQuoteDelimiters,
 		funcs, string(template))
 	report, err := rt.Expand(nil)
 	fmt.Fprintf(Main.OutWriter, report)
