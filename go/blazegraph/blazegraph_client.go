@@ -5,6 +5,8 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"net/http"
+	"sort"
+	"strings"
 
 	"github.com/tmcphillips/blazegraph-util/sparql"
 )
@@ -99,15 +101,25 @@ func (bc *Client) Construct(format string, query string) (triples []byte, err er
 	return
 }
 
-func (bc *Client) ConstructAll(format string) (triples string, err error) {
+func (bc *Client) ConstructAll(format string, sorted bool) (triples string, err error) {
+
 	responseBody, err := bc.Construct(format, `
 		CONSTRUCT
 		{ ?s ?p ?o }
 		WHERE
 		{ ?s ?p ?o }`,
 	)
-	if err == nil {
-		triples = string(responseBody)
+	if err != nil {
+		return
 	}
+
+	triples = string(responseBody)
+
+	if sorted && format == "text/plain" {
+		ntriplesSlice := strings.Split(triples, "\n")
+		sort.Strings(ntriplesSlice)
+		triples = strings.Join(ntriplesSlice, "\n")
+	}
+
 	return
 }

@@ -72,6 +72,7 @@ func TestBlazegraphClient_InsertTwoTriples(t *testing.T) {
 		 SELECT ?s ?o
 		 WHERE
 		 { ?s ab:tag ?o }
+		 ORDER BY ?s ?o
 		 `)
 
 	actual, _ := resultSet.JSONString()
@@ -107,7 +108,8 @@ func TestBlazegraphClient_InsertTwoTriples_Struct(t *testing.T) {
 		 SELECT ?s ?o
 		 WHERE
 		 { ?s ab:tag ?o }
-		 `)
+		 ORDER BY ?s ?o
+		`)
 
 	util.StringEquals(t, strings.Join(rs.Vars(), ", "), "s, o")
 
@@ -132,11 +134,11 @@ func ExampleBlazegraphClient_DumpAsNTriples() {
 		d:x t:tag "seven" .
 		d:y t:tag "eight" .
 	`))
-	triples, _ := bc.ConstructAll("text/plain")
+	triples, _ := bc.ConstructAll("text/plain", true)
 	fmt.Println(triples)
 	// Output:
+	// <http://tmcphill.net/data#x> <http://tmcphill.net/tags#tag> "seven" .
 	// <http://tmcphill.net/data#y> <http://tmcphill.net/tags#tag> "eight" .
 	// <http://tmcphill.net/tags#tag> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
 	// <http://tmcphill.net/tags#tag> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://tmcphill.net/tags#tag> .
-	// <http://tmcphill.net/data#x> <http://tmcphill.net/tags#tag> "seven" .
 }
