@@ -19,7 +19,7 @@ blazegraph import --format nt | sort << END_DATA
 
 END_DATA
 
-blazegraph export --format nt
+blazegraph export --format nt --sort=true
 
 ---------------------------- S1 OUTPUTS ---------------------------------
 
@@ -43,15 +43,15 @@ blazegraph import --format ttl << END_DATA
 
 END_DATA
 
-blazegraph export --format nt
+blazegraph export --format nt --sort=true
 
 ---------------------------- S2 OUTPUTS ---------------------------------
 
+
+<http://tmcphill.net/data#x> <http://tmcphill.net/tags#tag> "seven" .
 <http://tmcphill.net/data#y> <http://tmcphill.net/tags#tag> "eight" .
 <http://tmcphill.net/tags#tag> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
 <http://tmcphill.net/tags#tag> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://tmcphill.net/tags#tag> .
-<http://tmcphill.net/data#x> <http://tmcphill.net/tags#tag> "seven" .
-
 **************************** EXAMPLE S3 *********************************
 
 # IMPORT TWO TRIPLES AS JSON-LD
@@ -72,15 +72,15 @@ blazegraph import --format jsonld << END_DATA
 
 END_DATA
 
-blazegraph export --format nt
+blazegraph export --format nt --sort=true
 
 ---------------------------- S3 OUTPUTS ---------------------------------
 
+
+<http://tmcphill.net/data#x> <http://tmcphill.net/tags#tag> "seven"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://tmcphill.net/data#y> <http://tmcphill.net/tags#tag> "eight"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://tmcphill.net/tags#tag> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
 <http://tmcphill.net/tags#tag> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://tmcphill.net/tags#tag> .
-<http://tmcphill.net/data#x> <http://tmcphill.net/tags#tag> "seven"^^<http://www.w3.org/2001/XMLSchema#string> .
-
 **************************** EXAMPLE S4 *********************************
 
 # IMPORT TWO TRIPLES AS RDF-XML
@@ -102,9 +102,10 @@ blazegraph import --format xml << END_DATA
 
 END_DATA
 
-blazegraph export --format nt | sort
+blazegraph export --format nt --sort=true
 
 ---------------------------- S4 OUTPUTS ---------------------------------
+
 
 <http://tmcphill.net/data#x> <http://tmcphill.net/tags#tag> "seven" .
 <http://tmcphill.net/data#y> <http://tmcphill.net/tags#tag> "eight" .

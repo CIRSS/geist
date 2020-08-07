@@ -21,7 +21,7 @@ blazegraph import --format nt | sort << END_DATA
 
 END_DATA
 
-blazegraph export --format nt
+blazegraph export --format nt --sort=true
 
 END_SCRIPT
 
@@ -40,7 +40,7 @@ blazegraph import --format ttl << END_DATA
 
 END_DATA
 
-blazegraph export --format nt
+blazegraph export --format nt --sort=true
 
 END_SCRIPT
 
@@ -64,7 +64,7 @@ blazegraph import --format jsonld << END_DATA
 
 END_DATA
 
-blazegraph export --format nt
+blazegraph export --format nt --sort=true
 
 END_SCRIPT
 
@@ -89,6 +89,6 @@ blazegraph import --format xml << END_DATA
 
 END_DATA
 
-blazegraph export --format nt | sort
+blazegraph export --format nt --sort=true
 
 END_SCRIPT
