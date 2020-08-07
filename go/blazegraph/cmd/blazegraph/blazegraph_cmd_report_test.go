@@ -86,6 +86,7 @@ func TestBlazegraphCmd_report_two_triples(t *testing.T) {
 					SELECT ?s ?o
 					WHERE
 					{ ?s ab:tag ?o }
+					ORDER BY ?s
 				''' | tabulate }}
 		`
 		Main.InReader = strings.NewReader(template)
@@ -110,6 +111,7 @@ func TestBlazegraphCmd_report_two_triples(t *testing.T) {
 					SELECT ?s ?o
 					WHERE
 					{ ?s ab:tag ?o }
+					ORDER BY ?s
 				''') }} {{ tabulate $tags }} {{end}}
 		`
 		Main.InReader = strings.NewReader(template)
@@ -134,6 +136,7 @@ func TestBlazegraphCmd_report_two_triples(t *testing.T) {
 					SELECT ?s ?o
 					WHERE
 					{ ?s ab:tag ?o }
+					ORDER BY ?s
 				''') }} {{ tabulate . }} {{end}}
 		`
 		Main.InReader = strings.NewReader(template)
@@ -158,6 +161,7 @@ func TestBlazegraphCmd_report_two_triples(t *testing.T) {
 					SELECT ?s ?o
 					WHERE
 					{ ?s ab:tag ?o }
+					ORDER BY ?s
 				''') }}
 
 				Variables:
@@ -210,7 +214,8 @@ func TestBlazegraphCmd_report_multiple_queries(t *testing.T) {
 					SELECT ?s
 					WHERE
 					{ ?s ab:tag ?o }
-				''') }}
+					ORDER BY ?s
+				''') }} 
 				
 				{{ range $subjectRow := (rows $subjects) }}
 					{{ range $subject := $subjectRow }}
@@ -220,6 +225,7 @@ func TestBlazegraphCmd_report_multiple_queries(t *testing.T) {
 								SELECT ?o
 								WHERE
 								{ <{{.}}> ab:tag ?o }
+								ORDER BY ?o
 								
 							''' $subject)}}
 							{{ tabulate $objects }}
@@ -235,11 +241,11 @@ func TestBlazegraphCmd_report_multiple_queries(t *testing.T) {
 		util.LineContentsEqual(t, outputBuffer.String(), `
 			o
 			----
-			eight
-			
+			seven
+
 			o
 			----
-			seven
+			eight
 		`)
 	})
 

@@ -26,7 +26,8 @@ func TestBlazegraphCmd_query_json(t *testing.T) {
 		SELECT ?s ?o
 		WHERE
 		{ ?s ab:tag ?o }
-	`
+		ORDER BY ?s
+		`
 
 	t.Run("json", func(t *testing.T) {
 		outputBuffer.Reset()
