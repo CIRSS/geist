@@ -3,15 +3,23 @@ package reporter
 import "strings"
 
 const (
-	doubleQuote    = "\""
+	doubleQuote    = `"`
+	escDoubleQuote = `\"`
 	newline        = "\n"
-	escapedNewline = "\\n"
+	escapedNewline = `\n`
 )
 
 // DelimiterPair defines the start and end delimiter for a report text region.
 type DelimiterPair struct {
 	Start string
 	End   string
+}
+
+// EscapeDoubleQuotes substitutes an escaped double-quote character sequence
+// (\") for each actual doublequote character in the argument and returns the
+// updated string.
+func EscapeDoubleQuotes(text string) string {
+	return strings.ReplaceAll(text, doubleQuote, escDoubleQuote)
 }
 
 // EscapeNewlines substitutes an escaped newline character sequence (\\n) for
@@ -37,6 +45,7 @@ func EscapeRawText(dp DelimiterPair, text string) string {
 		rawTextEnd += rawTextStart + len(dp.End) + 1
 		rawText := text[rawTextStart:rawTextEnd]
 		rawText = EscapeNewlines(rawText)
+		rawText = EscapeDoubleQuotes(rawText)
 		rawText = rawText[len(dp.Start) : len(rawText)-len(dp.End)]
 
 		text = text[0:rawTextStart] + doubleQuote + rawText + doubleQuote + text[rawTextEnd:]

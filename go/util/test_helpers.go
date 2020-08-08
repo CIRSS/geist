@@ -19,7 +19,7 @@ func canonicalJSON(jsonString string) (string, error) {
 
 func StringEquals(t *testing.T, actual string, expected string) {
 	if actual != expected {
-		t.Log("assertStringEquals:\n\nexpected: " + expected + "\nactual:   " + actual + "\n")
+		t.Log("assertStringEquals:\n\nexpected:\n" + expected + "\nactual:\n" + actual + "\n")
 		t.FailNow()
 	}
 }

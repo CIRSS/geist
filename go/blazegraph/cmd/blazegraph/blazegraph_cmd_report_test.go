@@ -23,6 +23,18 @@ func TestBlazegraphCmd_report_static_content(t *testing.T) {
 		`)
 	})
 
+	t.Run("constant-template-containing-doublequotes", func(t *testing.T) {
+		outputBuffer.Reset()
+		template := `
+			"A constant template"
+		`
+		Main.InReader = strings.NewReader(template)
+		run("blazegraph report")
+		util.LineContentsEqual(t, outputBuffer.String(), `
+			"A constant template"
+		`)
+	})
+
 	t.Run("function-with-quoted-argument", func(t *testing.T) {
 		outputBuffer.Reset()
 		template := `
@@ -47,10 +59,22 @@ func TestBlazegraphCmd_report_static_content(t *testing.T) {
 		`)
 	})
 
+	t.Run("function-with-delimited-one-line-argument-containing-single-quotes", func(t *testing.T) {
+		outputBuffer.Reset()
+		template := `
+			{{up '''A 'constant' template'''}}
+		`
+		Main.InReader = strings.NewReader(template)
+		run("blazegraph report")
+		util.LineContentsEqual(t, outputBuffer.String(), `
+			A 'CONSTANT' TEMPLATE
+		`)
+	})
+
 	t.Run("function-with-delimited-two-line-argument", func(t *testing.T) {
 		outputBuffer.Reset()
 		template := `
-			{{up '''A constant 
+			{{up '''A constant
 				template'''}}
 		`
 		Main.InReader = strings.NewReader(template)
@@ -60,6 +84,21 @@ func TestBlazegraphCmd_report_static_content(t *testing.T) {
 			TEMPLATE
 		`)
 	})
+
+	t.Run("function-with-delimited-two-line-argument-containing-double-quotes", func(t *testing.T) {
+		outputBuffer.Reset()
+		template := `
+			{{up '''A "constant"
+				template'''}}
+		`
+		Main.InReader = strings.NewReader(template)
+		run("blazegraph report")
+		util.LineContentsEqual(t, outputBuffer.String(), `
+			A "CONSTANT"
+			TEMPLATE
+		`)
+	})
+
 }
 
 func TestBlazegraphCmd_report_two_triples(t *testing.T) {
@@ -87,7 +126,7 @@ func TestBlazegraphCmd_report_two_triples(t *testing.T) {
 					WHERE
 					{ ?s ab:tag ?o }
 					ORDER BY ?s
-				''' | tabulate }}
+				''' | tabulate}}
 		`
 		Main.InReader = strings.NewReader(template)
 		run("blazegraph report")
@@ -106,13 +145,13 @@ func TestBlazegraphCmd_report_two_triples(t *testing.T) {
 		template := `
 			Example select query with tabular output in report
 
-			{{ with $tags := (select '''
+			{{with $tags := (select '''
 					prefix ab: <http://tmcphill.net/tags#>
 					SELECT ?s ?o
 					WHERE
 					{ ?s ab:tag ?o }
 					ORDER BY ?s
-				''') }} {{ tabulate $tags }} {{end}}
+				''')}}{{ tabulate $tags}}{{end}}
 		`
 		Main.InReader = strings.NewReader(template)
 		run("blazegraph report")
@@ -131,13 +170,13 @@ func TestBlazegraphCmd_report_two_triples(t *testing.T) {
 		template := `
 			Example select query with tabular output in report
 
-			{{ with (select '''
+			{{with (select '''
 					prefix ab: <http://tmcphill.net/tags#>
 					SELECT ?s ?o
 					WHERE
 					{ ?s ab:tag ?o }
 					ORDER BY ?s
-				''') }} {{ tabulate . }} {{end}}
+				''')}} {{tabulate .}} {{end}}
 		`
 		Main.InReader = strings.NewReader(template)
 		run("blazegraph report")
@@ -165,10 +204,10 @@ func TestBlazegraphCmd_report_two_triples(t *testing.T) {
 				''') }}
 
 				Variables:
-				{{join (.Head.Vars) ", " }}
+				{{join (.Head.Vars) ", "}}
 
 				Values:
-				{{ range (rows .) }}{{ join . ", " | println}}{{end}}
+				{{range (rows .)}}{{ join . ", " | println}}{{end}}
 
 			{{end}}
 		`
@@ -217,7 +256,7 @@ func TestBlazegraphCmd_report_multiple_queries(t *testing.T) {
 					ORDER BY ?s
 				''') | column 0 }} 
 				
-				{{ range $subject := $subjects }}
+				{{range $subject := $subjects }}
 					{{with $objects := (select '''
 						
 							prefix ab: <http://tmcphill.net/tags#>
@@ -227,11 +266,11 @@ func TestBlazegraphCmd_report_multiple_queries(t *testing.T) {
 							ORDER BY ?o
 							
 						''' $subject)}}
-						{{ tabulate $objects }}
+						{{tabulate $objects}}
 					{{end}}
 				{{end}}
 
-			{{ end }}
+			{{end }}
 
 	`
 		Main.InReader = strings.NewReader(template)
@@ -249,27 +288,41 @@ func TestBlazegraphCmd_report_multiple_queries(t *testing.T) {
 
 }
 
-// func TestBlazegraphCmd_report_address_book(t *testing.T) {
+func TestBlazegraphCmd_report_address_book(t *testing.T) {
 
-// 	var outputBuffer strings.Builder
-// 	Main.OutWriter = &outputBuffer
-// 	Main.ErrWriter = &outputBuffer
+	var outputBuffer strings.Builder
+	Main.OutWriter = &outputBuffer
+	Main.ErrWriter = &outputBuffer
 
-// 	run("blazegraph drop")
+	run("blazegraph drop")
+	run("blazegraph import --format jsonld --file testdata/address-book.jsonld")
 
-// 	Main.InReader = strings.NewReader(`
-// 		<http://tmcphill.net/data#y> <http://tmcphill.net/tags#tag> "eight" .
-// 		<http://tmcphill.net/data#x> <http://tmcphill.net/tags#tag> "seven" .
-// 	`)
-// 	run("blazegraph import --format ttl")
+	t.Run("constant-template", func(t *testing.T) {
+		outputBuffer.Reset()
+		template := `
+			Craig's email addresses:
 
-// 	t.Run("constant-template", func(t *testing.T) {
-// 		outputBuffer.Reset()
-// 		template := `A constant template.`
-// 		Main.InReader = strings.NewReader(template)
-// 		run("blazegraph report")
-// 		util.LineContentsEqual(t, outputBuffer.String(), `
-// 			A constant template.
-// 		`)
-// 	})
-// }
+			{{ range (select '''
+				PREFIX ab: <http://learningsparql.com/ns/addressbook#>
+				SELECT ?email
+				WHERE
+				{
+					?person ab:firstname "Craig"^^<http://www.w3.org/2001/XMLSchema#string> .
+					?person ab:email     ?email .
+				}
+			''' | column 0) }}
+				{{print .}} 
+			{{end}}
+		`
+		Main.InReader = strings.NewReader(template)
+		run("blazegraph report")
+		util.LineContentsEqual(t, outputBuffer.String(), `
+			
+			Craig's email addresses:
+            
+            c.ellis@usairwaysgroup.com
+            
+            craigellis@yahoo.com
+	`)
+	})
+}
