@@ -31,12 +31,15 @@ func (bc *Client) ExpandReport(reportTemplate string) (report string, err error)
 			return
 		},
 		"tabulate": func(rs sparql.ResultSet) (table string) {
-			table = rs.Table(true)
+			table = rs.FormattedTable(true)
 			return
 		},
-		"rows": func(rs sparql.ResultSet) (values [][]string) {
-			variablesAndValues := rs.ValueTable()
-			values = variablesAndValues[1:]
+		"rows": func(rs sparql.ResultSet) (rows [][]string) {
+			rows = rs.Rows()
+			return
+		},
+		"column": func(rs sparql.ResultSet, columnIndex int) (column []string) {
+			column = rs.Column(columnIndex)
 			return
 		},
 		"join": func(elems []string, sep string) (js string) {

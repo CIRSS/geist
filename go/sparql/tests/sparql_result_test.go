@@ -18,11 +18,11 @@ var sr = sparql.ResultSet{
 		"o": {"literal", "eight"},
 	}}}}
 
-func TestResult_Vars(t *testing.T) {
-	util.StringEquals(t, strings.Join(sr.Vars(), ", "), "s, o")
+func TestResultSet_Vars(t *testing.T) {
+	util.StringEquals(t, strings.Join(sr.Variables(), ", "), "s, o")
 }
 
-func TestResult_Bindings(t *testing.T) {
+func TestResultSet_Bindings(t *testing.T) {
 
 	util.StringEquals(t, sr.Bindings()[0]["s"].Type, "uri")
 	util.StringEquals(t, sr.Bindings()[0]["s"].Value, "http://tmcphill.net/data#x")
@@ -34,12 +34,37 @@ func TestResult_Bindings(t *testing.T) {
 	util.StringEquals(t, sr.Bindings()[1]["o"].Type, "literal")
 	util.StringEquals(t, sr.Bindings()[1]["o"].Value, "eight")
 }
+func TestResultSet_Row(t *testing.T) {
 
-func TestResult_BoundValues(t *testing.T) {
 	util.StringEquals(t,
-		strings.Join(sr.BoundValues(0), ", "),
+		strings.Join(sr.Row(0), ", "),
 		"http://tmcphill.net/data#x, seven")
+
 	util.StringEquals(t,
-		strings.Join(sr.BoundValues(1), ", "),
+		strings.Join(sr.Row(1), ", "),
 		"http://tmcphill.net/data#y, eight")
+}
+
+func TestResultSet_Rows(t *testing.T) {
+
+	rows := sr.Rows()
+
+	util.StringEquals(t,
+		strings.Join(rows[0], ", "),
+		"http://tmcphill.net/data#x, seven")
+
+	util.StringEquals(t,
+		strings.Join(rows[1], ", "),
+		"http://tmcphill.net/data#y, eight")
+}
+
+func TestResultSet_Column(t *testing.T) {
+
+	util.StringEquals(t,
+		strings.Join(sr.Column(0), ", "),
+		"http://tmcphill.net/data#x, http://tmcphill.net/data#y")
+
+	util.StringEquals(t,
+		strings.Join(sr.Column(1), ", "),
+		"seven, eight")
 }

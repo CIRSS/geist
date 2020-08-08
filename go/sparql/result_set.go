@@ -35,6 +35,14 @@ func (b Binding) DelimitedValue(name string) (delimitedValue string) {
 	return
 }
 
+func (sr *ResultSet) Variables() []string {
+	return sr.Head.Vars
+}
+
+func (sr *ResultSet) Bindings() []Binding {
+	return sr.Results.Bindings
+}
+
 func (rs *ResultSet) ColumnCount() int {
 	return len(rs.Head.Vars)
 }
@@ -49,33 +57,38 @@ func (rs *ResultSet) JSONString() (jsonString string, err error) {
 	return
 }
 
-func (sr *ResultSet) Vars() []string {
-	return sr.Head.Vars
-}
-
-func (sr *ResultSet) Bindings() []Binding {
-	return sr.Results.Bindings
-}
-
-func (sr *ResultSet) BoundValues(bindingIndex int) []string {
-	variables := sr.Vars()
-	values := make([]string, len(variables))
-	binding := sr.Bindings()[bindingIndex]
-	for columnIndex, varName := range variables {
-		values[columnIndex] = binding[varName].Value
+func (sr *ResultSet) Row(rowIndex int) []string {
+	rowValues := make([]string, sr.ColumnCount())
+	binding := sr.Bindings()[rowIndex]
+	for columnIndex, varName := range sr.Variables() {
+		rowValues[columnIndex] = binding[varName].Value
 	}
-	return values
+	return rowValues
 }
 
-func (rs *ResultSet) ValueTable() (table [][]string) {
-	table = append(table, rs.Head.Vars)
+func (rs *ResultSet) appendRows(rows [][]string) [][]string {
 	for i, _ := range rs.Results.Bindings {
-		table = append(table, rs.BoundValues(i))
+		rows = append(rows, rs.Row(i))
 	}
-	return table
+	return rows
 }
 
-func (rs *ResultSet) Table(columnSeparator bool) string {
-	table := rs.ValueTable()
+func (rs *ResultSet) Rows() [][]string {
+	var rows [][]string
+	return rs.appendRows(rows)
+}
+
+func (rs *ResultSet) FormattedTable(columnSeparator bool) string {
+	table := [][]string{rs.Head.Vars}
+	table = rs.appendRows(table)
 	return reporter.WriteStringTable(table, columnSeparator)
+}
+
+func (sr *ResultSet) Column(columnIndex int) []string {
+	variable := sr.Variables()[columnIndex]
+	columnValues := make([]string, sr.RowCount())
+	for rowIndex, binding := range sr.Bindings() {
+		columnValues[rowIndex] = binding[variable].Value
+	}
+	return columnValues
 }

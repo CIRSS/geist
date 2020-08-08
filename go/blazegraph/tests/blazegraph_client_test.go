@@ -111,7 +111,7 @@ func TestBlazegraphClient_InsertTwoTriples_Struct(t *testing.T) {
 		 ORDER BY ?s ?o
 		`)
 
-	util.StringEquals(t, strings.Join(rs.Vars(), ", "), "s, o")
+	util.StringEquals(t, strings.Join(rs.Variables(), ", "), "s, o")
 
 	util.StringEquals(t, rs.Bindings()[0]["s"].Type, "uri")
 	util.StringEquals(t, rs.Bindings()[0]["s"].Value, "http://tmcphill.net/data#x")

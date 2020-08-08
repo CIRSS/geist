@@ -182,7 +182,7 @@ func doSelectQuery(file string, format string, columnSeparators bool) {
 		if err != nil {
 			break
 		}
-		table := rs.Table(columnSeparators)
+		table := rs.FormattedTable(columnSeparators)
 		fmt.Fprintf(Main.OutWriter, table)
 		return
 
