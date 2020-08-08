@@ -209,15 +209,15 @@ func TestBlazegraphCmd_report_multiple_queries(t *testing.T) {
 		outputBuffer.Reset()
 		template := `
 
-			{{with $resultSet := (select '''
+			{{with $subjects := (select '''
 					prefix ab: <http://tmcphill.net/tags#>
 					SELECT ?s
 					WHERE
 					{ ?s ab:tag ?o }
 					ORDER BY ?s
-				''') }} 
+				''') | column 0 }} 
 				
-				{{ range $subject := (column $resultSet 0) }}
+				{{ range $subject := $subjects }}
 					{{with $objects := (select '''
 						
 							prefix ab: <http://tmcphill.net/tags#>

@@ -38,7 +38,7 @@ func (bc *Client) ExpandReport(reportTemplate string) (report string, err error)
 			rows = rs.Rows()
 			return
 		},
-		"column": func(rs sparql.ResultSet, columnIndex int) (column []string) {
+		"column": func(columnIndex int, rs sparql.ResultSet) (column []string) {
 			column = rs.Column(columnIndex)
 			return
 		},
