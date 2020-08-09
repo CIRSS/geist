@@ -6,7 +6,6 @@ import (
 
 	"github.com/tmcphillips/blazegraph-util/reporter"
 	"github.com/tmcphillips/blazegraph-util/sparql"
-	"github.com/tmcphillips/blazegraph-util/util"
 )
 
 func (bc *Client) ExpandReport(reportTemplate string) (report string, err error) {
@@ -55,6 +54,6 @@ func (bc *Client) ExpandReport(reportTemplate string) (report string, err error)
 		return
 	}
 
-	report = util.TrimByLine(report)
+	// report = util.TrimByLine(report)
 	return
 }

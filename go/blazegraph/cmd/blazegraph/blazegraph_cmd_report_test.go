@@ -118,8 +118,8 @@ func TestBlazegraphCmd_report_two_triples(t *testing.T) {
 	t.Run("select-piped-to-tabulate", func(t *testing.T) {
 		outputBuffer.Reset()
 		template := `
-			Example select query with tabular output in report
-
+			Example select query with tabular output in report\n
+			\n
 			{{select '''
 					prefix ab: <http://tmcphill.net/tags#>
 					SELECT ?s ?o
@@ -143,88 +143,86 @@ func TestBlazegraphCmd_report_two_triples(t *testing.T) {
 	t.Run("select-to-variable-to-tabulate", func(t *testing.T) {
 		outputBuffer.Reset()
 		template := `
-			Example select query with tabular output in report
-
-			{{with $tags := (select '''
-					prefix ab: <http://tmcphill.net/tags#>
-					SELECT ?s ?o
-					WHERE
-					{ ?s ab:tag ?o }
-					ORDER BY ?s
-				''')}}{{ tabulate $tags}}{{end}}
-		`
+				Example select query with tabular output in report\n
+				\n
+				{{with $tags := (select '''
+						prefix ab: <http://tmcphill.net/tags#>
+						SELECT ?s ?o
+						WHERE
+						{ ?s ab:tag ?o }
+						ORDER BY ?s
+					''')}}{{ tabulate $tags}}{{end}}
+			`
 		Main.InReader = strings.NewReader(template)
 		run("blazegraph report")
 		util.LineContentsEqual(t, outputBuffer.String(), `
-			Example select query with tabular output in report
+				Example select query with tabular output in report
 
-			s                          | o
-			----------------------------------
-			http://tmcphill.net/data#x | seven
-			http://tmcphill.net/data#y | eight
-		`)
+				s                          | o
+				----------------------------------
+				http://tmcphill.net/data#x | seven
+				http://tmcphill.net/data#y | eight
+			`)
 	})
 
 	t.Run("select-to-dot-to-tabulate", func(t *testing.T) {
 		outputBuffer.Reset()
 		template := `
-			Example select query with tabular output in report
-
-			{{with (select '''
-					prefix ab: <http://tmcphill.net/tags#>
-					SELECT ?s ?o
-					WHERE
-					{ ?s ab:tag ?o }
-					ORDER BY ?s
-				''')}} {{tabulate .}} {{end}}
-		`
+				Example select query with tabular output in report\n
+				\n
+				{{with (select '''
+						prefix ab: <http://tmcphill.net/tags#>
+						SELECT ?s ?o
+						WHERE
+						{ ?s ab:tag ?o }
+						ORDER BY ?s
+					''')}} {{tabulate .}} {{end}}
+			`
 		Main.InReader = strings.NewReader(template)
 		run("blazegraph report")
 		util.LineContentsEqual(t, outputBuffer.String(), `
-			Example select query with tabular output in report
+				Example select query with tabular output in report
 
-			s                          | o
-			----------------------------------
-			http://tmcphill.net/data#x | seven
-			http://tmcphill.net/data#y | eight
-		`)
+				s                          | o
+				----------------------------------
+				http://tmcphill.net/data#x | seven
+				http://tmcphill.net/data#y | eight
+			`)
 	})
 
 	t.Run("select-to-variable-to-range", func(t *testing.T) {
 		outputBuffer.Reset()
 		template := `
-			Example select query with tabular output in report
+				Example select query with tabular output in report\n
+				\n
+				{{ with (select '''
+						prefix ab: <http://tmcphill.net/tags#>
+						SELECT ?s ?o
+						WHERE
+						{ ?s ab:tag ?o }
+						ORDER BY ?s
+					''') }}
 
-			{{ with (select '''
-					prefix ab: <http://tmcphill.net/tags#>
-					SELECT ?s ?o
-					WHERE
-					{ ?s ab:tag ?o }
-					ORDER BY ?s
-				''') }}
+					Variables:\n
+					{{join (.Head.Vars) ", "}}\n
+					\n
+					Values:\n
+					{{range (rows .)}}{{ join . ", " | println}}{{end}}
 
-				Variables:
-				{{join (.Head.Vars) ", "}}
-
-				Values:
-				{{range (rows .)}}{{ join . ", " | println}}{{end}}
-
-			{{end}}
-		`
+				{{end}}
+			`
 		Main.InReader = strings.NewReader(template)
 		run("blazegraph report")
 		util.LineContentsEqual(t, outputBuffer.String(), `
+				Example select query with tabular output in report
 
-			Example select query with tabular output in report
+				Variables:
+				s, o
 
-			Variables:
-			s, o
-
-			Values:
-			http://tmcphill.net/data#x, seven
-			http://tmcphill.net/data#y, eight
-
-		`)
+				Values:
+				http://tmcphill.net/data#x, seven
+				http://tmcphill.net/data#y, eight
+			`)
 	})
 
 }
@@ -254,19 +252,20 @@ func TestBlazegraphCmd_report_multiple_queries(t *testing.T) {
 					WHERE
 					{ ?s ab:tag ?o }
 					ORDER BY ?s
-				''') | column 0 }} 
-				
+				''') | column 0 }}
+
 				{{range $subject := $subjects }}
 					{{with $objects := (select '''
-						
+
 							prefix ab: <http://tmcphill.net/tags#>
 							SELECT ?o
 							WHERE
 							{ <{{.}}> ab:tag ?o }
 							ORDER BY ?o
-							
+
 						''' $subject)}}
 						{{tabulate $objects}}
+						\n
 					{{end}}
 				{{end}}
 
@@ -300,8 +299,8 @@ func TestBlazegraphCmd_report_address_book(t *testing.T) {
 	t.Run("constant-template", func(t *testing.T) {
 		outputBuffer.Reset()
 		template := `
-			Craig's email addresses:
-
+			Craig's email addresses\n
+			=======================\n
 			{{ range (select '''
 				PREFIX ab: <http://learningsparql.com/ns/addressbook#>
 				SELECT ?email
@@ -311,18 +310,16 @@ func TestBlazegraphCmd_report_address_book(t *testing.T) {
 					?person ab:email     ?email .
 				}
 			''' | column 0) }}
-				{{print .}} 
+				{{println .}} 
 			{{end}}
 		`
 		Main.InReader = strings.NewReader(template)
 		run("blazegraph report")
 		util.LineContentsEqual(t, outputBuffer.String(), `
-			
-			Craig's email addresses:
-            
-            c.ellis@usairwaysgroup.com
-            
-            craigellis@yahoo.com
+			Craig's email addresses
+			=======================
+			c.ellis@usairwaysgroup.com
+			craigellis@yahoo.com
 	`)
 	})
 }

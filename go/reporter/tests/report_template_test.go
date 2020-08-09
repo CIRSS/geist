@@ -21,9 +21,9 @@ func TestReportTemplate_AnonymouStructInstance(t *testing.T) {
 
 	rt := reporter.NewReportTemplate(reporter.JSPDelimiters, nil,
 		`
-		{{.Count}} items 
-		are made of 
-		{{.Material}}
+		{{.Count}} items \n
+		are made of	     \n
+		{{.Material}}    \n
 		`)
 
 	actual, _ := rt.Expand(sweaters)
@@ -80,7 +80,8 @@ func TestReportTemplate_RangeOverStringSlice(t *testing.T) {
 
 	rt := reporter.NewReportTemplate(reporter.JSPDelimiters, nil,
 		`
-		{{range .}} the color is {{.}}
+		{{range .}} 
+			the color is {{.}} \n
 		{{end}}
 		`)
 
@@ -103,9 +104,9 @@ func TestReportTemplate_TableOfValues(t *testing.T) {
 
 	rt := reporter.NewReportTemplate(reporter.JSPDelimiters, nil,
 		`
-		Name   | City      | Phone
-		-------|-----------|--------------
-		{{range .}}{{index . 0}}    | {{index . 1}} | {{index . 2}}
+		Name   | City      | Phone									\n
+		-------|-----------|--------------							\n
+		{{range .}}{{index . 0}}    | {{index . 1}} | {{index . 2}}	\n
 		{{end}}
 	`)
 

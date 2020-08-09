@@ -23,6 +23,7 @@ type ReportTemplate struct {
 // NewReportTemplate returns a ReportTemplate with the given customizations.
 func NewReportTemplate(delimiters DelimiterPair, funcs template.FuncMap, text string) *ReportTemplate {
 	text = EscapeRawText(delimiters, text)
+	text = RemoveNewlines(text)
 	template := template.New("test")
 	if funcs != nil {
 		template = template.Funcs(funcs)
@@ -39,5 +40,7 @@ func (rp *ReportTemplate) Expand(data interface{}) (result string, err error) {
 	if err == nil {
 		result = buffer.String()
 	}
+	//	result = util.RemoveBlankLines(result)
+	result = InsertNewlines(result)
 	return
 }

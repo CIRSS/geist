@@ -29,6 +29,14 @@ func EscapeNewlines(text string) string {
 	return strings.ReplaceAll(text, newline, escapedNewline)
 }
 
+func RemoveNewlines(text string) string {
+	return strings.ReplaceAll(text, newline, "")
+}
+
+func InsertNewlines(text string) string {
+	return strings.ReplaceAll(text, escapedNewline, newline)
+}
+
 // EscapeRawText finds substrings delimited by the given DelimiterPair
 // and within each escapes newlines and replaces the starting and
 // end delimiters with double quotes.
