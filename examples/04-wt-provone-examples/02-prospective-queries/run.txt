@@ -32,7 +32,7 @@ END_QUERY
 ---------------------------- RETROSPECTIVE-1 OUTPUTS ---------------------------------
 
 tale_input_file_path
--------------------
+===================
 ./inputs/i1.txt
 ./inputs/i2.txt
 ./inputs/i3.txt
@@ -61,7 +61,7 @@ END_QUERY
 ---------------------------- RETROSPECTIVE-1 OUTPUTS ---------------------------------
 
 tale_out_file_path
-------------------
+==================
 ./outputs/o12.txt
 ./outputs/o1234.txt
 ./outputs/o4.txt

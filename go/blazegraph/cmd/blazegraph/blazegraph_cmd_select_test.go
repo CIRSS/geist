@@ -54,7 +54,7 @@ func TestBlazegraphCmd_query_json(t *testing.T) {
 		run("blazegraph select --format table")
 		util.LineContentsEqual(t, outputBuffer.String(), `
 			s                          | o
-            ----------------------------------
+			==================================
             http://tmcphill.net/data#x | seven
             http://tmcphill.net/data#y | eight
 
@@ -67,7 +67,7 @@ func TestBlazegraphCmd_query_json(t *testing.T) {
 		run("blazegraph select --format table --columnseparators=false")
 		util.LineContentsEqual(t, outputBuffer.String(), `
 			s                            o
-            ----------------------------------
+			==================================
             http://tmcphill.net/data#x   seven
             http://tmcphill.net/data#y   eight
 

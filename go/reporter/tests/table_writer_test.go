@@ -51,7 +51,7 @@ func TestTableWriter_WriteStringTable(t *testing.T) {
 	util.LineContentsEqual(t, actual,
 		`
 		Name      City        Phone
-		-------------------------------------
+		=====================================
 		Timothy   Oakland     530-219-4754
 		Bob       Concord     510-320-9943
 		Joseph    San Diego   01-213-101-9313
@@ -72,7 +72,7 @@ func TestTableWriter_WriteStringTableWithSeparators(t *testing.T) {
 	util.LineContentsEqual(t, actual,
 		`
 		Name    | City      | Phone
-		-------------------------------------
+		=====================================
 		Timothy | Oakland   | 530-219-4754
 		Bob     | Concord   | 510-320-9943
 		Joseph  | San Diego | 01-213-101-9313

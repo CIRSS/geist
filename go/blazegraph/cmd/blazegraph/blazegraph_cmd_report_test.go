@@ -134,7 +134,7 @@ func TestBlazegraphCmd_report_two_triples(t *testing.T) {
 			Example select query with tabular output in report
 
 			s                          | o
-			----------------------------------
+			==================================
 			http://tmcphill.net/data#x | seven
 			http://tmcphill.net/data#y | eight
 		`)
@@ -159,7 +159,7 @@ func TestBlazegraphCmd_report_two_triples(t *testing.T) {
 				Example select query with tabular output in report
 
 				s                          | o
-				----------------------------------
+				==================================
 				http://tmcphill.net/data#x | seven
 				http://tmcphill.net/data#y | eight
 			`)
@@ -184,7 +184,7 @@ func TestBlazegraphCmd_report_two_triples(t *testing.T) {
 				Example select query with tabular output in report
 
 				s                          | o
-				----------------------------------
+				==================================
 				http://tmcphill.net/data#x | seven
 				http://tmcphill.net/data#y | eight
 			`)
@@ -276,11 +276,11 @@ func TestBlazegraphCmd_report_multiple_queries(t *testing.T) {
 		run("blazegraph report")
 		util.LineContentsEqual(t, outputBuffer.String(), `
 			o
-			----
+			====
 			seven
 
 			o
-			----
+			====
 			eight
 		`)
 	})

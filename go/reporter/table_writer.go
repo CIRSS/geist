@@ -63,7 +63,7 @@ func WriteStringTable(sa [][]string, colSeparators bool) string {
 	if colSeparators {
 		dashCount += len(sa[0]) - 1
 	}
-	dashedLine := "\n" + strings.Repeat("-", dashCount)
+	dashedLine := "\n" + strings.Repeat("=", dashCount)
 	f := strings.Index(s, "\n")
 	return s[:f] + dashedLine + s[f:]
 }
