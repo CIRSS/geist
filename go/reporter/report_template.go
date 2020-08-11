@@ -8,6 +8,7 @@ import (
 type Properties struct {
 	Delimiters DelimiterPair
 	Funcs      template.FuncMap
+	Prefixes   map[string]string
 }
 
 var GraveDelimiters DelimiterPair
@@ -30,9 +31,11 @@ type ReportTemplate struct {
 
 // NewReportTemplate returns a ReportTemplate with the given customizations.
 func NewReportTemplate(text string) *ReportTemplate {
+	// print(text)
 	rt := new(ReportTemplate)
 	rt.Text = text
 	rt.Properties.Delimiters = DefaultDelimiters
+	rt.Properties.Prefixes = map[string]string{}
 	return rt
 }
 

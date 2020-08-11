@@ -14,12 +14,19 @@ func (bc *Client) ExpandReport(rp *reporter.ReportTemplate) (report string, err 
 		"up": func(s string) string {
 			return strings.ToUpper(s)
 		},
-		"prefix": func(prefix string, uri string) (err error) {
-			return
+		"prefix": func(prefix string, uri string) (s string, err error) {
+			rp.Properties.Prefixes[prefix] = uri
+			return "", nil
 		},
-		"select": func(queryTemplate string, args ...interface{}) (rs sparql.ResultSet) {
-			queryReportTemplate := reporter.NewReportTemplate(queryTemplate)
+		"select": func(queryTemplateString string, args ...interface{}) (rs sparql.ResultSet) {
+			sb := strings.Builder{}
+			for prefix, uri := range rp.Properties.Prefixes {
+				sb.WriteString("PREFIX " + prefix + ": " + "<" + uri + ">" + "\n")
+			}
+			sb.WriteString(queryTemplateString)
 
+			queryReportTemplate := reporter.NewReportTemplate(sb.String())
+			queryReportTemplate.Properties = rp.Properties
 			var data interface{}
 			if len(args) == 1 {
 				data = args[0]
