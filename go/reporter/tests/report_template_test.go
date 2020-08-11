@@ -19,7 +19,7 @@ func TestReportTemplate_AnonymouStructInstance(t *testing.T) {
 		Count:    42,
 	}
 
-	rt := reporter.NewReportTemplate(reporter.JSPDelimiters, nil,
+	rt := reporter.NewReportTemplate(
 		`
 		{{.Count}} items \n
 		are made of	     \n
@@ -37,13 +37,14 @@ func TestReportTemplate_AnonymouStructInstance(t *testing.T) {
 
 func TestReportTemplate_MultilineVariableValue(t *testing.T) {
 
-	rt := reporter.NewReportTemplate(reporter.JSPDelimiters, nil,
+	rt := reporter.NewReportTemplate(
 		`
 		{{with $result := <%
 			foo
 			bar
 		%>}}{{$result}}{{end}}
 	`)
+	rt.SetDelimiters(reporter.JSPDelimiters)
 
 	actual, _ := rt.Expand(nil)
 	util.LineContentsEqual(t, actual, `
@@ -60,12 +61,13 @@ func TestReportTemplate_MultilineFunctionArgument(t *testing.T) {
 		},
 	}
 
-	rt := reporter.NewReportTemplate(reporter.TripleSingleQuoteDelimiters, funcs,
+	rt := reporter.NewReportTemplate(
 		`{{with $result := up '''
 				foo
 				bar
 		''' }}{{$result}}{{end}}
 	`)
+	rt.SetFuncs(funcs)
 
 	actual, _ := rt.Expand(nil)
 	util.LineContentsEqual(t, actual, `
@@ -78,7 +80,7 @@ func TestReportTemplate_RangeOverStringSlice(t *testing.T) {
 
 	colors := []string{"red", "blue", "yellow"}
 
-	rt := reporter.NewReportTemplate(reporter.JSPDelimiters, nil,
+	rt := reporter.NewReportTemplate(
 		`
 		{{range .}} 
 			the color is {{.}} \n
@@ -102,7 +104,7 @@ func TestReportTemplate_TableOfValues(t *testing.T) {
 		{"Joe", "San Diego", "213-101-9313"},
 	}
 
-	rt := reporter.NewReportTemplate(reporter.JSPDelimiters, nil,
+	rt := reporter.NewReportTemplate(
 		`
 		Name   | City      | Phone									\n
 		-------|-----------|--------------							\n

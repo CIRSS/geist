@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"os"
 
+	"github.com/tmcphillips/blazegraph-util/reporter"
 	"github.com/tmcphillips/blazegraph-util/sparql"
 
 	"github.com/tmcphillips/blazegraph-util/blazegraph"
@@ -96,7 +97,8 @@ func doReport(file string) {
 		fmt.Fprintf(Main.ErrWriter, err.Error())
 		return
 	}
-	report, err := bc.ExpandReport(string(reportTemplate))
+	rt := reporter.NewReportTemplate(string(reportTemplate))
+	report, err := bc.ExpandReport(rt)
 	if err != nil {
 		fmt.Fprintf(Main.ErrWriter, err.Error())
 		return

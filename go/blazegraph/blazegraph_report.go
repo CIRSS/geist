@@ -8,21 +8,23 @@ import (
 	"github.com/tmcphillips/blazegraph-util/sparql"
 )
 
-func (bc *Client) ExpandReport(reportTemplate string) (report string, err error) {
+func (bc *Client) ExpandReport(rp *reporter.ReportTemplate) (report string, err error) {
 
 	funcs := template.FuncMap{
 		"up": func(s string) string {
 			return strings.ToUpper(s)
 		},
+		"prefix": func(prefix string, uri string) (err error) {
+			return
+		},
 		"select": func(queryTemplate string, args ...interface{}) (rs sparql.ResultSet) {
-			qt := reporter.NewReportTemplate(reporter.TripleSingleQuoteDelimiters,
-				nil, queryTemplate)
+			queryReportTemplate := reporter.NewReportTemplate(queryTemplate)
 
 			var data interface{}
 			if len(args) == 1 {
 				data = args[0]
 			}
-			query, err := qt.Expand(data)
+			query, err := queryReportTemplate.Expand(data)
 			if err != nil {
 				return
 			}
@@ -47,9 +49,8 @@ func (bc *Client) ExpandReport(reportTemplate string) (report string, err error)
 		},
 	}
 
-	rt := reporter.NewReportTemplate(reporter.TripleSingleQuoteDelimiters,
-		funcs, reportTemplate)
-	report, err = rt.Expand(nil)
+	rp.SetFuncs(funcs)
+	report, err = rp.Expand(nil)
 	if err != nil {
 		return
 	}

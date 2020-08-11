@@ -35,7 +35,7 @@ func TestEscapeRawText_EightDigits(t *testing.T) {
 }
 
 func TestEscapeRawText_TwoCharDelimiters_TenDigits(t *testing.T) {
-	delimiters := reporter.DelimiterPair{"<%", "%>"}
+	delimiters := reporter.DelimiterPair{Start: "<%", End: "%>"}
 	assertEqual(t, reporter.EscapeRawText(delimiters, "01<%45%>89"), "01\"45\"89")
 }
 
@@ -49,7 +49,7 @@ func TestEscapeRawText_MultilineText_NoRawText(t *testing.T) {
 }
 
 func TestEscapeRawText_MultilineText_SingleLineRawText(t *testing.T) {
-	delimiters := reporter.DelimiterPair{"<%", "%>"}
+	delimiters := reporter.DelimiterPair{Start: "<%", End: "%>"}
 	text := `
 foo
   <%bar%>
@@ -63,7 +63,7 @@ baz
 }
 
 func TestEscapeRawText_MultilineText_MultilineRawText(t *testing.T) {
-	delimiters := reporter.DelimiterPair{"<%", "%>"}
+	delimiters := reporter.DelimiterPair{Start: "<%", End: "%>"}
 	text := `
 foo
   <%bar
