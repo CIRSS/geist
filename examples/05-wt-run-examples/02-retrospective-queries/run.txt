@@ -13,56 +13,64 @@ blazegraph import --format jsonld --file ../data/branched-pipeline.jsonld
 
 # WHAT DATA FILES WERE USED AS INPUT BY THE TALE?
 
-blazegraph select --format table << END_QUERY
+blazegraph select --format table << __END_QUERY__
 
-    prefix prov: <http://www.w3.org/ns/prov#>
-    prefix provone: <http://purl.dataone.org/provone/2015/01/15/ontology#>
-    prefix wt: <http://wholetale.org/ontology/wt#>
+    PREFIX prov: <http://www.w3.org/ns/prov#>
+    PREFIX provone: <http://purl.dataone.org/provone/2015/01/15/ontology#>
+    PREFIX wt: <http://wholetale.org/ontology/wt#>
 
-    SELECT DISTINCT ?read_file ?tale_input_file_path
+    SELECT DISTINCT ?tale_input_file_path ?read_file
     WHERE {
-        ?run rdf:type wt:TaleRun .                     
-        ?run wt:TaleRunScript ?run_script .         
-        ?run_script_process wt:ExecutionOf ?run_script .             
-        ?run_sub_process wt:ParentProcess ?run_script_process .             
-        ?run_sub_process wt:ReadFile ?read_file .
-        FILTER NOT EXISTS { ?tale_process wt:WroteFile ?read_file . }
-        ?read_file wt:FilePath ?tale_input_file_path .
+        ?run rdf:type wt:TaleRun .                          # Identify the Tale run described by this JSON-LD document.
+        ?run wt:TaleRunScript ?run_script .                 # Identify the script used to run the Tale as a whole.
+        ?run_process wt:ExecutionOf ?run_script .           # Identify the process that is the execution of that run script.             
+        ?run_sub_process wt:ParentProcess ?run_process .    # Find all child processes of the run script execution.
+        ?run_sub_process wt:ReadFile ?read_file .           # Identify files read by those run subprocesses.
+        FILTER NOT EXISTS {                                 # Filter out any files written by the Tale run, leaving
+            ?tale_process wt:WroteFile ?read_file . }       #   just the input files.
+        ?read_file wt:FilePath ?tale_input_file_path .      # Get the file path for each of the input files.
     }
     ORDER BY ?tale_input_file_path
 
-END_QUERY
+__END_QUERY__
 
 ---------------------------- RETROSPECTIVE-1 OUTPUTS ---------------------------------
 
-read_file                                                          | tale_input_file_path
-====================================================================================
-http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i23 | ./inputs/i1.txt
-http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i24 | ./inputs/i2.txt
-http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i26 | ./inputs/i3.txt
-http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i28 | ./inputs/i4.txt
+tale_input_file_path | read_file
+------------------------------------------------------------------------------------
+./inputs/i1.txt      | http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i23
+./inputs/i2.txt      | http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i24
+./inputs/i3.txt      | http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i26
+./inputs/i4.txt      | http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i28
 
-**************************** EXAMPLE RETROSPECTIVE-1 *********************************
+**************************** EXAMPLE RETROSPECTIVE-2 *********************************
 
 # WHAT FILES WERE PRODUCED AS OUTPUTS OF THE TALE?
 
-blazegraph select --format table << END_QUERY
+blazegraph select --format table << __END_QUERY__
 
-    prefix prov: <http://www.w3.org/ns/prov#>
-    prefix provone: <http://purl.dataone.org/provone/2015/01/15/ontology#>
-    prefix wt: <http://wholetale.org/ontology/wt#>
+    PREFIX prov: <http://www.w3.org/ns/prov#>
+    PREFIX provone: <http://purl.dataone.org/provone/2015/01/15/ontology#>
+    PREFIX wt: <http://wholetale.org/ontology/wt#>
 
-    SELECT ?tale_out_file_path
+    SELECT DISTINCT ?tale_output_file_path ?written_file
     WHERE {
-        ?execution rdf:type provone:Execution .         # find the Tale execution
-        ?execution prov:generated ?tale_output .        # find all outputs of the Tale
-        ?tale_output rdf:type wt:DataFile .             # select just the outputs that are data files
-        ?tale_output wt:FilePath ?tale_out_file_path .  # get the file path for each input data file
+        ?run rdf:type wt:TaleRun .                          # Identify the Tale run described by this JSON-LD document.
+        ?run wt:TaleRunScript ?run_script .                 # Identify the script used to run the Tale as a whole.
+        ?run_process wt:ExecutionOf ?run_script .           # Identify the process that is the execution of that run script.             
+        ?run_sub_process wt:ParentProcess ?run_process .    # Find all child processes of the run script execution.
+        ?run_sub_process wt:WroteFile ?written_file .       # Identify files written by those run subprocesses.
+        FILTER NOT EXISTS { ?written_file                   # Filter out intermediate products of the Tale run, leaving
+            wt:FileRole wt:TaleIntermediateData . }         #   just the finial output input files.
+        ?written_file wt:FilePath ?tale_output_file_path .  # Get the file path for each of the output files.
     }
 
-END_QUERY
+__END_QUERY__
 
----------------------------- RETROSPECTIVE-1 OUTPUTS ---------------------------------
+---------------------------- RETROSPECTIVE-2 OUTPUTS ---------------------------------
 
-tale_out_file_path
-=================
+tale_output_file_path | written_file
+----------------------------------------------------------------------------------------
+./outputs/o12.txt     | http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i29
+./outputs/o1234.txt   | http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i30
+./outputs/o4.txt      | http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i31
