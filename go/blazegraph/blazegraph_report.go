@@ -1,6 +1,7 @@
 package blazegraph
 
 import (
+	"errors"
 	"strings"
 	"text/template"
 
@@ -48,6 +49,16 @@ func (bc *Client) ExpandReport(rp *reporter.ReportTemplate) (report string, err 
 		},
 		"column": func(columnIndex int, rs sparql.ResultSet) (column []string) {
 			column = rs.Column(columnIndex)
+			return
+		},
+		"vector": func(rs sparql.ResultSet) (vector []string, err error) {
+			if rs.RowCount() == 1 {
+				vector = rs.Row(0)
+			} else if rs.ColumnCount() == 1 {
+				vector = rs.Column(0)
+			} else {
+				err = errors.New("Result set is not a vector.")
+			}
 			return
 		},
 		"join": func(elems []string, sep string) (js string) {
