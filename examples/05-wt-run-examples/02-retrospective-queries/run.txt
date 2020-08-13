@@ -1,15 +1,16 @@
 
-**************************** EXAMPLE SETUP *********************************
+******************************************* EXAMPLE SETUP ************************************************
 
 # IMPORT PROVONE TRACE
 
 blazegraph drop
 blazegraph import --format jsonld --file ../data/branched-pipeline.jsonld
 
----------------------------- SETUP OUTPUTS ---------------------------------
+------------------------------------------- SETUP OUTPUTS ------------------------------------------------
 
 
-**************************** EXAMPLE RETROSPECTIVE-1 *********************************
+
+******************************************* EXAMPLE RETROSPECTIVE-1 ************************************************
 
 # WHAT DATA FILES WERE USED AS INPUT BY THE TALE?
 
@@ -34,16 +35,17 @@ blazegraph select --format table << __END_QUERY__
 
 __END_QUERY__
 
----------------------------- RETROSPECTIVE-1 OUTPUTS ---------------------------------
+------------------------------------------- RETROSPECTIVE-1 OUTPUTS ------------------------------------------------
 
 tale_input_file_path | read_file
-------------------------------------------------------------------------------------
+====================================================================================
 ./inputs/i1.txt      | http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i23
 ./inputs/i2.txt      | http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i24
 ./inputs/i3.txt      | http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i26
 ./inputs/i4.txt      | http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i28
 
-**************************** EXAMPLE RETROSPECTIVE-2 *********************************
+
+******************************************* EXAMPLE RETROSPECTIVE-2 ************************************************
 
 # WHAT FILES WERE PRODUCED AS OUTPUTS OF THE TALE?
 
@@ -67,10 +69,11 @@ blazegraph select --format table << __END_QUERY__
 
 __END_QUERY__
 
----------------------------- RETROSPECTIVE-2 OUTPUTS ---------------------------------
+------------------------------------------- RETROSPECTIVE-2 OUTPUTS ------------------------------------------------
 
 tale_output_file_path | written_file
-----------------------------------------------------------------------------------------
+========================================================================================
 ./outputs/o12.txt     | http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i29
 ./outputs/o1234.txt   | http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i30
 ./outputs/o4.txt      | http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i31
+

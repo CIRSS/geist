@@ -22,9 +22,10 @@ bash ${script_file} > ${output_file}
 
 # print the script results
 echo
-echo "**************************** EXAMPLE ${script_id} *********************************"
+echo "******************************************* EXAMPLE ${script_id} ************************************************"
 echo
 cat ${script_file}
-echo "---------------------------- ${script_id} OUTPUTS ---------------------------------"
+echo "------------------------------------------- ${script_id} OUTPUTS ------------------------------------------------"
 echo
 cat ${output_file}
+echo

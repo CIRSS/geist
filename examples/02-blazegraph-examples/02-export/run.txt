@@ -1,21 +1,22 @@
 
-**************************** EXAMPLE SETUP *********************************
+******************************************* EXAMPLE SETUP ************************************************
 
 # INITIALIZE BLAZEGRAPH INSTANCE WITH ADDRESS BOOK
 
 blazegraph drop
 blazegraph import --file ../data/address-book.jsonld --format jsonld
 
----------------------------- SETUP OUTPUTS ---------------------------------
+------------------------------------------- SETUP OUTPUTS ------------------------------------------------
 
 
-**************************** EXAMPLE S1 *********************************
+
+******************************************* EXAMPLE S1 ************************************************
 
 # EXPORT ADDRESS BOOK AS JSON-LD
 
 blazegraph export --format jsonld
 
----------------------------- S1 OUTPUTS ---------------------------------
+------------------------------------------- S1 OUTPUTS ------------------------------------------------
 
 [ {
   "@id" : "http://learningsparql.com/ns/addressbook#email",
@@ -104,13 +105,14 @@ blazegraph export --format jsonld
     "@value" : "(245) 732-8991"
   } ]
 } ]
-**************************** EXAMPLE S1 *********************************
+
+******************************************* EXAMPLE S1 ************************************************
 
 # EXPORT ADDRESS BOOK AS TURTLE
 
 blazegraph export --format ttl
 
----------------------------- S1 OUTPUTS ---------------------------------
+------------------------------------------- S1 OUTPUTS ------------------------------------------------
 
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -159,13 +161,14 @@ blazegraph export --format ttl
 	<http://learningsparql.com/ns/addressbook#lastname> "Marshall"^^xsd:string ;
 	<http://learningsparql.com/ns/addressbook#mobileTel> "(245) 732-8991"^^xsd:string .
 
-**************************** EXAMPLE S1 *********************************
+
+******************************************* EXAMPLE S1 ************************************************
 
 # EXPORT ADDRESS BOOK AS N-TRIPLES
 
 blazegraph export --format nt | sort
 
----------------------------- S1 OUTPUTS ---------------------------------
+------------------------------------------- S1 OUTPUTS ------------------------------------------------
 
 <http://learningsparql.com/ns/addressbook#email> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
 <http://learningsparql.com/ns/addressbook#email> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://learningsparql.com/ns/addressbook#email> .
@@ -195,13 +198,14 @@ blazegraph export --format nt | sort
 <http://learningsparql.com/ns/data#i9771> <http://learningsparql.com/ns/addressbook#lastname> "Marshall"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://learningsparql.com/ns/data#i9771> <http://learningsparql.com/ns/addressbook#mobileTel> "(245) 732-8991"^^<http://www.w3.org/2001/XMLSchema#string> .
 
-**************************** EXAMPLE S1 *********************************
+
+******************************************* EXAMPLE S1 ************************************************
 
 # EXPORT ADDRESS BOOK AS RDF-XML
 
 blazegraph export --format xml
 
----------------------------- S1 OUTPUTS ---------------------------------
+------------------------------------------- S1 OUTPUTS ------------------------------------------------
 
 <?xml version="1.0" encoding="UTF-8"?>
 <rdf:RDF

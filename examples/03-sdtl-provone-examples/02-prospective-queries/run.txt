@@ -1,15 +1,16 @@
 
-**************************** EXAMPLE SETUP *********************************
+******************************************* EXAMPLE SETUP ************************************************
 
 # IMPORT SDTL-PROVONE TRACE
 
 blazegraph drop
 blazegraph import --format jsonld --file ../data/single-command.jsonld
 
----------------------------- SETUP OUTPUTS ---------------------------------
+------------------------------------------- SETUP OUTPUTS ------------------------------------------------
 
 
-**************************** EXAMPLE PROSPECTIVE-1 *********************************
+
+******************************************* EXAMPLE PROSPECTIVE-1 ************************************************
 
 # WHAT IS THE TOP-LEVEL PROGRAM IN THE TRACE?
 
@@ -25,13 +26,14 @@ blazegraph select --format table << END_QUERY
 
 END_QUERY
 
----------------------------- PROSPECTIVE-1 OUTPUTS ---------------------------------
+------------------------------------------- PROSPECTIVE-1 OUTPUTS ------------------------------------------------
 
 program
 ===============================================
 http://wholetale.org/tale38/run15#create_var.sps
 
-**************************** EXAMPLE PROSPECTIVE-2 *********************************
+
+******************************************* EXAMPLE PROSPECTIVE-2 ************************************************
 
 # WHAT ARE THE SUB-PROGRAMS IN THE TRACE?
 
@@ -46,13 +48,14 @@ blazegraph select --format table << END_QUERY
 
 END_QUERY
 
----------------------------- PROSPECTIVE-2 OUTPUTS ---------------------------------
+------------------------------------------- PROSPECTIVE-2 OUTPUTS ------------------------------------------------
 
 subProgram
 ========================================================
 http://wholetale.org/tale38/run15#create_variable_command
 
-**************************** EXAMPLE PROSPECTIVE-3 *********************************
+
+******************************************* EXAMPLE PROSPECTIVE-3 ************************************************
 
 # WHAT ARE THE OUTPUT PORTS AND ASSOCIATED VARIABLES IN THE TRACE?
 
@@ -71,8 +74,9 @@ blazegraph select --format table << END_QUERY
 
 END_QUERY
 
----------------------------- PROSPECTIVE-3 OUTPUTS ---------------------------------
+------------------------------------------- PROSPECTIVE-3 OUTPUTS ------------------------------------------------
 
 program                                                   | port                                                   | variableName
 ============================================================================================================================
 http://wholetale.org/tale38/run15#create_variable_command | http://wholetale.org/tale38/run15#create_variable_port | newVar
+

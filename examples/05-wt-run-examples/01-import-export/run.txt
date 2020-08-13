@@ -1,21 +1,22 @@
 
-**************************** EXAMPLE SETUP *********************************
+******************************************* EXAMPLE SETUP ************************************************
 
 # IMPORT PROVONE TRACE
 
 blazegraph drop
 blazegraph import --format jsonld --file ../data/branched-pipeline.jsonld
 
----------------------------- SETUP OUTPUTS ---------------------------------
+------------------------------------------- SETUP OUTPUTS ------------------------------------------------
 
 
-**************************** EXAMPLE S1 *********************************
+
+******************************************* EXAMPLE S1 ************************************************
 
 # EXPORT AS N-TRIPLES
 
 blazegraph export --format nt | sort
 
----------------------------- S1 OUTPUTS ---------------------------------
+------------------------------------------- S1 OUTPUTS ------------------------------------------------
 
 <http://wholetale.org/ontology/wt#ExecutionOf> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
 <http://wholetale.org/ontology/wt#ExecutionOf> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://wholetale.org/ontology/wt#ExecutionOf> .
@@ -123,3 +124,4 @@ blazegraph export --format nt | sort
 <http://wholetale.org/tale_2035/version_1021/run_1119#program_file_i2> <http://wholetale.org/ontology/wt#FilePath> "/bin/cat"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://wholetale.org/tale_2035/version_1021/run_1119#program_file_i2> <http://wholetale.org/ontology/wt#FileRole> <http://wholetale.org/ontology/wt#SystemSoftware> .
 <http://wholetale.org/tale_2035/version_1021/run_1119#program_file_i2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://wholetale.org/ontology/wt#ProgramFile> .
+

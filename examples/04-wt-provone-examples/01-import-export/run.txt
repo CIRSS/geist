@@ -1,21 +1,22 @@
 
-**************************** EXAMPLE SETUP *********************************
+******************************************* EXAMPLE SETUP ************************************************
 
 # IMPORT PROVONE TRACE
 
 blazegraph drop
 blazegraph import --format jsonld --file ../data/branched-pipeline.jsonld
 
----------------------------- SETUP OUTPUTS ---------------------------------
+------------------------------------------- SETUP OUTPUTS ------------------------------------------------
 
 
-**************************** EXAMPLE S1 *********************************
+
+******************************************* EXAMPLE S1 ************************************************
 
 # EXPORT AS N-TRIPLES
 
 blazegraph export --format nt | sort
 
----------------------------- S1 OUTPUTS ---------------------------------
+------------------------------------------- S1 OUTPUTS ------------------------------------------------
 
 <http://wholetale.org/ontology/wt#FilePath> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
 <http://wholetale.org/ontology/wt#FilePath> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://wholetale.org/ontology/wt#FilePath> .
@@ -46,13 +47,14 @@ blazegraph export --format nt | sort
 <http://www.w3.org/ns/prov#used> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
 <http://www.w3.org/ns/prov#used> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/ns/prov#used> .
 
-**************************** EXAMPLE S2 *********************************
+
+******************************************* EXAMPLE S2 ************************************************
 
 # EXPORT AS JSON-LD
 
 blazegraph export --format jsonld
 
----------------------------- S2 OUTPUTS ---------------------------------
+------------------------------------------- S2 OUTPUTS ------------------------------------------------
 
 [ {
   "@id" : "http://wholetale.org/ontology/wt#FilePath",

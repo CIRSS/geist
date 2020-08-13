@@ -1,15 +1,16 @@
 
-**************************** EXAMPLE SETUP *********************************
+******************************************* EXAMPLE SETUP ************************************************
 
 # IMPORT PROVONE TRACE
 
 blazegraph drop
 blazegraph import --format jsonld --file ../data/branched-pipeline.jsonld
 
----------------------------- SETUP OUTPUTS ---------------------------------
+------------------------------------------- SETUP OUTPUTS ------------------------------------------------
 
 
-**************************** EXAMPLE RETROSPECTIVE-1 *********************************
+
+******************************************* EXAMPLE RETROSPECTIVE-1 ************************************************
 
 # WHAT FILES WERE PROVIDED AS INPUT TO THE TALE?
 
@@ -29,7 +30,7 @@ blazegraph select --format table << END_QUERY
 
 END_QUERY
 
----------------------------- RETROSPECTIVE-1 OUTPUTS ---------------------------------
+------------------------------------------- RETROSPECTIVE-1 OUTPUTS ------------------------------------------------
 
 tale_input_file_path
 ===================
@@ -38,7 +39,8 @@ tale_input_file_path
 ./inputs/i3.txt
 ./inputs/i4.txt
 
-**************************** EXAMPLE RETROSPECTIVE-1 *********************************
+
+******************************************* EXAMPLE RETROSPECTIVE-1 ************************************************
 
 # WHAT FILES WERE PRODUCED AS OUTPUTS OF THE TALE?
 
@@ -58,10 +60,11 @@ blazegraph select --format table << END_QUERY
 
 END_QUERY
 
----------------------------- RETROSPECTIVE-1 OUTPUTS ---------------------------------
+------------------------------------------- RETROSPECTIVE-1 OUTPUTS ------------------------------------------------
 
 tale_out_file_path
 ==================
 ./outputs/o12.txt
 ./outputs/o1234.txt
 ./outputs/o4.txt
+

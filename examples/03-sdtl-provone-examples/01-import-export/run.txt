@@ -1,21 +1,22 @@
 
-**************************** EXAMPLE SETUP *********************************
+******************************************* EXAMPLE SETUP ************************************************
 
 # IMPORT SDTL-PROVONE TRACE
 
 blazegraph drop
 blazegraph import --format jsonld --file ../data/single-command.jsonld
 
----------------------------- SETUP OUTPUTS ---------------------------------
+------------------------------------------- SETUP OUTPUTS ------------------------------------------------
 
 
-**************************** EXAMPLE S1 *********************************
+
+******************************************* EXAMPLE S1 ************************************************
 
 # EXPORT AS N-TRIPLES
 
 blazegraph export --format nt | sort
 
----------------------------- S1 OUTPUTS ---------------------------------
+------------------------------------------- S1 OUTPUTS ------------------------------------------------
 
 <http://SDTLnamespaceURL#command> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
 <http://SDTLnamespaceURL#command> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://SDTLnamespaceURL#command> .
@@ -125,13 +126,14 @@ blazegraph export --format nt | sort
 <http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
 <http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/ns/prov#wasGeneratedBy> .
 
-**************************** EXAMPLE S2 *********************************
+
+******************************************* EXAMPLE S2 ************************************************
 
 # EXPORT AS JSON-LD
 
 blazegraph export --format jsonld
 
----------------------------- S2 OUTPUTS ---------------------------------
+------------------------------------------- S2 OUTPUTS ------------------------------------------------
 
 [ {
   "@id" : "http://SDTLnamespaceURL#command",
