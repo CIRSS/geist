@@ -10,16 +10,17 @@ blazegraph import --format jsonld --file ../data/branched-pipeline.jsonld
 
 
 
-******************************************* EXAMPLE RETROSPECTIVE-1 ************************************************
+******************************************* EXAMPLE REPORT-1 ************************************************
 
 # WHAT DATA FILES WERE USED AS INPUT BY THE TALE?
 
 blazegraph report << __END_REPORT_TEMPLATE__
-{{ select '''
 
-    PREFIX prov: <http://www.w3.org/ns/prov#>
-    PREFIX provone: <http://purl.dataone.org/provone/2015/01/15/ontology#>
-    PREFIX wt: <http://wholetale.org/ontology/wt#>
+{{ prefix "prov" "http://www.w3.org/ns/prov#" }}
+{{ prefix "provone" "http://purl.dataone.org/provone/2015/01/15/ontology#" }}
+{{ prefix "wt" "http://wholetale.org/ontology/wt#" }}
+
+{{ select '''
 
     SELECT DISTINCT ?tale_input_file_path ?read_file
     WHERE {
@@ -29,7 +30,7 @@ blazegraph report << __END_REPORT_TEMPLATE__
         ?run_sub_process wt:ParentProcess ?run_process .   
         ?run_sub_process wt:ReadFile ?read_file .          
         FILTER NOT EXISTS {                               
-            ?tale_process wt:WroteFile ?read_file . }     
+            ?_ wt:WroteFile ?read_file . }     
         ?read_file wt:FilePath ?tale_input_file_path .
     }
     ORDER BY ?tale_input_file_path
@@ -38,7 +39,7 @@ blazegraph report << __END_REPORT_TEMPLATE__
 
 __END_REPORT_TEMPLATE__
 
-------------------------------------------- RETROSPECTIVE-1 OUTPUTS ------------------------------------------------
+------------------------------------------- REPORT-1 OUTPUTS ------------------------------------------------
 
 tale_input_file_path | read_file
 ====================================================================================
@@ -46,4 +47,43 @@ tale_input_file_path | read_file
 ./inputs/i2.txt      | http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i24
 ./inputs/i3.txt      | http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i26
 ./inputs/i4.txt      | http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i28
+
+
+******************************************* EXAMPLE REPORT-2 ************************************************
+
+# WHAT DATA FILES WERE USED AS INPUT BY THE TALE?
+
+blazegraph report << '__END_REPORT_TEMPLATE__'
+
+{{ prefix "prov" "http://www.w3.org/ns/prov#" }}
+{{ prefix "provone" "http://purl.dataone.org/provone/2015/01/15/ontology#" }}
+{{ prefix "wt" "http://wholetale.org/ontology/wt#" }}
+
+{{ range (select '''
+
+    SELECT DISTINCT ?tale_input_file_path
+    WHERE {
+        ?run rdf:type wt:TaleRun .                          
+        ?run wt:TaleRunScript ?run_script .                 
+        ?run_process wt:ExecutionOf ?run_script .               
+        ?run_sub_process wt:ParentProcess ?run_process .   
+        ?run_sub_process wt:ReadFile ?read_file .          
+        FILTER NOT EXISTS {                               
+            ?_ wt:WroteFile ?read_file . }     
+        ?read_file wt:FilePath ?tale_input_file_path .
+    }
+    ORDER BY ?tale_input_file_path
+
+''' | vector) }}
+    {{println .}}
+{{end}}
+
+__END_REPORT_TEMPLATE__
+
+------------------------------------------- REPORT-2 OUTPUTS ------------------------------------------------
+
+    ./inputs/i1.txt
+    ./inputs/i2.txt
+    ./inputs/i3.txt
+    ./inputs/i4.txt
 
