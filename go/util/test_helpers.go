@@ -36,6 +36,17 @@ func RemoveBlankLine(s string) string {
 	return buffer.String()
 }
 
+func TrimEachLine(s string) string {
+	var sb strings.Builder
+	lines := strings.Split(s, "\n")
+	for _, line := range lines {
+		trimmedLine := trim(line)
+		sb.WriteString(trimmedLine)
+		sb.WriteString("\n")
+	}
+	return sb.String()
+}
+
 func TrimByLine(s string) string {
 	s = trim(s)
 	lastLineBlank := false

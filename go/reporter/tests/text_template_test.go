@@ -216,9 +216,9 @@ func ExampleTemplate_Execute_MultilinePipeline() {
 		New("test").
 		Funcs(funcMap).
 		Parse(`
-{{with $c := inc .Count}}{{$d := $c}}{{$e := $d}}
-{{printf "%d" $d}}{{end}} items are made of {{print .Material}}
-`)
+			{{with $c := inc .Count}}{{$d := $c}}{{$e := $d}}
+			{{printf "%d" $d}}{{end}} items are made of {{print .Material}}
+		`)
 	err := tmpl.Execute(os.Stdout, sweaters)
 	if err != nil {
 		fmt.Println(err)

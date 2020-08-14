@@ -3,6 +3,8 @@ package reporter
 import (
 	"strings"
 	"text/template"
+
+	"github.com/tmcphillips/blazegraph-util/util"
 )
 
 type Properties struct {
@@ -47,10 +49,14 @@ func (rp *ReportTemplate) SetFuncs(funcs template.FuncMap) {
 	rp.Properties.Funcs = funcs
 }
 
-func (rp *ReportTemplate) Expand(data interface{}) (result string, err error) {
+func (rp *ReportTemplate) Expand(data interface{}, removeNewlines bool) (result string, err error) {
 
-	text := EscapeRawText(rp.Properties.Delimiters, rp.Text)
-	text = RemoveNewlines(text)
+	text := util.TrimEachLine(rp.Text)
+	text = EscapeRawText(rp.Properties.Delimiters, text)
+
+	if removeNewlines {
+		text = RemoveNewlines(text)
+	}
 
 	textTemplate := template.New("main")
 	if rp.Properties.Funcs != nil {
@@ -58,7 +64,6 @@ func (rp *ReportTemplate) Expand(data interface{}) (result string, err error) {
 	}
 
 	textTemplate.Parse(text)
-
 	var buffer strings.Builder
 
 	err = textTemplate.Execute(&buffer, data)

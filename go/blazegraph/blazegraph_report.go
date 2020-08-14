@@ -32,7 +32,7 @@ func (bc *Client) ExpandReport(rp *reporter.ReportTemplate) (report string, err 
 			if len(args) == 1 {
 				data = args[0]
 			}
-			query, err := queryReportTemplate.Expand(data)
+			query, err := queryReportTemplate.Expand(data, false)
 			if err != nil {
 				return
 			}
@@ -61,6 +61,13 @@ func (bc *Client) ExpandReport(rp *reporter.ReportTemplate) (report string, err 
 			}
 			return
 		},
+		"value": func(rs sparql.ResultSet) (value string, err error) {
+			if rs.RowCount() != 1 || rs.ColumnCount() != 1 {
+				err = errors.New("Result set is not a single value.")
+			}
+			value = rs.Column(0)[0]
+			return
+		},
 		"join": func(elems []string, sep string) (js string) {
 			js = strings.Join(elems, sep)
 			return
@@ -68,11 +75,10 @@ func (bc *Client) ExpandReport(rp *reporter.ReportTemplate) (report string, err 
 	}
 
 	rp.SetFuncs(funcs)
-	report, err = rp.Expand(nil)
+	report, err = rp.Expand(nil, true)
 	if err != nil {
 		return
 	}
 
-	// report = util.TrimByLine(report)
 	return
 }

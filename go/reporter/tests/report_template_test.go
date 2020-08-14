@@ -26,7 +26,7 @@ func TestReportTemplate_AnonymouStructInstance(t *testing.T) {
 		{{.Material}}    \n
 		`)
 
-	actual, _ := rt.Expand(sweaters)
+	actual, _ := rt.Expand(sweaters, true)
 	util.LineContentsEqual(t, actual,
 		`
 		42 items
@@ -46,7 +46,7 @@ func TestReportTemplate_MultilineVariableValue(t *testing.T) {
 	`)
 	rt.SetDelimiters(reporter.JSPDelimiters)
 
-	actual, _ := rt.Expand(nil)
+	actual, _ := rt.Expand(nil, true)
 	util.LineContentsEqual(t, actual, `
 		foo
 		bar
@@ -69,7 +69,7 @@ func TestReportTemplate_MultilineFunctionArgument(t *testing.T) {
 	`)
 	rt.SetFuncs(funcs)
 
-	actual, _ := rt.Expand(nil)
+	actual, _ := rt.Expand(nil, true)
 	util.LineContentsEqual(t, actual, `
 		FOO
 		BAR
@@ -87,7 +87,7 @@ func TestReportTemplate_RangeOverStringSlice(t *testing.T) {
 		{{end}}
 		`)
 
-	actual, _ := rt.Expand(colors)
+	actual, _ := rt.Expand(colors, true)
 	util.LineContentsEqual(t, actual,
 		`
 		the color is red
@@ -112,7 +112,7 @@ func TestReportTemplate_TableOfValues(t *testing.T) {
 		{{end}}
 	`)
 
-	actual, _ := rt.Expand(contacts)
+	actual, _ := rt.Expand(contacts, true)
 	util.LineContentsEqual(t, actual,
 		`
         Name   | City      | Phone
