@@ -63,9 +63,12 @@ func (rp *ReportTemplate) Expand(data interface{}, removeNewlines bool) (result 
 		textTemplate.Funcs(rp.Properties.Funcs)
 	}
 
-	textTemplate.Parse(text)
-	var buffer strings.Builder
+	_, err = textTemplate.Parse(text)
+	if err != nil {
+		return
+	}
 
+	var buffer strings.Builder
 	err = textTemplate.Execute(&buffer, data)
 	if err != nil {
 		return

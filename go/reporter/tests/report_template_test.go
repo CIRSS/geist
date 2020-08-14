@@ -35,6 +35,28 @@ func TestReportTemplate_AnonymouStructInstance(t *testing.T) {
 	`)
 }
 
+func TestReportTemplate_AnonymousStructInstance_MissingBrace(t *testing.T) {
+	rt := reporter.NewReportTemplate("{{.Foo}")
+	_, err := rt.Expand(nil, true)
+	util.LineContentsEqual(t, err.Error(),
+		`template: main:1: unexpected "}" in operand`)
+}
+
+func TestReportTemplate_AnonymousStructInstance_MissingField(t *testing.T) {
+	rt := reporter.NewReportTemplate("{{.Foo}}")
+	_, err := rt.Expand(struct{ Bar string }{Bar: "baz"}, true)
+	util.LineContentsEqual(t, err.Error(),
+		`template: main:1:2: executing "main" at <.Foo>: can't evaluate field Foo in type struct { Bar string }`)
+}
+
+func TestReportTemplate_AnonymousStructInstance_NilData(t *testing.T) {
+	rt := reporter.NewReportTemplate("{{.Foo}}")
+	actual, _ := rt.Expand(nil, true)
+	util.LineContentsEqual(t, actual, `
+		<no value>
+	`)
+}
+
 func TestReportTemplate_MultilineVariableValue(t *testing.T) {
 
 	rt := reporter.NewReportTemplate(
