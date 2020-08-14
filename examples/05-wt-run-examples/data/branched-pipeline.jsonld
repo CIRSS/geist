@@ -40,7 +40,7 @@
     {
       "@id": "run:process_p2",
       "@type": "wt:Process",
-      "wt:ParentProcess": {"@id": "run:process_p1"},
+      "wt:ChildProcessOf": {"@id": "run:process_p1"},
       "wt:ExecutionOf": {"@id": "run:program_file_i2"},
       "wt:WorkingDir": "/mnt/wt-prov-model/examples/08-branched-pipeline",
       "wt:ReadFile": [
@@ -52,7 +52,7 @@
     {
       "@id": "run:process_p3",
       "@type": "wt:Process",
-      "wt:ParentProcess": {"@id": "run:process_p1"},
+      "wt:ChildProcessOf": {"@id": "run:process_p1"},
       "wt:ExecutionOf": {"@id": "run:program_file_i2"},
       "wt:WorkingDir": "/mnt/wt-prov-model/examples/08-branched-pipeline",
       "wt:ReadFile": [
@@ -65,7 +65,7 @@
     {
       "@id": "run:process_p4",
       "@type": "wt:Process",
-      "wt:ParentProcess": {"@id": "run:process_p1"},
+      "wt:ChildProcessOf": {"@id": "run:process_p1"},
       "wt:ExecutionOf": {"@id": "run:program_file_i2"},
       "wt:WorkingDir": "/mnt/wt-prov-model/examples/08-branched-pipeline",
       "wt:ReadFile": {"@id": "run:data_file_i28"},
@@ -74,7 +74,7 @@
     {
       "@id": "run:process_p5",
       "@type": "wt:Process",
-      "wt:ParentProcess": {"@id": "run:process_p1"},
+      "wt:ChildProcessOf": {"@id": "run:process_p1"},
       "wt:ExecutionOf": {"@id": "run:program_file_i2"},
       "wt:WorkingDir": "/mnt/wt-prov-model/examples/08-branched-pipeline",
       "wt:ReadFile": {"@id": "run:data_file_i11"},
@@ -83,7 +83,7 @@
     {
       "@id": "run:process_p6",
       "@type": "wt:Process",
-      "wt:ParentProcess": {"@id": "run:process_p1"},
+      "wt:ChildProcessOf": {"@id": "run:process_p1"},
       "wt:ExecutionOf": {"@id": "run:program_file_i2"},
       "wt:WorkingDir": "/mnt/wt-prov-model/examples/08-branched-pipeline",
       "wt:ReadFile": [
@@ -95,7 +95,7 @@
     {
       "@id": "run:process_p7",
       "@type": "wt:Process",
-      "wt:ParentProcess": {"@id": "run:process_p1"},
+      "wt:ChildProcessOf": {"@id": "run:process_p1"},
       "wt:ExecutionOf": {"@id": "run:program_file_i2"},
       "wt:WorkingDir": "/mnt/wt-prov-model/examples/08-branched-pipeline",
       "wt:ReadFile": {"@id": "run:data_file_i27"},

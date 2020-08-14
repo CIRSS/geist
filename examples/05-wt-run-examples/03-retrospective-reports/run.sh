@@ -29,7 +29,7 @@ blazegraph report << __END_REPORT_TEMPLATE__
         ?run rdf:type wt:TaleRun .                          
         ?run wt:TaleRunScript ?run_script .                 
         ?run_process wt:ExecutionOf ?run_script .               
-        ?run_sub_process wt:ParentProcess ?run_process .   
+        ?run_sub_process wt:ChildProcessOf ?run_process .   
         ?run_sub_process wt:ReadFile ?read_file .          
         FILTER NOT EXISTS {                               
             ?_ wt:WroteFile ?read_file . }     
@@ -53,23 +53,35 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
 {{ prefix "provone" "http://purl.dataone.org/provone/2015/01/15/ontology#" }}
 {{ prefix "wt" "http://wholetale.org/ontology/wt#" }}
 
-{{ range (select '''
+{{ with $Run := (select "SELECT ?r WHERE {?r a wt:TaleRun}") | value }}
 
-    SELECT DISTINCT ?tale_input_file_path
-    WHERE {
-        ?run rdf:type wt:TaleRun .                          
-        ?run wt:TaleRunScript ?run_script .                 
-        ?run_process wt:ExecutionOf ?run_script .               
-        ?run_sub_process wt:ParentProcess ?run_process .   
-        ?run_sub_process wt:ReadFile ?read_file .          
-        FILTER NOT EXISTS {                               
-            ?_ wt:WroteFile ?read_file . }     
-        ?read_file wt:FilePath ?tale_input_file_path .
-    }
-    ORDER BY ?tale_input_file_path
+    {{ println "Tale Run:   " $Run }}
 
-''' | vector) }}
-    {{println .}}
+    {{ println "Tale Name:  " (select '''
+            SELECT ?n WHERE {<{{.}}> wt:TaleName ?n}''' $Run | value) }}
+
+    {{ with $RunScript := (select '''
+            SELECT ?s WHERE {<{{.}}> wt:TaleRunScript ?s}''' $Run | value) }}
+
+        {{ println "Tale Script:" (select '''
+            SELECT ?n WHERE {<{{.}}> wt:FilePath ?n}''' $RunScript | value) }}
+
+        {{ println }}
+        {{ println "Tale Inputs:" }} 
+        {{ range $InputFile := (select '''
+            SELECT DISTINCT ?fp WHERE {
+                ?e wt:ExecutionOf <{{.}}> .               
+                ?p wt:ChildProcessOf ?e .   
+                ?p wt:ReadFile ?f .          
+                FILTER NOT EXISTS {                               
+                    ?_ wt:WroteFile ?f . }     
+                ?f wt:FilePath ?fp .
+            } ORDER BY ?fp''' $RunScript | vector) }}
+
+            {{println $InputFile}}
+
+        {{end}}
+    {{end}}
 {{end}}
 
 __END_REPORT_TEMPLATE__

@@ -25,7 +25,7 @@ blazegraph select --format table << __END_QUERY__
         ?run rdf:type wt:TaleRun .                          # Identify the Tale run described by this JSON-LD document.
         ?run wt:TaleRunScript ?run_script .                 # Identify the script used to run the Tale as a whole.
         ?run_process wt:ExecutionOf ?run_script .           # Identify the process that is the execution of that run script.             
-        ?run_sub_process wt:ParentProcess ?run_process .    # Find all child processes of the run script execution.
+        ?run_sub_process wt:ChildProcessOf ?run_process .   # Find all child processes of the run script execution.
         ?run_sub_process wt:ReadFile ?read_file .           # Identify files read by those run subprocesses.
         FILTER NOT EXISTS {                                 # Filter out any files written by the Tale run, leaving
             ?tale_process wt:WroteFile ?read_file . }       #   just the input files.
@@ -72,8 +72,5 @@ __END_QUERY__
 ------------------------------------------- RETROSPECTIVE-2 OUTPUTS ------------------------------------------------
 
 tale_output_file_path | written_file
-========================================================================================
-./outputs/o12.txt     | http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i29
-./outputs/o1234.txt   | http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i30
-./outputs/o4.txt      | http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i31
+====================================
 
