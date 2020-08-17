@@ -6,37 +6,42 @@ import (
 	"github.com/tmcphillips/blazegraph-util/reporter"
 )
 
+func escapeRawText(dp reporter.DelimiterPair, text string) string {
+	result, _ := reporter.EscapeRawText(dp, text)
+	return result
+}
+
 func TestEscapeRawText_AllOneRawString(t *testing.T) {
-	assertEqual(t, reporter.EscapeRawText(reporter.GraveDelimiters, "``"), "\"\"")
-	assertEqual(t, reporter.EscapeRawText(reporter.GraveDelimiters, "`foo`"), "\"foo\"")
-	assertEqual(t, reporter.EscapeRawText(reporter.GraveDelimiters, "`foo bar`"), "\"foo bar\"")
-	assertEqual(t, reporter.EscapeRawText(reporter.GraveDelimiters, "`foo\nbar`"), "\"foo\\nbar\"")
+	assertEqual(t, escapeRawText(reporter.GraveDelimiters, "``"), "\"\"")
+	assertEqual(t, escapeRawText(reporter.GraveDelimiters, "`foo`"), "\"foo\"")
+	assertEqual(t, escapeRawText(reporter.GraveDelimiters, "`foo bar`"), "\"foo bar\"")
+	assertEqual(t, escapeRawText(reporter.GraveDelimiters, "`foo\nbar`"), "\"foo\\nbar\"")
 }
 func TestEscapeRawText_OneRawStringArgumentToFunc(t *testing.T) {
-	assertEqual(t, reporter.EscapeRawText(reporter.GraveDelimiters, "up ``"), "up \"\"")
-	assertEqual(t, reporter.EscapeRawText(reporter.GraveDelimiters, "up `foo`"), "up \"foo\"")
-	assertEqual(t, reporter.EscapeRawText(reporter.GraveDelimiters, "up `foo bar`"), "up \"foo bar\"")
-	assertEqual(t, reporter.EscapeRawText(reporter.GraveDelimiters, "up `foo\nbar`"), "up \"foo\\nbar\"")
+	assertEqual(t, escapeRawText(reporter.GraveDelimiters, "up ``"), "up \"\"")
+	assertEqual(t, escapeRawText(reporter.GraveDelimiters, "up `foo`"), "up \"foo\"")
+	assertEqual(t, escapeRawText(reporter.GraveDelimiters, "up `foo bar`"), "up \"foo bar\"")
+	assertEqual(t, escapeRawText(reporter.GraveDelimiters, "up `foo\nbar`"), "up \"foo\\nbar\"")
 }
 
 func TestEscapeRawText_TwoRawStrings(t *testing.T) {
-	assertEqual(t, reporter.EscapeRawText(reporter.GraveDelimiters, "`` ``"), "\"\" \"\"")
-	assertEqual(t, reporter.EscapeRawText(reporter.GraveDelimiters, "`foo` `bar`"), "\"foo\" \"bar\"")
-	assertEqual(t, reporter.EscapeRawText(reporter.GraveDelimiters, "`foo\n` `bar`"), "\"foo\\n\" \"bar\"")
-	assertEqual(t, reporter.EscapeRawText(reporter.GraveDelimiters, "`foo\n` baz `bar`"), "\"foo\\n\" baz \"bar\"")
+	assertEqual(t, escapeRawText(reporter.GraveDelimiters, "`` ``"), "\"\" \"\"")
+	assertEqual(t, escapeRawText(reporter.GraveDelimiters, "`foo` `bar`"), "\"foo\" \"bar\"")
+	assertEqual(t, escapeRawText(reporter.GraveDelimiters, "`foo\n` `bar`"), "\"foo\\n\" \"bar\"")
+	assertEqual(t, escapeRawText(reporter.GraveDelimiters, "`foo\n` baz `bar`"), "\"foo\\n\" baz \"bar\"")
 }
 
 func TestEscapeRawText_TwoRawStrings_WithNewlineBetween(t *testing.T) {
-	assertEqual(t, reporter.EscapeRawText(reporter.GraveDelimiters, "`` \n ``"), "\"\" \n \"\"")
+	assertEqual(t, escapeRawText(reporter.GraveDelimiters, "`` \n ``"), "\"\" \n \"\"")
 }
 
 func TestEscapeRawText_EightDigits(t *testing.T) {
-	assertEqual(t, reporter.EscapeRawText(reporter.GraveDelimiters, "01`34`67"), "01\"34\"67")
+	assertEqual(t, escapeRawText(reporter.GraveDelimiters, "01`34`67"), "01\"34\"67")
 }
 
 func TestEscapeRawText_TwoCharDelimiters_TenDigits(t *testing.T) {
 	delimiters := reporter.DelimiterPair{Start: "<%", End: "%>"}
-	assertEqual(t, reporter.EscapeRawText(delimiters, "01<%45%>89"), "01\"45\"89")
+	assertEqual(t, escapeRawText(delimiters, "01<%45%>89"), "01\"45\"89")
 }
 
 func TestEscapeRawText_MultilineText_NoRawText(t *testing.T) {
@@ -45,7 +50,7 @@ func TestEscapeRawText_MultilineText_NoRawText(t *testing.T) {
 	  bar
 	baz
 	`
-	assertEqual(t, reporter.EscapeRawText(reporter.GraveDelimiters, text), text)
+	assertEqual(t, escapeRawText(reporter.GraveDelimiters, text), text)
 }
 
 func TestEscapeRawText_MultilineText_SingleLineRawText(t *testing.T) {
@@ -55,7 +60,7 @@ foo
   <%bar%>
 baz
 `
-	assertEqual(t, reporter.EscapeRawText(delimiters, text), `
+	assertEqual(t, escapeRawText(delimiters, text), `
 foo
   "bar"
 baz
@@ -70,7 +75,7 @@ foo
 zing%>
 baz
 `
-	assertEqual(t, reporter.EscapeRawText(delimiters, text), `
+	assertEqual(t, escapeRawText(delimiters, text), `
 foo
   "bar\nzing"
 baz

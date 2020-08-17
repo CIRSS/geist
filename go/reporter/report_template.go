@@ -1,6 +1,7 @@
 package reporter
 
 import (
+	"errors"
 	"strings"
 	"text/template"
 
@@ -52,7 +53,11 @@ func (rp *ReportTemplate) SetFuncs(funcs template.FuncMap) {
 func (rp *ReportTemplate) Expand(data interface{}, removeNewlines bool) (result string, err error) {
 
 	text := util.TrimEachLine(rp.Text)
-	text = EscapeRawText(rp.Properties.Delimiters, text)
+	text, err = EscapeRawText(rp.Properties.Delimiters, text)
+	if err != nil {
+		err = errors.New("ReportTemplate: " + err.Error())
+		return
+	}
 
 	if removeNewlines {
 		text = RemoveNewlines(text)

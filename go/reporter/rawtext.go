@@ -1,6 +1,9 @@
 package reporter
 
-import "strings"
+import (
+	"errors"
+	"strings"
+)
 
 const (
 	doubleQuote    = `"`
@@ -40,24 +43,29 @@ func InsertNewlines(text string) string {
 // EscapeRawText finds substrings delimited by the given DelimiterPair
 // and within each escapes newlines and replaces the starting and
 // end delimiters with double quotes.
-func EscapeRawText(dp DelimiterPair, text string) string {
+func EscapeRawText(dp DelimiterPair, text string) (escapedText string, err error) {
 
 	for {
-		var rawTextStart, rawTextEnd int
-		if rawTextStart = strings.Index(text, dp.Start); rawTextStart == -1 {
+		rawTextStart := strings.Index(text, dp.Start)
+		if rawTextStart == -1 {
 			break
 		}
-		if rawTextEnd = strings.Index(text[rawTextStart+1:], dp.End); rawTextEnd == -1 {
+
+		rawTextEnd := strings.Index(text[rawTextStart+1:], dp.End)
+		if rawTextEnd == -1 {
+			err = errors.New("Unmatched raw string delimiter")
 			break
 		}
+
 		rawTextEnd += rawTextStart + len(dp.End) + 1
 		rawText := text[rawTextStart:rawTextEnd]
 		rawText = EscapeNewlines(rawText)
 		rawText = EscapeDoubleQuotes(rawText)
 		rawText = rawText[len(dp.Start) : len(rawText)-len(dp.End)]
+		quotedRawText := doubleQuote + rawText + doubleQuote
 
-		text = text[0:rawTextStart] + doubleQuote + rawText + doubleQuote + text[rawTextEnd:]
+		text = text[0:rawTextStart] + quotedRawText + text[rawTextEnd:]
 	}
 
-	return text
+	return text, err
 }

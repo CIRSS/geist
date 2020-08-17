@@ -75,6 +75,20 @@ func TestReportTemplate_MultilineVariableValue(t *testing.T) {
 	`)
 }
 
+func TestReportTemplate_UnmatchedRawStringDelimiter(t *testing.T) {
+	rt := reporter.NewReportTemplate(
+		`
+		{{with $result := '''
+			foo
+			bar
+		}}{{$result}}{{end}}
+	`)
+	_, err := rt.Expand(nil, true)
+
+	util.LineContentsEqual(t, err.Error(),
+		`ReportTemplate: Unmatched raw string delimiter`)
+}
+
 func TestReportTemplate_MultilineFunctionArgument(t *testing.T) {
 
 	funcs := template.FuncMap{
