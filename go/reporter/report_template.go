@@ -1,7 +1,6 @@
 package reporter
 
 import (
-	"errors"
 	"strings"
 	"text/template"
 
@@ -50,12 +49,27 @@ func (rp *ReportTemplate) SetFuncs(funcs template.FuncMap) {
 	rp.Properties.Funcs = funcs
 }
 
-func (rp *ReportTemplate) Expand(data interface{}, removeNewlines bool) (result string, err error) {
+type ReportError struct {
+	TextTemplateError error
+	Template          *string
+}
+
+func NewReportError(e error, t *string) *ReportError {
+	return &ReportError{TextTemplateError: e, Template: t}
+}
+
+func (re *ReportError) Error() string {
+	return re.TextTemplateError.Error()
+}
+
+func (rp *ReportTemplate) Expand(data interface{}, removeNewlines bool) (result string, re *ReportError) {
+
+	var err error
 
 	text := util.TrimEachLine(rp.Text)
 	text, err = EscapeRawText(rp.Properties.Delimiters, text)
 	if err != nil {
-		err = errors.New("ReportTemplate: " + err.Error())
+		re = NewReportError(err, &text)
 		return
 	}
 
@@ -70,12 +84,14 @@ func (rp *ReportTemplate) Expand(data interface{}, removeNewlines bool) (result 
 
 	_, err = textTemplate.Parse(text)
 	if err != nil {
+		re = NewReportError(err, &text)
 		return
 	}
 
 	var buffer strings.Builder
 	err = textTemplate.Execute(&buffer, data)
 	if err != nil {
+		re = NewReportError(err, &text)
 		return
 	}
 	result = buffer.String()

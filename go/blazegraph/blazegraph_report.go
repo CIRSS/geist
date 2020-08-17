@@ -9,7 +9,7 @@ import (
 	"github.com/tmcphillips/blazegraph-util/sparql"
 )
 
-func (bc *Client) ExpandReport(rp *reporter.ReportTemplate) (report string, err error) {
+func (bc *Client) ExpandReport(rp *reporter.ReportTemplate) (report string, re *reporter.ReportError) {
 
 	funcs := template.FuncMap{
 		"up": func(s string) string {
@@ -32,8 +32,8 @@ func (bc *Client) ExpandReport(rp *reporter.ReportTemplate) (report string, err 
 			if len(args) == 1 {
 				data = args[0]
 			}
-			query, err := queryReportTemplate.Expand(data, false)
-			if err != nil {
+			query, re := queryReportTemplate.Expand(data, false)
+			if re != nil {
 				return
 			}
 			rs, _ = bc.Select(query)
@@ -75,8 +75,8 @@ func (bc *Client) ExpandReport(rp *reporter.ReportTemplate) (report string, err 
 	}
 
 	rp.SetFuncs(funcs)
-	report, err = rp.Expand(nil, true)
-	if err != nil {
+	report, re = rp.Expand(nil, true)
+	if re != nil {
 		return
 	}
 

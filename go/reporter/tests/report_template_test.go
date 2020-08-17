@@ -9,7 +9,7 @@ import (
 	"github.com/tmcphillips/blazegraph-util/util"
 )
 
-func TestReportTemplate_AnonymouStructInstance(t *testing.T) {
+func TestReportTemplate_AnonymousStructInstance(t *testing.T) {
 
 	sweaters := struct {
 		Material string
@@ -75,6 +75,36 @@ func TestReportTemplate_MultilineVariableValue(t *testing.T) {
 	`)
 }
 
+func TestReportTemplate_MultilineVariableValue_MissingEnd(t *testing.T) {
+	rt := reporter.NewReportTemplate(
+		`
+		{{with $result := <%
+			foo
+			bar
+		%>}}{{$result}}
+	`)
+	rt.SetDelimiters(reporter.JSPDelimiters)
+
+	_, err := rt.Expand(nil, true)
+	util.LineContentsEqual(t, err.Error(),
+		`template: main:1: unexpected EOF`)
+}
+
+func TestReportTemplate_MultilineVariableValue_WrongVariableName(t *testing.T) {
+	rt := reporter.NewReportTemplate(
+		`
+		{{with $result := <%
+			foo
+			bar
+		%>}}{{$wrongVariableName}}{{end}}
+	`)
+	rt.SetDelimiters(reporter.JSPDelimiters)
+
+	_, err := rt.Expand(nil, true)
+	util.LineContentsEqual(t, err.Error(),
+		`template: main:1: undefined variable "$wrongVariableName"`)
+}
+
 func TestReportTemplate_UnmatchedRawStringDelimiter(t *testing.T) {
 	rt := reporter.NewReportTemplate(
 		`
@@ -86,7 +116,7 @@ func TestReportTemplate_UnmatchedRawStringDelimiter(t *testing.T) {
 	_, err := rt.Expand(nil, true)
 
 	util.LineContentsEqual(t, err.Error(),
-		`ReportTemplate: Unmatched raw string delimiter`)
+		`Unmatched raw string delimiter`)
 }
 
 func TestReportTemplate_MultilineFunctionArgument(t *testing.T) {
@@ -157,4 +187,25 @@ func TestReportTemplate_TableOfValues(t *testing.T) {
         Bob    | Concord   | 510-320-9943
         Joe    | San Diego | 213-101-9313
 		`)
+}
+
+func TestReportTemplate_TableOfValues_IndexOutOfRange(t *testing.T) {
+
+	contacts := [][]string{
+		{"Tim", "Oakland  ", "530-219-4754"},
+		{"Bob", "Concord  ", "510-320-9943"},
+		{"Joe", "San Diego", "213-101-9313"},
+	}
+
+	rt := reporter.NewReportTemplate(
+		`
+		Name   | City      | Phone									\n
+		-------|-----------|--------------							\n
+		{{range .}}{{index . 0}}    | {{index . 1}} | {{index . 3}}	\n
+		{{end}}
+	`)
+
+	_, err := rt.Expand(contacts, true)
+	util.LineContentsEqual(t, err.Error(),
+		`template: main:1:128: executing "main" at <index . 3>: error calling index: reflect: slice index out of range`)
 }
