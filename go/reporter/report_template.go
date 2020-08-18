@@ -11,18 +11,20 @@ type Properties struct {
 	Delimiters DelimiterPair
 	Funcs      template.FuncMap
 	Prefixes   map[string]string
-	Macros     map[string]string
+	Macros     map[string]*ReportTemplate
 }
 
 var GraveDelimiters DelimiterPair
 var JSPDelimiters DelimiterPair
 var TripleSingleQuoteDelimiters DelimiterPair
+var MacroDelimiters DelimiterPair
 var DefaultDelimiters DelimiterPair
 
 func init() {
 	GraveDelimiters = DelimiterPair{"`", "`"}
 	JSPDelimiters = DelimiterPair{Start: "<%", End: "%>"}
 	TripleSingleQuoteDelimiters = DelimiterPair{Start: "'''", End: "'''"}
+	MacroDelimiters = DelimiterPair{Start: "<?", End: "?>"}
 	DefaultDelimiters = TripleSingleQuoteDelimiters
 }
 
@@ -46,17 +48,15 @@ func NewReportTemplate(name string, text string, delimiters *DelimiterPair) *Rep
 		rt.Properties.Delimiters = DefaultDelimiters
 	}
 	rt.Properties.Prefixes = map[string]string{}
-	rt.Properties.Macros = map[string]string{}
+	rt.Properties.Macros = map[string]*ReportTemplate{}
 	return rt
 }
 
-func (rp *ReportTemplate) Parse(removeNewlines bool) (re *ReportError) {
-	var err error
+func (rp *ReportTemplate) Parse(removeNewlines bool) (err error) {
 
 	text := util.TrimEachLine(rp.Text)
 	text, err = EscapeRawText(rp.Properties.Delimiters, text)
 	if err != nil {
-		re = NewReportError(err, &text)
 		return
 	}
 
@@ -69,10 +69,9 @@ func (rp *ReportTemplate) Parse(removeNewlines bool) (re *ReportError) {
 		rp.TextTemplate.Funcs(rp.Properties.Funcs)
 	}
 
+	// print("\n\n" + text + "\n\n")
+
 	_, err = rp.TextTemplate.Parse(text)
-	if err != nil {
-		re = NewReportError(err, &text)
-	}
 
 	return
 }
@@ -81,24 +80,10 @@ func (rp *ReportTemplate) SetFuncs(funcs template.FuncMap) {
 	rp.Properties.Funcs = funcs
 }
 
-type ReportError struct {
-	TextTemplateError error
-	Template          *string
-}
-
-func NewReportError(e error, t *string) *ReportError {
-	return &ReportError{TextTemplateError: e, Template: t}
-}
-
-func (re *ReportError) Error() string {
-	return re.TextTemplateError.Error()
-}
-
-func (rp *ReportTemplate) Expand(data interface{}) (result string, re *ReportError) {
+func (rp *ReportTemplate) Expand(data interface{}) (result string, err error) {
 	var buffer strings.Builder
-	err := rp.TextTemplate.Execute(&buffer, data)
+	err = rp.TextTemplate.Execute(&buffer, data)
 	if err != nil {
-		re = NewReportError(err, &rp.Text)
 		return
 	}
 	result = buffer.String()

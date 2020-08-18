@@ -9,7 +9,7 @@ import (
 	"github.com/tmcphillips/blazegraph-util/sparql"
 )
 
-func (bc *Client) ExpandReport(rp *reporter.ReportTemplate) (report string, re *reporter.ReportError) {
+func (bc *Client) ExpandReport(rp *reporter.ReportTemplate) (report string, err error) {
 
 	funcs := template.FuncMap{
 		"up": func(s string) string {
@@ -19,12 +19,24 @@ func (bc *Client) ExpandReport(rp *reporter.ReportTemplate) (report string, re *
 			rp.Properties.Prefixes[prefix] = uri
 			return "", nil
 		},
-		"call": func(name string, body string) (s string, err error) {
-			return "", nil
+		"call": func(name string, args ...interface{}) (result string, err error) {
+			macroTemplate := rp.Properties.Macros[name]
+			var data interface{}
+			if len(args) == 1 {
+				data = args[0]
+			}
+			result, _ = macroTemplate.Expand(data)
+			return
 		},
 		"def": func(name string, body string) (s string, err error) {
-			rp.Properties.Macros[name] = body
-			return body, nil
+			macroTemplate := reporter.NewReportTemplate(name, body, &reporter.MacroDelimiters)
+			macroTemplate.SetFuncs(rp.Properties.Funcs)
+			err = macroTemplate.Parse(false)
+			if err != nil {
+				return
+			}
+			rp.Properties.Macros[name] = macroTemplate
+			return "", nil
 		},
 		"select": func(queryTemplateString string, args ...interface{}) (rs sparql.ResultSet) {
 			sb := strings.Builder{}
@@ -84,10 +96,7 @@ func (bc *Client) ExpandReport(rp *reporter.ReportTemplate) (report string, re *
 
 	rp.SetFuncs(funcs)
 	rp.Parse(true)
-	report, re = rp.Expand(nil)
-	if re != nil {
-		return
-	}
+	report, err = rp.Expand(nil)
 
 	return
 }

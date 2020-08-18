@@ -284,60 +284,61 @@ func TestBlazegraphCmd_report_multiple_queries(t *testing.T) {
 	`)
 }
 
-// func TestBlazegraphCmd_report_named_queries(t *testing.T) {
+func TestBlazegraphCmd_report_named_queries(t *testing.T) {
 
-// 	var outputBuffer strings.Builder
-// 	Main.OutWriter = &outputBuffer
-// 	Main.ErrWriter = &outputBuffer
+	var outputBuffer strings.Builder
+	Main.OutWriter = &outputBuffer
+	Main.ErrWriter = &outputBuffer
 
-// 	run("blazegraph drop")
+	run("blazegraph drop")
 
-// 	Main.InReader = strings.NewReader(`
-// 		<http://tmcphill.net/data#y> <http://tmcphill.net/tags#tag> "eight" .
-// 		<http://tmcphill.net/data#x> <http://tmcphill.net/tags#tag> "seven" .
-// 	`)
-// 	run("blazegraph import --format ttl")
+	Main.InReader = strings.NewReader(`
+		<http://tmcphill.net/data#y> <http://tmcphill.net/tags#tag> "eight" .
+		<http://tmcphill.net/data#x> <http://tmcphill.net/tags#tag> "seven" .
+	`)
+	run("blazegraph import --format ttl")
 
-// 	outputBuffer.Reset()
-// 	template := `
+	outputBuffer.Reset()
+	template := `
 
-// 		{{def "Q1" ''' select "
-// 				SELECT ?o
-// 				WHERE
-// 				{ <{{.}}> ab:tag ?o }
-// 				ORDER BY ?o
-// 		" ''' }}
+		{{def "Q1" '''{{select <? 
+			SELECT ?o 
+			WHERE { ?s ab:tag ?o } 
+			ORDER BY ?o 
+		?> | tabulate}}''' }}
 
-// 		{{prefix "ab" "http://tmcphill.net/tags#"}}
+		{{prefix "ab" "http://tmcphill.net/tags#"}}
 
-// 		{{with $subjects := (select '''
+		{{with $subjects := (select '''
 
-// 				SELECT ?s
-// 				WHERE
-// 				{ ?s ab:tag ?o }
-// 				ORDER BY ?s
+				SELECT ?s
+				WHERE
+				{ ?s ab:tag ?o }
+				ORDER BY ?s
 
-// 			''') | vector }}
+			''') | vector }}
 
-// 			{{range $subject := $subjects }}
-// 				{{call "Q1" .}}
-// 			{{end}}
+			{{range $subject := $subjects }}
+				{{ call "Q1" $subject }}
+			{{end}}
 
-// 		{{end}}
+		{{end}}
 
-// `
-// 	Main.InReader = strings.NewReader(template)
-// 	run("blazegraph report")
-// 	util.LineContentsEqual(t, outputBuffer.String(), `
-// 		o
-// 		====
-// 		seven
-
-// 		o
-// 		====
-// 		eight
-// 	`)
-// }
+`
+	Main.InReader = strings.NewReader(template)
+	run("blazegraph report")
+	util.LineContentsEqual(t, outputBuffer.String(), `
+		o
+		====
+		eight
+		seven
+		
+		o
+		====
+		eight
+		seven
+	`)
+}
 
 func TestBlazegraphCmd_report_address_book(t *testing.T) {
 
