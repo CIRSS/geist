@@ -28,7 +28,7 @@ func (bc *Client) ExpandReport(rp *reporter.ReportTemplate) (report string, err 
 			result, err = macroTemplate.Expand(data)
 			return
 		},
-		"def": func(name string, body string) (s string, err error) {
+		"macro": func(name string, body string) (s string, err error) {
 			macroTemplate := reporter.NewReportTemplate(name, body, &reporter.MacroDelimiters)
 			macroTemplate.SetFuncs(rp.Properties.Funcs)
 			err = macroTemplate.Parse(false)
@@ -59,6 +59,25 @@ func (bc *Client) ExpandReport(rp *reporter.ReportTemplate) (report string, err 
 			rs, _ = bc.Select(query)
 			return
 		},
+		// "query": func(name string, args ...interface{}) (rs sparql.ResultSet, err error) {
+
+		// 	sb := strings.Builder{}
+		// 	for prefix, uri := range rp.Properties.Prefixes {
+		// 		sb.WriteString("PREFIX " + prefix + ": " + "<" + uri + ">" + "\n")
+		// 	}
+		// 	sb.WriteString(queryTemplateString)
+
+		// 	macroTemplate := rp.Properties.Macros[name]
+		// 	var data interface{}
+		// 	if len(args) == 1 {
+		// 		data = args[0]
+		// 	}
+		// 	query, err := macroTemplate.Expand(data)
+
+		// 	print(query)
+		// 	rs, _ = bc.Select(query)
+		// 	return
+		// },
 		"tabulate": func(rs sparql.ResultSet) (table string) {
 			table = rs.FormattedTable(true)
 			return

@@ -284,7 +284,7 @@ func TestBlazegraphCmd_report_multiple_queries(t *testing.T) {
 	`)
 }
 
-func TestBlazegraphCmd_report_named_queries(t *testing.T) {
+func TestBlazegraphCmd_report_macros(t *testing.T) {
 
 	var outputBuffer strings.Builder
 	Main.OutWriter = &outputBuffer
@@ -303,7 +303,7 @@ func TestBlazegraphCmd_report_named_queries(t *testing.T) {
 
 		{{prefix "ab" "http://tmcphill.net/tags#"}}
 
-		{{def "Q1" '''{{select <? 
+		{{macro "M1" '''{{select <?
 			SELECT ?o 
 			WHERE { <{{.}}> ab:tag ?o } 
 			ORDER BY ?o 
@@ -319,7 +319,7 @@ func TestBlazegraphCmd_report_named_queries(t *testing.T) {
 			''') | vector }}
 
 			{{range $subject := $subjects }}
-				{{ expand "Q1" $subject }}
+				{{ expand "M1" $subject }}
 			{{end}}
 
 		{{end}}
