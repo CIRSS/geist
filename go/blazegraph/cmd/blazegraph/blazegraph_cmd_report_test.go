@@ -241,52 +241,103 @@ func TestBlazegraphCmd_report_multiple_queries(t *testing.T) {
 	`)
 	run("blazegraph import --format ttl")
 
-	t.Run("select-result-to-select", func(t *testing.T) {
+	outputBuffer.Reset()
+	template := `
+		{{prefix "ab" "http://tmcphill.net/tags#"}}
 
-		outputBuffer.Reset()
-		template := `
-			{{prefix "ab" "http://tmcphill.net/tags#"}}
+		{{with $subjects := (select '''
 
-			{{with $subjects := (select '''
+				SELECT ?s
+				WHERE
+				{ ?s ab:tag ?o }
+				ORDER BY ?s
 
-					SELECT ?s
-					WHERE
-					{ ?s ab:tag ?o }
-					ORDER BY ?s
-					
-				''') | column 0 }}
+			''') | vector }}
 
-				{{range $subject := $subjects }}
-					{{with $objects := (select '''
+			{{range $subject := $subjects }}
+				{{with $objects := (select '''
 
-							SELECT ?o
-							WHERE
-							{ <{{.}}> ab:tag ?o }
-							ORDER BY ?o
+						SELECT ?o
+						WHERE
+						{ <{{.}}> ab:tag ?o }
+						ORDER BY ?o
 
-						''' $subject)}}
-						{{tabulate $objects}}
-						\n
-					{{end}}
+					''' $subject)}}
+					{{tabulate $objects}}
+					\n
 				{{end}}
+			{{end}}
 
-			{{end }}
+		{{end }}
 
-	`
-		Main.InReader = strings.NewReader(template)
-		run("blazegraph report")
-		util.LineContentsEqual(t, outputBuffer.String(), `
-			o
-			====
-			seven
+`
+	Main.InReader = strings.NewReader(template)
+	run("blazegraph report")
+	util.LineContentsEqual(t, outputBuffer.String(), `
+		o
+		====
+		seven
 
-			o
-			====
-			eight
-		`)
-	})
-
+		o
+		====
+		eight
+	`)
 }
+
+// func TestBlazegraphCmd_report_named_queries(t *testing.T) {
+
+// 	var outputBuffer strings.Builder
+// 	Main.OutWriter = &outputBuffer
+// 	Main.ErrWriter = &outputBuffer
+
+// 	run("blazegraph drop")
+
+// 	Main.InReader = strings.NewReader(`
+// 		<http://tmcphill.net/data#y> <http://tmcphill.net/tags#tag> "eight" .
+// 		<http://tmcphill.net/data#x> <http://tmcphill.net/tags#tag> "seven" .
+// 	`)
+// 	run("blazegraph import --format ttl")
+
+// 	outputBuffer.Reset()
+// 	template := `
+
+// 		{{def "Q1" ''' select "
+// 				SELECT ?o
+// 				WHERE
+// 				{ <{{.}}> ab:tag ?o }
+// 				ORDER BY ?o
+// 		" ''' }}
+
+// 		{{prefix "ab" "http://tmcphill.net/tags#"}}
+
+// 		{{with $subjects := (select '''
+
+// 				SELECT ?s
+// 				WHERE
+// 				{ ?s ab:tag ?o }
+// 				ORDER BY ?s
+
+// 			''') | vector }}
+
+// 			{{range $subject := $subjects }}
+// 				{{call "Q1" .}}
+// 			{{end}}
+
+// 		{{end}}
+
+// `
+// 	Main.InReader = strings.NewReader(template)
+// 	run("blazegraph report")
+// 	util.LineContentsEqual(t, outputBuffer.String(), `
+// 		o
+// 		====
+// 		seven
+
+// 		o
+// 		====
+// 		eight
+// 	`)
+// }
 
 func TestBlazegraphCmd_report_address_book(t *testing.T) {
 
@@ -310,7 +361,7 @@ func TestBlazegraphCmd_report_address_book(t *testing.T) {
 					?person ab:firstname "Craig"^^<http://www.w3.org/2001/XMLSchema#string> .
 					?person ab:email     ?email .
 				}
-			''' | column 0) }}
+			''' | vector) }}
 				{{println .}} 
 			{{end}}
 		`

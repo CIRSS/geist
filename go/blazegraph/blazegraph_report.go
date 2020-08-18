@@ -19,6 +19,13 @@ func (bc *Client) ExpandReport(rp *reporter.ReportTemplate) (report string, re *
 			rp.Properties.Prefixes[prefix] = uri
 			return "", nil
 		},
+		"call": func(name string, body string) (s string, err error) {
+			return "", nil
+		},
+		"def": func(name string, body string) (s string, err error) {
+			rp.Properties.Macros[name] = body
+			return body, nil
+		},
 		"select": func(queryTemplateString string, args ...interface{}) (rs sparql.ResultSet) {
 			sb := strings.Builder{}
 			for prefix, uri := range rp.Properties.Prefixes {
@@ -26,13 +33,14 @@ func (bc *Client) ExpandReport(rp *reporter.ReportTemplate) (report string, re *
 			}
 			sb.WriteString(queryTemplateString)
 
-			queryReportTemplate := reporter.NewReportTemplate(sb.String())
+			queryReportTemplate := reporter.NewReportTemplate("select", sb.String(), nil)
 			queryReportTemplate.Properties = rp.Properties
+			queryReportTemplate.Parse(false)
 			var data interface{}
 			if len(args) == 1 {
 				data = args[0]
 			}
-			query, re := queryReportTemplate.Expand(data, false)
+			query, re := queryReportTemplate.Expand(data)
 			if re != nil {
 				return
 			}
@@ -75,7 +83,8 @@ func (bc *Client) ExpandReport(rp *reporter.ReportTemplate) (report string, re *
 	}
 
 	rp.SetFuncs(funcs)
-	report, re = rp.Expand(nil, true)
+	rp.Parse(true)
+	report, re = rp.Expand(nil)
 	if re != nil {
 		return
 	}

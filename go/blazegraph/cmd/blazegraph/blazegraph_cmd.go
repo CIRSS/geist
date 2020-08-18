@@ -97,7 +97,8 @@ func doReport(file string) {
 		fmt.Fprintf(Main.ErrWriter, err.Error())
 		return
 	}
-	rt := reporter.NewReportTemplate(string(reportTemplate))
+	rt := reporter.NewReportTemplate("main", string(reportTemplate), nil)
+	rt.Parse(true)
 	report, re := bc.ExpandReport(rt)
 	if re != nil {
 		fmt.Fprintf(Main.ErrWriter, re.Error())

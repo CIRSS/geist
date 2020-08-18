@@ -20,13 +20,15 @@ func TestReportTemplate_AnonymousStructInstance(t *testing.T) {
 	}
 
 	rt := reporter.NewReportTemplate(
+		"main",
 		`
 		{{.Count}} items \n
 		are made of	     \n
 		{{.Material}}    \n
-		`)
+		`, nil)
 
-	actual, _ := rt.Expand(sweaters, true)
+	rt.Parse(true)
+	actual, _ := rt.Expand(sweaters)
 	util.LineContentsEqual(t, actual,
 		`
 		42 items
@@ -36,22 +38,24 @@ func TestReportTemplate_AnonymousStructInstance(t *testing.T) {
 }
 
 func TestReportTemplate_AnonymousStructInstance_MissingBrace(t *testing.T) {
-	rt := reporter.NewReportTemplate("{{.Foo}")
-	_, err := rt.Expand(nil, true)
+	rt := reporter.NewReportTemplate("main", "{{.Foo}", nil)
+	err := rt.Parse(true)
 	util.LineContentsEqual(t, err.Error(),
 		`template: main:1: unexpected "}" in operand`)
 }
 
 func TestReportTemplate_AnonymousStructInstance_MissingField(t *testing.T) {
-	rt := reporter.NewReportTemplate("{{.Foo}}")
-	_, err := rt.Expand(struct{ Bar string }{Bar: "baz"}, true)
+	rt := reporter.NewReportTemplate("main", "{{.Foo}}", nil)
+	rt.Parse(true)
+	_, err := rt.Expand(struct{ Bar string }{Bar: "baz"})
 	util.LineContentsEqual(t, err.Error(),
 		`template: main:1:2: executing "main" at <.Foo>: can't evaluate field Foo in type struct { Bar string }`)
 }
 
 func TestReportTemplate_AnonymousStructInstance_NilData(t *testing.T) {
-	rt := reporter.NewReportTemplate("{{.Foo}}")
-	actual, _ := rt.Expand(nil, true)
+	rt := reporter.NewReportTemplate("main", "{{.Foo}}", nil)
+	rt.Parse(true)
+	actual, _ := rt.Expand(nil)
 	util.LineContentsEqual(t, actual, `
 		<no value>
 	`)
@@ -60,15 +64,15 @@ func TestReportTemplate_AnonymousStructInstance_NilData(t *testing.T) {
 func TestReportTemplate_MultilineVariableValue(t *testing.T) {
 
 	rt := reporter.NewReportTemplate(
+		"main",
 		`
 		{{with $result := <%
 			foo
 			bar
 		%>}}{{$result}}{{end}}
-	`)
-	rt.SetDelimiters(reporter.JSPDelimiters)
-
-	actual, _ := rt.Expand(nil, true)
+		`, &reporter.JSPDelimiters)
+	rt.Parse(true)
+	actual, _ := rt.Expand(nil)
 	util.LineContentsEqual(t, actual, `
 		foo
 		bar
@@ -77,44 +81,42 @@ func TestReportTemplate_MultilineVariableValue(t *testing.T) {
 
 func TestReportTemplate_MultilineVariableValue_MissingEnd(t *testing.T) {
 	rt := reporter.NewReportTemplate(
+		"main",
 		`
 		{{with $result := <%
 			foo
 			bar
 		%>}}{{$result}}
-	`)
-	rt.SetDelimiters(reporter.JSPDelimiters)
-
-	_, err := rt.Expand(nil, true)
+		`, &reporter.JSPDelimiters)
+	err := rt.Parse(true)
 	util.LineContentsEqual(t, err.Error(),
 		`template: main:1: unexpected EOF`)
 }
 
 func TestReportTemplate_MultilineVariableValue_WrongVariableName(t *testing.T) {
 	rt := reporter.NewReportTemplate(
+		"main",
 		`
 		{{with $result := <%
 			foo
 			bar
 		%>}}{{$wrongVariableName}}{{end}}
-	`)
-	rt.SetDelimiters(reporter.JSPDelimiters)
-
-	_, err := rt.Expand(nil, true)
+		`, &reporter.JSPDelimiters)
+	err := rt.Parse(true)
 	util.LineContentsEqual(t, err.Error(),
 		`template: main:1: undefined variable "$wrongVariableName"`)
 }
 
 func TestReportTemplate_UnmatchedRawStringDelimiter(t *testing.T) {
 	rt := reporter.NewReportTemplate(
+		"main",
 		`
 		{{with $result := '''
 			foo
 			bar
 		}}{{$result}}{{end}}
-	`)
-	_, err := rt.Expand(nil, true)
-
+	`, nil)
+	err := rt.Parse(true)
 	util.LineContentsEqual(t, err.Error(),
 		`Unmatched raw string delimiter`)
 }
@@ -128,14 +130,15 @@ func TestReportTemplate_MultilineFunctionArgument(t *testing.T) {
 	}
 
 	rt := reporter.NewReportTemplate(
+		"main",
 		`{{with $result := up '''
 				foo
 				bar
 		''' }}{{$result}}{{end}}
-	`)
+	`, nil)
 	rt.SetFuncs(funcs)
-
-	actual, _ := rt.Expand(nil, true)
+	rt.Parse(true)
+	actual, _ := rt.Expand(nil)
 	util.LineContentsEqual(t, actual, `
 		FOO
 		BAR
@@ -147,13 +150,14 @@ func TestReportTemplate_RangeOverStringSlice(t *testing.T) {
 	colors := []string{"red", "blue", "yellow"}
 
 	rt := reporter.NewReportTemplate(
+		"main",
 		`
 		{{range .}} 
 			the color is {{.}} \n
 		{{end}}
-		`)
-
-	actual, _ := rt.Expand(colors, true)
+		`, nil)
+	rt.Parse(true)
+	actual, _ := rt.Expand(colors)
 	util.LineContentsEqual(t, actual,
 		`
 		the color is red
@@ -171,14 +175,15 @@ func TestReportTemplate_TableOfValues(t *testing.T) {
 	}
 
 	rt := reporter.NewReportTemplate(
+		"main",
 		`
 		Name   | City      | Phone									\n
 		-------|-----------|--------------							\n
 		{{range .}}{{index . 0}}    | {{index . 1}} | {{index . 2}}	\n
 		{{end}}
-	`)
-
-	actual, _ := rt.Expand(contacts, true)
+	`, nil)
+	rt.Parse(true)
+	actual, _ := rt.Expand(contacts)
 	util.LineContentsEqual(t, actual,
 		`
         Name   | City      | Phone
@@ -198,14 +203,15 @@ func TestReportTemplate_TableOfValues_IndexOutOfRange(t *testing.T) {
 	}
 
 	rt := reporter.NewReportTemplate(
+		"main",
 		`
 		Name   | City      | Phone									\n
 		-------|-----------|--------------							\n
 		{{range .}}{{index . 0}}    | {{index . 1}} | {{index . 3}}	\n
 		{{end}}
-	`)
-
-	_, err := rt.Expand(contacts, true)
+	`, nil)
+	rt.Parse(true)
+	_, err := rt.Expand(contacts)
 	util.LineContentsEqual(t, err.Error(),
 		`template: main:1:128: executing "main" at <index . 3>: error calling index: reflect: slice index out of range`)
 }
