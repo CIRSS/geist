@@ -303,9 +303,9 @@ func TestBlazegraphCmd_report_named_queries(t *testing.T) {
 
 		{{def "Q1" '''{{select <? 
 			SELECT ?o 
-			WHERE { ?s ab:tag ?o } 
+			WHERE { <{{.}}> ab:tag ?o } 
 			ORDER BY ?o 
-		?> | tabulate}}''' }}
+		?> . | tabulate}}''' }}
 
 		{{prefix "ab" "http://tmcphill.net/tags#"}}
 
@@ -330,13 +330,12 @@ func TestBlazegraphCmd_report_named_queries(t *testing.T) {
 	util.LineContentsEqual(t, outputBuffer.String(), `
 		o
 		====
-		eight
 		seven
+		
 		
 		o
 		====
 		eight
-		seven
 	`)
 }
 

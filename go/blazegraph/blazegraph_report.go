@@ -25,7 +25,18 @@ func (bc *Client) ExpandReport(rp *reporter.ReportTemplate) (report string, err 
 			if len(args) == 1 {
 				data = args[0]
 			}
-			result, _ = macroTemplate.Expand(data)
+			expandedMacro, err := macroTemplate.Expand(data)
+			if err != nil {
+				print("\n\n" + data.(string) + "\n\n")
+				print("\n\n" + macroTemplate.Text + "\n\n")
+				print("\n\n" + err.Error() + "\n\n")
+				return
+			}
+
+			expandedMacroTemplate := reporter.NewReportTemplate(name+"_expansion", expandedMacro, nil)
+			macroTemplate.SetFuncs(rp.Properties.Funcs)
+			expandedMacroTemplate.Parse(false)
+			result, err = expandedMacroTemplate.Expand(data)
 			return
 		},
 		"def": func(name string, body string) (s string, err error) {

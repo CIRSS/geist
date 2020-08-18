@@ -69,8 +69,6 @@ func (rp *ReportTemplate) Parse(removeNewlines bool) (err error) {
 		rp.TextTemplate.Funcs(rp.Properties.Funcs)
 	}
 
-	// print("\n\n" + text + "\n\n")
-
 	_, err = rp.TextTemplate.Parse(text)
 
 	return
