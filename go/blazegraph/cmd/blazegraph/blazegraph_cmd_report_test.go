@@ -301,13 +301,13 @@ func TestBlazegraphCmd_report_named_queries(t *testing.T) {
 	outputBuffer.Reset()
 	template := `
 
+		{{prefix "ab" "http://tmcphill.net/tags#"}}
+
 		{{def "Q1" '''{{select <? 
 			SELECT ?o 
 			WHERE { <{{.}}> ab:tag ?o } 
 			ORDER BY ?o 
-		?> . | tabulate}}''' }}
-
-		{{prefix "ab" "http://tmcphill.net/tags#"}}
+		?> . | tabulate }}''' }}
 
 		{{with $subjects := (select '''
 
@@ -319,7 +319,7 @@ func TestBlazegraphCmd_report_named_queries(t *testing.T) {
 			''') | vector }}
 
 			{{range $subject := $subjects }}
-				{{ call "Q1" $subject }}
+				{{ expand "Q1" $subject }}
 			{{end}}
 
 		{{end}}
@@ -331,7 +331,6 @@ func TestBlazegraphCmd_report_named_queries(t *testing.T) {
 		o
 		====
 		seven
-		
 		
 		o
 		====

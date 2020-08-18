@@ -19,24 +19,13 @@ func (bc *Client) ExpandReport(rp *reporter.ReportTemplate) (report string, err 
 			rp.Properties.Prefixes[prefix] = uri
 			return "", nil
 		},
-		"call": func(name string, args ...interface{}) (result string, err error) {
+		"expand": func(name string, args ...interface{}) (result interface{}, err error) {
 			macroTemplate := rp.Properties.Macros[name]
 			var data interface{}
 			if len(args) == 1 {
 				data = args[0]
 			}
-			expandedMacro, err := macroTemplate.Expand(data)
-			if err != nil {
-				print("\n\n" + data.(string) + "\n\n")
-				print("\n\n" + macroTemplate.Text + "\n\n")
-				print("\n\n" + err.Error() + "\n\n")
-				return
-			}
-
-			expandedMacroTemplate := reporter.NewReportTemplate(name+"_expansion", expandedMacro, nil)
-			macroTemplate.SetFuncs(rp.Properties.Funcs)
-			expandedMacroTemplate.Parse(false)
-			result, err = expandedMacroTemplate.Expand(data)
+			result, err = macroTemplate.Expand(data)
 			return
 		},
 		"def": func(name string, body string) (s string, err error) {
