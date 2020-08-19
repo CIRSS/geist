@@ -1,9 +1,11 @@
 package reporter
 
 import (
+	"errors"
 	"strings"
 	"text/template"
 
+	"github.com/tmcphillips/blazegraph-util/tables"
 	"github.com/tmcphillips/blazegraph-util/util"
 )
 
@@ -43,6 +45,7 @@ func NewReportTemplate(name string, text string, delimiters *DelimiterPair) *Rep
 	rt := new(ReportTemplate)
 	rt.Name = name
 	rt.Text = text
+	rt.Properties.Funcs = template.FuncMap{}
 	if delimiters != nil {
 		rt.Properties.Delimiters = *delimiters
 	} else {
@@ -51,6 +54,7 @@ func NewReportTemplate(name string, text string, delimiters *DelimiterPair) *Rep
 	rt.Properties.Prefixes = map[string]string{}
 	rt.Properties.Macros = map[string]*ReportTemplate{}
 	rt.Properties.Queries = map[string]string{}
+	rt.addStandardFunctions()
 	return rt
 }
 
@@ -76,8 +80,10 @@ func (rp *ReportTemplate) Parse(removeNewlines bool) (err error) {
 	return
 }
 
-func (rp *ReportTemplate) SetFuncs(funcs template.FuncMap) {
-	rp.Properties.Funcs = funcs
+func (rp *ReportTemplate) AddFuncs(newFunctions template.FuncMap) {
+	for key, value := range newFunctions {
+		rp.Properties.Funcs[key] = value
+	}
 }
 
 func (rp *ReportTemplate) Expand(data interface{}) (result string, err error) {
@@ -89,4 +95,72 @@ func (rp *ReportTemplate) Expand(data interface{}) (result string, err error) {
 	result = buffer.String()
 	result = InsertNewlines(result)
 	return
+}
+
+func (rp *ReportTemplate) addStandardFunctions() {
+
+	funcs := template.FuncMap{
+		"up": func(s string) string {
+			return strings.ToUpper(s)
+		},
+		"macro": func(name string, body string) (s string, err error) {
+			macroTemplate := NewReportTemplate(name, body, &MacroDelimiters)
+			macroTemplate.AddFuncs(rp.Properties.Funcs)
+			err = macroTemplate.Parse(false)
+			if err != nil {
+				return
+			}
+			rp.Properties.Macros[name] = macroTemplate
+			return "", nil
+		},
+		"expand": func(name string, args ...interface{}) (result interface{}, err error) {
+			macroTemplate := rp.Properties.Macros[name]
+			var data interface{}
+			if len(args) == 1 {
+				data = args[0]
+			}
+			result, err = macroTemplate.Expand(data)
+			return
+		},
+		"query": func(name string, body string) (s string, err error) {
+			rp.Properties.Queries[name] = body
+			return "", nil
+		},
+		"tabulate": func(rs tables.DataTable) (table string) {
+			table = rs.FormattedTable(true)
+			return
+		},
+		"rows": func(rs tables.DataTable) (rows [][]string) {
+			rows = rs.Rows()
+			return
+		},
+		"column": func(columnIndex int, rs *tables.DataTable) (column []string) {
+			column = (*rs).Column(columnIndex)
+			return
+		},
+		"vector": func(rs tables.DataTable) (vector []string, err error) {
+			if rs.RowCount() == 1 {
+				vector = rs.Row(0)
+			} else if rs.ColumnCount() == 1 {
+				vector = rs.Column(0)
+			} else {
+				err = errors.New("Result set is not a vector.")
+			}
+			return
+		},
+		"value": func(rs tables.DataTable) (value string, err error) {
+			if rs.RowCount() != 1 || rs.ColumnCount() != 1 {
+				err = errors.New("Result set is not a single value.")
+			}
+			value = rs.Column(0)[0]
+			return
+		},
+		"join": func(elems []string, sep string) (js string) {
+			js = strings.Join(elems, sep)
+			return
+		},
+	}
+
+	rp.AddFuncs(funcs)
+
 }

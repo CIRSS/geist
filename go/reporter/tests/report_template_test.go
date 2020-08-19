@@ -136,7 +136,7 @@ func TestReportTemplate_MultilineFunctionArgument(t *testing.T) {
 				bar
 		''' }}{{$result}}{{end}}
 	`, nil)
-	rt.SetFuncs(funcs)
+	rt.AddFuncs(funcs)
 	rt.Parse(true)
 	actual, _ := rt.Expand(nil)
 	util.LineContentsEqual(t, actual, `

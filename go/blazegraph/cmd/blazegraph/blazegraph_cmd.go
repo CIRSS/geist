@@ -7,7 +7,6 @@ import (
 	"os"
 
 	"github.com/tmcphillips/blazegraph-util/reporter"
-	"github.com/tmcphillips/blazegraph-util/sparql"
 
 	"github.com/tmcphillips/blazegraph-util/blazegraph"
 	"github.com/tmcphillips/main-wrapper/mw"
@@ -170,8 +169,7 @@ func doSelectQuery(file string, format string, columnSeparators bool) {
 		return
 
 	case "json":
-		var rs sparql.ResultSet
-		rs, err = bc.Select(string(q))
+		rs, err := bc.Select(string(q))
 		if err != nil {
 			break
 		}
@@ -180,8 +178,7 @@ func doSelectQuery(file string, format string, columnSeparators bool) {
 		return
 
 	case "table":
-		var rs sparql.ResultSet
-		rs, err = bc.Select(string(q))
+		rs, err := bc.Select(string(q))
 		if err != nil {
 			break
 		}

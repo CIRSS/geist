@@ -69,7 +69,7 @@ func (bc *Client) PostData(format string, data []byte) (responseBody []byte, err
 	return
 }
 
-func (bc *Client) Select(query string) (rs sparql.ResultSet, err error) {
+func (bc *Client) Select(query string) (rs *sparql.ResultSet, err error) {
 	responseBody, err := bc.PostRequest("application/sparql-query", "application/json", []byte(query))
 	err = json.Unmarshal(responseBody, &rs)
 	return
@@ -87,7 +87,7 @@ func (bc *Client) SelectXML(query string) (csv string, err error) {
 	return
 }
 
-func (bc *Client) SelectAll() (rs sparql.ResultSet, err error) {
+func (bc *Client) SelectAll() (rs *sparql.ResultSet, err error) {
 	rs, err = bc.Select(
 		`SELECT ?s ?p ?o
 		 WHERE
