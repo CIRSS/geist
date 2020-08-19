@@ -12,6 +12,7 @@ type Properties struct {
 	Funcs      template.FuncMap
 	Prefixes   map[string]string
 	Macros     map[string]*ReportTemplate
+	Queries    map[string]string
 }
 
 var GraveDelimiters DelimiterPair
@@ -49,6 +50,7 @@ func NewReportTemplate(name string, text string, delimiters *DelimiterPair) *Rep
 	}
 	rt.Properties.Prefixes = map[string]string{}
 	rt.Properties.Macros = map[string]*ReportTemplate{}
+	rt.Properties.Queries = map[string]string{}
 	return rt
 }
 

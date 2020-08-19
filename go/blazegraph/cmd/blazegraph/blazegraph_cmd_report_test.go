@@ -338,6 +338,60 @@ func TestBlazegraphCmd_report_macros(t *testing.T) {
 	`)
 }
 
+func TestBlazegraphCmd_report_subquery(t *testing.T) {
+
+	var outputBuffer strings.Builder
+	Main.OutWriter = &outputBuffer
+	Main.ErrWriter = &outputBuffer
+
+	run("blazegraph drop")
+
+	Main.InReader = strings.NewReader(`
+		<http://tmcphill.net/data#y> <http://tmcphill.net/tags#tag> "eight" .
+		<http://tmcphill.net/data#x> <http://tmcphill.net/tags#tag> "seven" .
+	`)
+	run("blazegraph import --format ttl")
+
+	outputBuffer.Reset()
+	template := `
+
+		{{prefix "ab" "http://tmcphill.net/tags#"}}
+
+		{{subquery "Q1" '''
+			SELECT ?o 
+			WHERE { <{{.}}> ab:tag ?o } 
+			ORDER BY ?o 
+		''' }}
+
+		{{with $subjects := (select '''
+
+				SELECT ?s
+				WHERE
+				{ ?s ab:tag ?o }
+				ORDER BY ?s
+
+			''') | vector }}
+
+			{{range $subject := $subjects }}
+				{{ runquery "Q1" $subject | tabulate }} \n
+			{{end}}
+
+		{{end}}
+
+`
+	Main.InReader = strings.NewReader(template)
+	run("blazegraph report")
+	util.LineContentsEqual(t, outputBuffer.String(), `
+		o
+		====
+		seven
+		
+		o
+		====
+		eight
+	`)
+}
+
 func TestBlazegraphCmd_report_address_book(t *testing.T) {
 
 	var outputBuffer strings.Builder
