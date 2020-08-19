@@ -38,11 +38,11 @@ func (bc *Client) ExpandReport(rp *reporter.ReportTemplate) (report string, err 
 			result, err = macroTemplate.Expand(data)
 			return
 		},
-		"subquery": func(name string, body string) (s string, err error) {
+		"query": func(name string, body string) (s string, err error) {
 			rp.Properties.Queries[name] = body
 			return "", nil
 		},
-		"runquery": func(name string, args ...interface{}) (rs sparql.ResultSet, err error) {
+		"runquery": func(name string, args ...interface{}) (rs interface{}, err error) {
 			queryTemplateString := rp.Properties.Queries[name]
 			sb := strings.Builder{}
 			for prefix, uri := range rp.Properties.Prefixes {
@@ -64,7 +64,7 @@ func (bc *Client) ExpandReport(rp *reporter.ReportTemplate) (report string, err 
 			rs, _ = bc.Select(query)
 			return
 		},
-		"select": func(queryTemplateString string, args ...interface{}) (rs sparql.ResultSet) {
+		"select": func(queryTemplateString string, args ...interface{}) (rs interface{}) {
 			sb := strings.Builder{}
 			for prefix, uri := range rp.Properties.Prefixes {
 				sb.WriteString("PREFIX " + prefix + ": " + "<" + uri + ">" + "\n")
@@ -85,25 +85,6 @@ func (bc *Client) ExpandReport(rp *reporter.ReportTemplate) (report string, err 
 			rs, _ = bc.Select(query)
 			return
 		},
-		// "query": func(name string, args ...interface{}) (rs sparql.ResultSet, err error) {
-
-		// 	sb := strings.Builder{}
-		// 	for prefix, uri := range rp.Properties.Prefixes {
-		// 		sb.WriteString("PREFIX " + prefix + ": " + "<" + uri + ">" + "\n")
-		// 	}
-		// 	sb.WriteString(queryTemplateString)
-
-		// 	macroTemplate := rp.Properties.Macros[name]
-		// 	var data interface{}
-		// 	if len(args) == 1 {
-		// 		data = args[0]
-		// 	}
-		// 	query, err := macroTemplate.Expand(data)
-
-		// 	print(query)
-		// 	rs, _ = bc.Select(query)
-		// 	return
-		// },
 		"tabulate": func(rs sparql.ResultSet) (table string) {
 			table = rs.FormattedTable(true)
 			return

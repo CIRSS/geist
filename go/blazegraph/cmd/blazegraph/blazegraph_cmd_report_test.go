@@ -338,7 +338,7 @@ func TestBlazegraphCmd_report_macros(t *testing.T) {
 	`)
 }
 
-func TestBlazegraphCmd_report_subquery(t *testing.T) {
+func TestBlazegraphCmd_report_subqueries(t *testing.T) {
 
 	var outputBuffer strings.Builder
 	Main.OutWriter = &outputBuffer
@@ -355,30 +355,25 @@ func TestBlazegraphCmd_report_subquery(t *testing.T) {
 	outputBuffer.Reset()
 	template := `
 
-		{{prefix "ab" "http://tmcphill.net/tags#"}}
+		{{ prefix "ab" "http://tmcphill.net/tags#" }}
 
-		{{subquery "Q1" '''
+		{{ query "Q1" '''
+			SELECT ?s
+			WHERE
+			{ ?s ab:tag ?o }
+			ORDER BY ?s
+		''' }}
+
+		{{ query "Q2" '''
 			SELECT ?o 
 			WHERE { <{{.}}> ab:tag ?o } 
 			ORDER BY ?o 
 		''' }}
 
-		{{with $subjects := (select '''
-
-				SELECT ?s
-				WHERE
-				{ ?s ab:tag ?o }
-				ORDER BY ?s
-
-			''') | vector }}
-
-			{{range $subject := $subjects }}
-				{{ runquery "Q1" $subject | tabulate }} \n
-			{{end}}
-
-		{{end}}
-
-`
+		{{ range (runquery "Q1" | vector) }}
+			{{ runquery "Q2" . | tabulate }} \n
+		{{ end }}
+	`
 	Main.InReader = strings.NewReader(template)
 	run("blazegraph report")
 	util.LineContentsEqual(t, outputBuffer.String(), `
