@@ -1,0 +1,69 @@
+
+******************************************* EXAMPLE SETUP ************************************************
+
+# IMPORT PROVONE TRACE
+
+blazegraph drop
+blazegraph import --format jsonld --file ../data/branched-pipeline.jsonld
+
+------------------------------------------- SETUP OUTPUTS ------------------------------------------------
+
+
+
+******************************************* EXAMPLE GRAPH-1 ************************************************
+
+# EMPTY DOT FILE
+
+blazegraph report << '__END_REPORT_TEMPLATE__'
+
+    {{ include "graphviz-macros.gst" }}
+
+    {{ expand "gv_graph" "wt_run" }}
+    {{ expand "gv_end" }}
+
+__END_REPORT_TEMPLATE__
+
+------------------------------------------- GRAPH-1 OUTPUTS ------------------------------------------------
+
+
+digraph wt_run {
+rankdir=LR
+
+
+}
+
+
+
+******************************************* EXAMPLE GRAPH-2 ************************************************
+
+# TITLED EMPTY DOT FILE
+
+blazegraph report << '__END_REPORT_TEMPLATE__'
+
+    {{ include "graphviz-macros.gst" }}
+    {{ include "wt-queries.gst" }}
+
+    {{ expand "gv_graph" "wt_run" }}
+
+    {{ with $RunID := runquery "GetRunID" | value}}
+        {{ expand "gv_title" (runquery "GetTaleName" $RunID | value) }}
+    {{ end }}
+
+    {{ expand "gv_end" }}
+
+__END_REPORT_TEMPLATE__
+
+------------------------------------------- GRAPH-2 OUTPUTS ------------------------------------------------
+
+
+digraph wt_run {
+rankdir=LR
+
+
+fontname=Courier; fontsize=18; labelloc=t
+label="08-branched-pipeline"
+
+
+}
+
+

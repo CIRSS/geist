@@ -98,15 +98,10 @@ func (rp *ReportTemplate) Expand(data interface{}) (result string, err error) {
 	return
 }
 
-func (rp *ReportTemplate) ParseSubreport(name, text string) (reportTemplate *ReportTemplate, err error) {
-	reportTemplate = NewReportTemplate("include", string(text), nil)
+func (rp *ReportTemplate) ExpandSubreport(name string, text string, removeNewlines bool, data interface{}) (report string, err error) {
+	reportTemplate := NewReportTemplate("include", string(text), nil)
 	reportTemplate.Properties = rp.Properties
-	reportTemplate.Parse(false)
-	return
-}
-
-func (rp *ReportTemplate) ExpandSubreport(name, text string, data interface{}) (report string, err error) {
-	reportTemplate, err := rp.ParseSubreport(name, text)
+	reportTemplate.Parse(removeNewlines)
 	if err != nil {
 		return
 	}
@@ -122,7 +117,7 @@ func (rp *ReportTemplate) addStandardFunctions() {
 			if err != nil {
 				return
 			}
-			s, err = rp.ExpandSubreport(fileName, string(text), nil)
+			s, err = rp.ExpandSubreport(fileName, string(text), true, nil)
 			return
 		},
 		"up": func(s string) string {

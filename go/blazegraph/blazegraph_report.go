@@ -29,7 +29,7 @@ func (bc *Client) ExpandReport(rp *reporter.ReportTemplate) (report string, err 
 			if len(args) == 1 {
 				data = args[0]
 			}
-			query, err := rp.ExpandSubreport(name, prependPrefixes(rp, queryText), data)
+			query, err := rp.ExpandSubreport(name, prependPrefixes(rp, queryText), false, data)
 			if err != nil {
 				return
 			}
@@ -43,7 +43,7 @@ func (bc *Client) ExpandReport(rp *reporter.ReportTemplate) (report string, err 
 				data = args[0]
 			}
 
-			query, re := rp.ExpandSubreport("select", prependPrefixes(rp, queryText), data)
+			query, re := rp.ExpandSubreport("select", prependPrefixes(rp, queryText), false, data)
 			if re != nil {
 				return
 			}
