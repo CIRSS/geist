@@ -178,6 +178,9 @@ func (rp *ReportTemplate) addStandardFunctions() {
 			js = strings.Join(elems, sep)
 			return
 		},
+		"nl": func() (s string) {
+			return escapedNewline
+		},
 	}
 
 	rp.AddFuncs(funcs)
