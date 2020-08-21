@@ -2,6 +2,7 @@ package reporter
 
 import (
 	"errors"
+	"io/ioutil"
 	"strings"
 	"text/template"
 
@@ -97,9 +98,33 @@ func (rp *ReportTemplate) Expand(data interface{}) (result string, err error) {
 	return
 }
 
+func (rp *ReportTemplate) ParseSubreport(name, text string) (reportTemplate *ReportTemplate, err error) {
+	reportTemplate = NewReportTemplate("include", string(text), nil)
+	reportTemplate.Properties = rp.Properties
+	reportTemplate.Parse(false)
+	return
+}
+
+func (rp *ReportTemplate) ExpandSubreport(name, text string, data interface{}) (report string, err error) {
+	reportTemplate, err := rp.ParseSubreport(name, text)
+	if err != nil {
+		return
+	}
+	report, err = reportTemplate.Expand(data)
+	return
+}
+
 func (rp *ReportTemplate) addStandardFunctions() {
 
 	funcs := template.FuncMap{
+		"include": func(fileName string) (s string, err error) {
+			text, err := ioutil.ReadFile(fileName)
+			if err != nil {
+				return
+			}
+			s, err = rp.ExpandSubreport(fileName, string(text), nil)
+			return
+		},
 		"up": func(s string) string {
 			return strings.ToUpper(s)
 		},

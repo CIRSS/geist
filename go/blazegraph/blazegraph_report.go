@@ -7,6 +7,15 @@ import (
 	"github.com/tmcphillips/blazegraph-util/reporter"
 )
 
+func prependPrefixes(rp *reporter.ReportTemplate, text string) string {
+	sb := strings.Builder{}
+	for prefix, uri := range rp.Properties.Prefixes {
+		sb.WriteString("PREFIX " + prefix + ": " + "<" + uri + ">" + "\n")
+	}
+	sb.WriteString(text)
+	return sb.String()
+}
+
 func (bc *Client) ExpandReport(rp *reporter.ReportTemplate) (report string, err error) {
 
 	funcs := template.FuncMap{
@@ -15,42 +24,26 @@ func (bc *Client) ExpandReport(rp *reporter.ReportTemplate) (report string, err 
 			return "", nil
 		},
 		"runquery": func(name string, args ...interface{}) (rs interface{}, err error) {
-			queryTemplateString := rp.Properties.Queries[name]
-			sb := strings.Builder{}
-			for prefix, uri := range rp.Properties.Prefixes {
-				sb.WriteString("PREFIX " + prefix + ": " + "<" + uri + ">" + "\n")
-			}
-			sb.WriteString(queryTemplateString)
-
-			queryReportTemplate := reporter.NewReportTemplate(name, sb.String(), nil)
-			queryReportTemplate.Properties = rp.Properties
-			queryReportTemplate.Parse(false)
+			queryText := rp.Properties.Queries[name]
 			var data interface{}
 			if len(args) == 1 {
 				data = args[0]
 			}
-			query, re := queryReportTemplate.Expand(data)
-			if re != nil {
+			query, err := rp.ExpandSubreport(name, prependPrefixes(rp, queryText), data)
+			if err != nil {
 				return
 			}
-			rs, _ = bc.Select(query)
+			rs, err = bc.Select(query)
 			return
 		},
-		"select": func(queryTemplateString string, args ...interface{}) (rs interface{}) {
-			sb := strings.Builder{}
-			for prefix, uri := range rp.Properties.Prefixes {
-				sb.WriteString("PREFIX " + prefix + ": " + "<" + uri + ">" + "\n")
-			}
-			sb.WriteString(queryTemplateString)
+		"select": func(queryText string, args ...interface{}) (rs interface{}) {
 
-			queryReportTemplate := reporter.NewReportTemplate("select", sb.String(), nil)
-			queryReportTemplate.Properties = rp.Properties
-			queryReportTemplate.Parse(false)
 			var data interface{}
 			if len(args) == 1 {
 				data = args[0]
 			}
-			query, re := queryReportTemplate.Expand(data)
+
+			query, re := rp.ExpandSubreport("select", prependPrefixes(rp, queryText), data)
 			if re != nil {
 				return
 			}

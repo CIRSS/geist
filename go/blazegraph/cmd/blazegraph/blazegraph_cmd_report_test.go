@@ -423,3 +423,37 @@ func TestBlazegraphCmd_report_address_book(t *testing.T) {
 	`)
 	})
 }
+
+func TestBlazegraphCmd_report_address_book_imports(t *testing.T) {
+
+	var outputBuffer strings.Builder
+	Main.OutWriter = &outputBuffer
+	Main.ErrWriter = &outputBuffer
+
+	run("blazegraph drop")
+	run("blazegraph import --format jsonld --file testdata/address-book.jsonld")
+
+	t.Run("constant-template", func(t *testing.T) {
+		outputBuffer.Reset()
+		template := `
+
+			{{ include "testdata/address-rules.gst" }}
+
+			{{ prefix "ab" "http://learningsparql.com/ns/addressbook#" }}
+
+			Craig's email addresses\n
+			=======================\n
+			{{ range (runquery "GetEmailForFirstName" "Craig" | vector) }}
+				{{println .}} 
+			{{end}}
+		`
+		Main.InReader = strings.NewReader(template)
+		run("blazegraph report")
+		util.LineContentsEqual(t, outputBuffer.String(), `
+			Craig's email addresses
+			=======================
+			c.ellis@usairwaysgroup.com
+			craigellis@yahoo.com
+	`)
+	})
+}
