@@ -9,6 +9,78 @@ import (
 	"github.com/tmcphillips/blazegraph-util/util"
 )
 
+func TestReportTemplate_StaticText(t *testing.T) {
+
+	rt := reporter.NewReportTemplate(
+		"main",
+		"42 items are made of cotton", nil)
+
+	rt.Parse(true)
+	actual, _ := rt.Expand(nil)
+	util.LineContentsEqual(t, actual,
+		"42 items are made of cotton")
+}
+
+func TestReportTemplate_StaticReport_Explicit_Newlines(t *testing.T) {
+
+	rt := reporter.NewReportTemplate(
+		"main",
+		`
+		42 items     \n
+		are made of	 \n
+		cotton       \n
+		`, nil)
+
+	rt.Parse(true)
+	actual, _ := rt.Expand(nil)
+	util.LineContentsEqual(t, actual,
+		`
+		42 items
+		are made of
+		cotton
+	`)
+}
+
+func TestReportTemplate_StaticReport_PercentCharacter(t *testing.T) {
+
+	rt := reporter.NewReportTemplate(
+		"main",
+		`
+		42% of items \n
+		are made of	 \n
+		cotton       \n
+		`, nil)
+
+	rt.Parse(true)
+	actual, _ := rt.Expand(nil)
+	util.LineContentsEqual(t, actual,
+		`
+		42% of items
+		are made of
+		cotton
+	`)
+}
+
+func TestReportTemplate_StaticReport_Printf(t *testing.T) {
+
+	rt := reporter.NewReportTemplate(
+		"main",
+		`
+		{{printf "%d" 42}}{{println "% of items"}}
+		are made of	 \n
+		cotton       \n
+		`, nil)
+
+	rt.Parse(true)
+	actual, _ := rt.Expand(nil)
+	util.LineContentsEqual(t, actual,
+		`
+		42% of items
+		are made of
+		cotton
+	`)
+}
+
 func TestReportTemplate_AnonymousStructInstance(t *testing.T) {
 
 	sweaters := struct {
