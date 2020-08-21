@@ -42,7 +42,6 @@ type ReportTemplate struct {
 
 // NewReportTemplate returns a ReportTemplate with the given customizations.
 func NewReportTemplate(name string, text string, delimiters *DelimiterPair) *ReportTemplate {
-	// print(text)
 	rt := new(ReportTemplate)
 	rt.Name = name
 	rt.Text = text
