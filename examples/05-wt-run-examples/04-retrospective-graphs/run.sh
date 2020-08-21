@@ -17,7 +17,7 @@ bash ${RUNNER} GRAPH-1 "EMPTY DOT FILE" \
 
 blazegraph report << '__END_REPORT_TEMPLATE__'
 
-    {{ include "graphviz-macros.gst" }}
+    {{ include "graphviz-macros.g" }}
     % A graphviz file
     {{ expand "gv_graph" "wt_run" }}
     {{ expand "gv_end" }}
@@ -33,8 +33,8 @@ bash ${RUNNER} GRAPH-2 "TITLED EMPTY DOT FILE" \
 
 blazegraph report << '__END_REPORT_TEMPLATE__'
 
-    {{ include "graphviz-macros.gst" }}
-    {{ include "wt-queries.gst" }}
+    {{ include "graphviz-macros.g" }}
+    {{ include "wt-queries.g" }}
 
     {{ with $RunID := runquery "GetRunID" | value}}
         % Run ID: {{ $RunID }} \\n
