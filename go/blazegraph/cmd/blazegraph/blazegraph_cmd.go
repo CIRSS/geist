@@ -102,7 +102,7 @@ func doReport(file string) {
 		fmt.Fprintf(Main.ErrWriter, re.Error())
 		return
 	}
-	fmt.Fprintf(Main.OutWriter, report)
+	fmt.Fprint(Main.OutWriter, report)
 }
 
 func doDrop() {

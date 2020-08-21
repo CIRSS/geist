@@ -23,6 +23,18 @@ func TestBlazegraphCmd_report_static_content(t *testing.T) {
 		`)
 	})
 
+	t.Run("constant-template-containing-unquoted-percent-symbol", func(t *testing.T) {
+		outputBuffer.Reset()
+		template := `
+			A constant template with % symbol
+		`
+		Main.InReader = strings.NewReader(template)
+		run("blazegraph report")
+		util.LineContentsEqual(t, outputBuffer.String(), `
+			A constant template with % symbol
+		`)
+	})
+
 	t.Run("constant-template-containing-doublequotes", func(t *testing.T) {
 		outputBuffer.Reset()
 		template := `
@@ -32,6 +44,18 @@ func TestBlazegraphCmd_report_static_content(t *testing.T) {
 		run("blazegraph report")
 		util.LineContentsEqual(t, outputBuffer.String(), `
 			"A constant template"
+		`)
+	})
+
+	t.Run("constant-template-containing-quoted-percent-symbol", func(t *testing.T) {
+		outputBuffer.Reset()
+		template := `
+			"A constant template with % symbol"
+		`
+		Main.InReader = strings.NewReader(template)
+		run("blazegraph report")
+		util.LineContentsEqual(t, outputBuffer.String(), `
+			"A constant template with % symbol"
 		`)
 	})
 
@@ -98,7 +122,6 @@ func TestBlazegraphCmd_report_static_content(t *testing.T) {
 			TEMPLATE
 		`)
 	})
-
 }
 
 func TestBlazegraphCmd_report_two_triples(t *testing.T) {
