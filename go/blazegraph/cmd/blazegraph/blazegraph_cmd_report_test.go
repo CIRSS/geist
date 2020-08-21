@@ -342,7 +342,7 @@ func TestBlazegraphCmd_report_macros(t *testing.T) {
 			''') | vector }}
 
 			{{range $subject := $subjects }}
-				{{ expand "M1" $subject }}
+				{{ expand "M1" $subject }} \n
 			{{end}}
 
 		{{end}}

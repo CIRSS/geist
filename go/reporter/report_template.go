@@ -125,7 +125,7 @@ func (rp *ReportTemplate) addStandardFunctions() {
 		"macro": func(name string, body string) (s string, err error) {
 			macroTemplate := NewReportTemplate(name, body, &MacroDelimiters)
 			macroTemplate.AddFuncs(rp.Properties.Funcs)
-			err = macroTemplate.Parse(false)
+			err = macroTemplate.Parse(true)
 			if err != nil {
 				return
 			}

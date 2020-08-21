@@ -17,7 +17,8 @@ blazegraph import --format jsonld --file ../data/branched-pipeline.jsonld
 blazegraph report << '__END_REPORT_TEMPLATE__'
 
     {{ include "graphviz-macros.g" }}
-    % A graphviz file
+    % A graphviz file \n
+    \n
     {{ expand "gv_graph" "wt_run" }}
     {{ expand "gv_end" }}
 
@@ -25,13 +26,11 @@ __END_REPORT_TEMPLATE__
 
 ------------------------------------------- GRAPH-1 OUTPUTS ------------------------------------------------
 
-% A graphviz file
-digraph wt_run {
-rankdir=LR
+% A graphviz file 
 
-
-}
-
+digraph wt_run {  
+rankdir=LR       
+}   
 
 
 ******************************************* EXAMPLE GRAPH-2 ************************************************
@@ -44,7 +43,7 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
     {{ include "wt-queries.g" }}
 
     {{ with $RunID := runquery "GetRunID" | value}}
-        % Run ID: {{ $RunID }} \n
+        % Run ID: {{ $RunID }} \n\n
 
         {{ expand "gv_graph" "wt_run" }}
     
@@ -59,14 +58,9 @@ __END_REPORT_TEMPLATE__
 
 % Run ID: http://wholetale.org/tale2035/version_1021/run_1119# 
 
-digraph wt_run {
-rankdir=LR
-
-
-fontname=Courier; fontsize=18; labelloc=t
-label="08-branched-pipeline"
-
-
-}
-
+digraph wt_run {  
+rankdir=LR       
+fontname=Courier; fontsize=18; labelloc=t   
+label="08-branched-pipeline"                               
+}   
 
