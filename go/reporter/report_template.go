@@ -71,18 +71,20 @@ func (rp *ReportTemplate) Parse(removeNewlines bool) (err error) {
 	}
 
 	rp.TextTemplate = template.New(rp.Name)
-	if rp.Properties.Funcs != nil {
-		rp.TextTemplate.Funcs(rp.Properties.Funcs)
-	}
+	rp.TextTemplate.Funcs(rp.Properties.Funcs)
 
 	_, err = rp.TextTemplate.Parse(text)
 
 	return
 }
 
+func (rp *ReportTemplate) AddFunction(name string, function interface{}) {
+	rp.Properties.Funcs[name] = function
+}
+
 func (rp *ReportTemplate) AddFuncs(newFunctions template.FuncMap) {
-	for key, value := range newFunctions {
-		rp.Properties.Funcs[key] = value
+	for name, function := range newFunctions {
+		rp.AddFunction(name, function)
 	}
 }
 
@@ -130,6 +132,10 @@ func (rp *ReportTemplate) addStandardFunctions() {
 				return
 			}
 			rp.Properties.Macros[name] = macroTemplate
+			rp.AddFunction(name, func(args ...interface{}) (result interface{}, err error) {
+				return
+			})
+
 			return "", nil
 		},
 		"expand": func(name string, args ...interface{}) (result interface{}, err error) {
