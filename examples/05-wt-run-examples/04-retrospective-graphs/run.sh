@@ -34,15 +34,16 @@ bash ${RUNNER} GRAPH-2 "TITLED EMPTY DOT FILE" \
 
 blazegraph report << '__END_REPORT_TEMPLATE__'
 
+{{{
     {{ include "graphviz-macros.g" }}
     {{ include "wt-queries.g" }}
-
-    {{ with $RunID := runquery "GetRunID" | value}}
+}}}
+    {{ with $RunID := GetRunID | value}}
         % Run ID: {{ $RunID }} {{nl}}
         {{nl}}
         {{ expand "gv_graph" "wt_run" }}
     
-        {{ expand "gv_title" (runquery "GetTaleName" $RunID | value) }}
+        {{ expand "gv_title" (GetTaleName $RunID | value) }}
     {{ end }}
 
     {{ expand "gv_end" }}

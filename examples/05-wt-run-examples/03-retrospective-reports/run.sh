@@ -93,6 +93,7 @@ bash ${RUNNER} REPORT-3 "WHAT DATA FILES WERE USED AS INPUT BY THE TALE?" \
 
 blazegraph report << '__END_REPORT_TEMPLATE__'
 
+{{{
 {{ prefix "prov" "http://www.w3.org/ns/prov#" }}
 {{ prefix "provone" "http://purl.dataone.org/provone/2015/01/15/ontology#" }}
 {{ prefix "wt" "http://wholetale.org/ontology/wt#" }}
@@ -138,15 +139,16 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
     }
     ORDER BY ?fp
 ''' }}
+}}}
 
-{{ with $RunID := runquery "GetRunID" | value }}
+{{ with $RunID := GetRunID | value }}
     {{ println "Tale Run:   " $RunID }}
-    {{ println "Tale Name:  " (runquery "GetTaleName" $RunID | value) }}
-    {{ with $RunScriptID := (runquery "GetRunScriptID" $RunID | value) }}
-        {{ println "Tale Script:" (runquery "GetFilePath" $RunScriptID | value) }}
+    {{ println "Tale Name:  " (GetTaleName $RunID | value) }}
+    {{ with $RunScriptID := (GetRunScriptID $RunID | value) }}
+        {{ println "Tale Script:" (GetFilePath $RunScriptID | value) }}
         {{ println }}
         {{ println "Tale Inputs:" }} 
-        {{ range (runquery "GetInputFilePaths" $RunScriptID | vector) }}
+        {{ range (GetInputFilePaths $RunScriptID | vector) }}
             {{ println . }}
         {{ end }}
     {{ end }}
