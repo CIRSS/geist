@@ -515,9 +515,8 @@ func TestBlazegraphCmd_report_subquery_functions(t *testing.T) {
 
 		{{ prefix "ab" "http://tmcphill.net/tags#" }}
 
-
-		{{ range (runquery "Q1" | vector) }}
-			{{ runquery "Q2" . | tabulate }} \n
+		{{ range (Q1 | vector) }}
+			{{ Q2 . | tabulate }} \n
 		{{ end }}
 	`
 	Main.InReader = strings.NewReader(template)

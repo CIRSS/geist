@@ -176,10 +176,6 @@ func (rp *ReportTemplate) addStandardFunctions() {
 			result, err = macroTemplate.Expand(data)
 			return
 		},
-		"query": func(name string, body string) (s string, err error) {
-			rp.Properties.Queries[name] = body
-			return "", nil
-		},
 		"tabulate": func(rs tables.DataTable) (table string) {
 			table = rs.FormattedTable(true)
 			return
