@@ -480,3 +480,55 @@ func TestBlazegraphCmd_report_address_book_imports(t *testing.T) {
 	`)
 	})
 }
+
+func TestBlazegraphCmd_report_subquery_functions(t *testing.T) {
+
+	var outputBuffer strings.Builder
+	Main.OutWriter = &outputBuffer
+	Main.ErrWriter = &outputBuffer
+
+	run("blazegraph drop")
+
+	Main.InReader = strings.NewReader(`
+		<http://tmcphill.net/data#y> <http://tmcphill.net/tags#tag> "eight" .
+		<http://tmcphill.net/data#x> <http://tmcphill.net/tags#tag> "seven" .
+	`)
+	run("blazegraph import --format ttl")
+
+	outputBuffer.Reset()
+	template := `
+
+		{{{
+			{{ query "Q1" '''
+				SELECT ?s
+				WHERE
+				{ ?s ab:tag ?o }
+				ORDER BY ?s
+			''' }}
+
+			{{ query "Q2" '''
+				SELECT ?o 
+				WHERE { <{{.}}> ab:tag ?o } 
+				ORDER BY ?o 
+			''' }}
+		}}}
+
+		{{ prefix "ab" "http://tmcphill.net/tags#" }}
+
+
+		{{ range (runquery "Q1" | vector) }}
+			{{ runquery "Q2" . | tabulate }} \n
+		{{ end }}
+	`
+	Main.InReader = strings.NewReader(template)
+	run("blazegraph report")
+	util.LineContentsEqual(t, outputBuffer.String(), `
+		o
+		====
+		seven
+		
+		o
+		====
+		eight
+	`)
+}

@@ -58,9 +58,38 @@ func NewReportTemplate(name string, text string, delimiters *DelimiterPair) *Rep
 	return rt
 }
 
+func (rt *ReportTemplate) CompileFunctions(text string) (remainder string) {
+
+	remainder = text
+
+	compileBlockStart := strings.Index(text, "{{{")
+	if compileBlockStart == -1 {
+		return
+	}
+
+	compileBlockEnd := strings.Index(text[compileBlockStart+1:], "}}}")
+	if compileBlockEnd == -1 {
+		return
+	}
+
+	compileText := text[compileBlockStart+3 : compileBlockEnd+3]
+	compileTemplate := NewReportTemplate("compile", compileText, &TripleSingleQuoteDelimiters)
+	compileTemplate.Properties = rt.Properties
+	compileTemplate.Parse(true)
+	var buffer strings.Builder
+	compileTemplate.TextTemplate.Execute(&buffer, nil)
+	//	rt.Properties = compileTemplate.Properties
+
+	remainder = text[compileBlockEnd+6:]
+	return
+}
+
 func (rp *ReportTemplate) Parse(removeNewlines bool) (err error) {
 
 	text := util.TrimEachLine(rp.Text)
+
+	text = rp.CompileFunctions(text)
+
 	text, err = EscapeRawText(rp.Properties.Delimiters, text)
 	if err != nil {
 		return
