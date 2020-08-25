@@ -531,3 +531,61 @@ func TestBlazegraphCmd_report_subquery_functions(t *testing.T) {
 		eight
 	`)
 }
+
+func TestBlazegraphCmd_report_macro_functions(t *testing.T) {
+
+	var outputBuffer strings.Builder
+	Main.OutWriter = &outputBuffer
+	Main.ErrWriter = &outputBuffer
+
+	run("blazegraph drop")
+
+	Main.InReader = strings.NewReader(`
+		<http://tmcphill.net/data#y> <http://tmcphill.net/tags#tag> "eight" .
+		<http://tmcphill.net/data#x> <http://tmcphill.net/tags#tag> "seven" .
+	`)
+	run("blazegraph import --format ttl")
+
+	outputBuffer.Reset()
+	template := `
+
+		{{{
+
+			{{prefix "ab" "http://tmcphill.net/tags#"}}
+
+			{{macro "M1" '''{{select <?
+				SELECT ?o 
+				WHERE { <{{.}}> ab:tag ?o } 
+				ORDER BY ?o 
+			?> . | tabulate }}''' }}
+
+		}}}
+		
+		{{with $subjects := (select '''
+
+				SELECT ?s
+				WHERE
+				{ ?s ab:tag ?o }
+				ORDER BY ?s
+
+			''') | vector }}
+
+			{{range $subject := $subjects }}
+				{{ M1 $subject }} \n
+			{{end}}
+
+		{{end}}
+
+`
+	Main.InReader = strings.NewReader(template)
+	run("blazegraph report")
+	util.LineContentsEqual(t, outputBuffer.String(), `
+		o
+		====
+		seven
+		
+		o
+		====
+		eight
+	`)
+}

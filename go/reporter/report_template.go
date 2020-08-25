@@ -162,6 +162,12 @@ func (rp *ReportTemplate) addStandardFunctions() {
 			}
 			rp.Properties.Macros[name] = macroTemplate
 			rp.AddFunction(name, func(args ...interface{}) (result interface{}, err error) {
+				macroTemplate := rp.Properties.Macros[name]
+				var data interface{}
+				if len(args) == 1 {
+					data = args[0]
+				}
+				result, err = macroTemplate.Expand(data)
 				return
 			})
 

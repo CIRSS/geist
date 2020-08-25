@@ -17,11 +17,14 @@ bash ${RUNNER} GRAPH-1 "EMPTY DOT FILE" \
 
 blazegraph report << '__END_REPORT_TEMPLATE__'
 
+{{{
     {{ include "graphviz-macros.g" }}
+}}}
+
     % A graphviz file {{nl}}
     {{nl}}
-    {{ expand "gv_graph" "wt_run" }}
-    {{ expand "gv_end" }}
+    {{ gv_graph "wt_run" }}
+    {{ gv_end }}
 
 __END_REPORT_TEMPLATE__
 
