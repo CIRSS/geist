@@ -27,7 +27,7 @@ func TestReportTemplate_AnonymousStructInstance(t *testing.T) {
 		{{.Material}}    
 		`, nil)
 
-	rt.Parse(false)
+	rt.Parse()
 	actual, _ := rt.Expand(sweaters)
 	util.LineContentsEqual(t, actual,
 		`
@@ -39,14 +39,14 @@ func TestReportTemplate_AnonymousStructInstance(t *testing.T) {
 
 func TestReportTemplate_AnonymousStructInstance_MissingBrace(t *testing.T) {
 	rt := reporter.NewReportTemplate("main", "{{.Foo}", nil)
-	err := rt.Parse(false)
+	err := rt.Parse()
 	util.LineContentsEqual(t, err.Error(),
 		`template: main:1: unexpected "}" in operand`)
 }
 
 func TestReportTemplate_AnonymousStructInstance_MissingField(t *testing.T) {
 	rt := reporter.NewReportTemplate("main", "{{.Foo}}", nil)
-	rt.Parse(false)
+	rt.Parse()
 	_, err := rt.Expand(struct{ Bar string }{Bar: "baz"})
 	util.LineContentsEqual(t, err.Error(),
 		`template: main:1:2: executing "main" at <.Foo>: can't evaluate field Foo in type struct { Bar string }`)
@@ -54,7 +54,7 @@ func TestReportTemplate_AnonymousStructInstance_MissingField(t *testing.T) {
 
 func TestReportTemplate_AnonymousStructInstance_NilData(t *testing.T) {
 	rt := reporter.NewReportTemplate("main", "{{.Foo}}", nil)
-	rt.Parse(false)
+	rt.Parse()
 	actual, _ := rt.Expand(nil)
 	util.LineContentsEqual(t, actual, `
 		<no value>
@@ -71,7 +71,7 @@ func TestReportTemplate_MultilineVariableValue(t *testing.T) {
 			bar
 		%>}}{{$result}}{{end}}
 		`, &reporter.JSPDelimiters)
-	rt.Parse(false)
+	rt.Parse()
 	actual, _ := rt.Expand(nil)
 	util.LineContentsEqual(t, actual, `
 		foo
@@ -88,7 +88,7 @@ func TestReportTemplate_MultilineVariableValue_MissingEnd(t *testing.T) {
 			bar
 		%>}}{{$result}}
 		`, &reporter.JSPDelimiters)
-	err := rt.Parse(false)
+	err := rt.Parse()
 	util.LineContentsEqual(t, err.Error(),
 		`template: main:4: unexpected EOF`)
 }
@@ -102,7 +102,7 @@ func TestReportTemplate_MultilineVariableValue_WrongVariableName(t *testing.T) {
 			bar
 		%>}}{{$wrongVariableName}}{{end}}
 		`, &reporter.JSPDelimiters)
-	err := rt.Parse(false)
+	err := rt.Parse()
 	util.LineContentsEqual(t, err.Error(),
 		`template: main:2: undefined variable "$wrongVariableName"`)
 }
@@ -116,7 +116,7 @@ func TestReportTemplate_UnmatchedRawStringDelimiter(t *testing.T) {
 			bar
 		}}{{$result}}{{end}}
 	`, nil)
-	err := rt.Parse(false)
+	err := rt.Parse()
 	util.LineContentsEqual(t, err.Error(),
 		`Unmatched raw string delimiter`)
 }
@@ -137,7 +137,7 @@ func TestReportTemplate_MultilineFunctionArgument(t *testing.T) {
 		''' }}{{$result}}{{end}}
 	`, nil)
 	rt.AddFuncs(funcs)
-	rt.Parse(false)
+	rt.Parse()
 	actual, _ := rt.Expand(nil)
 	util.LineContentsEqual(t, actual, `
 		FOO
@@ -156,7 +156,7 @@ func TestReportTemplate_RangeOverStringSlice(t *testing.T) {
 			the color is {{.}}
 		{{end}}					\
 		`, nil)
-	rt.Parse(false)
+	rt.Parse()
 	actual, _ := rt.Expand(colors)
 	util.LineContentsEqual(t, actual,
 		`
@@ -182,7 +182,7 @@ func TestReportTemplate_TableOfValues(t *testing.T) {
 		{{range .}}{{index . 0}}    | {{index . 1}} | {{index . 2}}
 		{{end}}
 	`, nil)
-	rt.Parse(false)
+	rt.Parse()
 	actual, _ := rt.Expand(contacts)
 	util.LineContentsEqual(t, actual,
 		`
@@ -210,7 +210,7 @@ func TestReportTemplate_TableOfValues_IndexOutOfRange(t *testing.T) {
 		{{range .}}{{index . 0}}    | {{index . 1}} | {{index . 3}}	
 		{{end}}
 	`, nil)
-	rt.Parse(false)
+	rt.Parse()
 	_, err := rt.Expand(contacts)
 	util.LineContentsEqual(t, err.Error(),
 		`template: main:4:48: executing "main" at <index . 3>: error calling index: reflect: slice index out of range`)

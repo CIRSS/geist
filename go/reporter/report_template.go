@@ -75,7 +75,7 @@ func (rt *ReportTemplate) CompileFunctions(text string) (remainder string) {
 	compileText := text[compileBlockStart+3 : compileBlockEnd+3]
 	compileTemplate := NewReportTemplate("compile", compileText, &TripleSingleQuoteDelimiters)
 	compileTemplate.Properties = rt.Properties
-	compileTemplate.Parse(false)
+	compileTemplate.Parse()
 	var buffer strings.Builder
 	compileTemplate.TextTemplate.Execute(&buffer, nil)
 	//	rt.Properties = compileTemplate.Properties
@@ -84,7 +84,7 @@ func (rt *ReportTemplate) CompileFunctions(text string) (remainder string) {
 	return
 }
 
-func (rp *ReportTemplate) Parse(removeNewlines bool) (err error) {
+func (rp *ReportTemplate) Parse() (err error) {
 
 	text := util.TrimEachLine(rp.Text)
 
@@ -95,11 +95,7 @@ func (rp *ReportTemplate) Parse(removeNewlines bool) (err error) {
 		return
 	}
 
-	if removeNewlines {
-		text = RemoveNewlines(text)
-	} else {
-		text = RemoveEscapedLineEndings(text)
-	}
+	text = RemoveEscapedLineEndings(text)
 
 	rp.TextTemplate = template.New(rp.Name)
 	rp.TextTemplate.Funcs(rp.Properties.Funcs)
@@ -130,10 +126,10 @@ func (rp *ReportTemplate) Expand(data interface{}) (result string, err error) {
 	return
 }
 
-func (rp *ReportTemplate) ExpandSubreport(name string, text string, removeNewlines bool, data interface{}) (report string, err error) {
+func (rp *ReportTemplate) ExpandSubreport(name string, text string, data interface{}) (report string, err error) {
 	reportTemplate := NewReportTemplate("include", string(text), nil)
 	reportTemplate.Properties = rp.Properties
-	reportTemplate.Parse(removeNewlines)
+	reportTemplate.Parse()
 	if err != nil {
 		return
 	}
@@ -149,7 +145,7 @@ func (rp *ReportTemplate) addStandardFunctions() {
 			if err != nil {
 				return
 			}
-			s, err = rp.ExpandSubreport(fileName, string(text), true, nil)
+			s, err = rp.ExpandSubreport(fileName, string(text), nil)
 			return
 		},
 		"up": func(s string) string {
@@ -158,7 +154,7 @@ func (rp *ReportTemplate) addStandardFunctions() {
 		"macro": func(name string, body string) (s string, err error) {
 			macroTemplate := NewReportTemplate(name, body, &MacroDelimiters)
 			macroTemplate.AddFuncs(rp.Properties.Funcs)
-			err = macroTemplate.Parse(false)
+			err = macroTemplate.Parse()
 			if err != nil {
 				return
 			}

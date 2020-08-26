@@ -23,7 +23,7 @@ func (bc *Client) selectFunc(rp *reporter.ReportTemplate, queryText string, args
 		data = args[0]
 	}
 
-	query, re := rp.ExpandSubreport("select", prependPrefixes(rp, queryText), false, data)
+	query, re := rp.ExpandSubreport("select", prependPrefixes(rp, queryText), data)
 	if re != nil {
 		return
 	}
@@ -38,7 +38,7 @@ func (bc *Client) runQueryFunc(rp *reporter.ReportTemplate, queryText string, ar
 	}
 	reportTemplate := reporter.NewReportTemplate("include", string(queryText), nil)
 	reportTemplate.Properties = rp.Properties
-	reportTemplate.Parse(false)
+	reportTemplate.Parse()
 	rs, err = reportTemplate.Expand(data)
 	print(rs)
 	return
@@ -57,7 +57,7 @@ func (bc *Client) ExpandReport(rp *reporter.ReportTemplate) (report string, err 
 			if len(args) == 1 {
 				data = args[0]
 			}
-			query, err := rp.ExpandSubreport(name, prependPrefixes(rp, queryText), false, data)
+			query, err := rp.ExpandSubreport(name, prependPrefixes(rp, queryText), data)
 			if err != nil {
 				return
 			}
@@ -75,7 +75,7 @@ func (bc *Client) ExpandReport(rp *reporter.ReportTemplate) (report string, err 
 				if len(args) == 1 {
 					data = args[0]
 				}
-				query, err := rp.ExpandSubreport(name, prependPrefixes(rp, queryText), false, data)
+				query, err := rp.ExpandSubreport(name, prependPrefixes(rp, queryText), data)
 				if err != nil {
 					return
 				}
@@ -87,7 +87,7 @@ func (bc *Client) ExpandReport(rp *reporter.ReportTemplate) (report string, err 
 	}
 
 	rp.AddFuncs(funcs)
-	rp.Parse(false)
+	rp.Parse()
 	report, err = rp.Expand(nil)
 
 	return
