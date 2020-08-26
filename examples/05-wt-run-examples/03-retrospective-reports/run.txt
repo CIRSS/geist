@@ -41,21 +41,12 @@ __END_REPORT_TEMPLATE__
 
 ------------------------------------------- REPORT-1 OUTPUTS ------------------------------------------------
 
-
-
-
-
-
 tale_input_file_path | read_file
 ====================================================================================
 ./inputs/i1.txt      | http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i23
 ./inputs/i2.txt      | http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i24
 ./inputs/i3.txt      | http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i26
 ./inputs/i4.txt      | http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i28
-
-
-
-
 
 ******************************************* EXAMPLE REPORT-2 ************************************************
 
@@ -91,12 +82,6 @@ __END_REPORT_TEMPLATE__
 
 ------------------------------------------- REPORT-2 OUTPUTS ------------------------------------------------
 
-
-
-
-
-
-
 Tale Run:   http://wholetale.org/tale2035/version_1021/run_1119#
 Tale Name:  08-branched-pipeline     
 Tale Script: ./run.sh
@@ -105,12 +90,7 @@ Tale Inputs:
 ./inputs/i1.txt         
 ./inputs/i2.txt         
 ./inputs/i3.txt         
-./inputs/i4.txt         
-
-
-
-
-
+./inputs/i4.txt
 
 ******************************************* EXAMPLE REPORT-3 ************************************************
 
@@ -180,8 +160,6 @@ __END_REPORT_TEMPLATE__
 
 ------------------------------------------- REPORT-3 OUTPUTS ------------------------------------------------
 
-
-
 Tale Run: http://wholetale.org/tale2035/version_1021/run_1119#
 Tale Name:  08-branched-pipeline
  Tale Script: ./run.sh
@@ -190,9 +168,4 @@ Tale Inputs:
 ./inputs/i1.txt         
 ./inputs/i2.txt         
 ./inputs/i3.txt         
-./inputs/i4.txt         
-
-
-
-
-
+./inputs/i4.txt

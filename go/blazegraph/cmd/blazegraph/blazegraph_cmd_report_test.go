@@ -336,7 +336,8 @@ func TestBlazegraphCmd_report_macros(t *testing.T) {
 				ORDER BY ?s							\
 			''') | vector }}						\
 			{{range $subject := $subjects }}		\
-				{{ expand "M1" $subject }} 			\
+				{{ expand "M1" $subject }}
+
 			{{end}}									\
 		{{end}}										\
 
@@ -563,7 +564,8 @@ func TestBlazegraphCmd_report_macro_functions(t *testing.T) {
 			''') | vector }}								\
 															\
 			{{range $subject := $subjects }}				\
-				{{ M1 $subject }}							\
+				{{ M1 $subject }}
+				
 			{{end}}											\
 
 		{{end}}

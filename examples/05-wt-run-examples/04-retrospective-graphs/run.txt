@@ -29,17 +29,11 @@ __END_REPORT_TEMPLATE__
 
 ------------------------------------------- GRAPH-1 OUTPUTS ------------------------------------------------
 
-
 % A graphviz file
 
 digraph wt_run {
 rankdir=LR
-
 }
-
-
-
-
 
 ******************************************* EXAMPLE GRAPH-2 ************************************************
 
@@ -62,17 +56,10 @@ __END_REPORT_TEMPLATE__
 
 ------------------------------------------- GRAPH-2 OUTPUTS ------------------------------------------------
 
-
 % Run ID: http://wholetale.org/tale2035/version_1021/run_1119#
 
 digraph wt_run {
 rankdir=LR
-
 fontname=Courier; fontsize=18; labelloc=t
-label="08-branched-pipeline"
-     
+label="08-branched-pipeline"     
 }
-
-
-
-

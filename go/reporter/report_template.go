@@ -123,6 +123,7 @@ func (rp *ReportTemplate) Expand(data interface{}) (result string, err error) {
 	}
 	result = buffer.String()
 	result = RestoreNewlines(result)
+	result = util.Trim(result)
 	return
 }
 
@@ -134,6 +135,16 @@ func (rp *ReportTemplate) ExpandSubreport(name string, text string, data interfa
 		return
 	}
 	report, err = reportTemplate.Expand(data)
+	return
+}
+
+func (rp *ReportTemplate) expandMacro(name string, args []interface{}) (result interface{}, err error) {
+	macroTemplate := rp.Properties.Macros[name]
+	var data interface{}
+	if len(args) == 1 {
+		data = args[0]
+	}
+	result, err = macroTemplate.Expand(data)
 	return
 }
 
@@ -160,25 +171,13 @@ func (rp *ReportTemplate) addStandardFunctions() {
 			}
 			rp.Properties.Macros[name] = macroTemplate
 			rp.AddFunction(name, func(args ...interface{}) (result interface{}, err error) {
-				macroTemplate := rp.Properties.Macros[name]
-				var data interface{}
-				if len(args) == 1 {
-					data = args[0]
-				}
-				result, err = macroTemplate.Expand(data)
-				return
+				return rp.expandMacro(name, args)
 			})
 
 			return "", nil
 		},
 		"expand": func(name string, args ...interface{}) (result interface{}, err error) {
-			macroTemplate := rp.Properties.Macros[name]
-			var data interface{}
-			if len(args) == 1 {
-				data = args[0]
-			}
-			result, err = macroTemplate.Expand(data)
-			return
+			return rp.expandMacro(name, args)
 		},
 		"tabulate": func(rs tables.DataTable) (table string) {
 			table = rs.FormattedTable(true)
