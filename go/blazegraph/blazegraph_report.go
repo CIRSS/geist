@@ -87,7 +87,7 @@ func (bc *Client) ExpandReport(rp *reporter.ReportTemplate) (report string, err 
 	}
 
 	rp.AddFuncs(funcs)
-	rp.Parse(true)
+	rp.Parse(false)
 	report, err = rp.Expand(nil)
 
 	return

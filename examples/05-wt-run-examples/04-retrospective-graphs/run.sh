@@ -21,10 +21,11 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
     {{ include "graphviz-macros.g" }}
 }}}
 
-    % A graphviz file {{nl}}
-    {{nl}}
-    {{ gv_graph "wt_run" }}
-    {{ gv_end }}
+    % A graphviz file
+    
+    {{ gv_graph "wt_run" }} \
+
+{{ gv_end }}           
 
 __END_REPORT_TEMPLATE__
 
@@ -42,13 +43,11 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
     {{ include "wt-queries.g" }}
 }}}
     {{ with $RunID := GetRunID | value}}
-        % Run ID: {{ $RunID }} {{nl}}
-        {{nl}}
-        {{ expand "gv_graph" "wt_run" }}
-    
-        {{ expand "gv_title" (GetTaleName $RunID | value) }}
-    {{ end }}
+        % Run ID: {{ $RunID }}
 
+        {{ expand "gv_graph" "wt_run" }} 
+        {{ expand "gv_title" (GetTaleName $RunID | value) }} \
+    {{ end }}
     {{ expand "gv_end" }}
 
 __END_REPORT_TEMPLATE__

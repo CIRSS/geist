@@ -2,14 +2,16 @@ package reporter
 
 import (
 	"errors"
+	"regexp"
 	"strings"
 )
 
 const (
-	doubleQuote    = `"`
-	escDoubleQuote = `\"`
-	newline        = "\n"
-	escapedNewline = `\n`
+	doubleQuote       = `"`
+	escDoubleQuote    = `\"`
+	newline           = "\n"
+	escapedNewline    = `\n`
+	escapedLineEnding = `[\t ]*\n`
 )
 
 // DelimiterPair defines the start and end delimiter for a report text region.
@@ -34,6 +36,11 @@ func EscapeNewlines(text string) string {
 
 func RemoveNewlines(text string) string {
 	return strings.ReplaceAll(text, newline, "")
+}
+
+func RemoveEscapedLineEndings(text string) string {
+	re := regexp.MustCompile(`[ \t]*\\[ \t]*\n`)
+	return re.ReplaceAllString(text, " ")
 }
 
 func InsertNewlines(text string) string {

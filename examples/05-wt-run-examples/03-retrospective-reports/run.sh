@@ -18,10 +18,10 @@ bash ${RUNNER} REPORT-1 "WHAT DATA FILES WERE USED AS INPUT BY THE TALE?" \
 
 blazegraph report << __END_REPORT_TEMPLATE__
 
-{{ prefix "prov" "http://www.w3.org/ns/prov#" }}
-{{ prefix "provone" "http://purl.dataone.org/provone/2015/01/15/ontology#" }}
-{{ prefix "wt" "http://wholetale.org/ontology/wt#" }}
-
+{{ prefix "prov" "http://www.w3.org/ns/prov#" }}                               
+{{ prefix "provone" "http://purl.dataone.org/provone/2015/01/15/ontology#" }}   
+{{ prefix "wt" "http://wholetale.org/ontology/wt#" }}                           
+                                                                            
 {{ select '''
 
     SELECT DISTINCT ?tale_input_file_path ?read_file
@@ -54,20 +54,14 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
 {{ prefix "wt" "http://wholetale.org/ontology/wt#" }}
 
 {{ with $Run := (select "SELECT ?r WHERE {?r a wt:TaleRun}") | value }}
-
-    {{ println "Tale Run:   " $Run }}
-
-    {{ println "Tale Name:  " (select '''
-            SELECT ?n WHERE {<{{.}}> wt:TaleName ?n}''' $Run | value) }}
-
+    Tale Run:   {{ $Run }}
+    Tale Name:  {{ (select '''SELECT ?n WHERE {<{{.}}> wt:TaleName ?n}''' $Run | value) }} \
     {{ with $RunScript := (select '''
             SELECT ?s WHERE {<{{.}}> wt:TaleRunScript ?s}''' $Run | value) }}
-
-        {{ println "Tale Script:" (select '''
+Tale Script: {{ (select '''
             SELECT ?n WHERE {<{{.}}> wt:FilePath ?n}''' $RunScript | value) }}
-
-        {{ println }}
-        {{ println "Tale Inputs:" }} 
+        
+        Tale Inputs: \
         {{ range $InputFile := (select '''
             SELECT DISTINCT ?fp WHERE {
                 ?e wt:ExecutionOf <{{.}}> .               
@@ -77,9 +71,7 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
                     ?_ wt:WroteFile ?f . }     
                 ?f wt:FilePath ?fp .
             } ORDER BY ?fp''' $RunScript | vector) }}
-
-            {{println $InputFile}}
-
+{{ $InputFile }} \
         {{end}}
     {{end}}
 {{end}}
@@ -142,14 +134,14 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
 }}}
 
 {{ with $RunID := GetRunID | value }}
-    {{ println "Tale Run:   " $RunID }}
-    {{ println "Tale Name:  " (GetTaleName $RunID | value) }}
-    {{ with $RunScriptID := (GetRunScriptID $RunID | value) }}
-        {{ println "Tale Script:" (GetFilePath $RunScriptID | value) }}
-        {{ println }}
-        {{ println "Tale Inputs:" }} 
+    Tale Run: {{ $RunID }}
+    Tale Name:  {{ (GetTaleName $RunID | value) }}
+    {{ with $RunScriptID := (GetRunScriptID $RunID | value) }} \
+Tale Script: {{ (GetFilePath $RunScriptID | value) }}
+
+        Tale Inputs: \
         {{ range (GetInputFilePaths $RunScriptID | vector) }}
-            {{ println . }}
+            {{ . }} \
         {{ end }}
     {{ end }}
 {{ end }}

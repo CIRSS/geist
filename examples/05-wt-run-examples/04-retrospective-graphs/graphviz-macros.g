@@ -1,22 +1,10 @@
 
-{{ macro "gv_graph" '''
+{{ macro "gv_graph" '''digraph {{.}} { 
+    rankdir=LR''' }}
 
-    digraph {{.}} {  {{nl}}
-    rankdir=LR       {{nl}}
+{{ macro "gv_title" '''fontname=Courier; fontsize=18; labelloc=t
+    label="{{.}}"  ''' }}
 
-''' }}
-
-{{ macro "gv_title" '''
-
-    fontname=Courier; fontsize=18; labelloc=t   {{nl}}
-    label="{{.}}"                               {{nl}}
-
-''' }}
-
-{{ macro "gv_end" '''
-
-    }   {{nl}}
-
-''' }}
+{{ macro "gv_end" '''}''' }}
 
 

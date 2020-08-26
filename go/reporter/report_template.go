@@ -75,7 +75,7 @@ func (rt *ReportTemplate) CompileFunctions(text string) (remainder string) {
 	compileText := text[compileBlockStart+3 : compileBlockEnd+3]
 	compileTemplate := NewReportTemplate("compile", compileText, &TripleSingleQuoteDelimiters)
 	compileTemplate.Properties = rt.Properties
-	compileTemplate.Parse(true)
+	compileTemplate.Parse(false)
 	var buffer strings.Builder
 	compileTemplate.TextTemplate.Execute(&buffer, nil)
 	//	rt.Properties = compileTemplate.Properties
@@ -97,6 +97,8 @@ func (rp *ReportTemplate) Parse(removeNewlines bool) (err error) {
 
 	if removeNewlines {
 		text = RemoveNewlines(text)
+	} else {
+		text = RemoveEscapedLineEndings(text)
 	}
 
 	rp.TextTemplate = template.New(rp.Name)
@@ -156,7 +158,7 @@ func (rp *ReportTemplate) addStandardFunctions() {
 		"macro": func(name string, body string) (s string, err error) {
 			macroTemplate := NewReportTemplate(name, body, &MacroDelimiters)
 			macroTemplate.AddFuncs(rp.Properties.Funcs)
-			err = macroTemplate.Parse(true)
+			err = macroTemplate.Parse(false)
 			if err != nil {
 				return
 			}

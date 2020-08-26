@@ -141,8 +141,8 @@ func TestBlazegraphCmd_report_two_triples(t *testing.T) {
 	t.Run("select-piped-to-tabulate", func(t *testing.T) {
 		outputBuffer.Reset()
 		template := `
-			Example select query with tabular output in report\n
-			\n
+			Example select query with tabular output in report 
+															
 			{{select '''
 					prefix ab: <http://tmcphill.net/tags#>
 					SELECT ?s ?o
@@ -166,8 +166,8 @@ func TestBlazegraphCmd_report_two_triples(t *testing.T) {
 	t.Run("select-to-variable-to-tabulate", func(t *testing.T) {
 		outputBuffer.Reset()
 		template := `
-				Example select query with tabular output in report\n
-				\n
+				Example select query with tabular output in report
+				
 				{{with $tags := (select '''
 						prefix ab: <http://tmcphill.net/tags#>
 						SELECT ?s ?o
@@ -191,8 +191,8 @@ func TestBlazegraphCmd_report_two_triples(t *testing.T) {
 	t.Run("select-to-dot-to-tabulate", func(t *testing.T) {
 		outputBuffer.Reset()
 		template := `
-				Example select query with tabular output in report\n
-				\n
+				Example select query with tabular output in report
+				
 				{{with (select '''
 						prefix ab: <http://tmcphill.net/tags#>
 						SELECT ?s ?o
@@ -216,20 +216,20 @@ func TestBlazegraphCmd_report_two_triples(t *testing.T) {
 	t.Run("select-to-variable-to-range", func(t *testing.T) {
 		outputBuffer.Reset()
 		template := `
-				Example select query with tabular output in report\n
-				\n
+				Example select query with tabular output in report
+																	
 				{{ with (select '''
 						prefix ab: <http://tmcphill.net/tags#>
 						SELECT ?s ?o
 						WHERE
 						{ ?s ab:tag ?o }
 						ORDER BY ?s
-					''') }}
-
-					Variables:\n
-					{{join (.Head.Vars) ", "}}\n
-					\n
-					Values:\n
+					''') }}											\
+																	\
+					Variables:
+					{{join (.Head.Vars) ", "}}
+					
+					Values:
 					{{range (rows .)}}{{ join . ", " | println}}{{end}}
 
 				{{end}}
@@ -267,7 +267,7 @@ func TestBlazegraphCmd_report_multiple_queries(t *testing.T) {
 	outputBuffer.Reset()
 	template := `
 		{{prefix "ab" "http://tmcphill.net/tags#"}}
-
+														\
 		{{with $subjects := (select '''
 
 				SELECT ?s
@@ -276,8 +276,8 @@ func TestBlazegraphCmd_report_multiple_queries(t *testing.T) {
 				ORDER BY ?s
 
 			''') | vector }}
-
-			{{range $subject := $subjects }}
+														\
+			{{range $subject := $subjects }} 			\
 				{{with $objects := (select '''
 
 						SELECT ?o
@@ -285,12 +285,10 @@ func TestBlazegraphCmd_report_multiple_queries(t *testing.T) {
 						{ <{{.}}> ab:tag ?o }
 						ORDER BY ?o
 
-					''' $subject)}}
-					{{tabulate $objects}}
-					\n
+					''' $subject)}} 					\
+					{{tabulate $objects}}				\			
 				{{end}}
 			{{end}}
-
 		{{end }}
 
 `
@@ -323,29 +321,24 @@ func TestBlazegraphCmd_report_macros(t *testing.T) {
 
 	outputBuffer.Reset()
 	template := `
-
-		{{prefix "ab" "http://tmcphill.net/tags#"}}
-
-		{{macro "M1" '''{{select <?
-			SELECT ?o 
-			WHERE { <{{.}}> ab:tag ?o } 
-			ORDER BY ?o 
-		?> . | tabulate }}''' }}
-
-		{{with $subjects := (select '''
-
-				SELECT ?s
-				WHERE
-				{ ?s ab:tag ?o }
-				ORDER BY ?s
-
-			''') | vector }}
-
-			{{range $subject := $subjects }}
-				{{ expand "M1" $subject }} \n
-			{{end}}
-
-		{{end}}
+		{{prefix "ab" "http://tmcphill.net/tags#"}} \
+													\
+		{{macro "M1" '''{{select <?					\
+			SELECT ?o 								\
+			WHERE { <{{.}}> ab:tag ?o } 			\
+			ORDER BY ?o 							\
+		?> . | tabulate }}''' }}					\
+													\
+		{{with $subjects := (select '''				\
+				SELECT ?s							\
+				WHERE								\
+				{ ?s ab:tag ?o }					\
+				ORDER BY ?s							\
+			''') | vector }}						\
+			{{range $subject := $subjects }}		\
+				{{ expand "M1" $subject }} 			\
+			{{end}}									\
+		{{end}}										\
 
 `
 	Main.InReader = strings.NewReader(template)
@@ -377,25 +370,25 @@ func TestBlazegraphCmd_report_subqueries(t *testing.T) {
 
 	outputBuffer.Reset()
 	template := `
+		{{ prefix "ab" "http://tmcphill.net/tags#" }}		\
+															\
+		{{ query "Q1" '''									\
+			SELECT ?s										\
+			WHERE											\
+			{ ?s ab:tag ?o }								\
+			ORDER BY ?s										\
+		''' }}												\
+															\
+		{{ query "Q2" '''									\
+			SELECT ?o 										\
+			WHERE { <{{.}}> ab:tag ?o } 					\
+			ORDER BY ?o 									\
+		''' }}												\
+															\
+		{{ range (runquery "Q1" | vector) }}				\
+			{{ runquery "Q2" . | tabulate }}				\
 
-		{{ prefix "ab" "http://tmcphill.net/tags#" }}
-
-		{{ query "Q1" '''
-			SELECT ?s
-			WHERE
-			{ ?s ab:tag ?o }
-			ORDER BY ?s
-		''' }}
-
-		{{ query "Q2" '''
-			SELECT ?o 
-			WHERE { <{{.}}> ab:tag ?o } 
-			ORDER BY ?o 
-		''' }}
-
-		{{ range (runquery "Q1" | vector) }}
-			{{ runquery "Q2" . | tabulate }} \n
-		{{ end }}
+		{{ end }}											\
 	`
 	Main.InReader = strings.NewReader(template)
 	run("blazegraph report")
@@ -422,8 +415,8 @@ func TestBlazegraphCmd_report_address_book(t *testing.T) {
 	t.Run("constant-template", func(t *testing.T) {
 		outputBuffer.Reset()
 		template := `
-			Craig's email addresses\n
-			=======================\n
+			Craig's email addresses
+			=======================
 			{{ range (select '''
 				PREFIX ab: <http://learningsparql.com/ns/addressbook#>
 				SELECT ?email
@@ -432,8 +425,8 @@ func TestBlazegraphCmd_report_address_book(t *testing.T) {
 					?person ab:firstname "Craig"^^<http://www.w3.org/2001/XMLSchema#string> .
 					?person ab:email     ?email .
 				}
-			''' | vector) }}
-				{{println .}} 
+			''' | vector) }}																	\
+				{{ . }} 
 			{{end}}
 		`
 		Main.InReader = strings.NewReader(template)
@@ -459,16 +452,16 @@ func TestBlazegraphCmd_report_address_book_imports(t *testing.T) {
 	t.Run("constant-template", func(t *testing.T) {
 		outputBuffer.Reset()
 		template := `
-
-			{{ include "testdata/address-rules.gst" }}
-
-			{{ prefix "ab" "http://learningsparql.com/ns/addressbook#" }}
-
-			Craig's email addresses\n
-			=======================\n
-			{{ range (runquery "GetEmailForFirstName" "Craig" | vector) }}
-				{{println .}} 
-			{{end}}
+			{{ include "testdata/address-rules.gst" }}						\
+																			\
+			{{ prefix "ab" "http://learningsparql.com/ns/addressbook#" }}	\
+																			\
+			Craig's email addresses
+			=======================
+																			\
+			{{ range (runquery "GetEmailForFirstName" "Craig" | vector) }}	\
+				{{.}} 
+			{{end}}															\
 		`
 		Main.InReader = strings.NewReader(template)
 		run("blazegraph report")
@@ -512,12 +505,13 @@ func TestBlazegraphCmd_report_subquery_functions(t *testing.T) {
 				ORDER BY ?o 
 			''' }}
 		}}}
+															\
+		{{ prefix "ab" "http://tmcphill.net/tags#" }}		\
+															\
+		{{ range (Q1 | vector) }}							\
+			{{ Q2 . | tabulate }}							\
 
-		{{ prefix "ab" "http://tmcphill.net/tags#" }}
-
-		{{ range (Q1 | vector) }}
-			{{ Q2 . | tabulate }} \n
-		{{ end }}
+		{{ end }}											\
 	`
 	Main.InReader = strings.NewReader(template)
 	run("blazegraph report")
@@ -550,7 +544,6 @@ func TestBlazegraphCmd_report_macro_functions(t *testing.T) {
 	template := `
 
 		{{{
-
 			{{prefix "ab" "http://tmcphill.net/tags#"}}
 
 			{{macro "M1" '''{{select <?
@@ -558,21 +551,20 @@ func TestBlazegraphCmd_report_macro_functions(t *testing.T) {
 				WHERE { <{{.}}> ab:tag ?o } 
 				ORDER BY ?o 
 			?> . | tabulate }}''' }}
-
-		}}}
-		
-		{{with $subjects := (select '''
-
-				SELECT ?s
-				WHERE
-				{ ?s ab:tag ?o }
-				ORDER BY ?s
-
-			''') | vector }}
-
-			{{range $subject := $subjects }}
-				{{ M1 $subject }} \n
-			{{end}}
+		}}}													\
+															\
+		{{with $subjects := (select '''						\
+															\
+				SELECT ?s									\
+				WHERE										\
+				{ ?s ab:tag ?o }							\
+				ORDER BY ?s									\
+															\
+			''') | vector }}								\
+															\
+			{{range $subject := $subjects }}				\
+				{{ M1 $subject }}							\
+			{{end}}											\
 
 		{{end}}
 
