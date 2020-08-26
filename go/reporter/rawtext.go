@@ -39,8 +39,8 @@ func RemoveNewlines(text string) string {
 }
 
 func RemoveEscapedLineEndings(text string) string {
-	re := regexp.MustCompile(`[ \t]*\\[ \t]*\n`)
-	return re.ReplaceAllString(text, " ")
+	re := regexp.MustCompile(`[ \t]*\\[\\]?[ \t]*\n[ \t]*`)
+	return re.ReplaceAllString(text, "")
 }
 
 func RestoreNewlines(text string) string {

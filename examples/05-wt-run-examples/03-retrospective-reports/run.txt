@@ -58,23 +58,26 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
 {{ prefix "provone" "http://purl.dataone.org/provone/2015/01/15/ontology#" }}
 {{ prefix "wt" "http://wholetale.org/ontology/wt#" }}
 
-{{ with $Run := (select "SELECT ?r WHERE {?r a wt:TaleRun}") | value }}
+{{ with $Run := (select "SELECT ?r WHERE {?r a wt:TaleRun}") | value }}                                 \
+                                                                                                        \
     Tale Run:   {{ $Run }}
-    Tale Name:  {{ (select '''SELECT ?n WHERE {<{{.}}> wt:TaleName ?n}''' $Run | value) }}     {{ with $RunScript := (select '''
-            SELECT ?s WHERE {<{{.}}> wt:TaleRunScript ?s}''' $Run | value) }}
-Tale Script: {{ (select '''
-            SELECT ?n WHERE {<{{.}}> wt:FilePath ?n}''' $RunScript | value) }}
+    Tale Name:  {{ (select "SELECT ?n WHERE {<{{.}}> wt:TaleName ?n}" $Run | value) }}
+                                                                                                        \
+    {{ with $RunScript := (select "SELECT ?s WHERE {<{{.}}> wt:TaleRunScript ?s}" $Run | value) }}      \
+        Tale Script: {{ (select "SELECT ?n WHERE {<{{.}}> wt:FilePath ?n}" $RunScript | value) }}
         
-        Tale Inputs:         {{ range $InputFile := (select '''
+    Tale Inputs: 
+        {{ range $InputFile := (select '''
             SELECT DISTINCT ?fp WHERE {
                 ?e wt:ExecutionOf <{{.}}> .               
                 ?p wt:ChildProcessOf ?e .   
                 ?p wt:ReadFile ?f .          
                 FILTER NOT EXISTS {                               
                     ?_ wt:WroteFile ?f . }     
-                ?f wt:FilePath ?fp .
-            } ORDER BY ?fp''' $RunScript | vector) }}
-{{ $InputFile }}         {{end}}
+                ?f wt:FilePath ?fp .           
+            } ORDER BY ?fp''' $RunScript | vector) }}                                                   \
+                {{ $InputFile }}
+        {{end}}
     {{end}}
 {{end}}
 
@@ -83,13 +86,13 @@ __END_REPORT_TEMPLATE__
 ------------------------------------------- REPORT-2 OUTPUTS ------------------------------------------------
 
 Tale Run:   http://wholetale.org/tale2035/version_1021/run_1119#
-Tale Name:  08-branched-pipeline     
+Tale Name:  08-branched-pipeline
 Tale Script: ./run.sh
 
-Tale Inputs:         
-./inputs/i1.txt         
-./inputs/i2.txt         
-./inputs/i3.txt         
+Tale Inputs:
+./inputs/i1.txt
+./inputs/i2.txt
+./inputs/i3.txt
 ./inputs/i4.txt
 
 ******************************************* EXAMPLE REPORT-3 ************************************************
@@ -146,26 +149,32 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
 ''' }}
 }}}
 
-{{ with $RunID := GetRunID | value }}
-    Tale Run: {{ $RunID }}
-    Tale Name:  {{ (GetTaleName $RunID | value) }}
-    {{ with $RunScriptID := (GetRunScriptID $RunID | value) }} Tale Script: {{ (GetFilePath $RunScriptID | value) }}
+{{ with $RunID := GetRunID | value }}                           \
+                                                                \
+    Tale Run:    {{ $RunID }}
+    Tale Name:   {{ (GetTaleName $RunID | value) }}
+                                                                \
+    {{ with $RunScriptID := (GetRunScriptID $RunID | value) }}  \
+                                                                \
+    Tale Script: {{ (GetFilePath $RunScriptID | value) }}
 
-        Tale Inputs:         {{ range (GetInputFilePaths $RunScriptID | vector) }}
-            {{ . }}         {{ end }}
-    {{ end }}
-{{ end }}
+    Tale Inputs:
+        {{ range (GetInputFilePaths $RunScriptID | vector) }}   \
+            {{ . }}                                     
+        {{ end }}                                               \
+    {{ end }}                                                   \
+{{ end }}                                                       \
 
 __END_REPORT_TEMPLATE__
 
 ------------------------------------------- REPORT-3 OUTPUTS ------------------------------------------------
 
-Tale Run: http://wholetale.org/tale2035/version_1021/run_1119#
-Tale Name:  08-branched-pipeline
- Tale Script: ./run.sh
+Tale Run:    http://wholetale.org/tale2035/version_1021/run_1119#
+Tale Name:   08-branched-pipeline
+Tale Script: ./run.sh
 
-Tale Inputs:         
-./inputs/i1.txt         
-./inputs/i2.txt         
-./inputs/i3.txt         
+Tale Inputs:
+./inputs/i1.txt
+./inputs/i2.txt
+./inputs/i3.txt
 ./inputs/i4.txt

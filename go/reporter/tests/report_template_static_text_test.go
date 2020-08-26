@@ -44,7 +44,7 @@ func TestReportTemplate_StaticReport_MultipleLines_EscapeOneLineEnding(t *testin
 	rt := reporter.NewReportTemplate(
 		"main",
 		`
-		42 items     \   
+		42 items{{sp}}    \   
 		are made of
 		cotton
 		`, nil)
@@ -63,8 +63,8 @@ func TestReportTemplate_StaticReport_MultipleLines_EscapeTwoLineEnding(t *testin
 	rt := reporter.NewReportTemplate(
 		"main",
 		`
-		42 items     \
-		are made of	 \   
+		42 items{{sp}}    \
+		are made of{{sp}} \   
 		cotton
 		`, nil)
 

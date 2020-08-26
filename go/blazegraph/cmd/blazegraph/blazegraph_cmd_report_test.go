@@ -552,21 +552,21 @@ func TestBlazegraphCmd_report_macro_functions(t *testing.T) {
 				WHERE { <{{.}}> ab:tag ?o } 
 				ORDER BY ?o 
 			?> . | tabulate }}''' }}
-		}}}													\
-															\
-		{{with $subjects := (select '''						\
-															\
-				SELECT ?s									\
-				WHERE										\
-				{ ?s ab:tag ?o }							\
-				ORDER BY ?s									\
-															\
-			''') | vector }}								\
-															\
-			{{range $subject := $subjects }}				\
+		}}}													\\
+															\\
+		{{with $subjects := (select '''						
+															
+				SELECT ?s									
+				WHERE										
+				{ ?s ab:tag ?o }							
+				ORDER BY ?s									
+															
+			''') | vector }}								\\
+															\\
+			{{range $subject := $subjects }}				\\
 				{{ M1 $subject }}
 				
-			{{end}}											\
+			{{end}}											\\
 
 		{{end}}
 

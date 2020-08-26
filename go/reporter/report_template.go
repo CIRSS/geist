@@ -208,6 +208,13 @@ func (rp *ReportTemplate) addStandardFunctions() {
 		"nl": func() (s string) {
 			return escapedNewline
 		},
+		"sp": func(args ...int) (s string) {
+			count := 1
+			if len(args) > 0 {
+				count = args[0]
+			}
+			return strings.Repeat(" ", count)
+		},
 	}
 
 	rp.AddFuncs(funcs)

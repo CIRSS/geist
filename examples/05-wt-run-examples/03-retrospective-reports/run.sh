@@ -53,15 +53,15 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
 {{ prefix "provone" "http://purl.dataone.org/provone/2015/01/15/ontology#" }}
 {{ prefix "wt" "http://wholetale.org/ontology/wt#" }}
 
-{{ with $Run := (select "SELECT ?r WHERE {?r a wt:TaleRun}") | value }}
+{{ with $Run := (select "SELECT ?r WHERE {?r a wt:TaleRun}") | value }}                                 \\
+                                                                                                        \\
     Tale Run:   {{ $Run }}
-    Tale Name:  {{ (select '''SELECT ?n WHERE {<{{.}}> wt:TaleName ?n}''' $Run | value) }} \
-    {{ with $RunScript := (select '''
-            SELECT ?s WHERE {<{{.}}> wt:TaleRunScript ?s}''' $Run | value) }}
-Tale Script: {{ (select '''
-            SELECT ?n WHERE {<{{.}}> wt:FilePath ?n}''' $RunScript | value) }}
+    Tale Name:  {{ (select "SELECT ?n WHERE {<{{.}}> wt:TaleName ?n}" $Run | value) }}
+                                                                                                        \\
+    {{ with $RunScript := (select "SELECT ?s WHERE {<{{.}}> wt:TaleRunScript ?s}" $Run | value) }}      \\
+        Tale Script: {{ (select "SELECT ?n WHERE {<{{.}}> wt:FilePath ?n}" $RunScript | value) }}
         
-        Tale Inputs: \
+    Tale Inputs: 
         {{ range $InputFile := (select '''
             SELECT DISTINCT ?fp WHERE {
                 ?e wt:ExecutionOf <{{.}}> .               
@@ -69,9 +69,9 @@ Tale Script: {{ (select '''
                 ?p wt:ReadFile ?f .          
                 FILTER NOT EXISTS {                               
                     ?_ wt:WroteFile ?f . }     
-                ?f wt:FilePath ?fp .
-            } ORDER BY ?fp''' $RunScript | vector) }}
-{{ $InputFile }} \
+                ?f wt:FilePath ?fp .           
+            } ORDER BY ?fp''' $RunScript | vector) }}                                                   \\
+                {{ $InputFile }}
         {{end}}
     {{end}}
 {{end}}
@@ -133,18 +133,21 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
 ''' }}
 }}}
 
-{{ with $RunID := GetRunID | value }}
-    Tale Run: {{ $RunID }}
-    Tale Name:  {{ (GetTaleName $RunID | value) }}
-    {{ with $RunScriptID := (GetRunScriptID $RunID | value) }} \
-Tale Script: {{ (GetFilePath $RunScriptID | value) }}
+{{ with $RunID := GetRunID | value }}                           \\
+                                                                \\
+    Tale Run:    {{ $RunID }}
+    Tale Name:   {{ (GetTaleName $RunID | value) }}
+                                                                \\
+    {{ with $RunScriptID := (GetRunScriptID $RunID | value) }}  \\
+                                                                \\
+    Tale Script: {{ (GetFilePath $RunScriptID | value) }}
 
-        Tale Inputs: \
-        {{ range (GetInputFilePaths $RunScriptID | vector) }}
-            {{ . }} \
-        {{ end }}
-    {{ end }}
-{{ end }}
+    Tale Inputs:
+        {{ range (GetInputFilePaths $RunScriptID | vector) }}   \\
+            {{ . }}                                     
+        {{ end }}                                               \\
+    {{ end }}                                                   \\
+{{ end }}                                                       \\
 
 __END_REPORT_TEMPLATE__
 
