@@ -90,7 +90,7 @@ func TestReportTemplate_MultilineVariableValue_MissingEnd(t *testing.T) {
 		`, &reporter.JSPDelimiters)
 	err := rt.Parse()
 	util.LineContentsEqual(t, err.Error(),
-		`template: main:4: unexpected EOF`)
+		`template: main:2: unexpected EOF`)
 }
 
 func TestReportTemplate_MultilineVariableValue_WrongVariableName(t *testing.T) {
@@ -104,7 +104,7 @@ func TestReportTemplate_MultilineVariableValue_WrongVariableName(t *testing.T) {
 		`, &reporter.JSPDelimiters)
 	err := rt.Parse()
 	util.LineContentsEqual(t, err.Error(),
-		`template: main:2: undefined variable "$wrongVariableName"`)
+		`template: main:1: undefined variable "$wrongVariableName"`)
 }
 
 func TestReportTemplate_UnmatchedRawStringDelimiter(t *testing.T) {
@@ -213,5 +213,5 @@ func TestReportTemplate_TableOfValues_IndexOutOfRange(t *testing.T) {
 	rt.Parse()
 	_, err := rt.Expand(contacts)
 	util.LineContentsEqual(t, err.Error(),
-		`template: main:4:48: executing "main" at <index . 3>: error calling index: reflect: slice index out of range`)
+		`template: main:3:48: executing "main" at <index . 3>: error calling index: reflect: slice index out of range`)
 }

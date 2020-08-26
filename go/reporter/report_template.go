@@ -44,7 +44,8 @@ type ReportTemplate struct {
 func NewReportTemplate(name string, text string, delimiters *DelimiterPair) *ReportTemplate {
 	rt := new(ReportTemplate)
 	rt.Name = name
-	rt.Text = text
+	text = util.Trim(text)
+	rt.Text = util.TrimEachLine(text)
 	rt.Properties.Funcs = template.FuncMap{}
 	if delimiters != nil {
 		rt.Properties.Delimiters = *delimiters
@@ -85,23 +86,15 @@ func (rt *ReportTemplate) CompileFunctions(text string) (remainder string) {
 }
 
 func (rp *ReportTemplate) Parse() (err error) {
-
-	text := util.TrimEachLine(rp.Text)
-
-	text = rp.CompileFunctions(text)
-
+	text := rp.CompileFunctions(rp.Text)
 	text, err = EscapeRawText(rp.Properties.Delimiters, text)
 	if err != nil {
 		return
 	}
-
 	text = RemoveEscapedLineEndings(text)
-
 	rp.TextTemplate = template.New(rp.Name)
 	rp.TextTemplate.Funcs(rp.Properties.Funcs)
-
 	_, err = rp.TextTemplate.Parse(text)
-
 	return
 }
 

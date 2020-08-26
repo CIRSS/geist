@@ -24,18 +24,6 @@ func StringEquals(t *testing.T, actual string, expected string) {
 	}
 }
 
-func RemoveBlankLine(s string) string {
-	var buffer strings.Builder
-	lines := strings.Split(s, "\n")
-	for _, line := range lines {
-		if len(line) > 0 {
-			buffer.WriteString(line)
-			buffer.WriteString("\n")
-		}
-	}
-	return buffer.String()
-}
-
 func TrimEachLine(s string) string {
 	var sb strings.Builder
 	lines := strings.Split(s, "\n")
@@ -45,28 +33,6 @@ func TrimEachLine(s string) string {
 		sb.WriteString("\n")
 	}
 	return sb.String()
-}
-
-func TrimByLine(s string) string {
-	s = Trim(s)
-	lastLineBlank := false
-	var buffer strings.Builder
-	lines := strings.Split(s, "\n")
-	for _, line := range lines {
-		trimmedLine := Trim(line)
-		lineLength := len(trimmedLine)
-		if lineLength > 0 {
-			buffer.WriteString(trimmedLine)
-			buffer.WriteString("\n")
-			lastLineBlank = false
-			continue
-		}
-		if !lastLineBlank {
-			buffer.WriteString("\n")
-			lastLineBlank = true
-		}
-	}
-	return buffer.String()
 }
 
 func Trim(s string) string {
