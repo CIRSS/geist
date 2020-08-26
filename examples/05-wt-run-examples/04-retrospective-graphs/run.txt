@@ -45,10 +45,13 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
     }}}
 
     {{ with $RunID := GetRunID | value}}
+
         % Run ID: {{ $RunID }}
         {{ gv_graph "wt_run" }} 
-        {{ gv_title (GetTaleName $RunID | value) }}     {{ end }}
-    {{ gv_end }}
+        {{ gv_title (GetTaleName $RunID | value) }}
+        {{ gv_end }}
+    
+    {{ end }}
 
 __END_REPORT_TEMPLATE__
 
@@ -58,5 +61,5 @@ __END_REPORT_TEMPLATE__
 digraph wt_run {
 rankdir=LR
 fontname=Courier; fontsize=18; labelloc=t
-label="08-branched-pipeline"     
+label="08-branched-pipeline"
 }
