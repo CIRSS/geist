@@ -122,14 +122,14 @@ func (rp *ReportTemplate) Expand(data interface{}) (result string, err error) {
 		return
 	}
 	result = buffer.String()
-	result = InsertNewlines(result)
+	result = RestoreNewlines(result)
 	return
 }
 
 func (rp *ReportTemplate) ExpandSubreport(name string, text string, data interface{}) (report string, err error) {
 	reportTemplate := NewReportTemplate("include", string(text), nil)
 	reportTemplate.Properties = rp.Properties
-	reportTemplate.Parse()
+	err = reportTemplate.Parse()
 	if err != nil {
 		return
 	}

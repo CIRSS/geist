@@ -43,7 +43,7 @@ func RemoveEscapedLineEndings(text string) string {
 	return re.ReplaceAllString(text, " ")
 }
 
-func InsertNewlines(text string) string {
+func RestoreNewlines(text string) string {
 	return strings.ReplaceAll(text, escapedNewline, newline)
 }
 
