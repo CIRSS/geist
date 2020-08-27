@@ -81,7 +81,11 @@ func (rt *ReportTemplate) CompileFunctions(text string) (remainder string) {
 	compileTemplate.TextTemplate.Execute(&buffer, nil)
 	//	rt.Properties = compileTemplate.Properties
 
-	remainder = text[compileBlockEnd+6:]
+	if len(text) >= compileBlockEnd+6 {
+		remainder = text[compileBlockEnd+6:]
+	} else {
+		remainder = ""
+	}
 	return
 }
 

@@ -17,10 +17,11 @@ blazegraph import --format jsonld --file ../data/branched-pipeline.jsonld
 blazegraph report << '__END_REPORT_TEMPLATE__'
 
 {{{
-    {{ include "graphviz-macros.g" }}
+    {{ include "graphviz.g" }}
+    {{ include "wt.g" }}
 }}}
 
-    % A graphviz file
+    # A graphviz file
     {{ gv_graph "wt_run" }}
     {{ gv_end }}
 
@@ -28,10 +29,7 @@ __END_REPORT_TEMPLATE__
 
 ------------------------------------------- GRAPH-1 OUTPUTS ------------------------------------------------
 
-% A graphviz file
-digraph wt_run {
-rankdir=LR
-}
+
 
 ******************************************* EXAMPLE GRAPH-2 ************************************************
 
@@ -39,16 +37,16 @@ rankdir=LR
 
 blazegraph report << '__END_REPORT_TEMPLATE__'
 
-    {{{
-        {{ include "graphviz-macros.g" }}
-        {{ include "wt-queries.g" }}
-    }}}
+{{{
+    {{ include "graphviz.g" }}
+    {{ include "wt.g" }}
+}}}
 
-    {{ with $RunID := GetRunID | value}}
+    {{ with $RunID := SelectRunID | value}}
 
-        % Run ID: {{ $RunID }}
+        # Run ID: {{ $RunID }}
         {{ gv_graph "wt_run" }} 
-        {{ gv_title (GetTaleName $RunID | value) }}
+        {{ gv_title (SelectTaleName $RunID | value) }}
         {{ gv_end }}
     
     {{ end }}
@@ -57,9 +55,32 @@ __END_REPORT_TEMPLATE__
 
 ------------------------------------------- GRAPH-2 OUTPUTS ------------------------------------------------
 
-% Run ID: http://wholetale.org/tale2035/version_1021/run_1119#
-digraph wt_run {
-rankdir=LR
-fontname=Courier; fontsize=18; labelloc=t
-label="08-branched-pipeline"
-}
+
+
+******************************************* EXAMPLE GRAPH-3 ************************************************
+
+# Node for Tale Run
+
+blazegraph report << '__END_REPORT_TEMPLATE__'
+
+    {{{
+        {{ include "graphviz.g" }}
+        {{ include "wt.g" }}
+    }}}
+
+    {{ with $RunID := SelectRunID | value }}
+
+        # Run ID: {{ $RunID }}
+        {{ gv_graph "wt_run" }} 
+        {{ gv_title (SelectTaleName $RunID | value) }}
+        {{ wt_run_node_style }}
+        {{ wt_node_run $RunID }}
+        {{ gv_end }}
+    
+    {{ end }}
+
+__END_REPORT_TEMPLATE__
+
+------------------------------------------- GRAPH-3 OUTPUTS ------------------------------------------------
+
+
