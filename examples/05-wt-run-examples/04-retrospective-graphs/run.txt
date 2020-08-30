@@ -27,9 +27,12 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
 
 __END_REPORT_TEMPLATE__
 
-------------------------------------------- GRAPH-1 OUTPUTS ------------------------------------------------
+----------------------------------------- GRAPH-1 DOT OUTPUT -----------------------------------------------
 
-
+# A graphviz file
+digraph wt_run {
+rankdir=LR
+}
 
 ******************************************* EXAMPLE GRAPH-2 ************************************************
 
@@ -53,9 +56,14 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
 
 __END_REPORT_TEMPLATE__
 
-------------------------------------------- GRAPH-2 OUTPUTS ------------------------------------------------
+----------------------------------------- GRAPH-2 DOT OUTPUT -----------------------------------------------
 
-
+# Run ID: http://wholetale.org/tale2035/version_1021/run_1119#
+digraph wt_run {
+rankdir=LR
+fontname=Courier; fontsize=18; labelloc=t
+label="08-branched-pipeline"
+}
 
 ******************************************* EXAMPLE GRAPH-3 ************************************************
 
@@ -81,6 +89,13 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
 
 __END_REPORT_TEMPLATE__
 
-------------------------------------------- GRAPH-3 OUTPUTS ------------------------------------------------
+----------------------------------------- GRAPH-3 DOT OUTPUT -----------------------------------------------
 
-
+# Run ID: http://wholetale.org/tale2035/version_1021/run_1119#
+digraph wt_run {
+rankdir=LR
+fontname=Courier; fontsize=18; labelloc=t
+label="08-branched-pipeline"
+node[shape=box style="filled" fillcolor="#FFFFFF" peripheries=2 fontname=Courier]
+"http://wholetale.org/tale2035/version_1021/run_1119#"
+}

@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
 
-RUNNER='../../common/run_dot_examples.sh'
+DOT_RUNNER='../../common/run_dot_examples.sh'
+SCRIPT_RUNNER='../../common/run_script_example.sh'
+
 
 # *****************************************************************************
 
-bash ${RUNNER} SETUP "IMPORT PROVONE TRACE" << END_SCRIPT
+bash ${SCRIPT_RUNNER} SETUP "IMPORT PROVONE TRACE" << END_SCRIPT
 
 blazegraph drop
 blazegraph import --format jsonld --file ../data/branched-pipeline.jsonld
@@ -12,7 +14,7 @@ blazegraph import --format jsonld --file ../data/branched-pipeline.jsonld
 END_SCRIPT
 
 
-bash ${RUNNER} GRAPH-1 "EMPTY DOT FILE" \
+bash ${DOT_RUNNER} GRAPH-1 "EMPTY DOT FILE" \
     << '__END_SCRIPT__'
 
 blazegraph report << '__END_REPORT_TEMPLATE__'
@@ -34,7 +36,7 @@ __END_SCRIPT__
 
 
 
-bash ${RUNNER} GRAPH-2 "TITLED EMPTY DOT FILE" \
+bash ${DOT_RUNNER} GRAPH-2 "TITLED EMPTY DOT FILE" \
     << '__END_SCRIPT__'
 
 blazegraph report << '__END_REPORT_TEMPLATE__'
@@ -58,7 +60,7 @@ __END_REPORT_TEMPLATE__
 __END_SCRIPT__
 
 
-bash ${RUNNER} GRAPH-3 "Node for Tale Run" \
+bash ${DOT_RUNNER} GRAPH-3 "Node for Tale Run" \
     << '__END_SCRIPT__'
 
 blazegraph report << '__END_REPORT_TEMPLATE__'
