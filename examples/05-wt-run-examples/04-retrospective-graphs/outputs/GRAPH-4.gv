@@ -1,0 +1,22 @@
+# Run ID: http://wholetale.org/tale2035/version_1021/run_1119#
+digraph wt_run {
+rankdir=LR
+
+# graph title
+fontname=Courier; fontsize=18; labelloc=t
+label="Tale Inputs and Outputs"
+
+# the tale run
+node[shape=box style="filled" fillcolor="#FFFFFF" peripheries=2 fontname=Courier]
+"08-branched-pipeline"
+
+# output files
+subgraph cluster_outputs { label=""; color=white; penwidth=0
+subgraph cluster_outputs_inner { label=""; color=white
+node[shape=box style="rounded,filled" fillcolor="#FFFFCC" peripheries=1 fontname=Helvetica]
+"http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i29" [label="./outputs/o12.txt"]
+"http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i30" [label="./outputs/o1234.txt"]
+"http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i31" [label="./outputs/o4.txt"]
+}}
+
+}

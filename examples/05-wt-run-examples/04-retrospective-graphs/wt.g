@@ -24,4 +24,24 @@
     "{{.}}"
 ''' }}
 
+{{ macro "wt_node_style_file" '''
+    
+    node[shape=box style="rounded,filled" fillcolor="#FFFFCC" peripheries=1 fontname=Helvetica]
+
+''' }}
+
+{{ query "SelectTaleOutputFilePaths" '''
+    SELECT DISTINCT ?f ?fp
+    WHERE {
+        ?e wt:ExecutionOf <{{.}}> .               
+        ?p wt:ChildProcessOf ?e .   
+        ?p wt:WroteFile ?f .          
+        FILTER NOT EXISTS {
+            ?_ wt:ReadFile ?f . 
+        }
+        ?f wt:FilePath ?fp .
+    }
+    ORDER BY ?fp
+''' }}
+}}}
 
