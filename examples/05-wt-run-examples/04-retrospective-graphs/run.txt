@@ -127,20 +127,30 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
                     {{ wt_node_run $TaleName }}
                     
                     # output files
-                    {{ gv_cluster "outputs" }}
-                        {{ wt_node_style_file }}
-                        {{ range $OutputFiles := (SelectTaleOutputFiles $RunScript | rows) }}                    \
-                            {{ labeled_node $OutputFiles }} 
-                        {{ end }}                                                                                       \
-                    {{ gv_cluster_end }}
+                    {{ with $OutputFiles := (SelectTaleOutputFiles $RunScript | rows) }}              \
+                        {{ gv_cluster "outputs" }}
+                            {{ wt_node_style_file }}
+                            {{ range $OutputFile := $OutputFiles }}                \
+                                {{ labeled_node $OutputFile }} 
+                            {{ end }}                                                                                       \
+                        {{ gv_cluster_end }}
+                        {{ range $OutputFile := $OutputFiles }}                    \
+                            {{ gv_edge $OutputFile }} 
+                        {{ end }}                                                  \
+                    {{ end }}
 
                     # input files
-                    {{ gv_cluster "inputs" }}
-                        {{ wt_node_style_file }}
-                        {{ range $InputFiles := (SelectTaleInputFiles $RunScript | rows) }}                    \
-                            {{ labeled_node $InputFiles }} 
-                        {{ end }}                                                                                       \
-                    {{ gv_cluster_end }}
+                    {{ with $InputFiles := (SelectTaleInputFiles $RunScript | rows) }}                    \
+                        {{ gv_cluster "inputs" }}
+                            {{ wt_node_style_file }}
+                            {{ range $InputFile := $InputFiles }}                    \
+                                {{ labeled_node $InputFile }} 
+                            {{ end }}                                                                                       \
+                        {{ gv_cluster_end }}
+                        {{ range $InputFile := $InputFiles }}                    \
+                            {{ gv_input_edge $InputFile }} 
+                        {{ end }}                                                  \
+                    {{ end }}
 
                     {{ gv_end }}
     
@@ -173,6 +183,10 @@ node[shape=box style="rounded,filled" fillcolor="#FFFFCC" peripheries=1 fontname
 "http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i30" [label="./outputs/o1234.txt"]
 "http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i31" [label="./outputs/o4.txt"]
 }}
+"08-branched-pipeline" -> "http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i29"
+"08-branched-pipeline" -> "http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i30"
+"08-branched-pipeline" -> "http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i31"
+
 
 # input files
 subgraph cluster_inputs { label=""; color=white; penwidth=0
@@ -183,5 +197,10 @@ node[shape=box style="rounded,filled" fillcolor="#FFFFCC" peripheries=1 fontname
 "http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i26" [label="./inputs/i3.txt"]
 "http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i28" [label="./inputs/i4.txt"]
 }}
+"http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i23" -> "08-branched-pipeline"
+"http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i24" -> "08-branched-pipeline"
+"http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i26" -> "08-branched-pipeline"
+"http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i28" -> "08-branched-pipeline"
+
 
 }

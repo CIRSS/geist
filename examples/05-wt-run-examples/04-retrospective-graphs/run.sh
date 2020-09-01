@@ -109,20 +109,30 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
                     {{ wt_node_run $TaleName }}
                     
                     # output files
-                    {{ gv_cluster "outputs" }}
-                        {{ wt_node_style_file }}
-                        {{ range $OutputFiles := (SelectTaleOutputFiles $RunScript | rows) }}                    \\
-                            {{ labeled_node $OutputFiles }} 
-                        {{ end }}                                                                                       \\
-                    {{ gv_cluster_end }}
+                    {{ with $OutputFiles := (SelectTaleOutputFiles $RunScript | rows) }}              \\
+                        {{ gv_cluster "outputs" }}
+                            {{ wt_node_style_file }}
+                            {{ range $OutputFile := $OutputFiles }}                \\
+                                {{ labeled_node $OutputFile }} 
+                            {{ end }}                                                                                       \\
+                        {{ gv_cluster_end }}
+                        {{ range $OutputFile := $OutputFiles }}                    \\
+                            {{ gv_edge $OutputFile }} 
+                        {{ end }}                                                  \\
+                    {{ end }}
 
                     # input files
-                    {{ gv_cluster "inputs" }}
-                        {{ wt_node_style_file }}
-                        {{ range $InputFiles := (SelectTaleInputFiles $RunScript | rows) }}                    \\
-                            {{ labeled_node $InputFiles }} 
-                        {{ end }}                                                                                       \\
-                    {{ gv_cluster_end }}
+                    {{ with $InputFiles := (SelectTaleInputFiles $RunScript | rows) }}                    \\
+                        {{ gv_cluster "inputs" }}
+                            {{ wt_node_style_file }}
+                            {{ range $InputFile := $InputFiles }}                    \\
+                                {{ labeled_node $InputFile }} 
+                            {{ end }}                                                                                       \\
+                        {{ gv_cluster_end }}
+                        {{ range $InputFile := $InputFiles }}                    \\
+                            {{ gv_input_edge $InputFile }} 
+                        {{ end }}                                                  \\
+                    {{ end }}
 
                     {{ gv_end }}
     
