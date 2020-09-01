@@ -3,17 +3,18 @@ SCRIPTS_DIR = ../common/scripts
 
 RUN_SCRIPT_FILE=./run.sh
 RUN_OUTPUT_FILE=./run.txt
-RUN_SCRATCH_DIR=.scratch
+RUN_OUTPUTS_DIR=./outputs
+RUN_SCRATCH_DIR=./.scratch
 
-DIRS=$(RUN_SCRATCH_DIR)
+DIRS=${RUN_OUTPUTS_DIR} ${RUN_SCRATCH_DIR}
 
 all: run
 
 clean:
 	rm -fv ${RUN_OUTPUT_FILE}
-	rm -rfv $(RUN_SCRATCH_DIR)
+	rm -rfv ${DIRS}
 
-run: $(RUN_SCRATCH_DIR)
+run: $(DIRS)
 	bash ${RUN_SCRIPT_FILE} > ${RUN_OUTPUT_FILE}
 
 $(DIRS):

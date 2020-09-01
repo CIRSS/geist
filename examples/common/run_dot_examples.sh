@@ -4,12 +4,13 @@
 script_id=$1
 script_description=$2
 
-scratch_dir=.scratch
+scratch_dir=./.scratch
+outputs_dir=./outputs
 
 # define name of result file
 script_file=${scratch_dir}/${script_id}.sh
-dot_file=${scratch_dir}/${script_id}.gv
-png_file=${scratch_dir}/${script_id}.png
+dot_file=${outputs_dir}/${script_id}.gv
+png_file=${outputs_dir}/${script_id}.png
 
 # copy query from stdin to the query file
 echo "# ${script_description}" > ${script_file}

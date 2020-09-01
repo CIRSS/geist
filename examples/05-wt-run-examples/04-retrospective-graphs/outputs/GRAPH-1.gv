@@ -1,0 +1,4 @@
+# A graphviz file
+digraph wt_run {
+rankdir=LR
+}

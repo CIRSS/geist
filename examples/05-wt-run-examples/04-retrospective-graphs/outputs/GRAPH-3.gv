@@ -1,0 +1,8 @@
+# Run ID: http://wholetale.org/tale2035/version_1021/run_1119#
+digraph wt_run {
+rankdir=LR
+fontname=Courier; fontsize=18; labelloc=t
+label="08-branched-pipeline"
+node[shape=box style="filled" fillcolor="#FFFFFF" peripheries=2 fontname=Courier]
+"http://wholetale.org/tale2035/version_1021/run_1119#"
+}
