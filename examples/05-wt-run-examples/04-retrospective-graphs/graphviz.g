@@ -22,7 +22,7 @@
     }}
 ''' }}
 
-{{ macro "labeled_node" "NodeID" "NodeLabel" '''
+{{ macro "gv_labeled_node" "NodeID" "NodeLabel" '''
     "{{$NodeID}}" [label="{{$NodeLabel}}"]
 ''' }}
 
