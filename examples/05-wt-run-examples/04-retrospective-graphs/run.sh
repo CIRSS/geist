@@ -42,7 +42,7 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
     {{ include "wt.g" }}
 }}}
 
-    {{ with $RunID := wt_select_run_id | value}}
+    {{ with $RunID := wt_select_run | value}}
 
         # Run ID: {{ $RunID }}
         {{ gv_graph "wt_run" }} 
@@ -66,7 +66,7 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
         {{ include "wt.g" }}
     }}}
 
-    {{ with $RunID := wt_select_run_id | value }}
+    {{ with $RunID := wt_select_run | value }}
 
         # Run ID: {{ $RunID }}
         {{ gv_graph "wt_run" }} 
@@ -92,38 +92,31 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
         {{ include "wt.g" }}
     }}}
 
-    {{ with $Run := wt_select_run | vector }}                                                   \\
-        {{ with $RunID := index $Run 0 }}                                                       \\
-            {{ with $TaleName := index $Run 1 }}                                                \\
-                {{ with $RunScript := index $Run 2 }}                                           \\
- 
-                    # Run ID: {{ $RunID }}
-                    {{ gv_graph "wt_run" }}
+    {{ with $RunID := wt_select_run | value }}                                  \\
 
-                    # graph title
-                    {{ gv_title "Tale Inputs and Outputs" }}
-                    
-                    # the tale run
-                    {{ wt_run_node_style }}
-                    {{ gv_labeled_node $RunID $TaleName }}
-                    
-                    # output files
-                    {{ with $OutputFiles := (wt_select_tale_output_files $RunScript | rows) }}  \\
-                        {{ wt_file_nodes_cluster "outputs" $OutputFiles }}
-                        {{ wt_out_file_edges $RunID $OutputFiles }}                             \\
-                    {{ end }}                                                                   
+        # Run ID: {{ $RunID }}
+        {{ gv_graph "wt_run" }}
 
-                    # input files
-                    {{ with $InputFiles := (wt_select_tale_input_files $RunScript | rows) }}    \\
-                        {{ wt_file_nodes_cluster "inputs" $InputFiles }}
-                        {{ wt_in_file_edges $RunID $InputFiles }}                                      
-                    {{ end }}                                                                   \\
-                                                                                                \\
-                    {{ gv_end }}
-    
-                {{ end }}
-            {{ end }}
-        {{ end }}
+        # graph title
+        {{ gv_title "Tale Inputs and Outputs" }}
+        
+        # the tale run
+        {{ wt_run_node $RunID }}
+        
+        # output files
+        {{ with $OutputFiles := (wt_select_tale_output_files $RunID | rows) }}  \\
+            {{ wt_file_nodes_cluster "outputs" $OutputFiles }}
+            {{ wt_out_file_edges $RunID $OutputFiles }}                         \\
+        {{ end }}                                                                   
+
+        # input files
+        {{ with $InputFiles := (wt_select_tale_input_files $RunID | rows) }}    \\
+            {{ wt_file_nodes_cluster "inputs" $InputFiles }}
+            {{ wt_in_file_edges $RunID $InputFiles }}                                      
+        {{ end }}                                                               \\
+                                                                                \\
+        {{ gv_end }}
+
     {{ end }}
 
 __END_REPORT_TEMPLATE__

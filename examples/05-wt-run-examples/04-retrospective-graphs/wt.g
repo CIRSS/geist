@@ -2,7 +2,7 @@
 {{ prefix "provone" "http://purl.dataone.org/provone/2015/01/15/ontology#" }}
 {{ prefix "wt" "http://wholetale.org/ontology/wt#" }}
 
-{{ query "wt_select_run_id" '''
+{{ query "wt_select_run" '''
     SELECT ?r 
     WHERE {
         ?r a wt:TaleRun
@@ -16,15 +16,6 @@
     }
 ''' }}
 
-{{ query "wt_select_run" '''
-    SELECT ?runID ?taleName ?runScript
-    WHERE {
-        ?runID a wt:TaleRun .
-        ?runID wt:TaleName ?taleName .
-        ?runID wt:TaleRunScript ?runScript
-    }
-''' }}
-
 {{ macro "wt_node_run" "Label" '''
     "{{$Label}}"
 ''' }}
@@ -34,16 +25,24 @@
     node[shape=box style="filled" fillcolor="#FFFFFF" peripheries=2 fontname=Courier]
 ''' }}
 
+{{ macro "wt_run_node" "RunID" '''
+    {{wt_run_node_style}}
+    {{with $TaleName := (wt_select_tale_name $RunID | value) }} \\
+        {{ gv_labeled_node $RunID $TaleName }}
+    {{end}}
+''' }}
+
 {{ macro "wt_node_style_file" '''
     
     node[shape=box style="rounded,filled" fillcolor="#FFFFCC" peripheries=1 fontname=Helvetica]
 
 ''' }}
 
-{{ query "wt_select_tale_output_files" "RunScript" '''
+{{ query "wt_select_tale_output_files" "RunID" '''
     SELECT DISTINCT ?fileID ?filePath
     WHERE {
-        ?e wt:ExecutionOf <{{$RunScript}}> .            
+        $RunID wt:TaleRunScript ?runScript .
+        ?e wt:ExecutionOf ?$runScript .            
         ?p wt:ChildProcessOf ?e .   
         ?p wt:WroteFile ?fileID .          
         FILTER NOT EXISTS {
@@ -55,10 +54,11 @@
 ''' }}
 }}}
 
-{{ query "wt_select_tale_input_files" "RunScript" '''
+{{ query "wt_select_tale_input_files" "RunID" '''
     SELECT DISTINCT ?f ?fp
     WHERE {
-        ?e wt:ExecutionOf <{{$RunScript}}> .               
+        $RunID wt:TaleRunScript ?runScript .
+        ?e wt:ExecutionOf ?$runScript .            
         ?p wt:ChildProcessOf ?e .   
         ?p wt:ReadFile ?f .          
         FILTER NOT EXISTS {
