@@ -105,7 +105,7 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
                     
                     # the tale run
                     {{ wt_run_node_style }}
-                    {{ wt_node_run $TaleName }}
+                    {{ labeled_node $RunID $TaleName }}
                     
                     # output files
                     {{ with $OutputFiles := (SelectTaleOutputFiles $RunScript | rows) }}        \\
@@ -116,7 +116,7 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
                             {{ end }}                                                           \\
                         {{ gv_cluster_end }}
                         {{ range $OutputFile := $OutputFiles }}                                 \\
-                            {{ gv_edge (index $OutputFile 0) }} 
+                            {{ gv_edge $RunID (index $OutputFile 0) }} 
                         {{ end }}                                                               \\
                     {{ end }}                                                                   \\
 
@@ -129,7 +129,7 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
                             {{ end }}                                                           \\
                         {{ gv_cluster_end }}
                         {{ range $InputFile := $InputFiles }}                                   \\
-                            {{ gv_input_edge (index $InputFile 0) }} 
+                            {{ gv_edge (index $InputFile 0) $RunID }} 
                         {{ end }}                                                               \\
                     {{ end }}                                                                   \\
                                                                                                 \\

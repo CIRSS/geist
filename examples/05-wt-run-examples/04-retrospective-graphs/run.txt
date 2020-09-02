@@ -123,7 +123,7 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
                     
                     # the tale run
                     {{ wt_run_node_style }}
-                    {{ wt_node_run $TaleName }}
+                    {{ labeled_node $RunID $TaleName }}
                     
                     # output files
                     {{ with $OutputFiles := (SelectTaleOutputFiles $RunScript | rows) }}        \
@@ -134,7 +134,7 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
                             {{ end }}                                                           \
                         {{ gv_cluster_end }}
                         {{ range $OutputFile := $OutputFiles }}                                 \
-                            {{ gv_edge (index $OutputFile 0) }} 
+                            {{ gv_edge $RunID (index $OutputFile 0) }} 
                         {{ end }}                                                               \
                     {{ end }}                                                                   \
 
@@ -147,7 +147,7 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
                             {{ end }}                                                           \
                         {{ gv_cluster_end }}
                         {{ range $InputFile := $InputFiles }}                                   \
-                            {{ gv_input_edge (index $InputFile 0) }} 
+                            {{ gv_edge (index $InputFile 0) $RunID }} 
                         {{ end }}                                                               \
                     {{ end }}                                                                   \
                                                                                                 \
@@ -172,7 +172,7 @@ label="Tale Inputs and Outputs"
 
 # the tale run
 node[shape=box style="filled" fillcolor="#FFFFFF" peripheries=2 fontname=Courier]
-"08-branched-pipeline"
+"http://wholetale.org/tale2035/version_1021/run_1119#" [label="08-branched-pipeline"]
 
 # output files
 subgraph cluster_outputs { label=""; color=white; penwidth=0
@@ -182,9 +182,9 @@ node[shape=box style="rounded,filled" fillcolor="#FFFFCC" peripheries=1 fontname
 "http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i30" [label="./outputs/o1234.txt"]
 "http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i31" [label="./outputs/o4.txt"]
 }}
-"08-branched-pipeline" -> "http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i29"
-"08-branched-pipeline" -> "http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i30"
-"08-branched-pipeline" -> "http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i31"
+"http://wholetale.org/tale2035/version_1021/run_1119#" -> "http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i29"
+"http://wholetale.org/tale2035/version_1021/run_1119#" -> "http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i30"
+"http://wholetale.org/tale2035/version_1021/run_1119#" -> "http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i31"
 
 # input files
 subgraph cluster_inputs { label=""; color=white; penwidth=0
@@ -195,8 +195,8 @@ node[shape=box style="rounded,filled" fillcolor="#FFFFCC" peripheries=1 fontname
 "http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i26" [label="./inputs/i3.txt"]
 "http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i28" [label="./inputs/i4.txt"]
 }}
-"http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i23" -> "08-branched-pipeline"
-"http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i24" -> "08-branched-pipeline"
-"http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i26" -> "08-branched-pipeline"
-"http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i28" -> "08-branched-pipeline"
+"http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i23" -> "http://wholetale.org/tale2035/version_1021/run_1119#"
+"http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i24" -> "http://wholetale.org/tale2035/version_1021/run_1119#"
+"http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i26" -> "http://wholetale.org/tale2035/version_1021/run_1119#"
+"http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i28" -> "http://wholetale.org/tale2035/version_1021/run_1119#"
 }

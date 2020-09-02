@@ -26,10 +26,7 @@
     "{{$NodeID}}" [label="{{$NodeLabel}}"]
 ''' }}
 
-{{ macro "gv_edge" "Head" '''
-    "08-branched-pipeline" -> "{{$Head}}"
+{{ macro "gv_edge" "Tail" "Head" '''
+    "{{$Tail}}" -> "{{$Head}}"
 ''' }}
 
-{{ macro "gv_input_edge" "Tail" '''
-    "{{$Tail}}" -> "08-branched-pipeline"
-''' }}
