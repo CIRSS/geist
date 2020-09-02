@@ -371,23 +371,25 @@ func TestBlazegraphCmd_report_subqueries(t *testing.T) {
 
 	outputBuffer.Reset()
 	template := `
+		{{{
+			{{ query "Q1" '''									\
+				SELECT ?s										\
+				WHERE											\
+				{ ?s ab:tag ?o }								\
+				ORDER BY ?s										\
+			''' }}												\
+																\
+			{{ query "Q2" "Subject" '''	             			\
+				SELECT ?o 										\
+				WHERE { <{{$Subject}}> ab:tag ?o } 				\
+				ORDER BY ?o 									\
+			''' }}												\
+		}}}
+
 		{{ prefix "ab" "http://tmcphill.net/tags#" }}		\
 															\
-		{{ query "Q1" '''									\
-			SELECT ?s										\
-			WHERE											\
-			{ ?s ab:tag ?o }								\
-			ORDER BY ?s										\
-		''' }}												\
-															\
-		{{ query "Q2" '''									\
-			SELECT ?o 										\
-			WHERE { <{{.}}> ab:tag ?o } 					\
-			ORDER BY ?o 									\
-		''' }}												\
-															\
-		{{ range (runquery "Q1" | vector) }}				\
-			{{ runquery "Q2" . | tabulate }}				\
+		{{ range (Q1 | vector) }}				\
+			{{ Q2 . | tabulate }}				\
 
 		{{ end }}											\
 	`
@@ -500,9 +502,9 @@ func TestBlazegraphCmd_report_subquery_functions(t *testing.T) {
 				ORDER BY ?s
 			''' }}
 
-			{{ query "Q2" '''
+			{{ query "Q2" "Subject" '''
 				SELECT ?o 
-				WHERE { <{{.}}> ab:tag ?o } 
+				WHERE { <{{$Subject}}> ab:tag ?o } 
 				ORDER BY ?o 
 			''' }}
 		}}}

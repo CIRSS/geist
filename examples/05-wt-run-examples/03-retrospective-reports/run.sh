@@ -97,31 +97,31 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
     }
 ''' }}
 
-{{ query "GetTaleName" '''
+{{ query "GetTaleName" "RunID" '''
     SELECT ?n 
     WHERE {
-        <{{.}}> wt:TaleName ?n
+        <{{$RunID}}> wt:TaleName ?n
     }
 ''' }}
 
-{{ query "GetRunScriptID" '''
+{{ query "GetRunScriptID" "RunID" '''
     SELECT ?s 
     WHERE {
-        <{{.}}> wt:TaleRunScript ?s
+        <{{$RunID}}> wt:TaleRunScript ?s
     }
 ''' }}
 
-{{ query "GetFilePath" '''
+{{ query "GetFilePath" "FileID" '''
     SELECT ?n
     WHERE {
-        <{{.}}> wt:FilePath ?n
+        <{{$FileID}}> wt:FilePath ?n
     }
 ''' }}
 
-{{ query "GetInputFilePaths" '''
+{{ query "GetInputFilePaths" "RunScriptID" '''
     SELECT DISTINCT ?fp
     WHERE {
-        ?e wt:ExecutionOf <{{.}}> .               
+        ?e wt:ExecutionOf <{{$RunScriptID}}> .       
         ?p wt:ChildProcessOf ?e .   
         ?p wt:ReadFile ?f .          
         FILTER NOT EXISTS {

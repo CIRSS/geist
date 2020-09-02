@@ -1,6 +1,7 @@
 package blazegraph
 
 import (
+	"errors"
 	"strings"
 	"text/template"
 
@@ -67,15 +68,16 @@ func (bc *Client) ExpandReport(rp *reporter.ReportTemplate) (report string, err 
 		"select": func(queryText string, args ...interface{}) (interface{}, error) {
 			return bc.selectFunc(rp, queryText, args)
 		},
-		"query": func(name string, body string) (s string, err error) {
+		"query": func(name string, args ...string) (s string, err error) {
+			if len(args) == 0 {
+				err = errors.New("No body provided for query " + name)
+				return
+			}
+			body := reporter.GetParameterAppendedBody(args)
 			rp.Properties.Queries[name] = body
 			rp.AddFunction(name, func(args ...interface{}) (rs interface{}, err error) {
 				queryText := rp.Properties.Queries[name]
-				var data interface{}
-				if len(args) == 1 {
-					data = args[0]
-				}
-				query, err := rp.ExpandSubreport(name, prependPrefixes(rp, queryText), data)
+				query, err := rp.ExpandSubreport(name, prependPrefixes(rp, queryText), args)
 				if err != nil {
 					return
 				}

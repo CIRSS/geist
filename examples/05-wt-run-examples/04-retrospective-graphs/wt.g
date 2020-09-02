@@ -9,10 +9,10 @@
     }
 ''' }}
 
-{{ query "wt_select_tale_name" '''
+{{ query "wt_select_tale_name" "RunID" '''
     SELECT ?n 
     WHERE {
-        <{{.}}> wt:TaleName ?n
+        <{{$RunID}}> wt:TaleName ?n
     }
 ''' }}
 
@@ -40,10 +40,10 @@
 
 ''' }}
 
-{{ query "wt_select_tale_output_files" '''
+{{ query "wt_select_tale_output_files" "RunScript" '''
     SELECT DISTINCT ?fileID ?filePath
     WHERE {
-        ?e wt:ExecutionOf <{{.}}> .            
+        ?e wt:ExecutionOf <{{$RunScript}}> .            
         ?p wt:ChildProcessOf ?e .   
         ?p wt:WroteFile ?fileID .          
         FILTER NOT EXISTS {
@@ -55,10 +55,10 @@
 ''' }}
 }}}
 
-{{ query "wt_select_tale_input_files" '''
+{{ query "wt_select_tale_input_files" "RunScript" '''
     SELECT DISTINCT ?f ?fp
     WHERE {
-        ?e wt:ExecutionOf <{{.}}> .               
+        ?e wt:ExecutionOf <{{$RunScript}}> .               
         ?p wt:ChildProcessOf ?e .   
         ?p wt:ReadFile ?f .          
         FILTER NOT EXISTS {
