@@ -119,3 +119,24 @@ func TestReportTemplate_macro_function_with_two_parameters(t *testing.T) {
 		macro with two parameters: AA, BB
 	`)
 }
+
+func TestReportTemplate_macro_function_calling_macro_function(t *testing.T) {
+
+	rt := reporter.NewReportTemplate(
+		"main",
+		`
+		{{{
+		{{ macro "M1" '''macro one''' }}
+		{{ macro "M2" '''macro two calls {{M1}}'''}}
+		}}}
+
+		{{ M2 }}
+		`, nil)
+
+	rt.Parse()
+	actual, _ := rt.Expand(nil)
+	util.LineContentsEqual(t, actual,
+		`
+		macro two calls macro one
+	`)
+}
