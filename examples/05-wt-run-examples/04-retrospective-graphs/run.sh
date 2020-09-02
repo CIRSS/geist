@@ -21,7 +21,6 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
 
 {{{
     {{ include "graphviz.g" }}
-    {{ include "wt.g" }}
 }}}
 
     # A graphviz file
@@ -93,10 +92,10 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
         {{ include "wt.g" }}
     }}}
 
-    {{ with $Run := SelectRun | vector }}                   \\
-        {{ with $RunID := index $Run 0 }}                   \\
-            {{ with $TaleName := index $Run 1 }}            \\
-                {{ with $RunScript := index $Run 2 }}       \\
+    {{ with $Run := SelectRun | vector }}                                                       \\
+        {{ with $RunID := index $Run 0 }}                                                       \\
+            {{ with $TaleName := index $Run 1 }}                                                \\
+                {{ with $RunScript := index $Run 2 }}                                           \\
  
                     # Run ID: {{ $RunID }}
                     {{ gv_graph "wt_run" }}
@@ -109,31 +108,31 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
                     {{ wt_node_run $TaleName }}
                     
                     # output files
-                    {{ with $OutputFiles := (SelectTaleOutputFiles $RunScript | rows) }}              \\
+                    {{ with $OutputFiles := (SelectTaleOutputFiles $RunScript | rows) }}        \\
                         {{ gv_cluster "outputs" }}
                             {{ wt_node_style_file }}
-                            {{ range $OutputFile := $OutputFiles }}                \\
-                                {{ labeled_node $OutputFile }} 
-                            {{ end }}                                                                                       \\
+                            {{ range $OutputFile := $OutputFiles }}                             \\
+                                {{ labeled_node (index $OutputFile 0) (index $OutputFile 1) }} 
+                            {{ end }}                                                           \\
                         {{ gv_cluster_end }}
-                        {{ range $OutputFile := $OutputFiles }}                    \\
-                            {{ gv_edge $OutputFile }} 
-                        {{ end }}                                                  \\
-                    {{ end }}
+                        {{ range $OutputFile := $OutputFiles }}                                 \\
+                            {{ gv_edge (index $OutputFile 0) }} 
+                        {{ end }}                                                               \\
+                    {{ end }}                                                                   \\
 
                     # input files
-                    {{ with $InputFiles := (SelectTaleInputFiles $RunScript | rows) }}                    \\
+                    {{ with $InputFiles := (SelectTaleInputFiles $RunScript | rows) }}          \\
                         {{ gv_cluster "inputs" }}
                             {{ wt_node_style_file }}
-                            {{ range $InputFile := $InputFiles }}                    \\
-                                {{ labeled_node $InputFile }} 
-                            {{ end }}                                                                                       \\
+                            {{ range $InputFile := $InputFiles }}                               \\
+                                {{ labeled_node (index $InputFile 0) (index $InputFile 1) }} 
+                            {{ end }}                                                           \\
                         {{ gv_cluster_end }}
-                        {{ range $InputFile := $InputFiles }}                    \\
-                            {{ gv_input_edge $InputFile }} 
-                        {{ end }}                                                  \\
-                    {{ end }}
-
+                        {{ range $InputFile := $InputFiles }}                                   \\
+                            {{ gv_input_edge (index $InputFile 0) }} 
+                        {{ end }}                                                               \\
+                    {{ end }}                                                                   \\
+                                                                                                \\
                     {{ gv_end }}
     
                 {{ end }}

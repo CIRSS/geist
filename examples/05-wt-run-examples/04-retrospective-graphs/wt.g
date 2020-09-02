@@ -25,8 +25,8 @@
     }
 ''' }}
 
-{{ macro "wt_node_run" '''
-    "{{.}}"
+{{ macro "wt_node_run" "Label" '''
+    "{{$Label}}"
 ''' }}
 
 

@@ -2,6 +2,7 @@ package reporter
 
 import (
 	"errors"
+	"fmt"
 	"io/ioutil"
 	"strings"
 	"text/template"
@@ -137,11 +138,11 @@ func (rp *ReportTemplate) ExpandSubreport(name string, text string, data interfa
 
 func (rp *ReportTemplate) expandMacro(name string, args []interface{}) (result interface{}, err error) {
 	macroTemplate := rp.Properties.Macros[name]
-	var data interface{}
-	if len(args) == 1 {
-		data = args[0]
-	}
-	result, err = macroTemplate.Expand(data)
+	// var data interface{}
+	// if len(args) == 1 {
+	// 	data = args[0]
+	// }
+	result, err = macroTemplate.Expand(args)
 	return
 }
 
@@ -159,7 +160,28 @@ func (rp *ReportTemplate) addStandardFunctions() {
 		"up": func(s string) string {
 			return strings.ToUpper(s)
 		},
-		"macro": func(name string, body string) (s string, err error) {
+		"macro": func(name string, args ...string) (s string, err error) {
+			argsCount := len(args)
+			if argsCount == 0 {
+				err = errors.New("No body provided for macro " + name)
+				return
+			}
+			body := args[argsCount-1]
+			var parameters []string
+			parameterCount := argsCount - 1
+			if parameterCount > 0 {
+				parameters = args[0:parameterCount]
+				buffer := strings.Builder{}
+				buffer.WriteString("{{ with $args := . }}\n")
+				for index, parameter := range parameters {
+					buffer.WriteString(fmt.Sprintf("{{ with $%s := index $args %d }}\n", parameter, index))
+				}
+				buffer.WriteString(body)
+				buffer.WriteString(strings.Repeat("\n{{end}}", parameterCount+1))
+				body = buffer.String()
+				print(body)
+			}
+
 			macroTemplate := NewReportTemplate(name, body, &MacroDelimiters)
 			macroTemplate.AddFuncs(rp.Properties.Funcs)
 			err = macroTemplate.Parse()

@@ -323,11 +323,11 @@ func TestBlazegraphCmd_report_macros(t *testing.T) {
 	template := `
 		{{prefix "ab" "http://tmcphill.net/tags#"}} \
 													\
-		{{macro "M1" '''{{select <?					\
+		{{macro "M1" "Subject" '''{{select <?		\
 			SELECT ?o 								\
 			WHERE { <{{.}}> ab:tag ?o } 			\
 			ORDER BY ?o 							\
-		?> . | tabulate }}''' }}					\
+		?> $Subject | tabulate }}''' }}				\
 													\
 		{{with $subjects := (select '''				\
 				SELECT ?s							\
@@ -547,11 +547,11 @@ func TestBlazegraphCmd_report_macro_functions(t *testing.T) {
 		{{{
 			{{prefix "ab" "http://tmcphill.net/tags#"}}
 
-			{{macro "M1" '''{{select <?
+			{{macro "M1" "Subject" '''{{select <?
 				SELECT ?o 
 				WHERE { <{{.}}> ab:tag ?o } 
 				ORDER BY ?o 
-			?> . | tabulate }}''' }}
+			?> $Subject | tabulate }}''' }}
 		}}}													\\
 															\\
 		{{with $subjects := (select '''						

@@ -22,7 +22,6 @@ node[shape=box style="rounded,filled" fillcolor="#FFFFCC" peripheries=1 fontname
 "08-branched-pipeline" -> "http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i30"
 "08-branched-pipeline" -> "http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i31"
 
-
 # input files
 subgraph cluster_inputs { label=""; color=white; penwidth=0
 subgraph cluster_inputs_inner { label=""; color=white
@@ -36,6 +35,4 @@ node[shape=box style="rounded,filled" fillcolor="#FFFFCC" peripheries=1 fontname
 "http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i24" -> "08-branched-pipeline"
 "http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i26" -> "08-branched-pipeline"
 "http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i28" -> "08-branched-pipeline"
-
-
 }
