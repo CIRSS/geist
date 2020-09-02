@@ -42,11 +42,11 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
     {{ include "wt.g" }}
 }}}
 
-    {{ with $RunID := SelectRunID | value}}
+    {{ with $RunID := wt_select_run_id | value}}
 
         # Run ID: {{ $RunID }}
         {{ gv_graph "wt_run" }} 
-        {{ gv_title (SelectTaleName $RunID | value) }}
+        {{ gv_title (wt_select_tale_name $RunID | value) }}
         {{ gv_end }}
     
     {{ end }}
@@ -66,11 +66,11 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
         {{ include "wt.g" }}
     }}}
 
-    {{ with $RunID := SelectRunID | value }}
+    {{ with $RunID := wt_select_run_id | value }}
 
         # Run ID: {{ $RunID }}
         {{ gv_graph "wt_run" }} 
-        {{ gv_title (SelectTaleName $RunID | value) }}
+        {{ gv_title (wt_select_tale_name $RunID | value) }}
         {{ wt_run_node_style }}
         {{ wt_node_run $RunID }}
         {{ gv_end }}
@@ -92,7 +92,7 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
         {{ include "wt.g" }}
     }}}
 
-    {{ with $Run := SelectRun | vector }}                                                       \\
+    {{ with $Run := wt_select_run | vector }}                                                       \\
         {{ with $RunID := index $Run 0 }}                                                       \\
             {{ with $TaleName := index $Run 1 }}                                                \\
                 {{ with $RunScript := index $Run 2 }}                                           \\
@@ -108,7 +108,7 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
                     {{ labeled_node $RunID $TaleName }}
                     
                     # output files
-                    {{ with $OutputFiles := (SelectTaleOutputFiles $RunScript | rows) }}        \\
+                    {{ with $OutputFiles := (wt_select_tale_output_files $RunScript | rows) }}        \\
                         {{ gv_cluster "outputs" }}
                             {{ wt_node_style_file }}
                             {{ range $OutputFile := $OutputFiles }}                             \\
@@ -121,7 +121,7 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
                     {{ end }}                                                                   \\
 
                     # input files
-                    {{ with $InputFiles := (SelectTaleInputFiles $RunScript | rows) }}          \\
+                    {{ with $InputFiles := (wt_select_tale_input_files $RunScript | rows) }}          \\
                         {{ gv_cluster "inputs" }}
                             {{ wt_node_style_file }}
                             {{ range $InputFile := $InputFiles }}                               \\

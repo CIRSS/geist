@@ -2,21 +2,21 @@
 {{ prefix "provone" "http://purl.dataone.org/provone/2015/01/15/ontology#" }}
 {{ prefix "wt" "http://wholetale.org/ontology/wt#" }}
 
-{{ query "SelectRunID" '''
+{{ query "wt_select_run_id" '''
     SELECT ?r 
     WHERE {
         ?r a wt:TaleRun
     }
 ''' }}
 
-{{ query "SelectTaleName" '''
+{{ query "wt_select_tale_name" '''
     SELECT ?n 
     WHERE {
         <{{.}}> wt:TaleName ?n
     }
 ''' }}
 
-{{ query "SelectRun" '''
+{{ query "wt_select_run" '''
     SELECT ?runID ?taleName ?runScript
     WHERE {
         ?runID a wt:TaleRun .
@@ -40,7 +40,7 @@
 
 ''' }}
 
-{{ query "SelectTaleOutputFiles" '''
+{{ query "wt_select_tale_output_files" '''
     SELECT DISTINCT ?fileID ?filePath
     WHERE {
         ?e wt:ExecutionOf <{{.}}> .            
@@ -55,7 +55,7 @@
 ''' }}
 }}}
 
-{{ query "SelectTaleInputFiles" '''
+{{ query "wt_select_tale_input_files" '''
     SELECT DISTINCT ?f ?fp
     WHERE {
         ?e wt:ExecutionOf <{{.}}> .               
