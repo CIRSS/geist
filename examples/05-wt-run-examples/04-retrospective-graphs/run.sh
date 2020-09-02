@@ -110,7 +110,7 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
                     # output files
                     {{ with $OutputFiles := (wt_select_tale_output_files $RunScript | rows) }}  \\
                         {{ wt_file_nodes_cluster "outputs" $OutputFiles }}
-                        {{ wt_out_file_edges $RunID $OutputFiles }}                                                             \\
+                        {{ wt_out_file_edges $RunID $OutputFiles }}                             \\
                     {{ end }}                                                                   
 
                     # input files
