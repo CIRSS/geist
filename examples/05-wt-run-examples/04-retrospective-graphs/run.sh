@@ -92,7 +92,7 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
         {{ include "wt.g" }}
     }}}
 
-    {{ with $Run := wt_select_run | vector }}                                                       \\
+    {{ with $Run := wt_select_run | vector }}                                                   \\
         {{ with $RunID := index $Run 0 }}                                                       \\
             {{ with $TaleName := index $Run 1 }}                                                \\
                 {{ with $RunScript := index $Run 2 }}                                           \\
@@ -108,29 +108,15 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
                     {{ gv_labeled_node $RunID $TaleName }}
                     
                     # output files
-                    {{ with $OutputFiles := (wt_select_tale_output_files $RunScript | rows) }}        \\
-                        {{ gv_cluster "outputs" }}
-                            {{ wt_node_style_file }}
-                            {{ range $OutputFile := $OutputFiles }}                             \\
-                                {{ gv_labeled_node (index $OutputFile 0) (index $OutputFile 1) }} 
-                            {{ end }}                                                           \\
-                        {{ gv_cluster_end }}
-                        {{ range $OutputFile := $OutputFiles }}                                 \\
-                            {{ gv_edge $RunID (index $OutputFile 0) }} 
-                        {{ end }}                                                               \\
-                    {{ end }}                                                                   \\
+                    {{ with $OutputFiles := (wt_select_tale_output_files $RunScript | rows) }}  \\
+                        {{ wt_file_nodes_cluster "outputs" $OutputFiles }}
+                        {{ wt_out_file_edges $RunID $OutputFiles }}                                                             \\
+                    {{ end }}                                                                   
 
                     # input files
-                    {{ with $InputFiles := (wt_select_tale_input_files $RunScript | rows) }}          \\
-                        {{ gv_cluster "inputs" }}
-                            {{ wt_node_style_file }}
-                            {{ range $InputFile := $InputFiles }}                               \\
-                                {{ gv_labeled_node (index $InputFile 0) (index $InputFile 1) }} 
-                            {{ end }}                                                           \\
-                        {{ gv_cluster_end }}
-                        {{ range $InputFile := $InputFiles }}                                   \\
-                            {{ gv_edge (index $InputFile 0) $RunID }} 
-                        {{ end }}                                                               \\
+                    {{ with $InputFiles := (wt_select_tale_input_files $RunScript | rows) }}    \\
+                        {{ wt_file_nodes_cluster "inputs" $InputFiles }}
+                        {{ wt_in_file_edges $RunID $InputFiles }}                                      
                     {{ end }}                                                                   \\
                                                                                                 \\
                     {{ gv_end }}

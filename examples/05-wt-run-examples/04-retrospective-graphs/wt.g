@@ -84,3 +84,24 @@
     ORDER BY ?filePath
 ''' }}
 }}}
+
+{{ macro "wt_file_nodes_cluster" "ClusterName" "Files" '''
+    {{ gv_cluster $ClusterName }}
+        {{ wt_node_style_file }}
+        {{ range $File := $Files }}                                 \\              
+            {{ gv_labeled_node (index $File 0) (index $File 1) }} 
+        {{ end }}                                                   \\                       
+    {{ gv_cluster_end }}
+''' }}
+
+{{ macro "wt_out_file_edges" "SourceNode" "Files" '''
+    {{ range $File := $Files }}                                     \\
+        {{ gv_edge $SourceNode (index $File 0) }} 
+    {{ end }}  
+''' }}
+
+{{ macro "wt_in_file_edges" "SinkNode" "Files" '''
+    {{ range $File := $Files }}                                     \\
+        {{ gv_edge (index $File 0) $SinkNode }} 
+    {{ end }}  
+''' }}
