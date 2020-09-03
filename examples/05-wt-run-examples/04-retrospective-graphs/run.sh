@@ -70,9 +70,8 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
 
         # Run ID: {{ $RunID }}
         {{ gv_graph "wt_run" }} 
-        {{ gv_title (wt_select_tale_name $RunID | value) }}
-        {{ wt_run_node_style }}
-        {{ wt_node_run $RunID }}
+        {{ gv_title "Tale Run" }}
+        {{ wt_run_node $RunID }}
         {{ gv_end }}
     
     {{ end }}
@@ -82,7 +81,7 @@ __END_REPORT_TEMPLATE__
 __END_SCRIPT__
 
 
-bash ${DOT_RUNNER} GRAPH-4 "Node for Tale Run" \
+bash ${DOT_RUNNER} GRAPH-4 "Tale Run with Inputs and Outputs" \
     << '__END_SCRIPT__'
 
 blazegraph report << '__END_REPORT_TEMPLATE__'

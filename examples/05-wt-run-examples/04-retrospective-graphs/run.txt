@@ -79,9 +79,8 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
 
         # Run ID: {{ $RunID }}
         {{ gv_graph "wt_run" }} 
-        {{ gv_title (wt_select_tale_name $RunID | value) }}
-        {{ wt_run_node_style }}
-        {{ wt_node_run $RunID }}
+        {{ gv_title "Tale Run" }}
+        {{ wt_run_node $RunID }}
         {{ gv_end }}
     
     {{ end }}
@@ -94,14 +93,14 @@ __END_REPORT_TEMPLATE__
 digraph wt_run {
 rankdir=LR
 fontname=Courier; fontsize=18; labelloc=t
-label="08-branched-pipeline"
+label="Tale Run"
 node[shape=box style="filled" fillcolor="#FFFFFF" peripheries=2 fontname=Courier]
-"http://wholetale.org/tale2035/version_1021/run_1119#"
+"http://wholetale.org/tale2035/version_1021/run_1119#" [label="08-branched-pipeline"]
 }
 
 ******************************************* EXAMPLE GRAPH-4 ************************************************
 
-# Node for Tale Run
+# Tale Run with Inputs and Outputs
 
 blazegraph report << '__END_REPORT_TEMPLATE__'
 

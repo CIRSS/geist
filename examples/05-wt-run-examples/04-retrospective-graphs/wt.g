@@ -16,11 +16,6 @@
     }
 ''' }}
 
-{{ macro "wt_node_run" "Label" '''
-    "{{$Label}}"
-''' }}
-
-
 {{ macro "wt_run_node_style" '''
     node[shape=box style="filled" fillcolor="#FFFFFF" peripheries=2 fontname=Courier]
 ''' }}
@@ -67,21 +62,6 @@
         ?f wt:FilePath ?fp .
     }
     ORDER BY ?fp
-''' }}
-}}}
-
-{{ query "SelectTaleOutputEdges" '''
-    SELECT DISTINCT ?taleID ?filePath
-    WHERE {
-        ?e wt:ExecutionOf <{{.}}> .            
-        ?p wt:ChildProcessOf ?e .   
-        ?p wt:WroteFile ?fileID .          
-        FILTER NOT EXISTS {
-            ?_ wt:ReadFile ?fileID . 
-        }
-        ?fileID wt:FilePath ?filePath .
-    }
-    ORDER BY ?filePath
 ''' }}
 }}}
 
