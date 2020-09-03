@@ -1,0 +1,56 @@
+# Run ID: http://wholetale.org/tale2035/version_1021/run_1119#
+digraph wt_run {
+rankdir=LR
+
+# graph title
+fontname=Courier; fontsize=18; labelloc=t
+label="Tale Processes and Data Files"
+
+subgraph cluster_Processes { label=""; color=white; penwidth=0
+subgraph cluster_Processes_inner { label=""; color=white
+
+# data files
+node[shape=box style="rounded,filled" fillcolor="#FFFFCC" peripheries=1 fontname=Helvetica]
+"http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i23" [label="./inputs/i1.txt"]
+"http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i24" [label="./inputs/i2.txt"]
+"http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i26" [label="./inputs/i3.txt"]
+"http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i28" [label="./inputs/i4.txt"]
+"http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i29" [label="./outputs/o12.txt"]
+"http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i30" [label="./outputs/o1234.txt"]
+"http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i31" [label="./outputs/o4.txt"]
+"http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i11" [label="./temp/t12.txt"]
+"http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i25" [label="./temp/t123.txt"]
+"http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i27" [label="./temp/t4.txt"]
+
+# processes
+node[shape=box style="filled" fillcolor="#CCFFCC" peripheries=1 fontname=Courier]
+"http://wholetale.org/tale_2035/version_1021/run_1119#process_p2" [label="/bin/cat"]
+"http://wholetale.org/tale_2035/version_1021/run_1119#process_p3" [label="/bin/cat"]
+"http://wholetale.org/tale_2035/version_1021/run_1119#process_p4" [label="/bin/cat"]
+"http://wholetale.org/tale_2035/version_1021/run_1119#process_p5" [label="/bin/cat"]
+"http://wholetale.org/tale_2035/version_1021/run_1119#process_p6" [label="/bin/cat"]
+"http://wholetale.org/tale_2035/version_1021/run_1119#process_p7" [label="/bin/cat"]
+
+# process input data file edges
+"http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i11" -> "http://wholetale.org/tale_2035/version_1021/run_1119#process_p5"
+"http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i23" -> "http://wholetale.org/tale_2035/version_1021/run_1119#process_p2"
+"http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i23" -> "http://wholetale.org/tale_2035/version_1021/run_1119#process_p3"
+"http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i24" -> "http://wholetale.org/tale_2035/version_1021/run_1119#process_p2"
+"http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i24" -> "http://wholetale.org/tale_2035/version_1021/run_1119#process_p3"
+"http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i25" -> "http://wholetale.org/tale_2035/version_1021/run_1119#process_p6"
+"http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i26" -> "http://wholetale.org/tale_2035/version_1021/run_1119#process_p3"
+"http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i27" -> "http://wholetale.org/tale_2035/version_1021/run_1119#process_p6"
+"http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i27" -> "http://wholetale.org/tale_2035/version_1021/run_1119#process_p7"
+"http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i28" -> "http://wholetale.org/tale_2035/version_1021/run_1119#process_p4"
+
+# process output data file edges
+"http://wholetale.org/tale_2035/version_1021/run_1119#process_p2" -> "http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i11"
+"http://wholetale.org/tale_2035/version_1021/run_1119#process_p3" -> "http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i25"
+"http://wholetale.org/tale_2035/version_1021/run_1119#process_p4" -> "http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i27"
+"http://wholetale.org/tale_2035/version_1021/run_1119#process_p5" -> "http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i29"
+"http://wholetale.org/tale_2035/version_1021/run_1119#process_p6" -> "http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i30"
+"http://wholetale.org/tale_2035/version_1021/run_1119#process_p7" -> "http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i31"
+
+}}
+
+}

@@ -28,9 +28,11 @@
 ''' }}
 
 {{ macro "wt_node_style_file" '''
-    
     node[shape=box style="rounded,filled" fillcolor="#FFFFCC" peripheries=1 fontname=Helvetica]
+''' }}
 
+{{ macro "wt_node_style_process" '''
+    node[shape=box style="filled" fillcolor="#CCFFCC" peripheries=1 fontname=Courier]
 ''' }}
 
 {{ query "wt_select_tale_output_files" "RunID" '''
@@ -84,4 +86,81 @@
     {{ range $File := $Files }}                                     \\
         {{ gv_edge (index $File 0) $SinkNode }} 
     {{ end }}  
+''' }}
+
+{{ query "wt_select_data_files" "RunID" '''
+    SELECT DISTINCT ?f ?fp
+    WHERE {
+        $RunID wt:TaleRunScript ?runScript .
+        ?e wt:ExecutionOf ?$runScript .            
+        ?p wt:ChildProcessOf ?e .   
+        { ?p wt:ReadFile ?f } UNION { ?p wt:WroteFile ?f } .          
+        ?f wt:FilePath ?fp .
+    }
+    ORDER BY ?fp
+''' }}
+}}}
+
+{{ macro "wt_data_file_nodes" "RunID" '''
+    {{ wt_node_style_file }}
+    {{ range $File := (wt_select_data_files $RunID | rows) }}    \\
+        {{ gv_labeled_node (index $File 0) (index $File 1) }}
+    {{ end }}                                                                   
+''' }}
+
+
+{{ query "wt_select_processes" "RunID" '''
+    SELECT DISTINCT ?p ?fp
+    WHERE {
+        $RunID wt:TaleRunScript ?runScript .
+        ?e wt:ExecutionOf ?$runScript .            
+        ?p wt:ChildProcessOf ?e .
+        ?p wt:ExecutionOf ?programFile .
+        ?programFile wt:FilePath ?fp .
+    }
+    ORDER BY ?fp
+''' }}
+}}}
+
+{{ macro "wt_process_nodes" "RunID" '''
+    {{ wt_node_style_process }}
+    {{ range $Process := (wt_select_processes $RunID | rows) }}    \\
+        {{ gv_labeled_node (index $Process 0) (index $Process 1) }}
+    {{ end }}                                                                   
+''' }}
+
+{{ query "wt_select_process_input_data_files" "RunID" '''
+    SELECT DISTINCT ?f ?p
+    WHERE {
+        $RunID wt:TaleRunScript ?runScript .
+        ?e wt:ExecutionOf ?$runScript .            
+        ?p wt:ChildProcessOf ?e .
+        ?p wt:ReadFile ?f .
+    }
+    ORDER BY ?f
+''' }}
+}}}
+
+{{ macro "wt_process_input_data_file_edges" "RunID" '''
+    {{ range $Edge := (wt_select_process_input_data_files $RunID | rows) }}    \\
+        {{ gv_edge (index $Edge 0) (index $Edge 1) }}
+    {{ end }}                                                                   
+''' }}
+
+{{ query "wt_select_process_output_data_files" "RunID" '''
+    SELECT DISTINCT ?p ?f 
+    WHERE {
+        $RunID wt:TaleRunScript ?runScript .
+        ?e wt:ExecutionOf ?$runScript .            
+        ?p wt:ChildProcessOf ?e .
+        ?p wt:WroteFile ?f .
+    }
+    ORDER BY ?f
+''' }}
+}}}
+
+{{ macro "wt_process_output_data_file_edges" "RunID" '''
+    {{ range $Edge := (wt_select_process_output_data_files $RunID | rows) }}    \\
+        {{ gv_edge (index $Edge 0) (index $Edge 1) }}
+    {{ end }}                                                                   
 ''' }}
