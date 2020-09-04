@@ -151,7 +151,7 @@ END_QUERY
 END_SCRIPT
 
 
-bash ${DOT_RUNNER} S8 "Visualization of Citation Graph" \
+bash ${DOT_RUNNER} S8 "Visualization of Paper-Citation Graph" \
     << '__END_SCRIPT__'
 
 blazegraph report << '__END_REPORT_TEMPLATE__'
@@ -165,11 +165,12 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
 
     {{ gv_graph "wt_run" }}
 
-    {{ gv_title "Citation Graph" }}
+    {{ gv_title "Paper-Citation Graph" }}
     
     {{ gv_cluster "citations" }}
 
     # paper nodes
+    node[shape=box style="filled" fillcolor="#CCFFCC" peripheries=1 fontname=Courier]
     {{ range $Paper := select '''
         SELECT ?paper ?title
         WHERE {
@@ -191,7 +192,129 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
     {{ end }}
                                                                     \\
     {{ gv_cluster_end }}
+
+    {{ gv_end }}
+
+__END_REPORT_TEMPLATE__
+
+__END_SCRIPT__
+
+bash ${DOT_RUNNER} S9 "Visualization of Paper-Citation Graph" \
+    << '__END_SCRIPT__'
+
+blazegraph report << '__END_REPORT_TEMPLATE__'
+
+    {{{
+        {{ include "graphviz.g" }}
+    }}}
+
+    {{ prefix "dc" "http://purl.org/dc/elements/1.1/" }}
+    {{ prefix "c" "http://learningsparql.com/ns/citations#" }}
+
+    {{ gv_graph "wt_run" }}
+
+    {{ gv_title "Result-Dependency Graph" }}
     
+    {{ gv_cluster "citations" }}
+
+    # result nodes
+    node[shape=box style="rounded,filled" fillcolor="#FFFFCC" peripheries=1 fontname=Helvetica]
+    {{ range $Result := select '''
+        SELECT DISTINCT ?result ?label
+        WHERE {
+            ?paper rdf:type c:Paper .
+            ?paper c:reports ?result .
+            ?result rdfs:label ?label
+        } ''' | rows }}                                             \\
+        {{ gv_labeled_node (index $Result 0) (index $Result 1) }}
+    {{ end }}
+                                                                    \\
+    # result dependency edges
+    {{ range $Dependency := select '''
+            SELECT DISTINCT ?result1 ?result2
+            WHERE {
+                 ?result2 ^c:uses/c:reports ?result1
+           }
+            ORDER BY ?result1 ?result2        
+        ''' | rows }}                                               \\
+        {{ gv_edge (index $Dependency 0) (index $Dependency 1) }}
+    {{ end }}
+                                                                    \\
+    {{ gv_cluster_end }}
+
+    {{ gv_end }}
+
+__END_REPORT_TEMPLATE__
+
+__END_SCRIPT__
+
+
+bash ${DOT_RUNNER} S10 "Visualization of Paper-Result Graph" \
+    << '__END_SCRIPT__'
+
+blazegraph report << '__END_REPORT_TEMPLATE__'
+
+    {{{
+        {{ include "graphviz.g" }}
+    }}}
+
+    {{ prefix "dc" "http://purl.org/dc/elements/1.1/" }}
+    {{ prefix "c" "http://learningsparql.com/ns/citations#" }}
+
+    {{ gv_graph "wt_run" }}
+
+    {{ gv_title "Paper-Result Graph" }}
+    
+    {{ gv_cluster "citations" }}
+
+    # paper nodes
+    node[shape=box style="filled" fillcolor="#CCFFCC" peripheries=1 fontname=Courier]
+    {{ range $Paper := select '''
+        SELECT ?paper ?title
+        WHERE {
+            ?paper rdf:type c:Paper .
+            ?paper dc:title ?title .
+        } ''' | rows }}                                             \\
+        {{ gv_labeled_node (index $Paper 0) (index $Paper 1) }}
+    {{ end }}
+                                                                    \\
+    # result nodes
+    node[shape=box style="rounded,filled" fillcolor="#FFFFCC" peripheries=1 fontname=Helvetica]
+    {{ range $Result := select '''
+        SELECT DISTINCT ?result ?label
+        WHERE {
+            ?paper rdf:type c:Paper .
+            ?paper c:reports ?result .
+            ?result rdfs:label ?label
+        } ''' | rows }}                                             \\
+        {{ gv_labeled_node (index $Result 0) (index $Result 1) }}
+    {{ end }}
+                                                                    \\
+    # reports edges
+    {{ range $Report := select '''
+            SELECT DISTINCT ?paper ?result
+            WHERE {
+                ?paper c:reports ?result .
+            }
+            ORDER BY ?paper ?result        
+        ''' | rows }}                                                \\
+        {{ gv_edge (index $Report 0) (index $Report 1) }}
+    {{ end }}
+
+    # uses edges
+    {{ range $Use := select '''
+            SELECT DISTINCT ?result ?paper 
+            WHERE {
+                ?paper c:uses ?result .
+            }
+            ORDER BY ?paper ?result        
+        ''' | rows }}                                                \\
+        {{ gv_edge (index $Use 0) (index $Use 1) }}
+    {{ end }}
+
+                                                                    \\
+    {{ gv_cluster_end }}
+
     {{ gv_end }}
 
 __END_REPORT_TEMPLATE__
