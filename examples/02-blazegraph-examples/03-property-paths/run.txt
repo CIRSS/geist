@@ -1,0 +1,199 @@
+
+******************************************* EXAMPLE SETUP ************************************************
+
+# INITIALIZE BLAZEGRAPH INSTANCE WITH CITATIONS
+
+blazegraph drop
+blazegraph import --file ../data/citations.ttl --format ttl
+
+------------------------------------------- SETUP OUTPUTS ------------------------------------------------
+
+
+
+******************************************* EXAMPLE S1 ************************************************
+
+# EXPORT CITATIONS AS N-TRIPLES
+
+blazegraph export --format nt | sort
+
+------------------------------------------- S1 OUTPUTS ------------------------------------------------
+
+<http://learningsparql.com/ns/citations#cites> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<http://learningsparql.com/ns/citations#cites> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://learningsparql.com/ns/citations#cites> .
+<http://learningsparql.com/ns/papers#paperA> <http://purl.org/dc/elements/1.1/title> "Paper A" .
+<http://learningsparql.com/ns/papers#paperB> <http://learningsparql.com/ns/citations#cites> <http://learningsparql.com/ns/papers#paperA> .
+<http://learningsparql.com/ns/papers#paperB> <http://www.w3.org/2000/01/rdf-schema#label> "Paper B" .
+<http://learningsparql.com/ns/papers#paperC> <http://learningsparql.com/ns/citations#cites> <http://learningsparql.com/ns/papers#paperA> .
+<http://learningsparql.com/ns/papers#paperD> <http://learningsparql.com/ns/citations#cites> <http://learningsparql.com/ns/papers#paperA> .
+<http://learningsparql.com/ns/papers#paperD> <http://learningsparql.com/ns/citations#cites> <http://learningsparql.com/ns/papers#paperB> .
+<http://learningsparql.com/ns/papers#paperE> <http://learningsparql.com/ns/citations#cites> <http://learningsparql.com/ns/papers#paperA> .
+<http://learningsparql.com/ns/papers#paperF> <http://learningsparql.com/ns/citations#cites> <http://learningsparql.com/ns/papers#paperC> .
+<http://learningsparql.com/ns/papers#paperF> <http://learningsparql.com/ns/citations#cites> <http://learningsparql.com/ns/papers#paperE> .
+<http://learningsparql.com/ns/papers#paperG> <http://learningsparql.com/ns/citations#cites> <http://learningsparql.com/ns/papers#paperC> .
+<http://learningsparql.com/ns/papers#paperG> <http://learningsparql.com/ns/citations#cites> <http://learningsparql.com/ns/papers#paperE> .
+<http://learningsparql.com/ns/papers#paperH> <http://learningsparql.com/ns/citations#cites> <http://learningsparql.com/ns/papers#paperD> .
+<http://learningsparql.com/ns/papers#paperI> <http://learningsparql.com/ns/citations#cites> <http://learningsparql.com/ns/papers#paperF> .
+<http://learningsparql.com/ns/papers#paperI> <http://learningsparql.com/ns/citations#cites> <http://learningsparql.com/ns/papers#paperG> .
+<http://purl.org/dc/elements/1.1/title> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<http://purl.org/dc/elements/1.1/title> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://purl.org/dc/elements/1.1/title> .
+
+
+******************************************* EXAMPLE S2 ************************************************
+
+# WHICH PAPERS DIRECTLY CITE WHICH PAPERS?
+
+blazegraph select --format table << END_QUERY
+
+    prefix c: <http://learningsparql.com/ns/citations#>
+
+    SELECT DISTINCT ?citing_paper ?cited_paper
+    WHERE {
+        ?citing_paper c:cites ?cited_paper .
+    }
+    ORDER BY ?citing_paper ?cited_paper
+
+END_QUERY
+
+------------------------------------------- S2 OUTPUTS ------------------------------------------------
+
+citing_paper                               | cited_paper
+=======================================================================================
+http://learningsparql.com/ns/papers#paperB | http://learningsparql.com/ns/papers#paperA
+http://learningsparql.com/ns/papers#paperC | http://learningsparql.com/ns/papers#paperA
+http://learningsparql.com/ns/papers#paperD | http://learningsparql.com/ns/papers#paperA
+http://learningsparql.com/ns/papers#paperD | http://learningsparql.com/ns/papers#paperB
+http://learningsparql.com/ns/papers#paperE | http://learningsparql.com/ns/papers#paperA
+http://learningsparql.com/ns/papers#paperF | http://learningsparql.com/ns/papers#paperC
+http://learningsparql.com/ns/papers#paperF | http://learningsparql.com/ns/papers#paperE
+http://learningsparql.com/ns/papers#paperG | http://learningsparql.com/ns/papers#paperC
+http://learningsparql.com/ns/papers#paperG | http://learningsparql.com/ns/papers#paperE
+http://learningsparql.com/ns/papers#paperH | http://learningsparql.com/ns/papers#paperD
+http://learningsparql.com/ns/papers#paperI | http://learningsparql.com/ns/papers#paperF
+http://learningsparql.com/ns/papers#paperI | http://learningsparql.com/ns/papers#paperG
+
+
+******************************************* EXAMPLE S3 ************************************************
+
+# WHICH PAPERS DEPEND ON WHICH PRIOR WORK?
+
+blazegraph select --format table << END_QUERY
+
+    prefix c: <http://learningsparql.com/ns/citations#>
+
+    SELECT DISTINCT ?paper ?prior_work
+    WHERE {
+        ?paper c:cites+ ?prior_work .
+    }
+    ORDER BY ?paper ?prior_work
+
+END_QUERY
+
+------------------------------------------- S3 OUTPUTS ------------------------------------------------
+
+paper                                      | prior_work
+=======================================================================================
+http://learningsparql.com/ns/papers#paperB | http://learningsparql.com/ns/papers#paperA
+http://learningsparql.com/ns/papers#paperC | http://learningsparql.com/ns/papers#paperA
+http://learningsparql.com/ns/papers#paperD | http://learningsparql.com/ns/papers#paperA
+http://learningsparql.com/ns/papers#paperD | http://learningsparql.com/ns/papers#paperB
+http://learningsparql.com/ns/papers#paperE | http://learningsparql.com/ns/papers#paperA
+http://learningsparql.com/ns/papers#paperF | http://learningsparql.com/ns/papers#paperA
+http://learningsparql.com/ns/papers#paperF | http://learningsparql.com/ns/papers#paperC
+http://learningsparql.com/ns/papers#paperF | http://learningsparql.com/ns/papers#paperE
+http://learningsparql.com/ns/papers#paperG | http://learningsparql.com/ns/papers#paperA
+http://learningsparql.com/ns/papers#paperG | http://learningsparql.com/ns/papers#paperC
+http://learningsparql.com/ns/papers#paperG | http://learningsparql.com/ns/papers#paperE
+http://learningsparql.com/ns/papers#paperH | http://learningsparql.com/ns/papers#paperA
+http://learningsparql.com/ns/papers#paperH | http://learningsparql.com/ns/papers#paperB
+http://learningsparql.com/ns/papers#paperH | http://learningsparql.com/ns/papers#paperD
+http://learningsparql.com/ns/papers#paperI | http://learningsparql.com/ns/papers#paperA
+http://learningsparql.com/ns/papers#paperI | http://learningsparql.com/ns/papers#paperC
+http://learningsparql.com/ns/papers#paperI | http://learningsparql.com/ns/papers#paperE
+http://learningsparql.com/ns/papers#paperI | http://learningsparql.com/ns/papers#paperF
+http://learningsparql.com/ns/papers#paperI | http://learningsparql.com/ns/papers#paperG
+
+
+******************************************* EXAMPLE S4 ************************************************
+
+# WHICH PAPERS DEPEND ON PAPER A?
+
+blazegraph select --format table << END_QUERY
+
+    prefix c: <http://learningsparql.com/ns/citations#>
+    prefix : <http://learningsparql.com/ns/papers#>
+
+    SELECT DISTINCT ?paper
+    WHERE {
+        ?paper c:cites+ :paperA .
+    }
+    ORDER BY ?paper
+
+END_QUERY
+
+------------------------------------------- S4 OUTPUTS ------------------------------------------------
+
+paper
+=========================================
+http://learningsparql.com/ns/papers#paperB
+http://learningsparql.com/ns/papers#paperC
+http://learningsparql.com/ns/papers#paperD
+http://learningsparql.com/ns/papers#paperE
+http://learningsparql.com/ns/papers#paperF
+http://learningsparql.com/ns/papers#paperG
+http://learningsparql.com/ns/papers#paperH
+http://learningsparql.com/ns/papers#paperI
+
+
+******************************************* EXAMPLE S5 ************************************************
+
+# WHICH PAPERS CITE A PAPER THAT CITES PAPER A?
+
+blazegraph select --format table << END_QUERY
+
+    prefix c: <http://learningsparql.com/ns/citations#>
+    prefix : <http://learningsparql.com/ns/papers#>
+
+    SELECT DISTINCT ?paper
+    WHERE {
+        ?paper c:cites/c:cites :paperA .
+    }
+    ORDER BY ?paper
+
+END_QUERY
+
+------------------------------------------- S5 OUTPUTS ------------------------------------------------
+
+paper
+=========================================
+http://learningsparql.com/ns/papers#paperD
+http://learningsparql.com/ns/papers#paperF
+http://learningsparql.com/ns/papers#paperG
+http://learningsparql.com/ns/papers#paperH
+
+
+******************************************* EXAMPLE S6 ************************************************
+
+# WHICH PAPERS CITE A PAPER CITED BY PAPER D?
+
+blazegraph select --format table << END_QUERY
+
+    prefix c: <http://learningsparql.com/ns/citations#>
+    prefix : <http://learningsparql.com/ns/papers#>
+
+    SELECT DISTINCT ?paper
+    WHERE {
+        ?paper c:cites/^c:cites :paperD .
+        FILTER(?paper != :paperD)
+    }
+    ORDER BY ?paper
+
+END_QUERY
+
+------------------------------------------- S6 OUTPUTS ------------------------------------------------
+
+paper
+=========================================
+http://learningsparql.com/ns/papers#paperB
+http://learningsparql.com/ns/papers#paperC
+http://learningsparql.com/ns/papers#paperE
+
