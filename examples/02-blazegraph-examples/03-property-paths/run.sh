@@ -110,3 +110,39 @@ blazegraph select --format table << END_QUERY
 END_QUERY
 
 END_SCRIPT
+
+bash ${RUNNER} S7 "WHAT RESULTS DEPEND DIRECTLY ON RESULTS REPORTED BY PAPER A?" \
+    << END_SCRIPT
+
+blazegraph select --format table << END_QUERY
+
+    prefix c: <http://learningsparql.com/ns/citations#>
+    prefix : <http://learningsparql.com/ns/papers#>
+
+    SELECT DISTINCT ?result
+    WHERE {
+        :paperA c:reports/^c:uses/c:reports ?result
+    }
+    ORDER BY ?result
+
+END_QUERY
+
+END_SCRIPT
+
+bash ${RUNNER} S7 "WHAT RESULTS DEPEND DIRECTLY OR INDIRECTLY ON RESULTS REPORTED BY PAPER A?" \
+    << END_SCRIPT
+
+blazegraph select --format table << END_QUERY
+
+    prefix c: <http://learningsparql.com/ns/citations#>
+    prefix : <http://learningsparql.com/ns/papers#>
+
+    SELECT DISTINCT ?result
+    WHERE {
+        :paperA c:reports/(^c:uses/c:reports)+ ?result
+    }
+    ORDER BY ?result
+
+END_QUERY
+
+END_SCRIPT
