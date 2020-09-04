@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 
-RUNNER='../../common/run_script_example.sh'
+DOT_RUNNER='../../common/run_dot_examples.sh'
+SCRIPT_RUNNER='../../common/run_script_example.sh'
 
 
-bash ${RUNNER} SETUP "INITIALIZE BLAZEGRAPH INSTANCE WITH CITATIONS" << END_SCRIPT
+bash ${SCRIPT_RUNNER} SETUP "INITIALIZE BLAZEGRAPH INSTANCE WITH CITATIONS" << END_SCRIPT
 
 blazegraph drop
 blazegraph import --file ../data/citations.ttl --format ttl
@@ -11,14 +12,14 @@ blazegraph import --file ../data/citations.ttl --format ttl
 END_SCRIPT
 
 
-bash ${RUNNER} S1 "EXPORT CITATIONS AS N-TRIPLES" << END_SCRIPT
+bash ${SCRIPT_RUNNER} S1 "EXPORT CITATIONS AS N-TRIPLES" << END_SCRIPT
 
 blazegraph export --format nt | sort
 
 END_SCRIPT
 
 
-bash ${RUNNER} S2 "WHICH PAPERS DIRECTLY CITE WHICH PAPERS?" \
+bash ${SCRIPT_RUNNER} S2 "WHICH PAPERS DIRECTLY CITE WHICH PAPERS?" \
     << END_SCRIPT
 
 blazegraph select --format table << END_QUERY
@@ -36,7 +37,7 @@ END_QUERY
 END_SCRIPT
 
 
-bash ${RUNNER} S3 "WHICH PAPERS DEPEND ON WHICH PRIOR WORK?" \
+bash ${SCRIPT_RUNNER} S3 "WHICH PAPERS DEPEND ON WHICH PRIOR WORK?" \
     << END_SCRIPT
 
 blazegraph select --format table << END_QUERY
@@ -54,7 +55,7 @@ END_QUERY
 END_SCRIPT
 
 
-bash ${RUNNER} S4 "WHICH PAPERS DEPEND ON PAPER A?" \
+bash ${SCRIPT_RUNNER} S4 "WHICH PAPERS DEPEND ON PAPER A?" \
     << END_SCRIPT
 
 blazegraph select --format table << END_QUERY
@@ -73,7 +74,7 @@ END_QUERY
 END_SCRIPT
 
 
-bash ${RUNNER} S5 "WHICH PAPERS CITE A PAPER THAT CITES PAPER A?" \
+bash ${SCRIPT_RUNNER} S5 "WHICH PAPERS CITE A PAPER THAT CITES PAPER A?" \
     << END_SCRIPT
 
 blazegraph select --format table << END_QUERY
@@ -92,7 +93,7 @@ END_QUERY
 END_SCRIPT
 
 
-bash ${RUNNER} S6 "WHICH PAPERS CITE A PAPER CITED BY PAPER D?" \
+bash ${SCRIPT_RUNNER} S6 "WHICH PAPERS CITE A PAPER CITED BY PAPER D?" \
     << END_SCRIPT
 
 blazegraph select --format table << END_QUERY
@@ -111,7 +112,8 @@ END_QUERY
 
 END_SCRIPT
 
-bash ${RUNNER} S7 "WHAT RESULTS DEPEND DIRECTLY ON RESULTS REPORTED BY PAPER A?" \
+
+bash ${SCRIPT_RUNNER} S7 "WHAT RESULTS DEPEND DIRECTLY ON RESULTS REPORTED BY PAPER A?" \
     << END_SCRIPT
 
 blazegraph select --format table << END_QUERY
@@ -129,7 +131,8 @@ END_QUERY
 
 END_SCRIPT
 
-bash ${RUNNER} S7 "WHAT RESULTS DEPEND DIRECTLY OR INDIRECTLY ON RESULTS REPORTED BY PAPER A?" \
+
+bash ${SCRIPT_RUNNER} S7 "WHAT RESULTS DEPEND DIRECTLY OR INDIRECTLY ON RESULTS REPORTED BY PAPER A?" \
     << END_SCRIPT
 
 blazegraph select --format table << END_QUERY
@@ -146,3 +149,51 @@ blazegraph select --format table << END_QUERY
 END_QUERY
 
 END_SCRIPT
+
+
+bash ${DOT_RUNNER} S8 "Visualization of Citation Graph" \
+    << '__END_SCRIPT__'
+
+blazegraph report << '__END_REPORT_TEMPLATE__'
+
+    {{{
+        {{ include "graphviz.g" }}
+    }}}
+
+    {{ prefix "dc" "http://purl.org/dc/elements/1.1/" }}
+    {{ prefix "c" "http://learningsparql.com/ns/citations#" }}
+
+    {{ gv_graph "wt_run" }}
+
+    {{ gv_title "Citation Graph" }}
+    
+    {{ gv_cluster "citations" }}
+
+    # paper nodes
+    {{ range $Paper := select '''
+        SELECT ?paper ?title
+        WHERE {
+            ?paper rdf:type c:Paper .
+            ?paper dc:title ?title .
+        } ''' | rows }}                                             \\
+        {{ gv_labeled_node (index $Paper 0) (index $Paper 1) }}
+    {{ end }}
+                                                                    \\
+    # citation edges
+    {{ range $Citation := select '''
+            SELECT DISTINCT ?citing_paper ?cited_paper
+            WHERE {
+                ?citing_paper c:cites ?cited_paper .
+            }
+            ORDER BY ?citing_paper ?cited_paper        
+        ''' | rows }}                                                \\
+        {{ gv_edge (index $Citation 0) (index $Citation 1) }}
+    {{ end }}
+                                                                    \\
+    {{ gv_cluster_end }}
+    
+    {{ gv_end }}
+
+__END_REPORT_TEMPLATE__
+
+__END_SCRIPT__

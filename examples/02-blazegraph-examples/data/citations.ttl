@@ -3,40 +3,56 @@
 @prefix c: <http://learningsparql.com/ns/citations#> . 
 @prefix : <http://learningsparql.com/ns/papers#> .
 
-:paperA dc:title "Paper A" . 
+:paperA rdf:type c:Paper .
+:paperA dc:title "Paper A" .
 :paperA c:reports :resultA .
 
-:paperB rdfs:label "Paper B" ;
+:paperB rdf:type c:Paper .
+:paperB dc:title "Paper B" ;
         c:cites :paperA . 
 :paperB c:reports :resultB .
 :paperB c:uses :resultA .
 
+:paperC rdf:type c:Paper .
+:paperC dc:title "Paper C" .
 :paperC c:cites :paperA . 
 :paperC c:reports :resultC .
 
+:paperD rdf:type c:Paper .
+:paperD dc:title "Paper D" .
 :paperD c:cites :paperA , :paperB . 
 :paperD c:reports :resultD1 .
 :paperD c:reports :resultD2 .
 :paperD c:reports :resultD3 .
 :paperD c:uses :resultB .
 
+:paperE rdf:type c:Paper .
+:paperE dc:title "Paper E" .
 :paperE c:cites :paperA . 
 :paperE c:reports :resultE .
 :paperE c:uses :resultA .
 
+:paperF rdf:type c:Paper .
+:paperF dc:title "Paper F" .
 :paperF c:cites :paperC , :paperE . 
 :paperF c:reports :resultF .
 :paperF c:uses :resultC .
 
+:paperG rdf:type c:Paper .
+:paperG dc:title "Paper G" .
 :paperG c:cites :paperC , :paperE . 
 :paperG c:reports :resultG1 .
 :paperG c:reports :resultG2 .
 :paperG c:uses :resultE .
 
+:paperH rdf:type c:Paper .
+:paperH dc:title "Paper H" .
 :paperH c:cites :paperD . 
 :paperH c:reports :resultH .
 :paperH c:uses :resultD2 .
 
+:paperI rdf:type c:Paper .
+:paperI dc:title "Paper I" .
 :paperI c:cites :paperF , :paperG .
 :paperI c:reports :resultI .
 :paperI c:uses :resultF .
