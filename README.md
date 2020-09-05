@@ -1,2 +1,3 @@
-# blazegraph-util
-Go library and CLI interface for working with Blazegraph instances.
+# Geist
+
+Language and libraries for multiparadigm logic programs. 
