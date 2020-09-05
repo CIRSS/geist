@@ -29,7 +29,7 @@ blazegraph report << __END_REPORT_TEMPLATE__
         ?run rdf:type wt:TaleRun .                          
         ?run wt:TaleRunScript ?run_script .                 
         ?run_process wt:ExecutionOf ?run_script .               
-        ?run_sub_process wt:ChildProcessOf ?run_process .   
+        ?run_sub_process (wt:ChildProcessOf)+ ?run_process .   
         ?run_sub_process wt:ReadFile ?read_file .          
         FILTER NOT EXISTS {                               
             ?_ wt:WroteFile ?read_file . }     
@@ -65,7 +65,7 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
         {{ range $InputFile := (select '''
             SELECT DISTINCT ?fp WHERE {
                 ?e wt:ExecutionOf <{{.}}> .               
-                ?p wt:ChildProcessOf ?e .   
+                ?p (wt:ChildProcessOf)+ ?e .   
                 ?p wt:ReadFile ?f .          
                 FILTER NOT EXISTS {                               
                     ?_ wt:WroteFile ?f . }     
@@ -122,7 +122,7 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
     SELECT DISTINCT ?fp
     WHERE {
         ?e wt:ExecutionOf <{{$RunScriptID}}> .       
-        ?p wt:ChildProcessOf ?e .   
+        ?p (wt:ChildProcessOf)+ ?e .   
         ?p wt:ReadFile ?f .          
         FILTER NOT EXISTS {
             ?_ wt:WroteFile ?f . 

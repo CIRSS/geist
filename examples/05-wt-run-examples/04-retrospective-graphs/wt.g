@@ -40,7 +40,7 @@
     WHERE {
         $RunID wt:TaleRunScript ?runScript .
         ?e wt:ExecutionOf ?$runScript .            
-        ?p wt:ChildProcessOf ?e .   
+        ?p (wt:ChildProcessOf)+ ?e .   
         ?p wt:WroteFile ?fileID .          
         FILTER NOT EXISTS {
             ?_ wt:ReadFile ?fileID . 
@@ -56,7 +56,7 @@
     WHERE {
         $RunID wt:TaleRunScript ?runScript .
         ?e wt:ExecutionOf ?$runScript .            
-        ?p wt:ChildProcessOf ?e .   
+        ?p (wt:ChildProcessOf)+ ?e .   
         ?p wt:ReadFile ?f .          
         FILTER NOT EXISTS {
             ?_ wt:WroteFile ?f . 
@@ -93,7 +93,7 @@
     WHERE {
         $RunID wt:TaleRunScript ?runScript .
         ?e wt:ExecutionOf ?$runScript .            
-        ?p wt:ChildProcessOf ?e .   
+        ?p (wt:ChildProcessOf)+ ?e .   
         { ?p wt:ReadFile ?f } UNION { ?p wt:WroteFile ?f } .          
         ?f wt:FilePath ?fp .
     }
@@ -114,7 +114,7 @@
     WHERE {
         $RunID wt:TaleRunScript ?runScript .
         ?e wt:ExecutionOf ?$runScript .            
-        ?p wt:ChildProcessOf ?e .
+        ?p (wt:ChildProcessOf)+ ?e .
         ?p wt:ExecutionOf ?programFile .
         ?programFile wt:FilePath ?fp .
     }
@@ -134,7 +134,7 @@
     WHERE {
         $RunID wt:TaleRunScript ?runScript .
         ?e wt:ExecutionOf ?$runScript .            
-        ?p wt:ChildProcessOf ?e .
+        ?p (wt:ChildProcessOf)+ ?e .
         ?p wt:ReadFile ?f .
     }
     ORDER BY ?f
@@ -152,7 +152,7 @@
     WHERE {
         $RunID wt:TaleRunScript ?runScript .
         ?e wt:ExecutionOf ?$runScript .            
-        ?p wt:ChildProcessOf ?e .
+        ?p (wt:ChildProcessOf)+ ?e .
         ?p wt:WroteFile ?f .
     }
     ORDER BY ?f
