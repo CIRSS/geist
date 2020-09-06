@@ -2,12 +2,12 @@ ifeq ('$(OS)', 'Windows_NT')
 PWSH=powershell -noprofile -command
 endif
 
-IMAGE_ORG=tmcphillips
-IMAGE_NAME=blazegraph-util
+IMAGE_ORG=cirss
+IMAGE_NAME=geist
 IMAGE_TAG=latest
 TAGGED_IMAGE=${IMAGE_ORG}/${IMAGE_NAME}:${IMAGE_TAG}
 
-REPRO_DIR=/mnt/blazegraph-util
+REPRO_DIR=/mnt/geist
 RUN_REPRO=docker run -it --rm -p 9999:9999  		  \
                      --volume $(CURDIR):$(REPRO_DIR)  \
                      $(TAGGED_IMAGE)

@@ -1,6 +1,6 @@
 FROM ubuntu:20.04
 
-ENV REPRO_NAME  blazegraph-util
+ENV REPRO_NAME  geist
 ENV REPRO_MNT   /mnt/${REPRO_NAME}
 ENV REPRO_USER  repro
 ENV REPRO_UID   1000
