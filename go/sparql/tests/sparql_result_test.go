@@ -4,8 +4,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/tmcphillips/blazegraph-util/sparql"
-	"github.com/tmcphillips/blazegraph-util/util"
+	"github.com/cirss/geist/sparql"
+	"github.com/cirss/geist/util"
 )
 
 var sr = sparql.ResultSet{

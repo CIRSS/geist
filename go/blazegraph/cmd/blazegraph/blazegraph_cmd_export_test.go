@@ -4,7 +4,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/tmcphillips/blazegraph-util/util"
+	"github.com/cirss/geist/util"
 )
 
 func TestBlazegraphCmd_export_empty_store(t *testing.T) {
@@ -143,11 +143,11 @@ func TestBlazegraphCmd_export_two_triples(t *testing.T) {
 			@prefix hint: <http://www.bigdata.com/queryHints#> .
 			@prefix bd: <http://www.bigdata.com/rdf#> .
 			@prefix bds: <http://www.bigdata.com/rdf/search#> .
-			
+
 			<http://tmcphill.net/data#x> <http://tmcphill.net/tags#tag> "seven" .
-			
+
 			<http://tmcphill.net/data#y> <http://tmcphill.net/tags#tag> "eight" .
-			
+
 			<http://tmcphill.net/tags#tag> a rdf:Property ;
 				rdfs:subPropertyOf <http://tmcphill.net/tags#tag> .
 		`)
@@ -170,20 +170,20 @@ func TestBlazegraphCmd_export_two_triples(t *testing.T) {
                 xmlns:hint="http://www.bigdata.com/queryHints#"
                 xmlns:bd="http://www.bigdata.com/rdf#"
                 xmlns:bds="http://www.bigdata.com/rdf/search#">
-            
+
             <rdf:Description rdf:about="http://tmcphill.net/data#x">
                 <tag xmlns="http://tmcphill.net/tags#">seven</tag>
             </rdf:Description>
-            
+
             <rdf:Description rdf:about="http://tmcphill.net/data#y">
                 <tag xmlns="http://tmcphill.net/tags#">eight</tag>
             </rdf:Description>
-            
+
             <rdf:Description rdf:about="http://tmcphill.net/tags#tag">
                 <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
                 <rdfs:subPropertyOf rdf:resource="http://tmcphill.net/tags#tag"/>
             </rdf:Description>
-            
+
             </rdf:RDF>
 		`)
 	})

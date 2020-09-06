@@ -7,8 +7,8 @@ import (
 	"strings"
 	"text/template"
 
-	"github.com/tmcphillips/blazegraph-util/tables"
-	"github.com/tmcphillips/blazegraph-util/util"
+	"github.com/cirss/geist/tables"
+	"github.com/cirss/geist/util"
 )
 
 type Properties struct {

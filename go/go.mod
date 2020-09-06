@@ -1,4 +1,4 @@
-module github.com/tmcphillips/blazegraph-util
+module github.com/cirss/geist
 
 go 1.13
 

@@ -5,7 +5,7 @@ import (
 	"strings"
 	"text/template"
 
-	"github.com/tmcphillips/blazegraph-util/reporter"
+	"github.com/cirss/geist/reporter"
 )
 
 func prependPrefixes(rp *reporter.ReportTemplate, text string) string {

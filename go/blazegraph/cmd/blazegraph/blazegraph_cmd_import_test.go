@@ -4,7 +4,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/tmcphillips/blazegraph-util/util"
+	"github.com/cirss/geist/util"
 )
 
 func TestBlazegraphCmd_import_two_triples(t *testing.T) {

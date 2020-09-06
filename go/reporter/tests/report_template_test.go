@@ -5,8 +5,8 @@ import (
 	"testing"
 	"text/template"
 
-	"github.com/tmcphillips/blazegraph-util/reporter"
-	"github.com/tmcphillips/blazegraph-util/util"
+	"github.com/cirss/geist/reporter"
+	"github.com/cirss/geist/util"
 )
 
 func TestReportTemplate_AnonymousStructInstance(t *testing.T) {
@@ -23,8 +23,8 @@ func TestReportTemplate_AnonymousStructInstance(t *testing.T) {
 		"main",
 		`
 		{{.Count}} items
-		are made of	     
-		{{.Material}}    
+		are made of
+		{{.Material}}
 		`, nil)
 
 	rt.Parse()
@@ -177,8 +177,8 @@ func TestReportTemplate_TableOfValues(t *testing.T) {
 	rt := reporter.NewReportTemplate(
 		"main",
 		`
-		Name   | City      | Phone									
-		-------|-----------|--------------							
+		Name   | City      | Phone
+		-------|-----------|--------------
 		{{range .}}{{index . 0}}    | {{index . 1}} | {{index . 2}}
 		{{end}}
 	`, nil)
@@ -205,9 +205,9 @@ func TestReportTemplate_TableOfValues_IndexOutOfRange(t *testing.T) {
 	rt := reporter.NewReportTemplate(
 		"main",
 		`
-		Name   | City      | Phone									
-		-------|-----------|--------------							
-		{{range .}}{{index . 0}}    | {{index . 1}} | {{index . 3}}	
+		Name   | City      | Phone
+		-------|-----------|--------------
+		{{range .}}{{index . 0}}    | {{index . 1}} | {{index . 3}}
 		{{end}}
 	`, nil)
 	rt.Parse()

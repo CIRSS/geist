@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/tmcphillips/blazegraph-util/blazegraph"
+	"github.com/cirss/geist/blazegraph"
 )
 
 func ExampleBlazegraph_EmptyRequest_HttpGet_StatusOK() {

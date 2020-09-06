@@ -3,8 +3,8 @@ package tests
 import (
 	"testing"
 
-	"github.com/tmcphillips/blazegraph-util/reporter"
-	"github.com/tmcphillips/blazegraph-util/util"
+	"github.com/cirss/geist/reporter"
+	"github.com/cirss/geist/util"
 )
 
 func TestReportTemplate_constant_macro(t *testing.T) {

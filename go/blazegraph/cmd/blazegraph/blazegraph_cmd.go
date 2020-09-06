@@ -6,9 +6,9 @@ import (
 	"io/ioutil"
 	"os"
 
-	"github.com/tmcphillips/blazegraph-util/reporter"
+	"github.com/cirss/geist/reporter"
 
-	"github.com/tmcphillips/blazegraph-util/blazegraph"
+	"github.com/cirss/geist/blazegraph"
 	"github.com/tmcphillips/main-wrapper/mw"
 )
 

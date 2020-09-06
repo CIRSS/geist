@@ -5,8 +5,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/tmcphillips/blazegraph-util/blazegraph"
-	"github.com/tmcphillips/blazegraph-util/util"
+	"github.com/cirss/geist/blazegraph"
+	"github.com/cirss/geist/util"
 )
 
 func TestBlazegraphClient_GetAllTriplesAsJSON_EmptyStore(t *testing.T) {

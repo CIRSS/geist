@@ -3,7 +3,7 @@ package sparql
 import (
 	"encoding/json"
 
-	"github.com/tmcphillips/blazegraph-util/reporter"
+	"github.com/cirss/geist/reporter"
 )
 
 type ResultSet struct {

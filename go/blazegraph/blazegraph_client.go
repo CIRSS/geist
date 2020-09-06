@@ -8,7 +8,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/tmcphillips/blazegraph-util/sparql"
+	"github.com/cirss/geist/sparql"
 )
 
 var SparqlEndpoint = "http://127.0.0.1:9999/blazegraph/sparql"

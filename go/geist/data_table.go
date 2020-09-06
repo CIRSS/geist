@@ -1,4 +1,4 @@
-package tables
+package geist
 
 type DataTable interface {
 	ColumnCount() int

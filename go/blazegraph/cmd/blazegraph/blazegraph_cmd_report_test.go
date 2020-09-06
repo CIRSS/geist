@@ -4,7 +4,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/tmcphillips/blazegraph-util/util"
+	"github.com/cirss/geist/util"
 )
 
 func TestBlazegraphCmd_report_static_content(t *testing.T) {
@@ -141,8 +141,8 @@ func TestBlazegraphCmd_report_two_triples(t *testing.T) {
 	t.Run("select-piped-to-tabulate", func(t *testing.T) {
 		outputBuffer.Reset()
 		template := `
-			Example select query with tabular output in report 
-															
+			Example select query with tabular output in report
+
 			{{select '''
 					prefix ab: <http://tmcphill.net/tags#>
 					SELECT ?s ?o
@@ -167,7 +167,7 @@ func TestBlazegraphCmd_report_two_triples(t *testing.T) {
 		outputBuffer.Reset()
 		template := `
 				Example select query with tabular output in report
-				
+
 				{{with $tags := (select '''
 						prefix ab: <http://tmcphill.net/tags#>
 						SELECT ?s ?o
@@ -192,7 +192,7 @@ func TestBlazegraphCmd_report_two_triples(t *testing.T) {
 		outputBuffer.Reset()
 		template := `
 				Example select query with tabular output in report
-				
+
 				{{with (select '''
 						prefix ab: <http://tmcphill.net/tags#>
 						SELECT ?s ?o
@@ -217,7 +217,7 @@ func TestBlazegraphCmd_report_two_triples(t *testing.T) {
 		outputBuffer.Reset()
 		template := `
 				Example select query with tabular output in report
-																	
+
 				{{ with (select '''
 						prefix ab: <http://tmcphill.net/tags#>
 						SELECT ?s ?o
@@ -228,7 +228,7 @@ func TestBlazegraphCmd_report_two_triples(t *testing.T) {
 																	\
 					Variables:
 					{{join (.Head.Vars) ", "}}
-					
+
 					Values:
 					{{range (rows .)}}{{ join . ", " | println}}{{end}}
 
@@ -286,7 +286,7 @@ func TestBlazegraphCmd_report_multiple_queries(t *testing.T) {
 						ORDER BY ?o
 
 					''' $subject)}} 					\
-					{{tabulate $objects}}				\			
+					{{tabulate $objects}}				\
 				{{end}}
 			{{end}}
 		{{end }}
@@ -348,7 +348,7 @@ func TestBlazegraphCmd_report_macros(t *testing.T) {
 		o
 		====
 		seven
-		
+
 		o
 		====
 		eight
@@ -399,7 +399,7 @@ func TestBlazegraphCmd_report_subqueries(t *testing.T) {
 		o
 		====
 		seven
-		
+
 		o
 		====
 		eight
@@ -429,7 +429,7 @@ func TestBlazegraphCmd_report_address_book(t *testing.T) {
 					?person ab:email     ?email .
 				}
 			''' | vector) }}																	\
-				{{ . }} 
+				{{ . }}
 			{{end}}
 		`
 		Main.InReader = strings.NewReader(template)
@@ -463,7 +463,7 @@ func TestBlazegraphCmd_report_address_book_imports(t *testing.T) {
 			=======================
 																			\
 			{{ range (runquery "GetEmailForFirstName" "Craig" | vector) }}	\
-				{{.}} 
+				{{.}}
 			{{end}}															\
 		`
 		Main.InReader = strings.NewReader(template)
@@ -503,9 +503,9 @@ func TestBlazegraphCmd_report_subquery_functions(t *testing.T) {
 			''' }}
 
 			{{ query "Q2" "Subject" '''
-				SELECT ?o 
-				WHERE { <{{$Subject}}> ab:tag ?o } 
-				ORDER BY ?o 
+				SELECT ?o
+				WHERE { <{{$Subject}}> ab:tag ?o }
+				ORDER BY ?o
 			''' }}
 		}}}
 															\
@@ -522,7 +522,7 @@ func TestBlazegraphCmd_report_subquery_functions(t *testing.T) {
 		o
 		====
 		seven
-		
+
 		o
 		====
 		eight
@@ -550,24 +550,24 @@ func TestBlazegraphCmd_report_macro_functions(t *testing.T) {
 			{{prefix "ab" "http://tmcphill.net/tags#"}}
 
 			{{macro "M1" "Subject" '''{{select <?
-				SELECT ?o 
-				WHERE { <{{.}}> ab:tag ?o } 
-				ORDER BY ?o 
+				SELECT ?o
+				WHERE { <{{.}}> ab:tag ?o }
+				ORDER BY ?o
 			?> $Subject | tabulate }}''' }}
 		}}}													\\
 															\\
-		{{with $subjects := (select '''						
-															
-				SELECT ?s									
-				WHERE										
-				{ ?s ab:tag ?o }							
-				ORDER BY ?s									
-															
+		{{with $subjects := (select '''
+
+				SELECT ?s
+				WHERE
+				{ ?s ab:tag ?o }
+				ORDER BY ?s
+
 			''') | vector }}								\\
 															\\
 			{{range $subject := $subjects }}				\\
 				{{ M1 $subject }}
-				
+
 			{{end}}											\\
 
 		{{end}}
@@ -579,7 +579,7 @@ func TestBlazegraphCmd_report_macro_functions(t *testing.T) {
 		o
 		====
 		seven
-		
+
 		o
 		====
 		eight
@@ -606,27 +606,27 @@ func TestBlazegraphCmd_report_macro_calls_query(t *testing.T) {
 		{{{
 			{{prefix "ab" "http://tmcphill.net/tags#"}}
 
-			{{query "select_subjects" '''															
-				SELECT DISTINCT ?s									
-				WHERE										
-				{ ?s ab:tag ?o }							
-				ORDER BY ?s													
+			{{query "select_subjects" '''
+				SELECT DISTINCT ?s
+				WHERE
+				{ ?s ab:tag ?o }
+				ORDER BY ?s
 			''' }}
 
 			{{query "select_tags_for_subject" "Subject" '''
-				SELECT ?tag 
-				WHERE { <{{$Subject}}> ab:tag ?tag } 
-				ORDER BY ?tag 
+				SELECT ?tag
+				WHERE { <{{$Subject}}> ab:tag ?tag }
+				ORDER BY ?tag
 			''' }}
 
 			{{macro "tabulate_tags_for_subject" "Subject" '''
 				{{ select_tags_for_subject $Subject | tabulate }}
 			''' }}
-		}}}													
-															
+		}}}
+
 		{{range $Subject := select_subjects | vector }}
 			{{ tabulate_tags_for_subject $Subject }}
-		{{end}}												
+		{{end}}
 
 `
 	Main.InReader = strings.NewReader(template)
@@ -635,7 +635,7 @@ func TestBlazegraphCmd_report_macro_calls_query(t *testing.T) {
 		tag
 		====
 		seven
-		
+
 		tag
 		====
 		eight

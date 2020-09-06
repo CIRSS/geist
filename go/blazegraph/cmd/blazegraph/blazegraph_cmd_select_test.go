@@ -4,7 +4,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/tmcphillips/blazegraph-util/util"
+	"github.com/cirss/geist/util"
 )
 
 func TestBlazegraphCmd_query_json(t *testing.T) {

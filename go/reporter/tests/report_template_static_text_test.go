@@ -3,8 +3,8 @@ package tests
 import (
 	"testing"
 
-	"github.com/tmcphillips/blazegraph-util/reporter"
-	"github.com/tmcphillips/blazegraph-util/util"
+	"github.com/cirss/geist/reporter"
+	"github.com/cirss/geist/util"
 )
 
 func TestReportTemplate_StaticText_OneLinef(t *testing.T) {
@@ -44,7 +44,7 @@ func TestReportTemplate_StaticReport_MultipleLines_EscapeOneLineEnding(t *testin
 	rt := reporter.NewReportTemplate(
 		"main",
 		`
-		42 items{{sp}}    \   
+		42 items{{sp}}    \
 		are made of
 		cotton
 		`, nil)
@@ -64,7 +64,7 @@ func TestReportTemplate_StaticReport_MultipleLines_EscapeTwoLineEnding(t *testin
 		"main",
 		`
 		42 items{{sp}}    \
-		are made of{{sp}} \   
+		are made of{{sp}} \
 		cotton
 		`, nil)
 
@@ -83,7 +83,7 @@ func TestReportTemplate_StaticReport_PercentCharacter(t *testing.T) {
 		`
 		42% of items
 		are made of
-		cotton 
+		cotton
 		`, nil)
 
 	rt.Parse()

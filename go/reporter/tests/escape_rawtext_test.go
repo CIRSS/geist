@@ -3,7 +3,7 @@ package tests
 import (
 	"testing"
 
-	"github.com/tmcphillips/blazegraph-util/reporter"
+	"github.com/cirss/geist/reporter"
 )
 
 func escapeRawText(dp reporter.DelimiterPair, text string) string {
