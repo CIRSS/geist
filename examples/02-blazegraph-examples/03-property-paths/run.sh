@@ -166,7 +166,7 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
     {{ gv_graph "wt_run" }}
 
     {{ gv_title "Paper-Citation Graph" }}
-    
+
     {{ gv_cluster "citations" }}
 
     # paper nodes
@@ -186,7 +186,7 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
             WHERE {
                 ?citing_paper c:cites ?cited_paper .
             }
-            ORDER BY ?citing_paper ?cited_paper        
+            ORDER BY ?citing_paper ?cited_paper
         ''' | rows }}                                                \\
         {{ gv_edge (index $Citation 0) (index $Citation 1) }}
     {{ end }}
@@ -214,7 +214,7 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
     {{ gv_graph "wt_run" }}
 
     {{ gv_title "Result-Dependency Graph" }}
-    
+
     {{ gv_cluster "citations" }}
 
     # result nodes
@@ -225,7 +225,9 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
             ?paper rdf:type c:Paper .
             ?paper c:reports ?result .
             ?result rdfs:label ?label
-        } ''' | rows }}                                             \\
+        }
+        ORDER BY ?result
+        ''' | rows }}                                             \\
         {{ gv_labeled_node (index $Result 0) (index $Result 1) }}
     {{ end }}
                                                                     \\
@@ -235,7 +237,7 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
             WHERE {
                  ?result2 ^c:uses/c:reports ?result1
            }
-            ORDER BY ?result1 ?result2        
+            ORDER BY ?result1 ?result2
         ''' | rows }}                                               \\
         {{ gv_edge (index $Dependency 0) (index $Dependency 1) }}
     {{ end }}
@@ -264,7 +266,7 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
     {{ gv_graph "wt_run" }}
 
     {{ gv_title "Paper-Result Graph" }}
-    
+
     {{ gv_cluster "citations" }}
 
     # paper nodes
@@ -274,7 +276,9 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
         WHERE {
             ?paper rdf:type c:Paper .
             ?paper dc:title ?title .
-        } ''' | rows }}                                             \\
+        }
+        ORDER BY ?paper
+        ''' | rows }}                                             \\
         {{ gv_labeled_node (index $Paper 0) (index $Paper 1) }}
     {{ end }}
                                                                     \\
@@ -286,7 +290,9 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
             ?paper rdf:type c:Paper .
             ?paper c:reports ?result .
             ?result rdfs:label ?label
-        } ''' | rows }}                                             \\
+        }
+        ORDER BY ?result
+        ''' | rows }}                                             \\
         {{ gv_labeled_node (index $Result 0) (index $Result 1) }}
     {{ end }}
                                                                     \\
@@ -296,18 +302,18 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
             WHERE {
                 ?paper c:reports ?result .
             }
-            ORDER BY ?paper ?result        
+            ORDER BY ?paper ?result
         ''' | rows }}                                                \\
         {{ gv_edge (index $Report 0) (index $Report 1) }}
     {{ end }}
 
     # uses edges
     {{ range $Use := select '''
-            SELECT DISTINCT ?result ?paper 
+            SELECT DISTINCT ?result ?paper
             WHERE {
                 ?paper c:uses ?result .
             }
-            ORDER BY ?paper ?result        
+            ORDER BY ?paper ?result
         ''' | rows }}                                                \\
         {{ gv_edge (index $Use 0) (index $Use 1) }}
     {{ end }}

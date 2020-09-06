@@ -12,15 +12,15 @@ node[shape=box style="rounded,filled" fillcolor="#FFFFCC" peripheries=1 fontname
 "http://learningsparql.com/ns/papers#resultA" [label="Result A"]
 "http://learningsparql.com/ns/papers#resultB" [label="Result B"]
 "http://learningsparql.com/ns/papers#resultC" [label="Result C"]
-"http://learningsparql.com/ns/papers#resultE" [label="Result E"]
-"http://learningsparql.com/ns/papers#resultF" [label="Result F"]
-"http://learningsparql.com/ns/papers#resultH" [label="Result H"]
-"http://learningsparql.com/ns/papers#resultI" [label="Result I"]
-"http://learningsparql.com/ns/papers#resultG1" [label="Result G1"]
-"http://learningsparql.com/ns/papers#resultG2" [label="Result G2"]
 "http://learningsparql.com/ns/papers#resultD1" [label="Result D1"]
 "http://learningsparql.com/ns/papers#resultD2" [label="Result D2"]
 "http://learningsparql.com/ns/papers#resultD3" [label="Result D3"]
+"http://learningsparql.com/ns/papers#resultE" [label="Result E"]
+"http://learningsparql.com/ns/papers#resultF" [label="Result F"]
+"http://learningsparql.com/ns/papers#resultG1" [label="Result G1"]
+"http://learningsparql.com/ns/papers#resultG2" [label="Result G2"]
+"http://learningsparql.com/ns/papers#resultH" [label="Result H"]
+"http://learningsparql.com/ns/papers#resultI" [label="Result I"]
 
 # result dependency edges
 "http://learningsparql.com/ns/papers#resultB" -> "http://learningsparql.com/ns/papers#resultA"
