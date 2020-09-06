@@ -7,7 +7,7 @@ import (
 	"strings"
 	"text/template"
 
-	"github.com/cirss/geist/tables"
+	"github.com/cirss/geist/geist"
 	"github.com/cirss/geist/util"
 )
 
@@ -197,19 +197,19 @@ func (rp *ReportTemplate) addStandardFunctions() {
 		"expand": func(name string, args ...interface{}) (result interface{}, err error) {
 			return rp.expandMacro(name, args)
 		},
-		"tabulate": func(rs tables.DataTable) (table string) {
+		"tabulate": func(rs geist.DataTable) (table string) {
 			table = rs.FormattedTable(true)
 			return
 		},
-		"rows": func(rs tables.DataTable) (rows [][]string) {
+		"rows": func(rs geist.DataTable) (rows [][]string) {
 			rows = rs.Rows()
 			return
 		},
-		"column": func(columnIndex int, rs *tables.DataTable) (column []string) {
+		"column": func(columnIndex int, rs *geist.DataTable) (column []string) {
 			column = (*rs).Column(columnIndex)
 			return
 		},
-		"vector": func(rs tables.DataTable) (vector []string, err error) {
+		"vector": func(rs geist.DataTable) (vector []string, err error) {
 			if rs.RowCount() == 1 {
 				vector = rs.Row(0)
 			} else if rs.ColumnCount() == 1 {
@@ -219,7 +219,7 @@ func (rp *ReportTemplate) addStandardFunctions() {
 			}
 			return
 		},
-		"value": func(rs tables.DataTable) (value string, err error) {
+		"value": func(rs geist.DataTable) (value string, err error) {
 			if rs.RowCount() != 1 || rs.ColumnCount() != 1 {
 				err = errors.New("Result set is not a single value.")
 			}
