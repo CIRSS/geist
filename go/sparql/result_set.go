@@ -3,7 +3,7 @@ package sparql
 import (
 	"encoding/json"
 
-	"github.com/cirss/geist/reporter"
+	"github.com/cirss/geist/geist"
 )
 
 type ResultSet struct {
@@ -81,7 +81,7 @@ func (rs *ResultSet) Rows() [][]string {
 func (rs *ResultSet) FormattedTable(columnSeparator bool) string {
 	table := [][]string{rs.Head.Vars}
 	table = rs.appendRows(table)
-	return reporter.WriteStringTable(table, columnSeparator)
+	return geist.WriteStringTable(table, columnSeparator)
 }
 
 func (sr *ResultSet) Column(columnIndex int) []string {

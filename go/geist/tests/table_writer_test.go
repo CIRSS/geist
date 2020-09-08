@@ -4,17 +4,17 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/cirss/geist/reporter"
+	"github.com/cirss/geist/geist"
 	"github.com/cirss/geist/util"
 )
 
 func TestTableWriter_NoData(t *testing.T) {
-	tw := reporter.NewTableWriter(true)
+	tw := geist.NewTableWriter(true)
 	util.StringEquals(t, tw.String(), "")
 }
 
 func TestTableWriter_OneTabDelimitedRow(t *testing.T) {
-	tw := reporter.NewTableWriter(true)
+	tw := geist.NewTableWriter(true)
 	fmt.Fprintln(tw, "a\tb\tc\t")
 	util.StringEquals(t, tw.String(), "a|b|c|\n")
 }
@@ -27,7 +27,7 @@ func TestTableWriter_WriteStringArray(t *testing.T) {
 		{"Joseph", "San Diego", "01-213-101-9313"},
 	}
 
-	tw := reporter.NewTableWriter(true)
+	tw := geist.NewTableWriter(true)
 	tw.WriteStringArray(contacts)
 	util.LineContentsEqual(t, tw.String(),
 		`
@@ -46,7 +46,7 @@ func TestTableWriter_WriteStringTable(t *testing.T) {
 		{"Joseph", "San Diego", "01-213-101-9313"},
 	}
 
-	actual := reporter.WriteStringTable(contacts, false)
+	actual := geist.WriteStringTable(contacts, false)
 
 	util.LineContentsEqual(t, actual,
 		`
@@ -67,7 +67,7 @@ func TestTableWriter_WriteStringTableWithSeparators(t *testing.T) {
 		{"Joseph", "San Diego", "01-213-101-9313"},
 	}
 
-	actual := reporter.WriteStringTable(contacts, true)
+	actual := geist.WriteStringTable(contacts, true)
 
 	util.LineContentsEqual(t, actual,
 		`
