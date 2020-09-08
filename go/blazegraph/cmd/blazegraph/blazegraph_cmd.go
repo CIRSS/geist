@@ -6,8 +6,8 @@ import (
 	"io/ioutil"
 	"os"
 
+	"github.com/cirss/geist"
 	"github.com/cirss/geist/blazegraph"
-	"github.com/cirss/geist/geist"
 	"github.com/tmcphillips/main-wrapper/mw"
 )
 

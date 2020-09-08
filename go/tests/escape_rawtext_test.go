@@ -3,7 +3,7 @@ package tests
 import (
 	"testing"
 
-	"github.com/cirss/geist/geist"
+	"github.com/cirss/geist"
 )
 
 func escapeRawText(dp geist.DelimiterPair, text string) string {

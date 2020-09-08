@@ -5,7 +5,7 @@ import (
 	"strings"
 	"text/template"
 
-	"github.com/cirss/geist/geist"
+	"github.com/cirss/geist"
 )
 
 func prependPrefixes(rp *geist.Template, text string) string {

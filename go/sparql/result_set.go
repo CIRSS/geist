@@ -3,7 +3,7 @@ package sparql
 import (
 	"encoding/json"
 
-	"github.com/cirss/geist/geist"
+	"github.com/cirss/geist"
 )
 
 type ResultSet struct {
