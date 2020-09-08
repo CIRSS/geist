@@ -5,7 +5,7 @@ import (
 	"testing"
 	"text/template"
 
-	"github.com/cirss/geist/reporter"
+	"github.com/cirss/geist/geist"
 	"github.com/cirss/geist/util"
 )
 
@@ -19,7 +19,7 @@ func TestReportTemplate_AnonymousStructInstance(t *testing.T) {
 		Count:    42,
 	}
 
-	rt := reporter.NewReportTemplate(
+	rt := geist.NewTemplate(
 		"main",
 		`
 		{{.Count}} items
@@ -38,14 +38,14 @@ func TestReportTemplate_AnonymousStructInstance(t *testing.T) {
 }
 
 func TestReportTemplate_AnonymousStructInstance_MissingBrace(t *testing.T) {
-	rt := reporter.NewReportTemplate("main", "{{.Foo}", nil)
+	rt := geist.NewTemplate("main", "{{.Foo}", nil)
 	err := rt.Parse()
 	util.LineContentsEqual(t, err.Error(),
 		`template: main:1: unexpected "}" in operand`)
 }
 
 func TestReportTemplate_AnonymousStructInstance_MissingField(t *testing.T) {
-	rt := reporter.NewReportTemplate("main", "{{.Foo}}", nil)
+	rt := geist.NewTemplate("main", "{{.Foo}}", nil)
 	rt.Parse()
 	_, err := rt.Expand(struct{ Bar string }{Bar: "baz"})
 	util.LineContentsEqual(t, err.Error(),
@@ -53,7 +53,7 @@ func TestReportTemplate_AnonymousStructInstance_MissingField(t *testing.T) {
 }
 
 func TestReportTemplate_AnonymousStructInstance_NilData(t *testing.T) {
-	rt := reporter.NewReportTemplate("main", "{{.Foo}}", nil)
+	rt := geist.NewTemplate("main", "{{.Foo}}", nil)
 	rt.Parse()
 	actual, _ := rt.Expand(nil)
 	util.LineContentsEqual(t, actual, `
@@ -63,14 +63,14 @@ func TestReportTemplate_AnonymousStructInstance_NilData(t *testing.T) {
 
 func TestReportTemplate_MultilineVariableValue(t *testing.T) {
 
-	rt := reporter.NewReportTemplate(
+	rt := geist.NewTemplate(
 		"main",
 		`
 		{{with $result := <%
 			foo
 			bar
 		%>}}{{$result}}{{end}}
-		`, &reporter.JSPDelimiters)
+		`, &geist.JSPDelimiters)
 	rt.Parse()
 	actual, _ := rt.Expand(nil)
 	util.LineContentsEqual(t, actual, `
@@ -80,35 +80,35 @@ func TestReportTemplate_MultilineVariableValue(t *testing.T) {
 }
 
 func TestReportTemplate_MultilineVariableValue_MissingEnd(t *testing.T) {
-	rt := reporter.NewReportTemplate(
+	rt := geist.NewTemplate(
 		"main",
 		`
 		{{with $result := <%
 			foo
 			bar
 		%>}}{{$result}}
-		`, &reporter.JSPDelimiters)
+		`, &geist.JSPDelimiters)
 	err := rt.Parse()
 	util.LineContentsEqual(t, err.Error(),
 		`template: main:2: unexpected EOF`)
 }
 
 func TestReportTemplate_MultilineVariableValue_WrongVariableName(t *testing.T) {
-	rt := reporter.NewReportTemplate(
+	rt := geist.NewTemplate(
 		"main",
 		`
 		{{with $result := <%
 			foo
 			bar
 		%>}}{{$wrongVariableName}}{{end}}
-		`, &reporter.JSPDelimiters)
+		`, &geist.JSPDelimiters)
 	err := rt.Parse()
 	util.LineContentsEqual(t, err.Error(),
 		`template: main:1: undefined variable "$wrongVariableName"`)
 }
 
 func TestReportTemplate_UnmatchedRawStringDelimiter(t *testing.T) {
-	rt := reporter.NewReportTemplate(
+	rt := geist.NewTemplate(
 		"main",
 		`
 		{{with $result := '''
@@ -129,7 +129,7 @@ func TestReportTemplate_MultilineFunctionArgument(t *testing.T) {
 		},
 	}
 
-	rt := reporter.NewReportTemplate(
+	rt := geist.NewTemplate(
 		"main",
 		`{{with $result := up '''
 				foo
@@ -149,7 +149,7 @@ func TestReportTemplate_RangeOverStringSlice(t *testing.T) {
 
 	colors := []string{"red", "blue", "yellow"}
 
-	rt := reporter.NewReportTemplate(
+	rt := geist.NewTemplate(
 		"main",
 		`
 		{{range .}} 			\
@@ -174,7 +174,7 @@ func TestReportTemplate_TableOfValues(t *testing.T) {
 		{"Joe", "San Diego", "213-101-9313"},
 	}
 
-	rt := reporter.NewReportTemplate(
+	rt := geist.NewTemplate(
 		"main",
 		`
 		Name   | City      | Phone
@@ -202,7 +202,7 @@ func TestReportTemplate_TableOfValues_IndexOutOfRange(t *testing.T) {
 		{"Joe", "San Diego", "213-101-9313"},
 	}
 
-	rt := reporter.NewReportTemplate(
+	rt := geist.NewTemplate(
 		"main",
 		`
 		Name   | City      | Phone

@@ -6,9 +6,8 @@ import (
 	"io/ioutil"
 	"os"
 
-	"github.com/cirss/geist/reporter"
-
 	"github.com/cirss/geist/blazegraph"
+	"github.com/cirss/geist/geist"
 	"github.com/tmcphillips/main-wrapper/mw"
 )
 
@@ -96,7 +95,7 @@ func doReport(file string) {
 		fmt.Fprintf(Main.ErrWriter, err.Error())
 		return
 	}
-	rt := reporter.NewReportTemplate("main", string(reportTemplate), nil)
+	rt := geist.NewTemplate("main", string(reportTemplate), nil)
 	report, re := bc.ExpandReport(rt)
 	if re != nil {
 		fmt.Fprintf(Main.ErrWriter, re.Error())

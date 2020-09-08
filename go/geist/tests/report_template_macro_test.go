@@ -3,13 +3,13 @@ package tests
 import (
 	"testing"
 
-	"github.com/cirss/geist/reporter"
+	"github.com/cirss/geist/geist"
 	"github.com/cirss/geist/util"
 )
 
 func TestReportTemplate_constant_macro(t *testing.T) {
 
-	rt := reporter.NewReportTemplate(
+	rt := geist.NewTemplate(
 		"main",
 		`
 		{{ macro "M1" '''constant macro''' }}
@@ -27,7 +27,7 @@ func TestReportTemplate_constant_macro(t *testing.T) {
 
 func TestReportTemplate_constant_macro_function(t *testing.T) {
 
-	rt := reporter.NewReportTemplate(
+	rt := geist.NewTemplate(
 		"main",
 		`{{{
 		{{ macro "M1" '''constant macro''' }}
@@ -46,7 +46,7 @@ func TestReportTemplate_constant_macro_function(t *testing.T) {
 
 func TestReportTemplate_macro_with_one_parameter(t *testing.T) {
 
-	rt := reporter.NewReportTemplate(
+	rt := geist.NewTemplate(
 		"main",
 		`
 		{{ macro "M1" "P1" '''macro with one parameter: {{$P1}}''' }}
@@ -64,7 +64,7 @@ func TestReportTemplate_macro_with_one_parameter(t *testing.T) {
 
 func TestReportTemplate_macro_function_with_one_parameter(t *testing.T) {
 
-	rt := reporter.NewReportTemplate(
+	rt := geist.NewTemplate(
 		"main",
 		`
 		{{{
@@ -84,7 +84,7 @@ func TestReportTemplate_macro_function_with_one_parameter(t *testing.T) {
 
 func TestReportTemplate_macro_with_two_parameters(t *testing.T) {
 
-	rt := reporter.NewReportTemplate(
+	rt := geist.NewTemplate(
 		"main",
 		`
 		{{ macro "M1" "P1" "P2" '''macro with two parameters: {{$P1}}, {{$P2}}''' }}
@@ -102,7 +102,7 @@ func TestReportTemplate_macro_with_two_parameters(t *testing.T) {
 
 func TestReportTemplate_macro_function_with_two_parameters(t *testing.T) {
 
-	rt := reporter.NewReportTemplate(
+	rt := geist.NewTemplate(
 		"main",
 		`
 		{{{
@@ -122,7 +122,7 @@ func TestReportTemplate_macro_function_with_two_parameters(t *testing.T) {
 
 func TestReportTemplate_macro_function_calling_macro_function(t *testing.T) {
 
-	rt := reporter.NewReportTemplate(
+	rt := geist.NewTemplate(
 		"main",
 		`
 		{{{

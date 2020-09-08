@@ -3,13 +3,13 @@ package tests
 import (
 	"testing"
 
-	"github.com/cirss/geist/reporter"
+	"github.com/cirss/geist/geist"
 	"github.com/cirss/geist/util"
 )
 
 func TestReportTemplate_StaticText_OneLinef(t *testing.T) {
 
-	rt := reporter.NewReportTemplate(
+	rt := geist.NewTemplate(
 		"main",
 		"42 items are made of cotton", nil)
 
@@ -21,7 +21,7 @@ func TestReportTemplate_StaticText_OneLinef(t *testing.T) {
 
 func TestReportTemplate_StaticReport_MultipleLines(t *testing.T) {
 
-	rt := reporter.NewReportTemplate(
+	rt := geist.NewTemplate(
 		"main",
 		`
 		42 items
@@ -41,7 +41,7 @@ func TestReportTemplate_StaticReport_MultipleLines(t *testing.T) {
 
 func TestReportTemplate_StaticReport_MultipleLines_EscapeOneLineEnding(t *testing.T) {
 
-	rt := reporter.NewReportTemplate(
+	rt := geist.NewTemplate(
 		"main",
 		`
 		42 items{{sp}}    \
@@ -60,7 +60,7 @@ func TestReportTemplate_StaticReport_MultipleLines_EscapeOneLineEnding(t *testin
 
 func TestReportTemplate_StaticReport_MultipleLines_EscapeTwoLineEnding(t *testing.T) {
 
-	rt := reporter.NewReportTemplate(
+	rt := geist.NewTemplate(
 		"main",
 		`
 		42 items{{sp}}    \
@@ -78,7 +78,7 @@ func TestReportTemplate_StaticReport_MultipleLines_EscapeTwoLineEnding(t *testin
 
 func TestReportTemplate_StaticReport_PercentCharacter(t *testing.T) {
 
-	rt := reporter.NewReportTemplate(
+	rt := geist.NewTemplate(
 		"main",
 		`
 		42% of items
@@ -98,7 +98,7 @@ func TestReportTemplate_StaticReport_PercentCharacter(t *testing.T) {
 
 func TestReportTemplate_StaticReport_Printf(t *testing.T) {
 
-	rt := reporter.NewReportTemplate(
+	rt := geist.NewTemplate(
 		"main",
 		`
 		{{printf "%d" 42}}{{println "% of items"}} \

@@ -1,21 +1,20 @@
-package reporter
+package geist
 
 import (
 	"errors"
 	"fmt"
 	"io/ioutil"
 	"strings"
-	"text/template"
+	textTemplate "text/template"
 
-	"github.com/cirss/geist/geist"
 	"github.com/cirss/geist/util"
 )
 
 type Properties struct {
 	Delimiters DelimiterPair
-	Funcs      template.FuncMap
+	Funcs      textTemplate.FuncMap
 	Prefixes   map[string]string
-	Macros     map[string]*ReportTemplate
+	Macros     map[string]*Template
 	Queries    map[string]string
 }
 
@@ -33,34 +32,34 @@ func init() {
 	DefaultDelimiters = TripleSingleQuoteDelimiters
 }
 
-// ReportTemplate is customizable to create reports from different kinds of templates.
-type ReportTemplate struct {
+// Template is customizable to create reports from different kinds of templates.
+type Template struct {
 	Name         string
 	Text         string
-	TextTemplate *template.Template
+	TextTemplate *textTemplate.Template
 	Properties   Properties
 }
 
-// NewReportTemplate returns a ReportTemplate with the given customizations.
-func NewReportTemplate(name string, text string, delimiters *DelimiterPair) *ReportTemplate {
-	rt := new(ReportTemplate)
+// NewTemplate returns a geist.Template with the given customizations.
+func NewTemplate(name string, text string, delimiters *DelimiterPair) *Template {
+	rt := new(Template)
 	rt.Name = name
 	text = util.Trim(text)
 	rt.Text = util.TrimEachLine(text)
-	rt.Properties.Funcs = template.FuncMap{}
+	rt.Properties.Funcs = textTemplate.FuncMap{}
 	if delimiters != nil {
 		rt.Properties.Delimiters = *delimiters
 	} else {
 		rt.Properties.Delimiters = DefaultDelimiters
 	}
 	rt.Properties.Prefixes = map[string]string{}
-	rt.Properties.Macros = map[string]*ReportTemplate{}
+	rt.Properties.Macros = map[string]*Template{}
 	rt.Properties.Queries = map[string]string{}
 	rt.addStandardFunctions()
 	return rt
 }
 
-func (rt *ReportTemplate) CompileFunctions(text string) (remainder string) {
+func (rt *Template) CompileFunctions(text string) (remainder string) {
 
 	remainder = text
 
@@ -75,7 +74,7 @@ func (rt *ReportTemplate) CompileFunctions(text string) (remainder string) {
 	}
 
 	compileText := text[compileBlockStart+3 : compileBlockEnd+3]
-	compileTemplate := NewReportTemplate("compile", compileText, &TripleSingleQuoteDelimiters)
+	compileTemplate := NewTemplate("compile", compileText, &TripleSingleQuoteDelimiters)
 	compileTemplate.Properties = rt.Properties
 	compileTemplate.Parse()
 	var buffer strings.Builder
@@ -90,30 +89,30 @@ func (rt *ReportTemplate) CompileFunctions(text string) (remainder string) {
 	return
 }
 
-func (rp *ReportTemplate) Parse() (err error) {
+func (rp *Template) Parse() (err error) {
 	text := rp.CompileFunctions(rp.Text)
 	text, err = EscapeRawText(rp.Properties.Delimiters, text)
 	if err != nil {
 		return
 	}
 	text = RemoveEscapedLineEndings(text)
-	rp.TextTemplate = template.New(rp.Name)
+	rp.TextTemplate = textTemplate.New(rp.Name)
 	rp.TextTemplate.Funcs(rp.Properties.Funcs)
 	_, err = rp.TextTemplate.Parse(text)
 	return
 }
 
-func (rp *ReportTemplate) AddFunction(name string, function interface{}) {
+func (rp *Template) AddFunction(name string, function interface{}) {
 	rp.Properties.Funcs[name] = function
 }
 
-func (rp *ReportTemplate) AddFuncs(newFunctions template.FuncMap) {
+func (rp *Template) AddFuncs(newFunctions textTemplate.FuncMap) {
 	for name, function := range newFunctions {
 		rp.AddFunction(name, function)
 	}
 }
 
-func (rp *ReportTemplate) Expand(data interface{}) (result string, err error) {
+func (rp *Template) Expand(data interface{}) (result string, err error) {
 	var buffer strings.Builder
 	err = rp.TextTemplate.Execute(&buffer, data)
 	if err != nil {
@@ -125,8 +124,8 @@ func (rp *ReportTemplate) Expand(data interface{}) (result string, err error) {
 	return
 }
 
-func (rp *ReportTemplate) ExpandSubreport(name string, text string, data interface{}) (report string, err error) {
-	reportTemplate := NewReportTemplate("include", string(text), nil)
+func (rp *Template) ExpandSubreport(name string, text string, data interface{}) (report string, err error) {
+	reportTemplate := NewTemplate("include", string(text), nil)
 	reportTemplate.Properties = rp.Properties
 	err = reportTemplate.Parse()
 	if err != nil {
@@ -136,7 +135,7 @@ func (rp *ReportTemplate) ExpandSubreport(name string, text string, data interfa
 	return
 }
 
-func (rp *ReportTemplate) expandMacro(name string, args []interface{}) (result interface{}, err error) {
+func (rp *Template) expandMacro(name string, args []interface{}) (result interface{}, err error) {
 	macroTemplate := rp.Properties.Macros[name]
 	result, err = macroTemplate.Expand(args)
 	return
@@ -161,9 +160,9 @@ func GetParameterAppendedBody(args []string) (body string) {
 	return
 }
 
-func (rp *ReportTemplate) addStandardFunctions() {
+func (rp *Template) addStandardFunctions() {
 
-	funcs := template.FuncMap{
+	funcs := textTemplate.FuncMap{
 		"include": func(fileName string) (s string, err error) {
 			text, err := ioutil.ReadFile(fileName)
 			if err != nil {
@@ -181,7 +180,7 @@ func (rp *ReportTemplate) addStandardFunctions() {
 				return
 			}
 			body := GetParameterAppendedBody(args)
-			macroTemplate := NewReportTemplate(name, body, &MacroDelimiters)
+			macroTemplate := NewTemplate(name, body, &MacroDelimiters)
 			macroTemplate.AddFuncs(rp.Properties.Funcs)
 			err = macroTemplate.Parse()
 			if err != nil {
@@ -197,19 +196,19 @@ func (rp *ReportTemplate) addStandardFunctions() {
 		"expand": func(name string, args ...interface{}) (result interface{}, err error) {
 			return rp.expandMacro(name, args)
 		},
-		"tabulate": func(rs geist.DataTable) (table string) {
+		"tabulate": func(rs DataTable) (table string) {
 			table = rs.FormattedTable(true)
 			return
 		},
-		"rows": func(rs geist.DataTable) (rows [][]string) {
+		"rows": func(rs DataTable) (rows [][]string) {
 			rows = rs.Rows()
 			return
 		},
-		"column": func(columnIndex int, rs *geist.DataTable) (column []string) {
+		"column": func(columnIndex int, rs *DataTable) (column []string) {
 			column = (*rs).Column(columnIndex)
 			return
 		},
-		"vector": func(rs geist.DataTable) (vector []string, err error) {
+		"vector": func(rs DataTable) (vector []string, err error) {
 			if rs.RowCount() == 1 {
 				vector = rs.Row(0)
 			} else if rs.ColumnCount() == 1 {
@@ -219,7 +218,7 @@ func (rp *ReportTemplate) addStandardFunctions() {
 			}
 			return
 		},
-		"value": func(rs geist.DataTable) (value string, err error) {
+		"value": func(rs DataTable) (value string, err error) {
 			if rs.RowCount() != 1 || rs.ColumnCount() != 1 {
 				err = errors.New("Result set is not a single value.")
 			}

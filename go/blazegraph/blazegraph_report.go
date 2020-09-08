@@ -5,10 +5,10 @@ import (
 	"strings"
 	"text/template"
 
-	"github.com/cirss/geist/reporter"
+	"github.com/cirss/geist/geist"
 )
 
-func prependPrefixes(rp *reporter.ReportTemplate, text string) string {
+func prependPrefixes(rp *geist.Template, text string) string {
 	sb := strings.Builder{}
 	for prefix, uri := range rp.Properties.Prefixes {
 		sb.WriteString("PREFIX " + prefix + ": " + "<" + uri + ">" + "\n")
@@ -17,7 +17,7 @@ func prependPrefixes(rp *reporter.ReportTemplate, text string) string {
 	return sb.String()
 }
 
-func (bc *Client) selectFunc(rp *reporter.ReportTemplate, queryText string, args []interface{}) (rs interface{}, err error) {
+func (bc *Client) selectFunc(rp *geist.Template, queryText string, args []interface{}) (rs interface{}, err error) {
 
 	var data interface{}
 	if len(args) == 1 {
@@ -31,13 +31,13 @@ func (bc *Client) selectFunc(rp *reporter.ReportTemplate, queryText string, args
 	return bc.Select(query)
 }
 
-func (bc *Client) runQueryFunc(rp *reporter.ReportTemplate, queryText string, args []interface{}) (rs interface{}, err error) {
+func (bc *Client) runQueryFunc(rp *geist.Template, queryText string, args []interface{}) (rs interface{}, err error) {
 
 	var data interface{}
 	if len(args) == 1 {
 		data = args[0]
 	}
-	reportTemplate := reporter.NewReportTemplate("include", string(queryText), nil)
+	reportTemplate := geist.NewTemplate("include", string(queryText), nil)
 	reportTemplate.Properties = rp.Properties
 	reportTemplate.Parse()
 	rs, err = reportTemplate.Expand(data)
@@ -45,7 +45,7 @@ func (bc *Client) runQueryFunc(rp *reporter.ReportTemplate, queryText string, ar
 	return
 }
 
-func (bc *Client) ExpandReport(rp *reporter.ReportTemplate) (report string, err error) {
+func (bc *Client) ExpandReport(rp *geist.Template) (report string, err error) {
 
 	funcs := template.FuncMap{
 		"prefix": func(prefix string, uri string) (s string, err error) {
@@ -73,7 +73,7 @@ func (bc *Client) ExpandReport(rp *reporter.ReportTemplate) (report string, err 
 				err = errors.New("No body provided for query " + name)
 				return
 			}
-			body := reporter.GetParameterAppendedBody(args)
+			body := geist.GetParameterAppendedBody(args)
 			rp.Properties.Queries[name] = body
 			rp.AddFunction(name, func(args ...interface{}) (rs interface{}, err error) {
 				queryText := rp.Properties.Queries[name]
