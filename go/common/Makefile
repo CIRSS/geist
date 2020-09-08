@@ -1,5 +1,4 @@
-
-all: build test cmd
+all: build test install
 
 clean:
 	go clean ./...
@@ -12,7 +11,5 @@ build:
 test:
 	go test ./... -count 1 -p 1
 
-cmd:
-ifdef CMD
-	go install ../cmd/$(CMD)
-endif
+install:
+	go install ./...   
