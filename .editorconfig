@@ -11,7 +11,7 @@ tab_width = 4
 indent_size = 4
 indent_style = tab
 
-[Makefile]
+[Makefile*]
 tab_width = 4
 indent_size = 4
 indent_style = tab

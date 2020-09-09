@@ -1,128 +1,16 @@
-ifeq ('$(OS)', 'Windows_NT')
-PWSH=powershell -noprofile -command
-endif
+TARGETS_DIR=.repro/Makefile.targets
 
-IMAGE_ORG=cirss
-IMAGE_NAME=geist
-IMAGE_TAG=latest
-TAGGED_IMAGE=${IMAGE_ORG}/${IMAGE_NAME}:${IMAGE_TAG}
+default_target: help
 
-REPRO_DIR=/mnt/geist
-RUN_REPRO=docker run -it --rm -p 9999:9999  		  \
-                     --volume $(CURDIR):$(REPRO_DIR)  \
-                     $(TAGGED_IMAGE)
+##
+## # Aliases for targets in this Makefile.
+##
 
-ifdef IN_RUNNING_REPRO
-RUN_IN_REPRO=bash -ic
-else
-RUN_IN_REPRO=$(RUN_REPRO) bash -ic
-endif
+include repro.config
+include ${TARGETS_DIR}/Makefile.setup
+include ${TARGETS_DIR}/Makefile.examples
+include ${TARGETS_DIR}/Makefile.code
+include ${TARGETS_DIR}/Makefile.image
+include ${TARGETS_DIR}/Makefile.docker
+include ${TARGETS_DIR}/Makefile.help
 
-## 
-## ------------------------------------------------------------------------------
-##        Make targets available both INSIDE and OUTSIDE a running REPRO
-## 
-
-help:                   ## Show this help.
-ifdef PWSH
-	@${PWSH} "Select-String -Path $(MAKEFILE_LIST) -Pattern '#\# ' | % {$$_.Line.replace('##','')}"
-else
-	@sed -ne '/@sed/!s/#\# //p' $(MAKEFILE_LIST)
-endif
-## 
-
-## examples:               Alias for run-examples.
-examples: run-examples
-
-## build:                  Alias for build-code.
-build: build-code
-
-## test:                   Alias for test-code.
-test: test-code
-
-## install:                Alias for install-code.
-install: install-code
-
-## 
-
-run-examples:           ## Run all of the examples.
-	$(RUN_IN_REPRO) 'sleep 1 && make -C $(REPRO_DIR)/examples/ all'
-
-clean-examples:         ## Delete all products of examples.
-	$(RUN_IN_REPRO) 'make -C $(REPRO_DIR)/examples/ clean'
-
-clean-code:             ## Build and install custom code.
-	$(RUN_IN_REPRO) 'make -C ./go/ clean'
-	
-build-code:             ## Build and install custom code.
-	$(RUN_IN_REPRO) 'make -C ./go/ build'
-
-test-code:              ## Run tests on custom code.
-	$(RUN_IN_REPRO) 'make -C ./go/ test'
-
-install-code:         	## Install custom code.
-	$(RUN_IN_REPRO) 'make -C ./go/ install'
-
-## ------------------------------------------------------------------------------
-##            Make targets available only OUTSIDE a running REPRO
-## 
-
-ifndef IN_RUNNING_REPRO
-
-## start:                  Alias for start-image.
-start: start-image
-
-## image:                  Alias for build-image.
-image: build-image
-
-## 
-
-start-image:            ## Start a new container using the Docker image.
-	$(RUN_REPRO)
-
-build-image:            ## Build the Docker image used to run this REPRO.
-	docker build -t ${TAGGED_IMAGE} .
-
-pull-image:             ## Pull the Docker image from Docker Hub.
-	docker pull ${TAGGED_IMAGE}
-
-push-image:             ## Push the Docker image to Docker Hub.
-	docker push ${TAGGED_IMAGE}
-
-## 
-
-stop-all-containers:    ## Gently stop all running Docker containers.
-ifdef PWSH
-	${PWSH} 'docker ps -q | % { docker stop $$_ }'
-else
-	for c in $$(docker ps -q); do docker stop $$c; done
-endif
-
-kill-all-containers:    ## Forcibly stop all running Docker containers.
-ifdef PWSH
-	${PWSH} 'docker ps -q | % { docker kill $$_ }'
-else
-	for c in $$(docker ps -q); do docker kill $$c; done
-endif
-
-remove-all-containers:  ## Delete all stopped Docker containers.
-ifdef PWSH
-	${PWSH} 'docker ps -aq | % { docker rm $$_ }'
-else
-	for c in $$(docker ps -aq); do docker rm $$c; done
-endif
-
-remove-all-images:      ## Delete all Docker images on this computer.
-ifdef PWSH
-	${PWSH} 'docker images -aq | % { docker rmi $$_ }'
-else
-	for i in $$(docker images -aq); do docker rmi $$i; done
-endif
-
-purge-docker:           ## Purge all Docker containers and images from computer.
-purge-docker: stop-all-containers kill-all-containers remove-all-containers remove-all-images
-
-endif
-
-## ------------------------------------------------------------------------------
-## 
