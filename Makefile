@@ -1,16 +1,11 @@
-TARGETS_DIR=.repro/Makefile.targets
+TARGETS=.repro/Makefile.targets
 
-default_target: help
-
-##
-## # Aliases for targets in this Makefile.
-##
-
+include ${TARGETS}/Makefile.init
 include repro.config
-include ${TARGETS_DIR}/Makefile.setup
-include ${TARGETS_DIR}/Makefile.examples
-include ${TARGETS_DIR}/Makefile.code
-include ${TARGETS_DIR}/Makefile.image
-include ${TARGETS_DIR}/Makefile.docker
-include ${TARGETS_DIR}/Makefile.help
+include ${TARGETS}/Makefile.setup
+include ${TARGETS}/Makefile.examples
+include ${TARGETS}/Makefile.code
+include ${TARGETS}/Makefile.image
+include ${TARGETS}/Makefile.docker
+include ${TARGETS}/Makefile.help
 
