@@ -8,8 +8,6 @@ import (
 	"github.com/ucarion/jcs"
 )
 
-var SparqlEndpoint = "http://127.0.0.1:9999/blazegraph/sparql"
-
 func canonicalJSON(jsonString string) (string, error) {
 	var originalJSON interface{}
 	json.Unmarshal([]byte(jsonString), &originalJSON)
