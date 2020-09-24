@@ -9,10 +9,14 @@ import (
 	"github.com/cirss/geist/util"
 )
 
+func recreateDataset(bc *blazegraph.Client) {
+	bc.DestroyDataSet("kb")
+	bc.CreateDataSet(blazegraph.DatasetProperties{Name: "kb"})
+}
+
 func TestBlazegraphClient_GetAllTriplesAsJSON_EmptyStore(t *testing.T) {
 	bc := blazegraph.NewClient(blazegraph.DefaultUrl)
-	bc.DestroyDataSet("kb")
-	bc.CreateDataSet("kb")
+	recreateDataset(bc)
 	triples, _ := bc.SelectAll()
 	actual, _ := triples.JSONString()
 	util.JSONEquals(t, actual,
@@ -28,8 +32,7 @@ func TestBlazegraphClient_GetAllTriplesAsJSON_EmptyStore(t *testing.T) {
 
 func TestBlazegraphClient_InsertOneTriple(t *testing.T) {
 	bc := blazegraph.NewClient(blazegraph.DefaultUrl)
-	bc.DestroyDataSet("kb")
-	bc.CreateDataSet("kb")
+	recreateDataset(bc)
 	bc.PostData("application/x-turtle", []byte(`
 	@prefix t: <http://tmcphill.net/tags#> .
 	@prefix d: <http://tmcphill.net/data#> .
@@ -60,8 +63,7 @@ func TestBlazegraphClient_InsertOneTriple(t *testing.T) {
 
 func TestBlazegraphClient_InsertTwoTriples(t *testing.T) {
 	bc := blazegraph.NewClient(blazegraph.DefaultUrl)
-	bc.DestroyDataSet("kb")
-	bc.CreateDataSet("kb")
+	recreateDataset(bc)
 	bc.PostData("application/x-turtle", []byte(`
 		@prefix t: <http://tmcphill.net/tags#> .
 		@prefix d: <http://tmcphill.net/data#> .
@@ -98,8 +100,7 @@ func TestBlazegraphClient_InsertTwoTriples(t *testing.T) {
 
 func TestBlazegraphClient_InsertTwoTriples_Struct(t *testing.T) {
 	bc := blazegraph.NewClient(blazegraph.DefaultUrl)
-	bc.DestroyDataSet("kb")
-	bc.CreateDataSet("kb")
+	recreateDataset(bc)
 	bc.PostData("application/x-turtle", []byte(`
 		@prefix t: <http://tmcphill.net/tags#> .
 		@prefix d: <http://tmcphill.net/data#> .
@@ -130,8 +131,7 @@ func TestBlazegraphClient_InsertTwoTriples_Struct(t *testing.T) {
 
 func ExampleBlazegraphClient_DumpAsNTriples() {
 	bc := blazegraph.NewClient(blazegraph.DefaultUrl)
-	bc.DestroyDataSet("kb")
-	bc.CreateDataSet("kb")
+	recreateDataset(bc)
 	bc.PostData("application/x-turtle", []byte(`
 		@prefix t: <http://tmcphill.net/tags#> .
 		@prefix d: <http://tmcphill.net/data#> .

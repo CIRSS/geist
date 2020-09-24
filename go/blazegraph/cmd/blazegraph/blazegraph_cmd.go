@@ -124,7 +124,7 @@ func addCommonOptions(flags *flag.FlagSet) {
 
 func doCreate(name string) {
 	bc := blazegraph.NewClient(*options.url)
-	bc.CreateDataSet(name)
+	bc.CreateDataSet(blazegraph.DatasetProperties{Name: name})
 	// if err != nil {
 	// 	fmt.Fprintln(Main.ErrWriter, err.Error())
 	// }
