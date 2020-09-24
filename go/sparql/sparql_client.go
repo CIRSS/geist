@@ -10,14 +10,14 @@ import (
 )
 
 type Client struct {
-	HttpClient *http.Client
-	Endpoint   string
+	HttpClient     *http.Client
+	SparqlEndpoint string
 }
 
 func NewClient(endpoint string) *Client {
 	sc := new(Client)
 	sc.HttpClient = &http.Client{}
-	sc.Endpoint = endpoint
+	sc.SparqlEndpoint = endpoint
 	return sc
 }
 
@@ -49,7 +49,7 @@ func (sc *Client) PostRequest(url string, contentType string, acceptType string,
 
 func (sc *Client) PostSparqlRequest(contentType string, acceptType string,
 	requestBody []byte) (responseBody []byte, err error) {
-	return sc.PostRequest(sc.Endpoint, contentType, acceptType, requestBody)
+	return sc.PostRequest(sc.SparqlEndpoint, contentType, acceptType, requestBody)
 }
 
 func (sc *Client) PostData(format string, data []byte) (responseBody []byte, err error) {

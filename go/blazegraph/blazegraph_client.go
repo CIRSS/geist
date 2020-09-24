@@ -7,18 +7,20 @@ import (
 	"github.com/cirss/geist/sparql"
 )
 
-var DefaultBlazegraphUrl = "http://127.0.0.1:9999/blazegraph"
-var DefaultSparqlEndpoint = DefaultBlazegraphUrl + "/sparql"
-var DefaultNamespaceEndpoint = DefaultBlazegraphUrl + "/namespace"
+var DefaultUrl = "http://127.0.0.1:9999/blazegraph"
 
 type Client struct {
 	sparql.Client
+	Url               string
+	NamespaceEndpoint string
 }
 
-func NewClient() *Client {
+func NewClient(url string) *Client {
 	bc := new(Client)
+	bc.Url = url
+	bc.SparqlEndpoint = bc.Url + "/sparql"
+	bc.NamespaceEndpoint = bc.Url + "/namespace"
 	bc.HttpClient = &http.Client{}
-	bc.Endpoint = DefaultSparqlEndpoint
 	return bc
 }
 
@@ -32,13 +34,13 @@ func (sc *Client) CreateDataSet(name string) (responseBody []byte, err error) {
 		com.bigdata.rdf.store.AbstractTripleStore.statementIdentifiers=false
 		com.bigdata.rdf.store.AbstractTripleStore.axiomsClass=com.bigdata.rdf.axioms.NoAxioms
 		`
-	responseBody, err = sc.PostRequest(DefaultNamespaceEndpoint,
+	responseBody, err = sc.PostRequest(sc.NamespaceEndpoint,
 		"text/plain", "text/plain", []byte(body))
 	return
 }
 
 func (sc *Client) DestroyDataSet(name string) (responseBody []byte, err error) {
-	request, _ := http.NewRequest("DELETE", DefaultNamespaceEndpoint+"/"+name, nil)
+	request, _ := http.NewRequest("DELETE", sc.NamespaceEndpoint+"/"+name, nil)
 	response, err := sc.HttpClient.Do(request)
 	if err != nil {
 		return

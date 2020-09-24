@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -16,11 +17,14 @@ import (
 // for each execution so that main() can be called by multiple tests.
 var Main mw.MainWrapper
 
-func init() {
-	Main = mw.NewMainWrapper("bgi", main)
+var options struct {
+	url *string
 }
 
-// Exercises the template package
+func init() {
+	Main = mw.NewMainWrapper("blazegraph", main)
+}
+
 func main() {
 
 	var err error
@@ -36,6 +40,7 @@ func main() {
 	switch command {
 
 	case "create":
+		addCommonOptions(flags)
 		dataset := flags.String("dataset", "", "Dataset to create")
 		if err = flags.Parse(os.Args[2:]); err != nil {
 			fmt.Fprintf(Main.ErrWriter, err.Error())
@@ -50,6 +55,7 @@ func main() {
 		doCreate(*dataset)
 
 	case "destroy":
+		addCommonOptions(flags)
 		dataset := flags.String("dataset", "", "Dataset to destroy")
 		if err = flags.Parse(os.Args[2:]); err != nil {
 			fmt.Fprintf(Main.ErrWriter, err.Error())
@@ -64,6 +70,7 @@ func main() {
 		doDestroy(*dataset)
 
 	case "export":
+		addCommonOptions(flags)
 		format := flags.String("format", "nt", "Format for doExported triples")
 		sort := flags.Bool("sort", false, "Sort the exported triples if true")
 		if err = flags.Parse(os.Args[2:]); err != nil {
@@ -74,6 +81,7 @@ func main() {
 		doExport(*format, *sort)
 
 	case "import":
+		addCommonOptions(flags)
 		file := flags.String("file", "-", "File containing triples to import")
 		format := flags.String("format", "ttl", "Format of triples to import")
 		if err = flags.Parse(os.Args[2:]); err != nil {
@@ -84,6 +92,7 @@ func main() {
 		doImport(*file, *format)
 
 	case "report":
+		addCommonOptions(flags)
 		file := flags.String("file", "-", "File containing report template to expand")
 		if err = flags.Parse(os.Args[2:]); err != nil {
 			fmt.Fprintf(Main.ErrWriter, err.Error())
@@ -93,6 +102,7 @@ func main() {
 		doReport(*file)
 
 	case "select":
+		addCommonOptions(flags)
 		file := flags.String("file", "-", "File containing select query to execute")
 		format := flags.String("format", "json", "Format of result set to produce")
 		separators := flags.Bool("columnseparators", true, "Display column separators in table format")
@@ -108,8 +118,12 @@ func main() {
 	}
 }
 
+func addCommonOptions(flags *flag.FlagSet) {
+	options.url = flags.String("url", blazegraph.DefaultUrl, "URL of Blazegraph instance")
+}
+
 func doCreate(name string) {
-	bc := blazegraph.NewClient()
+	bc := blazegraph.NewClient(*options.url)
 	bc.CreateDataSet(name)
 	// if err != nil {
 	// 	fmt.Fprintln(Main.ErrWriter, err.Error())
@@ -118,7 +132,7 @@ func doCreate(name string) {
 }
 
 func doDestroy(name string) {
-	bc := blazegraph.NewClient()
+	bc := blazegraph.NewClient(*options.url)
 	bc.DestroyDataSet(name)
 	// if err != nil {
 	// 	fmt.Fprintln(Main.ErrWriter, err.Error())
@@ -127,7 +141,7 @@ func doDestroy(name string) {
 }
 
 func doReport(file string) {
-	bc := blazegraph.NewClient()
+	bc := blazegraph.NewClient(*options.url)
 	reportTemplate, err := readFileOrStdin(file)
 	if err != nil {
 		fmt.Fprintf(Main.ErrWriter, err.Error())
@@ -142,11 +156,6 @@ func doReport(file string) {
 	fmt.Fprint(Main.OutWriter, report)
 }
 
-func doDrop() {
-	bc := blazegraph.NewClient()
-	bc.DeleteAll()
-}
-
 func readFileOrStdin(filePath string) (bytes []byte, err error) {
 	var r io.Reader
 	if filePath == "-" {
@@ -158,7 +167,7 @@ func readFileOrStdin(filePath string) (bytes []byte, err error) {
 }
 
 func doImport(file string, format string) {
-	bc := blazegraph.NewClient()
+	bc := blazegraph.NewClient(*options.url)
 	data, err := readFileOrStdin(file)
 	if err != nil {
 		fmt.Fprintf(Main.ErrWriter, err.Error())
@@ -187,7 +196,7 @@ func doImport(file string, format string) {
 }
 
 func doSelectQuery(file string, format string, columnSeparators bool) {
-	bc := blazegraph.NewClient()
+	bc := blazegraph.NewClient(*options.url)
 	q, err := readFileOrStdin(file)
 	if err != nil {
 		fmt.Fprintf(Main.ErrWriter, err.Error())
@@ -239,7 +248,7 @@ func doSelectQuery(file string, format string, columnSeparators bool) {
 }
 
 func doExport(format string, sorted bool) {
-	bc := blazegraph.NewClient()
+	bc := blazegraph.NewClient(*options.url)
 	var err error
 	var triples string
 
