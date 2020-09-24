@@ -21,11 +21,11 @@ func NewClient(endpoint string) *Client {
 	return sc
 }
 
-func (sc *Client) PostRequest(contentType string, acceptType string,
+func (sc *Client) PostRequest(url string, contentType string, acceptType string,
 	requestBody []byte) (responseBody []byte, err error) {
 
 	// create the http requeest using the provided body
-	request, err := http.NewRequest("POST", sc.Endpoint, bytes.NewReader(requestBody))
+	request, err := http.NewRequest("POST", url, bytes.NewReader(requestBody))
 	if err != nil {
 		return
 	}
@@ -47,6 +47,11 @@ func (sc *Client) PostRequest(contentType string, acceptType string,
 	return
 }
 
+func (sc *Client) PostSparqlRequest(contentType string, acceptType string,
+	requestBody []byte) (responseBody []byte, err error) {
+	return sc.PostRequest(sc.Endpoint, contentType, acceptType, requestBody)
+}
+
 func (sc *Client) DeleteAll() (responseBody []byte, err error) {
 	request, _ := http.NewRequest("DELETE", sc.Endpoint, nil)
 	response, err := sc.HttpClient.Do(request)
@@ -61,12 +66,12 @@ func (sc *Client) DeleteAll() (responseBody []byte, err error) {
 }
 
 func (sc *Client) PostData(format string, data []byte) (responseBody []byte, err error) {
-	responseBody, err = sc.PostRequest(format, "text/plain", data)
+	responseBody, err = sc.PostSparqlRequest(format, "text/plain", data)
 	return
 }
 
 func (sc *Client) Select(query string) (rs *ResultSet, err error) {
-	responseBody, err := sc.PostRequest("application/sparql-query", "application/json", []byte(query))
+	responseBody, err := sc.PostSparqlRequest("application/sparql-query", "application/json", []byte(query))
 	err = json.Unmarshal(responseBody, &rs)
 	if err != nil {
 		print()
@@ -77,13 +82,13 @@ func (sc *Client) Select(query string) (rs *ResultSet, err error) {
 }
 
 func (sc *Client) SelectCSV(query string) (csv string, err error) {
-	responseBody, err := sc.PostRequest("application/sparql-query", "text/csv", []byte(query))
+	responseBody, err := sc.PostSparqlRequest("application/sparql-query", "text/csv", []byte(query))
 	csv = string(responseBody)
 	return
 }
 
 func (sc *Client) SelectXML(query string) (csv string, err error) {
-	responseBody, err := sc.PostRequest("application/sparql-query", "sparql-results+xml", []byte(query))
+	responseBody, err := sc.PostSparqlRequest("application/sparql-query", "sparql-results+xml", []byte(query))
 	csv = string(responseBody)
 	return
 }
@@ -98,7 +103,7 @@ func (sc *Client) SelectAll() (rs *ResultSet, err error) {
 }
 
 func (sc *Client) Construct(format string, query string) (triples []byte, err error) {
-	triples, err = sc.PostRequest("application/sparql-query", format, []byte(query))
+	triples, err = sc.PostSparqlRequest("application/sparql-query", format, []byte(query))
 	return
 }
 

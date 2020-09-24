@@ -139,6 +139,4 @@ func ExampleBlazegraphClient_DumpAsNTriples() {
 	// Output:
 	// <http://tmcphill.net/data#x> <http://tmcphill.net/tags#tag> "seven" .
 	// <http://tmcphill.net/data#y> <http://tmcphill.net/tags#tag> "eight" .
-	// <http://tmcphill.net/tags#tag> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-	// <http://tmcphill.net/tags#tag> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://tmcphill.net/tags#tag> .
 }
