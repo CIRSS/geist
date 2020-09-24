@@ -130,7 +130,8 @@ func TestBlazegraphCmd_report_two_triples(t *testing.T) {
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
 
-	run("blazegraph drop")
+	run("blazegraph destroy --dataset kb")
+	run("blazegraph create --dataset kb")
 
 	Main.InReader = strings.NewReader(`
 		<http://tmcphill.net/data#y> <http://tmcphill.net/tags#tag> "eight" .
@@ -256,7 +257,8 @@ func TestBlazegraphCmd_report_multiple_queries(t *testing.T) {
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
 
-	run("blazegraph drop")
+	run("blazegraph destroy --dataset kb")
+	run("blazegraph create --dataset kb")
 
 	Main.InReader = strings.NewReader(`
 		<http://tmcphill.net/data#y> <http://tmcphill.net/tags#tag> "eight" .
@@ -311,7 +313,8 @@ func TestBlazegraphCmd_report_macros(t *testing.T) {
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
 
-	run("blazegraph drop")
+	run("blazegraph destroy --dataset kb")
+	run("blazegraph create --dataset kb")
 
 	Main.InReader = strings.NewReader(`
 		<http://tmcphill.net/data#y> <http://tmcphill.net/tags#tag> "eight" .
@@ -361,7 +364,8 @@ func TestBlazegraphCmd_report_subqueries(t *testing.T) {
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
 
-	run("blazegraph drop")
+	run("blazegraph destroy --dataset kb")
+	run("blazegraph create --dataset kb")
 
 	Main.InReader = strings.NewReader(`
 		<http://tmcphill.net/data#y> <http://tmcphill.net/tags#tag> "eight" .
@@ -412,7 +416,9 @@ func TestBlazegraphCmd_report_address_book(t *testing.T) {
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
 
-	run("blazegraph drop")
+	run("blazegraph destroy --dataset kb")
+	run("blazegraph create --dataset kb")
+
 	run("blazegraph import --format jsonld --file testdata/address-book.jsonld")
 
 	t.Run("constant-template", func(t *testing.T) {
@@ -449,7 +455,8 @@ func TestBlazegraphCmd_report_address_book_imports(t *testing.T) {
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
 
-	run("blazegraph drop")
+	run("blazegraph destroy --dataset kb")
+	run("blazegraph create --dataset kb")
 	run("blazegraph import --format jsonld --file testdata/address-book.jsonld")
 
 	t.Run("constant-template", func(t *testing.T) {
@@ -483,7 +490,8 @@ func TestBlazegraphCmd_report_subquery_functions(t *testing.T) {
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
 
-	run("blazegraph drop")
+	run("blazegraph destroy --dataset kb")
+	run("blazegraph create --dataset kb")
 
 	Main.InReader = strings.NewReader(`
 		<http://tmcphill.net/data#y> <http://tmcphill.net/tags#tag> "eight" .
@@ -535,7 +543,8 @@ func TestBlazegraphCmd_report_macro_functions(t *testing.T) {
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
 
-	run("blazegraph drop")
+	run("blazegraph destroy --dataset kb")
+	run("blazegraph create --dataset kb")
 
 	Main.InReader = strings.NewReader(`
 		<http://tmcphill.net/data#y> <http://tmcphill.net/tags#tag> "eight" .
@@ -592,7 +601,8 @@ func TestBlazegraphCmd_report_macro_calls_query(t *testing.T) {
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
 
-	run("blazegraph drop")
+	run("blazegraph destroy --dataset kb")
+	run("blazegraph create --dataset kb")
 
 	Main.InReader = strings.NewReader(`
 		<http://tmcphill.net/data#y> <http://tmcphill.net/tags#tag> "eight" .

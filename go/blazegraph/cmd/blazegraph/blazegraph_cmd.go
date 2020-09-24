@@ -63,14 +63,6 @@ func main() {
 		}
 		doDestroy(*dataset)
 
-	case "drop":
-		if len(os.Args) > 2 {
-			fmt.Fprintln(Main.ErrWriter,
-				"Error: The 'blazegraph drop' command takes no arguments and no flags.")
-			return
-		}
-		doDrop()
-
 	case "export":
 		format := flags.String("format", "nt", "Format for doExported triples")
 		sort := flags.Bool("sort", false, "Sort the exported triples if true")

@@ -13,7 +13,8 @@ func TestBlazegraphCmd_query_json(t *testing.T) {
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
 
-	run("blazegraph drop")
+	run("blazegraph destroy --dateset kb")
+	run("blazegraph create --dateset kb")
 
 	Main.InReader = strings.NewReader(`
 		<http://tmcphill.net/data#y> <http://tmcphill.net/tags#tag> "eight" .

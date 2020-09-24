@@ -30,7 +30,9 @@ END_SCRIPT
 
 bash ${RUNNER} S2 "IMPORT TWO TRIPLES AS TURTLE" << END_SCRIPT
 
-blazegraph drop
+blazegraph destroy --dataset kb
+blazegraph create --dataset kb
+
 blazegraph import --format ttl << END_DATA
 
 	@prefix data: <http://tmcphill.net/data#> .
@@ -49,7 +51,9 @@ END_SCRIPT
 
 bash ${RUNNER} S3 "IMPORT TWO TRIPLES AS JSON-LD" << END_SCRIPT
 
-blazegraph drop
+blazegraph destroy --dataset kb
+blazegraph create --dataset kb
+
 blazegraph import --format jsonld << END_DATA
 
     [
@@ -73,7 +77,9 @@ END_SCRIPT
 
 bash ${RUNNER} S4 "IMPORT TWO TRIPLES AS RDF-XML" << END_SCRIPT
 
-blazegraph drop
+blazegraph destroy --dataset kb
+blazegraph create --dataset kb
+
 blazegraph import --format xml << END_DATA
 
     <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">

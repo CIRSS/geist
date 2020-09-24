@@ -15,7 +15,8 @@ func TestBlazegraphCmd_import_two_triples(t *testing.T) {
 
 	t.Run("import_nt", func(t *testing.T) {
 
-		run("blazegraph drop")
+		run("blazegraph destroy --dataset kb")
+		run("blazegraph create --dataset kb")
 
 		Main.InReader = strings.NewReader(`
 			<http://tmcphill.net/data#x> <http://tmcphill.net/tags#tag> "seven" .
@@ -33,7 +34,8 @@ func TestBlazegraphCmd_import_two_triples(t *testing.T) {
 
 	t.Run("import_ttl", func(t *testing.T) {
 
-		run("blazegraph drop")
+		run("blazegraph destroy --dataset kb")
+		run("blazegraph create --dataset kb")
 
 		Main.InReader = strings.NewReader(`
 			@prefix data: <http://tmcphill.net/data#> .
@@ -54,7 +56,8 @@ func TestBlazegraphCmd_import_two_triples(t *testing.T) {
 
 	t.Run("import_jsonld", func(t *testing.T) {
 
-		run("blazegraph drop")
+		run("blazegraph destroy --dataset kb")
+		run("blazegraph create --dataset kb")
 
 		Main.InReader = strings.NewReader(`
 			[
@@ -80,7 +83,8 @@ func TestBlazegraphCmd_import_two_triples(t *testing.T) {
 
 	t.Run("import_ttl", func(t *testing.T) {
 
-		run("blazegraph drop")
+		run("blazegraph destroy --dataset kb")
+		run("blazegraph create --dataset kb")
 
 		Main.InReader = strings.NewReader(`
 			@prefix data: <http://tmcphill.net/data#> .
@@ -101,7 +105,8 @@ func TestBlazegraphCmd_import_two_triples(t *testing.T) {
 
 	t.Run("import_xml", func(t *testing.T) {
 
-		run("blazegraph drop")
+		run("blazegraph destroy --dataset kb")
+		run("blazegraph create --dataset kb")
 
 		Main.InReader = strings.NewReader(`
 			<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
