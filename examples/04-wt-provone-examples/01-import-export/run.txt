@@ -3,7 +3,8 @@
 
 # IMPORT PROVONE TRACE
 
-blazegraph drop
+blazegraph destroy --dataset kb
+blazegraph create --dataset kb
 blazegraph import --format jsonld --file ../data/branched-pipeline.jsonld
 
 ------------------------------------------- SETUP OUTPUTS ------------------------------------------------
@@ -18,8 +19,6 @@ blazegraph export --format nt | sort
 
 ------------------------------------------- S1 OUTPUTS ------------------------------------------------
 
-<http://wholetale.org/ontology/wt#FilePath> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-<http://wholetale.org/ontology/wt#FilePath> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://wholetale.org/ontology/wt#FilePath> .
 <http://wholetale.org/tale2035/version1021/run1119#data_file_i23> <http://wholetale.org/ontology/wt#FilePath> "./inputs/i1.txt"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://wholetale.org/tale2035/version1021/run1119#data_file_i23> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://wholetale.org/ontology/wt#DataFile> .
 <http://wholetale.org/tale2035/version1021/run1119#data_file_i24> <http://wholetale.org/ontology/wt#FilePath> "./inputs/i2.txt"^^<http://www.w3.org/2001/XMLSchema#string> .
@@ -42,10 +41,6 @@ blazegraph export --format nt | sort
 <http://wholetale.org/tale2035/version1021/run1119#execution_1> <http://www.w3.org/ns/prov#used> <http://wholetale.org/tale2035/version1021/run1119#data_file_i24> .
 <http://wholetale.org/tale2035/version1021/run1119#execution_1> <http://www.w3.org/ns/prov#used> <http://wholetale.org/tale2035/version1021/run1119#data_file_i26> .
 <http://wholetale.org/tale2035/version1021/run1119#execution_1> <http://www.w3.org/ns/prov#used> <http://wholetale.org/tale2035/version1021/run1119#data_file_i28> .
-<http://www.w3.org/ns/prov#generated> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-<http://www.w3.org/ns/prov#generated> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/ns/prov#generated> .
-<http://www.w3.org/ns/prov#used> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-<http://www.w3.org/ns/prov#used> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/ns/prov#used> .
 
 
 ******************************************* EXAMPLE S2 ************************************************
@@ -57,12 +52,6 @@ blazegraph export --format jsonld
 ------------------------------------------- S2 OUTPUTS ------------------------------------------------
 
 [ {
-  "@id" : "http://wholetale.org/ontology/wt#FilePath",
-  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
-  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
-    "@id" : "http://wholetale.org/ontology/wt#FilePath"
-  } ]
-}, {
   "@id" : "http://wholetale.org/tale2035/version1021/run1119#data_file_i23",
   "@type" : [ "http://wholetale.org/ontology/wt#DataFile" ],
   "http://wholetale.org/ontology/wt#FilePath" : [ {
@@ -122,17 +111,5 @@ blazegraph export --format jsonld
     "@id" : "http://wholetale.org/tale2035/version1021/run1119#data_file_i26"
   }, {
     "@id" : "http://wholetale.org/tale2035/version1021/run1119#data_file_i28"
-  } ]
-}, {
-  "@id" : "http://www.w3.org/ns/prov#generated",
-  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
-  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
-    "@id" : "http://www.w3.org/ns/prov#generated"
-  } ]
-}, {
-  "@id" : "http://www.w3.org/ns/prov#used",
-  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
-  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
-    "@id" : "http://www.w3.org/ns/prov#used"
   } ]
 } ]

@@ -3,7 +3,8 @@
 
 # INITIALIZE BLAZEGRAPH INSTANCE WITH CITATIONS
 
-blazegraph drop
+blazegraph destroy --dataset kb
+blazegraph create --dataset kb
 blazegraph import --file ../data/citations.ttl --format ttl
 
 ------------------------------------------- SETUP OUTPUTS ------------------------------------------------
@@ -18,12 +19,6 @@ blazegraph export --format nt | sort
 
 ------------------------------------------- S1 OUTPUTS ------------------------------------------------
 
-<http://learningsparql.com/ns/citations#cites> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-<http://learningsparql.com/ns/citations#cites> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://learningsparql.com/ns/citations#cites> .
-<http://learningsparql.com/ns/citations#reports> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-<http://learningsparql.com/ns/citations#reports> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://learningsparql.com/ns/citations#reports> .
-<http://learningsparql.com/ns/citations#uses> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-<http://learningsparql.com/ns/citations#uses> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://learningsparql.com/ns/citations#uses> .
 <http://learningsparql.com/ns/papers#paperA> <http://learningsparql.com/ns/citations#reports> <http://learningsparql.com/ns/papers#resultA> .
 <http://learningsparql.com/ns/papers#paperA> <http://purl.org/dc/elements/1.1/title> "Paper A" .
 <http://learningsparql.com/ns/papers#paperA> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://learningsparql.com/ns/citations#Paper> .
@@ -86,8 +81,6 @@ blazegraph export --format nt | sort
 <http://learningsparql.com/ns/papers#resultG2> <http://www.w3.org/2000/01/rdf-schema#label> "Result G2" .
 <http://learningsparql.com/ns/papers#resultH> <http://www.w3.org/2000/01/rdf-schema#label> "Result H" .
 <http://learningsparql.com/ns/papers#resultI> <http://www.w3.org/2000/01/rdf-schema#label> "Result I" .
-<http://purl.org/dc/elements/1.1/title> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-<http://purl.org/dc/elements/1.1/title> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://purl.org/dc/elements/1.1/title> .
 
 
 ******************************************* EXAMPLE S2 ************************************************

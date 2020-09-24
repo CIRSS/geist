@@ -6,7 +6,8 @@ RUNNER='../../common/run_script_example.sh'
 
 bash ${RUNNER} SETUP "IMPORT PROVONE TRACE" << END_SCRIPT
 
-blazegraph drop
+blazegraph destroy --dataset kb
+blazegraph create --dataset kb
 blazegraph import --format jsonld --file ../data/branched-pipeline.jsonld
 
 END_SCRIPT
@@ -26,7 +27,7 @@ blazegraph select --format table << __END_QUERY__
     WHERE {
         ?run rdf:type wt:TaleRun .                              # Identify the Tale run described by this JSON-LD document.
         ?run wt:TaleRunScript ?run_script .                     # Identify the script used to run the Tale as a whole.
-        ?run_process wt:ExecutionOf ?run_script .               # Identify the process that is the execution of that run script.             
+        ?run_process wt:ExecutionOf ?run_script .               # Identify the process that is the execution of that run script.
         ?run_sub_process (wt:ChildProcessOf)+ ?run_process .    # Find all child processes of the run script execution.
         ?run_sub_process wt:ReadFile ?read_file .               # Identify files read by those run subprocesses.
         FILTER NOT EXISTS {                                     # Filter out any files written by the Tale run, leaving
@@ -55,7 +56,7 @@ blazegraph select --format table << __END_QUERY__
     WHERE {
         ?run rdf:type wt:TaleRun .                          # Identify the Tale run described by this JSON-LD document.
         ?run wt:TaleRunScript ?run_script .                 # Identify the script used to run the Tale as a whole.
-        ?run_process wt:ExecutionOf ?run_script .           # Identify the process that is the execution of that run script.             
+        ?run_process wt:ExecutionOf ?run_script .           # Identify the process that is the execution of that run script.
         ?run_sub_process (wt:ChildProcessOf)+  ?run_process .    # Find all child processes of the run script execution.
         ?run_sub_process wt:WroteFile ?written_file .       # Identify files written by those run subprocesses.
         FILTER NOT EXISTS { ?written_file                   # Filter out intermediate products of the Tale run, leaving

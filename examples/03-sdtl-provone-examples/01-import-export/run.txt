@@ -3,7 +3,8 @@
 
 # IMPORT SDTL-PROVONE TRACE
 
-blazegraph drop
+blazegraph destroy --dataset kb
+blazegraph create --dataset kb
 blazegraph import --format jsonld --file ../data/single-command.jsonld
 
 ------------------------------------------- SETUP OUTPUTS ------------------------------------------------
@@ -18,56 +19,6 @@ blazegraph export --format nt | sort
 
 ------------------------------------------- S1 OUTPUTS ------------------------------------------------
 
-<http://SDTLnamespaceURL#command> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-<http://SDTLnamespaceURL#command> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://SDTLnamespaceURL#command> .
-<http://SDTLnamespaceURL#commandCount> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-<http://SDTLnamespaceURL#commandCount> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://SDTLnamespaceURL#commandCount> .
-<http://SDTLnamespaceURL#commands> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-<http://SDTLnamespaceURL#commands> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://SDTLnamespaceURL#commands> .
-<http://SDTLnamespaceURL#expression> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-<http://SDTLnamespaceURL#expression> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://SDTLnamespaceURL#expression> .
-<http://SDTLnamespaceURL#lineCount> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-<http://SDTLnamespaceURL#lineCount> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://SDTLnamespaceURL#lineCount> .
-<http://SDTLnamespaceURL#lineNumberEnd> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-<http://SDTLnamespaceURL#lineNumberEnd> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://SDTLnamespaceURL#lineNumberEnd> .
-<http://SDTLnamespaceURL#lineNumberStart> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-<http://SDTLnamespaceURL#lineNumberStart> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://SDTLnamespaceURL#lineNumberStart> .
-<http://SDTLnamespaceURL#numericType> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-<http://SDTLnamespaceURL#numericType> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://SDTLnamespaceURL#numericType> .
-<http://SDTLnamespaceURL#originalSourceText> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-<http://SDTLnamespaceURL#originalSourceText> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://SDTLnamespaceURL#originalSourceText> .
-<http://SDTLnamespaceURL#scriptMD5> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-<http://SDTLnamespaceURL#scriptMD5> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://SDTLnamespaceURL#scriptMD5> .
-<http://SDTLnamespaceURL#scriptSHA1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-<http://SDTLnamespaceURL#scriptSHA1> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://SDTLnamespaceURL#scriptSHA1> .
-<http://SDTLnamespaceURL#sourceFileLastUpdate> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-<http://SDTLnamespaceURL#sourceFileLastUpdate> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://SDTLnamespaceURL#sourceFileLastUpdate> .
-<http://SDTLnamespaceURL#sourceFileName> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-<http://SDTLnamespaceURL#sourceFileName> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://SDTLnamespaceURL#sourceFileName> .
-<http://SDTLnamespaceURL#sourceFileSize> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-<http://SDTLnamespaceURL#sourceFileSize> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://SDTLnamespaceURL#sourceFileSize> .
-<http://SDTLnamespaceURL#sourceInformation> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-<http://SDTLnamespaceURL#sourceInformation> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://SDTLnamespaceURL#sourceInformation> .
-<http://SDTLnamespaceURL#sourceLanguage> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-<http://SDTLnamespaceURL#sourceLanguage> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://SDTLnamespaceURL#sourceLanguage> .
-<http://SDTLnamespaceURL#sourceStartIndex> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-<http://SDTLnamespaceURL#sourceStartIndex> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://SDTLnamespaceURL#sourceStartIndex> .
-<http://SDTLnamespaceURL#sourceStopIndex> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-<http://SDTLnamespaceURL#sourceStopIndex> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://SDTLnamespaceURL#sourceStopIndex> .
-<http://SDTLnamespaceURL#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-<http://SDTLnamespaceURL#type> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://SDTLnamespaceURL#type> .
-<http://SDTLnamespaceURL#value> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-<http://SDTLnamespaceURL#value> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://SDTLnamespaceURL#value> .
-<http://SDTLnamespaceURL#variable> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-<http://SDTLnamespaceURL#variable> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://SDTLnamespaceURL#variable> .
-<http://SDTLnamespaceURL#variableName> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-<http://SDTLnamespaceURL#variableName> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://SDTLnamespaceURL#variableName> .
-<http://purl.dataone.org/provone/2015/01/15/ontology#hadPlan> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-<http://purl.dataone.org/provone/2015/01/15/ontology#hadPlan> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://purl.dataone.org/provone/2015/01/15/ontology#hadPlan> .
-<http://purl.dataone.org/provone/2015/01/15/ontology#hasOutPort> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-<http://purl.dataone.org/provone/2015/01/15/ontology#hasOutPort> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://purl.dataone.org/provone/2015/01/15/ontology#hasOutPort> .
-<http://purl.dataone.org/provone/2015/01/15/ontology#hasSubProgram> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-<http://purl.dataone.org/provone/2015/01/15/ontology#hasSubProgram> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://purl.dataone.org/provone/2015/01/15/ontology#hasSubProgram> .
 <http://wholetale.org/tale38/run15#associated_plan> <http://purl.dataone.org/provone/2015/01/15/ontology#hadPlan> <http://wholetale.org/tale38/run15#create_var.sps> .
 <http://wholetale.org/tale38/run15#associated_plan> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://127.0.0.1:9999/blazegraph/Association> .
 <http://wholetale.org/tale38/run15#create_var.sps> <http://SDTLnamespaceURL#commandCount> "1"^^<http://www.w3.org/2001/XMLSchema#integer> .
@@ -113,18 +64,6 @@ blazegraph export --format nt | sort
 <http://wholetale.org/tale38/run15#sdtl_statement_1> <http://SDTLnamespaceURL#variable> <http://wholetale.org/tale38/run15#sdtl_variable_1> .
 <http://wholetale.org/tale38/run15#sdtl_variable_1> <http://SDTLnamespaceURL#type> "VariableSymbolExpression"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://wholetale.org/tale38/run15#sdtl_variable_1> <http://SDTLnamespaceURL#variableName> "newVar"^^<http://www.w3.org/2001/XMLSchema#string> .
-<http://www.w3.org/ns/prov#hadEntity> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-<http://www.w3.org/ns/prov#hadEntity> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/ns/prov#hadEntity> .
-<http://www.w3.org/ns/prov#hadPlan> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-<http://www.w3.org/ns/prov#hadPlan> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/ns/prov#hadPlan> .
-<http://www.w3.org/ns/prov#hasOutPort> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-<http://www.w3.org/ns/prov#hasOutPort> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/ns/prov#hasOutPort> .
-<http://www.w3.org/ns/prov#qualifiedAssociation> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-<http://www.w3.org/ns/prov#qualifiedAssociation> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/ns/prov#qualifiedAssociation> .
-<http://www.w3.org/ns/prov#qualifiedGeneration> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-<http://www.w3.org/ns/prov#qualifiedGeneration> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/ns/prov#qualifiedGeneration> .
-<http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-<http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/ns/prov#wasGeneratedBy> .
 
 
 ******************************************* EXAMPLE S2 ************************************************
@@ -136,156 +75,6 @@ blazegraph export --format jsonld
 ------------------------------------------- S2 OUTPUTS ------------------------------------------------
 
 [ {
-  "@id" : "http://SDTLnamespaceURL#command",
-  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
-  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
-    "@id" : "http://SDTLnamespaceURL#command"
-  } ]
-}, {
-  "@id" : "http://SDTLnamespaceURL#commandCount",
-  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
-  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
-    "@id" : "http://SDTLnamespaceURL#commandCount"
-  } ]
-}, {
-  "@id" : "http://SDTLnamespaceURL#commands",
-  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
-  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
-    "@id" : "http://SDTLnamespaceURL#commands"
-  } ]
-}, {
-  "@id" : "http://SDTLnamespaceURL#expression",
-  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
-  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
-    "@id" : "http://SDTLnamespaceURL#expression"
-  } ]
-}, {
-  "@id" : "http://SDTLnamespaceURL#lineCount",
-  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
-  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
-    "@id" : "http://SDTLnamespaceURL#lineCount"
-  } ]
-}, {
-  "@id" : "http://SDTLnamespaceURL#lineNumberEnd",
-  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
-  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
-    "@id" : "http://SDTLnamespaceURL#lineNumberEnd"
-  } ]
-}, {
-  "@id" : "http://SDTLnamespaceURL#lineNumberStart",
-  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
-  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
-    "@id" : "http://SDTLnamespaceURL#lineNumberStart"
-  } ]
-}, {
-  "@id" : "http://SDTLnamespaceURL#numericType",
-  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
-  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
-    "@id" : "http://SDTLnamespaceURL#numericType"
-  } ]
-}, {
-  "@id" : "http://SDTLnamespaceURL#originalSourceText",
-  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
-  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
-    "@id" : "http://SDTLnamespaceURL#originalSourceText"
-  } ]
-}, {
-  "@id" : "http://SDTLnamespaceURL#scriptMD5",
-  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
-  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
-    "@id" : "http://SDTLnamespaceURL#scriptMD5"
-  } ]
-}, {
-  "@id" : "http://SDTLnamespaceURL#scriptSHA1",
-  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
-  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
-    "@id" : "http://SDTLnamespaceURL#scriptSHA1"
-  } ]
-}, {
-  "@id" : "http://SDTLnamespaceURL#sourceFileLastUpdate",
-  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
-  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
-    "@id" : "http://SDTLnamespaceURL#sourceFileLastUpdate"
-  } ]
-}, {
-  "@id" : "http://SDTLnamespaceURL#sourceFileName",
-  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
-  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
-    "@id" : "http://SDTLnamespaceURL#sourceFileName"
-  } ]
-}, {
-  "@id" : "http://SDTLnamespaceURL#sourceFileSize",
-  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
-  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
-    "@id" : "http://SDTLnamespaceURL#sourceFileSize"
-  } ]
-}, {
-  "@id" : "http://SDTLnamespaceURL#sourceInformation",
-  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
-  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
-    "@id" : "http://SDTLnamespaceURL#sourceInformation"
-  } ]
-}, {
-  "@id" : "http://SDTLnamespaceURL#sourceLanguage",
-  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
-  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
-    "@id" : "http://SDTLnamespaceURL#sourceLanguage"
-  } ]
-}, {
-  "@id" : "http://SDTLnamespaceURL#sourceStartIndex",
-  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
-  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
-    "@id" : "http://SDTLnamespaceURL#sourceStartIndex"
-  } ]
-}, {
-  "@id" : "http://SDTLnamespaceURL#sourceStopIndex",
-  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
-  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
-    "@id" : "http://SDTLnamespaceURL#sourceStopIndex"
-  } ]
-}, {
-  "@id" : "http://SDTLnamespaceURL#type",
-  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
-  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
-    "@id" : "http://SDTLnamespaceURL#type"
-  } ]
-}, {
-  "@id" : "http://SDTLnamespaceURL#value",
-  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
-  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
-    "@id" : "http://SDTLnamespaceURL#value"
-  } ]
-}, {
-  "@id" : "http://SDTLnamespaceURL#variable",
-  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
-  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
-    "@id" : "http://SDTLnamespaceURL#variable"
-  } ]
-}, {
-  "@id" : "http://SDTLnamespaceURL#variableName",
-  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
-  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
-    "@id" : "http://SDTLnamespaceURL#variableName"
-  } ]
-}, {
-  "@id" : "http://purl.dataone.org/provone/2015/01/15/ontology#hadPlan",
-  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
-  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
-    "@id" : "http://purl.dataone.org/provone/2015/01/15/ontology#hadPlan"
-  } ]
-}, {
-  "@id" : "http://purl.dataone.org/provone/2015/01/15/ontology#hasOutPort",
-  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
-  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
-    "@id" : "http://purl.dataone.org/provone/2015/01/15/ontology#hasOutPort"
-  } ]
-}, {
-  "@id" : "http://purl.dataone.org/provone/2015/01/15/ontology#hasSubProgram",
-  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
-  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
-    "@id" : "http://purl.dataone.org/provone/2015/01/15/ontology#hasSubProgram"
-  } ]
-}, {
   "@id" : "http://wholetale.org/tale38/run15#associated_plan",
   "@type" : [ "http://127.0.0.1:9999/blazegraph/Association" ],
   "http://purl.dataone.org/provone/2015/01/15/ontology#hadPlan" : [ {
@@ -434,41 +223,5 @@ blazegraph export --format jsonld
   } ],
   "http://SDTLnamespaceURL#variableName" : [ {
     "@value" : "newVar"
-  } ]
-}, {
-  "@id" : "http://www.w3.org/ns/prov#hadEntity",
-  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
-  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
-    "@id" : "http://www.w3.org/ns/prov#hadEntity"
-  } ]
-}, {
-  "@id" : "http://www.w3.org/ns/prov#hadPlan",
-  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
-  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
-    "@id" : "http://www.w3.org/ns/prov#hadPlan"
-  } ]
-}, {
-  "@id" : "http://www.w3.org/ns/prov#hasOutPort",
-  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
-  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
-    "@id" : "http://www.w3.org/ns/prov#hasOutPort"
-  } ]
-}, {
-  "@id" : "http://www.w3.org/ns/prov#qualifiedAssociation",
-  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
-  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
-    "@id" : "http://www.w3.org/ns/prov#qualifiedAssociation"
-  } ]
-}, {
-  "@id" : "http://www.w3.org/ns/prov#qualifiedGeneration",
-  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
-  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
-    "@id" : "http://www.w3.org/ns/prov#qualifiedGeneration"
-  } ]
-}, {
-  "@id" : "http://www.w3.org/ns/prov#wasGeneratedBy",
-  "@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
-  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
-    "@id" : "http://www.w3.org/ns/prov#wasGeneratedBy"
   } ]
 } ]

@@ -8,7 +8,8 @@ SCRIPT_RUNNER='../../common/run_script_example.sh'
 
 bash ${SCRIPT_RUNNER} SETUP "IMPORT PROVONE TRACE" << END_SCRIPT
 
-blazegraph drop
+blazegraph destroy --dataset kb
+blazegraph create --dataset kb
 blazegraph import --format jsonld --file ../data/branched-pipeline.jsonld
 
 END_SCRIPT
@@ -45,10 +46,10 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
     {{ with $RunID := wt_select_run | value}}
 
         # Run ID: {{ $RunID }}
-        {{ gv_graph "wt_run" }} 
+        {{ gv_graph "wt_run" }}
         {{ gv_title (wt_select_tale_name $RunID | value) }}
         {{ gv_end }}
-    
+
     {{ end }}
 
 __END_REPORT_TEMPLATE__
@@ -69,11 +70,11 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
     {{ with $RunID := wt_select_run | value }}
 
         # Run ID: {{ $RunID }}
-        {{ gv_graph "wt_run" }} 
+        {{ gv_graph "wt_run" }}
         {{ gv_title "Tale Run" }}
         {{ wt_run_node $RunID }}
         {{ gv_end }}
-    
+
     {{ end }}
 
 __END_REPORT_TEMPLATE__
@@ -98,20 +99,20 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
 
         # graph title
         {{ gv_title "Tale Inputs and Outputs" }}
-        
+
         # the tale run
         {{ wt_run_node $RunID }}
-        
+
         # output files
         {{ with $OutputFiles := (wt_select_tale_output_files $RunID | rows) }}  \\
             {{ wt_file_nodes_cluster "outputs" $OutputFiles }}
             {{ wt_out_file_edges $RunID $OutputFiles }}                         \\
-        {{ end }}                                                                   
+        {{ end }}
 
         # input files
         {{ with $InputFiles := (wt_select_tale_input_files $RunID | rows) }}    \\
             {{ wt_file_nodes_cluster "inputs" $InputFiles }}
-            {{ wt_in_file_edges $RunID $InputFiles }}                                      
+            {{ wt_in_file_edges $RunID $InputFiles }}
         {{ end }}                                                               \\
                                                                                 \\
         {{ gv_end }}
@@ -140,7 +141,7 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
 
         # graph title
         {{ gv_title "Tale Processes and Data Files" }}
-        
+
         {{ gv_cluster "Processes" }}
 
         # data files

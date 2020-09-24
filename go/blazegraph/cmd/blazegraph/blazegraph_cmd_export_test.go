@@ -101,17 +101,6 @@ func TestBlazegraphCmd_export_two_triples(t *testing.T) {
 				  "@value": "eight"
 				}
 			  ]
-			},
-			{
-			  "@id": "http://tmcphill.net/tags#tag",
-			  "@type": [
-				"http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
-			  ],
-			  "http://www.w3.org/2000/01/rdf-schema#subPropertyOf": [
-				{
-				  "@id": "http://tmcphill.net/tags#tag"
-				}
-			  ]
 			}
 		  ]
 		`)
@@ -123,8 +112,6 @@ func TestBlazegraphCmd_export_two_triples(t *testing.T) {
 		util.LineContentsEqual(t, outputBuffer.String(), `
 			<http://tmcphill.net/data#x> <http://tmcphill.net/tags#tag> "seven" .
 			<http://tmcphill.net/data#y> <http://tmcphill.net/tags#tag> "eight" .
-			<http://tmcphill.net/tags#tag> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-			<http://tmcphill.net/tags#tag> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://tmcphill.net/tags#tag> .
 		`)
 	})
 
@@ -147,9 +134,6 @@ func TestBlazegraphCmd_export_two_triples(t *testing.T) {
 			<http://tmcphill.net/data#x> <http://tmcphill.net/tags#tag> "seven" .
 
 			<http://tmcphill.net/data#y> <http://tmcphill.net/tags#tag> "eight" .
-
-			<http://tmcphill.net/tags#tag> a rdf:Property ;
-				rdfs:subPropertyOf <http://tmcphill.net/tags#tag> .
 		`)
 	})
 
@@ -179,11 +163,6 @@ func TestBlazegraphCmd_export_two_triples(t *testing.T) {
                 <tag xmlns="http://tmcphill.net/tags#">eight</tag>
             </rdf:Description>
 
-            <rdf:Description rdf:about="http://tmcphill.net/tags#tag">
-                <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
-                <rdfs:subPropertyOf rdf:resource="http://tmcphill.net/tags#tag"/>
-            </rdf:Description>
-
             </rdf:RDF>
 		`)
 	})
@@ -205,42 +184,6 @@ func TestBlazegraphCmd_export_address_book(t *testing.T) {
 		run("blazegraph export --format jsonld")
 		util.LineContentsEqual(t, outputBuffer.String(), `
 			[ {
-			"@id" : "http://learningsparql.com/ns/addressbook#email",
-			"@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
-			"http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
-				"@id" : "http://learningsparql.com/ns/addressbook#email"
-			} ]
-			}, {
-			"@id" : "http://learningsparql.com/ns/addressbook#firstname",
-			"@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
-			"http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
-				"@id" : "http://learningsparql.com/ns/addressbook#firstname"
-			} ]
-			}, {
-			"@id" : "http://learningsparql.com/ns/addressbook#homeTel",
-			"@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
-			"http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
-				"@id" : "http://learningsparql.com/ns/addressbook#homeTel"
-			} ]
-			}, {
-			"@id" : "http://learningsparql.com/ns/addressbook#lastname",
-			"@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
-			"http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
-				"@id" : "http://learningsparql.com/ns/addressbook#lastname"
-			} ]
-			}, {
-			"@id" : "http://learningsparql.com/ns/addressbook#mobileTel",
-			"@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
-			"http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
-				"@id" : "http://learningsparql.com/ns/addressbook#mobileTel"
-			} ]
-			}, {
-			"@id" : "http://learningsparql.com/ns/addressbook#nickname",
-			"@type" : [ "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" ],
-			"http://www.w3.org/2000/01/rdf-schema#subPropertyOf" : [ {
-				"@id" : "http://learningsparql.com/ns/addressbook#nickname"
-			} ]
-			}, {
 			"@id" : "http://learningsparql.com/ns/data#i0432",
 			"http://learningsparql.com/ns/addressbook#email" : [ {
 				"@value" : "richard49@hotmail.com"
@@ -298,18 +241,6 @@ func TestBlazegraphCmd_export_address_book(t *testing.T) {
 		outputBuffer.Reset()
 		run("blazegraph export --format nt")
 		util.LineContentsEqual(t, outputBuffer.String(), `
-			<http://learningsparql.com/ns/addressbook#email> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-			<http://learningsparql.com/ns/addressbook#email> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://learningsparql.com/ns/addressbook#email> .
-			<http://learningsparql.com/ns/addressbook#firstname> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-			<http://learningsparql.com/ns/addressbook#firstname> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://learningsparql.com/ns/addressbook#firstname> .
-			<http://learningsparql.com/ns/addressbook#homeTel> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-			<http://learningsparql.com/ns/addressbook#homeTel> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://learningsparql.com/ns/addressbook#homeTel> .
-			<http://learningsparql.com/ns/addressbook#lastname> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-			<http://learningsparql.com/ns/addressbook#lastname> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://learningsparql.com/ns/addressbook#lastname> .
-			<http://learningsparql.com/ns/addressbook#mobileTel> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-			<http://learningsparql.com/ns/addressbook#mobileTel> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://learningsparql.com/ns/addressbook#mobileTel> .
-			<http://learningsparql.com/ns/addressbook#nickname> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-			<http://learningsparql.com/ns/addressbook#nickname> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://learningsparql.com/ns/addressbook#nickname> .
 			<http://learningsparql.com/ns/data#i0432> <http://learningsparql.com/ns/addressbook#email> "richard49@hotmail.com"^^<http://www.w3.org/2001/XMLSchema#string> .
 			<http://learningsparql.com/ns/data#i0432> <http://learningsparql.com/ns/addressbook#firstname> "Richard"^^<http://www.w3.org/2001/XMLSchema#string> .
 			<http://learningsparql.com/ns/data#i0432> <http://learningsparql.com/ns/addressbook#homeTel> "(229) 276-5135"^^<http://www.w3.org/2001/XMLSchema#string> .
@@ -343,24 +274,6 @@ func TestBlazegraphCmd_export_address_book(t *testing.T) {
 			@prefix hint: <http://www.bigdata.com/queryHints#> .
 			@prefix bd: <http://www.bigdata.com/rdf#> .
 			@prefix bds: <http://www.bigdata.com/rdf/search#> .
-
-			<http://learningsparql.com/ns/addressbook#email> a rdf:Property ;
-				rdfs:subPropertyOf <http://learningsparql.com/ns/addressbook#email> .
-
-			<http://learningsparql.com/ns/addressbook#firstname> a rdf:Property ;
-				rdfs:subPropertyOf <http://learningsparql.com/ns/addressbook#firstname> .
-
-			<http://learningsparql.com/ns/addressbook#homeTel> a rdf:Property ;
-				rdfs:subPropertyOf <http://learningsparql.com/ns/addressbook#homeTel> .
-
-			<http://learningsparql.com/ns/addressbook#lastname> a rdf:Property ;
-				rdfs:subPropertyOf <http://learningsparql.com/ns/addressbook#lastname> .
-
-			<http://learningsparql.com/ns/addressbook#mobileTel> a rdf:Property ;
-				rdfs:subPropertyOf <http://learningsparql.com/ns/addressbook#mobileTel> .
-
-			<http://learningsparql.com/ns/addressbook#nickname> a rdf:Property ;
-				rdfs:subPropertyOf <http://learningsparql.com/ns/addressbook#nickname> .
 
 			<http://learningsparql.com/ns/data#i0432> <http://learningsparql.com/ns/addressbook#email> "richard49@hotmail.com"^^xsd:string ;
 				<http://learningsparql.com/ns/addressbook#firstname> "Richard"^^xsd:string ;
@@ -398,36 +311,6 @@ func TestBlazegraphCmd_export_address_book(t *testing.T) {
 				xmlns:hint="http://www.bigdata.com/queryHints#"
 				xmlns:bd="http://www.bigdata.com/rdf#"
 				xmlns:bds="http://www.bigdata.com/rdf/search#">
-
-			<rdf:Description rdf:about="http://learningsparql.com/ns/addressbook#email">
-				<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
-				<rdfs:subPropertyOf rdf:resource="http://learningsparql.com/ns/addressbook#email"/>
-			</rdf:Description>
-
-			<rdf:Description rdf:about="http://learningsparql.com/ns/addressbook#firstname">
-				<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
-				<rdfs:subPropertyOf rdf:resource="http://learningsparql.com/ns/addressbook#firstname"/>
-			</rdf:Description>
-
-			<rdf:Description rdf:about="http://learningsparql.com/ns/addressbook#homeTel">
-				<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
-				<rdfs:subPropertyOf rdf:resource="http://learningsparql.com/ns/addressbook#homeTel"/>
-			</rdf:Description>
-
-			<rdf:Description rdf:about="http://learningsparql.com/ns/addressbook#lastname">
-				<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
-				<rdfs:subPropertyOf rdf:resource="http://learningsparql.com/ns/addressbook#lastname"/>
-			</rdf:Description>
-
-			<rdf:Description rdf:about="http://learningsparql.com/ns/addressbook#mobileTel">
-				<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
-				<rdfs:subPropertyOf rdf:resource="http://learningsparql.com/ns/addressbook#mobileTel"/>
-			</rdf:Description>
-
-			<rdf:Description rdf:about="http://learningsparql.com/ns/addressbook#nickname">
-				<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
-				<rdfs:subPropertyOf rdf:resource="http://learningsparql.com/ns/addressbook#nickname"/>
-			</rdf:Description>
 
 			<rdf:Description rdf:about="http://learningsparql.com/ns/data#i0432">
 				<email xmlns="http://learningsparql.com/ns/addressbook#" rdf:datatype="http://www.w3.org/2001/XMLSchema#string">richard49@hotmail.com</email>

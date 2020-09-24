@@ -6,7 +6,8 @@ RUNNER='../../common/run_script_example.sh'
 
 bash ${RUNNER} SETUP "INITIALIZE BLAZEGRAPH INSTANCE" << END_SCRIPT
 
-blazegraph drop
+blazegraph destroy --dataset kb
+blazegraph create --dataset kb
 
 END_SCRIPT
 

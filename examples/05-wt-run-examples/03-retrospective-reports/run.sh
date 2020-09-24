@@ -6,7 +6,8 @@ RUNNER='../../common/run_script_example.sh'
 
 bash ${RUNNER} SETUP "IMPORT PROVONE TRACE" << END_SCRIPT
 
-blazegraph drop
+blazegraph destroy --dataset kb
+blazegraph create --dataset kb
 blazegraph import --format jsonld --file ../data/branched-pipeline.jsonld
 
 END_SCRIPT
@@ -18,21 +19,21 @@ bash ${RUNNER} REPORT-1 "WHAT DATA FILES WERE USED AS INPUT BY THE TALE?" \
 
 blazegraph report << __END_REPORT_TEMPLATE__
 
-{{ prefix "prov" "http://www.w3.org/ns/prov#" }}                               
-{{ prefix "provone" "http://purl.dataone.org/provone/2015/01/15/ontology#" }}   
-{{ prefix "wt" "http://wholetale.org/ontology/wt#" }}                           
-                                                                            
+{{ prefix "prov" "http://www.w3.org/ns/prov#" }}
+{{ prefix "provone" "http://purl.dataone.org/provone/2015/01/15/ontology#" }}
+{{ prefix "wt" "http://wholetale.org/ontology/wt#" }}
+
 {{ select '''
 
     SELECT DISTINCT ?tale_input_file_path ?read_file
     WHERE {
-        ?run rdf:type wt:TaleRun .                          
-        ?run wt:TaleRunScript ?run_script .                 
-        ?run_process wt:ExecutionOf ?run_script .               
-        ?run_sub_process (wt:ChildProcessOf)+ ?run_process .   
-        ?run_sub_process wt:ReadFile ?read_file .          
-        FILTER NOT EXISTS {                               
-            ?_ wt:WroteFile ?read_file . }     
+        ?run rdf:type wt:TaleRun .
+        ?run wt:TaleRunScript ?run_script .
+        ?run_process wt:ExecutionOf ?run_script .
+        ?run_sub_process (wt:ChildProcessOf)+ ?run_process .
+        ?run_sub_process wt:ReadFile ?read_file .
+        FILTER NOT EXISTS {
+            ?_ wt:WroteFile ?read_file . }
         ?read_file wt:FilePath ?tale_input_file_path .
     }
     ORDER BY ?tale_input_file_path
@@ -60,16 +61,16 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
                                                                                                         \\
     {{ with $RunScript := (select "SELECT ?s WHERE {<{{.}}> wt:TaleRunScript ?s}" $Run | value) }}      \\
         Tale Script: {{ (select "SELECT ?n WHERE {<{{.}}> wt:FilePath ?n}" $RunScript | value) }}
-        
-    Tale Inputs: 
+
+    Tale Inputs:
         {{ range $InputFile := (select '''
             SELECT DISTINCT ?fp WHERE {
-                ?e wt:ExecutionOf <{{.}}> .               
-                ?p (wt:ChildProcessOf)+ ?e .   
-                ?p wt:ReadFile ?f .          
-                FILTER NOT EXISTS {                               
-                    ?_ wt:WroteFile ?f . }     
-                ?f wt:FilePath ?fp .           
+                ?e wt:ExecutionOf <{{.}}> .
+                ?p (wt:ChildProcessOf)+ ?e .
+                ?p wt:ReadFile ?f .
+                FILTER NOT EXISTS {
+                    ?_ wt:WroteFile ?f . }
+                ?f wt:FilePath ?fp .
             } ORDER BY ?fp''' $RunScript | vector) }}                                                   \\
                 {{ $InputFile }}
         {{end}}
@@ -91,21 +92,21 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
 {{ prefix "wt" "http://wholetale.org/ontology/wt#" }}
 
 {{ query "GetRunID" '''
-    SELECT ?r 
+    SELECT ?r
     WHERE {
         ?r a wt:TaleRun
     }
 ''' }}
 
 {{ query "GetTaleName" "RunID" '''
-    SELECT ?n 
+    SELECT ?n
     WHERE {
         <{{$RunID}}> wt:TaleName ?n
     }
 ''' }}
 
 {{ query "GetRunScriptID" "RunID" '''
-    SELECT ?s 
+    SELECT ?s
     WHERE {
         <{{$RunID}}> wt:TaleRunScript ?s
     }
@@ -121,11 +122,11 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
 {{ query "GetInputFilePaths" "RunScriptID" '''
     SELECT DISTINCT ?fp
     WHERE {
-        ?e wt:ExecutionOf <{{$RunScriptID}}> .       
-        ?p (wt:ChildProcessOf)+ ?e .   
-        ?p wt:ReadFile ?f .          
+        ?e wt:ExecutionOf <{{$RunScriptID}}> .
+        ?p (wt:ChildProcessOf)+ ?e .
+        ?p wt:ReadFile ?f .
         FILTER NOT EXISTS {
-            ?_ wt:WroteFile ?f . 
+            ?_ wt:WroteFile ?f .
         }
         ?f wt:FilePath ?fp .
     }
@@ -144,7 +145,7 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
 
     Tale Inputs:
         {{ range (GetInputFilePaths $RunScriptID | vector) }}   \\
-            {{ . }}                                     
+            {{ . }}
         {{ end }}                                               \\
     {{ end }}                                                   \\
 {{ end }}                                                       \\

@@ -3,7 +3,8 @@
 
 # IMPORT PROVONE TRACE
 
-blazegraph drop
+blazegraph destroy --dataset kb
+blazegraph create --dataset kb
 blazegraph import --format jsonld --file ../data/branched-pipeline.jsonld
 
 ------------------------------------------- SETUP OUTPUTS ------------------------------------------------
@@ -18,28 +19,6 @@ blazegraph export --format nt | sort
 
 ------------------------------------------- S1 OUTPUTS ------------------------------------------------
 
-<http://wholetale.org/ontology/wt#ChildProcessOf> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-<http://wholetale.org/ontology/wt#ChildProcessOf> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://wholetale.org/ontology/wt#ChildProcessOf> .
-<http://wholetale.org/ontology/wt#ExecutionOf> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-<http://wholetale.org/ontology/wt#ExecutionOf> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://wholetale.org/ontology/wt#ExecutionOf> .
-<http://wholetale.org/ontology/wt#FilePath> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-<http://wholetale.org/ontology/wt#FilePath> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://wholetale.org/ontology/wt#FilePath> .
-<http://wholetale.org/ontology/wt#FileRole> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-<http://wholetale.org/ontology/wt#FileRole> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://wholetale.org/ontology/wt#FileRole> .
-<http://wholetale.org/ontology/wt#ReadFile> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-<http://wholetale.org/ontology/wt#ReadFile> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://wholetale.org/ontology/wt#ReadFile> .
-<http://wholetale.org/ontology/wt#TaleId> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-<http://wholetale.org/ontology/wt#TaleId> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://wholetale.org/ontology/wt#TaleId> .
-<http://wholetale.org/ontology/wt#TaleName> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-<http://wholetale.org/ontology/wt#TaleName> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://wholetale.org/ontology/wt#TaleName> .
-<http://wholetale.org/ontology/wt#TaleRunScript> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-<http://wholetale.org/ontology/wt#TaleRunScript> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://wholetale.org/ontology/wt#TaleRunScript> .
-<http://wholetale.org/ontology/wt#TaleVersion> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-<http://wholetale.org/ontology/wt#TaleVersion> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://wholetale.org/ontology/wt#TaleVersion> .
-<http://wholetale.org/ontology/wt#WorkingDir> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-<http://wholetale.org/ontology/wt#WorkingDir> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://wholetale.org/ontology/wt#WorkingDir> .
-<http://wholetale.org/ontology/wt#WroteFile> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-<http://wholetale.org/ontology/wt#WroteFile> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://wholetale.org/ontology/wt#WroteFile> .
 <http://wholetale.org/tale2035/version_1021/run_1119#> <http://wholetale.org/ontology/wt#TaleId> <http://wholetale.org/tale2035#> .
 <http://wholetale.org/tale2035/version_1021/run_1119#> <http://wholetale.org/ontology/wt#TaleName> "08-branched-pipeline"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://wholetale.org/tale2035/version_1021/run_1119#> <http://wholetale.org/ontology/wt#TaleRunScript> <http://wholetale.org/tale_2035/version_1021/run_1119#program_file_i1> .

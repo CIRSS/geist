@@ -35,6 +35,34 @@ func main() {
 
 	switch command {
 
+	case "create":
+		dataset := flags.String("dataset", "", "Dataset to create")
+		if err = flags.Parse(os.Args[2:]); err != nil {
+			fmt.Fprintf(Main.ErrWriter, err.Error())
+			flags.Usage()
+			return
+		}
+		if len(*dataset) == 0 {
+			fmt.Fprintln(Main.ErrWriter, "Error: Name of dataset to create not provided.")
+			flags.Usage()
+			return
+		}
+		doCreate(*dataset)
+
+	case "destroy":
+		dataset := flags.String("dataset", "", "Dataset to destroy")
+		if err = flags.Parse(os.Args[2:]); err != nil {
+			fmt.Fprintf(Main.ErrWriter, err.Error())
+			flags.Usage()
+			return
+		}
+		if len(*dataset) == 0 {
+			fmt.Fprintln(Main.ErrWriter, "Error: Name of dataset to destroy not provided.")
+			flags.Usage()
+			return
+		}
+		doDestroy(*dataset)
+
 	case "drop":
 		if len(os.Args) > 2 {
 			fmt.Fprintln(Main.ErrWriter,
@@ -86,6 +114,24 @@ func main() {
 	default:
 		fmt.Fprintf(Main.ErrWriter, "Unrecognized command: %s\n", command)
 	}
+}
+
+func doCreate(name string) {
+	bc := blazegraph.NewClient()
+	bc.CreateDataSet(name)
+	// if err != nil {
+	// 	fmt.Fprintln(Main.ErrWriter, err.Error())
+	// }
+	// fmt.Fprintln(Main.OutWriter, string(response))
+}
+
+func doDestroy(name string) {
+	bc := blazegraph.NewClient()
+	bc.DestroyDataSet(name)
+	// if err != nil {
+	// 	fmt.Fprintln(Main.ErrWriter, err.Error())
+	// }
+	// fmt.Fprintln(Main.OutWriter, string(response))
 }
 
 func doReport(file string) {

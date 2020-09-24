@@ -3,7 +3,8 @@
 
 # INITIALIZE BLAZEGRAPH INSTANCE
 
-blazegraph drop
+blazegraph destroy --dataset kb
+blazegraph create --dataset kb
 
 ------------------------------------------- SETUP OUTPUTS ------------------------------------------------
 
@@ -52,8 +53,6 @@ blazegraph export --format nt --sort=true
 
 <http://tmcphill.net/data#x> <http://tmcphill.net/tags#tag> "seven" .
 <http://tmcphill.net/data#y> <http://tmcphill.net/tags#tag> "eight" .
-<http://tmcphill.net/tags#tag> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-<http://tmcphill.net/tags#tag> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://tmcphill.net/tags#tag> .
 
 ******************************************* EXAMPLE S3 ************************************************
 
@@ -82,8 +81,6 @@ blazegraph export --format nt --sort=true
 
 <http://tmcphill.net/data#x> <http://tmcphill.net/tags#tag> "seven"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://tmcphill.net/data#y> <http://tmcphill.net/tags#tag> "eight"^^<http://www.w3.org/2001/XMLSchema#string> .
-<http://tmcphill.net/tags#tag> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-<http://tmcphill.net/tags#tag> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://tmcphill.net/tags#tag> .
 
 ******************************************* EXAMPLE S4 ************************************************
 
@@ -113,5 +110,3 @@ blazegraph export --format nt --sort=true
 
 <http://tmcphill.net/data#x> <http://tmcphill.net/tags#tag> "seven" .
 <http://tmcphill.net/data#y> <http://tmcphill.net/tags#tag> "eight" .
-<http://tmcphill.net/tags#tag> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
-<http://tmcphill.net/tags#tag> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://tmcphill.net/tags#tag> .
