@@ -52,19 +52,6 @@ func (sc *Client) PostSparqlRequest(contentType string, acceptType string,
 	return sc.PostRequest(sc.Endpoint, contentType, acceptType, requestBody)
 }
 
-func (sc *Client) DeleteAll() (responseBody []byte, err error) {
-	request, _ := http.NewRequest("DELETE", sc.Endpoint, nil)
-	response, err := sc.HttpClient.Do(request)
-	if err != nil {
-		return
-	}
-	if responseBody, err = ioutil.ReadAll(response.Body); err != nil {
-		return
-	}
-	response.Body.Close()
-	return
-}
-
 func (sc *Client) PostData(format string, data []byte) (responseBody []byte, err error) {
 	responseBody, err = sc.PostSparqlRequest(format, "text/plain", data)
 	return
