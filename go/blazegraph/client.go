@@ -15,12 +15,6 @@ type Client struct {
 	NamespaceEndpoint string
 }
 
-type DatasetProperties struct {
-	Name      string
-	Inference bool
-	Quads     bool
-}
-
 func NewClient(url string) *Client {
 	bc := new(Client)
 	bc.Url = url
@@ -30,23 +24,9 @@ func NewClient(url string) *Client {
 	return bc
 }
 
-func (sc *Client) CreateDataSet(properties DatasetProperties) (responseBody []byte, err error) {
+func (sc *Client) CreateDataSet(p *Properties) (responseBody []byte, err error) {
 
-	body := "com.bigdata.rdf.sail.namespace=" + properties.Name + "\n"
-
-	if properties.Inference {
-		body += "com.bigdata.rdf.sail.truthMaintenance=true\n"
-		body += "com.bigdata.rdf.store.AbstractTripleStore.axiomsClass=com.bigdata.rdf.axioms.OwlAxioms\n"
-	} else {
-		body += "com.bigdata.rdf.sail.truthMaintenance=false\n"
-		body += "com.bigdata.rdf.store.AbstractTripleStore.axiomsClass=com.bigdata.rdf.axioms.NoAxioms\n"
-	}
-
-	if properties.Quads {
-		body += "com.bigdata.rdf.store.AbstractTripleStore.quads=true\n"
-	} else {
-		body += "com.bigdata.rdf.store.AbstractTripleStore.quads=false\n"
-	}
+	body := p.String()
 
 	responseBody, err = sc.PostRequest(sc.NamespaceEndpoint,
 		"text/plain", "text/plain", []byte(body))

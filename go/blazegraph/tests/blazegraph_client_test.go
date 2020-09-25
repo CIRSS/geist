@@ -11,7 +11,8 @@ import (
 
 func recreateDataset(bc *blazegraph.Client) {
 	bc.DestroyDataSet("kb")
-	bc.CreateDataSet(blazegraph.DatasetProperties{Name: "kb"})
+	p := blazegraph.NewProperties("kb")
+	bc.CreateDataSet(p)
 }
 
 func TestBlazegraphClient_GetAllTriplesAsJSON_EmptyStore(t *testing.T) {
