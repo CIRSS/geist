@@ -42,6 +42,7 @@ func main() {
 	case "create":
 		addCommonOptions(flags)
 		dataset := flags.String("dataset", "", "Dataset to create")
+		infer := flags.String("infer", "none", "Inference to perform on update [none, rdfs, owl]")
 		if err = flags.Parse(os.Args[2:]); err != nil {
 			fmt.Fprintf(Main.ErrWriter, err.Error())
 			flags.Usage()
@@ -52,7 +53,7 @@ func main() {
 			flags.Usage()
 			return
 		}
-		doCreate(*dataset)
+		doCreate(*dataset, *infer)
 
 	case "destroy":
 		addCommonOptions(flags)
@@ -122,9 +123,10 @@ func addCommonOptions(flags *flag.FlagSet) {
 	options.url = flags.String("url", blazegraph.DefaultUrl, "URL of Blazegraph instance")
 }
 
-func doCreate(name string) {
+func doCreate(name string, infer string) {
 	bc := blazegraph.NewClient(*options.url)
 	p := blazegraph.NewProperties(name)
+	p.Inference = infer
 	bc.CreateDataSet(p)
 	// if err != nil {
 	// 	fmt.Fprintln(Main.ErrWriter, err.Error())
