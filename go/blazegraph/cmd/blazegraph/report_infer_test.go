@@ -353,10 +353,11 @@ func TestReportInfer_rdfs_domain_range(t *testing.T) {
 
 	report := func() {
 		q := `
-			{{ prefix "rdf" "http://www.w3.org/1999/02/22-rdf-syntax-ns#" }}
-			{{ prefix "tm" "http://tmcphill.net/ns/data#" }}
-			{{ prefix "verb" "http://tmcphill.net/ns/verb#" }}
-			{{ prefix "tool" "http://tmcphill.net/ns/tool#" }}
+			{{ prefix "rdf"     "http://www.w3.org/1999/02/22-rdf-syntax-ns#" }}
+			{{ prefix "tm"      "http://tmcphill.net/ns/data#" }}
+			{{ prefix "verb"    "http://tmcphill.net/ns/verb#" }}
+			{{ prefix "tool"    "http://tmcphill.net/ns/tool#" }}
+			{{ prefix "person"  "http://tmcphill.net/ns/person#" }}
 
 			*** Statements about verb:uses ***
 			{{ select '''
@@ -377,6 +378,13 @@ func TestReportInfer_rdfs_domain_range(t *testing.T) {
 				SELECT ?p ?o
 				WHERE
 				{ tool:mouse ?p ?o }
+				ORDER BY ?p ?o ''' | tabulate }}
+
+			*** Statements about person:tim ***
+			{{ select '''
+				SELECT ?p ?o
+				WHERE
+				{ person:tim ?p ?o }
 				ORDER BY ?p ?o ''' | tabulate }}
 
 			*** What verb:uses what ***
@@ -425,6 +433,13 @@ func TestReportInfer_rdfs_domain_range(t *testing.T) {
 			http://tmcphill.net/ns/verb#uses | http://tmcphill.net/ns/person#tim
 
 
+			*** Statements about person:tim ***
+            p                                               | o
+            ===============================================================================
+            http://tmcphill.net/ns/verb#uses                | http://tmcphill.net/ns/tool#mouse
+            http://www.w3.org/1999/02/22-rdf-syntax-ns#type | http://tmcphill.net/ns#Person
+
+
 			*** What verb:uses what ***
 			s                                 | o
 			=====================================================================
@@ -469,6 +484,14 @@ func TestReportInfer_rdfs_domain_range(t *testing.T) {
             http://tmcphill.net/ns/verb#uses                | http://tmcphill.net/ns/person#tim
             http://www.w3.org/1999/02/22-rdf-syntax-ns#type | http://tmcphill.net/ns#Person
             http://www.w3.org/1999/02/22-rdf-syntax-ns#type | http://tmcphill.net/ns#Tool
+
+
+			*** Statements about person:tim ***
+            p                                               | o
+            ===============================================================================
+            http://tmcphill.net/ns/verb#uses                | http://tmcphill.net/ns/tool#mouse
+            http://www.w3.org/1999/02/22-rdf-syntax-ns#type | http://tmcphill.net/ns#Person
+			http://www.w3.org/1999/02/22-rdf-syntax-ns#type | http://tmcphill.net/ns#Tool
 
 
             *** What verb:uses what ***
@@ -516,6 +539,16 @@ func TestReportInfer_rdfs_domain_range(t *testing.T) {
 			http://tmcphill.net/ns/verb#uses                | http://tmcphill.net/ns/person#tim
 			http://www.w3.org/1999/02/22-rdf-syntax-ns#type | http://tmcphill.net/ns#Person
 			http://www.w3.org/1999/02/22-rdf-syntax-ns#type | http://tmcphill.net/ns#Tool
+
+
+			*** Statements about person:tim ***
+            p                                               | o
+            ===============================================================================
+            http://tmcphill.net/ns/verb#usedBy              | http://tmcphill.net/ns/tool#mouse
+            http://tmcphill.net/ns/verb#uses                | http://tmcphill.net/ns/tool#keyboard
+            http://tmcphill.net/ns/verb#uses                | http://tmcphill.net/ns/tool#mouse
+            http://www.w3.org/1999/02/22-rdf-syntax-ns#type | http://tmcphill.net/ns#Person
+            http://www.w3.org/1999/02/22-rdf-syntax-ns#type | http://tmcphill.net/ns#Tool
 
 
 			*** What verb:uses what ***
