@@ -4,19 +4,22 @@
       "wt": "http://wholetale.org/ontology/wt/"
     },
     {
-      "tale": "http://wholetale.org/tale2035/version/1021/"
+      "tale": "http://wholetale.org/tale/2035/"
     },
     {
-      "run": "http://wholetale.org/tale/2035/version/1021/run/1119/"
+      "tale_version": "tale:version/1021/"
+    },
+    {
+      "run": "tale_version:run/1119/"
     }
   ],
   "@graph": [
     {
-      "@id": "http://wholetale.org/tale/2035/version/1021/run/1119",
+      "@id": "run:",
       "@type": "wt:TaleRun",
       "wt:TaleName": "08-branched-pipeline",
-      "wt:TaleId": {"@id": "http://wholetale.org/tale/2035" },
-      "wt:TaleVersion": {"@id": "http://wholetale.org/tale/2035/version/1021" },
+      "wt:TaleId": {"@id": "tale:" },
+      "wt:TaleVersion": {"@id": "tale_version" },
       "wt:TaleRunScript": {"@id": "run:program_file/1" }
     },
     {
