@@ -4,13 +4,7 @@
       "sdtl": "https://rdf-vocabulary.ddialliance.org/sdtl#"
     },
     {
-      "tale": "http://wholetale.org/tale/2035/"
-    },
-    {
-      "tale_version": "tale:version/1021/"
-    },
-    {
-      "run": "tale_version:run/1119/sdtl/"
+      "run": "http://wholetale.org/run/1119/sdtl/"
     }
 
   ],
@@ -23,13 +17,8 @@
       "@id": "run:load/1",
       "@type": "sdtl:Load",
       "sdtl:FileName": "df.csv",
+      "sdtl:FileFormat": "csv",
       "stdl:ProducesDataframe": {"@id": "run:dataframe/1"}
-    },
-    {
-      "@id": "run:load/2",
-      "@type": "sdtl:Load",
-      "sdtl:FileName": "temps.csv",
-      "stdl:ProducesDataframe": {"@id": "run:dataframe/2"}
     },
     {
       "@id": "run:dataframe/1",
@@ -38,10 +27,77 @@
       "sdtl:VariableInventory": ["A", "B"]
     },
     {
+      "@id": "run:compute/1",
+      "@type": "sdtl:Compute",
+      "stdl:ConsumesDataframe": {"@id": "run:dataframe/1"},
+      "stdl:ProducesDataframe": {"@id": "run:dataframe/2"}
+    },
+    {
       "@id": "run:dataframe/2",
+      "@type": "sdtl:DataframeDescription",
+      "sdtl:DataframeName": "df",
+      "sdtl:VariableInventory": ["A", "B"]
+    },
+    {
+      "@id": "run:compute/2",
+      "@type": "sdtl:Compute",
+      "stdl:ConsumesDataframe": {"@id": "run:dataframe/2"},
+      "stdl:ProducesDataframe": {"@id": "run:dataframe/3"}
+    },
+    {
+      "@id": "run:dataframe/3",
+      "@type": "sdtl:DataframeDescription",
+      "sdtl:DataframeName": "df",
+      "sdtl:VariableInventory": ["A", "B"]
+    },
+    {
+      "@id": "run:compute/3",
+      "@type": "sdtl:Compute",
+      "stdl:ConsumesDataframe": {"@id": "run:dataframe/3"},
+      "stdl:ProducesDataframe": {"@id": "run:dataframe/4"}
+    },
+    {
+      "@id": "run:dataframe/4",
+      "@type": "sdtl:DataframeDescription",
+      "sdtl:DataframeName": "df",
+      "sdtl:VariableInventory": ["A", "B", "C"]
+    },
+    {
+      "@id": "run:load/2",
+      "@type": "sdtl:Load",
+      "sdtl:FileName": "temps.csv",
+      "sdtl:FileFormat": "csv",
+      "stdl:ProducesDataframe": {"@id": "run:dataframe/5"}
+    },
+    {
+      "@id": "run:dataframe/5",
       "@type": "sdtl:DataframeDescription",
       "sdtl:DataframeName": "temps",
       "sdtl:VariableInventory": ["Fahrenheit"]
+    },
+    {
+      "@id": "run:compute/4",
+      "@type": "sdtl:Compute",
+      "stdl:ConsumesDataframe": {"@id": "run:dataframe/5"},
+      "stdl:ProducesDataframe": {"@id": "run:dataframe/6"}
+    },
+    {
+      "@id": "run:dataframe/6",
+      "@type": "sdtl:DataframeDescription",
+      "sdtl:DataframeName": "temps",
+      "sdtl:VariableInventory": ["Fahrenheit", "Celsius"]
+    },
+    {
+      "@id": "run:compute/5",
+      "@type": "sdtl:Compute",
+      "stdl:ConsumesDataframe": {"@id": "run:dataframe/6"},
+      "stdl:ProducesDataframe": {"@id": "run:dataframe/7"}
+    },
+    {
+      "@id": "run:dataframe/7",
+      "@type": "sdtl:DataframeDescription",
+      "sdtl:DataframeName": "temps",
+      "sdtl:VariableInventory": ["Fahrenheit", "Celsius", "Kelvin"]
     }
   ]
 }
