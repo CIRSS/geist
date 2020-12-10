@@ -4,7 +4,7 @@
       "sdtl": "https://rdf-vocabulary.ddialliance.org/sdtl#"
     },
     {
-      "run": "http://wholetale.org/run/1119/sdtl/"
+      "run": "http://wholetale.org/run/sdtl/"
     }
 
   ],
@@ -29,6 +29,11 @@
           "@id": "run:compute/1",
           "@type": "sdtl:Compute",
           "stdl:ConsumesDataframe": {"@id": "run:dataframe/1"},
+          "stdl:Variable": {
+            "@id": "run:variable/1",
+            "@type": "stdl:VariableTypeExpression",
+            "stdl:VariableName": "A"
+          },
           "stdl:ProducesDataframe": {
             "@id": "run:dataframe/2",
             "@type": "sdtl:DataframeDescription",
@@ -40,6 +45,11 @@
           "@id": "run:compute/2",
           "@type": "sdtl:Compute",
           "stdl:ConsumesDataframe": {"@id": "run:dataframe/2"},
+          "stdl:Variable": {
+            "@id": "run:variable/2",
+            "@type": "stdl:VariableTypeExpression",
+            "stdl:VariableName": "B"
+          },
           "stdl:ProducesDataframe": {
             "@id": "run:dataframe/3",
             "@type": "sdtl:DataframeDescription",
@@ -51,6 +61,11 @@
           "@id": "run:compute/3",
           "@type": "sdtl:Compute",
           "stdl:ConsumesDataframe": {"@id": "run:dataframe/3"},
+          "stdl:Variable": {
+            "@id": "run:variable/3",
+            "@type": "stdl:VariableTypeExpression",
+            "stdl:VariableName": "C"
+          },
           "stdl:ProducesDataframe":     {
             "@id": "run:dataframe/4",
             "@type": "sdtl:DataframeDescription",
@@ -74,6 +89,11 @@
           "@id": "run:compute/4",
           "@type": "sdtl:Compute",
           "stdl:ConsumesDataframe": {"@id": "run:dataframe/5"},
+          "stdl:Variable": {
+            "@id": "run:variable/4",
+            "@type": "stdl:VariableTypeExpression",
+            "stdl:VariableName": "Celsius"
+          },
           "stdl:ProducesDataframe": {
             "@id": "run:dataframe/6",
             "@type": "sdtl:DataframeDescription",
@@ -85,6 +105,11 @@
           "@id": "run:compute/5",
           "@type": "sdtl:Compute",
           "stdl:ConsumesDataframe": {"@id": "run:dataframe/6"},
+          "stdl:Variable": {
+            "@id": "run:variable/5",
+            "@type": "stdl:VariableTypeExpression",
+            "stdl:VariableName": "Kelvin"
+          },
           "stdl:ProducesDataframe":  {
             "@id": "run:dataframe/7",
             "@type": "sdtl:DataframeDescription",
