@@ -1,0 +1,47 @@
+{
+  "@context": [
+    {
+      "sdtl": "https://rdf-vocabulary.ddialliance.org/sdtl#"
+    },
+    {
+      "tale": "http://wholetale.org/tale/2035/"
+    },
+    {
+      "tale_version": "tale:version/1021/"
+    },
+    {
+      "run": "tale_version:run/1119/sdtl/"
+    }
+
+  ],
+  "@graph": [
+    {
+      "@id": "run:program/1",
+      "@type": "sdtl:Program"
+    },
+    {
+      "@id": "run:load/1",
+      "@type": "sdtl:Load",
+      "sdtl:FileName": "df.csv",
+      "stdl:ProducesDataframe": {"@id": "run:dataframe/1"}
+    },
+    {
+      "@id": "run:load/2",
+      "@type": "sdtl:Load",
+      "sdtl:FileName": "temps.csv",
+      "stdl:ProducesDataframe": {"@id": "run:dataframe/2"}
+    },
+    {
+      "@id": "run:dataframe/1",
+      "@type": "sdtl:DataframeDescription",
+      "sdtl:DataframeName": "df",
+      "sdtl:VariableInventory": ["A", "B"]
+    },
+    {
+      "@id": "run:dataframe/2",
+      "@type": "sdtl:DataframeDescription",
+      "sdtl:DataframeName": "temps",
+      "sdtl:VariableInventory": ["Fahrenheit"]
+    }
+  ]
+}
