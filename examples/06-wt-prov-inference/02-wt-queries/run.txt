@@ -4,7 +4,8 @@
 # IMPORT PROVONE TRACE
 
 blazegraph destroy --dataset kb
-blazegraph create --dataset kb
+blazegraph create --dataset kb --infer owl
+blazegraph import --file ../data/wt-prov-rules.ttl
 blazegraph import --format jsonld --file ../data/branched-pipeline.jsonld
 
 ------------------------------------------- SETUP OUTPUTS ------------------------------------------------
@@ -21,7 +22,7 @@ blazegraph select --format table << __END_QUERY__
     PREFIX provone: <http://purl.dataone.org/provone/2015/01/15/ontology#>
     PREFIX wt: <http://wholetale.org/ontology/wt/>
 
-    SELECT DISTINCT ?tale_input_file_path ?read_file
+    SELECT DISTINCT ?run ?tale_input_file_path ?read_file
     WHERE {
         ?run rdf:type wt:TaleRun .                              # Identify the Tale run described by this JSON-LD document.
         ?run wt:TaleRunScript ?run_script .                     # Identify the script used to run the Tale as a whole.
@@ -38,8 +39,12 @@ __END_QUERY__
 
 ------------------------------------------- RETROSPECTIVE-1 OUTPUTS ------------------------------------------------
 
-tale_input_file_path | read_file
-================================
+run                                                   | tale_input_file_path | read_file
+===========================================================================================================================================
+http://wholetale.org/tale/2035/version/1021/run/1119/ | ./inputs/i1.txt      | http://wholetale.org/tale/2035/version/1021/run/1119/datafile/23
+http://wholetale.org/tale/2035/version/1021/run/1119/ | ./inputs/i2.txt      | http://wholetale.org/tale/2035/version/1021/run/1119/datafile/24
+http://wholetale.org/tale/2035/version/1021/run/1119/ | ./inputs/i3.txt      | http://wholetale.org/tale/2035/version/1021/run/1119/datafile/26
+http://wholetale.org/tale/2035/version/1021/run/1119/ | ./inputs/i4.txt      | http://wholetale.org/tale/2035/version/1021/run/1119/datafile/28
 
 
 ******************************************* EXAMPLE RETROSPECTIVE-2 ************************************************
@@ -69,5 +74,8 @@ __END_QUERY__
 ------------------------------------------- RETROSPECTIVE-2 OUTPUTS ------------------------------------------------
 
 tale_output_file_path | written_file
-====================================
+======================================================================================
+./outputs/o12.txt     | http://wholetale.org/tale/2035/version/1021/run/1119/datafile/29
+./outputs/o1234.txt   | http://wholetale.org/tale/2035/version/1021/run/1119/datafile/30
+./outputs/o4.txt      | http://wholetale.org/tale/2035/version/1021/run/1119/datafile/31
 

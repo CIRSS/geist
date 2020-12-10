@@ -7,7 +7,8 @@ RUNNER='../../common/run_script_example.sh'
 bash ${RUNNER} SETUP "IMPORT PROVONE TRACE" << END_SCRIPT
 
 blazegraph destroy --dataset kb
-blazegraph create --dataset kb
+blazegraph create --dataset kb --infer owl
+blazegraph import --file ../data/wt-prov-rules.ttl
 blazegraph import --format jsonld --file ../data/branched-pipeline.jsonld
 
 END_SCRIPT
@@ -23,7 +24,7 @@ blazegraph select --format table << __END_QUERY__
     PREFIX provone: <http://purl.dataone.org/provone/2015/01/15/ontology#>
     PREFIX wt: <http://wholetale.org/ontology/wt/>
 
-    SELECT DISTINCT ?tale_input_file_path ?read_file
+    SELECT DISTINCT ?run ?tale_input_file_path ?read_file
     WHERE {
         ?run rdf:type wt:TaleRun .                              # Identify the Tale run described by this JSON-LD document.
         ?run wt:TaleRunScript ?run_script .                     # Identify the script used to run the Tale as a whole.

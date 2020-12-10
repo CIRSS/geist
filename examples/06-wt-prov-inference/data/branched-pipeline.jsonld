@@ -1,7 +1,7 @@
 {
   "@context": [
     {
-      "wt": "http://wholetale.org/ontology/wt#"
+      "wt": "http://wholetale.org/ontology/wt/"
     },
     {
       "tale": "http://wholetale.org/tale/2035/"
