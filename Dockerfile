@@ -19,6 +19,11 @@ RUN echo '***** Install packages required for creating this image *****'    \
     && echo '***** Install command-line utility packages *****'             \
     && apt -y install sudo man less file tree jq graphviz libxml2-utils
 
+RUN echo '***** Install python3 and required pip packages *****'            \
+    && apt -y install python3 python3-pip                                   \
+    && pip3 install -U pip                                                  \
+    && pip3 install pandas
+
 ENV GO_VERSION       1.13.5
 ENV GO_DOWNLOADS_URL https://dl.google.com/go
 ENV GO_ARCHIVE       go${GO_VERSION}.linux-amd64.tar.gz
@@ -43,7 +48,7 @@ USER  ${REPRO_USER}
 WORKDIR $HOME
 
 # Download Apache Jena and add arq to PATH
-ENV JENA_VERSION 3.16.0
+ENV JENA_VERSION 3.17.0
 ENV JENA_BINARIES http://apache.spinellicreations.com/jena/binaries
 ENV JENA_VERSION_NAME apache-jena-${JENA_VERSION}
 ENV JENA_HOME $HOME/${JENA_VERSION_NAME}
