@@ -23,6 +23,11 @@
             "@type": "sdtl:DataframeDescription",
             "sdtl:DataframeName": "df",
             "sdtl:VariableInventory": ["A", "B"]
+          },
+          "sdtl:SourceInformation": {
+              "@id": "run:sourceinfo/1",
+              "@type": "sdtl:SourceInformation",
+              "sdtl:originalSourceText": "df = pd.read_csv('../data/df.csv')"
           }
         },
         {
@@ -31,7 +36,7 @@
           "stdl:ConsumesDataframe": {"@id": "run:dataframe/1"},
           "stdl:Variable": {
             "@id": "run:variable/1",
-            "@type": "stdl:VariableTypeExpression",
+            "@type": "stdl:VariableSymbolExpression",
             "stdl:VariableName": "A"
           },
           "stdl:ProducesDataframe": {
@@ -39,6 +44,11 @@
             "@type": "sdtl:DataframeDescription",
             "sdtl:DataframeName": "df",
             "sdtl:VariableInventory": ["A", "B"]
+          },
+          "sdtl:SourceInformation": {
+              "@id": "run:sourceinfo/2",
+              "@type": "sdtl:SourceInformation",
+              "sdtl:originalSourceText": "df['A'] = 3"
           }
         },
         {
@@ -47,7 +57,7 @@
           "stdl:ConsumesDataframe": {"@id": "run:dataframe/2"},
           "stdl:Variable": {
             "@id": "run:variable/2",
-            "@type": "stdl:VariableTypeExpression",
+            "@type": "stdl:VariableSymbolExpression",
             "stdl:VariableName": "B"
           },
           "stdl:ProducesDataframe": {
@@ -55,6 +65,11 @@
             "@type": "sdtl:DataframeDescription",
             "sdtl:DataframeName": "df",
             "sdtl:VariableInventory": ["A", "B"]
+          },
+          "sdtl:SourceInformation": {
+              "@id": "run:sourceinfo/3",
+              "@type": "sdtl:SourceInformation",
+              "sdtl:originalSourceText": "df['B'] = df.B + 6.5"
           }
         },
         {
@@ -63,7 +78,7 @@
           "stdl:ConsumesDataframe": {"@id": "run:dataframe/3"},
           "stdl:Variable": {
             "@id": "run:variable/3",
-            "@type": "stdl:VariableTypeExpression",
+            "@type": "stdl:VariableSymbolExpression",
             "stdl:VariableName": "C"
           },
           "stdl:ProducesDataframe":     {
@@ -71,6 +86,11 @@
             "@type": "sdtl:DataframeDescription",
             "sdtl:DataframeName": "df",
             "sdtl:VariableInventory": ["A", "B", "C"]
+          },
+          "sdtl:SourceInformation": {
+              "@id": "run:sourceinfo/4",
+              "@type": "sdtl:SourceInformation",
+              "sdtl:originalSourceText": "df['C'] = df.A - df.B"
           }
         },
         {
@@ -83,15 +103,20 @@
             "@type": "sdtl:DataframeDescription",
             "sdtl:DataframeName": "temps",
             "sdtl:VariableInventory": ["Fahrenheit"]
-          }
-        },
+          },
+          "sdtl:SourceInformation": {
+            "@id": "run:sourceinfo/5",
+            "@type": "sdtl:SourceInformation",
+            "sdtl:originalSourceText": "temps = pd.read_csv('../data/temps.csv')"
+        }
+      },
         {
           "@id": "run:compute/4",
           "@type": "sdtl:Compute",
           "stdl:ConsumesDataframe": {"@id": "run:dataframe/5"},
           "stdl:Variable": {
             "@id": "run:variable/4",
-            "@type": "stdl:VariableTypeExpression",
+            "@type": "stdl:VariableSymbolExpression",
             "stdl:VariableName": "Celsius"
           },
           "stdl:ProducesDataframe": {
@@ -99,6 +124,11 @@
             "@type": "sdtl:DataframeDescription",
             "sdtl:DataframeName": "temps",
             "sdtl:VariableInventory": ["Fahrenheit", "Celsius"]
+          },
+          "sdtl:SourceInformation": {
+              "@id": "run:sourceinfo/6",
+              "@type": "sdtl:SourceInformation",
+              "sdtl:originalSourceText": "temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))"
           }
         },
         {
@@ -107,7 +137,7 @@
           "stdl:ConsumesDataframe": {"@id": "run:dataframe/6"},
           "stdl:Variable": {
             "@id": "run:variable/5",
-            "@type": "stdl:VariableTypeExpression",
+            "@type": "stdl:VariableSymbolExpression",
             "stdl:VariableName": "Kelvin"
           },
           "stdl:ProducesDataframe":  {
@@ -115,6 +145,11 @@
             "@type": "sdtl:DataframeDescription",
             "sdtl:DataframeName": "temps",
             "sdtl:VariableInventory": ["Fahrenheit", "Celsius", "Kelvin"]
+          },
+          "sdtl:SourceInformation": {
+              "@id": "run:sourceinfo/7",
+              "@type": "sdtl:SourceInformation",
+              "sdtl:originalSourceText": "temps = temps.assign(Kelvin=(temps.Celsius + 273))"
           }
         },
         {
@@ -122,14 +157,24 @@
           "@type": "sdtl:Save",
           "sdtl:FileName": "df_updated.csv",
           "sdtl:FileFormat": "csv",
-          "stdl:ProducesDataframe": {"@id": "run:dataframe/4"}
+          "stdl:ProducesDataframe": {"@id": "run:dataframe/4"},
+          "sdtl:SourceInformation": {
+            "@id": "run:sourceinfo/8",
+            "@type": "sdtl:SourceInformation",
+            "sdtl:originalSourceText": "df.to_csv('outputs/df_updated.csv', index=False)"
+          }
         },
         {
           "@id": "run:save/2",
           "@type": "sdtl:Save",
           "sdtl:FileName": "temps_updated.csv",
           "sdtl:FileFormat": "csv",
-          "stdl:ProducesDataframe": {"@id": "run:dataframe/7"}
+          "stdl:ProducesDataframe": {"@id": "run:dataframe/7"},
+          "sdtl:SourceInformation": {
+            "@id": "run:sourceinfo/9",
+            "@type": "sdtl:SourceInformation",
+            "sdtl:originalSourceText": "temps.to_csv('outputs/temps_updated.csv', index=False)"
+          }
         }
       ]
     }
