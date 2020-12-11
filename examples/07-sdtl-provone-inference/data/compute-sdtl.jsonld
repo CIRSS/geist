@@ -18,7 +18,7 @@
           "@type": "sdtl:Load",
           "sdtl:FileName": "df.csv",
           "sdtl:FileFormat": "csv",
-          "stdl:ProducesDataframe": {
+          "sdtl:ProducesDataframe": {
             "@id": "run:dataframe/1",
             "@type": "sdtl:DataframeDescription",
             "sdtl:DataframeName": "df",
@@ -33,11 +33,11 @@
         {
           "@id": "run:compute/1",
           "@type": "sdtl:Compute",
-          "stdl:ConsumesDataframe": {"@id": "run:dataframe/1"},
-          "stdl:Variable": {
+          "sdtl:ConsumesDataframe": {"@id": "run:dataframe/1"},
+          "sdtl:Variable": {
             "@id": "run:variable/1",
-            "@type": "stdl:VariableSymbolExpression",
-            "stdl:VariableName": "A"
+            "@type": "sdtl:VariableSymbolExpression",
+            "sdtl:VariableName": "A"
           },
           "sdtl:Expression": {
             "@id": "run:expression/1",
@@ -45,7 +45,7 @@
             "sdtl:NumericType": "Integer",
             "sdtl:Value": "3"
           },
-          "stdl:ProducesDataframe": {
+          "sdtl:ProducesDataframe": {
             "@id": "run:dataframe/2",
             "@type": "sdtl:DataframeDescription",
             "sdtl:DataframeName": "df",
@@ -60,13 +60,42 @@
         {
           "@id": "run:compute/2",
           "@type": "sdtl:Compute",
-          "stdl:ConsumesDataframe": {"@id": "run:dataframe/2"},
-          "stdl:Variable": {
-            "@id": "run:variable/2",
-            "@type": "stdl:VariableSymbolExpression",
-            "stdl:VariableName": "B"
+          "sdtl:ConsumesDataframe": {"@id": "run:dataframe/2"},
+          "sdtl:Variable": {
+            "@id": "run:variable/3",
+            "@type": "sdtl:VariableSymbolExpression",
+            "sdtl:VariableName": "B"
           },
-          "stdl:ProducesDataframe": {
+          "sdtl:Expression": {
+            "@id": "run:expression/2",
+            "@type": "sdtl:FunctionCallExpression",
+            "sdtl:Arguments": [
+                {
+                  "@id": "run:argument/1",
+                  "@type": "sdtl:FunctionArgument",
+                  "sdtl:ArgumentName": "EXP1",
+                  "sdtl:ArgumentValue": {
+                        "@id": "run:argumentvalue/1",
+                        "@type": "VariableSymbolExpression",
+                        "sdtl:VariableName": "B"
+                    }
+                },
+                {
+                    "@id": "run:argument/2",
+                    "@type": "sdtl:FunctionArgument",
+                    "sdtl:ArgumentName": "EXP2",
+                    "sdtl:ArgumentValue": {
+                        "@id": "run:argumentvalue/2",
+                        "@type": "sdtl:NumericConstantExpression",
+                        "sdtl:NumericType": "Real",
+                        "sdtl:Value": "6.5"
+                    }
+                }
+            ],
+            "sdtl:Function": "addition",
+            "sdtl:IsSdtlName": true
+          },
+          "sdtl:ProducesDataframe": {
             "@id": "run:dataframe/3",
             "@type": "sdtl:DataframeDescription",
             "sdtl:DataframeName": "df",
@@ -81,13 +110,41 @@
         {
           "@id": "run:compute/3",
           "@type": "sdtl:Compute",
-          "stdl:ConsumesDataframe": {"@id": "run:dataframe/3"},
-          "stdl:Variable": {
+          "sdtl:ConsumesDataframe": {"@id": "run:dataframe/3"},
+          "sdtl:Variable": {
             "@id": "run:variable/3",
-            "@type": "stdl:VariableSymbolExpression",
-            "stdl:VariableName": "C"
+            "@type": "sdtl:VariableSymbolExpression",
+            "sdtl:VariableName": "C"
           },
-          "stdl:ProducesDataframe":     {
+          "sdtl:Expression": {
+            "@id": "run:expression/3",
+            "@type": "sdtl:FunctionCallExpression",
+            "sdtl:Arguments": [
+                {
+                  "@id": "run:argument/3",
+                  "@type": "sdtl:FunctionArgument",
+                  "sdtl:ArgumentName": "EXP1",
+                  "sdtl:ArgumentValue": {
+                        "@id": "run:argumentvalue/3",
+                        "@type": "VariableSymbolExpression",
+                        "sdtl:VariableName": "A"
+                    }
+                },
+                {
+                    "@id": "run:argument/2",
+                    "@type": "sdtl:FunctionArgument",
+                    "sdtl:ArgumentName": "EXP2",
+                    "sdtl:ArgumentValue": {
+                      "@id": "run:argumentvalue/4",
+                      "@type": "VariableSymbolExpression",
+                      "sdtl:VariableName": "B"
+                  }
+                }
+            ],
+            "sdtl:Function": "subtraction",
+            "sdtl:IsSdtlName": true
+          },
+          "sdtl:ProducesDataframe":     {
             "@id": "run:dataframe/4",
             "@type": "sdtl:DataframeDescription",
             "sdtl:DataframeName": "df",
@@ -104,7 +161,7 @@
           "@type": "sdtl:Load",
           "sdtl:FileName": "temps.csv",
           "sdtl:FileFormat": "csv",
-          "stdl:ProducesDataframe": {
+          "sdtl:ProducesDataframe": {
             "@id": "run:dataframe/5",
             "@type": "sdtl:DataframeDescription",
             "sdtl:DataframeName": "temps",
@@ -119,13 +176,91 @@
         {
           "@id": "run:compute/4",
           "@type": "sdtl:Compute",
-          "stdl:ConsumesDataframe": {"@id": "run:dataframe/5"},
-          "stdl:Variable": {
+          "sdtl:ConsumesDataframe": {"@id": "run:dataframe/5"},
+          "sdtl:Variable": {
             "@id": "run:variable/4",
-            "@type": "stdl:VariableSymbolExpression",
-            "stdl:VariableName": "Celsius"
+            "@type": "sdtl:VariableSymbolExpression",
+            "sdtl:VariableName": "Celsius"
           },
-          "stdl:ProducesDataframe": {
+          "sdlt:Expression": {
+              "@id": "run:expression/4",
+              "@type": "sdtl:FunctionCallExpression",
+              "sdtl:Arguments": [
+                {
+                  "@id": "run:argument/4",
+                  "@type": "sdtl:FunctionArgument",
+                  "sdtl:ArgumentName": "EXP1",
+                  "sdtl:ArgumentValue": {
+                    "@id": "run:argumentvalue/4",
+                    "@type": "FunctionCallExpression",
+                    "sdtl:Arguments": [
+                      {
+                        "@id": "run:argument/5",
+                        "@type": "sdtl:FunctionArgument",
+                        "sdtl:ArgumentName": "EXP1",
+                        "sdtl:ArgumentValue": {
+                          "@id": "run:argumentvalue/5",
+                          "@type": "sdtl:FunctionCallExpression",
+                          "@sdtl:Arguments": [
+                            {
+                              "@id": "run:argument/6",
+                              "@type": "sdtl:FunctionArgument",
+                              "sdtl:ArgumentName": "EXP1",
+                              "sdtl:ArgumentValue": {
+                                "@id": "run:argumentvalue/6",
+                                "@type": "sdtl:VariableSymbolExpression",
+                                "sdtl:VariableName": "Fahrenheit"
+                              }
+                            },
+                            {
+                              "@id": "run:argument/7",
+                              "@type": "sdtl:FunctionArgument",
+                              "sdtl:ArgumentName": "EXP2",
+                              "sdtl:ArgumentValue": {
+                                "@id": "run:argumentvalue/7",
+                                "@type": "sdtl:NumericConstantExpression",
+                                "sdtl:NumericType": "Integer",
+                                "sdtl:Value": "32"
+                              }
+                            }
+                          ],
+                          "sdtl:Function": "subtraction",
+                          "sdtl:IsSdtlName": true
+                        }
+                      },
+                      {
+                        "@id": "run:argument/8",
+                        "@type": "sdtl:FunctionArgument",
+                        "sdtl:ArgumentName": "EXP2",
+                        "sdtl:ArgumentValue": {
+                          "@id": "run:argumentvalue/8",
+                          "@type": "NumericConstantExpression",
+                          "sdtl:NumericType": "Integer",
+                          "sdtl:Value": "5"
+                        }
+                      }
+                    ],
+                    "sdtl:Function": "multiplication",
+                    "sdtl:IsSdtlName": true
+                  }
+                },
+                {
+                  "@id": "run:argument/9",
+                  "@type": "sdtl:FunctionArgument",
+                  "sdtl:ArgumentName": "EXP2",
+                  "sdtl:ArgumentValue":
+                  {
+                    "@id": "run:argumentvalue/9",
+                    "@type": "sdtl:NumericConstantExpression",
+                    "sdtl:NumericType": "Integer",
+                    "sdtl:Value": "9"
+                  }
+                }
+              ],
+              "sdtl:Function": "division",
+              "sdtl:IsSdtlName": true
+          },
+          "sdtl:ProducesDataframe": {
             "@id": "run:dataframe/6",
             "@type": "sdtl:DataframeDescription",
             "sdtl:DataframeName": "temps",
@@ -140,13 +275,13 @@
         {
           "@id": "run:compute/5",
           "@type": "sdtl:Compute",
-          "stdl:ConsumesDataframe": {"@id": "run:dataframe/6"},
-          "stdl:Variable": {
+          "sdtl:ConsumesDataframe": {"@id": "run:dataframe/6"},
+          "sdtl:Variable": {
             "@id": "run:variable/5",
-            "@type": "stdl:VariableSymbolExpression",
-            "stdl:VariableName": "Kelvin"
+            "@type": "sdtl:VariableSymbolExpression",
+            "sdtl:VariableName": "Kelvin"
           },
-          "stdl:ProducesDataframe":  {
+          "sdtl:ProducesDataframe":  {
             "@id": "run:dataframe/7",
             "@type": "sdtl:DataframeDescription",
             "sdtl:DataframeName": "temps",
@@ -163,7 +298,7 @@
           "@type": "sdtl:Save",
           "sdtl:FileName": "df_updated.csv",
           "sdtl:FileFormat": "csv",
-          "stdl:ProducesDataframe": {"@id": "run:dataframe/4"},
+          "sdtl:ProducesDataframe": {"@id": "run:dataframe/4"},
           "sdtl:SourceInformation": {
             "@id": "run:sourceinfo/8",
             "@type": "sdtl:SourceInformation",
@@ -175,7 +310,7 @@
           "@type": "sdtl:Save",
           "sdtl:FileName": "temps_updated.csv",
           "sdtl:FileFormat": "csv",
-          "stdl:ProducesDataframe": {"@id": "run:dataframe/7"},
+          "sdtl:ProducesDataframe": {"@id": "run:dataframe/7"},
           "sdtl:SourceInformation": {
             "@id": "run:sourceinfo/9",
             "@type": "sdtl:SourceInformation",
