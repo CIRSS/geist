@@ -20,6 +20,12 @@ blazegraph export --format nt | sort
 
 ------------------------------------------- S1 OUTPUTS ------------------------------------------------
 
+<http://wholetale.org/run/sdtl/argument/10> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#FunctionArgument> .
+<http://wholetale.org/run/sdtl/argument/10> <https://rdf-vocabulary.ddialliance.org/sdtl#ArgumentName> "EXP1"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/run/sdtl/argument/10> <https://rdf-vocabulary.ddialliance.org/sdtl#ArgumentValue> <http://wholetale.org/run/sdtl/argumentvalue/10> .
+<http://wholetale.org/run/sdtl/argument/11> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#FunctionArgument> .
+<http://wholetale.org/run/sdtl/argument/11> <https://rdf-vocabulary.ddialliance.org/sdtl#ArgumentName> "EXP2"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/run/sdtl/argument/11> <https://rdf-vocabulary.ddialliance.org/sdtl#ArgumentValue> <http://wholetale.org/run/sdtl/argumentvalue/11> .
 <http://wholetale.org/run/sdtl/argument/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#FunctionArgument> .
 <http://wholetale.org/run/sdtl/argument/1> <https://rdf-vocabulary.ddialliance.org/sdtl#ArgumentName> "EXP1"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://wholetale.org/run/sdtl/argument/1> <https://rdf-vocabulary.ddialliance.org/sdtl#ArgumentValue> <http://wholetale.org/run/sdtl/argumentvalue/1> .
@@ -48,6 +54,11 @@ blazegraph export --format nt | sort
 <http://wholetale.org/run/sdtl/argument/9> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#FunctionArgument> .
 <http://wholetale.org/run/sdtl/argument/9> <https://rdf-vocabulary.ddialliance.org/sdtl#ArgumentName> "EXP2"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://wholetale.org/run/sdtl/argument/9> <https://rdf-vocabulary.ddialliance.org/sdtl#ArgumentValue> <http://wholetale.org/run/sdtl/argumentvalue/9> .
+<http://wholetale.org/run/sdtl/argumentvalue/10> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableSymbolExpression> .
+<http://wholetale.org/run/sdtl/argumentvalue/10> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableName> "Celsius"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/run/sdtl/argumentvalue/11> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#NumericConstantExpression> .
+<http://wholetale.org/run/sdtl/argumentvalue/11> <https://rdf-vocabulary.ddialliance.org/sdtl#NumericType> "Integer"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/run/sdtl/argumentvalue/11> <https://rdf-vocabulary.ddialliance.org/sdtl#Value> "273"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://wholetale.org/run/sdtl/argumentvalue/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://127.0.0.1:9999/blazegraph/VariableSymbolExpression> .
 <http://wholetale.org/run/sdtl/argumentvalue/1> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableName> "B"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://wholetale.org/run/sdtl/argumentvalue/2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#NumericConstantExpression> .
@@ -98,12 +109,13 @@ blazegraph export --format nt | sort
 <http://wholetale.org/run/sdtl/compute/3> <https://rdf-vocabulary.ddialliance.org/sdtl#Variable> <http://wholetale.org/run/sdtl/variable/3> .
 <http://wholetale.org/run/sdtl/compute/4> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#Compute> .
 <http://wholetale.org/run/sdtl/compute/4> <https://rdf-vocabulary.ddialliance.org/sdtl#ConsumesDataframe> <http://wholetale.org/run/sdtl/dataframe/5> .
+<http://wholetale.org/run/sdtl/compute/4> <https://rdf-vocabulary.ddialliance.org/sdtl#Expression> <http://wholetale.org/run/sdtl/expression/4> .
 <http://wholetale.org/run/sdtl/compute/4> <https://rdf-vocabulary.ddialliance.org/sdtl#ProducesDataframe> <http://wholetale.org/run/sdtl/dataframe/6> .
 <http://wholetale.org/run/sdtl/compute/4> <https://rdf-vocabulary.ddialliance.org/sdtl#SourceInformation> <http://wholetale.org/run/sdtl/sourceinfo/6> .
 <http://wholetale.org/run/sdtl/compute/4> <https://rdf-vocabulary.ddialliance.org/sdtl#Variable> <http://wholetale.org/run/sdtl/variable/4> .
-<http://wholetale.org/run/sdtl/compute/4> <sdlt:Expression> <http://wholetale.org/run/sdtl/expression/4> .
 <http://wholetale.org/run/sdtl/compute/5> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#Compute> .
 <http://wholetale.org/run/sdtl/compute/5> <https://rdf-vocabulary.ddialliance.org/sdtl#ConsumesDataframe> <http://wholetale.org/run/sdtl/dataframe/6> .
+<http://wholetale.org/run/sdtl/compute/5> <https://rdf-vocabulary.ddialliance.org/sdtl#Expression> <http://wholetale.org/run/sdtl/exprssion/5> .
 <http://wholetale.org/run/sdtl/compute/5> <https://rdf-vocabulary.ddialliance.org/sdtl#ProducesDataframe> <http://wholetale.org/run/sdtl/dataframe/7> .
 <http://wholetale.org/run/sdtl/compute/5> <https://rdf-vocabulary.ddialliance.org/sdtl#SourceInformation> <http://wholetale.org/run/sdtl/sourceinfo/7> .
 <http://wholetale.org/run/sdtl/compute/5> <https://rdf-vocabulary.ddialliance.org/sdtl#Variable> <http://wholetale.org/run/sdtl/variable/5> .
@@ -143,15 +155,22 @@ blazegraph export --format nt | sort
 <http://wholetale.org/run/sdtl/expression/2> <https://rdf-vocabulary.ddialliance.org/sdtl#Arguments> <http://wholetale.org/run/sdtl/argument/1> .
 <http://wholetale.org/run/sdtl/expression/2> <https://rdf-vocabulary.ddialliance.org/sdtl#Arguments> <http://wholetale.org/run/sdtl/argument/2> .
 <http://wholetale.org/run/sdtl/expression/2> <https://rdf-vocabulary.ddialliance.org/sdtl#Function> "addition"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/run/sdtl/expression/2> <https://rdf-vocabulary.ddialliance.org/sdtl#IsSdtlName> "true"^^<http://www.w3.org/2001/XMLSchema#boolean> .
 <http://wholetale.org/run/sdtl/expression/3> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#FunctionCallExpression> .
 <http://wholetale.org/run/sdtl/expression/3> <https://rdf-vocabulary.ddialliance.org/sdtl#Arguments> <http://wholetale.org/run/sdtl/argument/2> .
 <http://wholetale.org/run/sdtl/expression/3> <https://rdf-vocabulary.ddialliance.org/sdtl#Arguments> <http://wholetale.org/run/sdtl/argument/3> .
 <http://wholetale.org/run/sdtl/expression/3> <https://rdf-vocabulary.ddialliance.org/sdtl#Function> "subtraction"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/run/sdtl/expression/3> <https://rdf-vocabulary.ddialliance.org/sdtl#IsSdtlName> "true"^^<http://www.w3.org/2001/XMLSchema#boolean> .
 <http://wholetale.org/run/sdtl/expression/4> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#FunctionCallExpression> .
 <http://wholetale.org/run/sdtl/expression/4> <https://rdf-vocabulary.ddialliance.org/sdtl#Arguments> <http://wholetale.org/run/sdtl/argument/4> .
 <http://wholetale.org/run/sdtl/expression/4> <https://rdf-vocabulary.ddialliance.org/sdtl#Arguments> <http://wholetale.org/run/sdtl/argument/9> .
 <http://wholetale.org/run/sdtl/expression/4> <https://rdf-vocabulary.ddialliance.org/sdtl#Function> "division"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://wholetale.org/run/sdtl/expression/4> <https://rdf-vocabulary.ddialliance.org/sdtl#IsSdtlName> "true"^^<http://www.w3.org/2001/XMLSchema#boolean> .
+<http://wholetale.org/run/sdtl/exprssion/5> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://127.0.0.1:9999/blazegraph/FunctionCallExpression> .
+<http://wholetale.org/run/sdtl/exprssion/5> <https://rdf-vocabulary.ddialliance.org/sdtl#Arguments> <http://wholetale.org/run/sdtl/argument/10> .
+<http://wholetale.org/run/sdtl/exprssion/5> <https://rdf-vocabulary.ddialliance.org/sdtl#Arguments> <http://wholetale.org/run/sdtl/argument/11> .
+<http://wholetale.org/run/sdtl/exprssion/5> <https://rdf-vocabulary.ddialliance.org/sdtl#Function> "addition"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/run/sdtl/exprssion/5> <https://rdf-vocabulary.ddialliance.org/sdtl#IsSdtlName> "true"^^<http://www.w3.org/2001/XMLSchema#boolean> .
 <http://wholetale.org/run/sdtl/load/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#Load> .
 <http://wholetale.org/run/sdtl/load/1> <https://rdf-vocabulary.ddialliance.org/sdtl#FileFormat> "csv"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://wholetale.org/run/sdtl/load/1> <https://rdf-vocabulary.ddialliance.org/sdtl#FileName> "df.csv"^^<http://www.w3.org/2001/XMLSchema#string> .

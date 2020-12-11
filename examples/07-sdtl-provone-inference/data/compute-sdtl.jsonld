@@ -182,7 +182,7 @@
             "@type": "sdtl:VariableSymbolExpression",
             "sdtl:VariableName": "Celsius"
           },
-          "sdlt:Expression": {
+          "sdtl:Expression": {
               "@id": "run:expression/4",
               "@type": "sdtl:FunctionCallExpression",
               "sdtl:Arguments": [
@@ -280,6 +280,35 @@
             "@id": "run:variable/5",
             "@type": "sdtl:VariableSymbolExpression",
             "sdtl:VariableName": "Kelvin"
+          },
+          "sdtl:Expression": {
+            "@id": "run:exprssion/5",
+            "@type": "FunctionCallExpression",
+            "sdtl:Arguments": [
+              {
+                "@id": "run:argument/10",
+                "@type": "sdtl:FunctionArgument",
+                "sdtl:ArgumentName": "EXP1",
+                "sdtl:ArgumentValue": {
+                  "@id": "run:argumentvalue/10",
+                  "@type": "sdtl:VariableSymbolExpression",
+                  "sdtl:VariableName": "Celsius"
+                }
+              },
+              {
+                "@id": "run:argument/11",
+                "@type": "sdtl:FunctionArgument",
+                "sdtl:ArgumentName": "EXP2",
+                "sdtl:ArgumentValue": {
+                  "@id": "run:argumentvalue/11",
+                  "@type": "sdtl:NumericConstantExpression",
+                  "sdtl:NumericType": "Integer",
+                  "sdtl:Value": "273"
+                }
+              }
+            ],
+            "sdtl:Function": "addition",
+            "sdtl:IsSdtlName": true
           },
           "sdtl:ProducesDataframe":  {
             "@id": "run:dataframe/7",
