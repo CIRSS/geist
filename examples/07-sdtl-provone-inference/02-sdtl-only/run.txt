@@ -21,6 +21,7 @@ blazegraph export --format nt | sort
 ------------------------------------------- S1 OUTPUTS ------------------------------------------------
 
 <http://wholetale.org/run/sdtl/compute/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#Compute> .
+<http://wholetale.org/run/sdtl/compute/1> <https://rdf-vocabulary.ddialliance.org/sdtl#Expression> <http://wholetale.org/run/sdtl/expression/1> .
 <http://wholetale.org/run/sdtl/compute/1> <https://rdf-vocabulary.ddialliance.org/sdtl#SourceInformation> <http://wholetale.org/run/sdtl/sourceinfo/2> .
 <http://wholetale.org/run/sdtl/compute/1> <stdl:ConsumesDataframe> <http://wholetale.org/run/sdtl/dataframe/1> .
 <http://wholetale.org/run/sdtl/compute/1> <stdl:ProducesDataframe> <http://wholetale.org/run/sdtl/dataframe/2> .
@@ -74,6 +75,9 @@ blazegraph export --format nt | sort
 <http://wholetale.org/run/sdtl/dataframe/7> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableInventory> "Celsius"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://wholetale.org/run/sdtl/dataframe/7> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableInventory> "Fahrenheit"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://wholetale.org/run/sdtl/dataframe/7> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableInventory> "Kelvin"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/run/sdtl/expression/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#NumericConstantExpression> .
+<http://wholetale.org/run/sdtl/expression/1> <https://rdf-vocabulary.ddialliance.org/sdtl#NumericType> "Integer"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/run/sdtl/expression/1> <https://rdf-vocabulary.ddialliance.org/sdtl#Value> "3"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://wholetale.org/run/sdtl/load/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#Load> .
 <http://wholetale.org/run/sdtl/load/1> <https://rdf-vocabulary.ddialliance.org/sdtl#FileFormat> "csv"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://wholetale.org/run/sdtl/load/1> <https://rdf-vocabulary.ddialliance.org/sdtl#FileName> "df.csv"^^<http://www.w3.org/2001/XMLSchema#string> .

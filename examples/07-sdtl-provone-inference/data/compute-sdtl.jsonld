@@ -39,6 +39,12 @@
             "@type": "stdl:VariableSymbolExpression",
             "stdl:VariableName": "A"
           },
+          "sdtl:Expression": {
+            "@id": "run:expression/1",
+            "@type": "sdtl:NumericConstantExpression",
+            "sdtl:NumericType": "Integer",
+            "sdtl:Value": "3"
+          },
           "stdl:ProducesDataframe": {
             "@id": "run:dataframe/2",
             "@type": "sdtl:DataframeDescription",
