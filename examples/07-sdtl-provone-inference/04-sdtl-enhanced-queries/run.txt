@@ -51,11 +51,23 @@ blazegraph export --format nt | sort
 <:argument/5> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#FunctionArgument> .
 <:argument/5> <https://rdf-vocabulary.ddialliance.org/sdtl#ArgumentName> "EXP1"^^<http://www.w3.org/2001/XMLSchema#string> .
 <:argument/5> <https://rdf-vocabulary.ddialliance.org/sdtl#ArgumentValue> <:argumentvalue/5> .
+<:argument/5> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argument/6> .
+<:argument/5> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argument/7> .
+<:argument/5> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argument/8> .
+<:argument/5> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argument/9> .
 <:argument/5> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argumentvalue/5> .
+<:argument/5> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argumentvalue/6> .
+<:argument/5> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argumentvalue/7> .
+<:argument/5> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argumentvalue/8> .
+<:argument/5> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argumentvalue/9> .
 <:argument/6> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#FunctionArgument> .
 <:argument/6> <https://rdf-vocabulary.ddialliance.org/sdtl#ArgumentName> "EXP1"^^<http://www.w3.org/2001/XMLSchema#string> .
 <:argument/6> <https://rdf-vocabulary.ddialliance.org/sdtl#ArgumentValue> <:argumentvalue/6> .
+<:argument/6> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argument/7> .
+<:argument/6> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argument/8> .
 <:argument/6> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argumentvalue/6> .
+<:argument/6> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argumentvalue/7> .
+<:argument/6> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argumentvalue/8> .
 <:argument/7> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#FunctionArgument> .
 <:argument/7> <https://rdf-vocabulary.ddialliance.org/sdtl#ArgumentName> "EXP1"^^<http://www.w3.org/2001/XMLSchema#string> .
 <:argument/7> <https://rdf-vocabulary.ddialliance.org/sdtl#ArgumentValue> <:argumentvalue/7> .
@@ -91,7 +103,13 @@ blazegraph export --format nt | sort
 <:argumentvalue/5> <https://rdf-vocabulary.ddialliance.org/sdtl#Function> "multiplication"^^<http://www.w3.org/2001/XMLSchema#string> .
 <:argumentvalue/5> <https://rdf-vocabulary.ddialliance.org/sdtl#IsSdtlName> "true"^^<http://www.w3.org/2001/XMLSchema#boolean> .
 <:argumentvalue/5> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argument/6> .
+<:argumentvalue/5> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argument/7> .
+<:argumentvalue/5> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argument/8> .
 <:argumentvalue/5> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argument/9> .
+<:argumentvalue/5> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argumentvalue/6> .
+<:argumentvalue/5> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argumentvalue/7> .
+<:argumentvalue/5> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argumentvalue/8> .
+<:argumentvalue/5> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argumentvalue/9> .
 <:argumentvalue/6> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#FunctionCallExpression> .
 <:argumentvalue/6> <https://rdf-vocabulary.ddialliance.org/sdtl#Arguments> <:argument/7> .
 <:argumentvalue/6> <https://rdf-vocabulary.ddialliance.org/sdtl#Arguments> <:argument/8> .
@@ -99,6 +117,8 @@ blazegraph export --format nt | sort
 <:argumentvalue/6> <https://rdf-vocabulary.ddialliance.org/sdtl#IsSdtlName> "true"^^<http://www.w3.org/2001/XMLSchema#boolean> .
 <:argumentvalue/6> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argument/7> .
 <:argumentvalue/6> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argument/8> .
+<:argumentvalue/6> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argumentvalue/7> .
+<:argumentvalue/6> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argumentvalue/8> .
 <:argumentvalue/7> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableSymbolExpression> .
 <:argumentvalue/7> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableName> "Fahrenheit"^^<http://www.w3.org/2001/XMLSchema#string> .
 <:argumentvalue/8> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#NumericConstantExpression> .
@@ -117,6 +137,10 @@ blazegraph export --format nt | sort
 <:compute/2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#Compute> .
 <:compute/2> <https://rdf-vocabulary.ddialliance.org/sdtl#ConsumesDataframe> <:dataframe/2> .
 <:compute/2> <https://rdf-vocabulary.ddialliance.org/sdtl#Expression> <:expression/2> .
+<:compute/2> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argument/1> .
+<:compute/2> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argument/2> .
+<:compute/2> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argumentvalue/1> .
+<:compute/2> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argumentvalue/2> .
 <:compute/2> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:expression/2> .
 <:compute/2> <https://rdf-vocabulary.ddialliance.org/sdtl#ProducesDataframe> <:dataframe/3> .
 <:compute/2> <https://rdf-vocabulary.ddialliance.org/sdtl#SourceInformation> <:sourceinfo/3> .
@@ -124,6 +148,10 @@ blazegraph export --format nt | sort
 <:compute/3> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#Compute> .
 <:compute/3> <https://rdf-vocabulary.ddialliance.org/sdtl#ConsumesDataframe> <:dataframe/3> .
 <:compute/3> <https://rdf-vocabulary.ddialliance.org/sdtl#Expression> <:expression/3> .
+<:compute/3> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argument/3> .
+<:compute/3> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argument/4> .
+<:compute/3> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argumentvalue/3> .
+<:compute/3> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argumentvalue/4> .
 <:compute/3> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:expression/3> .
 <:compute/3> <https://rdf-vocabulary.ddialliance.org/sdtl#ProducesDataframe> <:dataframe/4> .
 <:compute/3> <https://rdf-vocabulary.ddialliance.org/sdtl#SourceInformation> <:sourceinfo/4> .
@@ -131,6 +159,18 @@ blazegraph export --format nt | sort
 <:compute/4> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#Compute> .
 <:compute/4> <https://rdf-vocabulary.ddialliance.org/sdtl#ConsumesDataframe> <:dataframe/5> .
 <:compute/4> <https://rdf-vocabulary.ddialliance.org/sdtl#Expression> <:expression/4> .
+<:compute/4> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argument/10> .
+<:compute/4> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argument/5> .
+<:compute/4> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argument/6> .
+<:compute/4> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argument/7> .
+<:compute/4> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argument/8> .
+<:compute/4> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argument/9> .
+<:compute/4> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argumentvalue/10> .
+<:compute/4> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argumentvalue/5> .
+<:compute/4> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argumentvalue/6> .
+<:compute/4> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argumentvalue/7> .
+<:compute/4> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argumentvalue/8> .
+<:compute/4> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argumentvalue/9> .
 <:compute/4> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:expression/4> .
 <:compute/4> <https://rdf-vocabulary.ddialliance.org/sdtl#ProducesDataframe> <:dataframe/6> .
 <:compute/4> <https://rdf-vocabulary.ddialliance.org/sdtl#SourceInformation> <:sourceinfo/6> .
@@ -138,6 +178,10 @@ blazegraph export --format nt | sort
 <:compute/5> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#Compute> .
 <:compute/5> <https://rdf-vocabulary.ddialliance.org/sdtl#ConsumesDataframe> <:dataframe/6> .
 <:compute/5> <https://rdf-vocabulary.ddialliance.org/sdtl#Expression> <:expression/5> .
+<:compute/5> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argument/11> .
+<:compute/5> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argument/12> .
+<:compute/5> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argumentvalue/11> .
+<:compute/5> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argumentvalue/12> .
 <:compute/5> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:expression/5> .
 <:compute/5> <https://rdf-vocabulary.ddialliance.org/sdtl#ProducesDataframe> <:dataframe/7> .
 <:compute/5> <https://rdf-vocabulary.ddialliance.org/sdtl#SourceInformation> <:sourceinfo/7> .
@@ -181,6 +225,8 @@ blazegraph export --format nt | sort
 <:expression/2> <https://rdf-vocabulary.ddialliance.org/sdtl#IsSdtlName> "true"^^<http://www.w3.org/2001/XMLSchema#boolean> .
 <:expression/2> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argument/1> .
 <:expression/2> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argument/2> .
+<:expression/2> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argumentvalue/1> .
+<:expression/2> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argumentvalue/2> .
 <:expression/3> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#FunctionCallExpression> .
 <:expression/3> <https://rdf-vocabulary.ddialliance.org/sdtl#Arguments> <:argument/3> .
 <:expression/3> <https://rdf-vocabulary.ddialliance.org/sdtl#Arguments> <:argument/4> .
@@ -188,6 +234,8 @@ blazegraph export --format nt | sort
 <:expression/3> <https://rdf-vocabulary.ddialliance.org/sdtl#IsSdtlName> "true"^^<http://www.w3.org/2001/XMLSchema#boolean> .
 <:expression/3> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argument/3> .
 <:expression/3> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argument/4> .
+<:expression/3> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argumentvalue/3> .
+<:expression/3> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argumentvalue/4> .
 <:expression/4> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#FunctionCallExpression> .
 <:expression/4> <https://rdf-vocabulary.ddialliance.org/sdtl#Arguments> <:argument/10> .
 <:expression/4> <https://rdf-vocabulary.ddialliance.org/sdtl#Arguments> <:argument/5> .
@@ -195,6 +243,16 @@ blazegraph export --format nt | sort
 <:expression/4> <https://rdf-vocabulary.ddialliance.org/sdtl#IsSdtlName> "true"^^<http://www.w3.org/2001/XMLSchema#boolean> .
 <:expression/4> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argument/10> .
 <:expression/4> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argument/5> .
+<:expression/4> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argument/6> .
+<:expression/4> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argument/7> .
+<:expression/4> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argument/8> .
+<:expression/4> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argument/9> .
+<:expression/4> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argumentvalue/10> .
+<:expression/4> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argumentvalue/5> .
+<:expression/4> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argumentvalue/6> .
+<:expression/4> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argumentvalue/7> .
+<:expression/4> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argumentvalue/8> .
+<:expression/4> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argumentvalue/9> .
 <:expression/5> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://127.0.0.1:9999/blazegraph/FunctionCallExpression> .
 <:expression/5> <https://rdf-vocabulary.ddialliance.org/sdtl#Arguments> <:argument/11> .
 <:expression/5> <https://rdf-vocabulary.ddialliance.org/sdtl#Arguments> <:argument/12> .
@@ -202,6 +260,8 @@ blazegraph export --format nt | sort
 <:expression/5> <https://rdf-vocabulary.ddialliance.org/sdtl#IsSdtlName> "true"^^<http://www.w3.org/2001/XMLSchema#boolean> .
 <:expression/5> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argument/11> .
 <:expression/5> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argument/12> .
+<:expression/5> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argumentvalue/11> .
+<:expression/5> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <:argumentvalue/12> .
 <:load/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#Load> .
 <:load/1> <https://rdf-vocabulary.ddialliance.org/sdtl#FileFormat> "csv"^^<http://www.w3.org/2001/XMLSchema#string> .
 <:load/1> <https://rdf-vocabulary.ddialliance.org/sdtl#FileName> "df.csv"^^<http://www.w3.org/2001/XMLSchema#string> .
@@ -513,6 +573,8 @@ blazegraph export --format nt | sort
 <https://rdf-vocabulary.ddialliance.org/sdtl#NumericType> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
 <https://rdf-vocabulary.ddialliance.org/sdtl#NumericType> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <https://rdf-vocabulary.ddialliance.org/sdtl#NumericType> .
 <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#TransitiveProperty> .
 <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> .
 <https://rdf-vocabulary.ddialliance.org/sdtl#OriginalSourceText> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
 <https://rdf-vocabulary.ddialliance.org/sdtl#OriginalSourceText> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <https://rdf-vocabulary.ddialliance.org/sdtl#OriginalSourceText> .
@@ -557,7 +619,7 @@ blazegraph select --format table << __END_QUERY__
     WHERE {
         ?program rdf:type sdtl:Program .
         ?program sdtl:Commands ?command .
-        ?command (sdtl:OperatesOn)+/sdtl:VariableName ?used_variable .
+        ?command sdtl:OperatesOn/sdtl:VariableName ?used_variable .
         ?command sdtl:SourceInformation ?source_info .
         ?source_info sdtl:LineNumberStart ?source_line .
         ?source_info sdtl:OriginalSourceText ?source_text .
