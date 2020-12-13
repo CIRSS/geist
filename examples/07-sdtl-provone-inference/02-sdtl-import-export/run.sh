@@ -7,8 +7,7 @@ RUNNER='../../common/run_script_example.sh'
 bash ${RUNNER} SETUP "IMPORT PROVONE TRACE" << END_SCRIPT
 
 blazegraph destroy --dataset kb
-blazegraph create --dataset kb # --infer owl
-blazegraph import --file ../data/sdtl-provone-rules.ttl
+blazegraph create --dataset kb
 blazegraph import --format jsonld --file ../data/compute-sdtl.jsonld
 
 END_SCRIPT
