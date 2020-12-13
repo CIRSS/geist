@@ -1,0 +1,18 @@
+
+@prefix sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+sdtl:Expression rdfs:subPropertyOf sdtl:OperatesOn .
+sdtl:Arguments rdfs:subPropertyOf sdtl:OperatesOn .
+sdtl:ArgumentValue rdfs:subPropertyOf sdtl:OperatesOn .
+
+
+#wt:ChildProcessOf owl:equivalentProperty provone:wasPartOf .
+#wt:DataFile rdfs:subClassOf provone:Data .
+#wt:ReadFile rdfs:subPropertyOf prov:used .
+#wt:WroteFile rdfs:subPropertyOf prov:generated .
+#provone:Execution rdfs:subClassOf prov:Activity .
+#provone:Data rdfs:subClassOf prov:Entity .
+#prov:wasGeneratedBy owl:inverseOf prov:generated .
+
