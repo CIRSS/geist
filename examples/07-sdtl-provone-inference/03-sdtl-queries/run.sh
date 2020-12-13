@@ -133,7 +133,7 @@ END_SCRIPT
 
 
 
-bash ${RUNNER} Q6 "WHAT COMMANDS AFFECT EACH DATAFRAME?" << END_SCRIPT
+bash ${RUNNER} Q6 "WHAT COMMANDS UPDATE EACH DATAFRAME?" << END_SCRIPT
 
 blazegraph select --format table << __END_QUERY__
 
@@ -157,7 +157,7 @@ END_SCRIPT
 
 
 
-bash ${RUNNER} Q7 "WHAT COMMANDS AFFECT EACH VARIABLE?" << END_SCRIPT
+bash ${RUNNER} Q7 "WHAT COMMANDS UPDATE EACH VARIABLE?" << END_SCRIPT
 
 blazegraph select --format table << __END_QUERY__
 
@@ -177,3 +177,26 @@ blazegraph select --format table << __END_QUERY__
 __END_QUERY__
 
 END_SCRIPT
+
+
+bash ${RUNNER} Q8 "WHAT COMMANDS USE EACH VARIABLE?" << END_SCRIPT
+
+blazegraph select --format table << __END_QUERY__
+
+    PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
+
+    SELECT DISTINCT ?usedvariable ?command ?sourceline ?sourcetext
+    WHERE {
+        ?program rdf:type sdtl:Program .
+        ?program sdtl:Commands ?command .
+        ?command sdtl:Expression ?expression .
+        ?expression (sdtl:Arguments/sdtl:ArgumentValue)+/sdtl:VariableName ?usedvariable .
+        ?command sdtl:SourceInformation ?sourceinfo .
+        ?sourceinfo sdtl:LineNumberStart ?sourceline .
+        ?sourceinfo sdtl:OriginalSourceText ?sourcetext .
+    } ORDER BY ?usedvariable ?sourceline
+
+__END_QUERY__
+
+END_SCRIPT
+

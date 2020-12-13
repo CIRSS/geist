@@ -172,7 +172,7 @@ Kelvin       | temps     | 35         | temps.to_csv('outputs/temps_updated.csv'
 
 ******************************************* EXAMPLE Q6 ************************************************
 
-# WHAT COMMANDS AFFECT EACH DATAFRAME?
+# WHAT COMMANDS UPDATE EACH DATAFRAME?
 
 blazegraph select --format table << __END_QUERY__
 
@@ -209,7 +209,7 @@ temps     | :save/2    | 35         | temps.to_csv('outputs/temps_updated.csv', 
 
 ******************************************* EXAMPLE Q7 ************************************************
 
-# WHAT COMMANDS AFFECT EACH VARIABLE?
+# WHAT COMMANDS UPDATE EACH VARIABLE?
 
 blazegraph select --format table << __END_QUERY__
 
@@ -237,4 +237,36 @@ B            | :compute/2 | 12         | df['B'] = df.B + 6.5
 C            | :compute/3 | 16         | df['C'] = df.A - df.B
 Celsius      | :compute/4 | 24         | temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))
 Kelvin       | :compute/5 | 28         | temps = temps.assign(Kelvin=(temps.Celsius + 273))
+
+
+******************************************* EXAMPLE Q8 ************************************************
+
+# WHAT COMMANDS USE EACH VARIABLE?
+
+blazegraph select --format table << __END_QUERY__
+
+    PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
+
+    SELECT DISTINCT ?usedvariable ?command ?sourceline ?sourcetext
+    WHERE {
+        ?program rdf:type sdtl:Program .
+        ?program sdtl:Commands ?command .
+        ?command sdtl:Expression ?expression .
+        ?expression (sdtl:Arguments/sdtl:ArgumentValue)+/sdtl:VariableName ?usedvariable .
+        ?command sdtl:SourceInformation ?sourceinfo .
+        ?sourceinfo sdtl:LineNumberStart ?sourceline .
+        ?sourceinfo sdtl:OriginalSourceText ?sourcetext .
+    } ORDER BY ?usedvariable ?sourceline
+
+__END_QUERY__
+
+------------------------------------------- Q8 OUTPUTS ------------------------------------------------
+
+usedvariable | command    | sourceline | sourcetext
+================================================================================================
+A            | :compute/3 | 16         | df['C'] = df.A - df.B
+B            | :compute/2 | 12         | df['B'] = df.B + 6.5
+B            | :compute/3 | 16         | df['C'] = df.A - df.B
+Celsius      | :compute/5 | 28         | temps = temps.assign(Kelvin=(temps.Celsius + 273))
+Fahrenheit   | :compute/4 | 24         | temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))
 
