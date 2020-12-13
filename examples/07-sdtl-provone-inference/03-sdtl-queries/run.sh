@@ -89,14 +89,14 @@ blazegraph select --format table << __END_QUERY__
 
     PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
 
-    SELECT DISTINCT ?variablename ?dataframe ?sourceline ?sourcetext
+    SELECT DISTINCT ?loadedvariable ?dataframe ?sourceline ?sourcetext
     WHERE {
         ?program rdf:type sdtl:Program .
         ?program sdtl:Commands ?command .
         ?command rdf:type sdtl:Load .
         ?command sdtl:ProducesDataframe ?dataframedesc .
         ?dataframedesc sdtl:DataframeName ?dataframe .
-        ?dataframedesc sdtl:VariableInventory ?variablename .
+        ?dataframedesc sdtl:VariableInventory ?loadedvariable .
         ?command sdtl:SourceInformation ?sourceinfo .
         ?sourceinfo sdtl:LineNumberStart ?sourceline .
         ?sourceinfo sdtl:OriginalSourceText ?sourcetext .
@@ -114,14 +114,14 @@ blazegraph select --format table << __END_QUERY__
 
     PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
 
-    SELECT DISTINCT ?variablename ?dataframe ?sourceline ?sourcetext
+    SELECT DISTINCT ?savedvariable ?dataframe ?sourceline ?sourcetext
     WHERE {
         ?program rdf:type sdtl:Program .
         ?program sdtl:Commands ?command .
         ?command rdf:type sdtl:Save .
         ?command sdtl:ProducesDataframe ?dataframedesc .
         ?dataframedesc sdtl:DataframeName ?dataframe .
-        ?dataframedesc sdtl:VariableInventory ?variablename .
+        ?dataframedesc sdtl:VariableInventory ?savedvariable .
         ?command sdtl:SourceInformation ?sourceinfo .
         ?sourceinfo sdtl:LineNumberStart ?sourceline .
         ?sourceinfo sdtl:OriginalSourceText ?sourcetext .
@@ -163,12 +163,12 @@ blazegraph select --format table << __END_QUERY__
 
     PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
 
-    SELECT DISTINCT ?variablename ?command ?sourceline ?sourcetext
+    SELECT DISTINCT ?updatedvariable ?command ?sourceline ?sourcetext
     WHERE {
         ?program rdf:type sdtl:Program .
         ?program sdtl:Commands ?command .
         ?command sdtl:Variable ?variable .
-        ?variable sdtl:VariableName ?variablename .
+        ?variable sdtl:VariableName ?updatedvariable .
         ?command sdtl:SourceInformation ?sourceinfo .
         ?sourceinfo sdtl:LineNumberStart ?sourceline .
         ?sourceinfo sdtl:OriginalSourceText ?sourcetext .

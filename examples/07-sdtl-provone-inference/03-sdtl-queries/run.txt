@@ -111,14 +111,14 @@ blazegraph select --format table << __END_QUERY__
 
     PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
 
-    SELECT DISTINCT ?variablename ?dataframe ?sourceline ?sourcetext
+    SELECT DISTINCT ?loadedvariable ?dataframe ?sourceline ?sourcetext
     WHERE {
         ?program rdf:type sdtl:Program .
         ?program sdtl:Commands ?command .
         ?command rdf:type sdtl:Load .
         ?command sdtl:ProducesDataframe ?dataframedesc .
         ?dataframedesc sdtl:DataframeName ?dataframe .
-        ?dataframedesc sdtl:VariableInventory ?variablename .
+        ?dataframedesc sdtl:VariableInventory ?loadedvariable .
         ?command sdtl:SourceInformation ?sourceinfo .
         ?sourceinfo sdtl:LineNumberStart ?sourceline .
         ?sourceinfo sdtl:OriginalSourceText ?sourcetext .
@@ -128,11 +128,11 @@ __END_QUERY__
 
 ------------------------------------------- Q4 OUTPUTS ------------------------------------------------
 
-variablename | dataframe | sourceline | sourcetext
+loadedvariable | dataframe | sourceline | sourcetext
 ====================================================================
-A            | df        | 4          | df = pd.read_csv('../data/df.csv')
-B            | df        | 4          | df = pd.read_csv('../data/df.csv')
-Fahrenheit   | temps     | 20         | temps = pd.read_csv('../data/temps.csv')
+A              | df        | 4          | df = pd.read_csv('../data/df.csv')
+B              | df        | 4          | df = pd.read_csv('../data/df.csv')
+Fahrenheit     | temps     | 20         | temps = pd.read_csv('../data/temps.csv')
 
 
 ******************************************* EXAMPLE Q5 ************************************************
@@ -143,14 +143,14 @@ blazegraph select --format table << __END_QUERY__
 
     PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
 
-    SELECT DISTINCT ?variablename ?dataframe ?sourceline ?sourcetext
+    SELECT DISTINCT ?savedvariable ?dataframe ?sourceline ?sourcetext
     WHERE {
         ?program rdf:type sdtl:Program .
         ?program sdtl:Commands ?command .
         ?command rdf:type sdtl:Save .
         ?command sdtl:ProducesDataframe ?dataframedesc .
         ?dataframedesc sdtl:DataframeName ?dataframe .
-        ?dataframedesc sdtl:VariableInventory ?variablename .
+        ?dataframedesc sdtl:VariableInventory ?savedvariable .
         ?command sdtl:SourceInformation ?sourceinfo .
         ?sourceinfo sdtl:LineNumberStart ?sourceline .
         ?sourceinfo sdtl:OriginalSourceText ?sourcetext .
@@ -160,14 +160,14 @@ __END_QUERY__
 
 ------------------------------------------- Q5 OUTPUTS ------------------------------------------------
 
-variablename | dataframe | sourceline | sourcetext
+savedvariable | dataframe | sourceline | sourcetext
 ==================================================================================
-A            | df        | 32         | df.to_csv('outputs/df_updated.csv', index=False)
-B            | df        | 32         | df.to_csv('outputs/df_updated.csv', index=False)
-C            | df        | 32         | df.to_csv('outputs/df_updated.csv', index=False)
-Celsius      | temps     | 35         | temps.to_csv('outputs/temps_updated.csv', index=False)
-Fahrenheit   | temps     | 35         | temps.to_csv('outputs/temps_updated.csv', index=False)
-Kelvin       | temps     | 35         | temps.to_csv('outputs/temps_updated.csv', index=False)
+A             | df        | 32         | df.to_csv('outputs/df_updated.csv', index=False)
+B             | df        | 32         | df.to_csv('outputs/df_updated.csv', index=False)
+C             | df        | 32         | df.to_csv('outputs/df_updated.csv', index=False)
+Celsius       | temps     | 35         | temps.to_csv('outputs/temps_updated.csv', index=False)
+Fahrenheit    | temps     | 35         | temps.to_csv('outputs/temps_updated.csv', index=False)
+Kelvin        | temps     | 35         | temps.to_csv('outputs/temps_updated.csv', index=False)
 
 
 ******************************************* EXAMPLE Q6 ************************************************
@@ -215,12 +215,12 @@ blazegraph select --format table << __END_QUERY__
 
     PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
 
-    SELECT DISTINCT ?variablename ?command ?sourceline ?sourcetext
+    SELECT DISTINCT ?updatedvariable ?command ?sourceline ?sourcetext
     WHERE {
         ?program rdf:type sdtl:Program .
         ?program sdtl:Commands ?command .
         ?command sdtl:Variable ?variable .
-        ?variable sdtl:VariableName ?variablename .
+        ?variable sdtl:VariableName ?updatedvariable .
         ?command sdtl:SourceInformation ?sourceinfo .
         ?sourceinfo sdtl:LineNumberStart ?sourceline .
         ?sourceinfo sdtl:OriginalSourceText ?sourcetext .
@@ -230,13 +230,13 @@ __END_QUERY__
 
 ------------------------------------------- Q7 OUTPUTS ------------------------------------------------
 
-variablename | command    | sourceline | sourcetext
+updatedvariable | command    | sourceline | sourcetext
 =============================================================================================
-A            | :compute/1 | 8          | df['A'] = 3
-B            | :compute/2 | 12         | df['B'] = df.B + 6.5
-C            | :compute/3 | 16         | df['C'] = df.A - df.B
-Celsius      | :compute/4 | 24         | temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))
-Kelvin       | :compute/5 | 28         | temps = temps.assign(Kelvin=(temps.Celsius + 273))
+A               | :compute/1 | 8          | df['A'] = 3
+B               | :compute/2 | 12         | df['B'] = df.B + 6.5
+C               | :compute/3 | 16         | df['C'] = df.A - df.B
+Celsius         | :compute/4 | 24         | temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))
+Kelvin          | :compute/5 | 28         | temps = temps.assign(Kelvin=(temps.Celsius + 273))
 
 
 ******************************************* EXAMPLE Q8 ************************************************
