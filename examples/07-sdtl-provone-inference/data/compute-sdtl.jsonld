@@ -4,7 +4,7 @@
       "sdtl": "https://rdf-vocabulary.ddialliance.org/sdtl#"
     },
     {
-      "run": "http://wholetale.org/run/sdtl/"
+      "run": ":"
     }
 
   ],
@@ -26,7 +26,7 @@
           },
           "sdtl:SourceInformation": {
               "@id": "run:sourceinfo/1",
-              "@type": "sdtl:SourceInformation",
+              "@type": "sfdtl:SourceInformation",
               "sdtl:originalSourceText": "df = pd.read_csv('../data/df.csv')"
           }
         },
