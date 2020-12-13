@@ -1,7 +1,7 @@
 
 ******************************************* EXAMPLE SETUP ************************************************
 
-# IMPORT PROVONE TRACE
+# IMPORT SDTL
 
 blazegraph destroy --dataset kb
 blazegraph create --dataset kb
@@ -21,7 +21,7 @@ blazegraph select --format table << __END_QUERY__
 
     SELECT DISTINCT ?command ?sourcetext
     WHERE {
-        ?program rdf:type sdtl:Program .            # Identify the SDTL program.
+        ?program rdf:type sdtl:Program .
         ?program sdtl:Commands ?command .
         ?command sdtl:SourceInformation ?sourceinfo .
         ?sourceinfo sdtl:originalSourceText ?sourcetext .
@@ -42,4 +42,121 @@ command    | sourcetext
 :compute/5 | temps = temps.assign(Kelvin=(temps.Celsius + 273))
 :save/1    | df.to_csv('outputs/df_updated.csv', index=False)
 :save/2    | temps.to_csv('outputs/temps_updated.csv', index=False)
+
+
+******************************************* EXAMPLE Q2 ************************************************
+
+# WHAT DATA FILES ARE LOADED BY THE SCRIPT?
+
+blazegraph select --format table << __END_QUERY__
+
+    PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
+
+    SELECT DISTINCT ?filename ?command ?sourcetext
+    WHERE {
+        ?program rdf:type sdtl:Program .
+        ?program sdtl:Commands ?command .
+        ?command rdf:type sdtl:Load .
+        ?command sdtl:FileName ?filename .
+        ?command sdtl:SourceInformation ?sourceinfo .
+        ?sourceinfo sdtl:originalSourceText ?sourcetext .
+    }
+
+__END_QUERY__
+
+------------------------------------------- Q2 OUTPUTS ------------------------------------------------
+
+filename  | command | sourcetext
+===============================================================
+df.csv    | :load/1 | df = pd.read_csv('../data/df.csv')
+temps.csv | :load/2 | temps = pd.read_csv('../data/temps.csv')
+
+
+******************************************* EXAMPLE Q3 ************************************************
+
+# WHAT DATA FILES ARE SAVED BY THE SCRIPT?
+
+blazegraph select --format table << __END_QUERY__
+
+    PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
+
+    SELECT DISTINCT ?filename ?command ?sourcetext
+    WHERE {
+        ?program rdf:type sdtl:Program .
+        ?program sdtl:Commands ?command .
+        ?command rdf:type sdtl:Save .
+        ?command sdtl:FileName ?filename .
+        ?command sdtl:SourceInformation ?sourceinfo .
+        ?sourceinfo sdtl:originalSourceText ?sourcetext .
+    }
+
+__END_QUERY__
+
+------------------------------------------- Q3 OUTPUTS ------------------------------------------------
+
+filename          | command | sourcetext
+=====================================================================================
+df_updated.csv    | :save/1 | df.to_csv('outputs/df_updated.csv', index=False)
+temps_updated.csv | :save/2 | temps.to_csv('outputs/temps_updated.csv', index=False)
+
+
+******************************************* EXAMPLE Q4 ************************************************
+
+# WHAT VARIABLES ARE LOADED BY THE SCRIPT?
+
+blazegraph select --format table << __END_QUERY__
+
+    PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
+
+    SELECT DISTINCT ?dataframe ?variable
+    WHERE {
+        ?program rdf:type sdtl:Program .
+        ?program sdtl:Commands ?command .
+        ?command rdf:type sdtl:Load .
+        ?command sdtl:ProducesDataframe ?dataframedesc .
+        ?dataframedesc sdtl:DataframeName ?dataframe .
+        ?dataframedesc sdtl:VariableInventory ?variable .
+    }
+
+__END_QUERY__
+
+------------------------------------------- Q4 OUTPUTS ------------------------------------------------
+
+dataframe | variable
+====================
+df        | A
+df        | B
+temps     | Fahrenheit
+
+
+******************************************* EXAMPLE Q5 ************************************************
+
+# WHAT VARIABLES ARE SAVED BY THE SCRIPT?
+
+blazegraph select --format table << __END_QUERY__
+
+    PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
+
+    SELECT DISTINCT ?dataframe ?variable
+    WHERE {
+        ?program rdf:type sdtl:Program .
+        ?program sdtl:Commands ?command .
+        ?command rdf:type sdtl:Save .
+        ?command sdtl:ProducesDataframe ?dataframedesc .
+        ?dataframedesc sdtl:DataframeName ?dataframe .
+        ?dataframedesc sdtl:VariableInventory ?variable .
+    }
+
+__END_QUERY__
+
+------------------------------------------- Q5 OUTPUTS ------------------------------------------------
+
+dataframe | variable
+====================
+df        | A
+df        | B
+df        | C
+temps     | Celsius
+temps     | Fahrenheit
+temps     | Kelvin
 
