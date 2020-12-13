@@ -19,29 +19,30 @@ blazegraph select --format table << __END_QUERY__
 
     PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
 
-    SELECT DISTINCT ?command ?sourcetext
+    SELECT DISTINCT ?command ?sourceline ?sourcetext
     WHERE {
         ?program rdf:type sdtl:Program .
         ?program sdtl:Commands ?command .
         ?command sdtl:SourceInformation ?sourceinfo .
-        ?sourceinfo sdtl:originalSourceText ?sourcetext .
-    }
+        ?sourceinfo sdtl:LineNumberStart ?sourceline .
+        ?sourceinfo sdtl:OriginalSourceText ?sourcetext .
+    } ORDER BY ?line
 
 __END_QUERY__
 
 ------------------------------------------- Q1 OUTPUTS ------------------------------------------------
 
-command    | sourcetext
-============================================================================
-:load/1    | df = pd.read_csv('../data/df.csv')
-:compute/1 | df['A'] = 3
-:compute/2 | df['B'] = df.B + 6.5
-:compute/3 | df['C'] = df.A - df.B
-:load/2    | temps = pd.read_csv('../data/temps.csv')
-:compute/4 | temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))
-:compute/5 | temps = temps.assign(Kelvin=(temps.Celsius + 273))
-:save/1    | df.to_csv('outputs/df_updated.csv', index=False)
-:save/2    | temps.to_csv('outputs/temps_updated.csv', index=False)
+command    | sourceline | sourcetext
+==================================================================================
+:load/1    | 4          | df = pd.read_csv('../data/df.csv')
+:compute/1 | 8          | df['A'] = 3
+:compute/2 | 12         | df['B'] = df.B + 6.5
+:compute/3 | 16         | df['C'] = df.A - df.B
+:load/2    | 20         | temps = pd.read_csv('../data/temps.csv')
+:compute/4 | 24         | temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))
+:compute/5 | 28         | temps = temps.assign(Kelvin=(temps.Celsius + 273))
+:save/1    | 32         | df.to_csv('outputs/df_updated.csv', index=False)
+:save/2    | 35         | temps.to_csv('outputs/temps_updated.csv', index=False)
 
 
 ******************************************* EXAMPLE Q2 ************************************************
@@ -52,24 +53,25 @@ blazegraph select --format table << __END_QUERY__
 
     PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
 
-    SELECT DISTINCT ?filename ?command ?sourcetext
+    SELECT DISTINCT ?filename ?command ?sourceline ?sourcetext
     WHERE {
         ?program rdf:type sdtl:Program .
         ?program sdtl:Commands ?command .
         ?command rdf:type sdtl:Load .
         ?command sdtl:FileName ?filename .
         ?command sdtl:SourceInformation ?sourceinfo .
-        ?sourceinfo sdtl:originalSourceText ?sourcetext .
+        ?sourceinfo sdtl:LineNumberStart ?sourceline .
+        ?sourceinfo sdtl:OriginalSourceText ?sourcetext .
     }
 
 __END_QUERY__
 
 ------------------------------------------- Q2 OUTPUTS ------------------------------------------------
 
-filename  | command | sourcetext
-===============================================================
-df.csv    | :load/1 | df = pd.read_csv('../data/df.csv')
-temps.csv | :load/2 | temps = pd.read_csv('../data/temps.csv')
+filename  | command | sourceline | sourcetext
+=====================================================================
+df.csv    | :load/1 | 4          | df = pd.read_csv('../data/df.csv')
+temps.csv | :load/2 | 20         | temps = pd.read_csv('../data/temps.csv')
 
 
 ******************************************* EXAMPLE Q3 ************************************************
@@ -80,24 +82,25 @@ blazegraph select --format table << __END_QUERY__
 
     PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
 
-    SELECT DISTINCT ?filename ?command ?sourcetext
+    SELECT DISTINCT ?filename ?command ?sourceline ?sourcetext
     WHERE {
         ?program rdf:type sdtl:Program .
         ?program sdtl:Commands ?command .
         ?command rdf:type sdtl:Save .
         ?command sdtl:FileName ?filename .
         ?command sdtl:SourceInformation ?sourceinfo .
-        ?sourceinfo sdtl:originalSourceText ?sourcetext .
+        ?sourceinfo sdtl:LineNumberStart ?sourceline .
+        ?sourceinfo sdtl:OriginalSourceText ?sourcetext .
     }
 
 __END_QUERY__
 
 ------------------------------------------- Q3 OUTPUTS ------------------------------------------------
 
-filename          | command | sourcetext
-=====================================================================================
-df_updated.csv    | :save/1 | df.to_csv('outputs/df_updated.csv', index=False)
-temps_updated.csv | :save/2 | temps.to_csv('outputs/temps_updated.csv', index=False)
+filename          | command | sourceline | sourcetext
+===========================================================================================
+df_updated.csv    | :save/1 | 32         | df.to_csv('outputs/df_updated.csv', index=False)
+temps_updated.csv | :save/2 | 35         | temps.to_csv('outputs/temps_updated.csv', index=False)
 
 
 ******************************************* EXAMPLE Q4 ************************************************
@@ -108,7 +111,7 @@ blazegraph select --format table << __END_QUERY__
 
     PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
 
-    SELECT DISTINCT ?dataframe ?variable
+    SELECT DISTINCT ?variable ?dataframe ?sourceline ?sourcetext
     WHERE {
         ?program rdf:type sdtl:Program .
         ?program sdtl:Commands ?command .
@@ -116,17 +119,20 @@ blazegraph select --format table << __END_QUERY__
         ?command sdtl:ProducesDataframe ?dataframedesc .
         ?dataframedesc sdtl:DataframeName ?dataframe .
         ?dataframedesc sdtl:VariableInventory ?variable .
+        ?command sdtl:SourceInformation ?sourceinfo .
+        ?sourceinfo sdtl:LineNumberStart ?sourceline .
+        ?sourceinfo sdtl:OriginalSourceText ?sourcetext .
     }
 
 __END_QUERY__
 
 ------------------------------------------- Q4 OUTPUTS ------------------------------------------------
 
-dataframe | variable
-====================
-df        | A
-df        | B
-temps     | Fahrenheit
+variable   | dataframe | sourceline | sourcetext
+====================================================================
+A          | df        | 4          | df = pd.read_csv('../data/df.csv')
+B          | df        | 4          | df = pd.read_csv('../data/df.csv')
+Fahrenheit | temps     | 20         | temps = pd.read_csv('../data/temps.csv')
 
 
 ******************************************* EXAMPLE Q5 ************************************************
@@ -137,7 +143,7 @@ blazegraph select --format table << __END_QUERY__
 
     PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
 
-    SELECT DISTINCT ?dataframe ?variable
+    SELECT DISTINCT ?variable ?dataframe ?sourceline ?sourcetext
     WHERE {
         ?program rdf:type sdtl:Program .
         ?program sdtl:Commands ?command .
@@ -145,18 +151,21 @@ blazegraph select --format table << __END_QUERY__
         ?command sdtl:ProducesDataframe ?dataframedesc .
         ?dataframedesc sdtl:DataframeName ?dataframe .
         ?dataframedesc sdtl:VariableInventory ?variable .
+        ?command sdtl:SourceInformation ?sourceinfo .
+        ?sourceinfo sdtl:LineNumberStart ?sourceline .
+        ?sourceinfo sdtl:OriginalSourceText ?sourcetext .
     }
 
 __END_QUERY__
 
 ------------------------------------------- Q5 OUTPUTS ------------------------------------------------
 
-dataframe | variable
-====================
-df        | A
-df        | B
-df        | C
-temps     | Celsius
-temps     | Fahrenheit
-temps     | Kelvin
+variable   | dataframe | sourceline | sourcetext
+==================================================================================
+A          | df        | 32         | df.to_csv('outputs/df_updated.csv', index=False)
+B          | df        | 32         | df.to_csv('outputs/df_updated.csv', index=False)
+C          | df        | 32         | df.to_csv('outputs/df_updated.csv', index=False)
+Celsius    | temps     | 35         | temps.to_csv('outputs/temps_updated.csv', index=False)
+Fahrenheit | temps     | 35         | temps.to_csv('outputs/temps_updated.csv', index=False)
+Kelvin     | temps     | 35         | temps.to_csv('outputs/temps_updated.csv', index=False)
 

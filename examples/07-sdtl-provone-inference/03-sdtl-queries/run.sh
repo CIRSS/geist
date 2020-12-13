@@ -22,13 +22,14 @@ blazegraph select --format table << __END_QUERY__
 
     PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
 
-    SELECT DISTINCT ?command ?sourcetext
+    SELECT DISTINCT ?command ?sourceline ?sourcetext
     WHERE {
         ?program rdf:type sdtl:Program .
         ?program sdtl:Commands ?command .
         ?command sdtl:SourceInformation ?sourceinfo .
-        ?sourceinfo sdtl:originalSourceText ?sourcetext .
-    }
+        ?sourceinfo sdtl:LineNumberStart ?sourceline .
+        ?sourceinfo sdtl:OriginalSourceText ?sourcetext .
+    } ORDER BY ?line
 
 __END_QUERY__
 
@@ -42,14 +43,15 @@ blazegraph select --format table << __END_QUERY__
 
     PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
 
-    SELECT DISTINCT ?filename ?command ?sourcetext
+    SELECT DISTINCT ?filename ?command ?sourceline ?sourcetext
     WHERE {
         ?program rdf:type sdtl:Program .
         ?program sdtl:Commands ?command .
         ?command rdf:type sdtl:Load .
         ?command sdtl:FileName ?filename .
         ?command sdtl:SourceInformation ?sourceinfo .
-        ?sourceinfo sdtl:originalSourceText ?sourcetext .
+        ?sourceinfo sdtl:LineNumberStart ?sourceline .
+        ?sourceinfo sdtl:OriginalSourceText ?sourcetext .
     }
 
 __END_QUERY__
@@ -64,14 +66,15 @@ blazegraph select --format table << __END_QUERY__
 
     PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
 
-    SELECT DISTINCT ?filename ?command ?sourcetext
+    SELECT DISTINCT ?filename ?command ?sourceline ?sourcetext
     WHERE {
         ?program rdf:type sdtl:Program .
         ?program sdtl:Commands ?command .
         ?command rdf:type sdtl:Save .
         ?command sdtl:FileName ?filename .
         ?command sdtl:SourceInformation ?sourceinfo .
-        ?sourceinfo sdtl:originalSourceText ?sourcetext .
+        ?sourceinfo sdtl:LineNumberStart ?sourceline .
+        ?sourceinfo sdtl:OriginalSourceText ?sourcetext .
     }
 
 __END_QUERY__
@@ -86,7 +89,7 @@ blazegraph select --format table << __END_QUERY__
 
     PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
 
-    SELECT DISTINCT ?dataframe ?variable
+    SELECT DISTINCT ?variable ?dataframe ?sourceline ?sourcetext
     WHERE {
         ?program rdf:type sdtl:Program .
         ?program sdtl:Commands ?command .
@@ -94,6 +97,9 @@ blazegraph select --format table << __END_QUERY__
         ?command sdtl:ProducesDataframe ?dataframedesc .
         ?dataframedesc sdtl:DataframeName ?dataframe .
         ?dataframedesc sdtl:VariableInventory ?variable .
+        ?command sdtl:SourceInformation ?sourceinfo .
+        ?sourceinfo sdtl:LineNumberStart ?sourceline .
+        ?sourceinfo sdtl:OriginalSourceText ?sourcetext .
     }
 
 __END_QUERY__
@@ -108,7 +114,7 @@ blazegraph select --format table << __END_QUERY__
 
     PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
 
-    SELECT DISTINCT ?dataframe ?variable
+    SELECT DISTINCT ?variable ?dataframe ?sourceline ?sourcetext
     WHERE {
         ?program rdf:type sdtl:Program .
         ?program sdtl:Commands ?command .
@@ -116,6 +122,9 @@ blazegraph select --format table << __END_QUERY__
         ?command sdtl:ProducesDataframe ?dataframedesc .
         ?dataframedesc sdtl:DataframeName ?dataframe .
         ?dataframedesc sdtl:VariableInventory ?variable .
+        ?command sdtl:SourceInformation ?sourceinfo .
+        ?sourceinfo sdtl:LineNumberStart ?sourceline .
+        ?sourceinfo sdtl:OriginalSourceText ?sourcetext .
     }
 
 __END_QUERY__

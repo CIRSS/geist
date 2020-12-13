@@ -27,7 +27,8 @@
           "sdtl:SourceInformation": {
               "@id": "run:sourceinfo/1",
               "@type": "sfdtl:SourceInformation",
-              "sdtl:originalSourceText": "df = pd.read_csv('../data/df.csv')"
+              "sdtl:LineNumberStart": 4,
+              "sdtl:OriginalSourceText": "df = pd.read_csv('../data/df.csv')"
           }
         },
         {
@@ -54,7 +55,8 @@
           "sdtl:SourceInformation": {
               "@id": "run:sourceinfo/2",
               "@type": "sdtl:SourceInformation",
-              "sdtl:originalSourceText": "df['A'] = 3"
+              "sdtl:LineNumberStart": 8,
+              "sdtl:OriginalSourceText": "df['A'] = 3"
           }
         },
         {
@@ -104,7 +106,8 @@
           "sdtl:SourceInformation": {
               "@id": "run:sourceinfo/3",
               "@type": "sdtl:SourceInformation",
-              "sdtl:originalSourceText": "df['B'] = df.B + 6.5"
+              "sdtl:LineNumberStart": 12,
+              "sdtl:OriginalSourceText": "df['B'] = df.B + 6.5"
           }
         },
         {
@@ -153,7 +156,8 @@
           "sdtl:SourceInformation": {
               "@id": "run:sourceinfo/4",
               "@type": "sdtl:SourceInformation",
-              "sdtl:originalSourceText": "df['C'] = df.A - df.B"
+              "sdtl:LineNumberStart": 16,
+              "sdtl:OriginalSourceText": "df['C'] = df.A - df.B"
           }
         },
         {
@@ -170,7 +174,8 @@
           "sdtl:SourceInformation": {
             "@id": "run:sourceinfo/5",
             "@type": "sdtl:SourceInformation",
-            "sdtl:originalSourceText": "temps = pd.read_csv('../data/temps.csv')"
+            "sdtl:LineNumberStart": 20,
+            "sdtl:OriginalSourceText": "temps = pd.read_csv('../data/temps.csv')"
         }
       },
         {
@@ -269,7 +274,8 @@
           "sdtl:SourceInformation": {
               "@id": "run:sourceinfo/6",
               "@type": "sdtl:SourceInformation",
-              "sdtl:originalSourceText": "temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))"
+              "sdtl:LineNumberStart": 24,
+              "sdtl:OriginalSourceText": "temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))"
           }
         },
         {
@@ -319,7 +325,8 @@
           "sdtl:SourceInformation": {
               "@id": "run:sourceinfo/7",
               "@type": "sdtl:SourceInformation",
-              "sdtl:originalSourceText": "temps = temps.assign(Kelvin=(temps.Celsius + 273))"
+              "sdtl:LineNumberStart": 28,
+              "sdtl:OriginalSourceText": "temps = temps.assign(Kelvin=(temps.Celsius + 273))"
           }
         },
         {
@@ -331,7 +338,8 @@
           "sdtl:SourceInformation": {
             "@id": "run:sourceinfo/8",
             "@type": "sdtl:SourceInformation",
-            "sdtl:originalSourceText": "df.to_csv('outputs/df_updated.csv', index=False)"
+            "sdtl:LineNumberStart": 32,
+            "sdtl:OriginalSourceText": "df.to_csv('outputs/df_updated.csv', index=False)"
           }
         },
         {
@@ -343,7 +351,8 @@
           "sdtl:SourceInformation": {
             "@id": "run:sourceinfo/9",
             "@type": "sdtl:SourceInformation",
-            "sdtl:originalSourceText": "temps.to_csv('outputs/temps_updated.csv', index=False)"
+            "sdtl:LineNumberStart": 35,
+            "sdtl:OriginalSourceText": "temps.to_csv('outputs/temps_updated.csv', index=False)"
           }
         }
       ]

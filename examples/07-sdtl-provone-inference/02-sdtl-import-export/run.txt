@@ -201,23 +201,32 @@ blazegraph export --format nt | sort
 <:save/2> <https://rdf-vocabulary.ddialliance.org/sdtl#ProducesDataframe> <:dataframe/7> .
 <:save/2> <https://rdf-vocabulary.ddialliance.org/sdtl#SourceInformation> <:sourceinfo/9> .
 <:sourceinfo/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <sfdtl:SourceInformation> .
-<:sourceinfo/1> <https://rdf-vocabulary.ddialliance.org/sdtl#originalSourceText> "df = pd.read_csv('../data/df.csv')"^^<http://www.w3.org/2001/XMLSchema#string> .
+<:sourceinfo/1> <https://rdf-vocabulary.ddialliance.org/sdtl#LineNumberStart> "4"^^<http://www.w3.org/2001/XMLSchema#integer> .
+<:sourceinfo/1> <https://rdf-vocabulary.ddialliance.org/sdtl#OriginalSourceText> "df = pd.read_csv('../data/df.csv')"^^<http://www.w3.org/2001/XMLSchema#string> .
 <:sourceinfo/2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#SourceInformation> .
-<:sourceinfo/2> <https://rdf-vocabulary.ddialliance.org/sdtl#originalSourceText> "df['A'] = 3"^^<http://www.w3.org/2001/XMLSchema#string> .
+<:sourceinfo/2> <https://rdf-vocabulary.ddialliance.org/sdtl#LineNumberStart> "8"^^<http://www.w3.org/2001/XMLSchema#integer> .
+<:sourceinfo/2> <https://rdf-vocabulary.ddialliance.org/sdtl#OriginalSourceText> "df['A'] = 3"^^<http://www.w3.org/2001/XMLSchema#string> .
 <:sourceinfo/3> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#SourceInformation> .
-<:sourceinfo/3> <https://rdf-vocabulary.ddialliance.org/sdtl#originalSourceText> "df['B'] = df.B + 6.5"^^<http://www.w3.org/2001/XMLSchema#string> .
+<:sourceinfo/3> <https://rdf-vocabulary.ddialliance.org/sdtl#LineNumberStart> "12"^^<http://www.w3.org/2001/XMLSchema#integer> .
+<:sourceinfo/3> <https://rdf-vocabulary.ddialliance.org/sdtl#OriginalSourceText> "df['B'] = df.B + 6.5"^^<http://www.w3.org/2001/XMLSchema#string> .
 <:sourceinfo/4> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#SourceInformation> .
-<:sourceinfo/4> <https://rdf-vocabulary.ddialliance.org/sdtl#originalSourceText> "df['C'] = df.A - df.B"^^<http://www.w3.org/2001/XMLSchema#string> .
+<:sourceinfo/4> <https://rdf-vocabulary.ddialliance.org/sdtl#LineNumberStart> "16"^^<http://www.w3.org/2001/XMLSchema#integer> .
+<:sourceinfo/4> <https://rdf-vocabulary.ddialliance.org/sdtl#OriginalSourceText> "df['C'] = df.A - df.B"^^<http://www.w3.org/2001/XMLSchema#string> .
 <:sourceinfo/5> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#SourceInformation> .
-<:sourceinfo/5> <https://rdf-vocabulary.ddialliance.org/sdtl#originalSourceText> "temps = pd.read_csv('../data/temps.csv')"^^<http://www.w3.org/2001/XMLSchema#string> .
+<:sourceinfo/5> <https://rdf-vocabulary.ddialliance.org/sdtl#LineNumberStart> "20"^^<http://www.w3.org/2001/XMLSchema#integer> .
+<:sourceinfo/5> <https://rdf-vocabulary.ddialliance.org/sdtl#OriginalSourceText> "temps = pd.read_csv('../data/temps.csv')"^^<http://www.w3.org/2001/XMLSchema#string> .
 <:sourceinfo/6> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#SourceInformation> .
-<:sourceinfo/6> <https://rdf-vocabulary.ddialliance.org/sdtl#originalSourceText> "temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))"^^<http://www.w3.org/2001/XMLSchema#string> .
+<:sourceinfo/6> <https://rdf-vocabulary.ddialliance.org/sdtl#LineNumberStart> "24"^^<http://www.w3.org/2001/XMLSchema#integer> .
+<:sourceinfo/6> <https://rdf-vocabulary.ddialliance.org/sdtl#OriginalSourceText> "temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))"^^<http://www.w3.org/2001/XMLSchema#string> .
 <:sourceinfo/7> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#SourceInformation> .
-<:sourceinfo/7> <https://rdf-vocabulary.ddialliance.org/sdtl#originalSourceText> "temps = temps.assign(Kelvin=(temps.Celsius + 273))"^^<http://www.w3.org/2001/XMLSchema#string> .
+<:sourceinfo/7> <https://rdf-vocabulary.ddialliance.org/sdtl#LineNumberStart> "28"^^<http://www.w3.org/2001/XMLSchema#integer> .
+<:sourceinfo/7> <https://rdf-vocabulary.ddialliance.org/sdtl#OriginalSourceText> "temps = temps.assign(Kelvin=(temps.Celsius + 273))"^^<http://www.w3.org/2001/XMLSchema#string> .
 <:sourceinfo/8> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#SourceInformation> .
-<:sourceinfo/8> <https://rdf-vocabulary.ddialliance.org/sdtl#originalSourceText> "df.to_csv('outputs/df_updated.csv', index=False)"^^<http://www.w3.org/2001/XMLSchema#string> .
+<:sourceinfo/8> <https://rdf-vocabulary.ddialliance.org/sdtl#LineNumberStart> "32"^^<http://www.w3.org/2001/XMLSchema#integer> .
+<:sourceinfo/8> <https://rdf-vocabulary.ddialliance.org/sdtl#OriginalSourceText> "df.to_csv('outputs/df_updated.csv', index=False)"^^<http://www.w3.org/2001/XMLSchema#string> .
 <:sourceinfo/9> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#SourceInformation> .
-<:sourceinfo/9> <https://rdf-vocabulary.ddialliance.org/sdtl#originalSourceText> "temps.to_csv('outputs/temps_updated.csv', index=False)"^^<http://www.w3.org/2001/XMLSchema#string> .
+<:sourceinfo/9> <https://rdf-vocabulary.ddialliance.org/sdtl#LineNumberStart> "35"^^<http://www.w3.org/2001/XMLSchema#integer> .
+<:sourceinfo/9> <https://rdf-vocabulary.ddialliance.org/sdtl#OriginalSourceText> "temps.to_csv('outputs/temps_updated.csv', index=False)"^^<http://www.w3.org/2001/XMLSchema#string> .
 <:variable/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableSymbolExpression> .
 <:variable/1> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableName> "A"^^<http://www.w3.org/2001/XMLSchema#string> .
 <:variable/3> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableSymbolExpression> .
