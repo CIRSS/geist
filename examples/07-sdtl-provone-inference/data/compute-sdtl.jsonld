@@ -64,7 +64,7 @@
           "@type": "sdtl:Compute",
           "sdtl:ConsumesDataframe": {"@id": "run:dataframe/2"},
           "sdtl:Variable": {
-            "@id": "run:variable/3",
+            "@id": "run:variable/2",
             "@type": "sdtl:VariableSymbolExpression",
             "sdtl:VariableName": "B"
           },

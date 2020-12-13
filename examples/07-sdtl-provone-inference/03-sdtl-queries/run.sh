@@ -89,14 +89,14 @@ blazegraph select --format table << __END_QUERY__
 
     PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
 
-    SELECT DISTINCT ?variable ?dataframe ?sourceline ?sourcetext
+    SELECT DISTINCT ?variablename ?dataframe ?sourceline ?sourcetext
     WHERE {
         ?program rdf:type sdtl:Program .
         ?program sdtl:Commands ?command .
         ?command rdf:type sdtl:Load .
         ?command sdtl:ProducesDataframe ?dataframedesc .
         ?dataframedesc sdtl:DataframeName ?dataframe .
-        ?dataframedesc sdtl:VariableInventory ?variable .
+        ?dataframedesc sdtl:VariableInventory ?variablename .
         ?command sdtl:SourceInformation ?sourceinfo .
         ?sourceinfo sdtl:LineNumberStart ?sourceline .
         ?sourceinfo sdtl:OriginalSourceText ?sourcetext .
@@ -114,18 +114,65 @@ blazegraph select --format table << __END_QUERY__
 
     PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
 
-    SELECT DISTINCT ?variable ?dataframe ?sourceline ?sourcetext
+    SELECT DISTINCT ?variablename ?dataframe ?sourceline ?sourcetext
     WHERE {
         ?program rdf:type sdtl:Program .
         ?program sdtl:Commands ?command .
         ?command rdf:type sdtl:Save .
         ?command sdtl:ProducesDataframe ?dataframedesc .
         ?dataframedesc sdtl:DataframeName ?dataframe .
-        ?dataframedesc sdtl:VariableInventory ?variable .
+        ?dataframedesc sdtl:VariableInventory ?variablename .
         ?command sdtl:SourceInformation ?sourceinfo .
         ?sourceinfo sdtl:LineNumberStart ?sourceline .
         ?sourceinfo sdtl:OriginalSourceText ?sourcetext .
     }
+
+__END_QUERY__
+
+END_SCRIPT
+
+
+
+bash ${RUNNER} Q6 "WHAT COMMANDS AFFECT EACH DATAFRAME?" << END_SCRIPT
+
+blazegraph select --format table << __END_QUERY__
+
+    PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
+
+    SELECT DISTINCT ?dataframe ?command ?sourceline ?sourcetext
+    WHERE {
+        ?program rdf:type sdtl:Program .
+        ?program sdtl:Commands ?command .
+        ?command sdtl:ProducesDataframe ?dataframedesc .
+        ?dataframedesc sdtl:DataframeName ?dataframe .
+        ?dataframedesc sdtl:VariableInventory ?variable .
+        ?command sdtl:SourceInformation ?sourceinfo .
+        ?sourceinfo sdtl:LineNumberStart ?sourceline .
+        ?sourceinfo sdtl:OriginalSourceText ?sourcetext .
+    } ORDER BY ?dataframe ?sourceline
+
+__END_QUERY__
+
+END_SCRIPT
+
+
+
+bash ${RUNNER} Q7 "WHAT COMMANDS AFFECT EACH VARIABLE?" << END_SCRIPT
+
+blazegraph select --format table << __END_QUERY__
+
+    PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
+
+    SELECT DISTINCT ?variablename ?command ?sourceline ?sourcetext
+    WHERE {
+        ?program rdf:type sdtl:Program .
+        ?program sdtl:Commands ?command .
+        ?command sdtl:Variable ?variable .
+        ?variable sdtl:VariableName ?variablename .
+        ?command sdtl:SourceInformation ?sourceinfo .
+        ?sourceinfo sdtl:LineNumberStart ?sourceline .
+        ?sourceinfo sdtl:OriginalSourceText ?sourcetext .
+    } ORDER BY ?variable ?sourceline
 
 __END_QUERY__
 

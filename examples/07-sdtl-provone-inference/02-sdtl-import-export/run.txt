@@ -99,7 +99,7 @@ blazegraph export --format nt | sort
 <:compute/2> <https://rdf-vocabulary.ddialliance.org/sdtl#Expression> <:expression/2> .
 <:compute/2> <https://rdf-vocabulary.ddialliance.org/sdtl#ProducesDataframe> <:dataframe/3> .
 <:compute/2> <https://rdf-vocabulary.ddialliance.org/sdtl#SourceInformation> <:sourceinfo/3> .
-<:compute/2> <https://rdf-vocabulary.ddialliance.org/sdtl#Variable> <:variable/3> .
+<:compute/2> <https://rdf-vocabulary.ddialliance.org/sdtl#Variable> <:variable/2> .
 <:compute/3> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#Compute> .
 <:compute/3> <https://rdf-vocabulary.ddialliance.org/sdtl#ConsumesDataframe> <:dataframe/3> .
 <:compute/3> <https://rdf-vocabulary.ddialliance.org/sdtl#Expression> <:expression/3> .
@@ -229,8 +229,9 @@ blazegraph export --format nt | sort
 <:sourceinfo/9> <https://rdf-vocabulary.ddialliance.org/sdtl#OriginalSourceText> "temps.to_csv('outputs/temps_updated.csv', index=False)"^^<http://www.w3.org/2001/XMLSchema#string> .
 <:variable/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableSymbolExpression> .
 <:variable/1> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableName> "A"^^<http://www.w3.org/2001/XMLSchema#string> .
+<:variable/2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableSymbolExpression> .
+<:variable/2> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableName> "B"^^<http://www.w3.org/2001/XMLSchema#string> .
 <:variable/3> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableSymbolExpression> .
-<:variable/3> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableName> "B"^^<http://www.w3.org/2001/XMLSchema#string> .
 <:variable/3> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableName> "C"^^<http://www.w3.org/2001/XMLSchema#string> .
 <:variable/4> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableSymbolExpression> .
 <:variable/4> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableName> "Celsius"^^<http://www.w3.org/2001/XMLSchema#string> .
