@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 RUNNER='../../common/run_script_example.sh'
+GRAPHER='../../common/run_dot_examples.sh'
 
 # *****************************************************************************
 
@@ -200,3 +201,56 @@ __END_QUERY__
 
 END_SCRIPT
 
+
+
+bash ${GRAPHER} GRAPH-1 "EMPTY DOT FILE" \
+    << '__END_SCRIPT__'
+
+blazegraph report << '__END_REPORT_TEMPLATE__'
+
+    {{{
+        {{ include "../../common/graphviz.g" }}
+
+        {{ prefix "sdtl" "https://rdf-vocabulary.ddialliance.org/sdtl#" }}
+
+        {{ query "sdtl_select_program" '''
+            SELECT ?p
+            WHERE {
+                ?p a sdtl:Program
+            }
+        ''' }}
+
+        {{ query "sdtl_select_commands" "ProgramID" '''
+            SELECT DISTINCT ?command ?source_text
+            WHERE {
+                $ProgramID sdtl:Commands ?command .
+                ?command sdtl:SourceInformation ?source_info .
+                ?source_info sdtl:OriginalSourceText ?source_text .
+            }
+        ''' }}
+    }}}
+
+    {{ gv_graph "sdtl_program" }}
+
+    {{ with $ProgramID := sdtl_select_program | value }}
+
+        node[shape=box style="filled" fillcolor="#CCFFCC" peripheries=1 fontname=Courier]
+
+        {{ range $Command := (sdtl_select_commands $ProgramID | rows ) }}
+            {{ gv_labeled_node (index $Command 0) (index $Command 1) }}
+        {{ end }}
+
+    {{ end }}
+
+    {{ gv_end }}
+
+__END_REPORT_TEMPLATE__
+
+__END_SCRIPT__
+
+# command nodes
+#{{ with $Commands := (select "SELECT ?c WHERE { ?c rdf:type sdtl:Commands . }" ) }}
+#    {{ range $Command := $Commands }}
+#        {{ gv_labeled_node $Command $Command }}
+#    {{ end }}
+#{{ end }}
