@@ -120,7 +120,7 @@ blazegraph select --format table << __END_QUERY__
         ?program rdf:type sdtl:Program .
         ?program sdtl:Commands ?command .
         ?command rdf:type sdtl:Save .
-        ?command sdtl:ProducesDataframe ?dataframe_description .
+        ?command sdtl:ConsumesDataframe ?dataframe_description .
         ?dataframe_description sdtl:DataframeName ?dataframe .
         ?dataframe_description sdtl:VariableInventory ?saved_variable .
         ?command sdtl:SourceInformation ?source_info .
@@ -213,12 +213,7 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
 
         {{ prefix "sdtl" "https://rdf-vocabulary.ddialliance.org/sdtl#" }}
 
-        {{ query "sdtl_select_program" '''
-            SELECT ?p
-            WHERE {
-                ?p a sdtl:Program
-            }
-        ''' }}
+        {{ query "sdtl_select_program" "SELECT ?p WHERE { ?p a sdtl:Program }" }}
 
         {{ query "sdtl_select_commands" "ProgramID" '''
             SELECT DISTINCT ?command ?source_text
@@ -228,29 +223,38 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
                 ?source_info sdtl:OriginalSourceText ?source_text .
             }
         ''' }}
+
+        {{ query "sdtl_select_dataframe_edges" "ProgramID" '''
+            SELECT DISTINCT ?upstream_command ?downstream_command
+            WHERE {
+                $ProgramID sdtl:Commands ?upstream_command .
+                ?upstream_command sdtl:ProducesDataframe ?dataframe .
+                ?downstream_command sdtl:ConsumesDataframe  ?dataframe .
+            }
+        ''' }}
+
     }}}
 
-    {{ gv_graph "sdtl_program" }}
+    {{ gv_graph "sdtl_program" }}                                                           \\
 
-    {{ with $ProgramID := sdtl_select_program | value }}
+    {{ with $ProgramID := sdtl_select_program | value }}                                    \\
 
-        node[shape=box style="filled" fillcolor="#CCFFCC" peripheries=1 fontname=Courier]
-
-        {{ range $Command := (sdtl_select_commands $ProgramID | rows ) }}
+        # command nodes
+        node[shape=box style="filled" fillcolor="#CCFFCC" peripheries=1
+            fontname=Courier width=8]
+        {{ range $Command := (sdtl_select_commands $ProgramID | rows ) }}                   \\
             {{ gv_labeled_node (index $Command 0) (index $Command 1) }}
-        {{ end }}
+        {{ end }}                                                                           \\
 
-    {{ end }}
-
-    {{ gv_end }}
+        # dataframe edges
+        {{ range $Edge := (sdtl_select_dataframe_edges $ProgramID | rows) }}                \\
+            {{ gv_edge (index $Edge 0) (index $Edge 1) }}
+        {{ end }}                                                                           \\
+                                                                                            \\
+    {{ end }}                                                                               \\
+                                                                                            \\
+    {{ gv_end }}                                                                            \\
 
 __END_REPORT_TEMPLATE__
 
 __END_SCRIPT__
-
-# command nodes
-#{{ with $Commands := (select "SELECT ?c WHERE { ?c rdf:type sdtl:Commands . }" ) }}
-#    {{ range $Command := $Commands }}
-#        {{ gv_labeled_node $Command $Command }}
-#    {{ end }}
-#{{ end }}

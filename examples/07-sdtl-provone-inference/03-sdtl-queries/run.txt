@@ -148,7 +148,7 @@ blazegraph select --format table << __END_QUERY__
         ?program rdf:type sdtl:Program .
         ?program sdtl:Commands ?command .
         ?command rdf:type sdtl:Save .
-        ?command sdtl:ProducesDataframe ?dataframe_description .
+        ?command sdtl:ConsumesDataframe ?dataframe_description .
         ?dataframe_description sdtl:DataframeName ?dataframe .
         ?dataframe_description sdtl:VariableInventory ?saved_variable .
         ?command sdtl:SourceInformation ?source_info .
@@ -200,11 +200,9 @@ df        | :load/1    | 4           | df = pd.read_csv('../data/df.csv')
 df        | :compute/1 | 8           | df['A'] = 3
 df        | :compute/2 | 12          | df['B'] = df.B + 6.5
 df        | :compute/3 | 16          | df['C'] = df.A - df.B
-df        | :save/1    | 32          | df.to_csv('outputs/df_updated.csv', index=False)
 temps     | :load/2    | 20          | temps = pd.read_csv('../data/temps.csv')
 temps     | :compute/4 | 24          | temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))
 temps     | :compute/5 | 28          | temps = temps.assign(Kelvin=(temps.Celsius + 273))
-temps     | :save/2    | 35          | temps.to_csv('outputs/temps_updated.csv', index=False)
 
 
 ******************************************* EXAMPLE Q7 ************************************************
@@ -282,12 +280,7 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
 
         {{ prefix "sdtl" "https://rdf-vocabulary.ddialliance.org/sdtl#" }}
 
-        {{ query "sdtl_select_program" '''
-            SELECT ?p
-            WHERE {
-                ?p a sdtl:Program
-            }
-        ''' }}
+        {{ query "sdtl_select_program" "SELECT ?p WHERE { ?p a sdtl:Program }" }}
 
         {{ query "sdtl_select_commands" "ProgramID" '''
             SELECT DISTINCT ?command ?source_text
@@ -297,51 +290,64 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
                 ?source_info sdtl:OriginalSourceText ?source_text .
             }
         ''' }}
+
+        {{ query "sdtl_select_dataframe_edges" "ProgramID" '''
+            SELECT DISTINCT ?upstream_command ?downstream_command
+            WHERE {
+                $ProgramID sdtl:Commands ?upstream_command .
+                ?upstream_command sdtl:ProducesDataframe ?dataframe .
+                ?downstream_command sdtl:ConsumesDataframe  ?dataframe .
+            }
+        ''' }}
+
     }}}
 
-    {{ gv_graph "sdtl_program" }}
+    {{ gv_graph "sdtl_program" }}                                                           \
 
-    {{ with $ProgramID := sdtl_select_program | value }}
+    {{ with $ProgramID := sdtl_select_program | value }}                                    \
 
-        node[shape=box style="filled" fillcolor="#CCFFCC" peripheries=1 fontname=Courier]
-        {{ range $Command := (sdtl_select_commands $ProgramID | rows ) }}
+        # command nodes
+        node[shape=box style="filled" fillcolor="#CCFFCC" peripheries=1
+            fontname=Courier width=8]
+        {{ range $Command := (sdtl_select_commands $ProgramID | rows ) }}                   \
             {{ gv_labeled_node (index $Command 0) (index $Command 1) }}
-        {{ end }}
+        {{ end }}                                                                           \
 
-    {{ end }}
-
-    {{ gv_end }}
+        # dataframe edges
+        {{ range $Edge := (sdtl_select_dataframe_edges $ProgramID | rows) }}                \
+            {{ gv_edge (index $Edge 0) (index $Edge 1) }}
+        {{ end }}                                                                           \
+                                                                                            \
+    {{ end }}                                                                               \
+                                                                                            \
+    {{ gv_end }}                                                                            \
 
 __END_REPORT_TEMPLATE__
 
 ----------------------------------------- GRAPH-1 DOT OUTPUT -----------------------------------------------
 
 digraph sdtl_program {
-rankdir=LR
+rankdir=TB
 
-
-
-node[shape=box style="filled" fillcolor="#CCFFCC" peripheries=1 fontname=Courier]
-
+# command nodes
+node[shape=box style="filled" fillcolor="#CCFFCC" peripheries=1
+fontname=Courier width=8]
 ":load/1" [label="df = pd.read_csv('../data/df.csv')"]
-
 ":compute/1" [label="df['A'] = 3"]
-
 ":compute/2" [label="df['B'] = df.B + 6.5"]
-
 ":compute/3" [label="df['C'] = df.A - df.B"]
-
 ":load/2" [label="temps = pd.read_csv('../data/temps.csv')"]
-
 ":compute/4" [label="temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))"]
-
 ":compute/5" [label="temps = temps.assign(Kelvin=(temps.Celsius + 273))"]
-
 ":save/1" [label="df.to_csv('outputs/df_updated.csv', index=False)"]
-
 ":save/2" [label="temps.to_csv('outputs/temps_updated.csv', index=False)"]
 
-
-
-
+# dataframe edges
+":compute/1" -> ":compute/2"
+":compute/2" -> ":compute/3"
+":compute/3" -> ":save/1"
+":compute/4" -> ":compute/5"
+":compute/5" -> ":save/2"
+":load/1" -> ":compute/1"
+":load/2" -> ":compute/4"
 }

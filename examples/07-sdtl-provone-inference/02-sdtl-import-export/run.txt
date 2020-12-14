@@ -193,14 +193,14 @@ blazegraph export --format nt | sort
 <:program/1> <https://rdf-vocabulary.ddialliance.org/sdtl#Commands> <:save/1> .
 <:program/1> <https://rdf-vocabulary.ddialliance.org/sdtl#Commands> <:save/2> .
 <:save/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#Save> .
+<:save/1> <https://rdf-vocabulary.ddialliance.org/sdtl#ConsumesDataframe> <:dataframe/4> .
 <:save/1> <https://rdf-vocabulary.ddialliance.org/sdtl#FileFormat> "csv"^^<http://www.w3.org/2001/XMLSchema#string> .
 <:save/1> <https://rdf-vocabulary.ddialliance.org/sdtl#FileName> "df_updated.csv"^^<http://www.w3.org/2001/XMLSchema#string> .
-<:save/1> <https://rdf-vocabulary.ddialliance.org/sdtl#ProducesDataframe> <:dataframe/4> .
 <:save/1> <https://rdf-vocabulary.ddialliance.org/sdtl#SourceInformation> <:sourceinfo/8> .
 <:save/2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#Save> .
+<:save/2> <https://rdf-vocabulary.ddialliance.org/sdtl#ConsumesDataframe> <:dataframe/7> .
 <:save/2> <https://rdf-vocabulary.ddialliance.org/sdtl#FileFormat> "csv"^^<http://www.w3.org/2001/XMLSchema#string> .
 <:save/2> <https://rdf-vocabulary.ddialliance.org/sdtl#FileName> "temps_updated.csv"^^<http://www.w3.org/2001/XMLSchema#string> .
-<:save/2> <https://rdf-vocabulary.ddialliance.org/sdtl#ProducesDataframe> <:dataframe/7> .
 <:save/2> <https://rdf-vocabulary.ddialliance.org/sdtl#SourceInformation> <:sourceinfo/9> .
 <:sourceinfo/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <sfdtl:SourceInformation> .
 <:sourceinfo/1> <https://rdf-vocabulary.ddialliance.org/sdtl#LineNumberStart> "4"^^<http://www.w3.org/2001/XMLSchema#integer> .
