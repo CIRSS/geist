@@ -1,6 +1,12 @@
 digraph sdtl_program {
 rankdir=TB
 
+fontname=Courier; fontsize=18; labelloc=t
+label="Dataframe-flow through commands"
+
+subgraph cluster_program_graph { label=""; color=white; penwidth=0
+subgraph cluster_program_graph_inner { label=""; color=white
+
 # command nodes
 node[shape=box style="filled" fillcolor="#CCFFCC" peripheries=1
 fontname=Courier width=8]
@@ -22,4 +28,6 @@ fontname=Courier width=8]
 ":compute/5" -> ":save/2"
 ":load/1" -> ":compute/1"
 ":load/2" -> ":compute/4"
+}}
+
 }

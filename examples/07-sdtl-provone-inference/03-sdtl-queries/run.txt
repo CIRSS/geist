@@ -271,7 +271,7 @@ Fahrenheit    | :compute/4 | 24          | temps = temps.assign(Celsius=((temps.
 
 ******************************************* EXAMPLE GRAPH-1 ************************************************
 
-# EMPTY DOT FILE
+# DATAFRAME FLOW THROUGH COMMANDS
 
 blazegraph report << '__END_REPORT_TEMPLATE__'
 
@@ -302,8 +302,12 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
 
     }}}
 
-    {{ gv_graph "sdtl_program" }}                                                           \
+    {{ gv_graph "sdtl_program" }}
 
+    {{ gv_title "Dataframe-flow through commands" }}
+
+    {{ gv_cluster "program_graph" }}
+                                                                                            \
     {{ with $ProgramID := sdtl_select_program | value }}                                    \
 
         # command nodes
@@ -320,6 +324,8 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
                                                                                             \
     {{ end }}                                                                               \
                                                                                             \
+    {{ gv_cluster_end }}
+
     {{ gv_end }}                                                                            \
 
 __END_REPORT_TEMPLATE__
@@ -328,6 +334,12 @@ __END_REPORT_TEMPLATE__
 
 digraph sdtl_program {
 rankdir=TB
+
+fontname=Courier; fontsize=18; labelloc=t
+label="Dataframe-flow through commands"
+
+subgraph cluster_program_graph { label=""; color=white; penwidth=0
+subgraph cluster_program_graph_inner { label=""; color=white
 
 # command nodes
 node[shape=box style="filled" fillcolor="#CCFFCC" peripheries=1
@@ -350,4 +362,6 @@ fontname=Courier width=8]
 ":compute/5" -> ":save/2"
 ":load/1" -> ":compute/1"
 ":load/2" -> ":compute/4"
+}}
+
 }

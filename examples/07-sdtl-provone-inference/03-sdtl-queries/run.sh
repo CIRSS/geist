@@ -203,7 +203,7 @@ END_SCRIPT
 
 
 
-bash ${GRAPHER} GRAPH-1 "EMPTY DOT FILE" \
+bash ${GRAPHER} GRAPH-1 "DATAFRAME FLOW THROUGH COMMANDS" \
     << '__END_SCRIPT__'
 
 blazegraph report << '__END_REPORT_TEMPLATE__'
@@ -235,8 +235,12 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
 
     }}}
 
-    {{ gv_graph "sdtl_program" }}                                                           \\
+    {{ gv_graph "sdtl_program" }}
 
+    {{ gv_title "Dataframe-flow through commands" }}
+
+    {{ gv_cluster "program_graph" }}
+                                                                                            \\
     {{ with $ProgramID := sdtl_select_program | value }}                                    \\
 
         # command nodes
@@ -253,6 +257,8 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
                                                                                             \\
     {{ end }}                                                                               \\
                                                                                             \\
+    {{ gv_cluster_end }}
+
     {{ gv_end }}                                                                            \\
 
 __END_REPORT_TEMPLATE__
