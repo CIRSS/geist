@@ -8,8 +8,9 @@ subgraph cluster_program_graph { label=""; color=white; penwidth=0
 subgraph cluster_program_graph_inner { label=""; color=white
 
 # command nodes
-node[shape=box style="filled" fillcolor="#CCFFCC" peripheries=1
-fontname=Courier width=8]
+node[shape=box style="filled" fillcolor="#CCFFCC" peripheries=1 fontname=Courier]
+node[width=8]
+
 ":load/1" [label="df = pd.read_csv('../data/df.csv')"]
 ":compute/1" [label="df['A'] = 3"]
 ":compute/2" [label="df['B'] = df.B + 6.5"]
