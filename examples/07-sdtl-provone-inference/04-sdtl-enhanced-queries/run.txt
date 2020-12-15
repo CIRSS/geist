@@ -711,10 +711,9 @@ blazegraph select --format table << __END_QUERY__
     WHERE {
         ?program rdf:type sdtl:Program .
         ?program sdtl:Commands ?directly_affecting_command .
-        ?directly_affecting_command sdtl:Variable/sdtl:VariableName "Kelvin"^^<http://www.w3.org/2001/XMLSchema#string> .
-        ?directly_affecting_command sdtl:OperatesOn/sdtl:VariableName ?directly_affecting_variable .
         ?program sdtl:Commands ?indirectly_affecting_command .
-        ?indirectly_affecting_command sdtl:Variable/sdtl:VariableName ?directly_affecting_variable .
+        ?directly_affecting_command sdtl:Variable/sdtl:VariableName "Kelvin"^^<http://www.w3.org/2001/XMLSchema#string> .
+        ?directly_affecting_command sdtl:OperatesOn/sdtl:VariableName/^sdtl:VariableName/^sdtl:Variable ?indirectly_affecting_command  .
         ?indirectly_affecting_command sdtl:OperatesOn/sdtl:VariableName ?indirectly_affecting_variable .
         ?indirectly_affecting_command sdtl:SourceInformation ?source_info .
         ?source_info sdtl:LineNumberStart ?source_line .
