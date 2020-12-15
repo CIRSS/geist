@@ -98,7 +98,7 @@ blazegraph select --format table << __END_QUERY__
 
     PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
 
-    SELECT DISTINCT ?indirectly_affecting_variable ?command ?source_line ?source_text
+    SELECT DISTINCT ?indirectly_affecting_variable ?indirectly_affecting_command ?source_line ?source_text
     WHERE {
         ?program rdf:type sdtl:Program .
         ?program sdtl:Commands ?directly_affecting_command .
