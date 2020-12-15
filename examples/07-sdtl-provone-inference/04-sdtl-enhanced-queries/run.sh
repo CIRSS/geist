@@ -91,6 +91,7 @@ __END_QUERY__
 END_SCRIPT
 
 
+
 bash ${RUNNER} Q3 "WHAT VARIABLES DIRECTLY AFFECTED VARIABLES THAT DIRECTLY AFFECTED THE KELVIN VARIABLE?" << END_SCRIPT
 
 blazegraph select --format table << __END_QUERY__
@@ -113,3 +114,23 @@ blazegraph select --format table << __END_QUERY__
 __END_QUERY__
 
 END_SCRIPT
+
+
+
+bash ${RUNNER} Q3 "WHAT VARIABLES DIRECTLY OR INDIRECTLY AFFECTED THE KELVIN VARIABLE?" << END_SCRIPT
+
+blazegraph select --format table << __END_QUERY__
+
+    PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
+
+    SELECT DISTINCT ?variable
+    WHERE {
+        ?program rdf:type sdtl:Program .
+        ?program sdtl:Commands ?command .
+        ?command sdtl:Variable/sdtl:VariableName "Kelvin"^^<http://www.w3.org/2001/XMLSchema#string> .
+        ?command sdtl:OperatesOn/sdtl:VariableName/(^sdtl:VariableName/^sdtl:Variable/sdtl:OperatesOn/sdtl:VariableName)* ?variable .
+    } ORDER BY ?variable
+
+__END_QUERY__
+
+# END_SCRIPT
