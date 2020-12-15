@@ -699,7 +699,7 @@ affecting_variable | command    | source_line | source_text
 Celsius            | :compute/5 | 28          | temps = temps.assign(Kelvin=(temps.Celsius + 273))
 
 
-******************************************* EXAMPLE Q3 ************************************************
+******************************************* EXAMPLE Q4 ************************************************
 
 # WHAT VARIABLES DIRECTLY AFFECTED VARIABLES THAT DIRECTLY AFFECTED THE KELVIN VARIABLE?
 
@@ -722,14 +722,14 @@ blazegraph select --format table << __END_QUERY__
 
 __END_QUERY__
 
-------------------------------------------- Q3 OUTPUTS ------------------------------------------------
+------------------------------------------- Q4 OUTPUTS ------------------------------------------------
 
 indirectly_affecting_variable | command | source_line | source_text
 ======================================================================================
 Fahrenheit                    |         | 24          | temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))
 
 
-******************************************* EXAMPLE Q3 ************************************************
+******************************************* EXAMPLE Q5 ************************************************
 
 # WHAT VARIABLES DIRECTLY OR INDIRECTLY AFFECTED THE KELVIN VARIABLE?
 
@@ -748,7 +748,7 @@ blazegraph select --format table << __END_QUERY__
 __END_QUERY__
 
 # END_SCRIPT
-------------------------------------------- Q3 OUTPUTS ------------------------------------------------
+------------------------------------------- Q5 OUTPUTS ------------------------------------------------
 
 variable
 =========
