@@ -203,6 +203,29 @@ END_SCRIPT
 
 
 
+bash ${RUNNER} Q9 "WHAT VARIABLES WERE DIRECTLY AFFECTED BY OTHER VARIABLES?" << END_SCRIPT
+
+blazegraph select --format table << __END_QUERY__
+
+    PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
+
+    SELECT DISTINCT ?affected_variable ?affecting_variable ?command ?source_line ?source_text
+    WHERE {
+        ?program rdf:type sdtl:Program .
+        ?program sdtl:Commands ?command .
+        ?command sdtl:Variable/sdtl:VariableName ?affected_variable .
+        ?command sdtl:Expression ?expression .
+        ?expression (sdtl:Arguments/sdtl:ArgumentValue)+/sdtl:VariableName ?affecting_variable .
+        ?command sdtl:SourceInformation ?source_info .
+        ?source_info sdtl:LineNumberStart ?source_line .
+        ?source_info sdtl:OriginalSourceText ?source_text .
+    } ORDER BY ?affected_variable ?affecting_variable ?source_line
+
+__END_QUERY__
+
+END_SCRIPT
+
+
 bash ${GRAPHER} GRAPH-1 "DATAFRAME FLOW THROUGH COMMANDS" \
     << '__END_SCRIPT__'
 
