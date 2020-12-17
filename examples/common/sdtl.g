@@ -17,11 +17,12 @@
 ''' }}
 
 {{ query "sdtl_select_dataframe_edges" "ProgramID" '''
-    SELECT DISTINCT ?upstream_command ?downstream_command
+    SELECT DISTINCT ?upstream_command ?downstream_command ?dataframe ?dataframe_name
     WHERE {
         $ProgramID sdtl:Commands ?upstream_command .
         ?upstream_command sdtl:ProducesDataframe ?dataframe .
         ?downstream_command sdtl:ConsumesDataframe  ?dataframe .
+        ?dataframe sdtl:DataframeName ?dataframe_name
     }
 ''' }}
 

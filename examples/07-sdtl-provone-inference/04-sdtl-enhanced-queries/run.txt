@@ -747,7 +747,6 @@ blazegraph select --format table << __END_QUERY__
 
 __END_QUERY__
 
-# END_SCRIPT
 ------------------------------------------- Q5 OUTPUTS ------------------------------------------------
 
 variable
@@ -755,3 +754,79 @@ variable
 Celsius
 Fahrenheit
 
+
+******************************************* EXAMPLE GRAPH-1 ************************************************
+
+# DATAFRAME FLOW THROUGH COMMANDS
+
+blazegraph report << '__END_REPORT_TEMPLATE__'
+
+    {{{
+        {{ include "../../common/graphviz.g" }}
+        {{ include "../../common/sdtl.g" }}
+    }}}
+
+    {{ gv_graph "sdtl_program" }}
+
+    {{ gv_title "Dataframe-flow through commands" }}
+
+    {{ gv_cluster "program_graph" }}
+
+    # command nodes
+    {{ sdtl_program_node_style }}
+    node[width=8]
+    {{ with $ProgramID := sdtl_select_program | value }}                                    \
+
+        {{ range $Command := (sdtl_select_commands $ProgramID | rows ) }}                   \
+            {{ gv_labeled_node (index $Command 0) (index $Command 1) }}
+        {{ end }}                                                                           \
+
+        # dataframe edges
+        {{ range $Edge := (sdtl_select_dataframe_edges $ProgramID | rows) }}                \
+            {{ gv_labeled_edge (index $Edge 0) (index $Edge 1) (index $Edge 3) }}
+        {{ end }}                                                                           \
+                                                                                            \
+    {{ end }}                                                                               \
+                                                                                            \
+    {{ gv_cluster_end }}
+
+    {{ gv_end }}                                                                            \
+
+__END_REPORT_TEMPLATE__
+
+----------------------------------------- GRAPH-1 DOT OUTPUT -----------------------------------------------
+
+digraph sdtl_program {
+rankdir=TB
+
+fontname=Courier; fontsize=18; labelloc=t
+label="Dataframe-flow through commands"
+
+subgraph cluster_program_graph { label=""; color=white; penwidth=0
+subgraph cluster_program_graph_inner { label=""; color=white
+
+# command nodes
+node[shape=box style="filled" fillcolor="#CCFFCC" peripheries=1 fontname=Courier]
+node[width=8]
+
+":load/1" [label="df = pd.read_csv('../data/df.csv')"]
+":compute/1" [label="df['A'] = 3"]
+":compute/2" [label="df['B'] = df.B + 6.5"]
+":compute/3" [label="df['C'] = df.A - df.B"]
+":load/2" [label="temps = pd.read_csv('../data/temps.csv')"]
+":compute/4" [label="temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))"]
+":compute/5" [label="temps = temps.assign(Kelvin=(temps.Celsius + 273))"]
+":save/1" [label="df.to_csv('outputs/df_updated.csv', index=False)"]
+":save/2" [label="temps.to_csv('outputs/temps_updated.csv', index=False)"]
+
+# dataframe edges
+":compute/1" -> ":compute/2" [label="df"]
+":compute/2" -> ":compute/3" [label="df"]
+":compute/3" -> ":save/1" [label="df"]
+":compute/4" -> ":compute/5" [label="temps"]
+":compute/5" -> ":save/2" [label="temps"]
+":load/1" -> ":compute/1" [label="df"]
+":load/2" -> ":compute/4" [label="temps"]
+}}
+
+}

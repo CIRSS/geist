@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 RUNNER='../../common/run_script_example.sh'
+GRAPHER='../../common/run_dot_examples.sh'
 
 # *****************************************************************************
 
@@ -13,7 +14,7 @@ blazegraph import --format jsonld --file ../data/compute-sdtl.jsonld
 
 END_SCRIPT
 
-
+# *****************************************************************************
 
 bash ${RUNNER} E1 "EXPORT AS N-TRIPLES" << END_SCRIPT
 
@@ -21,7 +22,7 @@ blazegraph export --format nt | sort
 
 END_SCRIPT
 
-
+# *****************************************************************************
 
 bash ${RUNNER} Q1 "WHAT COMMANDS USE EACH VARIABLE?" << END_SCRIPT
 
@@ -44,7 +45,7 @@ __END_QUERY__
 
 END_SCRIPT
 
-
+# *****************************************************************************
 
 bash ${RUNNER} Q2 "WHAT VARIABLES WERE DIRECTLY AFFECTED BY OTHER VARIABLES?" << END_SCRIPT
 
@@ -67,7 +68,7 @@ __END_QUERY__
 
 END_SCRIPT
 
-
+# *****************************************************************************
 
 bash ${RUNNER} Q3 "WHAT VARIABLES DIRECTLY AFFECTED THE KELVIN VARIABLE?" << END_SCRIPT
 
@@ -90,7 +91,7 @@ __END_QUERY__
 
 END_SCRIPT
 
-
+# *****************************************************************************
 
 bash ${RUNNER} Q4 "WHAT VARIABLES DIRECTLY AFFECTED VARIABLES THAT DIRECTLY AFFECTED THE KELVIN VARIABLE?" << END_SCRIPT
 
@@ -115,7 +116,7 @@ __END_QUERY__
 
 END_SCRIPT
 
-
+# *****************************************************************************
 
 bash ${RUNNER} Q5 "WHAT VARIABLES DIRECTLY OR INDIRECTLY AFFECTED THE KELVIN VARIABLE?" << END_SCRIPT
 
@@ -133,4 +134,46 @@ blazegraph select --format table << __END_QUERY__
 
 __END_QUERY__
 
-# END_SCRIPT
+END_SCRIPT
+
+# *****************************************************************************
+
+bash ${GRAPHER} GRAPH-1 "DATAFRAME FLOW THROUGH COMMANDS" \
+    << '__END_SCRIPT__'
+
+blazegraph report << '__END_REPORT_TEMPLATE__'
+
+    {{{
+        {{ include "../../common/graphviz.g" }}
+        {{ include "../../common/sdtl.g" }}
+    }}}
+
+    {{ gv_graph "sdtl_program" }}
+
+    {{ gv_title "Dataframe-flow through commands" }}
+
+    {{ gv_cluster "program_graph" }}
+
+    # command nodes
+    {{ sdtl_program_node_style }}
+    node[width=8]
+    {{ with $ProgramID := sdtl_select_program | value }}                                    \\
+
+        {{ range $Command := (sdtl_select_commands $ProgramID | rows ) }}                   \\
+            {{ gv_labeled_node (index $Command 0) (index $Command 1) }}
+        {{ end }}                                                                           \\
+
+        # dataframe edges
+        {{ range $Edge := (sdtl_select_dataframe_edges $ProgramID | rows) }}                \\
+            {{ gv_labeled_edge (index $Edge 0) (index $Edge 1) (index $Edge 3) }}
+        {{ end }}                                                                           \\
+                                                                                            \\
+    {{ end }}                                                                               \\
+                                                                                            \\
+    {{ gv_cluster_end }}
+
+    {{ gv_end }}                                                                            \\
+
+__END_REPORT_TEMPLATE__
+
+__END_SCRIPT__

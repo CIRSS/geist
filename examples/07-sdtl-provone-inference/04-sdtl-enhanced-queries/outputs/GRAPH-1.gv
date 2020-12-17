@@ -1,0 +1,34 @@
+digraph sdtl_program {
+rankdir=TB
+
+fontname=Courier; fontsize=18; labelloc=t
+label="Dataframe-flow through commands"
+
+subgraph cluster_program_graph { label=""; color=white; penwidth=0
+subgraph cluster_program_graph_inner { label=""; color=white
+
+# command nodes
+node[shape=box style="filled" fillcolor="#CCFFCC" peripheries=1 fontname=Courier]
+node[width=8]
+
+":load/1" [label="df = pd.read_csv('../data/df.csv')"]
+":compute/1" [label="df['A'] = 3"]
+":compute/2" [label="df['B'] = df.B + 6.5"]
+":compute/3" [label="df['C'] = df.A - df.B"]
+":load/2" [label="temps = pd.read_csv('../data/temps.csv')"]
+":compute/4" [label="temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))"]
+":compute/5" [label="temps = temps.assign(Kelvin=(temps.Celsius + 273))"]
+":save/1" [label="df.to_csv('outputs/df_updated.csv', index=False)"]
+":save/2" [label="temps.to_csv('outputs/temps_updated.csv', index=False)"]
+
+# dataframe edges
+":compute/1" -> ":compute/2" [label="df"]
+":compute/2" -> ":compute/3" [label="df"]
+":compute/3" -> ":save/1" [label="df"]
+":compute/4" -> ":compute/5" [label="temps"]
+":compute/5" -> ":save/2" [label="temps"]
+":load/1" -> ":compute/1" [label="df"]
+":load/2" -> ":compute/4" [label="temps"]
+}}
+
+}

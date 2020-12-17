@@ -30,3 +30,7 @@
     "{{$Tail}}" -> "{{$Head}}"
 ''' }}
 
+{{ macro "gv_labeled_edge" "Tail" "Head" "EdgeLabel" '''
+    "{{$Tail}}" -> "{{$Head}}" [label="{{$EdgeLabel}}"]
+''' }}
+
