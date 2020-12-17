@@ -34,7 +34,7 @@ blazegraph select --format table << __END_QUERY__
     WHERE {
         ?program rdf:type sdtl:Program .
         ?program sdtl:Commands ?commandinventory .
-        ?commandinventory ?index ?command .
+        ?commandinventory rdfs:member ?command .
         ?command sdtl:OperatesOn ?operand .
         ?operand sdtl:VariableName ?used_variable .
         ?command sdtl:SourceInformation ?source_info .
@@ -58,7 +58,7 @@ blazegraph select --format table << __END_QUERY__
     WHERE {
         ?program rdf:type sdtl:Program .
         ?program sdtl:Commands ?commandinventory .
-        ?commandinventory ?index ?command .
+        ?commandinventory rdfs:member ?command .
         ?command sdtl:Variable/sdtl:VariableName ?affected_variable .
         ?command sdtl:OperatesOn/sdtl:VariableName ?affecting_variable .
         ?command sdtl:SourceInformation ?source_info .
@@ -82,7 +82,7 @@ blazegraph select --format table << __END_QUERY__
     WHERE {
         ?program rdf:type sdtl:Program .
         ?program sdtl:Commands ?commandinventory .
-        ?commandinventory ?index ?command .
+        ?commandinventory rdfs:member ?command .
         ?command sdtl:Variable/sdtl:VariableName "Kelvin"^^<http://www.w3.org/2001/XMLSchema#string> .
         ?command sdtl:OperatesOn/sdtl:VariableName ?affecting_variable .
         ?command sdtl:SourceInformation ?source_info .
@@ -107,8 +107,8 @@ blazegraph select --format table << __END_QUERY__
         ?program rdf:type sdtl:Program .
 
         ?program sdtl:Commands ?commandinventory .
-        ?commandinventory ?index1 ?directly_affecting_command .
-        ?commandinventory ?index2 ?indirectly_affecting_command .
+        ?commandinventory rdfs:member ?directly_affecting_command .
+        ?commandinventory rdfs:member ?indirectly_affecting_command .
         ?directly_affecting_command sdtl:Variable/sdtl:VariableName "Kelvin"^^<http://www.w3.org/2001/XMLSchema#string> .
         ?directly_affecting_command sdtl:OperatesOn/sdtl:VariableName/^sdtl:VariableName/^sdtl:Variable ?indirectly_affecting_command  .
         ?indirectly_affecting_command sdtl:OperatesOn/sdtl:VariableName ?indirectly_affecting_variable .
@@ -133,7 +133,7 @@ blazegraph select --format table << __END_QUERY__
     WHERE {
         ?program rdf:type sdtl:Program .
         ?program sdtl:Commands ?commandinventory .
-        ?commandinventory ?index ?command .
+        ?commandinventory rdfs:member ?command .
         ?command sdtl:Variable/sdtl:VariableName "Kelvin"^^<http://www.w3.org/2001/XMLSchema#string> .
         ?command sdtl:OperatesOn/sdtl:VariableName/(^sdtl:VariableName/^sdtl:Variable/sdtl:OperatesOn/sdtl:VariableName)* ?variable .
     } ORDER BY ?variable

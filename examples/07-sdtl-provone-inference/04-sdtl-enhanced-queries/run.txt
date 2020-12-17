@@ -138,6 +138,15 @@ blazegraph export --format nt | sort
 <:commandinventory/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#_9> <:save/2> .
 <:commandinventory/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq> .
 <:commandinventory/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Container> .
+<:commandinventory/1> <http://www.w3.org/2000/01/rdf-schema#member> <:compute/1> .
+<:commandinventory/1> <http://www.w3.org/2000/01/rdf-schema#member> <:compute/2> .
+<:commandinventory/1> <http://www.w3.org/2000/01/rdf-schema#member> <:compute/3> .
+<:commandinventory/1> <http://www.w3.org/2000/01/rdf-schema#member> <:compute/4> .
+<:commandinventory/1> <http://www.w3.org/2000/01/rdf-schema#member> <:compute/5> .
+<:commandinventory/1> <http://www.w3.org/2000/01/rdf-schema#member> <:load/1> .
+<:commandinventory/1> <http://www.w3.org/2000/01/rdf-schema#member> <:load/2> .
+<:commandinventory/1> <http://www.w3.org/2000/01/rdf-schema#member> <:save/1> .
+<:commandinventory/1> <http://www.w3.org/2000/01/rdf-schema#member> <:save/2> .
 <:compute/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#Compute> .
 <:compute/1> <https://rdf-vocabulary.ddialliance.org/sdtl#ConsumesDataframe> <:dataframe/1> .
 <:compute/1> <https://rdf-vocabulary.ddialliance.org/sdtl#Expression> <:expression/1> .
@@ -376,22 +385,31 @@ blazegraph export --format nt | sort
 <http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2000/01/rdf-schema#Resource> .
 <http://www.w3.org/1999/02/22-rdf-syntax-ns#_1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
 <http://www.w3.org/1999/02/22-rdf-syntax-ns#_1> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/1999/02/22-rdf-syntax-ns#_1> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#_1> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/2000/01/rdf-schema#member> .
 <http://www.w3.org/1999/02/22-rdf-syntax-ns#_2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
 <http://www.w3.org/1999/02/22-rdf-syntax-ns#_2> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/1999/02/22-rdf-syntax-ns#_2> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#_2> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/2000/01/rdf-schema#member> .
 <http://www.w3.org/1999/02/22-rdf-syntax-ns#_3> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
 <http://www.w3.org/1999/02/22-rdf-syntax-ns#_3> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/1999/02/22-rdf-syntax-ns#_3> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#_3> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/2000/01/rdf-schema#member> .
 <http://www.w3.org/1999/02/22-rdf-syntax-ns#_4> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
 <http://www.w3.org/1999/02/22-rdf-syntax-ns#_4> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/1999/02/22-rdf-syntax-ns#_4> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#_4> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/2000/01/rdf-schema#member> .
 <http://www.w3.org/1999/02/22-rdf-syntax-ns#_5> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
 <http://www.w3.org/1999/02/22-rdf-syntax-ns#_5> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/1999/02/22-rdf-syntax-ns#_5> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#_5> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/2000/01/rdf-schema#member> .
 <http://www.w3.org/1999/02/22-rdf-syntax-ns#_6> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
 <http://www.w3.org/1999/02/22-rdf-syntax-ns#_6> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/1999/02/22-rdf-syntax-ns#_6> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#_6> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/2000/01/rdf-schema#member> .
 <http://www.w3.org/1999/02/22-rdf-syntax-ns#_7> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
 <http://www.w3.org/1999/02/22-rdf-syntax-ns#_7> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/1999/02/22-rdf-syntax-ns#_7> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#_7> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/2000/01/rdf-schema#member> .
 <http://www.w3.org/1999/02/22-rdf-syntax-ns#_8> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
 <http://www.w3.org/1999/02/22-rdf-syntax-ns#_8> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/1999/02/22-rdf-syntax-ns#_8> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#_8> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/2000/01/rdf-schema#member> .
 <http://www.w3.org/1999/02/22-rdf-syntax-ns#_9> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
 <http://www.w3.org/1999/02/22-rdf-syntax-ns#_9> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/1999/02/22-rdf-syntax-ns#_9> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#_9> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/2000/01/rdf-schema#member> .
 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Resource> .
 <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/1999/02/22-rdf-syntax-ns#List> .
@@ -640,7 +658,7 @@ blazegraph select --format table << __END_QUERY__
     WHERE {
         ?program rdf:type sdtl:Program .
         ?program sdtl:Commands ?commandinventory .
-        ?commandinventory ?index ?command .
+        ?commandinventory rdfs:member ?command .
         ?command sdtl:OperatesOn ?operand .
         ?operand sdtl:VariableName ?used_variable .
         ?command sdtl:SourceInformation ?source_info .
@@ -673,7 +691,7 @@ blazegraph select --format table << __END_QUERY__
     WHERE {
         ?program rdf:type sdtl:Program .
         ?program sdtl:Commands ?commandinventory .
-        ?commandinventory ?index ?command .
+        ?commandinventory rdfs:member ?command .
         ?command sdtl:Variable/sdtl:VariableName ?affected_variable .
         ?command sdtl:OperatesOn/sdtl:VariableName ?affecting_variable .
         ?command sdtl:SourceInformation ?source_info .
@@ -706,7 +724,7 @@ blazegraph select --format table << __END_QUERY__
     WHERE {
         ?program rdf:type sdtl:Program .
         ?program sdtl:Commands ?commandinventory .
-        ?commandinventory ?index ?command .
+        ?commandinventory rdfs:member ?command .
         ?command sdtl:Variable/sdtl:VariableName "Kelvin"^^<http://www.w3.org/2001/XMLSchema#string> .
         ?command sdtl:OperatesOn/sdtl:VariableName ?affecting_variable .
         ?command sdtl:SourceInformation ?source_info .
@@ -736,8 +754,8 @@ blazegraph select --format table << __END_QUERY__
         ?program rdf:type sdtl:Program .
 
         ?program sdtl:Commands ?commandinventory .
-        ?commandinventory ?index1 ?directly_affecting_command .
-        ?commandinventory ?index2 ?indirectly_affecting_command .
+        ?commandinventory rdfs:member ?directly_affecting_command .
+        ?commandinventory rdfs:member ?indirectly_affecting_command .
         ?directly_affecting_command sdtl:Variable/sdtl:VariableName "Kelvin"^^<http://www.w3.org/2001/XMLSchema#string> .
         ?directly_affecting_command sdtl:OperatesOn/sdtl:VariableName/^sdtl:VariableName/^sdtl:Variable ?indirectly_affecting_command  .
         ?indirectly_affecting_command sdtl:OperatesOn/sdtl:VariableName ?indirectly_affecting_variable .
@@ -767,7 +785,7 @@ blazegraph select --format table << __END_QUERY__
     WHERE {
         ?program rdf:type sdtl:Program .
         ?program sdtl:Commands ?commandinventory .
-        ?commandinventory ?index ?command .
+        ?commandinventory rdfs:member ?command .
         ?command sdtl:Variable/sdtl:VariableName "Kelvin"^^<http://www.w3.org/2001/XMLSchema#string> .
         ?command sdtl:OperatesOn/sdtl:VariableName/(^sdtl:VariableName/^sdtl:Variable/sdtl:OperatesOn/sdtl:VariableName)* ?variable .
     } ORDER BY ?variable

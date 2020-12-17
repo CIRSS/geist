@@ -4,7 +4,7 @@
 # IMPORT SDTL
 
 blazegraph destroy --dataset kb
-blazegraph create --dataset kb --infer owl
+blazegraph create --dataset kb
 blazegraph import --format jsonld --file ../data/compute-sdtl.jsonld
 
 ------------------------------------------- SETUP OUTPUTS ------------------------------------------------

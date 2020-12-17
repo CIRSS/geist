@@ -8,6 +8,16 @@ sdtl:Arguments rdfs:subPropertyOf sdtl:OperatesOn .
 sdtl:ArgumentValue rdfs:subPropertyOf sdtl:OperatesOn .
 sdtl:OperatesOn rdf:type owl:TransitiveProperty .
 
+rdf:_1 rdfs:subPropertyOf rdfs:member .
+rdf:_2 rdfs:subPropertyOf rdfs:member .
+rdf:_3 rdfs:subPropertyOf rdfs:member .
+rdf:_4 rdfs:subPropertyOf rdfs:member .
+rdf:_5 rdfs:subPropertyOf rdfs:member .
+rdf:_6 rdfs:subPropertyOf rdfs:member .
+rdf:_7 rdfs:subPropertyOf rdfs:member .
+rdf:_8 rdfs:subPropertyOf rdfs:member .
+rdf:_9 rdfs:subPropertyOf rdfs:member .
+
 #wt:ChildProcessOf owl:equivalentProperty provone:wasPartOf .
 #wt:DataFile rdfs:subClassOf provone:Data .
 #prov:wasGeneratedBy owl:inverseOf prov:generated .
