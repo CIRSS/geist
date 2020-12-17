@@ -90,7 +90,7 @@ blazegraph export --format nt | sort
 <:commandinventory/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#_7> <:compute/5> .
 <:commandinventory/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#_8> <:save/1> .
 <:commandinventory/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#_9> <:save/2> .
-<:commandinventory/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#seq> .
+<:commandinventory/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq> .
 <:compute/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#Compute> .
 <:compute/1> <https://rdf-vocabulary.ddialliance.org/sdtl#ConsumesDataframe> <:dataframe/1> .
 <:compute/1> <https://rdf-vocabulary.ddialliance.org/sdtl#Expression> <:expression/1> .

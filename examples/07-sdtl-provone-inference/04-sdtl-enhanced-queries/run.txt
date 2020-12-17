@@ -136,7 +136,8 @@ blazegraph export --format nt | sort
 <:commandinventory/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#_7> <:compute/5> .
 <:commandinventory/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#_8> <:save/1> .
 <:commandinventory/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#_9> <:save/2> .
-<:commandinventory/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#seq> .
+<:commandinventory/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq> .
+<:commandinventory/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Container> .
 <:compute/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#Compute> .
 <:compute/1> <https://rdf-vocabulary.ddialliance.org/sdtl#ConsumesDataframe> <:dataframe/1> .
 <:compute/1> <https://rdf-vocabulary.ddialliance.org/sdtl#Expression> <:expression/1> .
@@ -413,9 +414,6 @@ blazegraph export --format nt | sort
 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/1999/02/22-rdf-syntax-ns#List> .
 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/1999/02/22-rdf-syntax-ns#List> .
 <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> .
-<http://www.w3.org/1999/02/22-rdf-syntax-ns#seq> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Class> .
-<http://www.w3.org/1999/02/22-rdf-syntax-ns#seq> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/1999/02/22-rdf-syntax-ns#seq> .
-<http://www.w3.org/1999/02/22-rdf-syntax-ns#seq> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2000/01/rdf-schema#Resource> .
 <http://www.w3.org/1999/02/22-rdf-syntax-ns#subject> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
 <http://www.w3.org/1999/02/22-rdf-syntax-ns#subject> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Resource> .
 <http://www.w3.org/1999/02/22-rdf-syntax-ns#subject> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement> .

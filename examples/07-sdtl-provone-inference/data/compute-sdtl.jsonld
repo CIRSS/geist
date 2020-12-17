@@ -16,7 +16,7 @@
       "sdtl:Commands": [
         {
           "@id": "run:commandinventory/1",
-          "@type": "rdf:seq",
+          "@type": "rdf:Seq",
           "rdf:_1": {
             "@id": "run:load/1",
             "@type": "sdtl:Load",
