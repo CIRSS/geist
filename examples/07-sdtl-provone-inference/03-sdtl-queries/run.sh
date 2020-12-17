@@ -8,7 +8,7 @@ GRAPHER='../../common/run_dot_examples.sh'
 bash ${RUNNER} SETUP "IMPORT SDTL" << END_SCRIPT
 
 blazegraph destroy --dataset kb
-blazegraph create --dataset kb
+blazegraph create --dataset kb --infer owl
 blazegraph import --format jsonld --file ../data/compute-sdtl.jsonld
 
 END_SCRIPT
@@ -22,15 +22,18 @@ bash ${RUNNER} Q1 "WHAT COMMANDS ARE EXECUTED BY THE SCRIPT?" << END_SCRIPT
 blazegraph select --format table << __END_QUERY__
 
     PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
+    PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+    PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
     SELECT DISTINCT ?command ?source_line ?source_text
     WHERE {
         ?program rdf:type sdtl:Program .
-        ?program sdtl:Commands ?command .
+        ?program sdtl:Commands ?commandinventory .
+        ?commandinventory ?index ?command .
         ?command sdtl:SourceInformation ?source_info .
         ?source_info sdtl:LineNumberStart ?source_line .
         ?source_info sdtl:OriginalSourceText ?source_text .
-    } ORDER BY ?line
+    } ORDER BY ?source_line
 
 __END_QUERY__
 
@@ -47,7 +50,8 @@ blazegraph select --format table << __END_QUERY__
     SELECT DISTINCT ?file_name ?command ?source_line ?source_text
     WHERE {
         ?program rdf:type sdtl:Program .
-        ?program sdtl:Commands ?command .
+        ?program sdtl:Commands ?commandinventory .
+        ?commandinventory ?index ?command .
         ?command rdf:type sdtl:Load .
         ?command sdtl:FileName ?file_name .
         ?command sdtl:SourceInformation ?source_info .
@@ -70,7 +74,8 @@ blazegraph select --format table << __END_QUERY__
     SELECT DISTINCT ?file_name ?command ?source_line ?source_text
     WHERE {
         ?program rdf:type sdtl:Program .
-        ?program sdtl:Commands ?command .
+        ?program sdtl:Commands ?commandinventory .
+        ?commandinventory ?index ?command .
         ?command rdf:type sdtl:Save .
         ?command sdtl:FileName ?file_name .
         ?command sdtl:SourceInformation ?source_info .
@@ -93,7 +98,8 @@ blazegraph select --format table << __END_QUERY__
     SELECT DISTINCT ?loaded_variable ?dataframe ?source_line ?source_text
     WHERE {
         ?program rdf:type sdtl:Program .
-        ?program sdtl:Commands ?command .
+        ?program sdtl:Commands ?commandinventory .
+        ?commandinventory ?index ?command .
         ?command rdf:type sdtl:Load .
         ?command sdtl:ProducesDataframe ?dataframe_description .
         ?dataframe_description sdtl:DataframeName ?dataframe .
@@ -118,7 +124,8 @@ blazegraph select --format table << __END_QUERY__
     SELECT DISTINCT ?saved_variable ?dataframe ?source_line ?source_text
     WHERE {
         ?program rdf:type sdtl:Program .
-        ?program sdtl:Commands ?command .
+        ?program sdtl:Commands ?commandinventory .
+        ?commandinventory ?index ?command .
         ?command rdf:type sdtl:Save .
         ?command sdtl:ConsumesDataframe ?dataframe_description .
         ?dataframe_description sdtl:DataframeName ?dataframe .
@@ -143,7 +150,8 @@ blazegraph select --format table << __END_QUERY__
     SELECT DISTINCT ?dataframe ?command ?source_line ?source_text
     WHERE {
         ?program rdf:type sdtl:Program .
-        ?program sdtl:Commands ?command .
+        ?program sdtl:Commands ?commandinventory .
+        ?commandinventory ?index ?command .
         ?command sdtl:ProducesDataframe ?dataframe_description .
         ?dataframe_description sdtl:DataframeName ?dataframe .
         ?dataframe_description sdtl:VariableInventory ?variable .
@@ -167,7 +175,8 @@ blazegraph select --format table << __END_QUERY__
     SELECT DISTINCT ?updated_variable ?command ?source_line ?source_text
     WHERE {
         ?program rdf:type sdtl:Program .
-        ?program sdtl:Commands ?command .
+        ?program sdtl:Commands ?commandinventory .
+        ?commandinventory ?index ?command .
         ?command sdtl:Variable ?variable .
         ?variable sdtl:VariableName ?updated_variable .
         ?command sdtl:SourceInformation ?source_info .
@@ -189,7 +198,8 @@ blazegraph select --format table << __END_QUERY__
     SELECT DISTINCT ?used_variable ?command ?source_line ?source_text
     WHERE {
         ?program rdf:type sdtl:Program .
-        ?program sdtl:Commands ?command .
+        ?program sdtl:Commands ?commandinventory .
+        ?commandinventory ?index ?command .
         ?command sdtl:Expression ?expression .
         ?expression (sdtl:Arguments/sdtl:ArgumentValue)+/sdtl:VariableName ?used_variable .
         ?command sdtl:SourceInformation ?source_info .
@@ -212,7 +222,8 @@ blazegraph select --format table << __END_QUERY__
     SELECT DISTINCT ?affected_variable ?affecting_variable ?command ?source_line ?source_text
     WHERE {
         ?program rdf:type sdtl:Program .
-        ?program sdtl:Commands ?command .
+        ?program sdtl:Commands ?commandinventory .
+        ?commandinventory ?index ?command .
         ?command sdtl:Variable/sdtl:VariableName ?affected_variable .
         ?command sdtl:Expression ?expression .
         ?expression (sdtl:Arguments/sdtl:ArgumentValue)+/sdtl:VariableName ?affecting_variable .

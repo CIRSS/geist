@@ -1,6 +1,7 @@
 {
   "@context": [
     {
+      "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
       "sdtl": "https://rdf-vocabulary.ddialliance.org/sdtl#"
     },
     {
@@ -14,345 +15,349 @@
       "@type": "sdtl:Program",
       "sdtl:Commands": [
         {
-          "@id": "run:load/1",
-          "@type": "sdtl:Load",
-          "sdtl:FileName": "df.csv",
-          "sdtl:FileFormat": "csv",
-          "sdtl:ProducesDataframe": {
-            "@id": "run:dataframe/1",
-            "@type": "sdtl:DataframeDescription",
-            "sdtl:DataframeName": "df",
-            "sdtl:VariableInventory": ["A", "B"]
+          "@id": "run:commandinventory/1",
+          "@type": "rdf:seq",
+          "rdf:_1": {
+            "@id": "run:load/1",
+            "@type": "sdtl:Load",
+            "sdtl:FileName": "df.csv",
+            "sdtl:FileFormat": "csv",
+            "sdtl:ProducesDataframe": {
+              "@id": "run:dataframe/1",
+              "@type": "sdtl:DataframeDescription",
+              "sdtl:DataframeName": "df",
+              "sdtl:VariableInventory": ["A", "B"]
+            },
+            "sdtl:SourceInformation": {
+                "@id": "run:sourceinfo/1",
+                "@type": "sfdtl:SourceInformation",
+                "sdtl:LineNumberStart": 4,
+                "sdtl:OriginalSourceText": "df = pd.read_csv('../data/df.csv')"
+            }
           },
-          "sdtl:SourceInformation": {
-              "@id": "run:sourceinfo/1",
-              "@type": "sfdtl:SourceInformation",
-              "sdtl:LineNumberStart": 4,
-              "sdtl:OriginalSourceText": "df = pd.read_csv('../data/df.csv')"
-          }
-        },
-        {
-          "@id": "run:compute/1",
-          "@type": "sdtl:Compute",
-          "sdtl:ConsumesDataframe": {"@id": "run:dataframe/1"},
-          "sdtl:Variable": {
-            "@id": "run:variable/1",
-            "@type": "sdtl:VariableSymbolExpression",
-            "sdtl:VariableName": "A"
+          "rdf:_2": {
+            "@id": "run:compute/1",
+            "@type": "sdtl:Compute",
+            "sdtl:ConsumesDataframe": {"@id": "run:dataframe/1"},
+            "sdtl:Variable": {
+              "@id": "run:variable/1",
+              "@type": "sdtl:VariableSymbolExpression",
+              "sdtl:VariableName": "A"
+            },
+            "sdtl:Expression": {
+              "@id": "run:expression/1",
+              "@type": "sdtl:NumericConstantExpression",
+              "sdtl:NumericType": "Integer",
+              "sdtl:Value": "3"
+            },
+            "sdtl:ProducesDataframe": {
+              "@id": "run:dataframe/2",
+              "@type": "sdtl:DataframeDescription",
+              "sdtl:DataframeName": "df",
+              "sdtl:VariableInventory": ["A", "B"]
+            },
+            "sdtl:SourceInformation": {
+                "@id": "run:sourceinfo/2",
+                "@type": "sdtl:SourceInformation",
+                "sdtl:LineNumberStart": 8,
+                "sdtl:OriginalSourceText": "df['A'] = 3"
+            }
           },
-          "sdtl:Expression": {
-            "@id": "run:expression/1",
-            "@type": "sdtl:NumericConstantExpression",
-            "sdtl:NumericType": "Integer",
-            "sdtl:Value": "3"
-          },
-          "sdtl:ProducesDataframe": {
-            "@id": "run:dataframe/2",
-            "@type": "sdtl:DataframeDescription",
-            "sdtl:DataframeName": "df",
-            "sdtl:VariableInventory": ["A", "B"]
-          },
-          "sdtl:SourceInformation": {
-              "@id": "run:sourceinfo/2",
-              "@type": "sdtl:SourceInformation",
-              "sdtl:LineNumberStart": 8,
-              "sdtl:OriginalSourceText": "df['A'] = 3"
-          }
-        },
-        {
-          "@id": "run:compute/2",
-          "@type": "sdtl:Compute",
-          "sdtl:ConsumesDataframe": {"@id": "run:dataframe/2"},
-          "sdtl:Variable": {
-            "@id": "run:variable/2",
-            "@type": "sdtl:VariableSymbolExpression",
-            "sdtl:VariableName": "B"
-          },
-          "sdtl:Expression": {
-            "@id": "run:expression/2",
-            "@type": "sdtl:FunctionCallExpression",
-            "sdtl:Arguments": [
-                {
-                  "@id": "run:argument/1",
-                  "@type": "sdtl:FunctionArgument",
-                  "sdtl:ArgumentName": "EXP1",
-                  "sdtl:ArgumentValue": {
-                        "@id": "run:argumentvalue/1",
-                        "@type": "VariableSymbolExpression",
-                        "sdtl:VariableName": "B"
-                    }
-                },
-                {
-                    "@id": "run:argument/2",
+          "rdf:_3": {
+            "@id": "run:compute/2",
+            "@type": "sdtl:Compute",
+            "sdtl:ConsumesDataframe": {"@id": "run:dataframe/2"},
+            "sdtl:Variable": {
+              "@id": "run:variable/2",
+              "@type": "sdtl:VariableSymbolExpression",
+              "sdtl:VariableName": "B"
+            },
+            "sdtl:Expression": {
+              "@id": "run:expression/2",
+              "@type": "sdtl:FunctionCallExpression",
+              "sdtl:Arguments": [
+                  {
+                    "@id": "run:argument/1",
                     "@type": "sdtl:FunctionArgument",
-                    "sdtl:ArgumentName": "EXP2",
+                    "sdtl:ArgumentName": "EXP1",
                     "sdtl:ArgumentValue": {
-                        "@id": "run:argumentvalue/2",
-                        "@type": "sdtl:NumericConstantExpression",
-                        "sdtl:NumericType": "Real",
-                        "sdtl:Value": "6.5"
-                    }
-                }
-            ],
-            "sdtl:Function": "addition",
-            "sdtl:IsSdtlName": true
-          },
-          "sdtl:ProducesDataframe": {
-            "@id": "run:dataframe/3",
-            "@type": "sdtl:DataframeDescription",
-            "sdtl:DataframeName": "df",
-            "sdtl:VariableInventory": ["A", "B"]
-          },
-          "sdtl:SourceInformation": {
-              "@id": "run:sourceinfo/3",
-              "@type": "sdtl:SourceInformation",
-              "sdtl:LineNumberStart": 12,
-              "sdtl:OriginalSourceText": "df['B'] = df.B + 6.5"
-          }
-        },
-        {
-          "@id": "run:compute/3",
-          "@type": "sdtl:Compute",
-          "sdtl:ConsumesDataframe": {"@id": "run:dataframe/3"},
-          "sdtl:Variable": {
-            "@id": "run:variable/3",
-            "@type": "sdtl:VariableSymbolExpression",
-            "sdtl:VariableName": "C"
-          },
-          "sdtl:Expression": {
-            "@id": "run:expression/3",
-            "@type": "sdtl:FunctionCallExpression",
-            "sdtl:Arguments": [
-                {
-                  "@id": "run:argument/3",
-                  "@type": "sdtl:FunctionArgument",
-                  "sdtl:ArgumentName": "EXP1",
-                  "sdtl:ArgumentValue": {
-                        "@id": "run:argumentvalue/3",
-                        "@type": "VariableSymbolExpression",
-                        "sdtl:VariableName": "A"
-                    }
-                },
-                {
-                    "@id": "run:argument/4",
-                    "@type": "sdtl:FunctionArgument",
-                    "sdtl:ArgumentName": "EXP2",
-                    "sdtl:ArgumentValue": {
-                      "@id": "run:argumentvalue/4",
-                      "@type": "VariableSymbolExpression",
-                      "sdtl:VariableName": "B"
-                  }
-                }
-            ],
-            "sdtl:Function": "subtraction",
-            "sdtl:IsSdtlName": true
-          },
-          "sdtl:ProducesDataframe":     {
-            "@id": "run:dataframe/4",
-            "@type": "sdtl:DataframeDescription",
-            "sdtl:DataframeName": "df",
-            "sdtl:VariableInventory": ["A", "B", "C"]
-          },
-          "sdtl:SourceInformation": {
-              "@id": "run:sourceinfo/4",
-              "@type": "sdtl:SourceInformation",
-              "sdtl:LineNumberStart": 16,
-              "sdtl:OriginalSourceText": "df['C'] = df.A - df.B"
-          }
-        },
-        {
-          "@id": "run:load/2",
-          "@type": "sdtl:Load",
-          "sdtl:FileName": "temps.csv",
-          "sdtl:FileFormat": "csv",
-          "sdtl:ProducesDataframe": {
-            "@id": "run:dataframe/5",
-            "@type": "sdtl:DataframeDescription",
-            "sdtl:DataframeName": "temps",
-            "sdtl:VariableInventory": ["Fahrenheit"]
-          },
-          "sdtl:SourceInformation": {
-            "@id": "run:sourceinfo/5",
-            "@type": "sdtl:SourceInformation",
-            "sdtl:LineNumberStart": 20,
-            "sdtl:OriginalSourceText": "temps = pd.read_csv('../data/temps.csv')"
-          }
-        },
-        {
-          "@id": "run:compute/4",
-          "@type": "sdtl:Compute",
-          "sdtl:ConsumesDataframe": {"@id": "run:dataframe/5"},
-          "sdtl:Variable": {
-            "@id": "run:variable/4",
-            "@type": "sdtl:VariableSymbolExpression",
-            "sdtl:VariableName": "Celsius"
-          },
-          "sdtl:Expression": {
-            "@id": "run:expression/4",
-            "@type": "sdtl:FunctionCallExpression",
-            "sdtl:Arguments": [
-              {
-                "@id": "run:argument/5",
-                "@type": "sdtl:FunctionArgument",
-                "sdtl:ArgumentName": "EXP1",
-                "sdtl:ArgumentValue": {
-                  "@id": "run:argumentvalue/5",
-                  "@type": "FunctionCallExpression",
-                  "sdtl:Arguments": [
-                    {
-                      "@id": "run:argument/6",
-                      "@type": "sdtl:FunctionArgument",
-                      "sdtl:ArgumentName": "EXP1",
-                      "sdtl:ArgumentValue": {
-                        "@id": "run:argumentvalue/6",
-                        "@type": "sdtl:FunctionCallExpression",
-                        "sdtl:Arguments": [
-                          {
-                            "@id": "run:argument/7",
-                            "@type": "sdtl:FunctionArgument",
-                            "sdtl:ArgumentName": "EXP1",
-                            "sdtl:ArgumentValue": {
-                              "@id": "run:argumentvalue/7",
-                              "@type": "sdtl:VariableSymbolExpression",
-                              "sdtl:VariableName": "Fahrenheit"
-                            }
-                          },
-                          {
-                            "@id": "run:argument/8",
-                            "@type": "sdtl:FunctionArgument",
-                            "sdtl:ArgumentName": "EXP2",
-                            "sdtl:ArgumentValue": {
-                              "@id": "run:argumentvalue/8",
-                              "@type": "sdtl:NumericConstantExpression",
-                              "sdtl:NumericType": "Integer",
-                              "sdtl:Value": "32"
-                            }
-                          }
-                        ],
-                        "sdtl:Function": "subtraction",
-                        "sdtl:IsSdtlName": true
+                          "@id": "run:argumentvalue/1",
+                          "@type": "VariableSymbolExpression",
+                          "sdtl:VariableName": "B"
                       }
-                    },
-                    {
-                      "@id": "run:argument/9",
+                  },
+                  {
+                      "@id": "run:argument/2",
                       "@type": "sdtl:FunctionArgument",
                       "sdtl:ArgumentName": "EXP2",
                       "sdtl:ArgumentValue": {
-                        "@id": "run:argumentvalue/9",
-                        "@type": "NumericConstantExpression",
-                        "sdtl:NumericType": "Integer",
-                        "sdtl:Value": "5"
+                          "@id": "run:argumentvalue/2",
+                          "@type": "sdtl:NumericConstantExpression",
+                          "sdtl:NumericType": "Real",
+                          "sdtl:Value": "6.5"
                       }
+                  }
+              ],
+              "sdtl:Function": "addition",
+              "sdtl:IsSdtlName": true
+            },
+            "sdtl:ProducesDataframe": {
+              "@id": "run:dataframe/3",
+              "@type": "sdtl:DataframeDescription",
+              "sdtl:DataframeName": "df",
+              "sdtl:VariableInventory": ["A", "B"]
+            },
+            "sdtl:SourceInformation": {
+                "@id": "run:sourceinfo/3",
+                "@type": "sdtl:SourceInformation",
+                "sdtl:LineNumberStart": 12,
+                "sdtl:OriginalSourceText": "df['B'] = df.B + 6.5"
+            }
+          },
+          "rdf:_4": {
+            "@id": "run:compute/3",
+            "@type": "sdtl:Compute",
+            "sdtl:ConsumesDataframe": {"@id": "run:dataframe/3"},
+            "sdtl:Variable": {
+              "@id": "run:variable/3",
+              "@type": "sdtl:VariableSymbolExpression",
+              "sdtl:VariableName": "C"
+            },
+            "sdtl:Expression": {
+              "@id": "run:expression/3",
+              "@type": "sdtl:FunctionCallExpression",
+              "sdtl:Arguments": [
+                  {
+                    "@id": "run:argument/3",
+                    "@type": "sdtl:FunctionArgument",
+                    "sdtl:ArgumentName": "EXP1",
+                    "sdtl:ArgumentValue": {
+                          "@id": "run:argumentvalue/3",
+                          "@type": "VariableSymbolExpression",
+                          "sdtl:VariableName": "A"
+                      }
+                  },
+                  {
+                      "@id": "run:argument/4",
+                      "@type": "sdtl:FunctionArgument",
+                      "sdtl:ArgumentName": "EXP2",
+                      "sdtl:ArgumentValue": {
+                        "@id": "run:argumentvalue/4",
+                        "@type": "VariableSymbolExpression",
+                        "sdtl:VariableName": "B"
                     }
-                  ],
-                  "sdtl:Function": "multiplication",
-                  "sdtl:IsSdtlName": true
-                }
-              },
-              {
-                "@id": "run:argument/10",
-                "@type": "sdtl:FunctionArgument",
-                "sdtl:ArgumentName": "EXP2",
-                "sdtl:ArgumentValue":
+                  }
+              ],
+              "sdtl:Function": "subtraction",
+              "sdtl:IsSdtlName": true
+            },
+            "sdtl:ProducesDataframe":     {
+              "@id": "run:dataframe/4",
+              "@type": "sdtl:DataframeDescription",
+              "sdtl:DataframeName": "df",
+              "sdtl:VariableInventory": ["A", "B", "C"]
+            },
+            "sdtl:SourceInformation": {
+                "@id": "run:sourceinfo/4",
+                "@type": "sdtl:SourceInformation",
+                "sdtl:LineNumberStart": 16,
+                "sdtl:OriginalSourceText": "df['C'] = df.A - df.B"
+            }
+          },
+          "rdf:_5": {
+            "@id": "run:load/2",
+            "@type": "sdtl:Load",
+            "sdtl:FileName": "temps.csv",
+            "sdtl:FileFormat": "csv",
+            "sdtl:ProducesDataframe": {
+              "@id": "run:dataframe/5",
+              "@type": "sdtl:DataframeDescription",
+              "sdtl:DataframeName": "temps",
+              "sdtl:VariableInventory": ["Fahrenheit"]
+            },
+            "sdtl:SourceInformation": {
+              "@id": "run:sourceinfo/5",
+              "@type": "sdtl:SourceInformation",
+              "sdtl:LineNumberStart": 20,
+              "sdtl:OriginalSourceText": "temps = pd.read_csv('../data/temps.csv')"
+            }
+          },
+          "rdf:_6": {
+            "@id": "run:compute/4",
+            "@type": "sdtl:Compute",
+            "sdtl:ConsumesDataframe": {"@id": "run:dataframe/5"},
+            "sdtl:Variable": {
+              "@id": "run:variable/4",
+              "@type": "sdtl:VariableSymbolExpression",
+              "sdtl:VariableName": "Celsius"
+            },
+            "sdtl:Expression": {
+              "@id": "run:expression/4",
+              "@type": "sdtl:FunctionCallExpression",
+              "sdtl:Arguments": [
                 {
-                  "@id": "run:argumentvalue/10",
-                  "@type": "sdtl:NumericConstantExpression",
-                  "sdtl:NumericType": "Integer",
-                  "sdtl:Value": "9"
+                  "@id": "run:argument/5",
+                  "@type": "sdtl:FunctionArgument",
+                  "sdtl:ArgumentName": "EXP1",
+                  "sdtl:ArgumentValue": {
+                    "@id": "run:argumentvalue/5",
+                    "@type": "FunctionCallExpression",
+                    "sdtl:Arguments": [
+                      {
+                        "@id": "run:argument/6",
+                        "@type": "sdtl:FunctionArgument",
+                        "sdtl:ArgumentName": "EXP1",
+                        "sdtl:ArgumentValue": {
+                          "@id": "run:argumentvalue/6",
+                          "@type": "sdtl:FunctionCallExpression",
+                          "sdtl:Arguments": [
+                            {
+                              "@id": "run:argument/7",
+                              "@type": "sdtl:FunctionArgument",
+                              "sdtl:ArgumentName": "EXP1",
+                              "sdtl:ArgumentValue": {
+                                "@id": "run:argumentvalue/7",
+                                "@type": "sdtl:VariableSymbolExpression",
+                                "sdtl:VariableName": "Fahrenheit"
+                              }
+                            },
+                            {
+                              "@id": "run:argument/8",
+                              "@type": "sdtl:FunctionArgument",
+                              "sdtl:ArgumentName": "EXP2",
+                              "sdtl:ArgumentValue": {
+                                "@id": "run:argumentvalue/8",
+                                "@type": "sdtl:NumericConstantExpression",
+                                "sdtl:NumericType": "Integer",
+                                "sdtl:Value": "32"
+                              }
+                            }
+                          ],
+                          "sdtl:Function": "subtraction",
+                          "sdtl:IsSdtlName": true
+                        }
+                      },
+                      {
+                        "@id": "run:argument/9",
+                        "@type": "sdtl:FunctionArgument",
+                        "sdtl:ArgumentName": "EXP2",
+                        "sdtl:ArgumentValue": {
+                          "@id": "run:argumentvalue/9",
+                          "@type": "NumericConstantExpression",
+                          "sdtl:NumericType": "Integer",
+                          "sdtl:Value": "5"
+                        }
+                      }
+                    ],
+                    "sdtl:Function": "multiplication",
+                    "sdtl:IsSdtlName": true
+                  }
+                },
+                {
+                  "@id": "run:argument/10",
+                  "@type": "sdtl:FunctionArgument",
+                  "sdtl:ArgumentName": "EXP2",
+                  "sdtl:ArgumentValue":
+                  {
+                    "@id": "run:argumentvalue/10",
+                    "@type": "sdtl:NumericConstantExpression",
+                    "sdtl:NumericType": "Integer",
+                    "sdtl:Value": "9"
+                  }
                 }
-              }
-            ],
-            "sdtl:Function": "division",
-            "sdtl:IsSdtlName": true
+              ],
+              "sdtl:Function": "division",
+              "sdtl:IsSdtlName": true
+            },
+            "sdtl:ProducesDataframe": {
+              "@id": "run:dataframe/6",
+              "@type": "sdtl:DataframeDescription",
+              "sdtl:DataframeName": "temps",
+              "sdtl:VariableInventory": ["Fahrenheit", "Celsius"]
+            },
+            "sdtl:SourceInformation": {
+                "@id": "run:sourceinfo/6",
+                "@type": "sdtl:SourceInformation",
+                "sdtl:LineNumberStart": 24,
+                "sdtl:OriginalSourceText": "temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))"
+            }
           },
-          "sdtl:ProducesDataframe": {
-            "@id": "run:dataframe/6",
-            "@type": "sdtl:DataframeDescription",
-            "sdtl:DataframeName": "temps",
-            "sdtl:VariableInventory": ["Fahrenheit", "Celsius"]
+          "rdf:_7": {
+            "@id": "run:compute/5",
+            "@type": "sdtl:Compute",
+            "sdtl:ConsumesDataframe": {"@id": "run:dataframe/6"},
+            "sdtl:Variable": {
+              "@id": "run:variable/5",
+              "@type": "sdtl:VariableSymbolExpression",
+              "sdtl:VariableName": "Kelvin"
+            },
+            "sdtl:Expression": {
+              "@id": "run:expression/5",
+              "@type": "FunctionCallExpression",
+              "sdtl:Arguments": [
+                {
+                  "@id": "run:argument/11",
+                  "@type": "sdtl:FunctionArgument",
+                  "sdtl:ArgumentName": "EXP1",
+                  "sdtl:ArgumentValue": {
+                    "@id": "run:argumentvalue/11",
+                    "@type": "sdtl:VariableSymbolExpression",
+                    "sdtl:VariableName": "Celsius"
+                  }
+                },
+                {
+                  "@id": "run:argument/12",
+                  "@type": "sdtl:FunctionArgument",
+                  "sdtl:ArgumentName": "EXP2",
+                  "sdtl:ArgumentValue": {
+                    "@id": "run:argumentvalue/12",
+                    "@type": "sdtl:NumericConstantExpression",
+                    "sdtl:NumericType": "Integer",
+                    "sdtl:Value": "273"
+                  }
+                }
+              ],
+              "sdtl:Function": "addition",
+              "sdtl:IsSdtlName": true
+            },
+            "sdtl:ProducesDataframe":  {
+              "@id": "run:dataframe/7",
+              "@type": "sdtl:DataframeDescription",
+              "sdtl:DataframeName": "temps",
+              "sdtl:VariableInventory": ["Fahrenheit", "Celsius", "Kelvin"]
+            },
+            "sdtl:SourceInformation": {
+                "@id": "run:sourceinfo/7",
+                "@type": "sdtl:SourceInformation",
+                "sdtl:LineNumberStart": 28,
+                "sdtl:OriginalSourceText": "temps = temps.assign(Kelvin=(temps.Celsius + 273))"
+            }
           },
-          "sdtl:SourceInformation": {
-              "@id": "run:sourceinfo/6",
+          "rdf:_8": {
+            "@id": "run:save/1",
+            "@type": "sdtl:Save",
+            "sdtl:FileName": "df_updated.csv",
+            "sdtl:FileFormat": "csv",
+            "sdtl:ConsumesDataframe": {"@id": "run:dataframe/4"},
+            "sdtl:SourceInformation": {
+              "@id": "run:sourceinfo/8",
               "@type": "sdtl:SourceInformation",
-              "sdtl:LineNumberStart": 24,
-              "sdtl:OriginalSourceText": "temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))"
-          }
-        },
-        {
-          "@id": "run:compute/5",
-          "@type": "sdtl:Compute",
-          "sdtl:ConsumesDataframe": {"@id": "run:dataframe/6"},
-          "sdtl:Variable": {
-            "@id": "run:variable/5",
-            "@type": "sdtl:VariableSymbolExpression",
-            "sdtl:VariableName": "Kelvin"
+              "sdtl:LineNumberStart": 32,
+              "sdtl:OriginalSourceText": "df.to_csv('outputs/df_updated.csv', index=False)"
+            }
           },
-          "sdtl:Expression": {
-            "@id": "run:expression/5",
-            "@type": "FunctionCallExpression",
-            "sdtl:Arguments": [
-              {
-                "@id": "run:argument/11",
-                "@type": "sdtl:FunctionArgument",
-                "sdtl:ArgumentName": "EXP1",
-                "sdtl:ArgumentValue": {
-                  "@id": "run:argumentvalue/11",
-                  "@type": "sdtl:VariableSymbolExpression",
-                  "sdtl:VariableName": "Celsius"
-                }
-              },
-              {
-                "@id": "run:argument/12",
-                "@type": "sdtl:FunctionArgument",
-                "sdtl:ArgumentName": "EXP2",
-                "sdtl:ArgumentValue": {
-                  "@id": "run:argumentvalue/12",
-                  "@type": "sdtl:NumericConstantExpression",
-                  "sdtl:NumericType": "Integer",
-                  "sdtl:Value": "273"
-                }
-              }
-            ],
-            "sdtl:Function": "addition",
-            "sdtl:IsSdtlName": true
-          },
-          "sdtl:ProducesDataframe":  {
-            "@id": "run:dataframe/7",
-            "@type": "sdtl:DataframeDescription",
-            "sdtl:DataframeName": "temps",
-            "sdtl:VariableInventory": ["Fahrenheit", "Celsius", "Kelvin"]
-          },
-          "sdtl:SourceInformation": {
-              "@id": "run:sourceinfo/7",
+          "rdf:_9": {
+            "@id": "run:save/2",
+            "@type": "sdtl:Save",
+            "sdtl:FileName": "temps_updated.csv",
+            "sdtl:FileFormat": "csv",
+            "sdtl:ConsumesDataframe": {"@id": "run:dataframe/7"},
+            "sdtl:SourceInformation": {
+              "@id": "run:sourceinfo/9",
               "@type": "sdtl:SourceInformation",
-              "sdtl:LineNumberStart": 28,
-              "sdtl:OriginalSourceText": "temps = temps.assign(Kelvin=(temps.Celsius + 273))"
-          }
-        },
-        {
-          "@id": "run:save/1",
-          "@type": "sdtl:Save",
-          "sdtl:FileName": "df_updated.csv",
-          "sdtl:FileFormat": "csv",
-          "sdtl:ConsumesDataframe": {"@id": "run:dataframe/4"},
-          "sdtl:SourceInformation": {
-            "@id": "run:sourceinfo/8",
-            "@type": "sdtl:SourceInformation",
-            "sdtl:LineNumberStart": 32,
-            "sdtl:OriginalSourceText": "df.to_csv('outputs/df_updated.csv', index=False)"
-          }
-        },
-        {
-          "@id": "run:save/2",
-          "@type": "sdtl:Save",
-          "sdtl:FileName": "temps_updated.csv",
-          "sdtl:FileFormat": "csv",
-          "sdtl:ConsumesDataframe": {"@id": "run:dataframe/7"},
-          "sdtl:SourceInformation": {
-            "@id": "run:sourceinfo/9",
-            "@type": "sdtl:SourceInformation",
-            "sdtl:LineNumberStart": 35,
-            "sdtl:OriginalSourceText": "temps.to_csv('outputs/temps_updated.csv', index=False)"
+              "sdtl:LineNumberStart": 35,
+              "sdtl:OriginalSourceText": "temps.to_csv('outputs/temps_updated.csv', index=False)"
+            }
           }
         }
       ]

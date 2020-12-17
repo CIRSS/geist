@@ -22,13 +22,13 @@ node[width=8]
 ":save/2" [label="temps.to_csv('outputs/temps_updated.csv', index=False)"]
 
 # dataframe edges
+":load/1" -> ":compute/1" [label="df"]
 ":compute/1" -> ":compute/2" [label="df"]
 ":compute/2" -> ":compute/3" [label="df"]
 ":compute/3" -> ":save/1" [label="df"]
+":load/2" -> ":compute/4" [label="temps"]
 ":compute/4" -> ":compute/5" [label="temps"]
 ":compute/5" -> ":save/2" [label="temps"]
-":load/1" -> ":compute/1" [label="df"]
-":load/2" -> ":compute/4" [label="temps"]
 }}
 
 }

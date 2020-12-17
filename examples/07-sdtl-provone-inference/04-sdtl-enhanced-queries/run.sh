@@ -33,7 +33,8 @@ blazegraph select --format table << __END_QUERY__
     SELECT DISTINCT ?used_variable ?command ?source_line ?source_text
     WHERE {
         ?program rdf:type sdtl:Program .
-        ?program sdtl:Commands ?command .
+        ?program sdtl:Commands ?commandinventory .
+        ?commandinventory ?index ?command .
         ?command sdtl:OperatesOn ?operand .
         ?operand sdtl:VariableName ?used_variable .
         ?command sdtl:SourceInformation ?source_info .
@@ -56,7 +57,8 @@ blazegraph select --format table << __END_QUERY__
     SELECT DISTINCT ?affected_variable ?affecting_variable ?command ?source_line ?source_text
     WHERE {
         ?program rdf:type sdtl:Program .
-        ?program sdtl:Commands ?command .
+        ?program sdtl:Commands ?commandinventory .
+        ?commandinventory ?index ?command .
         ?command sdtl:Variable/sdtl:VariableName ?affected_variable .
         ?command sdtl:OperatesOn/sdtl:VariableName ?affecting_variable .
         ?command sdtl:SourceInformation ?source_info .
@@ -79,7 +81,8 @@ blazegraph select --format table << __END_QUERY__
     SELECT DISTINCT ?affecting_variable ?command ?source_line ?source_text
     WHERE {
         ?program rdf:type sdtl:Program .
-        ?program sdtl:Commands ?command .
+        ?program sdtl:Commands ?commandinventory .
+        ?commandinventory ?index ?command .
         ?command sdtl:Variable/sdtl:VariableName "Kelvin"^^<http://www.w3.org/2001/XMLSchema#string> .
         ?command sdtl:OperatesOn/sdtl:VariableName ?affecting_variable .
         ?command sdtl:SourceInformation ?source_info .
@@ -102,8 +105,10 @@ blazegraph select --format table << __END_QUERY__
     SELECT DISTINCT ?indirectly_affecting_variable ?indirectly_affecting_command ?source_line ?source_text
     WHERE {
         ?program rdf:type sdtl:Program .
-        ?program sdtl:Commands ?directly_affecting_command .
-        ?program sdtl:Commands ?indirectly_affecting_command .
+
+        ?program sdtl:Commands ?commandinventory .
+        ?commandinventory ?index1 ?directly_affecting_command .
+        ?commandinventory ?index2 ?indirectly_affecting_command .
         ?directly_affecting_command sdtl:Variable/sdtl:VariableName "Kelvin"^^<http://www.w3.org/2001/XMLSchema#string> .
         ?directly_affecting_command sdtl:OperatesOn/sdtl:VariableName/^sdtl:VariableName/^sdtl:Variable ?indirectly_affecting_command  .
         ?indirectly_affecting_command sdtl:OperatesOn/sdtl:VariableName ?indirectly_affecting_variable .
@@ -127,7 +132,8 @@ blazegraph select --format table << __END_QUERY__
     SELECT DISTINCT ?variable
     WHERE {
         ?program rdf:type sdtl:Program .
-        ?program sdtl:Commands ?command .
+        ?program sdtl:Commands ?commandinventory .
+        ?commandinventory ?index ?command .
         ?command sdtl:Variable/sdtl:VariableName "Kelvin"^^<http://www.w3.org/2001/XMLSchema#string> .
         ?command sdtl:OperatesOn/sdtl:VariableName/(^sdtl:VariableName/^sdtl:Variable/sdtl:OperatesOn/sdtl:VariableName)* ?variable .
     } ORDER BY ?variable
@@ -177,3 +183,50 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
 __END_REPORT_TEMPLATE__
 
 __END_SCRIPT__
+
+
+# # *****************************************************************************
+
+# bash ${GRAPHER} GRAPH-2 "VARIABLE FLOW THROUGH COMMANDS" \
+#     << '__END_SCRIPT__'
+
+# blazegraph report << '__END_REPORT_TEMPLATE__'
+
+#     {{{
+#         {{ include "../../common/graphviz.g" }}
+#         {{ include "../../common/sdtl.g" }}
+#     }}}
+
+#     {{ gv_graph "sdtl_program" }}
+
+#     {{ gv_title "Dataframe-flow through commands" }}
+
+#     {{ gv_cluster "program_graph" }}
+
+#     # command nodes
+#     {{ sdtl_program_node_style }}
+#     node[width=8]
+#     {{ with $ProgramID := sdtl_select_program | value }}                                    \\
+
+#         {{ range $Command := (sdtl_select_commands $ProgramID | rows ) }}                   \\
+#             {{ gv_labeled_node (index $Command 0) (index $Command 1) }}
+#         {{ end }}                                                                           \\
+
+#         # dataframe edges
+#         {{ range $Edge := (sdtl_select_compute_variable_compute_edges $ProgramID | rows) }} \\
+#             {{ gv_labeled_edge (index $Edge 0) (index $Edge 1) (index $Edge 2) }}
+#         {{ end }}                                                                           \\
+#                                                                                             \\
+#         {{ range $Edge := (sdtl_select_load_variable_compute_edges $ProgramID | rows) }} \\
+#             {{ gv_labeled_edge (index $Edge 0) (index $Edge 1) (index $Edge 2) }}
+#         {{ end }}                                                                           \\
+
+#     {{ end }}                                                                               \\
+#                                                                                             \\
+#     {{ gv_cluster_end }}
+
+#     {{ gv_end }}                                                                            \\
+
+# __END_REPORT_TEMPLATE__
+
+# __END_SCRIPT__

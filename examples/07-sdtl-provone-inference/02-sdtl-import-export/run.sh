@@ -13,24 +13,35 @@ blazegraph export --format nt | sort
 
 END_SCRIPT
 
+# # *****************************************************************************
+
+# bash ${RUNNER} DUMP-2 "IMPORT SDTL OWL FILE AND EXPORT AS N-TRIPLES" << END_SCRIPT
+
+# blazegraph destroy --dataset kb
+# blazegraph create --dataset kb
+# blazegraph import --format xml --file ../data/sdtl.owl
+# blazegraph export --format nt
+
+# END_SCRIPT
+
+# # *****************************************************************************
+
+# bash ${RUNNER} DUMP-3 "EXPORT SDTL OWL AS TURTLE" << END_SCRIPT
+
+# blazegraph destroy --dataset kb
+# blazegraph create --dataset kb
+# blazegraph import --format xml --file ../data/sdtl.owl
+# blazegraph export --format ttl
+
+# END_SCRIPT
+
 # *****************************************************************************
 
-bash ${RUNNER} DUMP-2 "IMPORT SDTL OWL FILE AND EXPORT AS N-TRIPLES" << END_SCRIPT
+# bash ${RUNNER} DUMP-3 "IMPORT TOMMY'S JSON-LD FILE AND EXPORT AS N-TRIPLES" << END_SCRIPT
 
-blazegraph destroy --dataset kb
-blazegraph create --dataset kb
-blazegraph import --format xml --file ../data/sdtl.owl
-blazegraph export --format nt
+# blazegraph destroy --dataset kb
+# blazegraph create --dataset kb
+# blazegraph import --format jsonld --file ../data/rdf.jsonld
+# blazegraph export --format nt | sort
 
-END_SCRIPT
-
-# *****************************************************************************
-
-bash ${RUNNER} DUMP-3 "EXPORT SDTL OWL AS TURTLE" << END_SCRIPT
-
-blazegraph destroy --dataset kb
-blazegraph create --dataset kb
-blazegraph import --format xml --file ../data/sdtl.owl
-blazegraph export --format ttl
-
-END_SCRIPT
+# END_SCRIPT
