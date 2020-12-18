@@ -30,8 +30,16 @@
                 {
                   "@id": "run:variableinventory/1",
                   "@type": "rdf:Seq",
-                  "rdf:_1": "A",
-                  "rdf:_2": "B"
+                  "rdf:_1": {
+                    "@id": "run:dataframevariable/1",
+                    "@type": "sdtl:VariableSymbolExpression",
+                    "sdtl:VariableName": "A"
+                  },
+                  "rdf:_2": {
+                    "@id": "run:dataframevariable/2",
+                    "@type": "sdtl:VariableSymbolExpression",
+                    "sdtl:VariableName": "B"
+                  }
                 }
               ]
             },
@@ -65,8 +73,16 @@
                 {
                   "@id": "run:variableinventory/2",
                   "@type": "rdf:Seq",
-                  "rdf:_1": "A",
-                  "rdf:_2": "B"
+                  "rdf:_1": {
+                    "@id": "run:dataframevariable/3",
+                    "@type": "sdtl:VariableSymbolExpression",
+                    "sdtl:VariableName": "A"
+                  },
+                  "rdf:_2": {
+                    "@id": "run:dataframevariable/4",
+                    "@type": "sdtl:VariableSymbolExpression",
+                    "sdtl:VariableName": "B"
+                  }
                 }
               ]
             },
@@ -123,8 +139,16 @@
                 {
                   "@id": "run:variableinventory/3",
                   "@type": "rdf:Seq",
-                  "rdf:_1": "A",
-                  "rdf:_2": "B"
+                  "rdf:_1": {
+                    "@id": "run:dataframevariable/5",
+                    "@type": "sdtl:VariableSymbolExpression",
+                    "sdtl:VariableName": "A"
+                  },
+                  "rdf:_2": {
+                    "@id": "run:dataframevariable/6",
+                    "@type": "sdtl:VariableSymbolExpression",
+                    "sdtl:VariableName": "B"
+                  }
                 }
               ]
             },
@@ -180,9 +204,21 @@
                 {
                   "@id": "run:variableinventory/4",
                   "@type": "rdf:Seq",
-                  "rdf:_1": "A",
-                  "rdf:_2": "B",
-                  "rdf:_3": "C"
+                  "rdf:_1": {
+                    "@id": "run:dataframevariable/7",
+                    "@type": "sdtl:VariableSymbolExpression",
+                    "sdtl:VariableName": "A"
+                  },
+                  "rdf:_2": {
+                    "@id": "run:dataframevariable/8",
+                    "@type": "sdtl:VariableSymbolExpression",
+                    "sdtl:VariableName": "B"
+                  },
+                  "rdf:_3": {
+                    "@id": "run:dataframevariable/9",
+                    "@type": "sdtl:VariableSymbolExpression",
+                    "sdtl:VariableName": "C"
+                  }
                 }
               ]
             },
@@ -206,7 +242,11 @@
                 {
                   "@id": "run:variableinventory/5",
                   "@type": "rdf:Seq",
-                  "rdf:_1": "Fahrenheit"
+                  "rdf:_1": {
+                    "@id": "run:dataframevariable/10",
+                    "@type": "sdtl:VariableSymbolExpression",
+                    "sdtl:VariableName": "Fahrenheit"
+                  }
                 }
               ]
             },
@@ -312,8 +352,16 @@
                 {
                   "@id": "run:variableinventory/6",
                   "@type": "rdf:Seq",
-                  "rdf:_1": "Fahrenheit",
-                  "rdf:_2": "Celsius"
+                  "rdf:_1": {
+                    "@id": "run:dataframevariable/11",
+                    "@type": "sdtl:VariableSymbolExpression",
+                    "sdtl:VariableName": "Fahrenheit"
+                  },
+                  "rdf:_2": {
+                    "@id": "run:dataframevariable/12",
+                    "@type": "sdtl:VariableSymbolExpression",
+                    "sdtl:VariableName": "Celsius"
+                  }
                 }
               ]
             },
@@ -370,9 +418,21 @@
                 {
                   "@id": "run:variableinventory/7",
                   "@type": "rdf:Seq",
-                  "rdf:_1": "Fahrenheit",
-                  "rdf:_2": "Celsius",
-                  "rdf:_3": "Kelvin"
+                  "rdf:_1": {
+                    "@id": "run:dataframevariable/13",
+                    "@type": "sdtl:VariableSymbolExpression",
+                    "sdtl:VariableName": "Fahrenheit"
+                  },
+                  "rdf:_2": {
+                    "@id": "run:dataframevariable/14",
+                    "@type": "sdtl:VariableSymbolExpression",
+                    "sdtl:VariableName": "Kelvin"
+                  },
+                  "rdf:_3": {
+                    "@id": "run:dataframevariable/15",
+                    "@type": "sdtl:VariableSymbolExpression",
+                    "sdtl:VariableName": "Celsius"
+                  }
                 }
               ]
             },

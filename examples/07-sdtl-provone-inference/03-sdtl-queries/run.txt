@@ -126,11 +126,11 @@ blazegraph select --format table << __END_QUERY__
         ?command sdtl:ProducesDataframe ?dataframe_description .
         ?dataframe_description sdtl:DataframeName ?dataframe .
         ?dataframe_description sdtl:VariableInventory ?variable_inventory .
-        ?variable_inventory rdfs:member ?loaded_variable .
+        ?variable_inventory rdfs:member/sdtl:VariableName ?loaded_variable .
         ?command sdtl:SourceInformation ?source_info .
         ?source_info sdtl:LineNumberStart ?source_line .
         ?source_info sdtl:OriginalSourceText ?source_text .
-    }
+    } ORDER BY ?loaded_variable ?source_line
 
 __END_QUERY__
 
@@ -160,11 +160,11 @@ blazegraph select --format table << __END_QUERY__
         ?command sdtl:ConsumesDataframe ?dataframe_description .
         ?dataframe_description sdtl:DataframeName ?dataframe .
         ?dataframe_description sdtl:VariableInventory ?variable_inventory .
-        ?variable_inventory rdfs:member ?saved_variable .
+        ?variable_inventory rdfs:member/sdtl:VariableName ?saved_variable .
         ?command sdtl:SourceInformation ?source_info .
         ?source_info sdtl:LineNumberStart ?source_line .
         ?source_info sdtl:OriginalSourceText ?source_text .
-    }
+    } ORDER BY ?saved_variable ?source_line
 
 __END_QUERY__
 
