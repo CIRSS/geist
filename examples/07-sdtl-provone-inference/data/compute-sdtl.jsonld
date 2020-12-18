@@ -26,7 +26,14 @@
               "@id": "run:dataframe/1",
               "@type": "sdtl:DataframeDescription",
               "sdtl:DataframeName": "df",
-              "sdtl:VariableInventory": ["A", "B"]
+              "sdtl:VariableInventory": [
+                {
+                  "@id": "run:variableinventory/1",
+                  "@type": "rdf:Seq",
+                  "rdf:_1": "A",
+                  "rdf:_2": "B"
+                }
+              ]
             },
             "sdtl:SourceInformation": {
                 "@id": "run:sourceinfo/1",
@@ -54,7 +61,14 @@
               "@id": "run:dataframe/2",
               "@type": "sdtl:DataframeDescription",
               "sdtl:DataframeName": "df",
-              "sdtl:VariableInventory": ["A", "B"]
+              "sdtl:VariableInventory": [
+                {
+                  "@id": "run:variableinventory/2",
+                  "@type": "rdf:Seq",
+                  "rdf:_1": "A",
+                  "rdf:_2": "B"
+                }
+              ]
             },
             "sdtl:SourceInformation": {
                 "@id": "run:sourceinfo/2",
@@ -105,7 +119,14 @@
               "@id": "run:dataframe/3",
               "@type": "sdtl:DataframeDescription",
               "sdtl:DataframeName": "df",
-              "sdtl:VariableInventory": ["A", "B"]
+              "sdtl:VariableInventory": [
+                {
+                  "@id": "run:variableinventory/3",
+                  "@type": "rdf:Seq",
+                  "rdf:_1": "A",
+                  "rdf:_2": "B"
+                }
+              ]
             },
             "sdtl:SourceInformation": {
                 "@id": "run:sourceinfo/3",
@@ -155,7 +176,15 @@
               "@id": "run:dataframe/4",
               "@type": "sdtl:DataframeDescription",
               "sdtl:DataframeName": "df",
-              "sdtl:VariableInventory": ["A", "B", "C"]
+              "sdtl:VariableInventory": [
+                {
+                  "@id": "run:variableinventory/4",
+                  "@type": "rdf:Seq",
+                  "rdf:_1": "A",
+                  "rdf:_2": "B",
+                  "rdf:_3": "C"
+                }
+              ]
             },
             "sdtl:SourceInformation": {
                 "@id": "run:sourceinfo/4",
@@ -173,7 +202,13 @@
               "@id": "run:dataframe/5",
               "@type": "sdtl:DataframeDescription",
               "sdtl:DataframeName": "temps",
-              "sdtl:VariableInventory": ["Fahrenheit"]
+              "sdtl:VariableInventory": [
+                {
+                  "@id": "run:variableinventory/5",
+                  "@type": "rdf:Seq",
+                  "rdf:_1": "Fahrenheit"
+                }
+              ]
             },
             "sdtl:SourceInformation": {
               "@id": "run:sourceinfo/5",
@@ -273,7 +308,14 @@
               "@id": "run:dataframe/6",
               "@type": "sdtl:DataframeDescription",
               "sdtl:DataframeName": "temps",
-              "sdtl:VariableInventory": ["Fahrenheit", "Celsius"]
+              "sdtl:VariableInventory": [
+                {
+                  "@id": "run:variableinventory/6",
+                  "@type": "rdf:Seq",
+                  "rdf:_1": "Fahrenheit",
+                  "rdf:_2": "Celsius"
+                }
+              ]
             },
             "sdtl:SourceInformation": {
                 "@id": "run:sourceinfo/6",
@@ -324,7 +366,15 @@
               "@id": "run:dataframe/7",
               "@type": "sdtl:DataframeDescription",
               "sdtl:DataframeName": "temps",
-              "sdtl:VariableInventory": ["Fahrenheit", "Celsius", "Kelvin"]
+              "sdtl:VariableInventory": [
+                {
+                  "@id": "run:variableinventory/7",
+                  "@type": "rdf:Seq",
+                  "rdf:_1": "Fahrenheit",
+                  "rdf:_2": "Celsius",
+                  "rdf:_3": "Kelvin"
+                }
+              ]
             },
             "sdtl:SourceInformation": {
                 "@id": "run:sourceinfo/7",
