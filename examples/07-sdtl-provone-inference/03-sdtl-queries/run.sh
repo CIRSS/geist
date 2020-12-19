@@ -13,7 +13,13 @@ blazegraph import --format jsonld --file ../data/compute-sdtl.jsonld
 
 END_SCRIPT
 
+# *****************************************************************************
 
+bash ${RUNNER} E1 "EXPORT AS N-TRIPLES" << END_SCRIPT
+
+blazegraph export --format nt | sort
+
+END_SCRIPT
 
 # *****************************************************************************
 
