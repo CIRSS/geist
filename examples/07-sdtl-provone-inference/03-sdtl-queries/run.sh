@@ -8,8 +8,7 @@ GRAPHER='../../common/run_dot_examples.sh'
 bash ${RUNNER} SETUP "IMPORT SDTL" << END_SCRIPT
 
 blazegraph destroy --dataset kb
-blazegraph create --dataset kb --infer owl
-blazegraph import --file ../data/sdtl-enhanced-rules.ttl
+blazegraph create --dataset kb
 blazegraph import --format jsonld --file ../data/compute-sdtl.jsonld
 
 END_SCRIPT
@@ -30,7 +29,7 @@ blazegraph select --format table << __END_QUERY__
     WHERE {
         ?program rdf:type sdtl:Program .
         ?program sdtl:Commands ?commandinventory .
-        ?commandinventory rdfs:member ?command .
+        ?commandinventory (<>|!<>) ?command .
         ?command sdtl:SourceInformation ?source_info .
         ?source_info sdtl:LineNumberStart ?source_line .
         ?source_info sdtl:OriginalSourceText ?source_text .
@@ -52,7 +51,7 @@ blazegraph select --format table << __END_QUERY__
     WHERE {
         ?program rdf:type sdtl:Program .
         ?program sdtl:Commands ?commandinventory .
-        ?commandinventory rdfs:member ?command .
+        ?commandinventory (<>|!<>) ?command .
         ?command rdf:type sdtl:Load .
         ?command sdtl:FileName ?file_name .
         ?command sdtl:SourceInformation ?source_info .
@@ -76,7 +75,7 @@ blazegraph select --format table << __END_QUERY__
     WHERE {
         ?program rdf:type sdtl:Program .
         ?program sdtl:Commands ?commandinventory .
-        ?commandinventory rdfs:member ?command .
+        ?commandinventory (<>|!<>) ?command .
         ?command rdf:type sdtl:Save .
         ?command sdtl:FileName ?file_name .
         ?command sdtl:SourceInformation ?source_info .
@@ -100,12 +99,12 @@ blazegraph select --format table << __END_QUERY__
     WHERE {
         ?program rdf:type sdtl:Program .
         ?program sdtl:Commands ?commandinventory .
-        ?commandinventory rdfs:member ?command .
+        ?commandinventory (<>|!<>) ?command .
         ?command rdf:type sdtl:Load .
         ?command sdtl:ProducesDataframe ?dataframe_description .
         ?dataframe_description sdtl:DataframeName ?dataframe .
         ?dataframe_description sdtl:VariableInventory ?variable_inventory .
-        ?variable_inventory rdfs:member/sdtl:VariableName ?loaded_variable .
+        ?variable_inventory (<>|!<>)/sdtl:VariableName ?loaded_variable .
         ?command sdtl:SourceInformation ?source_info .
         ?source_info sdtl:LineNumberStart ?source_line .
         ?source_info sdtl:OriginalSourceText ?source_text .
@@ -127,12 +126,12 @@ blazegraph select --format table << __END_QUERY__
     WHERE {
         ?program rdf:type sdtl:Program .
         ?program sdtl:Commands ?commandinventory .
-        ?commandinventory rdfs:member ?command .
+        ?commandinventory (<>|!<>) ?command .
         ?command rdf:type sdtl:Save .
         ?command sdtl:ConsumesDataframe ?dataframe_description .
         ?dataframe_description sdtl:DataframeName ?dataframe .
         ?dataframe_description sdtl:VariableInventory ?variable_inventory .
-        ?variable_inventory rdfs:member/sdtl:VariableName ?saved_variable .
+        ?variable_inventory (<>|!<>)/sdtl:VariableName ?saved_variable .
         ?command sdtl:SourceInformation ?source_info .
         ?source_info sdtl:LineNumberStart ?source_line .
         ?source_info sdtl:OriginalSourceText ?source_text .
@@ -154,7 +153,7 @@ blazegraph select --format table << __END_QUERY__
     WHERE {
         ?program rdf:type sdtl:Program .
         ?program sdtl:Commands ?commandinventory .
-        ?commandinventory rdfs:member ?command .
+        ?commandinventory (<>|!<>) ?command .
         ?command sdtl:ProducesDataframe ?dataframe_description .
         ?dataframe_description sdtl:DataframeName ?dataframe .
         ?command sdtl:SourceInformation ?source_info .
@@ -178,7 +177,7 @@ blazegraph select --format table << __END_QUERY__
     WHERE {
         ?program rdf:type sdtl:Program .
         ?program sdtl:Commands ?commandinventory .
-        ?commandinventory rdfs:member ?command .
+        ?commandinventory (<>|!<>) ?command .
         ?command sdtl:Variable ?variable .
         ?variable sdtl:VariableName ?updated_variable .
         ?command sdtl:SourceInformation ?source_info .
@@ -201,7 +200,7 @@ blazegraph select --format table << __END_QUERY__
     WHERE {
         ?program rdf:type sdtl:Program .
         ?program sdtl:Commands ?commandinventory .
-        ?commandinventory rdfs:member ?command .
+        ?commandinventory (<>|!<>) ?command .
         ?command sdtl:Expression ?expression .
         ?expression (sdtl:Arguments/sdtl:ArgumentValue)+/sdtl:VariableName ?used_variable .
         ?command sdtl:SourceInformation ?source_info .
@@ -225,7 +224,7 @@ blazegraph select --format table << __END_QUERY__
     WHERE {
         ?program rdf:type sdtl:Program .
         ?program sdtl:Commands ?commandinventory .
-        ?commandinventory rdfs:member ?command .
+        ?commandinventory (<>|!<>) ?command .
         ?command sdtl:Variable/sdtl:VariableName ?affected_variable .
         ?command sdtl:Expression ?expression .
         ?expression (sdtl:Arguments/sdtl:ArgumentValue)+/sdtl:VariableName ?affecting_variable .
