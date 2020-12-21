@@ -48,13 +48,13 @@ END_SCRIPT
 
 # *****************************************************************************
 
-bash ${RUNNER} Q2 "WHAT VARIABLES WERE DIRECTLY AFFECTED BY OTHER VARIABLES?" << END_SCRIPT
+bash ${RUNNER} Q2 "WHAT VARIABLES DIRECTLY AFFECT OTHER VARIABLES?" << END_SCRIPT
 
 blazegraph select --format table << __END_QUERY__
 
     PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
 
-    SELECT DISTINCT ?affected_variable ?affecting_variable ?command ?source_line ?source_text
+    SELECT DISTINCT ?affecting_variable  ?affected_variable ?command ?source_line ?source_text
     WHERE {
         ?program rdf:type sdtl:Program .
         ?program sdtl:Commands ?commandinventory .
@@ -64,7 +64,7 @@ blazegraph select --format table << __END_QUERY__
         ?command sdtl:SourceInformation ?source_info .
         ?source_info sdtl:LineNumberStart ?source_line .
         ?source_info sdtl:OriginalSourceText ?source_text .
-    } ORDER BY ?affected_variable ?affecting_variable ?source_line
+    } ORDER BY ?affecting_variable ?affected_variable ?source_line
 
 __END_QUERY__
 
@@ -72,7 +72,7 @@ END_SCRIPT
 
 # *****************************************************************************
 
-bash ${RUNNER} Q3 "WHAT VARIABLES DIRECTLY AFFECTED THE KELVIN VARIABLE?" << END_SCRIPT
+bash ${RUNNER} Q3 "WHAT VARIABLES DIRECTLY AFFECT THE KELVIN VARIABLE?" << END_SCRIPT
 
 blazegraph select --format table << __END_QUERY__
 
@@ -96,7 +96,7 @@ END_SCRIPT
 
 # *****************************************************************************
 
-bash ${RUNNER} Q4 "WHAT VARIABLES DIRECTLY AFFECTED VARIABLES THAT DIRECTLY AFFECTED THE KELVIN VARIABLE?" << END_SCRIPT
+bash ${RUNNER} Q4 "WHAT VARIABLES DIRECTLY AFFECT VARIABLES THAT DIRECTLY AFFECT THE KELVIN VARIABLE?" << END_SCRIPT
 
 blazegraph select --format table << __END_QUERY__
 
@@ -123,7 +123,7 @@ END_SCRIPT
 
 # *****************************************************************************
 
-bash ${RUNNER} Q5 "WHAT VARIABLES DIRECTLY OR INDIRECTLY AFFECTED THE KELVIN VARIABLE?" << END_SCRIPT
+bash ${RUNNER} Q5 "WHAT VARIABLES DIRECTLY OR INDIRECTLY AFFECT THE KELVIN VARIABLE?" << END_SCRIPT
 
 blazegraph select --format table << __END_QUERY__
 

@@ -747,13 +747,13 @@ Fahrenheit    | :compute/4 | 24          | temps = temps.assign(Celsius=((temps.
 
 ******************************************* EXAMPLE Q2 ************************************************
 
-# WHAT VARIABLES WERE DIRECTLY AFFECTED BY OTHER VARIABLES?
+# WHAT VARIABLES DIRECTLY AFFECT OTHER VARIABLES?
 
 blazegraph select --format table << __END_QUERY__
 
     PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
 
-    SELECT DISTINCT ?affected_variable ?affecting_variable ?command ?source_line ?source_text
+    SELECT DISTINCT ?affecting_variable  ?affected_variable ?command ?source_line ?source_text
     WHERE {
         ?program rdf:type sdtl:Program .
         ?program sdtl:Commands ?commandinventory .
@@ -763,24 +763,24 @@ blazegraph select --format table << __END_QUERY__
         ?command sdtl:SourceInformation ?source_info .
         ?source_info sdtl:LineNumberStart ?source_line .
         ?source_info sdtl:OriginalSourceText ?source_text .
-    } ORDER BY ?affected_variable ?affecting_variable ?source_line
+    } ORDER BY ?affecting_variable ?affected_variable ?source_line
 
 __END_QUERY__
 
 ------------------------------------------- Q2 OUTPUTS ------------------------------------------------
 
-affected_variable | affecting_variable | command    | source_line | source_text
+affecting_variable | affected_variable | command    | source_line | source_text
 ===========================================================================================================
-B                 | B                  | :compute/2 | 12          | df['B'] = df.B + 6.5
-C                 | A                  | :compute/3 | 16          | df['C'] = df.A - df.B
-C                 | B                  | :compute/3 | 16          | df['C'] = df.A - df.B
-Celsius           | Fahrenheit         | :compute/4 | 24          | temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))
-Kelvin            | Celsius            | :compute/5 | 28          | temps = temps.assign(Kelvin=(temps.Celsius + 273))
+A                  | C                 | :compute/3 | 16          | df['C'] = df.A - df.B
+B                  | B                 | :compute/2 | 12          | df['B'] = df.B + 6.5
+B                  | C                 | :compute/3 | 16          | df['C'] = df.A - df.B
+Celsius            | Kelvin            | :compute/5 | 28          | temps = temps.assign(Kelvin=(temps.Celsius + 273))
+Fahrenheit         | Celsius           | :compute/4 | 24          | temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))
 
 
 ******************************************* EXAMPLE Q3 ************************************************
 
-# WHAT VARIABLES DIRECTLY AFFECTED THE KELVIN VARIABLE?
+# WHAT VARIABLES DIRECTLY AFFECT THE KELVIN VARIABLE?
 
 blazegraph select --format table << __END_QUERY__
 
@@ -809,7 +809,7 @@ Celsius            | :compute/5 | 28          | temps = temps.assign(Kelvin=(tem
 
 ******************************************* EXAMPLE Q4 ************************************************
 
-# WHAT VARIABLES DIRECTLY AFFECTED VARIABLES THAT DIRECTLY AFFECTED THE KELVIN VARIABLE?
+# WHAT VARIABLES DIRECTLY AFFECT VARIABLES THAT DIRECTLY AFFECT THE KELVIN VARIABLE?
 
 blazegraph select --format table << __END_QUERY__
 
@@ -841,7 +841,7 @@ Fahrenheit                    | :compute/4                   | 24          | tem
 
 ******************************************* EXAMPLE Q5 ************************************************
 
-# WHAT VARIABLES DIRECTLY OR INDIRECTLY AFFECTED THE KELVIN VARIABLE?
+# WHAT VARIABLES DIRECTLY OR INDIRECTLY AFFECT THE KELVIN VARIABLE?
 
 blazegraph select --format table << __END_QUERY__
 
