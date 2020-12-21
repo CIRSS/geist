@@ -144,6 +144,39 @@ END_SCRIPT
 
 # *****************************************************************************
 
+bash ${RUNNER} Q6 "WHAT COMMANDS AFFECT EACH VARIABLE?" << END_SCRIPT
+
+blazegraph select --format table << __END_QUERY__
+
+    PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
+
+    SELECT DISTINCT ?affected_variable ?command ?source_line ?source_text
+    WHERE {
+        ?program rdf:type sdtl:Program .
+        ?program sdtl:Commands ?commandinventory .
+        ?commandinventory rdfs:member ?command .
+        {
+            ?command sdtl:Variable ?variable .
+        }
+        UNION
+        {
+            ?command rdf:type sdtl:Load .
+            ?command sdtl:ProducesDataframe ?dataframe_description .
+            ?dataframe_description sdtl:VariableInventory ?variable_inventory .
+            ?variable_inventory rdfs:member ?variable .
+        }
+        ?variable sdtl:VariableName ?affected_variable .
+        ?command sdtl:SourceInformation ?source_info .
+        ?source_info sdtl:LineNumberStart ?source_line .
+        ?source_info sdtl:OriginalSourceText ?source_text .
+    } ORDER BY ?affected_variable ?source_line
+
+__END_QUERY__
+
+END_SCRIPT
+
+# *****************************************************************************
+
 bash ${GRAPHER} GRAPH-1 "DATAFRAME FLOW THROUGH COMMANDS" \
     << '__END_SCRIPT__'
 
