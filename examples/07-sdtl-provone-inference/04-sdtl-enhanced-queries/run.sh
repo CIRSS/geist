@@ -175,6 +175,70 @@ __END_QUERY__
 
 END_SCRIPT
 
+
+# *****************************************************************************
+
+bash ${RUNNER} Q7 "WHAT IS THE LAST COMMAND THAT UPDATES EACH VARIABLE?" << END_SCRIPT
+
+blazegraph select --format table << __END_QUERY__
+
+    PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
+
+    SELECT DISTINCT ?variable ?command ?upstream_command ?source_line ?source_text
+    WHERE {
+        ?program rdf:type sdtl:Program .
+        ?program sdtl:Commands ?commandinventory .
+        ?commandinventory rdfs:member ?command .
+        {
+            ?command rdf:type sdtl:Save .
+            ?save_command sdtl:ConsumesDataframe ?saved_dataframe .
+            ?saved_dataframe sdtl:VariableInventory/rdfs:member/sdtl:VariableName ?variable .
+        }
+        UNION
+        {
+            ?command rdf:type sdtl:Compute .
+            ?command sdtl:OperatesOn/sdtl:VariableName ?variable .
+        }
+
+        ?save_command (sdtl:ConsumesDataframe/^sdtl:ProducesDataframe)+ ?upstream_command .
+
+        {
+            ?upstream_command sdtl:Variable/sdtl:VariableName  ?variable .
+        }
+        UNION
+        {
+            ?upstream_command rdf:type sdtl:Load .
+            ?upstream_command sdtl:ProducesDataframe ?dataframe_description .
+            ?dataframe_description sdtl:VariableInventory ?variable_inventory .
+            ?variable_inventory rdfs:member/sdtl:VariableName ?variable .
+        }
+
+        FILTER NOT EXISTS
+        {
+            ?intermediate_command (sdtl:ConsumesDataframe/^sdtl:ProducesDataframe)+ ?upstream_command .
+
+            {
+                ?intermediate_command sdtl:Variable/sdtl:VariableName  ?variable .
+            }
+            UNION
+            {
+                ?intermediate_command rdf:type sdtl:Load .
+                ?intermediate_command sdtl:ProducesDataframe ?dataframe_description .
+                ?dataframe_description sdtl:VariableInventory ?variable_inventory .
+                ?variable_inventory rdfs:member/sdtl:VariableName ?variable .
+            }
+        }
+
+        ?upstream_command sdtl:SourceInformation ?source_info .
+        ?source_info sdtl:LineNumberStart ?source_line .
+        ?source_info sdtl:OriginalSourceText ?source_text .
+
+    } ORDER BY ?source_line
+
+__END_QUERY__
+
+END_SCRIPT
+
 # *****************************************************************************
 
 bash ${GRAPHER} GRAPH-1 "DATAFRAME FLOW THROUGH COMMANDS" \

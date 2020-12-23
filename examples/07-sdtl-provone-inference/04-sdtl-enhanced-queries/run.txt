@@ -911,6 +911,90 @@ Fahrenheit        | :load/2    | 20          | temps = pd.read_csv('../data/temp
 Kelvin            | :compute/5 | 28          | temps = temps.assign(Kelvin=(temps.Celsius + 273))
 
 
+******************************************* EXAMPLE Q7 ************************************************
+
+# WHAT IS THE LAST COMMAND THAT UPDATES EACH VARIABLE?
+
+blazegraph select --format table << __END_QUERY__
+
+    PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
+
+    SELECT DISTINCT ?variable ?command ?upstream_command ?source_line ?source_text
+    WHERE {
+        ?program rdf:type sdtl:Program .
+        ?program sdtl:Commands ?commandinventory .
+        ?commandinventory rdfs:member ?command .
+        {
+            ?command rdf:type sdtl:Save .
+            ?save_command sdtl:ConsumesDataframe ?saved_dataframe .
+            ?saved_dataframe sdtl:VariableInventory/rdfs:member/sdtl:VariableName ?variable .
+        }
+        UNION
+        {
+            ?command rdf:type sdtl:Compute .
+            ?command sdtl:OperatesOn/sdtl:VariableName ?variable .
+        }
+
+        ?save_command (sdtl:ConsumesDataframe/^sdtl:ProducesDataframe)+ ?upstream_command .
+
+        {
+            ?upstream_command sdtl:Variable/sdtl:VariableName  ?variable .
+        }
+        UNION
+        {
+            ?upstream_command rdf:type sdtl:Load .
+            ?upstream_command sdtl:ProducesDataframe ?dataframe_description .
+            ?dataframe_description sdtl:VariableInventory ?variable_inventory .
+            ?variable_inventory rdfs:member/sdtl:VariableName ?variable .
+        }
+
+        FILTER NOT EXISTS
+        {
+            ?intermediate_command (sdtl:ConsumesDataframe/^sdtl:ProducesDataframe)+ ?upstream_command .
+
+            {
+                ?intermediate_command sdtl:Variable/sdtl:VariableName  ?variable .
+            }
+            UNION
+            {
+                ?intermediate_command rdf:type sdtl:Load .
+                ?intermediate_command sdtl:ProducesDataframe ?dataframe_description .
+                ?dataframe_description sdtl:VariableInventory ?variable_inventory .
+                ?variable_inventory rdfs:member/sdtl:VariableName ?variable .
+            }
+        }
+
+        ?upstream_command sdtl:SourceInformation ?source_info .
+        ?source_info sdtl:LineNumberStart ?source_line .
+        ?source_info sdtl:OriginalSourceText ?source_text .
+
+    } ORDER BY ?source_line
+
+__END_QUERY__
+
+------------------------------------------- Q7 OUTPUTS ------------------------------------------------
+
+variable   | command    | upstream_command | source_line | source_text
+===========================================================================================================
+A          | :save/1    | :compute/1       | 8           | df['A'] = 3
+A          | :save/2    | :compute/1       | 8           | df['A'] = 3
+A          | :compute/3 | :compute/1       | 8           | df['A'] = 3
+B          | :save/1    | :compute/2       | 12          | df['B'] = df.B + 6.5
+B          | :save/2    | :compute/2       | 12          | df['B'] = df.B + 6.5
+B          | :compute/2 | :compute/2       | 12          | df['B'] = df.B + 6.5
+B          | :compute/3 | :compute/2       | 12          | df['B'] = df.B + 6.5
+C          | :save/1    | :compute/3       | 16          | df['C'] = df.A - df.B
+C          | :save/2    | :compute/3       | 16          | df['C'] = df.A - df.B
+Fahrenheit | :save/1    | :load/2          | 20          | temps = pd.read_csv('../data/temps.csv')
+Fahrenheit | :save/2    | :load/2          | 20          | temps = pd.read_csv('../data/temps.csv')
+Fahrenheit | :compute/4 | :load/2          | 20          | temps = pd.read_csv('../data/temps.csv')
+Celsius    | :save/1    | :compute/4       | 24          | temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))
+Celsius    | :save/2    | :compute/4       | 24          | temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))
+Celsius    | :compute/5 | :compute/4       | 24          | temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))
+Kelvin     | :save/1    | :compute/5       | 28          | temps = temps.assign(Kelvin=(temps.Celsius + 273))
+Kelvin     | :save/2    | :compute/5       | 28          | temps = temps.assign(Kelvin=(temps.Celsius + 273))
+
+
 ******************************************* EXAMPLE GRAPH-1 ************************************************
 
 # DATAFRAME FLOW THROUGH COMMANDS
