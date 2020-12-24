@@ -7,9 +7,27 @@
 {{ query "sdtl_select_program" '''
     SELECT ?program
     WHERE {
-        ?program a sdtl:Program .
+        ?program rdf:type sdtl:Program .
     }
 '''}}
+
+{{ query "sdtl_select_saves" "ProgramID" '''
+    SELECT ?command ?dataframe
+    WHERE {
+        <{{$ProgramID}}> sdtl:Commands ?command_inventory .
+        ?command_inventory rdfs:member ?command .
+        ?command rdf:type sdtl:Save .
+        ?command sdtl:ConsumesDataframe ?dataframe .
+    }
+'''}}
+
+{{ query "sdtl_select_dataframe_variables" "DataframeID" '''
+    SELECT ?variable
+    WHERE {
+        <{{$DataframeID}}> sdtl:VariableInventory/rdfs:member/sdtl:VariableName ?variable .
+    }
+'''}}
+
 
 {{ query "sdtl_select_commands" "ProgramID" '''
     SELECT DISTINCT ?command ?source_text

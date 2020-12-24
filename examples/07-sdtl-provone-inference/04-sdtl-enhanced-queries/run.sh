@@ -327,3 +327,57 @@ __END_SCRIPT__
 # __END_REPORT_TEMPLATE__
 
 # __END_SCRIPT__
+
+# *****************************************************************************
+
+bash ${RUNNER} R1 "REPORT ALL VARIABLE UPDATE STEPS" << 'END_SCRIPT'
+
+blazegraph report << '__END_REPORT_TEMPLATE__'
+
+    {{{
+        {{ include "../../common/sdtl.g" }}
+    }}}
+
+    {{ with $Program := sdtl_select_program | value }}
+        {{ range $Save := (sdtl_select_saves $Program | rows ) }}
+            {{ range $SavedVariable := ( sdtl_select_dataframe_variables (index $Save 1) ) | vector }}
+                {{ $SavedVariable }}
+            {{ end }}
+        {{ end }}
+    {{ end }}
+
+
+__END_REPORT_TEMPLATE__
+
+END_SCRIPT
+
+
+
+
+
+
+
+
+
+# {{ with $Run := (select "SELECT ?r WHERE {?r a wt:TaleRun}") | value }}                                 \\
+#                                                                                                         \\
+#     Tale Run:   {{ $Run }}
+#     Tale Name:  {{ (select "SELECT ?n WHERE {<{{.}}> wt:TaleName ?n}" $Run | value) }}
+#                                                                                                         \\
+#     {{ with $RunScript := (select "SELECT ?s WHERE {<{{.}}> wt:TaleRunScript ?s}" $Run | value) }}      \\
+#         Tale Script: {{ (select "SELECT ?n WHERE {<{{.}}> wt:FilePath ?n}" $RunScript | value) }}
+
+#     Tale Inputs:
+#         {{ range $InputFile := (select '''
+#             SELECT DISTINCT ?fp WHERE {
+#                 ?e wt:ExecutionOf <{{.}}> .
+#                 ?p (wt:ChildProcessOf)+ ?e .
+#                 ?p wt:ReadFile ?f .
+#                 FILTER NOT EXISTS {
+#                     ?_ wt:WroteFile ?f . }
+#                 ?f wt:FilePath ?fp .
+#             } ORDER BY ?fp''' $RunScript | vector) }}                                                   \\
+#                 {{ $InputFile }}
+#         {{end}}
+#     {{end}}
+# {{end}}
