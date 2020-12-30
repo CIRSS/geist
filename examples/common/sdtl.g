@@ -11,13 +11,14 @@
     }
 '''}}
 
-{{ query "sdtl_select_saves" "ProgramID" '''
-    SELECT ?command ?dataframe
+{{ query "sdtl_select_save_commands" "ProgramID" '''
+    SELECT ?command ?dataframe_id ?dataframe_name
     WHERE {
         <{{$ProgramID}}> sdtl:Commands ?command_inventory .
         ?command_inventory rdfs:member ?command .
         ?command rdf:type sdtl:Save .
-        ?command sdtl:ConsumesDataframe ?dataframe .
+        ?command sdtl:ConsumesDataframe ?dataframe_id .
+        ?dataframe_id sdtl:DataframeName ?dataframe_name .
     }
 '''}}
 

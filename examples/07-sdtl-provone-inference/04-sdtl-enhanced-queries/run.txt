@@ -1081,15 +1081,49 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
         {{ include "../../common/sdtl.g" }}
     }}}
 
-    {{ with $Program := sdtl_select_program | value }}
-        {{ with $Saves := (sdtl_select_save_commands $Program | rows ) }}
-            {{ $Saves }}
+    ---------- VARIABLE LINEAGES REPORT ----------
+                                                                                            \
+    {{ with $Program := sdtl_select_program | value }}                                      \
+        {{ range $SaveCommand := (sdtl_select_save_commands $Program | rows ) }}
+            ===================
+            Dataframe {{ index $SaveCommand 2 }}
+            ===================
+            {{ range $SavedVariable := ( sdtl_select_dataframe_variables (index $SaveCommand 1) ) | vector }}
+                Variable {{ $SavedVariable }}
+                -------------------
+            {{ end }}
         {{ end }}
     {{ end }}
-
 
 __END_REPORT_TEMPLATE__
 
 ------------------------------------------- R1 OUTPUTS ------------------------------------------------
 
-[[http://wholetale.org/program/1119/save/1 http://wholetale.org/program/1119/dataframe/4] [http://wholetale.org/program/1119/save/2 http://wholetale.org/program/1119/dataframe/7]]
+---------- VARIABLE LINEAGES REPORT ----------
+
+===================
+Dataframe df
+===================
+
+Variable A
+-------------------
+
+Variable B
+-------------------
+
+Variable C
+-------------------
+
+
+===================
+Dataframe temps
+===================
+
+Variable Fahrenheit
+-------------------
+
+Variable Kelvin
+-------------------
+
+Variable Celsius
+-------------------

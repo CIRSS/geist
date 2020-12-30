@@ -338,14 +338,19 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
         {{ include "../../common/sdtl.g" }}
     }}}
 
-    {{ with $Program := sdtl_select_program | value }}
-        {{ range $Save := (sdtl_select_saves $Program | rows ) }}
-            {{ range $SavedVariable := ( sdtl_select_dataframe_variables (index $Save 1) ) | vector }}
-                {{ $SavedVariable }}
+    ---------- VARIABLE LINEAGES REPORT ----------
+                                                                                            \\
+    {{ with $Program := sdtl_select_program | value }}                                      \\
+        {{ range $SaveCommand := (sdtl_select_save_commands $Program | rows ) }}
+            ===================
+            Dataframe {{ index $SaveCommand 2 }}
+            ===================
+            {{ range $SavedVariable := ( sdtl_select_dataframe_variables (index $SaveCommand 1) ) | vector }}
+                Variable {{ $SavedVariable }}
+                -------------------
             {{ end }}
         {{ end }}
     {{ end }}
-
 
 __END_REPORT_TEMPLATE__
 
