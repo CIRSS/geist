@@ -334,30 +334,61 @@ bash ${RUNNER} R1 "REPORT HISTORY OF EACH VARIABLE" << 'END_SCRIPT'
 
 blazegraph report << '__END_REPORT_TEMPLATE__'
 
-    {{{
-        {{ include "../../common/sdtl.g" }}
-    }}}
+{{{
+    {{ include "../../common/sdtl.g" }}
+}}}
 
-    ---------- VARIABLE HISTORY REPORT ----------
-                                                                                                                \\
-    {{ with $Program := sdtl_select_program | value }}                                                          \\
-        {{ range $SaveCommand := sdtl_select_save_commands $Program | rows }}
-            ===================
-            Dataframe {{ index $SaveCommand 2 }}
-            ===================
-            {{ range $VariableName := sdtl_select_dataframe_variables (index $SaveCommand 1) | vector }}
-                Variable {{ $VariableName }}
-                -------------------
-                {{ range $LoadCommand := sdtl_select_load_commands $Program $VariableName | rows}}            \\
-                    Load    | Line {{ index $LoadCommand 3 }} | {{ index $LoadCommand 4 }}
-                {{ end }}                                                                                       \\
-                {{ range $UpdateCommand := sdtl_select_update_commands $Program $VariableName | rows }}       \\
-                    Compute | Line {{ index $UpdateCommand 1 }} | {{ index $UpdateCommand 2 }}
-                {{ end }}                                                                                       \\
-                    Save    | Line {{ index $SaveCommand 3 }} | {{ index $SaveCommand 4 }}
-            {{ end }}
+---------- VARIABLE HISTORY REPORT ----------
+                                                                                                    \\
+{{ with $Program := sdtl_select_program | value }}                                                  \\
+    {{ range $SaveCommand := sdtl_select_save_commands $Program | rows }}
+        ===================
+        Dataframe {{ index $SaveCommand 2 }}
+        ===================
+        {{ range $VariableName := sdtl_select_dataframe_variables (index $SaveCommand 1) | vector }}
+            Variable {{ $VariableName }}
+            -------------------
+            {{ range $LoadCommand := sdtl_select_load_commands $Program $VariableName | rows }}     \\
+                Load    | Line {{ index $LoadCommand 3 }} | {{ index $LoadCommand 4 }}
+            {{ end }}                                                                               \\
+            {{ range $UpdateCommand := sdtl_select_update_commands $Program $VariableName | rows }} \\
+                Compute | Line {{ index $UpdateCommand 1 }} | {{ index $UpdateCommand 2 }}
+            {{ end }}                                                                               \\
+                Save    | Line {{ index $SaveCommand 3 }} | {{ index $SaveCommand 4 }}
         {{ end }}
     {{ end }}
+{{ end }}
+
+__END_REPORT_TEMPLATE__
+
+END_SCRIPT
+
+# *****************************************************************************
+
+bash ${RUNNER} R2 "REPORT LAST UPDATE CORRESPONDING TO EACH VARIABLE USE" << 'END_SCRIPT'
+
+blazegraph report << '__END_REPORT_TEMPLATE__'
+
+{{{
+    {{ include "../../common/sdtl.g" }}
+}}}
+
+---------- VARIABLE HISTORY REPORT ----------
+                                                                                                    \\
+{{ with $Program := sdtl_select_program | value }}                                                  \\
+    {{ range $SaveCommand := sdtl_select_save_commands $Program | rows }}
+        ===================
+        Dataframe {{ index $SaveCommand 2 }}
+        ===================
+        {{ range $VariableName := sdtl_select_dataframe_variables (index $SaveCommand 1) | vector }}
+            Variable {{ $VariableName }}
+            -------------------
+            {{ range $VariableFlow := sdtl_select_variable_flows $Program $VariableName | rows }}      \\
+            [Line {{ index $VariableFlow 0 }}] {{ index $VariableFlow 1 }} ---> [Line {{ index $VariableFlow 2 }}] {{ index $VariableFlow 3 }}
+            {{ end }}                                                                               \\
+        {{ end }}
+    {{ end }}
+{{ end }}
 
 __END_REPORT_TEMPLATE__
 

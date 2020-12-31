@@ -55,13 +55,29 @@
     }
 '''}}
 
+{{ query "sdtl_select_variable_flows" "ProgramID" "VariableName" '''
+    SELECT ?producer_line ?producer_text ?consumer_line ?consumer_text
+    WHERE {
+        <{{$ProgramID}}> sdtl:Commands ?command_inventory .
+        ?command_inventory rdfs:member ?command .
+        ?command rdf:type sdtl:Compute .
+        ?command sdtl:Variable ?variable .
+        ?variable sdtl:VariableName ?variable_name .
+        FILTER (?variable_name="{{$VariableName}}")
+        ?command sdtl:SourceInformation ?source_info .
+        ?source_info sdtl:LineNumberStart ?producer_line .
+        ?source_info sdtl:OriginalSourceText ?producer_text .
+        BIND (?producer_line AS ?consumer_line)
+        BIND (?producer_text AS ?consumer_text)
+    }
+'''}}
+
 {{ query "sdtl_select_dataframe_variables" "DataframeID" '''
     SELECT ?variable
     WHERE {
         <{{$DataframeID}}> sdtl:VariableInventory/rdfs:member/sdtl:VariableName ?variable .
     }
 '''}}
-
 
 {{ query "sdtl_select_commands" "ProgramID" '''
     SELECT DISTINCT ?command ?source_text
