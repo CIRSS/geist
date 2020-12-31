@@ -11,14 +11,47 @@
     }
 '''}}
 
+{{ query "sdtl_select_load_commands" "ProgramID" "VariableName" '''
+    SELECT ?command ?dataframe_id ?dataframe_name ?source_line ?source_text ?variable_name
+    WHERE {
+        <{{$ProgramID}}> sdtl:Commands ?command_inventory .
+        ?command_inventory rdfs:member ?command .
+        ?command rdf:type sdtl:Load .
+        ?command sdtl:ProducesDataframe ?dataframe_id .
+        ?dataframe_id sdtl:VariableInventory/rdfs:member/sdtl:VariableName ?variable_name .
+        FILTER (?variable_name="{{$VariableName}}")
+        ?command sdtl:SourceInformation ?source_info .
+        ?source_info sdtl:LineNumberStart ?source_line .
+        ?source_info sdtl:OriginalSourceText ?source_text .
+    }
+'''}}
+
 {{ query "sdtl_select_save_commands" "ProgramID" '''
-    SELECT ?command ?dataframe_id ?dataframe_name
+    SELECT ?command ?dataframe_id ?dataframe_name ?source_line ?source_text
     WHERE {
         <{{$ProgramID}}> sdtl:Commands ?command_inventory .
         ?command_inventory rdfs:member ?command .
         ?command rdf:type sdtl:Save .
         ?command sdtl:ConsumesDataframe ?dataframe_id .
         ?dataframe_id sdtl:DataframeName ?dataframe_name .
+        ?command sdtl:SourceInformation ?source_info .
+        ?source_info sdtl:LineNumberStart ?source_line .
+        ?source_info sdtl:OriginalSourceText ?source_text .
+    }
+'''}}
+
+{{ query "sdtl_select_update_commands" "ProgramID" "VariableName" '''
+    SELECT ?command ?source_line ?source_text
+    WHERE {
+        <{{$ProgramID}}> sdtl:Commands ?command_inventory .
+        ?command_inventory rdfs:member ?command .
+        ?command rdf:type sdtl:Compute .
+        ?command sdtl:Variable ?variable .
+        ?variable sdtl:VariableName ?variable_name .
+        FILTER (?variable_name="{{$VariableName}}")
+        ?command sdtl:SourceInformation ?source_info .
+        ?source_info sdtl:LineNumberStart ?source_line .
+        ?source_info sdtl:OriginalSourceText ?source_text .
     }
 '''}}
 
@@ -39,6 +72,16 @@
         ?source_info sdtl:OriginalSourceText ?source_text .
     }
 ''' }}
+
+{{ query "sdtl_get_command_source" "CommandID" '''
+    SELECT DISTINCT ?source_text
+    WHERE {
+        <{{$CommandID}}> sdtl:SourceInformation ?source_info .
+        ?source_info sdtl:LineNumberStart ?source_line .
+        ?source_info sdtl:OriginalSourceText ?source_text .
+    }
+''' }}
+
 
 {{ query "sdtl_select_dataframe_edges" "ProgramID" '''
     SELECT DISTINCT ?upstream_command ?downstream_command ?dataframe ?dataframe_name
