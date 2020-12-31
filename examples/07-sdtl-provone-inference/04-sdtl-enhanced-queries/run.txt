@@ -1073,7 +1073,7 @@ node[width=8]
 
 ******************************************* EXAMPLE R1 ************************************************
 
-# REPORT ALL VARIABLE UPDATE STEPS
+# REPORT HISTORY OF EACH VARIABLE
 
 blazegraph report << '__END_REPORT_TEMPLATE__'
 
@@ -1084,17 +1084,17 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
     ---------- VARIABLE HISTORY REPORT ----------
                                                                                                                 \
     {{ with $Program := sdtl_select_program | value }}                                                          \
-        {{ range $SaveCommand := (sdtl_select_save_commands $Program | rows ) }}
+        {{ range $SaveCommand := sdtl_select_save_commands $Program | rows }}
             ===================
             Dataframe {{ index $SaveCommand 2 }}
             ===================
-            {{ range $VariableName := ( sdtl_select_dataframe_variables (index $SaveCommand 1) ) | vector }}
+            {{ range $VariableName := sdtl_select_dataframe_variables (index $SaveCommand 1) | vector }}
                 Variable {{ $VariableName }}
                 -------------------
-                {{ range $LoadCommand := (sdtl_select_load_commands $Program $VariableName) | rows}}            \
+                {{ range $LoadCommand := sdtl_select_load_commands $Program $VariableName | rows}}            \
                     Load    | Line {{ index $LoadCommand 3 }} | {{ index $LoadCommand 4 }}
                 {{ end }}                                                                                       \
-                {{ range $UpdateCommand := (sdtl_select_update_commands $Program $VariableName) | rows }}       \
+                {{ range $UpdateCommand := sdtl_select_update_commands $Program $VariableName | rows }}       \
                     Compute | Line {{ index $UpdateCommand 1 }} | {{ index $UpdateCommand 2 }}
                 {{ end }}                                                                                       \
                     Save    | Line {{ index $SaveCommand 3 }} | {{ index $SaveCommand 4 }}

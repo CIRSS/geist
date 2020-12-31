@@ -330,7 +330,7 @@ __END_SCRIPT__
 
 # *****************************************************************************
 
-bash ${RUNNER} R1 "REPORT ALL VARIABLE UPDATE STEPS" << 'END_SCRIPT'
+bash ${RUNNER} R1 "REPORT HISTORY OF EACH VARIABLE" << 'END_SCRIPT'
 
 blazegraph report << '__END_REPORT_TEMPLATE__'
 
@@ -341,17 +341,17 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
     ---------- VARIABLE HISTORY REPORT ----------
                                                                                                                 \\
     {{ with $Program := sdtl_select_program | value }}                                                          \\
-        {{ range $SaveCommand := (sdtl_select_save_commands $Program | rows ) }}
+        {{ range $SaveCommand := sdtl_select_save_commands $Program | rows }}
             ===================
             Dataframe {{ index $SaveCommand 2 }}
             ===================
-            {{ range $VariableName := ( sdtl_select_dataframe_variables (index $SaveCommand 1) ) | vector }}
+            {{ range $VariableName := sdtl_select_dataframe_variables (index $SaveCommand 1) | vector }}
                 Variable {{ $VariableName }}
                 -------------------
-                {{ range $LoadCommand := (sdtl_select_load_commands $Program $VariableName) | rows}}            \\
+                {{ range $LoadCommand := sdtl_select_load_commands $Program $VariableName | rows}}            \\
                     Load    | Line {{ index $LoadCommand 3 }} | {{ index $LoadCommand 4 }}
                 {{ end }}                                                                                       \\
-                {{ range $UpdateCommand := (sdtl_select_update_commands $Program $VariableName) | rows }}       \\
+                {{ range $UpdateCommand := sdtl_select_update_commands $Program $VariableName | rows }}       \\
                     Compute | Line {{ index $UpdateCommand 1 }} | {{ index $UpdateCommand 2 }}
                 {{ end }}                                                                                       \\
                     Save    | Line {{ index $SaveCommand 3 }} | {{ index $SaveCommand 4 }}
@@ -362,34 +362,3 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
 __END_REPORT_TEMPLATE__
 
 END_SCRIPT
-
-
-
-
-
-
-
-
-
-# {{ with $Run := (select "SELECT ?r WHERE {?r a wt:TaleRun}") | value }}                                 \\
-#                                                                                                         \\
-#     Tale Run:   {{ $Run }}
-#     Tale Name:  {{ (select "SELECT ?n WHERE {<{{.}}> wt:TaleName ?n}" $Run | value) }}
-#                                                                                                         \\
-#     {{ with $RunScript := (select "SELECT ?s WHERE {<{{.}}> wt:TaleRunScript ?s}" $Run | value) }}      \\
-#         Tale Script: {{ (select "SELECT ?n WHERE {<{{.}}> wt:FilePath ?n}" $RunScript | value) }}
-
-#     Tale Inputs:
-#         {{ range $InputFile := (select '''
-#             SELECT DISTINCT ?fp WHERE {
-#                 ?e wt:ExecutionOf <{{.}}> .
-#                 ?p (wt:ChildProcessOf)+ ?e .
-#                 ?p wt:ReadFile ?f .
-#                 FILTER NOT EXISTS {
-#                     ?_ wt:WroteFile ?f . }
-#                 ?f wt:FilePath ?fp .
-#             } ORDER BY ?fp''' $RunScript | vector) }}                                                   \\
-#                 {{ $InputFile }}
-#         {{end}}
-#     {{end}}
-# {{end}}
