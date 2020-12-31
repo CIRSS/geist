@@ -233,7 +233,7 @@ blazegraph select --format table << __END_QUERY__
         ?source_info sdtl:LineNumberStart ?source_line .
         ?source_info sdtl:OriginalSourceText ?source_text .
 
-    } ORDER BY ?source_line
+    } ORDER BY ?source_line ?command
 
 __END_QUERY__
 

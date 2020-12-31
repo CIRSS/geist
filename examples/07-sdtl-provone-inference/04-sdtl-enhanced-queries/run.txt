@@ -968,7 +968,7 @@ blazegraph select --format table << __END_QUERY__
         ?source_info sdtl:LineNumberStart ?source_line .
         ?source_info sdtl:OriginalSourceText ?source_text .
 
-    } ORDER BY ?source_line
+    } ORDER BY ?source_line ?command
 
 __END_QUERY__
 
@@ -985,9 +985,9 @@ B          | http://wholetale.org/program/1119/save/1    | http://wholetale.org/
 B          | http://wholetale.org/program/1119/save/2    | http://wholetale.org/program/1119/compute/2 | 12          | df['B'] = df.B + 6.5
 C          | http://wholetale.org/program/1119/save/1    | http://wholetale.org/program/1119/compute/3 | 16          | df['C'] = df.A - df.B
 C          | http://wholetale.org/program/1119/save/2    | http://wholetale.org/program/1119/compute/3 | 16          | df['C'] = df.A - df.B
+Fahrenheit | http://wholetale.org/program/1119/compute/4 | http://wholetale.org/program/1119/load/2    | 20          | temps = pd.read_csv('../data/temps.csv')
 Fahrenheit | http://wholetale.org/program/1119/save/1    | http://wholetale.org/program/1119/load/2    | 20          | temps = pd.read_csv('../data/temps.csv')
 Fahrenheit | http://wholetale.org/program/1119/save/2    | http://wholetale.org/program/1119/load/2    | 20          | temps = pd.read_csv('../data/temps.csv')
-Fahrenheit | http://wholetale.org/program/1119/compute/4 | http://wholetale.org/program/1119/load/2    | 20          | temps = pd.read_csv('../data/temps.csv')
 Celsius    | http://wholetale.org/program/1119/compute/5 | http://wholetale.org/program/1119/compute/4 | 24          | temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))
 Celsius    | http://wholetale.org/program/1119/save/1    | http://wholetale.org/program/1119/compute/4 | 24          | temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))
 Celsius    | http://wholetale.org/program/1119/save/2    | http://wholetale.org/program/1119/compute/4 | 24          | temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))
