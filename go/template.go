@@ -194,9 +194,6 @@ func (rp *Template) addStandardFunctions() {
 
 			return "", nil
 		},
-		"expand": func(name string, args ...interface{}) (result interface{}, err error) {
-			return rp.expandMacro(name, args)
-		},
 		"tabulate": func(rs DataTable) (table string) {
 			table = rs.FormattedTable(true)
 			return

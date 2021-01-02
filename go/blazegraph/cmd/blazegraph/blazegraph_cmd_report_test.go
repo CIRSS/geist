@@ -324,14 +324,16 @@ func TestBlazegraphCmd_report_macros(t *testing.T) {
 
 	outputBuffer.Reset()
 	template := `
-		{{prefix "ab" "http://tmcphill.net/tags#"}} \
-													\
-		{{macro "M1" "Subject" '''{{select <?		\
-			SELECT ?o 								\
-			WHERE { <{{.}}> ab:tag ?o } 			\
-			ORDER BY ?o 							\
-		?> $Subject | tabulate }}''' }}				\
-													\
+		{{{
+			{{ macro "M1" "Subject" '''{{select <?
+				SELECT ?o
+				WHERE { <{{.}}> ab:tag ?o }
+				ORDER BY ?o
+			?> $Subject | tabulate }}''' }}
+		}}}
+
+	{{prefix "ab" "http://tmcphill.net/tags#"}} \
+										\
 		{{with $subjects := (select '''				\
 				SELECT ?s							\
 				WHERE								\
@@ -339,7 +341,7 @@ func TestBlazegraphCmd_report_macros(t *testing.T) {
 				ORDER BY ?s							\
 			''') | vector }}						\
 			{{range $subject := $subjects }}		\
-				{{ expand "M1" $subject }}
+				{{ M1 $subject }}
 
 			{{end}}									\
 		{{end}}										\
