@@ -52,19 +52,6 @@ func (bc *Client) ExpandReport(rp *geist.Template) (report string, err error) {
 			rp.Properties.Prefixes[prefix] = uri
 			return "", nil
 		},
-		"runquery": func(name string, args ...interface{}) (rs interface{}, err error) {
-			queryText := rp.Properties.Queries[name]
-			var data interface{}
-			if len(args) == 1 {
-				data = args[0]
-			}
-			query, err := rp.ExpandSubreport(name, prependPrefixes(rp, queryText), data)
-			if err != nil {
-				return
-			}
-			rs, err = bc.Select(query)
-			return
-		},
 		"select": func(queryText string, args ...interface{}) (interface{}, error) {
 			return bc.selectFunc(rp, queryText, args)
 		},
@@ -82,6 +69,21 @@ func (bc *Client) ExpandReport(rp *geist.Template) (report string, err error) {
 					return
 				}
 				rs, err = bc.Select(query)
+				return
+			})
+			return "", nil
+		},
+
+		"rule": func(name string, args ...string) (s string, err error) {
+			if len(args) == 0 {
+				err = errors.New("No body provided for rule " + name)
+				return
+			}
+			body := geist.GetParameterAppendedBody(args)
+			rp.Properties.Rules[name] = body
+			rp.AddFunction(name, func(args ...interface{}) (rs interface{}, err error) {
+				ruleText := rp.Properties.Rules[name]
+				rs, err = rp.ExpandSubreport(name, prependPrefixes(rp, ruleText), args)
 				return
 			})
 			return "", nil

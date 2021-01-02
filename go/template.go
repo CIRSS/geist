@@ -16,6 +16,7 @@ type Properties struct {
 	Prefixes   map[string]string
 	Macros     map[string]*Template
 	Queries    map[string]string
+	Rules      map[string]string
 }
 
 var GraveDelimiters DelimiterPair

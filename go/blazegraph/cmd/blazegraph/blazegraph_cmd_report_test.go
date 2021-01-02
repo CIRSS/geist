@@ -462,15 +462,17 @@ func TestBlazegraphCmd_report_address_book_imports(t *testing.T) {
 	t.Run("constant-template", func(t *testing.T) {
 		outputBuffer.Reset()
 		template := `
-			{{ include "testdata/address-rules.gst" }}						\
+			{{{
+				{{ include "testdata/address-rules.gst" }}					\
+			}}}
 																			\
 			{{ prefix "ab" "http://learningsparql.com/ns/addressbook#" }}	\
 																			\
 			Craig's email addresses
 			=======================
 																			\
-			{{ range (runquery "GetEmailForFirstName" "Craig" | vector) }}	\
-				{{.}}
+			{{ range $Name := GetEmailForFirstName "Craig" | vector }}	\
+				{{ $Name }}
 			{{end}}															\
 		`
 		Main.InReader = strings.NewReader(template)
