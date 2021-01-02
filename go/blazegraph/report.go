@@ -83,7 +83,7 @@ func (bc *Client) ExpandReport(rp *geist.Template) (report string, err error) {
 			rp.Properties.Rules[name] = body
 			rp.AddFunction(name, func(args ...interface{}) (rs interface{}, err error) {
 				ruleText := rp.Properties.Rules[name]
-				rs, err = rp.ExpandSubreport(name, prependPrefixes(rp, ruleText), args)
+				rs, err = rp.ExpandSubreport(name, ruleText, args)
 				return
 			})
 			return "", nil

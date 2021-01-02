@@ -56,6 +56,7 @@ func NewTemplate(name string, text string, delimiters *DelimiterPair) *Template 
 	rt.Properties.Prefixes = map[string]string{}
 	rt.Properties.Macros = map[string]*Template{}
 	rt.Properties.Queries = map[string]string{}
+	rt.Properties.Rules = map[string]string{}
 	rt.addStandardFunctions()
 	return rt
 }
