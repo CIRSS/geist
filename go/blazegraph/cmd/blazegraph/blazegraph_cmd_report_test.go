@@ -677,8 +677,9 @@ func TestBlazegraphCmd_report_query_uses_rule(t *testing.T) {
 		{{{
 			{{prefix "ab" "http://tmcphill.net/tags#"}}
 
-			{{ rule "hasTag" "s" "o" "{{$s}} ab:tag {{$o}}" }}
-			{{ rule "hasTagSub" "s" "o" "<{{$s}}> ab:tag {{$o}}" }}
+			{{ rule "hasTag" "s" "o" '''
+				{{subject $s}} ab:tag {{$o}}
+			''' }}
 
 			{{query "select_subjects" '''
 				SELECT DISTINCT ?s
@@ -689,7 +690,7 @@ func TestBlazegraphCmd_report_query_uses_rule(t *testing.T) {
 
 			{{query "select_tags_for_subject" "Subject" '''
 				SELECT ?tag
-				WHERE { {{ hasTagSub $Subject "?tag" }} }
+				WHERE { {{ hasTag $Subject "?tag" }} }
 				ORDER BY ?tag
 			''' }}
 

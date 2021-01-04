@@ -48,6 +48,12 @@ func (bc *Client) runQueryFunc(rp *geist.Template, queryText string, args []inte
 func (bc *Client) ExpandReport(rp *geist.Template) (report string, err error) {
 
 	funcs := template.FuncMap{
+		"subject": func(s string) string {
+			if s[0] == '?' {
+				return s
+			}
+			return "<" + s + ">"
+		},
 		"prefix": func(prefix string, uri string) (s string, err error) {
 			rp.Properties.Prefixes[prefix] = uri
 			return "", nil
