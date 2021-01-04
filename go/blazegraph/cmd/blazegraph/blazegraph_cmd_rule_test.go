@@ -7,7 +7,48 @@ import (
 	"github.com/cirss/geist/util"
 )
 
-func TestBlazegraphCmd_rule(t *testing.T) {
+func TestBlazegraphCmd_rule_in_select(t *testing.T) {
+
+	var outputBuffer strings.Builder
+	Main.OutWriter = &outputBuffer
+	Main.ErrWriter = &outputBuffer
+
+	run("blazegraph destroy --dataset kb")
+	run("blazegraph create --dataset kb")
+
+	Main.InReader = strings.NewReader(`
+		<:x> <:foo> <:y> .
+		<:y> <:bar> <:z> .
+		<:z> <:baz> "baz" .
+	`)
+	run("blazegraph import --format ttl")
+
+	outputBuffer.Reset()
+	template := `
+
+		{{{
+			{{ rule "foo_bar_baz" "s" "o" '''
+				{{_subject $s}} <:foo> ?y .
+				?y <:bar> ?z .
+				?z <:baz> {{_object $o}} .
+			''' }}
+		}}}
+
+		{{ select '''
+			SELECT DISTINCT ?o
+			WHERE
+			{ {{ foo_bar_baz "?s" "?o" }} }
+			ORDER BY ?o
+		''' | value }}
+	`
+	Main.InReader = strings.NewReader(template)
+	run("blazegraph report")
+	util.LineContentsEqual(t, outputBuffer.String(), `
+		baz
+	`)
+}
+
+func TestBlazegraphCmd_rule_in_query(t *testing.T) {
 
 	var outputBuffer strings.Builder
 	Main.OutWriter = &outputBuffer
