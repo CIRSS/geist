@@ -675,10 +675,10 @@ func TestBlazegraphCmd_report_query_uses_rule(t *testing.T) {
 	template := `
 
 		{{{
-			{{prefix "ab" "http://tmcphill.net/tags#"}}
+			{{ prefix "ab" "http://tmcphill.net/tags#" }}
 
 			{{ rule "hasTag" "s" "o" '''
-				{{subject $s}} ab:tag {{$o}}
+				{{_subject $s}} ab:tag {{_object $o}}
 			''' }}
 
 			{{query "select_subjects" '''
