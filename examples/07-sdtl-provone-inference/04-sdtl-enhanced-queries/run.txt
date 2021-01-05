@@ -1294,3 +1294,50 @@ Celsius       | 35          | temps.to_csv('outputs/temps_updated.csv', index=Fa
 Fahrenheit    | 24          | temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))
 Fahrenheit    | 35          | temps.to_csv('outputs/temps_updated.csv', index=False)
 Kelvin        | 35          | temps.to_csv('outputs/temps_updated.csv', index=False)
+
+******************************************* EXAMPLE R4 ************************************************
+
+# WHAT COMMANDS WRITE VARIABLES READ BY DOWNSTREAM COMMANDS?
+
+blazegraph report << '__END_REPORT_TEMPLATE__'
+
+{{{
+    {{ include "../../common/sdtl.g" }}
+}}}
+
+---------- COMMANDS THAT WRITE VARIABLES READ BY DOWNSTREAM COMMANDS ----------
+
+{{ select '''
+    SELECT DISTINCT ?top_variable ?writer_line ?writer_text ?reader_line ?reader_text
+    WHERE {
+        {{ program_has_commands "?top_program" "?top_reader" }} .
+        {{ upstream_writer "?top_variable" "?top_reader" "?top_writer" }}
+        {{ command_has_source "?top_writer" "?writer_line" "?writer_text" }}
+        {{ command_has_source_2 "?top_reader" "?reader_line" "?reader_text" }}
+    }
+    ORDER BY ?top_variable ?writer_line
+''' | tabulate }}
+
+__END_REPORT_TEMPLATE__
+
+------------------------------------------- R4 OUTPUTS ------------------------------------------------
+
+---------- COMMANDS THAT WRITE VARIABLES READ BY DOWNSTREAM COMMANDS ----------
+
+top_variable | writer_line | writer_text                                                     | reader_line | reader_text
+===============================================================================================================================================
+A            | 4           | df = pd.read_csv('../data/df.csv')                              | 32          | df.to_csv('outputs/df_updated.csv', index=False)
+A            | 4           | df = pd.read_csv('../data/df.csv')                              | 16          | df['C'] = df.A - df.B
+A            | 8           | df['A'] = 3                                                     | 16          | df['C'] = df.A - df.B
+A            | 8           | df['A'] = 3                                                     | 32          | df.to_csv('outputs/df_updated.csv', index=False)
+B            | 4           | df = pd.read_csv('../data/df.csv')                              | 32          | df.to_csv('outputs/df_updated.csv', index=False)
+B            | 4           | df = pd.read_csv('../data/df.csv')                              | 12          | df['B'] = df.B + 6.5
+B            | 4           | df = pd.read_csv('../data/df.csv')                              | 16          | df['C'] = df.A - df.B
+B            | 12          | df['B'] = df.B + 6.5                                            | 16          | df['C'] = df.A - df.B
+B            | 12          | df['B'] = df.B + 6.5                                            | 32          | df.to_csv('outputs/df_updated.csv', index=False)
+C            | 16          | df['C'] = df.A - df.B                                           | 32          | df.to_csv('outputs/df_updated.csv', index=False)
+Celsius      | 24          | temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9)) | 28          | temps = temps.assign(Kelvin=(temps.Celsius + 273))
+Celsius      | 24          | temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9)) | 35          | temps.to_csv('outputs/temps_updated.csv', index=False)
+Fahrenheit   | 20          | temps = pd.read_csv('../data/temps.csv')                        | 35          | temps.to_csv('outputs/temps_updated.csv', index=False)
+Fahrenheit   | 20          | temps = pd.read_csv('../data/temps.csv')                        | 24          | temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))
+Kelvin       | 28          | temps = temps.assign(Kelvin=(temps.Celsius + 273))              | 35          | temps.to_csv('outputs/temps_updated.csv', index=False)

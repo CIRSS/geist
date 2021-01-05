@@ -155,32 +155,32 @@
 {{ rule "command_writes_variable" "Command" "VariableName" '''
 	{
         {
-            {{_subject $Command}} sdtl:Variable ?_variable .
+            {{_subject $Command}} sdtl:Variable ?_write_variable .
         }
         UNION
         {
             {{_subject $Command}} rdf:type sdtl:Load .
-            {{_subject $Command}} sdtl:ProducesDataframe ?_dataframe .
-            ?_dataframe sdtl:VariableInventory ?variable_inventory .
-            ?variable_inventory rdfs:member ?_variable .
+            {{_subject $Command}} sdtl:ProducesDataframe ?_write_dataframe .
+            ?_write_dataframe sdtl:VariableInventory ?_write_variable_inventory .
+            ?_write_variable_inventory rdfs:member ?_write_variable .
         }
-		?_variable sdtl:VariableName {{_object $VariableName}}
+		?_write_variable sdtl:VariableName {{_object $VariableName}}
 	}
 ''' }}
 
 {{ rule "command_reads_variable" "Command" "VariableName" '''
 	{
         {
-            {{_subject $Command}} sdtl:OperatesOn ?_variable .
+            {{_subject $Command}} sdtl:OperatesOn ?_read_variable .
         }
 		UNION
 		{
             {{_subject $Command}} rdf:type sdtl:Save .
-            {{_subject $Command}} sdtl:ConsumesDataframe ?_dataframe .
-            ?_dataframe sdtl:VariableInventory ?variable_inventory .
-            ?variable_inventory rdfs:member ?_variable .
+            {{_subject $Command}} sdtl:ConsumesDataframe ?_read_dataframe .
+            ?_read_dataframe sdtl:VariableInventory ?_read_variable_inventory .
+            ?_read_variable_inventory rdfs:member ?_read_variable .
 		}
-		?_variable sdtl:VariableName {{_object $VariableName}}
+		?_read_variable sdtl:VariableName {{_object $VariableName}}
 	}
 ''' }}
 
@@ -190,6 +190,22 @@
 		{{_subject $Command}} sdtl:SourceInformation ?_source_info .
 		?_source_info sdtl:LineNumberStart {{_object $SourceLine}} .
 		?_source_info sdtl:OriginalSourceText {{_object $SourceText}}
+	}
+''' }}
+
+{{ rule "command_has_source_2" "Command" "SourceLine" "SourceText" '''
+	{
+		{{_subject $Command}} sdtl:SourceInformation ?_source_info_2 .
+		?_source_info_2 sdtl:LineNumberStart {{_object $SourceLine}} .
+		?_source_info_2 sdtl:OriginalSourceText {{_object $SourceText}}
+	}
+''' }}
+
+{{ rule "upstream_writer" "Variable" "DownstreamReader" "UpstreamWriter" '''
+	{
+		{{ command_reads_variable $DownstreamReader $Variable }}
+		{{ command_writes_variable $UpstreamWriter $Variable }}
+		FILTER ( {{ $DownstreamReader}} != {{ $UpstreamWriter }} )
 	}
 ''' }}
 

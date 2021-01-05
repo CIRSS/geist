@@ -447,3 +447,31 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
 __END_REPORT_TEMPLATE__
 
 END_SCRIPT
+
+
+# *****************************************************************************
+
+bash ${RUNNER} R4 "WHAT COMMANDS WRITE VARIABLES READ BY DOWNSTREAM COMMANDS?" << END_SCRIPT
+
+blazegraph report << '__END_REPORT_TEMPLATE__'
+
+{{{
+    {{ include "../../common/sdtl.g" }}
+}}}
+
+---------- COMMANDS THAT WRITE VARIABLES READ BY DOWNSTREAM COMMANDS ----------
+
+{{ select '''
+    SELECT DISTINCT ?top_variable ?writer_line ?writer_text ?reader_line ?reader_text
+    WHERE {
+        {{ program_has_commands "?top_program" "?top_reader" }} .
+        {{ upstream_writer "?top_variable" "?top_reader" "?top_writer" }}
+        {{ command_has_source "?top_writer" "?writer_line" "?writer_text" }}
+        {{ command_has_source_2 "?top_reader" "?reader_line" "?reader_text" }}
+    }
+    ORDER BY ?top_variable ?writer_line
+''' | tabulate }}
+
+__END_REPORT_TEMPLATE__
+
+END_SCRIPT
