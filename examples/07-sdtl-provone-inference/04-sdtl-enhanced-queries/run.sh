@@ -407,13 +407,42 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
 
 ---------- COMMANDS THAT WRITE TO EACH VARIABLE ----------
 
-{{ select '''SELECT DISTINCT ?variable ?source_line ?source_text
+{{ select '''
+    SELECT DISTINCT ?written_variable ?source_line ?source_text
     WHERE {
         {{ program_has_commands "?program" "?command" }} .
-        {{ command_writes_variable  "?command" "?variable" }} .
+        {{ command_writes_variable  "?command" "?written_variable" }} .
         {{ command_has_source "?command" "?source_line" "?source_text" }}
     }
-    ORDER BY ?affected_variable ?source_line''' | tabulate }}
+    ORDER BY ?written_variable ?source_line
+''' | tabulate }}
+
+__END_REPORT_TEMPLATE__
+
+END_SCRIPT
+
+
+# *****************************************************************************
+
+bash ${RUNNER} R3 "WHAT COMMANDS READ FROM EACH VARIABLE?" << END_SCRIPT
+
+blazegraph report << '__END_REPORT_TEMPLATE__'
+
+{{{
+    {{ include "../../common/sdtl.g" }}
+}}}
+
+---------- COMMANDS THAT READ FROM EACH VARIABLE ----------
+
+{{ select '''
+    SELECT DISTINCT ?read_variable ?source_line ?source_text
+    WHERE {
+        {{ program_has_commands "?program" "?command" }} .
+        {{ command_reads_variable  "?command" "?read_variable" }} .
+        {{ command_has_source "?command" "?source_line" "?source_text" }}
+    }
+    ORDER BY ?read_variable ?source_line
+''' | tabulate }}
 
 __END_REPORT_TEMPLATE__
 

@@ -168,6 +168,23 @@
 	}
 ''' }}
 
+{{ rule "command_reads_variable" "Command" "VariableName" '''
+	{
+        {
+            {{_subject $Command}} sdtl:OperatesOn ?_variable .
+        }
+		UNION
+		{
+            {{_subject $Command}} rdf:type sdtl:Save .
+            {{_subject $Command}} sdtl:ConsumesDataframe ?_dataframe .
+            ?_dataframe sdtl:VariableInventory ?variable_inventory .
+            ?variable_inventory rdfs:member ?_variable .
+		}
+		?_variable sdtl:VariableName {{_object $VariableName}}
+	}
+''' }}
+
+
 {{ rule "command_has_source" "Command" "SourceLine" "SourceText" '''
 	{
 		{{_subject $Command}} sdtl:SourceInformation ?_source_info .
