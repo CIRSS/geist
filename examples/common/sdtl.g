@@ -144,7 +144,7 @@
     }
 '''}}
 
-{{ rule "program_has_commands" "Program" "Command" '''
+{{ rule "program_commands" "Program" "Command" '''
 	{
         {{_subject $Program}} rdf:type sdtl:Program .
         {{_subject $Program}} sdtl:Commands ?_command_inventory .
@@ -152,7 +152,7 @@
 	}
 ''' }}
 
-{{ rule "command_writes_variable" "Command" "VariableName" '''
+{{ rule "variable_writer" "Command" "VariableName" '''
 	{
         {
             {{_subject $Command}} sdtl:Variable ?_write_variable .
@@ -168,7 +168,7 @@
 	}
 ''' }}
 
-{{ rule "command_reads_variable" "Command" "VariableName" '''
+{{ rule "variable_reader" "Command" "VariableName" '''
 	{
         {
             {{_subject $Command}} sdtl:OperatesOn ?_read_variable .
@@ -185,7 +185,7 @@
 ''' }}
 
 
-{{ rule "command_has_source" "Command" "SourceLine" "SourceText" '''
+{{ rule "command_source" "Command" "SourceLine" "SourceText" '''
 	{
 		{{_subject $Command}} sdtl:SourceInformation ?_source_info .
 		?_source_info sdtl:LineNumberStart {{_object $SourceLine}} .
@@ -193,7 +193,7 @@
 	}
 ''' }}
 
-{{ rule "command_has_source_2" "Command" "SourceLine" "SourceText" '''
+{{ rule "command_source_2" "Command" "SourceLine" "SourceText" '''
 	{
 		{{_subject $Command}} sdtl:SourceInformation ?_source_info_2 .
 		?_source_info_2 sdtl:LineNumberStart {{_object $SourceLine}} .
@@ -203,9 +203,9 @@
 
 {{ rule "upstream_writer" "Variable" "Reader" "Writer" '''
 	{
-		{{ command_reads_variable $Reader $Variable }}
+		{{ variable_reader $Reader $Variable }}
 		{{_subject $Reader}} (sdtl:ConsumesDataframe/^sdtl:ProducesDataframe)+ {{_object $Writer}}
-		{{ command_writes_variable $Writer $Variable }}
+		{{ variable_writer $Writer $Variable }}
 	}
 ''' }}
 

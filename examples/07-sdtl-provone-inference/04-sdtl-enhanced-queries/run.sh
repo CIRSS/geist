@@ -410,9 +410,9 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
 {{ select '''
     SELECT DISTINCT ?written_variable ?source_line ?source_text
     WHERE {
-        {{ program_has_commands "?program" "?command" }} .
-        {{ command_writes_variable  "?command" "?written_variable" }} .
-        {{ command_has_source "?command" "?source_line" "?source_text" }}
+        {{ program_commands "?program" "?command" }} .
+        {{ variable_writer  "?command" "?written_variable" }} .
+        {{ command_source "?command" "?source_line" "?source_text" }}
     }
     ORDER BY ?written_variable ?source_line
 ''' | tabulate }}
@@ -437,9 +437,9 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
 {{ select '''
     SELECT DISTINCT ?read_variable ?source_line ?source_text
     WHERE {
-        {{ program_has_commands "?program" "?command" }} .
-        {{ command_reads_variable  "?command" "?read_variable" }} .
-        {{ command_has_source "?command" "?source_line" "?source_text" }}
+        {{ program_commands "?program" "?command" }} .
+        {{ variable_reader  "?command" "?read_variable" }} .
+        {{ command_source "?command" "?source_line" "?source_text" }}
     }
     ORDER BY ?read_variable ?source_line
 ''' | tabulate }}
@@ -464,10 +464,10 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
 {{ select '''
     SELECT DISTINCT ?top_variable ?writer_line ?writer_text ?reader_line ?reader_text
     WHERE {
-        {{ program_has_commands "?top_program" "?top_reader" }} .
+        {{ program_commands "?top_program" "?top_reader" }} .
         {{ upstream_writer "?top_variable" "?top_reader" "?top_writer" }}
-        {{ command_has_source "?top_writer" "?writer_line" "?writer_text" }}
-        {{ command_has_source_2 "?top_reader" "?reader_line" "?reader_text" }}
+        {{ command_source "?top_writer" "?writer_line" "?writer_text" }}
+        {{ command_source_2 "?top_reader" "?reader_line" "?reader_text" }}
     }
     ORDER BY ?top_variable ?writer_line
 ''' | tabulate }}
