@@ -1213,3 +1213,40 @@ Variable Kelvin
 Variable Celsius
 -------------------
 [Line 24] temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9)) ---> [Line 24] temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))
+
+******************************************* EXAMPLE R3 ************************************************
+
+# WHAT COMMANDS WRITE TO EACH VARIABLE?
+
+blazegraph report << '__END_REPORT_TEMPLATE__'
+
+{{{
+    {{ include "../../common/sdtl.g" }}
+}}}
+
+---------- COMMANDS THAT WRITE TO EACH VARIABLE ----------
+
+{{ select '''SELECT DISTINCT ?variable ?source_line ?source_text
+    WHERE {
+        {{ program_has_commands "?program" "?command" }} .
+        {{ command_writes_variable  "?command" "?variable" }} .
+        {{ command_has_source "?command" "?source_line" "?source_text" }}
+    }
+    ORDER BY ?affected_variable ?source_line''' | tabulate }}
+
+__END_REPORT_TEMPLATE__
+
+------------------------------------------- R3 OUTPUTS ------------------------------------------------
+
+---------- COMMANDS THAT WRITE TO EACH VARIABLE ----------
+
+variable   | source_line | source_text
+===============================================================================
+A          | 4           | df = pd.read_csv('../data/df.csv')
+B          | 4           | df = pd.read_csv('../data/df.csv')
+A          | 8           | df['A'] = 3
+B          | 12          | df['B'] = df.B + 6.5
+C          | 16          | df['C'] = df.A - df.B
+Fahrenheit | 20          | temps = pd.read_csv('../data/temps.csv')
+Celsius    | 24          | temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))
+Kelvin     | 28          | temps = temps.assign(Kelvin=(temps.Celsius + 273))

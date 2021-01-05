@@ -133,3 +133,46 @@
         ?upstream_command_load_command sdtl:ProducesDataframe/sdtl:VariableInventory ?variable_name .
     }
 ''' }}
+
+
+{{ query "sdtl_select_variable_flow" "ProgramID" "VariableName" '''
+    SELECT ?command ?variable
+    WHERE {
+        <{{$ProgramID}}> sdtl:Commands ?command_inventory .
+        ?command_inventory rdfs:member ?command
+		{{ consumes_variable "?command" "?variable" }}
+    }
+'''}}
+
+{{ rule "program_has_commands" "Program" "Command" '''
+	{
+        {{_subject $Program}} rdf:type sdtl:Program .
+        {{_subject $Program}} sdtl:Commands ?_command_inventory .
+        ?_command_inventory rdfs:member {{_object $Command}} .
+	}
+''' }}
+
+{{ rule "command_writes_variable" "Command" "VariableName" '''
+	{
+        {
+            {{_subject $Command}} sdtl:Variable ?_variable .
+        }
+        UNION
+        {
+            {{_subject $Command}} rdf:type sdtl:Load .
+            {{_subject $Command}} sdtl:ProducesDataframe ?_dataframe .
+            ?_dataframe sdtl:VariableInventory ?variable_inventory .
+            ?variable_inventory rdfs:member ?_variable .
+        }
+		?_variable sdtl:VariableName {{_object $VariableName}}
+	}
+''' }}
+
+{{ rule "command_has_source" "Command" "SourceLine" "SourceText" '''
+	{
+		{{_subject $Command}} sdtl:SourceInformation ?_source_info .
+		?_source_info sdtl:LineNumberStart {{_object $SourceLine}} .
+		?_source_info sdtl:OriginalSourceText {{_object $SourceText}}
+	}
+''' }}
+

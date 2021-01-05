@@ -393,3 +393,28 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
 __END_REPORT_TEMPLATE__
 
 END_SCRIPT
+
+
+# *****************************************************************************
+
+bash ${RUNNER} R3 "WHAT COMMANDS WRITE TO EACH VARIABLE?" << END_SCRIPT
+
+blazegraph report << '__END_REPORT_TEMPLATE__'
+
+{{{
+    {{ include "../../common/sdtl.g" }}
+}}}
+
+---------- COMMANDS THAT WRITE TO EACH VARIABLE ----------
+
+{{ select '''SELECT DISTINCT ?variable ?source_line ?source_text
+    WHERE {
+        {{ program_has_commands "?program" "?command" }} .
+        {{ command_writes_variable  "?command" "?variable" }} .
+        {{ command_has_source "?command" "?source_line" "?source_text" }}
+    }
+    ORDER BY ?affected_variable ?source_line''' | tabulate }}
+
+__END_REPORT_TEMPLATE__
+
+END_SCRIPT
