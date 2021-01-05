@@ -1326,18 +1326,18 @@ __END_REPORT_TEMPLATE__
 
 top_variable | writer_line | writer_text                                                     | reader_line | reader_text
 ===============================================================================================================================================
-A            | 4           | df = pd.read_csv('../data/df.csv')                              | 32          | df.to_csv('outputs/df_updated.csv', index=False)
 A            | 4           | df = pd.read_csv('../data/df.csv')                              | 16          | df['C'] = df.A - df.B
+A            | 4           | df = pd.read_csv('../data/df.csv')                              | 32          | df.to_csv('outputs/df_updated.csv', index=False)
 A            | 8           | df['A'] = 3                                                     | 16          | df['C'] = df.A - df.B
 A            | 8           | df['A'] = 3                                                     | 32          | df.to_csv('outputs/df_updated.csv', index=False)
-B            | 4           | df = pd.read_csv('../data/df.csv')                              | 32          | df.to_csv('outputs/df_updated.csv', index=False)
 B            | 4           | df = pd.read_csv('../data/df.csv')                              | 12          | df['B'] = df.B + 6.5
 B            | 4           | df = pd.read_csv('../data/df.csv')                              | 16          | df['C'] = df.A - df.B
+B            | 4           | df = pd.read_csv('../data/df.csv')                              | 32          | df.to_csv('outputs/df_updated.csv', index=False)
 B            | 12          | df['B'] = df.B + 6.5                                            | 16          | df['C'] = df.A - df.B
 B            | 12          | df['B'] = df.B + 6.5                                            | 32          | df.to_csv('outputs/df_updated.csv', index=False)
 C            | 16          | df['C'] = df.A - df.B                                           | 32          | df.to_csv('outputs/df_updated.csv', index=False)
 Celsius      | 24          | temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9)) | 28          | temps = temps.assign(Kelvin=(temps.Celsius + 273))
 Celsius      | 24          | temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9)) | 35          | temps.to_csv('outputs/temps_updated.csv', index=False)
-Fahrenheit   | 20          | temps = pd.read_csv('../data/temps.csv')                        | 35          | temps.to_csv('outputs/temps_updated.csv', index=False)
 Fahrenheit   | 20          | temps = pd.read_csv('../data/temps.csv')                        | 24          | temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))
+Fahrenheit   | 20          | temps = pd.read_csv('../data/temps.csv')                        | 35          | temps.to_csv('outputs/temps_updated.csv', index=False)
 Kelvin       | 28          | temps = temps.assign(Kelvin=(temps.Celsius + 273))              | 35          | temps.to_csv('outputs/temps_updated.csv', index=False)

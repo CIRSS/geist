@@ -201,11 +201,11 @@
 	}
 ''' }}
 
-{{ rule "upstream_writer" "Variable" "DownstreamReader" "UpstreamWriter" '''
+{{ rule "upstream_writer" "Variable" "Reader" "Writer" '''
 	{
-		{{ command_reads_variable $DownstreamReader $Variable }}
-		{{ command_writes_variable $UpstreamWriter $Variable }}
-		FILTER ( {{ $DownstreamReader}} != {{ $UpstreamWriter }} )
+		{{ command_reads_variable $Reader $Variable }}
+		{{_subject $Reader}} (sdtl:ConsumesDataframe/^sdtl:ProducesDataframe)+ {{_object $Writer}}
+		{{ command_writes_variable $Writer $Variable }}
 	}
 ''' }}
 
