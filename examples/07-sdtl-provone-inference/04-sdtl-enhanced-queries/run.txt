@@ -995,82 +995,6 @@ Kelvin     | http://wholetale.org/program/1119/save/1    | http://wholetale.org/
 Kelvin     | http://wholetale.org/program/1119/save/2    | http://wholetale.org/program/1119/compute/5 | 28          | temps = temps.assign(Kelvin=(temps.Celsius + 273))
 
 
-******************************************* EXAMPLE GRAPH-1 ************************************************
-
-# DATAFRAME FLOW THROUGH COMMANDS
-
-blazegraph report << '__END_REPORT_TEMPLATE__'
-
-    {{{
-        {{ include "../../common/graphviz.g" }}
-        {{ include "../../common/sdtl.g" }}
-    }}}
-
-    {{ gv_graph "sdtl_program" }}
-
-    {{ gv_title "Dataframe-flow through commands" }}
-
-    {{ gv_cluster "program_graph" }}
-
-    # command nodes
-    {{ sdtl_program_node_style }}
-    node[width=8]
-    {{ with $ProgramID := sdtl_select_program | value }}                                    \
-
-        {{ range $Command := (sdtl_select_commands $ProgramID | rows ) }}                   \
-            {{ gv_labeled_node (index $Command 0) (index $Command 1) }}
-        {{ end }}                                                                           \
-
-        # dataframe edges
-        {{ range $Edge := (sdtl_select_dataframe_edges $ProgramID | rows) }}                \
-            {{ gv_labeled_edge (index $Edge 0) (index $Edge 1) (index $Edge 3) }}
-        {{ end }}                                                                           \
-                                                                                            \
-    {{ end }}                                                                               \
-                                                                                            \
-    {{ gv_cluster_end }}
-
-    {{ gv_end }}                                                                            \
-
-__END_REPORT_TEMPLATE__
-
------------------------------------------ GRAPH-1 DOT OUTPUT -----------------------------------------------
-
-digraph sdtl_program {
-rankdir=TB
-
-fontname=Courier; fontsize=18; labelloc=t
-label="Dataframe-flow through commands"
-
-subgraph cluster_program_graph { label=""; color=white; penwidth=0
-subgraph cluster_program_graph_inner { label=""; color=white
-
-# command nodes
-node[shape=box style="filled" fillcolor="#CCFFCC" peripheries=1 fontname=Courier]
-node[width=8]
-
-"http://wholetale.org/program/1119/load/1" [label="df = pd.read_csv('../data/df.csv')"]
-"http://wholetale.org/program/1119/compute/1" [label="df['A'] = 3"]
-"http://wholetale.org/program/1119/compute/2" [label="df['B'] = df.B + 6.5"]
-"http://wholetale.org/program/1119/compute/3" [label="df['C'] = df.A - df.B"]
-"http://wholetale.org/program/1119/load/2" [label="temps = pd.read_csv('../data/temps.csv')"]
-"http://wholetale.org/program/1119/compute/4" [label="temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))"]
-"http://wholetale.org/program/1119/compute/5" [label="temps = temps.assign(Kelvin=(temps.Celsius + 273))"]
-"http://wholetale.org/program/1119/save/1" [label="df.to_csv('outputs/df_updated.csv', index=False)"]
-"http://wholetale.org/program/1119/save/2" [label="temps.to_csv('outputs/temps_updated.csv', index=False)"]
-
-# dataframe edges
-"http://wholetale.org/program/1119/load/1" -> "http://wholetale.org/program/1119/compute/1" [label="df"]
-"http://wholetale.org/program/1119/compute/1" -> "http://wholetale.org/program/1119/compute/2" [label="df"]
-"http://wholetale.org/program/1119/compute/2" -> "http://wholetale.org/program/1119/compute/3" [label="df"]
-"http://wholetale.org/program/1119/compute/3" -> "http://wholetale.org/program/1119/save/1" [label="df"]
-"http://wholetale.org/program/1119/load/2" -> "http://wholetale.org/program/1119/compute/4" [label="temps"]
-"http://wholetale.org/program/1119/compute/4" -> "http://wholetale.org/program/1119/compute/5" [label="temps"]
-"http://wholetale.org/program/1119/compute/5" -> "http://wholetale.org/program/1119/save/2" [label="temps"]
-}}
-
-}
-
 ******************************************* EXAMPLE R1 ************************************************
 
 # REPORT HISTORY OF EACH VARIABLE
@@ -1229,7 +1153,7 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
 {{ select '''
     SELECT DISTINCT ?written_variable ?source_line ?source_text
     WHERE {
-        {{ program_commands "?program" "?command" }} .
+        {{ program_command "?program" "?command" }} .
         {{ variable_writer  "?command" "?written_variable" }} .
         {{ command_source "?command" "?source_line" "?source_text" }}
     }
@@ -1268,7 +1192,7 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
 {{ select '''
     SELECT DISTINCT ?read_variable ?source_line ?source_text
     WHERE {
-        {{ program_commands "?program" "?command" }} .
+        {{ program_command "?program" "?command" }} .
         {{ variable_reader  "?command" "?read_variable" }} .
         {{ command_source "?command" "?source_line" "?source_text" }}
     }
@@ -1310,9 +1234,9 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
 {{ select '''
     SELECT DISTINCT ?top_variable ?writer_line ?writer_text ?reader_line ?reader_text
     WHERE {
-        {{ program_commands "?top_program" "?top_reader" }} .
-        {{ upstream_writer "?top_variable" "?top_reader" "?top_writer" }}
-        {{ command_source "?top_writer" "?writer_line" "?writer_text" }}
+        {{ program_command "?top_program" "?top_reader" }} .
+        {{ upstream_writer "?top_variable" "?top_reader" "?top_writer" }} .
+        {{ command_source "?top_writer" "?writer_line" "?writer_text" }} .
         {{ command_source_2 "?top_reader" "?reader_line" "?reader_text" }}
     }
     ORDER BY ?top_variable ?writer_line
@@ -1341,3 +1265,164 @@ Celsius      | 24          | temps = temps.assign(Celsius=((temps.Fahrenheit - 3
 Fahrenheit   | 20          | temps = pd.read_csv('../data/temps.csv')                        | 24          | temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))
 Fahrenheit   | 20          | temps = pd.read_csv('../data/temps.csv')                        | 35          | temps.to_csv('outputs/temps_updated.csv', index=False)
 Kelvin       | 28          | temps = temps.assign(Kelvin=(temps.Celsius + 273))              | 35          | temps.to_csv('outputs/temps_updated.csv', index=False)
+
+******************************************* EXAMPLE GRAPH-1 ************************************************
+
+# DATAFRAME FLOW THROUGH COMMANDS
+
+blazegraph report << '__END_REPORT_TEMPLATE__'
+
+    {{{
+        {{ include "../../common/graphviz.g" }}
+        {{ include "../../common/sdtl.g" }}
+    }}}
+
+    {{ gv_graph "sdtl_program" }}
+
+    {{ gv_title "Dataframe-flow through commands" }}
+
+    {{ gv_cluster "program_graph" }}
+
+    # command nodes
+    {{ sdtl_program_node_style }}
+    node[width=8]
+    {{ with $ProgramID := sdtl_select_program | value }}                                    \
+
+        {{ range $Command := (sdtl_select_commands $ProgramID | rows ) }}                   \
+            {{ gv_labeled_node (index $Command 0) (index $Command 1) }}
+        {{ end }}                                                                           \
+
+        # dataframe edges
+        {{ range $Edge := (sdtl_select_dataframe_edges $ProgramID | rows) }}                \
+            {{ gv_labeled_edge (index $Edge 0) (index $Edge 1) (index $Edge 3) }}
+        {{ end }}                                                                           \
+                                                                                            \
+    {{ end }}                                                                               \
+                                                                                            \
+    {{ gv_cluster_end }}
+
+    {{ gv_end }}                                                                            \
+
+__END_REPORT_TEMPLATE__
+
+----------------------------------------- GRAPH-1 DOT OUTPUT -----------------------------------------------
+
+digraph sdtl_program {
+rankdir=TB
+
+fontname=Courier; fontsize=18; labelloc=t
+label="Dataframe-flow through commands"
+
+subgraph cluster_program_graph { label=""; color=white; penwidth=0
+subgraph cluster_program_graph_inner { label=""; color=white
+
+# command nodes
+node[shape=box style="filled" fillcolor="#CCFFCC" peripheries=1 fontname=Courier]
+node[width=8]
+
+"http://wholetale.org/program/1119/load/1" [label="df = pd.read_csv('../data/df.csv')"]
+"http://wholetale.org/program/1119/compute/1" [label="df['A'] = 3"]
+"http://wholetale.org/program/1119/compute/2" [label="df['B'] = df.B + 6.5"]
+"http://wholetale.org/program/1119/compute/3" [label="df['C'] = df.A - df.B"]
+"http://wholetale.org/program/1119/load/2" [label="temps = pd.read_csv('../data/temps.csv')"]
+"http://wholetale.org/program/1119/compute/4" [label="temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))"]
+"http://wholetale.org/program/1119/compute/5" [label="temps = temps.assign(Kelvin=(temps.Celsius + 273))"]
+"http://wholetale.org/program/1119/save/1" [label="df.to_csv('outputs/df_updated.csv', index=False)"]
+"http://wholetale.org/program/1119/save/2" [label="temps.to_csv('outputs/temps_updated.csv', index=False)"]
+
+# dataframe edges
+"http://wholetale.org/program/1119/load/1" -> "http://wholetale.org/program/1119/compute/1" [label="df"]
+"http://wholetale.org/program/1119/compute/1" -> "http://wholetale.org/program/1119/compute/2" [label="df"]
+"http://wholetale.org/program/1119/compute/2" -> "http://wholetale.org/program/1119/compute/3" [label="df"]
+"http://wholetale.org/program/1119/compute/3" -> "http://wholetale.org/program/1119/save/1" [label="df"]
+"http://wholetale.org/program/1119/load/2" -> "http://wholetale.org/program/1119/compute/4" [label="temps"]
+"http://wholetale.org/program/1119/compute/4" -> "http://wholetale.org/program/1119/compute/5" [label="temps"]
+"http://wholetale.org/program/1119/compute/5" -> "http://wholetale.org/program/1119/save/2" [label="temps"]
+}}
+
+}
+
+******************************************* EXAMPLE GRAPH-2 ************************************************
+
+# VARIABLE FLOW THROUGH COMMANDS
+
+blazegraph report << '__END_REPORT_TEMPLATE__'
+
+    {{{
+        {{ include "../../common/graphviz.g" }}
+        {{ include "../../common/sdtl.g" }}
+    }}}
+
+    {{ gv_graph "sdtl_program" }}
+
+    {{ gv_title "Variable-flow through commands" }}
+
+    {{ gv_cluster "program_graph" }}
+
+    # command nodes
+    {{ sdtl_program_node_style }}
+    node[width=8]
+    {{ with $ProgramID := sdtl_select_program | value }}                                    \
+
+        {{ range $Command := (sdtl_select_commands $ProgramID | rows ) }}                   \
+            {{ gv_labeled_node (index $Command 0) (index $Command 1) }}
+        {{ end }}                                                                           \
+
+        # variable write->read edges
+        {{ range $Edge := (sdtl_select_variable_write_read_edges $ProgramID | rows) }} \
+            {{ gv_labeled_edge (index $Edge 0) (index $Edge 1) (index $Edge 2) }}
+        {{ end }}                                                                           \
+
+    {{ end }}                                                                               \
+                                                                                            \
+    {{ gv_cluster_end }}
+
+    {{ gv_end }}                                                                            \
+
+__END_REPORT_TEMPLATE__
+
+----------------------------------------- GRAPH-2 DOT OUTPUT -----------------------------------------------
+
+digraph sdtl_program {
+rankdir=TB
+
+fontname=Courier; fontsize=18; labelloc=t
+label="Variable-flow through commands"
+
+subgraph cluster_program_graph { label=""; color=white; penwidth=0
+subgraph cluster_program_graph_inner { label=""; color=white
+
+# command nodes
+node[shape=box style="filled" fillcolor="#CCFFCC" peripheries=1 fontname=Courier]
+node[width=8]
+
+"http://wholetale.org/program/1119/load/1" [label="df = pd.read_csv('../data/df.csv')"]
+"http://wholetale.org/program/1119/compute/1" [label="df['A'] = 3"]
+"http://wholetale.org/program/1119/compute/2" [label="df['B'] = df.B + 6.5"]
+"http://wholetale.org/program/1119/compute/3" [label="df['C'] = df.A - df.B"]
+"http://wholetale.org/program/1119/load/2" [label="temps = pd.read_csv('../data/temps.csv')"]
+"http://wholetale.org/program/1119/compute/4" [label="temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))"]
+"http://wholetale.org/program/1119/compute/5" [label="temps = temps.assign(Kelvin=(temps.Celsius + 273))"]
+"http://wholetale.org/program/1119/save/1" [label="df.to_csv('outputs/df_updated.csv', index=False)"]
+"http://wholetale.org/program/1119/save/2" [label="temps.to_csv('outputs/temps_updated.csv', index=False)"]
+
+# variable write->read edges
+"http://wholetale.org/program/1119/compute/1" -> "http://wholetale.org/program/1119/compute/3" [label="A"]
+"http://wholetale.org/program/1119/load/1" -> "http://wholetale.org/program/1119/compute/3" [label="A"]
+"http://wholetale.org/program/1119/compute/1" -> "http://wholetale.org/program/1119/save/1" [label="A"]
+"http://wholetale.org/program/1119/load/1" -> "http://wholetale.org/program/1119/save/1" [label="A"]
+"http://wholetale.org/program/1119/load/1" -> "http://wholetale.org/program/1119/compute/2" [label="B"]
+"http://wholetale.org/program/1119/compute/2" -> "http://wholetale.org/program/1119/compute/3" [label="B"]
+"http://wholetale.org/program/1119/load/1" -> "http://wholetale.org/program/1119/compute/3" [label="B"]
+"http://wholetale.org/program/1119/compute/2" -> "http://wholetale.org/program/1119/save/1" [label="B"]
+"http://wholetale.org/program/1119/load/1" -> "http://wholetale.org/program/1119/save/1" [label="B"]
+"http://wholetale.org/program/1119/compute/3" -> "http://wholetale.org/program/1119/save/1" [label="C"]
+"http://wholetale.org/program/1119/compute/4" -> "http://wholetale.org/program/1119/compute/5" [label="Celsius"]
+"http://wholetale.org/program/1119/compute/4" -> "http://wholetale.org/program/1119/save/2" [label="Celsius"]
+"http://wholetale.org/program/1119/load/2" -> "http://wholetale.org/program/1119/compute/4" [label="Fahrenheit"]
+"http://wholetale.org/program/1119/load/2" -> "http://wholetale.org/program/1119/save/2" [label="Fahrenheit"]
+"http://wholetale.org/program/1119/compute/5" -> "http://wholetale.org/program/1119/save/2" [label="Kelvin"]
+
+}}
+
+}

@@ -239,96 +239,6 @@ __END_QUERY__
 
 END_SCRIPT
 
-# *****************************************************************************
-
-bash ${GRAPHER} GRAPH-1 "DATAFRAME FLOW THROUGH COMMANDS" \
-    << '__END_SCRIPT__'
-
-blazegraph report << '__END_REPORT_TEMPLATE__'
-
-    {{{
-        {{ include "../../common/graphviz.g" }}
-        {{ include "../../common/sdtl.g" }}
-    }}}
-
-    {{ gv_graph "sdtl_program" }}
-
-    {{ gv_title "Dataframe-flow through commands" }}
-
-    {{ gv_cluster "program_graph" }}
-
-    # command nodes
-    {{ sdtl_program_node_style }}
-    node[width=8]
-    {{ with $ProgramID := sdtl_select_program | value }}                                    \\
-
-        {{ range $Command := (sdtl_select_commands $ProgramID | rows ) }}                   \\
-            {{ gv_labeled_node (index $Command 0) (index $Command 1) }}
-        {{ end }}                                                                           \\
-
-        # dataframe edges
-        {{ range $Edge := (sdtl_select_dataframe_edges $ProgramID | rows) }}                \\
-            {{ gv_labeled_edge (index $Edge 0) (index $Edge 1) (index $Edge 3) }}
-        {{ end }}                                                                           \\
-                                                                                            \\
-    {{ end }}                                                                               \\
-                                                                                            \\
-    {{ gv_cluster_end }}
-
-    {{ gv_end }}                                                                            \\
-
-__END_REPORT_TEMPLATE__
-
-__END_SCRIPT__
-
-
-# # *****************************************************************************
-
-# bash ${GRAPHER} GRAPH-2 "VARIABLE FLOW THROUGH COMMANDS" \
-#     << '__END_SCRIPT__'
-
-# blazegraph report << '__END_REPORT_TEMPLATE__'
-
-#     {{{
-#         {{ include "../../common/graphviz.g" }}
-#         {{ include "../../common/sdtl.g" }}
-#     }}}
-
-#     {{ gv_graph "sdtl_program" }}
-
-#     {{ gv_title "Dataframe-flow through commands" }}
-
-#     {{ gv_cluster "program_graph" }}
-
-#     # command nodes
-#     {{ sdtl_program_node_style }}
-#     node[width=8]
-#     {{ with $ProgramID := sdtl_select_program | value }}                                    \\
-
-#         {{ range $Command := (sdtl_select_commands $ProgramID | rows ) }}                   \\
-#             {{ gv_labeled_node (index $Command 0) (index $Command 1) }}
-#         {{ end }}                                                                           \\
-
-#         # dataframe edges
-#         {{ range $Edge := (sdtl_select_compute_variable_compute_edges $ProgramID | rows) }} \\
-#             {{ gv_labeled_edge (index $Edge 0) (index $Edge 1) (index $Edge 2) }}
-#         {{ end }}                                                                           \\
-#                                                                                             \\
-#         {{ range $Edge := (sdtl_select_load_variable_compute_edges $ProgramID | rows) }} \\
-#             {{ gv_labeled_edge (index $Edge 0) (index $Edge 1) (index $Edge 2) }}
-#         {{ end }}                                                                           \\
-
-#     {{ end }}                                                                               \\
-#                                                                                             \\
-#     {{ gv_cluster_end }}
-
-#     {{ gv_end }}                                                                            \\
-
-# __END_REPORT_TEMPLATE__
-
-# __END_SCRIPT__
-
-# *****************************************************************************
 
 bash ${RUNNER} R1 "REPORT HISTORY OF EACH VARIABLE" << 'END_SCRIPT'
 
@@ -410,7 +320,7 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
 {{ select '''
     SELECT DISTINCT ?written_variable ?source_line ?source_text
     WHERE {
-        {{ program_commands "?program" "?command" }} .
+        {{ program_command "?program" "?command" }} .
         {{ variable_writer  "?command" "?written_variable" }} .
         {{ command_source "?command" "?source_line" "?source_text" }}
     }
@@ -437,7 +347,7 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
 {{ select '''
     SELECT DISTINCT ?read_variable ?source_line ?source_text
     WHERE {
-        {{ program_commands "?program" "?command" }} .
+        {{ program_command "?program" "?command" }} .
         {{ variable_reader  "?command" "?read_variable" }} .
         {{ command_source "?command" "?source_line" "?source_text" }}
     }
@@ -464,9 +374,9 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
 {{ select '''
     SELECT DISTINCT ?top_variable ?writer_line ?writer_text ?reader_line ?reader_text
     WHERE {
-        {{ program_commands "?top_program" "?top_reader" }} .
-        {{ upstream_writer "?top_variable" "?top_reader" "?top_writer" }}
-        {{ command_source "?top_writer" "?writer_line" "?writer_text" }}
+        {{ program_command "?top_program" "?top_reader" }} .
+        {{ upstream_writer "?top_variable" "?top_reader" "?top_writer" }} .
+        {{ command_source "?top_writer" "?writer_line" "?writer_text" }} .
         {{ command_source_2 "?top_reader" "?reader_line" "?reader_text" }}
     }
     ORDER BY ?top_variable ?writer_line
@@ -475,3 +385,89 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
 __END_REPORT_TEMPLATE__
 
 END_SCRIPT
+
+# *****************************************************************************
+
+bash ${GRAPHER} GRAPH-1 "DATAFRAME FLOW THROUGH COMMANDS" \
+    << '__END_SCRIPT__'
+
+blazegraph report << '__END_REPORT_TEMPLATE__'
+
+    {{{
+        {{ include "../../common/graphviz.g" }}
+        {{ include "../../common/sdtl.g" }}
+    }}}
+
+    {{ gv_graph "sdtl_program" }}
+
+    {{ gv_title "Dataframe-flow through commands" }}
+
+    {{ gv_cluster "program_graph" }}
+
+    # command nodes
+    {{ sdtl_program_node_style }}
+    node[width=8]
+    {{ with $ProgramID := sdtl_select_program | value }}                                    \\
+
+        {{ range $Command := (sdtl_select_commands $ProgramID | rows ) }}                   \\
+            {{ gv_labeled_node (index $Command 0) (index $Command 1) }}
+        {{ end }}                                                                           \\
+
+        # dataframe edges
+        {{ range $Edge := (sdtl_select_dataframe_edges $ProgramID | rows) }}                \\
+            {{ gv_labeled_edge (index $Edge 0) (index $Edge 1) (index $Edge 3) }}
+        {{ end }}                                                                           \\
+                                                                                            \\
+    {{ end }}                                                                               \\
+                                                                                            \\
+    {{ gv_cluster_end }}
+
+    {{ gv_end }}                                                                            \\
+
+__END_REPORT_TEMPLATE__
+
+__END_SCRIPT__
+
+
+# *****************************************************************************
+
+bash ${GRAPHER} GRAPH-2 "VARIABLE FLOW THROUGH COMMANDS" \
+    << '__END_SCRIPT__'
+
+blazegraph report << '__END_REPORT_TEMPLATE__'
+
+    {{{
+        {{ include "../../common/graphviz.g" }}
+        {{ include "../../common/sdtl.g" }}
+    }}}
+
+    {{ gv_graph "sdtl_program" }}
+
+    {{ gv_title "Variable-flow through commands" }}
+
+    {{ gv_cluster "program_graph" }}
+
+    # command nodes
+    {{ sdtl_program_node_style }}
+    node[width=8]
+    {{ with $ProgramID := sdtl_select_program | value }}                                    \\
+
+        {{ range $Command := (sdtl_select_commands $ProgramID | rows ) }}                   \\
+            {{ gv_labeled_node (index $Command 0) (index $Command 1) }}
+        {{ end }}                                                                           \\
+
+        # variable write->read edges
+        {{ range $Edge := (sdtl_select_variable_write_read_edges $ProgramID | rows) }} \\
+            {{ gv_labeled_edge (index $Edge 0) (index $Edge 1) (index $Edge 2) }}
+        {{ end }}                                                                           \\
+
+    {{ end }}                                                                               \\
+                                                                                            \\
+    {{ gv_cluster_end }}
+
+    {{ gv_end }}                                                                            \\
+
+__END_REPORT_TEMPLATE__
+
+__END_SCRIPT__
+

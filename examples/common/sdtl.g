@@ -144,7 +144,7 @@
     }
 '''}}
 
-{{ rule "program_commands" "Program" "Command" '''
+{{ rule "program_command" "Program" "Command" '''
 	{
         {{_subject $Program}} rdf:type sdtl:Program .
         {{_subject $Program}} sdtl:Commands ?_command_inventory .
@@ -209,3 +209,10 @@
 	}
 ''' }}
 
+{{ query "sdtl_select_variable_write_read_edges" "ProgramID" '''
+    SELECT DISTINCT ?s_writer ?s_reader ?s_variable
+    WHERE {
+        {{ program_command "?s_program" "?s_reader" }} .
+        {{ upstream_writer "?s_variable" "?s_reader" "?s_writer" }} .
+    } ORDER BY ?s_variable ?s_reader ?s_writer
+''' }}
