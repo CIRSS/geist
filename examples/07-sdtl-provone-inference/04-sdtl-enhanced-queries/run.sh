@@ -358,7 +358,6 @@ __END_REPORT_TEMPLATE__
 
 END_SCRIPT
 
-
 # *****************************************************************************
 
 bash ${RUNNER} R4 "WHAT COMMANDS WRITE VARIABLES READ BY DOWNSTREAM COMMANDS?" << END_SCRIPT
@@ -377,6 +376,36 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
         {{ program_command "?program" "?reader" }} .
         {{ upstream_writer "?variable" "?reader" "?writer" }} .
         {{ command_source "?writer" "?writer_line" "?writer_text" }} .
+        {{ command_source "?reader" "?reader_line" "?reader_text" }}
+    }
+    ORDER BY ?variable ?writer_line
+''' | tabulate }}
+
+__END_REPORT_TEMPLATE__
+
+END_SCRIPT
+
+# *****************************************************************************
+
+bash ${RUNNER} R5 "WHAT COMMANDS READ VARIABLES BY MULTIPLE UPSTREAM COMMANDS?" << END_SCRIPT
+
+blazegraph report << '__END_REPORT_TEMPLATE__'
+
+{{{
+    {{ include "../../common/sdtl.g" }}
+}}}
+
+---------- COMMANDS THAT WRITE VARIABLES READ BY DOWNSTREAM COMMANDS ----------
+
+{{ select '''
+    SELECT DISTINCT ?variable ?writer_line ?writer_text ?intermediate_writer_line
+        ?intermediate_writer_text  ?reader_line ?reader_text
+    WHERE {
+        {{ program_command "?program" "?reader" }} .
+        {{ upstream_writer "?variable" "?reader" "?intermediate_writer" }} .
+        {{ upstream_writer "?variable" "?intermediate_writer" "?writer" }} .
+        {{ command_source "?writer" "?writer_line" "?writer_text" }} .
+        {{ command_source "?intermediate_writer" "?intermediate_writer_line" "?intermediate_writer_text" }} .
         {{ command_source "?reader" "?reader_line" "?reader_text" }}
     }
     ORDER BY ?variable ?writer_line

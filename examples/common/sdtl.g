@@ -144,6 +144,7 @@
     }
 '''}}
 
+
 {{ rule "program_command" "Program" "Command" '''
 	{
         {{_subject $Program}} rdf:type sdtl:Program .
@@ -151,6 +152,7 @@
         ?_command_inventory rdfs:member {{_object $Command}} .
 	}
 ''' }}
+
 
 {{ rule "variable_writer" "Command" "VariableName" '''
 	{
@@ -167,6 +169,7 @@
 		?_write_variable sdtl:VariableName {{_object $VariableName}}
 	}
 ''' }}
+
 
 {{ rule "variable_reader" "Command" "VariableName" '''
 	{
@@ -194,7 +197,6 @@
 ''' }}
 
 
-
 {{ rule "upstream_writer" "Variable" "Reader" "Writer" '''
 	{
 		{{ variable_reader $Reader $Variable }}
@@ -203,10 +205,15 @@
 	}
 ''' }}
 
+
 {{ query "sdtl_select_variable_write_read_edges" "ProgramID" '''
     SELECT DISTINCT ?writer ?reader ?variable
     WHERE {
         {{ program_command "?program" "?reader" }} .
         {{ upstream_writer "?variable" "?reader" "?writer" }} .
+		FILTER NOT EXISTS {
+			{{ upstream_writer "?variable" "?intermediate_writer" "?writer" }} .
+			{{ upstream_writer "?variable" "?reader" "?intermediate_writer" }}
+		}
     } ORDER BY ?variable ?reader ?writer
 ''' }}
