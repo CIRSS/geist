@@ -197,7 +197,7 @@
 ''' }}
 
 
-{{ rule "upstream_writer" "Variable" "Reader" "Writer" '''
+{{ rule "upstream_variable_writer" "Variable" "Reader" "Writer" '''
 	{
 		{{ variable_reader $Reader $Variable }}
 		{{_subject $Reader}} (sdtl:ConsumesDataframe/^sdtl:ProducesDataframe)+ {{_object $Writer}}
@@ -210,10 +210,10 @@
     SELECT DISTINCT ?writer ?reader ?variable
     WHERE {
         {{ program_command "?program" "?reader" }} .
-        {{ upstream_writer "?variable" "?reader" "?writer" }} .
+        {{ upstream_variable_writer "?variable" "?reader" "?writer" }} .
 		FILTER NOT EXISTS {
-			{{ upstream_writer "?variable" "?intermediate_writer" "?writer" }} .
-			{{ upstream_writer "?variable" "?reader" "?intermediate_writer" }}
+			{{ upstream_variable_writer "?variable" "?intermediate_writer" "?writer" }} .
+			{{ upstream_variable_writer "?variable" "?reader" "?intermediate_writer" }}
 		}
     } ORDER BY ?variable ?reader ?writer
 ''' }}
