@@ -372,14 +372,14 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
 ---------- COMMANDS THAT WRITE VARIABLES READ BY DOWNSTREAM COMMANDS ----------
 
 {{ select '''
-    SELECT DISTINCT ?top_variable ?writer_line ?writer_text ?reader_line ?reader_text
+    SELECT DISTINCT ?variable ?writer_line ?writer_text ?reader_line ?reader_text
     WHERE {
-        {{ program_command "?top_program" "?top_reader" }} .
-        {{ upstream_writer "?top_variable" "?top_reader" "?top_writer" }} .
-        {{ command_source "?top_writer" "?writer_line" "?writer_text" }} .
-        {{ command_source_2 "?top_reader" "?reader_line" "?reader_text" }}
+        {{ program_command "?program" "?reader" }} .
+        {{ upstream_writer "?variable" "?reader" "?writer" }} .
+        {{ command_source "?writer" "?writer_line" "?writer_text" }} .
+        {{ command_source "?reader" "?reader_line" "?reader_text" }}
     }
-    ORDER BY ?top_variable ?writer_line
+    ORDER BY ?variable ?writer_line
 ''' | tabulate }}
 
 __END_REPORT_TEMPLATE__

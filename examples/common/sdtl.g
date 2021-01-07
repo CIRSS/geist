@@ -193,13 +193,7 @@
 	}
 ''' }}
 
-{{ rule "command_source_2" "Command" "SourceLine" "SourceText" '''
-	{
-		{{_subject $Command}} sdtl:SourceInformation ?_source_info_2 .
-		?_source_info_2 sdtl:LineNumberStart {{_object $SourceLine}} .
-		?_source_info_2 sdtl:OriginalSourceText {{_object $SourceText}}
-	}
-''' }}
+
 
 {{ rule "upstream_writer" "Variable" "Reader" "Writer" '''
 	{
@@ -210,9 +204,9 @@
 ''' }}
 
 {{ query "sdtl_select_variable_write_read_edges" "ProgramID" '''
-    SELECT DISTINCT ?s_writer ?s_reader ?s_variable
+    SELECT DISTINCT ?writer ?reader ?variable
     WHERE {
-        {{ program_command "?s_program" "?s_reader" }} .
-        {{ upstream_writer "?s_variable" "?s_reader" "?s_writer" }} .
-    } ORDER BY ?s_variable ?s_reader ?s_writer
+        {{ program_command "?program" "?reader" }} .
+        {{ upstream_writer "?variable" "?reader" "?writer" }} .
+    } ORDER BY ?variable ?reader ?writer
 ''' }}
