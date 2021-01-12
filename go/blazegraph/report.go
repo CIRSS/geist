@@ -2,8 +2,6 @@ package blazegraph
 
 import (
 	"errors"
-	"fmt"
-	"regexp"
 	"strings"
 	"text/template"
 
@@ -33,36 +31,9 @@ func (bc *Client) selectFunc(rp *geist.Template, queryText string, args []interf
 	return bc.Select(query)
 }
 
-func (bc *Client) runQueryFunc(rp *geist.Template, queryText string, args []interface{}) (rs interface{}, err error) {
-
-	var data interface{}
-	if len(args) == 1 {
-		data = args[0]
-	}
-	reportTemplate := geist.NewTemplate("include", string(queryText), nil)
-	reportTemplate.Properties = rp.Properties
-	reportTemplate.Parse()
-	rs, err = reportTemplate.Expand(data)
-	print(rs)
-	return
-}
-
 func (bc *Client) ExpandReport(rp *geist.Template) (report string, err error) {
 
 	funcs := template.FuncMap{
-		"_subject": func(s string) string {
-			if s[0] == '?' {
-				return s
-			}
-			return "<" + s + ">"
-		},
-		"_object": func(s string) string {
-			if s[0] == '?' {
-				return s
-			} else {
-				return "<" + s + ">"
-			}
-		},
 		"prefix": func(prefix string, uri string) (s string, err error) {
 			rp.Properties.Prefixes[prefix] = uri
 			return "", nil
@@ -88,22 +59,6 @@ func (bc *Client) ExpandReport(rp *geist.Template) (report string, err error) {
 			})
 			return "", nil
 		},
-
-		"rule": func(name string, args ...string) (s string, err error) {
-			if len(args) == 0 {
-				err = errors.New("No body provided for rule " + name)
-				return
-			}
-			body := geist.GetParameterAppendedBody(args)
-			rp.Properties.Rules[name] = body
-			rp.AddFunction(name, func(args ...interface{}) (rs interface{}, err error) {
-				ruleText := rp.Properties.Rules[name]
-				ruleInstance := instantiateRule(ruleText)
-				rs, err = rp.ExpandSubreport(name, ruleInstance, args)
-				return
-			})
-			return "", nil
-		},
 	}
 
 	rp.AddFuncs(funcs)
@@ -111,22 +66,4 @@ func (bc *Client) ExpandReport(rp *geist.Template) (report string, err error) {
 	report, err = rp.Expand(nil)
 
 	return
-}
-
-var ruleVarIndex int
-
-func instantiateRule(ruleText string) string {
-	var renamings = make(map[string]string)
-	pattern := regexp.MustCompile(`\?[a-zA-z0-9_\-]`)
-	matches := pattern.FindAllString(ruleText, -1)
-	for _, variableName := range matches {
-		if _, exists := renamings[variableName]; !exists {
-			ruleVarIndex++
-			renamings[variableName] = fmt.Sprintf("?_rule_var_%d_%s_", ruleVarIndex, variableName[1:])
-		}
-	}
-	for oldName, newName := range renamings {
-		ruleText = strings.ReplaceAll(ruleText, oldName, newName)
-	}
-	return ruleText
 }

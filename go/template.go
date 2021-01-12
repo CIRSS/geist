@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"io/ioutil"
+	"regexp"
 	"strings"
 	textTemplate "text/template"
 
@@ -165,6 +166,19 @@ func GetParameterAppendedBody(args []string) (body string) {
 func (rp *Template) addStandardFunctions() {
 
 	funcs := textTemplate.FuncMap{
+		"_subject": func(s string) string {
+			if s[0] == '?' {
+				return s
+			}
+			return "<" + s + ">"
+		},
+		"_object": func(s string) string {
+			if s[0] == '?' {
+				return s
+			} else {
+				return "<" + s + ">"
+			}
+		},
 		"include": func(fileName string) (s string, err error) {
 			text, err := ioutil.ReadFile(fileName)
 			if err != nil {
@@ -238,8 +252,44 @@ func (rp *Template) addStandardFunctions() {
 			}
 			return strings.Repeat(" ", count)
 		},
+		"rule": func(name string, args ...string) (s string, err error) {
+			if len(args) == 0 {
+				err = errors.New("No body provided for rule " + name)
+				return
+			}
+			body := GetParameterAppendedBody(args)
+			rp.Properties.Rules[name] = body
+			rp.AddFunction(name, func(args ...interface{}) (rs interface{}, err error) {
+				ruleText := rp.Properties.Rules[name]
+				ruleInstance := instantiateRule(ruleText)
+				rs, err = rp.ExpandSubreport(name, ruleInstance, args)
+				return
+			})
+			return "", nil
+		},
+		"prefix": func(prefix string, uri string) (s string, err error) {
+			rp.Properties.Prefixes[prefix] = uri
+			return "", nil
+		},
 	}
 
 	rp.AddFuncs(funcs)
+}
 
+var ruleVarIndex int
+
+func instantiateRule(ruleText string) string {
+	var renamings = make(map[string]string)
+	pattern := regexp.MustCompile(`\?[a-zA-z0-9_\-]`)
+	matches := pattern.FindAllString(ruleText, -1)
+	for _, variableName := range matches {
+		if _, exists := renamings[variableName]; !exists {
+			ruleVarIndex++
+			renamings[variableName] = fmt.Sprintf("?_rule_var_%d_%s_", ruleVarIndex, variableName[1:])
+		}
+	}
+	for oldName, newName := range renamings {
+		ruleText = strings.ReplaceAll(ruleText, oldName, newName)
+	}
+	return ruleText
 }

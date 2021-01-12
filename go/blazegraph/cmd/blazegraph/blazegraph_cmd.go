@@ -199,12 +199,17 @@ func doImport(file string, format string) {
 }
 
 func doSelectQuery(file string, format string, columnSeparators bool) {
+
 	bc := blazegraph.NewClient(*options.url)
-	q, err := readFileOrStdin(file)
+	queryText, err := readFileOrStdin(file)
 	if err != nil {
 		fmt.Fprintf(Main.ErrWriter, err.Error())
 		return
 	}
+
+	queryTemplate := geist.NewTemplate("query", string(queryText), nil)
+	queryTemplate.Parse()
+	q, err := queryTemplate.Expand(nil)
 
 	switch format {
 

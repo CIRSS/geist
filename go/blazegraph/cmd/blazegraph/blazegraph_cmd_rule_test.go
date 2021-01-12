@@ -7,7 +7,126 @@ import (
 	"github.com/cirss/geist/util"
 )
 
+func TestBlazegraphCmd_static_macro_in_select(t *testing.T) {
+
+	var outputBuffer strings.Builder
+	Main.OutWriter = &outputBuffer
+	Main.ErrWriter = &outputBuffer
+
+	run("blazegraph destroy --dataset kb")
+	run("blazegraph create --dataset kb")
+
+	Main.InReader = strings.NewReader(`
+		<:x> <:foo> <:y> .
+		<:y> <:bar> <:z> .
+		<:z> <:baz> "baz" .
+	`)
+	run("blazegraph import --format ttl")
+
+	outputBuffer.Reset()
+	template := `
+
+		{{{
+			{{ macro "bar" '''
+				<:bar>
+			''' }}
+		}}}
+
+		SELECT DISTINCT ?s ?o
+		WHERE
+		{ ?s {{bar}} ?o }
+		ORDER BY ?o
+	`
+	Main.InReader = strings.NewReader(template)
+	run("blazegraph select --format table")
+	util.LineContentsEqual(t, outputBuffer.String(), `
+		s                                   | o
+		=========================================================================
+		http://127.0.0.1:9999/blazegraph/:y | http://127.0.0.1:9999/blazegraph/:z
+	`)
+}
+
+func TestBlazegraphCmd_dynamic_macro_in_select(t *testing.T) {
+
+	var outputBuffer strings.Builder
+	Main.OutWriter = &outputBuffer
+	Main.ErrWriter = &outputBuffer
+
+	run("blazegraph destroy --dataset kb")
+	run("blazegraph create --dataset kb")
+
+	Main.InReader = strings.NewReader(`
+		<:x> <:foo> <:y> .
+		<:y> <:bar> <:z> .
+		<:z> <:baz> "baz" .
+	`)
+	run("blazegraph import --format ttl")
+
+	outputBuffer.Reset()
+	template := `
+
+		{{{
+			{{ macro "bar" "Sub" "Obj" '''
+				{{_subject $Sub}} <:bar> {{_object $Obj}}
+			''' }}
+		}}}
+
+		SELECT DISTINCT ?s ?o
+		WHERE
+		{ {{ bar "?s" "?o" }} }
+		ORDER BY ?o
+	`
+	Main.InReader = strings.NewReader(template)
+	run("blazegraph select --format table")
+	util.LineContentsEqual(t, outputBuffer.String(), `
+		s                                   | o
+		=========================================================================
+		http://127.0.0.1:9999/blazegraph/:y | http://127.0.0.1:9999/blazegraph/:z
+	`)
+}
+
 func TestBlazegraphCmd_rule_in_select(t *testing.T) {
+
+	var outputBuffer strings.Builder
+	Main.OutWriter = &outputBuffer
+	Main.ErrWriter = &outputBuffer
+
+	run("blazegraph destroy --dataset kb")
+	run("blazegraph create --dataset kb")
+
+	Main.InReader = strings.NewReader(`
+		<:x> <:foo> <:y> .
+		<:y> <:bar> <:z> .
+		<:z> <:baz> "baz" .
+	`)
+	run("blazegraph import --format ttl")
+
+	outputBuffer.Reset()
+	template := `
+
+		{{{
+			{{ rule "foo_bar_baz" "s" "o" '''
+				{{_subject $s}} <:foo> ?y .
+				?y <:bar> ?z .
+				?z <:baz> {{_object $o}} .
+			''' }}
+		}}}
+
+		SELECT DISTINCT ?o
+		WHERE
+		{ {{ foo_bar_baz "?s" "?o" }} }
+		ORDER BY ?o
+	`
+	Main.InReader = strings.NewReader(template)
+	run("blazegraph select --format table")
+	util.LineContentsEqual(t, outputBuffer.String(), `
+		o
+		==
+		baz
+	`)
+}
+
+func TestBlazegraphCmd_rule_in_select_in_report(t *testing.T) {
 
 	var outputBuffer strings.Builder
 	Main.OutWriter = &outputBuffer
