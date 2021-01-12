@@ -98,17 +98,6 @@
     }
 ''' }}
 
-{{ query "sdtl_select_dataframe_edges" "ProgramID" '''
-    SELECT DISTINCT ?upstream_command ?downstream_command ?dataframe ?dataframe_name
-    WHERE {
-        $ProgramID sdtl:Commands ?commandinventory .
-        ?commandinventory ?index ?upstream_command .
-        ?upstream_command sdtl:ProducesDataframe ?dataframe .
-        ?downstream_command sdtl:ConsumesDataframe  ?dataframe .
-        ?dataframe sdtl:DataframeName ?dataframe_name
-    }
-''' }}
-
 {{ query "sdtl_select_compute_variable_compute_edges" "ProgramID" '''
     SELECT DISTINCT ?upstream_command ?downstream_command ?variable_name
     WHERE {
@@ -190,12 +179,6 @@
 	}
 ''' }}
 
-{{ rule "upstream_dataframe_writer" "Reader" "Writer" '''
-	{
-		{{_subject $Reader}} (sdtl:ConsumesDataframe/^sdtl:ProducesDataframe)+ {{_object $Writer}}
-	}
-''' }}
-
 {{ rule "upstream_variable_writer" "Variable" "Reader" "Writer" '''
 	{
 		{{ variable_reader $Reader $Variable }}
@@ -210,12 +193,29 @@
         {{ program_command "?program" "?reader" }} .
         {{ upstream_variable_writer "?variable" "?reader" "?writer" }} .
 		FILTER NOT EXISTS {
-			{{ upstream_variable_writer "?variable" "?intermediate_writer" "?writer" }} .
-			{{ upstream_variable_writer "?variable" "?reader" "?intermediate_writer" }}
+			{{ upstream_variable_writer "?variable" "?reader" "?intermediate_writer" }} .
+			{{ upstream_variable_writer "?variable" "?intermediate_writer" "?writer" }}
 		}
 		FILTER NOT EXISTS {
-			{{ upstream_dataframe_writer "?variable" "?intermediate_writer" "?writer" }} .
 			{{ upstream_variable_writer "?variable" "?reader" "?intermediate_writer" }}
+			{{ upstream_dataframe_writer "?variable" "?intermediate_writer" "?writer" }} .
 		}
     } ORDER BY ?variable ?reader ?writer
+''' }}
+
+{{ rule "upstream_dataframe_writer" "Reader" "Writer" '''
+	{
+		{{_subject $Reader}} (sdtl:ConsumesDataframe/^sdtl:ProducesDataframe)+ {{_object $Writer}}
+	}
+''' }}
+
+{{ query "sdtl_select_dataframe_edges" "ProgramID" '''
+    SELECT DISTINCT ?upstream_command ?downstream_command ?dataframe ?dataframe_name
+    WHERE {
+        $ProgramID sdtl:Commands ?commandinventory .
+        ?commandinventory ?index ?upstream_command .
+        ?upstream_command sdtl:ProducesDataframe ?dataframe .
+        ?downstream_command sdtl:ConsumesDataframe  ?dataframe .
+        ?dataframe sdtl:DataframeName ?dataframe_name
+    }
 ''' }}
