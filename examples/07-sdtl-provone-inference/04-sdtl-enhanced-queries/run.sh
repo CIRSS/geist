@@ -33,10 +33,8 @@ blazegraph select --format table << __END_QUERY__
     SELECT DISTINCT ?used_variable ?command ?source_line ?source_text
     WHERE {
         ?program rdf:type sdtl:Program .
-        ?program sdtl:Commands ?commandinventory .
-        ?commandinventory rdfs:member ?command .
-        ?command sdtl:OperatesOn ?operand .
-        ?operand sdtl:VariableName ?used_variable .
+        ?program sdtl:Commands/rdfs:member ?command .
+        ?command sdtl:OperatesOn/sdtl:VariableName ?used_variable .
         ?command sdtl:SourceInformation ?source_info .
         ?source_info sdtl:LineNumberStart ?source_line .
         ?source_info sdtl:OriginalSourceText ?source_text .
@@ -57,8 +55,7 @@ blazegraph select --format table << __END_QUERY__
     SELECT DISTINCT ?affecting_variable  ?affected_variable ?command ?source_line ?source_text
     WHERE {
         ?program rdf:type sdtl:Program .
-        ?program sdtl:Commands ?commandinventory .
-        ?commandinventory rdfs:member ?command .
+        ?program sdtl:Commands/rdfs:member ?command .
         ?command sdtl:Variable/sdtl:VariableName ?affected_variable .
         ?command sdtl:OperatesOn/sdtl:VariableName ?affecting_variable .
         ?command sdtl:SourceInformation ?source_info .
@@ -81,8 +78,7 @@ blazegraph select --format table << __END_QUERY__
     SELECT DISTINCT ?affecting_variable ?command ?source_line ?source_text
     WHERE {
         ?program rdf:type sdtl:Program .
-        ?program sdtl:Commands ?commandinventory .
-        ?commandinventory rdfs:member ?command .
+        ?program sdtl:Commands/rdfs:member ?command .
         ?command sdtl:Variable/sdtl:VariableName "Kelvin"^^<http://www.w3.org/2001/XMLSchema#string> .
         ?command sdtl:OperatesOn/sdtl:VariableName ?affecting_variable .
         ?command sdtl:SourceInformation ?source_info .
@@ -132,8 +128,7 @@ blazegraph select --format table << __END_QUERY__
     SELECT DISTINCT ?variable
     WHERE {
         ?program rdf:type sdtl:Program .
-        ?program sdtl:Commands ?commandinventory .
-        ?commandinventory rdfs:member ?command .
+        ?program sdtl:Commands/rdfs:member ?command .
         ?command sdtl:Variable/sdtl:VariableName "Kelvin"^^<http://www.w3.org/2001/XMLSchema#string> .
         ?command sdtl:OperatesOn/sdtl:VariableName/(^sdtl:VariableName/^sdtl:Variable/sdtl:OperatesOn/sdtl:VariableName)* ?variable .
     } ORDER BY ?variable
@@ -153,17 +148,14 @@ blazegraph select --format table << __END_QUERY__
     SELECT DISTINCT ?affected_variable ?command ?source_line ?source_text
     WHERE {
         ?program rdf:type sdtl:Program .
-        ?program sdtl:Commands ?commandinventory .
-        ?commandinventory rdfs:member ?command .
+        ?program sdtl:Commands/rdfs:member ?command .
         {
             ?command sdtl:Variable ?variable .
         }
         UNION
         {
             ?command rdf:type sdtl:Load .
-            ?command sdtl:ProducesDataframe ?dataframe_description .
-            ?dataframe_description sdtl:VariableInventory ?variable_inventory .
-            ?variable_inventory rdfs:member ?variable .
+            ?command sdtl:ProducesDataframe/sdtl:VariableInventory/rdfs:member ?variable .
         }
         ?variable sdtl:VariableName ?affected_variable .
         ?command sdtl:SourceInformation ?source_info .
@@ -187,8 +179,7 @@ blazegraph select --format table << __END_QUERY__
     SELECT DISTINCT ?variable ?command ?upstream_command ?source_line ?source_text
     WHERE {
         ?program rdf:type sdtl:Program .
-        ?program sdtl:Commands ?commandinventory .
-        ?commandinventory rdfs:member ?command .
+        ?program sdtl:Commands/rdfs:member ?command .
         {
             ?command rdf:type sdtl:Save .
             ?save_command sdtl:ConsumesDataframe ?saved_dataframe .
@@ -209,8 +200,7 @@ blazegraph select --format table << __END_QUERY__
         {
             ?upstream_command rdf:type sdtl:Load .
             ?upstream_command sdtl:ProducesDataframe ?dataframe_description .
-            ?dataframe_description sdtl:VariableInventory ?variable_inventory .
-            ?variable_inventory rdfs:member/sdtl:VariableName ?variable .
+            ?dataframe_description sdtl:VariableInventory/rdfs:member/sdtl:VariableName ?variable .
         }
 
         FILTER NOT EXISTS
@@ -224,8 +214,7 @@ blazegraph select --format table << __END_QUERY__
             {
                 ?intermediate_command rdf:type sdtl:Load .
                 ?intermediate_command sdtl:ProducesDataframe ?dataframe_description .
-                ?dataframe_description sdtl:VariableInventory ?variable_inventory .
-                ?variable_inventory rdfs:member/sdtl:VariableName ?variable .
+                ?dataframe_description sdtl:VariableInventory/rdfs:member/sdtl:VariableName ?variable .
             }
         }
 
