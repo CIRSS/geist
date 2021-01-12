@@ -903,87 +903,6 @@ Fahrenheit        | http://wholetale.org/program/1119/load/2    | 20          | 
 Kelvin            | http://wholetale.org/program/1119/compute/5 | 28          | temps = temps.assign(Kelvin=(temps.Celsius + 273))
 
 
-******************************************* EXAMPLE Q7 ************************************************
-
-# WHAT IS THE LAST COMMAND THAT UPDATES EACH VARIABLE?
-
-blazegraph select --format table << __END_QUERY__
-
-    PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
-
-    SELECT DISTINCT ?variable ?command ?upstream_command ?source_line ?source_text
-    WHERE {
-        ?program rdf:type sdtl:Program .
-        ?program sdtl:Commands/rdfs:member ?command .
-        {
-            ?command rdf:type sdtl:Save .
-            ?save_command sdtl:ConsumesDataframe ?saved_dataframe .
-            ?saved_dataframe sdtl:VariableInventory/rdfs:member/sdtl:VariableName ?variable .
-        }
-        UNION
-        {
-            ?command rdf:type sdtl:Compute .
-            ?command sdtl:OperatesOn/sdtl:VariableName ?variable .
-        }
-
-        ?save_command (sdtl:ConsumesDataframe/^sdtl:ProducesDataframe)+ ?upstream_command .
-
-        {
-            ?upstream_command sdtl:Variable/sdtl:VariableName  ?variable .
-        }
-        UNION
-        {
-            ?upstream_command rdf:type sdtl:Load .
-            ?upstream_command sdtl:ProducesDataframe ?dataframe_description .
-            ?dataframe_description sdtl:VariableInventory/rdfs:member/sdtl:VariableName ?variable .
-        }
-
-        FILTER NOT EXISTS
-        {
-            ?intermediate_command (sdtl:ConsumesDataframe/^sdtl:ProducesDataframe)+ ?upstream_command .
-
-            {
-                ?intermediate_command sdtl:Variable/sdtl:VariableName  ?variable .
-            }
-            UNION
-            {
-                ?intermediate_command rdf:type sdtl:Load .
-                ?intermediate_command sdtl:ProducesDataframe ?dataframe_description .
-                ?dataframe_description sdtl:VariableInventory/rdfs:member/sdtl:VariableName ?variable .
-            }
-        }
-
-        ?upstream_command sdtl:SourceInformation ?source_info .
-        ?source_info sdtl:LineNumberStart ?source_line .
-        ?source_info sdtl:OriginalSourceText ?source_text .
-
-    } ORDER BY ?source_line ?command
-
-__END_QUERY__
-
-------------------------------------------- Q7 OUTPUTS ------------------------------------------------
-
-variable   | command                                     | upstream_command                            | source_line | source_text
-=============================================================================================================================================================================
-A          | http://wholetale.org/program/1119/compute/3 | http://wholetale.org/program/1119/compute/1 | 8           | df['A'] = 3
-A          | http://wholetale.org/program/1119/save/1    | http://wholetale.org/program/1119/compute/1 | 8           | df['A'] = 3
-A          | http://wholetale.org/program/1119/save/2    | http://wholetale.org/program/1119/compute/1 | 8           | df['A'] = 3
-B          | http://wholetale.org/program/1119/compute/2 | http://wholetale.org/program/1119/compute/2 | 12          | df['B'] = df.B + 6.5
-B          | http://wholetale.org/program/1119/compute/3 | http://wholetale.org/program/1119/compute/2 | 12          | df['B'] = df.B + 6.5
-B          | http://wholetale.org/program/1119/save/1    | http://wholetale.org/program/1119/compute/2 | 12          | df['B'] = df.B + 6.5
-B          | http://wholetale.org/program/1119/save/2    | http://wholetale.org/program/1119/compute/2 | 12          | df['B'] = df.B + 6.5
-C          | http://wholetale.org/program/1119/save/1    | http://wholetale.org/program/1119/compute/3 | 16          | df['C'] = df.A - df.B
-C          | http://wholetale.org/program/1119/save/2    | http://wholetale.org/program/1119/compute/3 | 16          | df['C'] = df.A - df.B
-Fahrenheit | http://wholetale.org/program/1119/compute/4 | http://wholetale.org/program/1119/load/2    | 20          | temps = pd.read_csv('../data/temps.csv')
-Fahrenheit | http://wholetale.org/program/1119/save/1    | http://wholetale.org/program/1119/load/2    | 20          | temps = pd.read_csv('../data/temps.csv')
-Fahrenheit | http://wholetale.org/program/1119/save/2    | http://wholetale.org/program/1119/load/2    | 20          | temps = pd.read_csv('../data/temps.csv')
-Celsius    | http://wholetale.org/program/1119/compute/5 | http://wholetale.org/program/1119/compute/4 | 24          | temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))
-Celsius    | http://wholetale.org/program/1119/save/1    | http://wholetale.org/program/1119/compute/4 | 24          | temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))
-Celsius    | http://wholetale.org/program/1119/save/2    | http://wholetale.org/program/1119/compute/4 | 24          | temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))
-Kelvin     | http://wholetale.org/program/1119/save/1    | http://wholetale.org/program/1119/compute/5 | 28          | temps = temps.assign(Kelvin=(temps.Celsius + 273))
-Kelvin     | http://wholetale.org/program/1119/save/2    | http://wholetale.org/program/1119/compute/5 | 28          | temps = temps.assign(Kelvin=(temps.Celsius + 273))
-
-
 ******************************************* EXAMPLE R1 ************************************************
 
 # REPORT HISTORY OF EACH VARIABLE
@@ -1192,7 +1111,7 @@ Kelvin     | 28          | temps = temps.assign(Kelvin=(temps.Celsius + 273))   
 
 ******************************************* EXAMPLE R5 ************************************************
 
-# WHAT COMMANDS READ VARIABLES BY MULTIPLE UPSTREAM COMMANDS?
+# WHAT COMMANDS READ VARIABLES WRITTEN BY MULTIPLE UPSTREAM COMMANDS?
 
 blazegraph report << '__END_REPORT_TEMPLATE__'
 
@@ -1200,7 +1119,7 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
     {{ include "../../common/sdtl.g" }}
 }}}
 
----------- COMMANDS THAT WRITE VARIABLES READ BY DOWNSTREAM COMMANDS ----------
+---------- COMMANDS THAT READ VARIABLES WRITTEN BY MULTIPLE UPSTREAM COMMANDS ----------
 
 {{ select '''
     SELECT DISTINCT ?variable ?writer_line ?writer_text ?intermediate_writer_line
@@ -1220,7 +1139,7 @@ __END_REPORT_TEMPLATE__
 
 ------------------------------------------- R5 OUTPUTS ------------------------------------------------
 
----------- COMMANDS THAT WRITE VARIABLES READ BY DOWNSTREAM COMMANDS ----------
+---------- COMMANDS THAT READ VARIABLES WRITTEN BY MULTIPLE UPSTREAM COMMANDS ----------
 
 variable | writer_line | writer_text                        | intermediate_writer_line | intermediate_writer_text | reader_line | reader_text
 ===================================================================================================================================
