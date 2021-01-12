@@ -98,7 +98,6 @@
     }
 ''' }}
 
-
 {{ query "sdtl_select_dataframe_edges" "ProgramID" '''
     SELECT DISTINCT ?upstream_command ?downstream_command ?dataframe ?dataframe_name
     WHERE {
@@ -134,7 +133,6 @@
     }
 ''' }}
 
-
 {{ query "sdtl_select_variable_flow" "ProgramID" "VariableName" '''
     SELECT ?command ?variable
     WHERE {
@@ -144,7 +142,6 @@
     }
 '''}}
 
-
 {{ rule "program_command" "Program" "Command" '''
 	{
         {{_subject $Program}} rdf:type sdtl:Program .
@@ -152,7 +149,6 @@
         ?_command_inventory rdfs:member {{_object $Command}} .
 	}
 ''' }}
-
 
 {{ rule "variable_writer" "Command" "VariableName" '''
 	{
@@ -170,7 +166,6 @@
 	}
 ''' }}
 
-
 {{ rule "variable_reader" "Command" "VariableName" '''
 	{
         {
@@ -187,7 +182,6 @@
 	}
 ''' }}
 
-
 {{ rule "command_source" "Command" "SourceLine" "SourceText" '''
 	{
 		{{_subject $Command}} sdtl:SourceInformation ?_source_info .
@@ -196,6 +190,11 @@
 	}
 ''' }}
 
+{{ rule "upstream_dataframe_writer" "Reader" "Writer" '''
+	{
+		{{_subject $Reader}} (sdtl:ConsumesDataframe/^sdtl:ProducesDataframe)+ {{_object $Writer}}
+	}
+''' }}
 
 {{ rule "upstream_variable_writer" "Variable" "Reader" "Writer" '''
 	{
@@ -205,7 +204,6 @@
 	}
 ''' }}
 
-
 {{ query "sdtl_select_variable_write_read_edges" "ProgramID" '''
     SELECT DISTINCT ?writer ?reader ?variable
     WHERE {
@@ -213,6 +211,10 @@
         {{ upstream_variable_writer "?variable" "?reader" "?writer" }} .
 		FILTER NOT EXISTS {
 			{{ upstream_variable_writer "?variable" "?intermediate_writer" "?writer" }} .
+			{{ upstream_variable_writer "?variable" "?reader" "?intermediate_writer" }}
+		}
+		FILTER NOT EXISTS {
+			{{ upstream_dataframe_writer "?variable" "?intermediate_writer" "?writer" }} .
 			{{ upstream_variable_writer "?variable" "?reader" "?intermediate_writer" }}
 		}
     } ORDER BY ?variable ?reader ?writer

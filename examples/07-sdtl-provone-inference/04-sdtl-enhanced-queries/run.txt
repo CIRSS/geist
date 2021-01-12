@@ -1075,71 +1075,6 @@ Save    | Line 35 | temps.to_csv('outputs/temps_updated.csv', index=False)
 
 ******************************************* EXAMPLE R2 ************************************************
 
-# REPORT LAST UPDATE CORRESPONDING TO EACH VARIABLE USE
-
-blazegraph report << '__END_REPORT_TEMPLATE__'
-
-{{{
-    {{ include "../../common/sdtl.g" }}
-}}}
-
----------- VARIABLE HISTORY REPORT ----------
-                                                                                                    \
-{{ with $Program := sdtl_select_program | value }}                                                  \
-    {{ range $SaveCommand := sdtl_select_save_commands $Program | rows }}
-        ===================
-        Dataframe {{ index $SaveCommand 2 }}
-        ===================
-        {{ range $VariableName := sdtl_select_dataframe_variables (index $SaveCommand 1) | vector }}
-            Variable {{ $VariableName }}
-            -------------------
-            {{ range $VariableFlow := sdtl_select_variable_flows $Program $VariableName | rows }}      \
-            [Line {{ index $VariableFlow 0 }}] {{ index $VariableFlow 1 }} ---> [Line {{ index $VariableFlow 2 }}] {{ index $VariableFlow 3 }}
-            {{ end }}                                                                               \
-        {{ end }}
-    {{ end }}
-{{ end }}
-
-__END_REPORT_TEMPLATE__
-
-------------------------------------------- R2 OUTPUTS ------------------------------------------------
-
----------- VARIABLE HISTORY REPORT ----------
-
-===================
-Dataframe df
-===================
-
-Variable A
--------------------
-[Line 8] df['A'] = 3 ---> [Line 8] df['A'] = 3
-
-Variable B
--------------------
-[Line 12] df['B'] = df.B + 6.5 ---> [Line 12] df['B'] = df.B + 6.5
-
-Variable C
--------------------
-[Line 16] df['C'] = df.A - df.B ---> [Line 16] df['C'] = df.A - df.B
-
-
-===================
-Dataframe temps
-===================
-
-Variable Fahrenheit
--------------------
-
-Variable Kelvin
--------------------
-[Line 28] temps = temps.assign(Kelvin=(temps.Celsius + 273)) ---> [Line 28] temps = temps.assign(Kelvin=(temps.Celsius + 273))
-
-Variable Celsius
--------------------
-[Line 24] temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9)) ---> [Line 24] temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))
-
-******************************************* EXAMPLE R3 ************************************************
-
 # WHAT COMMANDS WRITE TO EACH VARIABLE?
 
 blazegraph report << '__END_REPORT_TEMPLATE__'
@@ -1162,7 +1097,7 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
 
 __END_REPORT_TEMPLATE__
 
-------------------------------------------- R3 OUTPUTS ------------------------------------------------
+------------------------------------------- R2 OUTPUTS ------------------------------------------------
 
 ---------- COMMANDS THAT WRITE TO EACH VARIABLE ----------
 
@@ -1302,6 +1237,71 @@ variable | writer_line | writer_text                        | intermediate_write
 ===================================================================================================================================
 B        | 4           | df = pd.read_csv('../data/df.csv') | 12                       | df['B'] = df.B + 6.5     | 16          | df['C'] = df.A - df.B
 B        | 4           | df = pd.read_csv('../data/df.csv') | 12                       | df['B'] = df.B + 6.5     | 32          | df.to_csv('outputs/df_updated.csv', index=False)
+
+******************************************* EXAMPLE R6 ************************************************
+
+# REPORT LAST UPDATE CORRESPONDING TO EACH VARIABLE USE
+
+blazegraph report << '__END_REPORT_TEMPLATE__'
+
+{{{
+    {{ include "../../common/sdtl.g" }}
+}}}
+
+---------- VARIABLE HISTORY REPORT ----------
+                                                                                                    \
+{{ with $Program := sdtl_select_program | value }}                                                  \
+    {{ range $SaveCommand := sdtl_select_save_commands $Program | rows }}
+        ===================
+        Dataframe {{ index $SaveCommand 2 }}
+        ===================
+        {{ range $VariableName := sdtl_select_dataframe_variables (index $SaveCommand 1) | vector }}
+            Variable {{ $VariableName }}
+            -------------------
+            {{ range $VariableFlow := sdtl_select_variable_flows $Program $VariableName | rows }}      \
+            [Line {{ index $VariableFlow 0 }}] {{ index $VariableFlow 1 }} ---> [Line {{ index $VariableFlow 2 }}] {{ index $VariableFlow 3 }}
+            {{ end }}                                                                               \
+        {{ end }}
+    {{ end }}
+{{ end }}
+
+__END_REPORT_TEMPLATE__
+
+------------------------------------------- R6 OUTPUTS ------------------------------------------------
+
+---------- VARIABLE HISTORY REPORT ----------
+
+===================
+Dataframe df
+===================
+
+Variable A
+-------------------
+[Line 8] df['A'] = 3 ---> [Line 8] df['A'] = 3
+
+Variable B
+-------------------
+[Line 12] df['B'] = df.B + 6.5 ---> [Line 12] df['B'] = df.B + 6.5
+
+Variable C
+-------------------
+[Line 16] df['C'] = df.A - df.B ---> [Line 16] df['C'] = df.A - df.B
+
+
+===================
+Dataframe temps
+===================
+
+Variable Fahrenheit
+-------------------
+
+Variable Kelvin
+-------------------
+[Line 28] temps = temps.assign(Kelvin=(temps.Celsius + 273)) ---> [Line 28] temps = temps.assign(Kelvin=(temps.Celsius + 273))
+
+Variable Celsius
+-------------------
+[Line 24] temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9)) ---> [Line 24] temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))
 
 ******************************************* EXAMPLE GRAPH-1 ************************************************
 

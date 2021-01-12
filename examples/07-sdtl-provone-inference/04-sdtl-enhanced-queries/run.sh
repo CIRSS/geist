@@ -275,39 +275,7 @@ END_SCRIPT
 
 # *****************************************************************************
 
-bash ${RUNNER} R2 "REPORT LAST UPDATE CORRESPONDING TO EACH VARIABLE USE" << 'END_SCRIPT'
-
-blazegraph report << '__END_REPORT_TEMPLATE__'
-
-{{{
-    {{ include "../../common/sdtl.g" }}
-}}}
-
----------- VARIABLE HISTORY REPORT ----------
-                                                                                                    \\
-{{ with $Program := sdtl_select_program | value }}                                                  \\
-    {{ range $SaveCommand := sdtl_select_save_commands $Program | rows }}
-        ===================
-        Dataframe {{ index $SaveCommand 2 }}
-        ===================
-        {{ range $VariableName := sdtl_select_dataframe_variables (index $SaveCommand 1) | vector }}
-            Variable {{ $VariableName }}
-            -------------------
-            {{ range $VariableFlow := sdtl_select_variable_flows $Program $VariableName | rows }}      \\
-            [Line {{ index $VariableFlow 0 }}] {{ index $VariableFlow 1 }} ---> [Line {{ index $VariableFlow 2 }}] {{ index $VariableFlow 3 }}
-            {{ end }}                                                                               \\
-        {{ end }}
-    {{ end }}
-{{ end }}
-
-__END_REPORT_TEMPLATE__
-
-END_SCRIPT
-
-
-# *****************************************************************************
-
-bash ${RUNNER} R3 "WHAT COMMANDS WRITE TO EACH VARIABLE?" << END_SCRIPT
+bash ${RUNNER} R2 "WHAT COMMANDS WRITE TO EACH VARIABLE?" << END_SCRIPT
 
 blazegraph report << '__END_REPORT_TEMPLATE__'
 
@@ -410,6 +378,37 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
     }
     ORDER BY ?variable ?writer_line
 ''' | tabulate }}
+
+__END_REPORT_TEMPLATE__
+
+END_SCRIPT
+
+# *****************************************************************************
+
+bash ${RUNNER} R6 "REPORT LAST UPDATE CORRESPONDING TO EACH VARIABLE USE" << 'END_SCRIPT'
+
+blazegraph report << '__END_REPORT_TEMPLATE__'
+
+{{{
+    {{ include "../../common/sdtl.g" }}
+}}}
+
+---------- VARIABLE HISTORY REPORT ----------
+                                                                                                    \\
+{{ with $Program := sdtl_select_program | value }}                                                  \\
+    {{ range $SaveCommand := sdtl_select_save_commands $Program | rows }}
+        ===================
+        Dataframe {{ index $SaveCommand 2 }}
+        ===================
+        {{ range $VariableName := sdtl_select_dataframe_variables (index $SaveCommand 1) | vector }}
+            Variable {{ $VariableName }}
+            -------------------
+            {{ range $VariableFlow := sdtl_select_variable_flows $Program $VariableName | rows }}      \\
+            [Line {{ index $VariableFlow 0 }}] {{ index $VariableFlow 1 }} ---> [Line {{ index $VariableFlow 2 }}] {{ index $VariableFlow 3 }}
+            {{ end }}                                                                               \\
+        {{ end }}
+    {{ end }}
+{{ end }}
 
 __END_REPORT_TEMPLATE__
 
