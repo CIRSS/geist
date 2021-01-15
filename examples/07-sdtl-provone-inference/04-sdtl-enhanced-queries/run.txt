@@ -335,7 +335,7 @@ blazegraph export --format nt | sort
 <http://wholetale.org/program/1119/save/2> <https://rdf-vocabulary.ddialliance.org/sdtl#FileFormat> "csv"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://wholetale.org/program/1119/save/2> <https://rdf-vocabulary.ddialliance.org/sdtl#FileName> "temps_updated.csv"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://wholetale.org/program/1119/save/2> <https://rdf-vocabulary.ddialliance.org/sdtl#SourceInformation> <http://wholetale.org/program/1119/sourceinfo/9> .
-<http://wholetale.org/program/1119/sourceinfo/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <sfdtl:SourceInformation> .
+<http://wholetale.org/program/1119/sourceinfo/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#SourceInformation> .
 <http://wholetale.org/program/1119/sourceinfo/1> <https://rdf-vocabulary.ddialliance.org/sdtl#LineNumberStart> "4"^^<http://www.w3.org/2001/XMLSchema#integer> .
 <http://wholetale.org/program/1119/sourceinfo/1> <https://rdf-vocabulary.ddialliance.org/sdtl#OriginalSourceText> "df = pd.read_csv('../data/df.csv')"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://wholetale.org/program/1119/sourceinfo/2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#SourceInformation> .
@@ -707,9 +707,6 @@ blazegraph export --format nt | sort
 <https://rdf-vocabulary.ddialliance.org/sdtl#VariableSymbolExpression> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Class> .
 <https://rdf-vocabulary.ddialliance.org/sdtl#VariableSymbolExpression> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2000/01/rdf-schema#Resource> .
 <https://rdf-vocabulary.ddialliance.org/sdtl#VariableSymbolExpression> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableSymbolExpression> .
-<sfdtl:SourceInformation> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Class> .
-<sfdtl:SourceInformation> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2000/01/rdf-schema#Resource> .
-<sfdtl:SourceInformation> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <sfdtl:SourceInformation> .
 
 
 ******************************************* EXAMPLE Q1 ************************************************

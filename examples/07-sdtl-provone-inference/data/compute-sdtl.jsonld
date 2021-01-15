@@ -45,7 +45,7 @@
             },
             "sdtl:SourceInformation": {
                 "@id": "run:sourceinfo/1",
-                "@type": "sfdtl:SourceInformation",
+                "@type": "sdtl:SourceInformation",
                 "sdtl:LineNumberStart": 4,
                 "sdtl:OriginalSourceText": "df = pd.read_csv('../data/df.csv')"
             }
