@@ -780,7 +780,7 @@ blazegraph select --format table << __END_QUERY__
 
     {{{
 
-    {{ include "../../common/rules.g" }}
+    {{ include "../../common/sdtl.g" }}
 
     }}}
 
@@ -791,10 +791,8 @@ blazegraph select --format table << __END_QUERY__
         ?program rdf:type sdtl:Program .
         ?program sdtl:Commands/rdfs:member ?command .
         ?command sdtl:Variable/sdtl:VariableName "Kelvin"^^<http://www.w3.org/2001/XMLSchema#string> .
-        ?command sdtl:OperatesOn/sdtl:VariableName ?affecting_variable .
-        ?command sdtl:SourceInformation ?source_info .
-        ?source_info sdtl:LineNumberStart ?source_line .
-        ?source_info {{ OriginalSourceText }} ?source_text .
+        ?command sdtl:OperatesOn/sdtl:VariableName ?affecting_variable
+        {{ command_source "?command" "?source_line" "?source_text" }}
     } ORDER BY ?affecting_variable ?source_line
 
 __END_QUERY__
