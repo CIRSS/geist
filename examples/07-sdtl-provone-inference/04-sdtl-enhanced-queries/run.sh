@@ -28,6 +28,12 @@ bash ${RUNNER} Q1 "WHAT COMMANDS USE EACH VARIABLE?" << END_SCRIPT
 
 blazegraph select --format table << __END_QUERY__
 
+    {{{
+
+    {{ include "../../common/sdtl.g" }}
+
+    }}}
+
     PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
 
     SELECT DISTINCT ?used_variable ?command ?source_line ?source_text
@@ -35,9 +41,7 @@ blazegraph select --format table << __END_QUERY__
         ?program rdf:type sdtl:Program .
         ?program sdtl:Commands/rdfs:member ?command .
         ?command sdtl:OperatesOn/sdtl:VariableName ?used_variable .
-        ?command sdtl:SourceInformation ?source_info .
-        ?source_info sdtl:LineNumberStart ?source_line .
-        ?source_info sdtl:OriginalSourceText ?source_text .
+        {{ command_source "?command" "?source_line" "?source_text" }}
     } ORDER BY ?used_variable ?source_line
 
 __END_QUERY__
@@ -50,6 +54,12 @@ bash ${RUNNER} Q2 "WHAT VARIABLES DIRECTLY AFFECT OTHER VARIABLES?" << END_SCRIP
 
 blazegraph select --format table << __END_QUERY__
 
+    {{{
+
+    {{ include "../../common/sdtl.g" }}
+
+    }}}
+
     PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
 
     SELECT DISTINCT ?affecting_variable  ?affected_variable ?command ?source_line ?source_text
@@ -58,9 +68,7 @@ blazegraph select --format table << __END_QUERY__
         ?program sdtl:Commands/rdfs:member ?command .
         ?command sdtl:Variable/sdtl:VariableName ?affected_variable .
         ?command sdtl:OperatesOn/sdtl:VariableName ?affecting_variable .
-        ?command sdtl:SourceInformation ?source_info .
-        ?source_info sdtl:LineNumberStart ?source_line .
-        ?source_info sdtl:OriginalSourceText ?source_text .
+        {{ command_source "?command" "?source_line" "?source_text" }}
     } ORDER BY ?affecting_variable ?affected_variable ?source_line
 
 __END_QUERY__
@@ -100,6 +108,12 @@ bash ${RUNNER} Q4 "WHAT VARIABLES DIRECTLY AFFECT VARIABLES THAT DIRECTLY AFFECT
 
 blazegraph select --format table << __END_QUERY__
 
+    {{{
+
+    {{ include "../../common/sdtl.g" }}
+
+    }}}
+
     PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
 
     SELECT DISTINCT ?indirectly_affecting_variable ?indirectly_affecting_command ?source_line ?source_text
@@ -112,9 +126,7 @@ blazegraph select --format table << __END_QUERY__
         ?directly_affecting_command sdtl:Variable/sdtl:VariableName "Kelvin"^^<http://www.w3.org/2001/XMLSchema#string> .
         ?directly_affecting_command sdtl:OperatesOn/sdtl:VariableName/^sdtl:VariableName/^sdtl:Variable ?indirectly_affecting_command  .
         ?indirectly_affecting_command sdtl:OperatesOn/sdtl:VariableName ?indirectly_affecting_variable .
-        ?indirectly_affecting_command sdtl:SourceInformation ?source_info .
-        ?source_info sdtl:LineNumberStart ?source_line .
-        ?source_info sdtl:OriginalSourceText ?source_text .
+        {{ command_source "?indirectly_affecting_command" "?source_line" "?source_text" }}
     } ORDER BY ?affected_variable ?affecting_variable ?source_line
 
 __END_QUERY__
@@ -147,6 +159,12 @@ bash ${RUNNER} Q6 "WHAT COMMANDS AFFECT EACH VARIABLE?" << END_SCRIPT
 
 blazegraph select --format table << __END_QUERY__
 
+    {{{
+
+    {{ include "../../common/sdtl.g" }}
+
+    }}}
+
     PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
 
     SELECT DISTINCT ?affected_variable ?command ?source_line ?source_text
@@ -162,9 +180,7 @@ blazegraph select --format table << __END_QUERY__
             ?command sdtl:ProducesDataframe/sdtl:VariableInventory/rdfs:member ?variable .
         }
         ?variable sdtl:VariableName ?affected_variable .
-        ?command sdtl:SourceInformation ?source_info .
-        ?source_info sdtl:LineNumberStart ?source_line .
-        ?source_info sdtl:OriginalSourceText ?source_text .
+        {{ command_source "?command" "?source_line" "?source_text" }}
     } ORDER BY ?affected_variable ?source_line
 
 __END_QUERY__
