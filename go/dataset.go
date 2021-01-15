@@ -1,23 +1,23 @@
-package blazegraph
+package geist
 
-type Properties struct {
+type DatasetProperties struct {
 	Name      string
 	Inference string
 	Quads     bool
 }
 
-func NewProperties(name string) *Properties {
-	p := new(Properties)
-	p.Name = name
-	p.Inference = "none"
-	return p
+func NewDatasetProperties(name string) *DatasetProperties {
+	dp := new(DatasetProperties)
+	dp.Name = name
+	dp.Inference = "none"
+	return dp
 }
 
-func (p *Properties) String() string {
+func (dp *DatasetProperties) String() string {
 
-	s := "com.bigdata.rdf.sail.namespace=" + p.Name + "\n"
+	s := "com.bigdata.rdf.sail.namespace=" + dp.Name + "\n"
 
-	switch p.Inference {
+	switch dp.Inference {
 	case "none":
 		s += "com.bigdata.rdf.sail.truthMaintenance=false\n"
 		s += "com.bigdata.rdf.store.AbstractTripleStore.axiomsClass=com.bigdata.rdf.axioms.NoAxioms\n"
@@ -29,7 +29,7 @@ func (p *Properties) String() string {
 		s += "com.bigdata.rdf.store.AbstractTripleStore.axiomsClass=com.bigdata.rdf.axioms.OwlAxioms\n"
 	}
 
-	if p.Quads {
+	if dp.Quads {
 		s += "com.bigdata.rdf.store.AbstractTripleStore.quads=true\n"
 	} else {
 		s += "com.bigdata.rdf.store.AbstractTripleStore.quads=false\n"

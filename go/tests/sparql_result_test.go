@@ -4,13 +4,13 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/cirss/geist/sparql"
+	"github.com/cirss/geist"
 	"github.com/cirss/geist/util"
 )
 
-var sr = sparql.ResultSet{
-	sparql.Head{[]string{"s", "o"}},
-	sparql.Results{[]sparql.Binding{{
+var sr = geist.ResultSet{
+	geist.Head{[]string{"s", "o"}},
+	geist.Results{[]geist.Binding{{
 		"s": {"uri", "http://tmcphill.net/data#x"},
 		"o": {"literal", "seven"},
 	}, {

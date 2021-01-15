@@ -11,7 +11,7 @@ func TestReportTemplate_StaticText_OneLinef(t *testing.T) {
 
 	rt := geist.NewTemplate(
 		"main",
-		"42 items are made of cotton", nil)
+		"42 items are made of cotton", nil, nil)
 
 	rt.Parse()
 	actual, _ := rt.Expand(nil)
@@ -27,7 +27,7 @@ func TestReportTemplate_StaticReport_MultipleLines(t *testing.T) {
 		42 items
 		are made of
 		cotton
-		`, nil)
+		`, nil, nil)
 
 	rt.Parse()
 	actual, _ := rt.Expand(nil)
@@ -47,7 +47,7 @@ func TestReportTemplate_StaticReport_MultipleLines_EscapeOneLineEnding(t *testin
 		42 items{{sp}}    \
 		are made of
 		cotton
-		`, nil)
+		`, nil, nil)
 
 	rt.Parse()
 	actual, _ := rt.Expand(nil)
@@ -66,7 +66,7 @@ func TestReportTemplate_StaticReport_MultipleLines_EscapeTwoLineEnding(t *testin
 		42 items{{sp}}    \
 		are made of{{sp}} \
 		cotton
-		`, nil)
+		`, nil, nil)
 
 	rt.Parse()
 	actual, _ := rt.Expand(nil)
@@ -84,7 +84,7 @@ func TestReportTemplate_StaticReport_PercentCharacter(t *testing.T) {
 		42% of items
 		are made of
 		cotton
-		`, nil)
+		`, nil, nil)
 
 	rt.Parse()
 	actual, _ := rt.Expand(nil)
@@ -104,7 +104,7 @@ func TestReportTemplate_StaticReport_Printf(t *testing.T) {
 		{{printf "%d" 42}}{{println "% of items"}} \
 		are made of
 		cotton
-		`, nil)
+		`, nil, nil)
 
 	rt.Parse()
 	actual, _ := rt.Expand(nil)

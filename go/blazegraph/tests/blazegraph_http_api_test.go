@@ -6,10 +6,10 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/cirss/geist/blazegraph"
+	"github.com/cirss/geist"
 )
 
-var sparqlEndpoint = blazegraph.DefaultUrl + "/sparql"
+var sparqlEndpoint = geist.DefaultUrl + "/sparql"
 
 func ExampleBlazegraph_EmptyRequest_HttpGet_StatusOK() {
 	response, _ := http.Get(sparqlEndpoint)

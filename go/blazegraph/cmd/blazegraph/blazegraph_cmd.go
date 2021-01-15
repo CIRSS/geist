@@ -8,7 +8,6 @@ import (
 	"os"
 
 	"github.com/cirss/geist"
-	"github.com/cirss/geist/blazegraph"
 	"github.com/tmcphillips/main-wrapper/mw"
 )
 
@@ -22,7 +21,7 @@ var options struct {
 }
 
 func init() {
-	Main = mw.NewMainWrapper("blazegraph", main)
+	Main = mw.NewMainWrapper("geist", main)
 }
 
 func main() {
@@ -30,7 +29,7 @@ func main() {
 	var err error
 
 	if len(os.Args) < 2 {
-		fmt.Fprintln(Main.ErrWriter, "Usage: blazegraph <command> [args...]")
+		fmt.Fprintln(Main.ErrWriter, "Usage: geist <command> [args...]")
 		return
 	}
 
@@ -120,12 +119,12 @@ func main() {
 }
 
 func addCommonOptions(flags *flag.FlagSet) {
-	options.url = flags.String("url", blazegraph.DefaultUrl, "URL of Blazegraph instance")
+	options.url = flags.String("url", geist.DefaultUrl, "URL of Blazegraph instance")
 }
 
 func doCreate(name string, infer string) {
-	bc := blazegraph.NewClient(*options.url)
-	p := blazegraph.NewProperties(name)
+	bc := geist.NewBlazegraphClient(*options.url)
+	p := geist.NewDatasetProperties(name)
 	p.Inference = infer
 	bc.CreateDataSet(p)
 	// if err != nil {
@@ -135,7 +134,7 @@ func doCreate(name string, infer string) {
 }
 
 func doDestroy(name string) {
-	bc := blazegraph.NewClient(*options.url)
+	bc := geist.NewBlazegraphClient(*options.url)
 	bc.DestroyDataSet(name)
 	// if err != nil {
 	// 	fmt.Fprintln(Main.ErrWriter, err.Error())
@@ -144,13 +143,13 @@ func doDestroy(name string) {
 }
 
 func doReport(file string) {
-	bc := blazegraph.NewClient(*options.url)
+	bc := geist.NewBlazegraphClient(*options.url)
 	reportTemplate, err := readFileOrStdin(file)
 	if err != nil {
 		fmt.Fprintf(Main.ErrWriter, err.Error())
 		return
 	}
-	rt := geist.NewTemplate("main", string(reportTemplate), nil)
+	rt := geist.NewTemplate("main", string(reportTemplate), nil, bc)
 	report, re := bc.ExpandReport(rt)
 	if re != nil {
 		fmt.Fprintf(Main.ErrWriter, re.Error())
@@ -170,7 +169,7 @@ func readFileOrStdin(filePath string) (bytes []byte, err error) {
 }
 
 func doImport(file string, format string) {
-	bc := blazegraph.NewClient(*options.url)
+	bc := geist.NewBlazegraphClient(*options.url)
 	data, err := readFileOrStdin(file)
 	if err != nil {
 		fmt.Fprintf(Main.ErrWriter, err.Error())
@@ -200,14 +199,14 @@ func doImport(file string, format string) {
 
 func doSelectQuery(file string, format string, columnSeparators bool) {
 
-	bc := blazegraph.NewClient(*options.url)
+	bc := geist.NewBlazegraphClient(*options.url)
 	queryText, err := readFileOrStdin(file)
 	if err != nil {
 		fmt.Fprintf(Main.ErrWriter, err.Error())
 		return
 	}
 
-	queryTemplate := geist.NewTemplate("query", string(queryText), nil)
+	queryTemplate := geist.NewTemplate("query", string(queryText), nil, bc)
 	queryTemplate.Parse()
 	q, err := queryTemplate.Expand(nil)
 
@@ -256,7 +255,7 @@ func doSelectQuery(file string, format string, columnSeparators bool) {
 }
 
 func doExport(format string, sorted bool) {
-	bc := blazegraph.NewClient(*options.url)
+	bc := geist.NewBlazegraphClient(*options.url)
 	var err error
 	var triples string
 

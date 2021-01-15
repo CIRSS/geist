@@ -14,6 +14,7 @@ import (
 type Properties struct {
 	Delimiters DelimiterPair
 	Funcs      textTemplate.FuncMap
+	Client     *BlazegraphClient
 	Prefixes   map[string]string
 	Macros     map[string]*Template
 	Queries    map[string]string
@@ -43,7 +44,7 @@ type Template struct {
 }
 
 // NewTemplate returns a geist.Template with the given customizations.
-func NewTemplate(name string, text string, delimiters *DelimiterPair) *Template {
+func NewTemplate(name string, text string, delimiters *DelimiterPair, client *BlazegraphClient) *Template {
 	rt := new(Template)
 	rt.Name = name
 	text = util.Trim(text)
@@ -58,8 +59,15 @@ func NewTemplate(name string, text string, delimiters *DelimiterPair) *Template 
 	rt.Properties.Macros = map[string]*Template{}
 	rt.Properties.Queries = map[string]string{}
 	rt.Properties.Rules = map[string]string{}
+	rt.Properties.Client = client
 	rt.addStandardFunctions()
 	return rt
+}
+
+func (rt *Template) Select(query string) (rs *ResultSet, err error) {
+
+	return rt.Properties.Client.Select(query)
+
 }
 
 func (rt *Template) CompileFunctions(text string) (remainder string) {
@@ -77,7 +85,7 @@ func (rt *Template) CompileFunctions(text string) (remainder string) {
 	}
 
 	compileText := text[compileBlockStart+3 : compileBlockEnd+3]
-	compileTemplate := NewTemplate("compile", compileText, &TripleSingleQuoteDelimiters)
+	compileTemplate := NewTemplate("compile", compileText, &TripleSingleQuoteDelimiters, rt.Properties.Client)
 	compileTemplate.Properties = rt.Properties
 	compileTemplate.Parse()
 	var buffer strings.Builder
@@ -128,7 +136,7 @@ func (rp *Template) Expand(data interface{}) (result string, err error) {
 }
 
 func (rp *Template) ExpandSubreport(name string, text string, data interface{}) (report string, err error) {
-	reportTemplate := NewTemplate("include", string(text), nil)
+	reportTemplate := NewTemplate("include", string(text), nil, rp.Properties.Client)
 	reportTemplate.Properties = rp.Properties
 	err = reportTemplate.Parse()
 	if err != nil {
@@ -196,7 +204,7 @@ func (rp *Template) addStandardFunctions() {
 				return
 			}
 			body := GetParameterAppendedBody(args)
-			macroTemplate := NewTemplate(name, body, &MacroDelimiters)
+			macroTemplate := NewTemplate(name, body, &MacroDelimiters, rp.Properties.Client)
 			macroTemplate.AddFuncs(rp.Properties.Funcs)
 			err = macroTemplate.Parse()
 			if err != nil {
@@ -271,9 +279,36 @@ func (rp *Template) addStandardFunctions() {
 			rp.Properties.Prefixes[prefix] = uri
 			return "", nil
 		},
+		"query": func(name string, args ...string) (s string, err error) {
+			if len(args) == 0 {
+				err = errors.New("No body provided for query " + name)
+				return
+			}
+			body := GetParameterAppendedBody(args)
+			rp.Properties.Queries[name] = body
+			rp.AddFunction(name, func(args ...interface{}) (rs interface{}, err error) {
+				queryText := rp.Properties.Queries[name]
+				query, err := rp.ExpandSubreport(name, prependPrefixes(rp, queryText), args)
+				if err != nil {
+					return
+				}
+				rs, err = rp.Select(query)
+				return
+			})
+			return "", nil
+		},
 	}
 
 	rp.AddFuncs(funcs)
+}
+
+func prependPrefixes(rp *Template, text string) string {
+	sb := strings.Builder{}
+	for prefix, uri := range rp.Properties.Prefixes {
+		sb.WriteString("PREFIX " + prefix + ": " + "<" + uri + ">" + "\n")
+	}
+	sb.WriteString(text)
+	return sb.String()
 }
 
 var ruleVarIndex int

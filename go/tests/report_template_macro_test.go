@@ -16,7 +16,7 @@ func TestReportTemplate_constant_macro_function(t *testing.T) {
 		}}}
 
 		{{ M1 }}
-		`, nil)
+		`, nil, nil)
 
 	rt.Parse()
 	actual, _ := rt.Expand(nil)
@@ -36,7 +36,7 @@ func TestReportTemplate_macro_function_with_one_parameter(t *testing.T) {
 		}}}
 
 		{{ M1 "AA" }}
-		`, nil)
+		`, nil, nil)
 
 	rt.Parse()
 	actual, _ := rt.Expand(nil)
@@ -56,7 +56,7 @@ func TestReportTemplate_macro_function_with_two_parameters(t *testing.T) {
 		}}}
 
 		{{ M1 "AA" "BB" }}
-		`, nil)
+		`, nil, nil)
 
 	rt.Parse()
 	actual, _ := rt.Expand(nil)
@@ -77,7 +77,7 @@ func TestReportTemplate_macro_function_calling_macro_function(t *testing.T) {
 		}}}
 
 		{{ M2 }}
-		`, nil)
+		`, nil, nil)
 
 	rt.Parse()
 	actual, _ := rt.Expand(nil)
