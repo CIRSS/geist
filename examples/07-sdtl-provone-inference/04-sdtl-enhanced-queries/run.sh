@@ -73,6 +73,12 @@ bash ${RUNNER} Q3 "WHAT VARIABLES DIRECTLY AFFECT THE KELVIN VARIABLE?" << END_S
 
 blazegraph select --format table << __END_QUERY__
 
+    {{{
+
+    {{ include "../../common/rules.g" }}
+
+    }}}
+
     PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
 
     SELECT DISTINCT ?affecting_variable ?command ?source_line ?source_text
@@ -83,7 +89,7 @@ blazegraph select --format table << __END_QUERY__
         ?command sdtl:OperatesOn/sdtl:VariableName ?affecting_variable .
         ?command sdtl:SourceInformation ?source_info .
         ?source_info sdtl:LineNumberStart ?source_line .
-        ?source_info sdtl:OriginalSourceText ?source_text .
+        ?source_info {{ OriginalSourceText }} ?source_text .
     } ORDER BY ?affecting_variable ?source_line
 
 __END_QUERY__
