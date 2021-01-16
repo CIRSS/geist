@@ -187,30 +187,32 @@ __END_QUERY__
 
 END_SCRIPT
 
-# # *****************************************************************************
+# *****************************************************************************
 
-# bash ${RUNNER} Q7 "WHAT COMMANDS READ VARIABLE VALUES ASSIGNED BY OTHER COMMANDS?" << END_SCRIPT
+bash ${RUNNER} Q7 "WHAT COMMANDS READ VARIABLE VALUES ASSIGNED BY OTHER COMMANDS?" << END_SCRIPT
 
-# blazegraph select --format table << __END_QUERY__
+blazegraph select --format table << __END_QUERY__
 
-#     {{{
+    {{{
 
-#     {{ include "../../common/sdtl.g" }}
+    {{ include "../../common/sdtl.g" }}
 
-#     }}}
+    }}}
 
-#     PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
+    PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
 
-#     SELECT DISTINCT ?affected_variable ?command ?source_line ?source_text
-#     WHERE {
-#         ?program rdf:type sdtl:Program .
-#         {{ sdtl_select_variable_write_read_edges
-#         {{ command_source "?command" "?source_line" "?source_text" }}
-#     } ORDER BY ?affected_variable ?source_line
+    SELECT DISTINCT ?variable ?writer_line ?writer_text ?reader_line ?reader_text
+    WHERE {
+        {{ program_command "?program" "?reader" }} .
+        {{ variable_write_read_edge "?variable" "?writer" "?reader" }} .
+        {{ command_source "?writer" "?writer_line" "?writer_text" }} .
+        {{ command_source "?reader" "?reader_line" "?reader_text" }}
+        FILTER ( ?variable = "A" )
+    } ORDER BY ?variable ?writer_line ?reader_line
 
-# __END_QUERY__
+__END_QUERY__
 
-# END_SCRIPT
+END_SCRIPT
 
 bash ${RUNNER} R1 "REPORT HISTORY OF EACH VARIABLE" << 'END_SCRIPT'
 

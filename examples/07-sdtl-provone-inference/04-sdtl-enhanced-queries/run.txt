@@ -920,6 +920,41 @@ Fahrenheit        | http://wholetale.org/program/1119/load/2    | 20          | 
 Kelvin            | http://wholetale.org/program/1119/compute/5 | 28          | temps = temps.assign(Kelvin=(temps.Celsius + 273))
 
 
+******************************************* EXAMPLE Q7 ************************************************
+
+# WHAT COMMANDS READ VARIABLE VALUES ASSIGNED BY OTHER COMMANDS?
+
+blazegraph select --format table << __END_QUERY__
+
+    {{{
+
+    {{ include "../../common/sdtl.g" }}
+
+    }}}
+
+    PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
+
+    SELECT DISTINCT ?variable ?writer_line ?writer_text ?reader_line ?reader_text
+    WHERE {
+        {{ program_command "?program" "?reader" }} .
+        {{ variable_write_read_edge "?variable" "?writer" "?reader" }} .
+        {{ command_source "?writer" "?writer_line" "?writer_text" }} .
+        {{ command_source "?reader" "?reader_line" "?reader_text" }}
+        FILTER ( ?variable = "A" )
+    } ORDER BY ?variable ?writer_line ?reader_line
+
+__END_QUERY__
+
+------------------------------------------- Q7 OUTPUTS ------------------------------------------------
+
+variable | writer_line | writer_text                        | reader_line | reader_text
+=====================================================================================================
+A        | 4           | df = pd.read_csv('../data/df.csv') | 16          | df['C'] = df.A - df.B
+A        | 4           | df = pd.read_csv('../data/df.csv') | 32          | df.to_csv('outputs/df_updated.csv', index=False)
+A        | 8           | df['A'] = 3                        | 16          | df['C'] = df.A - df.B
+A        | 8           | df['A'] = 3                        | 32          | df.to_csv('outputs/df_updated.csv', index=False)
+
+
 ******************************************* EXAMPLE R1 ************************************************
 
 # REPORT HISTORY OF EACH VARIABLE

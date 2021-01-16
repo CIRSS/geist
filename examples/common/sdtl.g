@@ -187,19 +187,18 @@
 	}
 ''' }}
 
-{{ rule "has_intermediate_variable_writer" "Variable" "Writer" "Reader" '''
+{{ rule "intermediate_variable_writer" "Variable" "Writer" "Reader" '''
     {
         {{ upstream_variable_writer $Variable $Reader "?intermediate_writer" }} .
         {{ upstream_variable_writer $Variable "?intermediate_writer" $Writer  }}
     }
 ''' }}
 
-{{ rule "variable_write_read_edge" "Program" "Variable" "Writer" "Reader" '''
+{{ rule "variable_write_read_edge" "Variable" "Writer" "Reader" '''
     {
-        {{ program_command $Program $Reader }} .
         {{ upstream_variable_writer $Variable $Reader $Writer }} .
 		FILTER NOT EXISTS {
-			{{ has_intermediate_variable_writer $Variable $Writer $Reader }}
+			{{ intermediate_variable_writer $Variable $Writer $Reader }}
 		}
     }
 ''' }}
@@ -207,7 +206,8 @@
 {{ query "sdtl_select_variable_write_read_edges" "Program" '''
     SELECT DISTINCT ?variable ?writer ?reader
     WHERE {
-       {{ variable_write_read_edge $Program "?variable" "?writer" "?reader" }}
+        {{ program_command $Program "?reader" }} .
+        {{ variable_write_read_edge  "?variable" "?writer" "?reader" }}
     } ORDER BY ?variable ?reader ?writer
 ''' }}
 
