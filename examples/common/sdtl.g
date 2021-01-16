@@ -187,19 +187,25 @@
 	}
 ''' }}
 
-{{ query "sdtl_select_variable_write_read_edges" "ProgramID" '''
-    SELECT DISTINCT ?writer ?reader ?variable
+{{ rule "variable_write_read_edge" "Program" "Variable" "Writer" "Reader" '''
+    {
+        {{ program_command $Program $Reader }} .
+        {{ upstream_variable_writer $Variable $Reader $Writer }} .
+		FILTER NOT EXISTS {
+			{{ upstream_variable_writer $Variable $Reader "?intermediate_writer" }} .
+			{{ upstream_variable_writer $Variable "?intermediate_writer" $Writer  }}
+		}
+		FILTER NOT EXISTS {
+			{{ upstream_variable_writer $Variable $Reader "?intermediate_writer" }}
+			{{ upstream_dataframe_writer $Variable "?intermediate_writer" $Writer }} .
+		}
+    }
+''' }}
+
+{{ query "sdtl_select_variable_write_read_edges" "Program" '''
+    SELECT DISTINCT ?variable ?writer ?reader
     WHERE {
-        {{ program_command "?program" "?reader" }} .
-        {{ upstream_variable_writer "?variable" "?reader" "?writer" }} .
-		FILTER NOT EXISTS {
-			{{ upstream_variable_writer "?variable" "?reader" "?intermediate_writer" }} .
-			{{ upstream_variable_writer "?variable" "?intermediate_writer" "?writer" }}
-		}
-		FILTER NOT EXISTS {
-			{{ upstream_variable_writer "?variable" "?reader" "?intermediate_writer" }}
-			{{ upstream_dataframe_writer "?variable" "?intermediate_writer" "?writer" }} .
-		}
+       {{ variable_write_read_edge $Program "?variable" "?writer" "?reader" }}
     } ORDER BY ?variable ?reader ?writer
 ''' }}
 

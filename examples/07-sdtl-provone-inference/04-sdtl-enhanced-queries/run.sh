@@ -187,6 +187,31 @@ __END_QUERY__
 
 END_SCRIPT
 
+# # *****************************************************************************
+
+# bash ${RUNNER} Q7 "WHAT COMMANDS READ VARIABLE VALUES ASSIGNED BY OTHER COMMANDS?" << END_SCRIPT
+
+# blazegraph select --format table << __END_QUERY__
+
+#     {{{
+
+#     {{ include "../../common/sdtl.g" }}
+
+#     }}}
+
+#     PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
+
+#     SELECT DISTINCT ?affected_variable ?command ?source_line ?source_text
+#     WHERE {
+#         ?program rdf:type sdtl:Program .
+#         {{ sdtl_select_variable_write_read_edges
+#         {{ command_source "?command" "?source_line" "?source_text" }}
+#     } ORDER BY ?affected_variable ?source_line
+
+# __END_QUERY__
+
+# END_SCRIPT
+
 bash ${RUNNER} R1 "REPORT HISTORY OF EACH VARIABLE" << 'END_SCRIPT'
 
 blazegraph report << '__END_REPORT_TEMPLATE__'
@@ -402,7 +427,7 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
 
         # variable write->read edges
         {{ range $Edge := (sdtl_select_variable_write_read_edges $ProgramID | rows) }} \\
-            {{ gv_labeled_edge (index $Edge 0) (index $Edge 1) (index $Edge 2) }}
+            {{ gv_labeled_edge (index $Edge 1) (index $Edge 2) (index $Edge 0) }}
         {{ end }}                                                                           \\
 
     {{ end }}                                                                               \\
