@@ -187,17 +187,19 @@
 	}
 ''' }}
 
+{{ rule "has_intermediate_variable_writer" "Variable" "Writer" "Reader" '''
+    {
+        {{ upstream_variable_writer $Variable $Reader "?intermediate_writer" }} .
+        {{ upstream_variable_writer $Variable "?intermediate_writer" $Writer  }}
+    }
+''' }}
+
 {{ rule "variable_write_read_edge" "Program" "Variable" "Writer" "Reader" '''
     {
         {{ program_command $Program $Reader }} .
         {{ upstream_variable_writer $Variable $Reader $Writer }} .
 		FILTER NOT EXISTS {
-			{{ upstream_variable_writer $Variable $Reader "?intermediate_writer" }} .
-			{{ upstream_variable_writer $Variable "?intermediate_writer" $Writer  }}
-		}
-		FILTER NOT EXISTS {
-			{{ upstream_variable_writer $Variable $Reader "?intermediate_writer" }}
-			{{ upstream_dataframe_writer $Variable "?intermediate_writer" $Writer }} .
+			{{ has_intermediate_variable_writer $Variable $Writer $Reader }}
 		}
     }
 ''' }}

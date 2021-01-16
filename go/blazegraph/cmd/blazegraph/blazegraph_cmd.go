@@ -103,6 +103,7 @@ func main() {
 
 	case "select":
 		addCommonOptions(flags)
+		dryrun := flags.Bool("dryrun", false, "Output query but do not execute it")
 		file := flags.String("file", "-", "File containing select query to execute")
 		format := flags.String("format", "json", "Format of result set to produce")
 		separators := flags.Bool("columnseparators", true, "Display column separators in table format")
@@ -111,7 +112,7 @@ func main() {
 			flags.Usage()
 			return
 		}
-		doSelectQuery(*file, *format, *separators)
+		doSelectQuery(*dryrun, *file, *format, *separators)
 
 	default:
 		fmt.Fprintf(Main.ErrWriter, "Unrecognized command: %s\n", command)
@@ -197,7 +198,7 @@ func doImport(file string, format string) {
 	}
 }
 
-func doSelectQuery(file string, format string, columnSeparators bool) {
+func doSelectQuery(dryrun bool, file string, format string, columnSeparators bool) {
 
 	bc := geist.NewBlazegraphClient(*options.url)
 	queryText, err := readFileOrStdin(file)
@@ -207,8 +208,25 @@ func doSelectQuery(file string, format string, columnSeparators bool) {
 	}
 
 	queryTemplate := geist.NewTemplate("query", string(queryText), nil, bc)
-	queryTemplate.Parse()
+	err = queryTemplate.Parse()
+	if err != nil {
+		fmt.Fprintf(Main.ErrWriter, "Error expanding query template:\n")
+		fmt.Fprintf(Main.ErrWriter, "%s\n", err.Error())
+		return
+	}
+
 	q, err := queryTemplate.Expand(nil)
+
+	if err != nil {
+		fmt.Fprintf(Main.ErrWriter, "Error expanding query template: ")
+		fmt.Fprintf(Main.ErrWriter, "%s\n", err.Error())
+		return
+	}
+
+	if dryrun {
+		fmt.Print(string(q))
+		return
+	}
 
 	switch format {
 
