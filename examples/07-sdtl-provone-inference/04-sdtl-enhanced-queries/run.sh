@@ -316,6 +316,7 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
     SELECT DISTINCT ?variable ?writer_line ?writer_text ?reader_line ?reader_text
     WHERE {
         {{ program_command "?program" "?reader" }} .
+        {{ variable_reader  "?reader" "?variable" }} .
         {{ upstream_variable_writer "?variable" "?reader" "?writer" }} .
         {{ command_source "?writer" "?writer_line" "?writer_text" }} .
         {{ command_source "?reader" "?reader_line" "?reader_text" }}
@@ -344,7 +345,9 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
         ?intermediate_writer_text  ?reader_line ?reader_text
     WHERE {
         {{ program_command "?program" "?reader" }} .
+        {{ variable_reader  "?reader" "?variable" }} .
         {{ upstream_variable_writer "?variable" "?reader" "?intermediate_writer" }} .
+        {{ variable_reader  "?intermediate_writer" "?variable" }} .
         {{ upstream_variable_writer "?variable" "?intermediate_writer" "?writer" }} .
         {{ command_source "?writer" "?writer_line" "?writer_text" }} .
         {{ command_source "?intermediate_writer" "?intermediate_writer_line" "?intermediate_writer_text" }} .

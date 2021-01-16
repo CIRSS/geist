@@ -179,10 +179,9 @@
 	}
 ''' }}
 
-{{ rule "upstream_variable_writer" "Variable" "Reader" "Writer" '''
+{{ rule "upstream_variable_writer" "Variable" "Command" "Writer" '''
 	{
-		{{ variable_reader $Reader $Variable }}
-		{{_subject $Reader}} (sdtl:ConsumesDataframe/^sdtl:ProducesDataframe)+ {{_object $Writer}}
+		{{_subject $Command}} (sdtl:ConsumesDataframe/^sdtl:ProducesDataframe)+ {{_object $Writer}}
 		{{ variable_writer $Writer $Variable }}
 	}
 ''' }}
@@ -196,6 +195,7 @@
 
 {{ rule "variable_write_read_edge" "Variable" "Writer" "Reader" '''
     {
+        {{ variable_reader $Reader $Variable }}
         {{ upstream_variable_writer $Variable $Reader $Writer }} .
 		FILTER NOT EXISTS {
 			{{ intermediate_variable_writer $Variable $Writer $Reader }}

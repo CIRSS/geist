@@ -947,12 +947,10 @@ __END_QUERY__
 
 ------------------------------------------- Q7 OUTPUTS ------------------------------------------------
 
-variable | writer_line | writer_text                        | reader_line | reader_text
-=====================================================================================================
-A        | 4           | df = pd.read_csv('../data/df.csv') | 16          | df['C'] = df.A - df.B
-A        | 4           | df = pd.read_csv('../data/df.csv') | 32          | df.to_csv('outputs/df_updated.csv', index=False)
-A        | 8           | df['A'] = 3                        | 16          | df['C'] = df.A - df.B
-A        | 8           | df['A'] = 3                        | 32          | df.to_csv('outputs/df_updated.csv', index=False)
+variable | writer_line | writer_text | reader_line | reader_text
+==============================================================================
+A        | 8           | df['A'] = 3 | 16          | df['C'] = df.A - df.B
+A        | 8           | df['A'] = 3 | 32          | df.to_csv('outputs/df_updated.csv', index=False)
 
 
 ******************************************* EXAMPLE R1 ************************************************
@@ -1130,6 +1128,7 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
     SELECT DISTINCT ?variable ?writer_line ?writer_text ?reader_line ?reader_text
     WHERE {
         {{ program_command "?program" "?reader" }} .
+        {{ variable_reader  "?reader" "?variable" }} .
         {{ upstream_variable_writer "?variable" "?reader" "?writer" }} .
         {{ command_source "?writer" "?writer_line" "?writer_text" }} .
         {{ command_source "?reader" "?reader_line" "?reader_text" }}
@@ -1178,7 +1177,9 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
         ?intermediate_writer_text  ?reader_line ?reader_text
     WHERE {
         {{ program_command "?program" "?reader" }} .
+        {{ variable_reader  "?reader" "?variable" }} .
         {{ upstream_variable_writer "?variable" "?reader" "?intermediate_writer" }} .
+        {{ variable_reader  "?intermediate_writer" "?variable" }} .
         {{ upstream_variable_writer "?variable" "?intermediate_writer" "?writer" }} .
         {{ command_source "?writer" "?writer_line" "?writer_text" }} .
         {{ command_source "?intermediate_writer" "?intermediate_writer_line" "?intermediate_writer_text" }} .
@@ -1340,9 +1341,7 @@ node[width=8]
 
 # variable write->read edges
 "http://wholetale.org/program/1119/compute/1" -> "http://wholetale.org/program/1119/compute/3" [label="A"]
-"http://wholetale.org/program/1119/load/1" -> "http://wholetale.org/program/1119/compute/3" [label="A"]
 "http://wholetale.org/program/1119/compute/1" -> "http://wholetale.org/program/1119/save/1" [label="A"]
-"http://wholetale.org/program/1119/load/1" -> "http://wholetale.org/program/1119/save/1" [label="A"]
 "http://wholetale.org/program/1119/load/1" -> "http://wholetale.org/program/1119/compute/2" [label="B"]
 "http://wholetale.org/program/1119/compute/2" -> "http://wholetale.org/program/1119/compute/3" [label="B"]
 "http://wholetale.org/program/1119/compute/2" -> "http://wholetale.org/program/1119/save/1" [label="B"]

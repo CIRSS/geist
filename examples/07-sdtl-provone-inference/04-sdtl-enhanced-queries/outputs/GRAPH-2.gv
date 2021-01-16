@@ -23,9 +23,7 @@ node[width=8]
 
 # variable write->read edges
 "http://wholetale.org/program/1119/compute/1" -> "http://wholetale.org/program/1119/compute/3" [label="A"]
-"http://wholetale.org/program/1119/load/1" -> "http://wholetale.org/program/1119/compute/3" [label="A"]
 "http://wholetale.org/program/1119/compute/1" -> "http://wholetale.org/program/1119/save/1" [label="A"]
-"http://wholetale.org/program/1119/load/1" -> "http://wholetale.org/program/1119/save/1" [label="A"]
 "http://wholetale.org/program/1119/load/1" -> "http://wholetale.org/program/1119/compute/2" [label="B"]
 "http://wholetale.org/program/1119/compute/2" -> "http://wholetale.org/program/1119/compute/3" [label="B"]
 "http://wholetale.org/program/1119/compute/2" -> "http://wholetale.org/program/1119/save/1" [label="B"]
