@@ -49,7 +49,7 @@ WORKDIR $HOME
 
 # Download Apache Jena and add arq to PATH
 ENV JENA_VERSION 3.17.0
-ENV JENA_BINARIES http://apache.spinellicreations.com/jena/binaries
+ENV JENA_BINARIES https://mirror.olnevhost.net/pub/apache/jena/binaries
 ENV JENA_VERSION_NAME apache-jena-${JENA_VERSION}
 ENV JENA_HOME $HOME/${JENA_VERSION_NAME}
 ENV JENA_CLASSPATH=${JENA_HOME}/lib/*
