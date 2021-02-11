@@ -1,15 +1,17 @@
-package geist
+package blazegraph
 
 import (
 	"io/ioutil"
 	"net/http"
 	"text/template"
+
+	"github.com/cirss/geist"
 )
 
 var DefaultUrl = "http://127.0.0.1:9999/blazegraph"
 
 type BlazegraphClient struct {
-	SparqlClient
+	geist.SparqlClient
 	Url               string
 	NamespaceEndpoint string
 }
@@ -45,21 +47,21 @@ func (sc *BlazegraphClient) DestroyDataSet(name string) (responseBody []byte, er
 	return
 }
 
-func (bc *BlazegraphClient) selectFunc(rp *Template, queryText string, args []interface{}) (rs interface{}, err error) {
+func (bc *BlazegraphClient) selectFunc(rp *geist.Template, queryText string, args []interface{}) (rs interface{}, err error) {
 
 	var data interface{}
 	if len(args) == 1 {
 		data = args[0]
 	}
 
-	query, re := rp.ExpandSubreport("select", prependPrefixes(rp, queryText), data)
+	query, re := rp.ExpandSubreport("select", geist.PrependPrefixes(rp, queryText), data)
 	if re != nil {
 		return
 	}
 	return bc.Select(query)
 }
 
-func (bc *BlazegraphClient) ExpandReport(rp *Template) (report string, err error) {
+func (bc *BlazegraphClient) ExpandReport(rp *geist.Template) (report string, err error) {
 
 	funcs := template.FuncMap{
 		"prefix": func(prefix string, uri string) (s string, err error) {

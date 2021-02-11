@@ -1,4 +1,4 @@
-package geist
+package blazegraph
 
 type DatasetProperties struct {
 	Name      string

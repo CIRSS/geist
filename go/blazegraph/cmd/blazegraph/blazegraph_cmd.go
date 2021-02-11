@@ -8,6 +8,7 @@ import (
 	"os"
 
 	"github.com/cirss/geist"
+	"github.com/cirss/geist/blazegraph"
 	"github.com/tmcphillips/main-wrapper/mw"
 )
 
@@ -120,12 +121,12 @@ func main() {
 }
 
 func addCommonOptions(flags *flag.FlagSet) {
-	options.url = flags.String("url", geist.DefaultUrl, "URL of Blazegraph instance")
+	options.url = flags.String("url", blazegraph.DefaultUrl, "URL of Blazegraph instance")
 }
 
 func doCreate(name string, infer string) {
-	bc := geist.NewBlazegraphClient(*options.url)
-	p := geist.NewDatasetProperties(name)
+	bc := blazegraph.NewBlazegraphClient(*options.url)
+	p := blazegraph.NewDatasetProperties(name)
 	p.Inference = infer
 	bc.CreateDataSet(p)
 	// if err != nil {
@@ -135,7 +136,7 @@ func doCreate(name string, infer string) {
 }
 
 func doDestroy(name string) {
-	bc := geist.NewBlazegraphClient(*options.url)
+	bc := blazegraph.NewBlazegraphClient(*options.url)
 	bc.DestroyDataSet(name)
 	// if err != nil {
 	// 	fmt.Fprintln(Main.ErrWriter, err.Error())
@@ -144,7 +145,7 @@ func doDestroy(name string) {
 }
 
 func doReport(file string) {
-	bc := geist.NewBlazegraphClient(*options.url)
+	bc := blazegraph.NewBlazegraphClient(*options.url)
 	reportTemplate, err := readFileOrStdin(file)
 	if err != nil {
 		fmt.Fprintf(Main.ErrWriter, err.Error())
@@ -170,7 +171,7 @@ func readFileOrStdin(filePath string) (bytes []byte, err error) {
 }
 
 func doImport(file string, format string) {
-	bc := geist.NewBlazegraphClient(*options.url)
+	bc := blazegraph.NewBlazegraphClient(*options.url)
 	data, err := readFileOrStdin(file)
 	if err != nil {
 		fmt.Fprintf(Main.ErrWriter, err.Error())
@@ -200,7 +201,7 @@ func doImport(file string, format string) {
 
 func doSelectQuery(dryrun bool, file string, format string, columnSeparators bool) {
 
-	bc := geist.NewBlazegraphClient(*options.url)
+	bc := blazegraph.NewBlazegraphClient(*options.url)
 	queryText, err := readFileOrStdin(file)
 	if err != nil {
 		fmt.Fprintf(Main.ErrWriter, err.Error())
@@ -273,7 +274,7 @@ func doSelectQuery(dryrun bool, file string, format string, columnSeparators boo
 }
 
 func doExport(format string, sorted bool) {
-	bc := geist.NewBlazegraphClient(*options.url)
+	bc := blazegraph.NewBlazegraphClient(*options.url)
 	var err error
 	var triples string
 

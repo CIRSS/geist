@@ -57,7 +57,7 @@ func (sc *SparqlClient) PostData(format string, data []byte) (responseBody []byt
 	return
 }
 
-func (sc *SparqlClient) Select(query string) (rs *ResultSet, err error) {
+func (sc SparqlClient) Select(query string) (rs *ResultSet, err error) {
 	responseBody, err := sc.PostSparqlRequest("application/sparql-query", "application/json", []byte(query))
 	err = json.Unmarshal(responseBody, &rs)
 	if err != nil {
