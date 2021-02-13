@@ -13,3 +13,6 @@ test-code:              ## Run tests on custom code.
 
 install-code:         	## Install custom code.
 	$(RUN_IN_REPRO) 'make -C ${REPRO_CODE_DIR} build test install'
+
+package-code:         	## Package custom artifacts for distribution.
+	$(RUN_IN_REPRO) 'make -C ${REPRO_CODE_DIR} package'
