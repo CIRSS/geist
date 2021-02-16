@@ -21,7 +21,7 @@ var options struct {
 }
 
 func init() {
-	Main = mw.NewMainWrapper("geist", main)
+	Main = mw.NewMainWrapper("blazegraph", main)
 }
 
 type command struct {
@@ -55,7 +55,7 @@ func init() {
 func main() {
 
 	if len(os.Args) < 2 {
-		fmt.Fprintf(Main.ErrWriter, "Error: no blazegraph command given\n")
+		fmt.Fprintf(Main.ErrWriter, "no blazegraph command given\n")
 		showUsage()
 		return
 	}
@@ -67,22 +67,32 @@ func main() {
 	if c, exists := commandmap[command]; exists {
 		c.handler(arguments, flags)
 	} else {
-		fmt.Fprintf(Main.ErrWriter, "Error: '%s' is not a blazegraph command\n", command)
+		fmt.Fprintf(Main.ErrWriter, "not a blazegraph command: %s\n", command)
 		showUsage()
 	}
 }
 
 func handleHelpSubcommand(args []string, flags *flag.FlagSet) {
-	showUsage()
+	if len(args) < 2 {
+		showUsage()
+		return
+	}
+	command := args[1]
+	if c, exists := commandmap[command]; exists {
+		c.handler([]string{command, "help"}, flags)
+	} else {
+		fmt.Fprintf(Main.ErrWriter, "not a blazegraph command: %s\n", command)
+		showUsage()
+	}
 }
 
 func showUsage() {
 	fmt.Fprint(Main.OutWriter, "\nUsage: blazegraph <command> [<args>]\n\n")
 	fmt.Fprint(Main.OutWriter, "Available commands:\n\n")
 	for _, sc := range commands {
-		fmt.Fprintf(Main.OutWriter, "%-7s - %s\n", sc.name, sc.description)
+		fmt.Fprintf(Main.OutWriter, "  %-7s  - %s\n", sc.name, sc.description)
 	}
-	fmt.Fprint(Main.OutWriter, "\nSee 'blazegraph help <command>' for help with a specific command.\n\n")
+	fmt.Fprint(Main.OutWriter, "\nSee 'blazegraph help <command>' for help with one of the above commands.\n\n")
 	return
 }
 

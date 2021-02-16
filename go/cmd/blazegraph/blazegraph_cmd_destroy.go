@@ -8,15 +8,18 @@ import (
 )
 
 func handleDestroySubcommand(args []string, flags *flag.FlagSet) {
-	dataset := flags.String("dataset", "", "Dataset to destroy")
+	flags.Usage = func() {}
+	dataset := flags.String("dataset", "", "Dataset to destroy (required)")
+	if helpRequested(args, flags) {
+		return
+	}
 	if err := flags.Parse(args[1:]); err != nil {
-		fmt.Fprintf(Main.ErrWriter, err.Error())
-		flags.Usage()
+		showCommandUsage(args, flags)
 		return
 	}
 	if len(*dataset) == 0 {
-		fmt.Fprintln(Main.ErrWriter, "Error: Name of dataset to destroy not provided.")
-		flags.Usage()
+		fmt.Fprintln(Main.ErrWriter, "name of dataset must be given using the -dataset flag")
+		showCommandUsage(args, flags)
 		return
 	}
 	doDestroy(*dataset)
@@ -29,4 +32,19 @@ func doDestroy(name string) {
 	// 	fmt.Fprintln(Main.ErrWriter, err.Error())
 	// }
 	// fmt.Fprintln(Main.OutWriter, string(response))
+}
+
+func helpRequested(args []string, flags *flag.FlagSet) bool {
+	if len(args) > 1 && args[1] == "help" {
+		showCommandUsage(args, flags)
+		return true
+	}
+	return false
+}
+
+func showCommandUsage(args []string, flags *flag.FlagSet) {
+	fmt.Fprintf(Main.OutWriter, "\nUsage: blazegraph %s <flags>\n\n", args[0])
+	fmt.Fprint(Main.OutWriter, "Command flags:\n\n")
+	flags.PrintDefaults()
+	fmt.Fprintln(Main.OutWriter)
 }
