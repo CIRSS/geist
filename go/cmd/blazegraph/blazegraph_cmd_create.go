@@ -8,7 +8,6 @@ import (
 )
 
 func handleCreateSubcommand(args []string, flags *flag.FlagSet) {
-	addCommonOptions(flags)
 	dataset := flags.String("dataset", "", "Dataset to create")
 	infer := flags.String("infer", "none", "Inference to perform on update [none, rdfs, owl]")
 	if err := flags.Parse(args[1:]); err != nil {

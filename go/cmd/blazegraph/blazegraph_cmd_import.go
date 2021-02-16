@@ -8,7 +8,6 @@ import (
 )
 
 func handleImportSubcommand(args []string, flags *flag.FlagSet) {
-	addCommonOptions(flags)
 	file := flags.String("file", "-", "File containing triples to import")
 	format := flags.String("format", "ttl", "Format of triples to import")
 	if err := flags.Parse(args[1:]); err != nil {

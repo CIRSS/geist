@@ -8,7 +8,6 @@ import (
 )
 
 func handleDestroySubcommand(args []string, flags *flag.FlagSet) {
-	addCommonOptions(flags)
 	dataset := flags.String("dataset", "", "Dataset to destroy")
 	if err := flags.Parse(args[1:]); err != nil {
 		fmt.Fprintf(Main.ErrWriter, err.Error())

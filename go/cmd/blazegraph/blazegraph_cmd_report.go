@@ -9,7 +9,6 @@ import (
 )
 
 func handleReportSubcommand(args []string, flags *flag.FlagSet) {
-	addCommonOptions(flags)
 	file := flags.String("file", "-", "File containing report template to expand")
 	if err := flags.Parse(args[1:]); err != nil {
 		fmt.Fprintf(Main.ErrWriter, err.Error())
