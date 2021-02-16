@@ -3,16 +3,15 @@ package main
 import (
 	"flag"
 	"fmt"
-	"os"
 
 	"github.com/cirss/geist/blazegraph"
 )
 
-func handleImportSubcommand(flags *flag.FlagSet) {
+func handleImportSubcommand(args []string, flags *flag.FlagSet) {
 	addCommonOptions(flags)
 	file := flags.String("file", "-", "File containing triples to import")
 	format := flags.String("format", "ttl", "Format of triples to import")
-	if err := flags.Parse(os.Args[2:]); err != nil {
+	if err := flags.Parse(args[1:]); err != nil {
 		fmt.Fprintf(Main.ErrWriter, err.Error())
 		flags.Usage()
 		return

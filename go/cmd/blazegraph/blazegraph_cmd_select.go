@@ -3,19 +3,18 @@ package main
 import (
 	"flag"
 	"fmt"
-	"os"
 
 	"github.com/cirss/geist"
 	"github.com/cirss/geist/blazegraph"
 )
 
-func handleSelectSubcommand(flags *flag.FlagSet) {
+func handleSelectSubcommand(args []string, flags *flag.FlagSet) {
 	addCommonOptions(flags)
 	dryrun := flags.Bool("dryrun", false, "Output query but do not execute it")
 	file := flags.String("file", "-", "File containing select query to execute")
 	format := flags.String("format", "json", "Format of result set to produce")
 	separators := flags.Bool("columnseparators", true, "Display column separators in table format")
-	if err := flags.Parse(os.Args[2:]); err != nil {
+	if err := flags.Parse(args[1:]); err != nil {
 		fmt.Println(err)
 		flags.Usage()
 		return

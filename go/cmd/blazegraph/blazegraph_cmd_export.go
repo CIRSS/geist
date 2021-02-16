@@ -3,16 +3,15 @@ package main
 import (
 	"flag"
 	"fmt"
-	"os"
 
 	"github.com/cirss/geist/blazegraph"
 )
 
-func handleExportSubcommand(flags *flag.FlagSet) {
+func handleExportSubcommand(args []string, flags *flag.FlagSet) {
 	addCommonOptions(flags)
 	format := flags.String("format", "nt", "Format for doExported triples")
 	sort := flags.Bool("sort", false, "Sort the exported triples if true")
-	if err := flags.Parse(os.Args[2:]); err != nil {
+	if err := flags.Parse(args[1:]); err != nil {
 		fmt.Fprintf(Main.ErrWriter, err.Error())
 		flags.Usage()
 		return

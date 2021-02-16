@@ -3,15 +3,14 @@ package main
 import (
 	"flag"
 	"fmt"
-	"os"
 
 	"github.com/cirss/geist/blazegraph"
 )
 
-func handleDestroySubcommand(flags *flag.FlagSet) {
+func handleDestroySubcommand(args []string, flags *flag.FlagSet) {
 	addCommonOptions(flags)
 	dataset := flags.String("dataset", "", "Dataset to destroy")
-	if err := flags.Parse(os.Args[2:]); err != nil {
+	if err := flags.Parse(args[1:]); err != nil {
 		fmt.Fprintf(Main.ErrWriter, err.Error())
 		flags.Usage()
 		return
