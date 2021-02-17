@@ -9,13 +9,17 @@ import (
 )
 
 func handleSelectSubcommand(args []string, flags *flag.FlagSet) {
+	flags.Usage = func() {}
+	flags.SetOutput(errorMessageWriter)
 	dryrun := flags.Bool("dryrun", false, "Output query but do not execute it")
 	file := flags.String("file", "-", "File containing select query to execute")
 	format := flags.String("format", "json", "Format of result set to produce")
 	separators := flags.Bool("columnseparators", true, "Display column separators in table format")
+	if helpRequested(args, flags) {
+		return
+	}
 	if err := flags.Parse(args[1:]); err != nil {
-		fmt.Println(err)
-		flags.Usage()
+		showCommandUsage(args, flags)
 		return
 	}
 	doSelectQuery(*dryrun, *file, *format, *separators)

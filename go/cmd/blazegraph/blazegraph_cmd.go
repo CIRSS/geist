@@ -48,14 +48,19 @@ func init() {
 
 	commands = []*command{
 		{"help", handleHelpSubcommand, "Show help", ""},
-		{"create", handleCreateSubcommand, "Create a new RDF dataset", ""},
+		{"create", handleCreateSubcommand, "Create a new RDF dataset",
+			"Creates an RDF dataset and corresponding Blazegraph namespace."},
 		{"destroy", handleDestroySubcommand, "Delete an RDF dataset",
-			"\nDeletes an RDF dataset and corresponding Blazegraph namespace, all RDF graphs\n" +
-				"in the dataset, and all triples in each of those graphs.\n"},
-		{"export", handleExportSubcommand, "Export contents of a dataset", ""},
-		{"import", handleImportSubcommand, "Import data into a dataset", ""},
-		{"report", handleReportSubcommand, "Expand a report using a dataset", ""},
-		{"select", handleSelectSubcommand, "Perform a select query on a dataset", ""},
+			"Deletes an RDF dataset and corresponding Blazegraph namespace, all RDF graphs\n" +
+				"in the dataset, and all triples in each of those graphs."},
+		{"export", handleExportSubcommand, "Export contents of a dataset",
+			"Exports all triples in an RDF dataset in the requested format."},
+		{"import", handleImportSubcommand, "Import data into a dataset",
+			"Imports triples in the specified format into an RDF dataset."},
+		{"report", handleReportSubcommand, "Expand a report using a dataset",
+			"Expands the provided report template using the identified RDF dataset."},
+		{"select", handleSelectSubcommand, "Perform a select query on a dataset",
+			"Performs a select query on the identified RDF dataset."},
 	}
 
 	commandmap = make(map[string]*command)

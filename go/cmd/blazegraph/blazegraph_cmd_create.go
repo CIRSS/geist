@@ -8,16 +8,20 @@ import (
 )
 
 func handleCreateSubcommand(args []string, flags *flag.FlagSet) {
+	flags.Usage = func() {}
+	flags.SetOutput(errorMessageWriter)
 	dataset := flags.String("dataset", "", "Dataset to create")
 	infer := flags.String("infer", "none", "Inference to perform on update [none, rdfs, owl]")
+	if helpRequested(args, flags) {
+		return
+	}
 	if err := flags.Parse(args[1:]); err != nil {
-		fmt.Fprintf(Main.ErrWriter, err.Error())
-		flags.Usage()
+		showCommandUsage(args, flags)
 		return
 	}
 	if len(*dataset) == 0 {
-		fmt.Fprintln(Main.ErrWriter, "Error: Name of dataset to create not provided.")
-		flags.Usage()
+		fmt.Fprintln(errorMessageWriter, "name of dataset must be given using the -dataset flag")
+		showCommandUsage(args, flags)
 		return
 	}
 	doCreate(*dataset, *infer)

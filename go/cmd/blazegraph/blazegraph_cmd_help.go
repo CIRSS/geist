@@ -12,6 +12,9 @@ func handleHelpSubcommand(args []string, flags *flag.FlagSet) {
 		return
 	}
 	command := args[1]
+	if command == "help" {
+		return
+	}
 	if c, exists := commandmap[command]; exists {
 		c.handler([]string{command, "help"}, flags)
 	} else {
@@ -40,7 +43,7 @@ func helpRequested(args []string, flags *flag.FlagSet) bool {
 }
 
 func showCommandDescription(c *command) {
-	fmt.Fprintf(Main.OutWriter, c.description)
+	fmt.Fprintf(Main.OutWriter, "\n%s\n", c.description)
 }
 
 func showCommandUsage(args []string, flags *flag.FlagSet) {
