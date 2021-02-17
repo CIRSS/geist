@@ -9,6 +9,7 @@ import (
 
 func handleDestroySubcommand(args []string, flags *flag.FlagSet) {
 	flags.Usage = func() {}
+	flags.SetOutput(errorMessageWriter)
 	dataset := flags.String("dataset", "", "`name` of RDF dataset to destroy (required)")
 	if helpRequested(args, flags) {
 		return
@@ -18,7 +19,7 @@ func handleDestroySubcommand(args []string, flags *flag.FlagSet) {
 		return
 	}
 	if len(*dataset) == 0 {
-		fmt.Fprintln(Main.ErrWriter, "name of dataset must be given using the -dataset flag")
+		fmt.Fprintln(errorMessageWriter, "name of dataset must be given using the -dataset flag")
 		showCommandUsage(args, flags)
 		return
 	}
@@ -36,6 +37,7 @@ func doDestroy(name string) {
 
 func helpRequested(args []string, flags *flag.FlagSet) bool {
 	if len(args) > 1 && args[1] == "help" {
+		errorMessageStarted = true
 		showCommandDescription()
 		showCommandUsage(args, flags)
 		return true
@@ -45,7 +47,7 @@ func helpRequested(args []string, flags *flag.FlagSet) bool {
 
 func showCommandDescription() {
 	fmt.Fprintf(Main.OutWriter,
-		"Deletes an RDF dataset and corresponding Blazegraph namespace, all RDF graphs\n"+
+		"\nDeletes an RDF dataset and corresponding Blazegraph namespace, all RDF graphs\n"+
 			"in the dataset, and all triples in each of those graphs.\n")
 }
 

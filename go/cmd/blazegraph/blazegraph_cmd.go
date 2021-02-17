@@ -11,6 +11,20 @@ import (
 	"github.com/tmcphillips/main-wrapper/mw"
 )
 
+var errorMessageStarted bool
+
+type ErrorMessageWriter struct {
+	errorStream io.Writer
+}
+
+func (emw ErrorMessageWriter) Write(p []byte) (n int, err error) {
+	if !errorMessageStarted {
+		fmt.Fprintln(emw.errorStream)
+		errorMessageStarted = true
+	}
+	return emw.errorStream.Write(p)
+}
+
 // Main wraps the main() function.  It enables tests to manipulate the
 // input and output streams used by main(), and provides a new FlagSet
 // for each execution so that main() can be called by multiple tests.
@@ -32,6 +46,7 @@ type command struct {
 
 var commands []*command
 var commandmap map[string]*command
+var errorMessageWriter ErrorMessageWriter
 
 func init() {
 
@@ -54,10 +69,10 @@ func init() {
 
 func main() {
 
-	fmt.Fprintln(Main.OutWriter)
+	errorMessageWriter.errorStream = Main.ErrWriter
 
 	if len(os.Args) < 2 {
-		fmt.Fprint(Main.ErrWriter, "no blazegraph command given\n\n")
+		fmt.Fprint(Main.ErrWriter, "\nno blazegraph command given\n\n")
 		showUsage()
 		return
 	}
@@ -69,13 +84,14 @@ func main() {
 	if c, exists := commandmap[command]; exists {
 		c.handler(arguments, flags)
 	} else {
-		fmt.Fprintf(Main.ErrWriter, "not a blazegraph command: %s\n\n", command)
+		fmt.Fprintf(Main.ErrWriter, "\nnot a blazegraph command: %s\n\n", command)
 		showUsage()
 	}
 }
 
 func handleHelpSubcommand(args []string, flags *flag.FlagSet) {
 	if len(args) < 2 {
+		fmt.Fprintln(Main.OutWriter)
 		showUsage()
 		return
 	}
@@ -83,7 +99,7 @@ func handleHelpSubcommand(args []string, flags *flag.FlagSet) {
 	if c, exists := commandmap[command]; exists {
 		c.handler([]string{command, "help"}, flags)
 	} else {
-		fmt.Fprintf(Main.ErrWriter, "not a blazegraph command: %s\n\n", command)
+		fmt.Fprintf(Main.ErrWriter, "\nnot a blazegraph command: %s\n\n", command)
 		showUsage()
 	}
 }
