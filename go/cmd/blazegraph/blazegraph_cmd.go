@@ -68,7 +68,7 @@ func main() {
 
 	if len(os.Args) < 2 {
 		fmt.Fprint(Main.ErrWriter, "\nno blazegraph command given\n\n")
-		showUsage()
+		showProgramUsage()
 		return
 	}
 
@@ -80,33 +80,8 @@ func main() {
 		c.handler(arguments, flags)
 	} else {
 		fmt.Fprintf(Main.ErrWriter, "\nnot a blazegraph command: %s\n\n", command)
-		showUsage()
+		showProgramUsage()
 	}
-}
-
-func handleHelpSubcommand(args []string, flags *flag.FlagSet) {
-	if len(args) < 2 {
-		fmt.Fprintln(Main.OutWriter)
-		showUsage()
-		return
-	}
-	command := args[1]
-	if c, exists := commandmap[command]; exists {
-		c.handler([]string{command, "help"}, flags)
-	} else {
-		fmt.Fprintf(Main.ErrWriter, "\nnot a blazegraph command: %s\n\n", command)
-		showUsage()
-	}
-}
-
-func showUsage() {
-	fmt.Fprint(Main.OutWriter, "Usage: blazegraph <command> [<args>]\n\n")
-	fmt.Fprint(Main.OutWriter, "Available commands:\n\n")
-	for _, sc := range commands {
-		fmt.Fprintf(Main.OutWriter, "  %-7s  - %s\n", sc.name, sc.description)
-	}
-	fmt.Fprint(Main.OutWriter, "\nSee 'blazegraph help <command>' for help with one of the above commands.\n\n")
-	return
 }
 
 func readFileOrStdin(filePath string) (bytes []byte, err error) {
