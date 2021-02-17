@@ -11,17 +11,12 @@ import (
 	"github.com/tmcphillips/main-wrapper/mw"
 )
 
-var errorMessageStarted bool
-
 type ErrorMessageWriter struct {
 	errorStream io.Writer
 }
 
 func (emw ErrorMessageWriter) Write(p []byte) (n int, err error) {
-	if !errorMessageStarted {
-		fmt.Fprintln(emw.errorStream)
-		errorMessageStarted = true
-	}
+	fmt.Fprintln(emw.errorStream)
 	return emw.errorStream.Write(p)
 }
 

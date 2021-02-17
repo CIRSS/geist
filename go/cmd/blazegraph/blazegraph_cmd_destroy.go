@@ -37,7 +37,6 @@ func doDestroy(name string) {
 
 func helpRequested(args []string, flags *flag.FlagSet) bool {
 	if len(args) > 1 && args[1] == "help" {
-		errorMessageStarted = true
 		showCommandDescription()
 		showCommandUsage(args, flags)
 		return true
@@ -53,7 +52,7 @@ func showCommandDescription() {
 
 func showCommandUsage(args []string, flags *flag.FlagSet) {
 	fmt.Fprintf(Main.OutWriter, "\nUsage: blazegraph %s <flags>\n\n", args[0])
-	fmt.Fprint(Main.OutWriter, "Command flags:\n\n")
+	fmt.Fprint(Main.OutWriter, "Flags:\n")
 	flags.PrintDefaults()
 	fmt.Fprintln(Main.OutWriter)
 }
