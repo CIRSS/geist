@@ -37,8 +37,8 @@ func init() {
 
 	commands = []*command{
 		{"help", handleHelpSubcommand, "Show help"},
-		{"create", handleCreateSubcommand, "Create a new dataset"},
-		{"destroy", handleDestroySubcommand, "Destroy a dataset"},
+		{"create", handleCreateSubcommand, "Create a new RDF dataset"},
+		{"destroy", handleDestroySubcommand, "Delete an RDF dataset"},
 		{"export", handleExportSubcommand, "Export contents of a dataset"},
 		{"import", handleImportSubcommand, "Import data into a dataset"},
 		{"report", handleReportSubcommand, "Expand a report using a dataset"},
@@ -54,8 +54,10 @@ func init() {
 
 func main() {
 
+	fmt.Fprintln(Main.OutWriter)
+
 	if len(os.Args) < 2 {
-		fmt.Fprintf(Main.ErrWriter, "no blazegraph command given\n")
+		fmt.Fprint(Main.ErrWriter, "no blazegraph command given\n\n")
 		showUsage()
 		return
 	}
@@ -67,7 +69,7 @@ func main() {
 	if c, exists := commandmap[command]; exists {
 		c.handler(arguments, flags)
 	} else {
-		fmt.Fprintf(Main.ErrWriter, "not a blazegraph command: %s\n", command)
+		fmt.Fprintf(Main.ErrWriter, "not a blazegraph command: %s\n\n", command)
 		showUsage()
 	}
 }
@@ -81,13 +83,13 @@ func handleHelpSubcommand(args []string, flags *flag.FlagSet) {
 	if c, exists := commandmap[command]; exists {
 		c.handler([]string{command, "help"}, flags)
 	} else {
-		fmt.Fprintf(Main.ErrWriter, "not a blazegraph command: %s\n", command)
+		fmt.Fprintf(Main.ErrWriter, "not a blazegraph command: %s\n\n", command)
 		showUsage()
 	}
 }
 
 func showUsage() {
-	fmt.Fprint(Main.OutWriter, "\nUsage: blazegraph <command> [<args>]\n\n")
+	fmt.Fprint(Main.OutWriter, "Usage: blazegraph <command> [<args>]\n\n")
 	fmt.Fprint(Main.OutWriter, "Available commands:\n\n")
 	for _, sc := range commands {
 		fmt.Fprintf(Main.OutWriter, "  %-7s  - %s\n", sc.name, sc.description)

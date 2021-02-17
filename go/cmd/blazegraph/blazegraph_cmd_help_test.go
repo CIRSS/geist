@@ -22,8 +22,8 @@ func TestBlazegraphCmd_no_command(t *testing.T) {
 		Available commands:
 
 		help     - Show help
-		create   - Create a new dataset
-		destroy  - Destroy a dataset
+		create   - Create a new RDF dataset
+		destroy  - Delete an RDF dataset
 		export   - Export contents of a dataset
 		import   - Import data into a dataset
 		report   - Expand a report using a dataset
@@ -47,8 +47,8 @@ func TestBlazegraphCmd_help_command_with_no_argument(t *testing.T) {
 		Available commands:
 
 		help     - Show help
-		create   - Create a new dataset
-		destroy  - Destroy a dataset
+		create   - Create a new RDF dataset
+		destroy  - Delete an RDF dataset
 		export   - Export contents of a dataset
 		import   - Import data into a dataset
 		report   - Expand a report using a dataset
@@ -73,8 +73,8 @@ func TestBlazegraphCmd_unsupported_command(t *testing.T) {
 		Available commands:
 
 		help     - Show help
-		create   - Create a new dataset
-		destroy  - Destroy a dataset
+		create   - Create a new RDF dataset
+		destroy  - Delete an RDF dataset
 		export   - Export contents of a dataset
 		import   - Import data into a dataset
 		report   - Expand a report using a dataset
@@ -99,8 +99,8 @@ func TestBlazegraphCmd_help_unsupported_command(t *testing.T) {
 		Available commands:
 
 		help     - Show help
-		create   - Create a new dataset
-		destroy  - Destroy a dataset
+		create   - Create a new RDF dataset
+		destroy  - Delete an RDF dataset
 		export   - Export contents of a dataset
 		import   - Import data into a dataset
 		report   - Expand a report using a dataset

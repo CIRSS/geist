@@ -16,12 +16,15 @@ func TestBlazegraphCmd_destroy_help(t *testing.T) {
 	run("blazegraph destroy help")
 	util.LineContentsEqual(t, outputBuffer.String(), `
 
+		Deletes an RDF dataset and corresponding Blazegraph namespace, all RDF graphs
+		in the dataset, and all triples in each of those graphs.
+
 		Usage: blazegraph destroy <flags>
 
 		Command flags:
 
-		-dataset string
-			Dataset to destroy (required)
+		-dataset name
+	    	name of RDF dataset to destroy (required)
 		-url string
 				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
 
@@ -37,12 +40,15 @@ func TestBlazegraphCmd_help_destroy(t *testing.T) {
 	run("blazegraph help destroy")
 	util.LineContentsEqual(t, outputBuffer.String(), `
 
+		Deletes an RDF dataset and corresponding Blazegraph namespace, all RDF graphs
+		in the dataset, and all triples in each of those graphs.
+
 		Usage: blazegraph destroy <flags>
 
 		Command flags:
 
-		-dataset string
-			Dataset to destroy (required)
+		-dataset name
+	    	name of RDF dataset to destroy (required)
 		-url string
 				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
 
@@ -64,8 +70,8 @@ func TestBlazegraphCmd_destroy_no_flags(t *testing.T) {
 
 		Command flags:
 
-		-dataset string
-				Dataset to destroy (required)
+		-dataset name
+	    	name of RDF dataset to destroy (required)
 		-url string
 				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
 
@@ -87,8 +93,8 @@ func TestBlazegraphCmd_destroy_bad_flag(t *testing.T) {
 
 		Command flags:
 
-		-dataset string
-			Dataset to destroy (required)
+		-dataset name
+	    	name of RDF dataset to destroy (required)
 		-url string
 				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
 
