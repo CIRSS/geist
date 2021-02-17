@@ -8,8 +8,6 @@ import (
 )
 
 func handleExportSubcommand(args []string, flags *flag.FlagSet) {
-	flags.Usage = func() {}
-	flags.SetOutput(errorMessageWriter)
 	format := flags.String("format", "nt", "Format for doExported triples")
 	sort := flags.Bool("sort", false, "Sort the exported triples if true")
 	if helpRequested(args, flags) {

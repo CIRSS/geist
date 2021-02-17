@@ -8,8 +8,6 @@ import (
 )
 
 func handleCreateSubcommand(args []string, flags *flag.FlagSet) {
-	flags.Usage = func() {}
-	flags.SetOutput(errorMessageWriter)
 	dataset := flags.String("dataset", "", "Dataset to create")
 	infer := flags.String("infer", "none", "Inference to perform on update [none, rdfs, owl]")
 	if helpRequested(args, flags) {

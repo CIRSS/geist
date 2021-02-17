@@ -9,8 +9,6 @@ import (
 )
 
 func handleReportSubcommand(args []string, flags *flag.FlagSet) {
-	flags.Usage = func() {}
-	flags.SetOutput(errorMessageWriter)
 	file := flags.String("file", "-", "File containing report template to expand")
 	if helpRequested(args, flags) {
 		return
