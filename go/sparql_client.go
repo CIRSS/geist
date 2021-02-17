@@ -21,6 +21,32 @@ func NewSparqlClient(endpoint string) *SparqlClient {
 	return sc
 }
 
+func (sc *SparqlClient) GetRequest(url string, contentType string,
+	acceptType string) (responseBody []byte, err error) {
+
+	// create the http requeest using the provided body
+	request, err := http.NewRequest("GET", url, bytes.NewReader([]byte{}))
+	if err != nil {
+		return
+	}
+	request.Header.Add("Content-Type", contentType)
+	request.Header.Add("Accept", acceptType)
+
+	// perform the request and obtain the response
+	response, err := sc.HttpClient.Do(request)
+	if err != nil {
+		return
+	}
+
+	// read the response
+	responseBody, err = ioutil.ReadAll(response.Body)
+	if err != nil {
+		return
+	}
+	response.Body.Close()
+	return
+}
+
 func (sc *SparqlClient) PostRequest(url string, contentType string, acceptType string,
 	requestBody []byte) (responseBody []byte, err error) {
 

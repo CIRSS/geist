@@ -79,3 +79,9 @@ func (bc *BlazegraphClient) ExpandReport(rp *geist.Template) (report string, err
 
 	return
 }
+
+func (sc *BlazegraphClient) ListDatasets() (responseBody []byte, err error) {
+	responseBody, err = sc.GetRequest(sc.NamespaceEndpoint,
+		"text/plain", "text/plain")
+	return
+}
