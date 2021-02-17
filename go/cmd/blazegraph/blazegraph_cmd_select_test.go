@@ -117,5 +117,104 @@ func TestBlazegraphCmd_query_json(t *testing.T) {
 			http://tmcphill.net/data#x,seven
 			http://tmcphill.net/data#y,eight`)
 	})
+}
 
+func TestBlazegraphCmd_select_help(t *testing.T) {
+
+	var outputBuffer strings.Builder
+	Main.OutWriter = &outputBuffer
+	Main.ErrWriter = &outputBuffer
+
+	run("blazegraph select help")
+	util.LineContentsEqual(t, outputBuffer.String(), `
+
+		Performs a select query on the identified RDF dataset.
+
+		Usage: blazegraph select <flags>
+
+		Flags:
+
+		-columnseparators
+				Display column separators in table format (default true)
+
+		-dryrun
+				Output query but do not execute it
+
+		-file string
+				File containing select query to execute (default "-")
+
+		-format string
+				Format of result set to produce (default "json")
+
+		-url string
+				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
+
+	`)
+}
+
+func TestBlazegraphCmd_help_select(t *testing.T) {
+
+	var outputBuffer strings.Builder
+	Main.OutWriter = &outputBuffer
+	Main.ErrWriter = &outputBuffer
+
+	run("blazegraph help select")
+	util.LineContentsEqual(t, outputBuffer.String(), `
+
+		Performs a select query on the identified RDF dataset.
+
+		Usage: blazegraph select <flags>
+
+		Flags:
+
+		-columnseparators
+				Display column separators in table format (default true)
+
+		-dryrun
+				Output query but do not execute it
+
+		-file string
+				File containing select query to execute (default "-")
+
+		-format string
+				Format of result set to produce (default "json")
+
+		-url string
+				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
+
+	`)
+}
+
+func TestBlazegraphCmd_select_bad_flag(t *testing.T) {
+
+	var outputBuffer strings.Builder
+	Main.OutWriter = &outputBuffer
+	Main.ErrWriter = &outputBuffer
+
+	run("blazegraph select --not-a-flag")
+	util.LineContentsEqual(t, outputBuffer.String(), `
+
+		flag provided but not defined: -not-a-flag
+
+		Usage: blazegraph select <flags>
+
+		Flags:
+
+		-columnseparators
+				Display column separators in table format (default true)
+
+		-dryrun
+				Output query but do not execute it
+
+		-file string
+				File containing select query to execute (default "-")
+
+		-format string
+				Format of result set to produce (default "json")
+
+		-url string
+				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
+
+
+	`)
 }

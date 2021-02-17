@@ -342,5 +342,85 @@ func TestBlazegraphCmd_export_address_book(t *testing.T) {
 			</rdf:RDF>
 		`)
 	})
+}
 
+func TestBlazegraphCmd_export_help(t *testing.T) {
+
+	var outputBuffer strings.Builder
+	Main.OutWriter = &outputBuffer
+	Main.ErrWriter = &outputBuffer
+
+	run("blazegraph export help")
+	util.LineContentsEqual(t, outputBuffer.String(), `
+
+		Exports all triples in an RDF dataset in the requested format.
+
+		Usage: blazegraph export <flags>
+
+		Flags:
+
+		-format string
+				Format for doExported triples (default "nt")
+
+		-sort
+				Sort the exported triples if true
+
+		-url string
+				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
+
+	`)
+}
+
+func TestBlazegraphCmd_help_export(t *testing.T) {
+
+	var outputBuffer strings.Builder
+	Main.OutWriter = &outputBuffer
+	Main.ErrWriter = &outputBuffer
+
+	run("blazegraph help export")
+	util.LineContentsEqual(t, outputBuffer.String(), `
+
+		Exports all triples in an RDF dataset in the requested format.
+
+		Usage: blazegraph export <flags>
+
+		Flags:
+
+		-format string
+				Format for doExported triples (default "nt")
+
+		-sort
+				Sort the exported triples if true
+
+		-url string
+				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
+
+	`)
+}
+
+func TestBlazegraphCmd_export_bad_flag(t *testing.T) {
+
+	var outputBuffer strings.Builder
+	Main.OutWriter = &outputBuffer
+	Main.ErrWriter = &outputBuffer
+
+	run("blazegraph export --not-a-flag")
+	util.LineContentsEqual(t, outputBuffer.String(), `
+
+		flag provided but not defined: -not-a-flag
+
+		Usage: blazegraph export <flags>
+
+		Flags:
+
+		-format string
+				Format for doExported triples (default "nt")
+
+		-sort
+				Sort the exported triples if true
+
+		-url string
+				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
+
+	`)
 }

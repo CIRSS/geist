@@ -131,3 +131,84 @@ func TestBlazegraphCmd_import_two_triples(t *testing.T) {
 	`)
 	})
 }
+
+func TestBlazegraphCmd_import_help(t *testing.T) {
+
+	var outputBuffer strings.Builder
+	Main.OutWriter = &outputBuffer
+	Main.ErrWriter = &outputBuffer
+
+	run("blazegraph import help")
+	util.LineContentsEqual(t, outputBuffer.String(), `
+
+		Imports triples in the specified format into an RDF dataset.
+
+		Usage: blazegraph import <flags>
+
+		Flags:
+
+		-file string
+				File containing triples to import (default "-")
+
+		-format string
+				Format of triples to import (default "ttl")
+
+		-url string
+				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
+
+	`)
+}
+
+func TestBlazegraphCmd_help_import(t *testing.T) {
+
+	var outputBuffer strings.Builder
+	Main.OutWriter = &outputBuffer
+	Main.ErrWriter = &outputBuffer
+
+	run("blazegraph help import")
+	util.LineContentsEqual(t, outputBuffer.String(), `
+
+		Imports triples in the specified format into an RDF dataset.
+
+		Usage: blazegraph import <flags>
+
+		Flags:
+
+		-file string
+				File containing triples to import (default "-")
+
+		-format string
+				Format of triples to import (default "ttl")
+
+		-url string
+				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
+
+	`)
+}
+
+func TestBlazegraphCmd_import_bad_flag(t *testing.T) {
+
+	var outputBuffer strings.Builder
+	Main.OutWriter = &outputBuffer
+	Main.ErrWriter = &outputBuffer
+
+	run("blazegraph import --not-a-flag")
+	util.LineContentsEqual(t, outputBuffer.String(), `
+
+		flag provided but not defined: -not-a-flag
+
+		Usage: blazegraph import <flags>
+
+		Flags:
+
+		-file string
+				File containing triples to import (default "-")
+
+		-format string
+				Format of triples to import (default "ttl")
+
+		-url string
+				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
+
+	`)
+}

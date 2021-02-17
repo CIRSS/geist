@@ -655,3 +655,75 @@ func TestBlazegraphCmd_report_macro_calls_query(t *testing.T) {
 		eight
 	`)
 }
+
+func TestBlazegraphCmd_report_help(t *testing.T) {
+
+	var outputBuffer strings.Builder
+	Main.OutWriter = &outputBuffer
+	Main.ErrWriter = &outputBuffer
+
+	run("blazegraph report help")
+	util.LineContentsEqual(t, outputBuffer.String(), `
+
+		Expands the provided report template using the identified RDF dataset.
+
+		Usage: blazegraph report <flags>
+
+		Flags:
+
+		-file string
+				File containing report template to expand (default "-")
+
+		-url string
+				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
+
+	`)
+}
+
+func TestBlazegraphCmd_help_report(t *testing.T) {
+
+	var outputBuffer strings.Builder
+	Main.OutWriter = &outputBuffer
+	Main.ErrWriter = &outputBuffer
+
+	run("blazegraph help report")
+	util.LineContentsEqual(t, outputBuffer.String(), `
+
+		Expands the provided report template using the identified RDF dataset.
+
+		Usage: blazegraph report <flags>
+
+		Flags:
+
+		-file string
+				File containing report template to expand (default "-")
+
+		-url string
+				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
+
+	`)
+}
+
+func TestBlazegraphCmd_report_bad_flag(t *testing.T) {
+
+	var outputBuffer strings.Builder
+	Main.OutWriter = &outputBuffer
+	Main.ErrWriter = &outputBuffer
+
+	run("blazegraph report --not-a-flag")
+	util.LineContentsEqual(t, outputBuffer.String(), `
+
+		flag provided but not defined: -not-a-flag
+
+		Usage: blazegraph report <flags>
+
+		Flags:
+
+		-file string
+				File containing report template to expand (default "-")
+
+		-url string
+				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
+
+	`)
+}
