@@ -36,6 +36,7 @@ func init() {
 type command struct {
 	name        string
 	handler     func(args []string, flags *flag.FlagSet)
+	summary     string
 	description string
 }
 
@@ -46,13 +47,15 @@ var errorMessageWriter ErrorMessageWriter
 func init() {
 
 	commands = []*command{
-		{"help", handleHelpSubcommand, "Show help"},
-		{"create", handleCreateSubcommand, "Create a new RDF dataset"},
-		{"destroy", handleDestroySubcommand, "Delete an RDF dataset"},
-		{"export", handleExportSubcommand, "Export contents of a dataset"},
-		{"import", handleImportSubcommand, "Import data into a dataset"},
-		{"report", handleReportSubcommand, "Expand a report using a dataset"},
-		{"select", handleSelectSubcommand, "Perform a select query on a dataset"},
+		{"help", handleHelpSubcommand, "Show help", ""},
+		{"create", handleCreateSubcommand, "Create a new RDF dataset", ""},
+		{"destroy", handleDestroySubcommand, "Delete an RDF dataset",
+			"\nDeletes an RDF dataset and corresponding Blazegraph namespace, all RDF graphs\n" +
+				"in the dataset, and all triples in each of those graphs.\n"},
+		{"export", handleExportSubcommand, "Export contents of a dataset", ""},
+		{"import", handleImportSubcommand, "Import data into a dataset", ""},
+		{"report", handleReportSubcommand, "Expand a report using a dataset", ""},
+		{"select", handleSelectSubcommand, "Perform a select query on a dataset", ""},
 	}
 
 	commandmap = make(map[string]*command)

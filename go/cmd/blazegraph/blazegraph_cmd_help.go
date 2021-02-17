@@ -24,7 +24,7 @@ func showProgramUsage() {
 	fmt.Fprint(Main.OutWriter, "Usage: blazegraph <command> [<args>]\n\n")
 	fmt.Fprint(Main.OutWriter, "Available commands:\n\n")
 	for _, sc := range commands {
-		fmt.Fprintf(Main.OutWriter, "  %-7s  - %s\n", sc.name, sc.description)
+		fmt.Fprintf(Main.OutWriter, "  %-7s  - %s\n", sc.name, sc.summary)
 	}
 	fmt.Fprint(Main.OutWriter, "\nSee 'blazegraph help <command>' for help with one of the above commands.\n\n")
 	return
@@ -32,11 +32,15 @@ func showProgramUsage() {
 
 func helpRequested(args []string, flags *flag.FlagSet) bool {
 	if len(args) > 1 && args[1] == "help" {
-		showCommandDescription()
+		showCommandDescription(commandmap[args[0]])
 		showCommandUsage(args, flags)
 		return true
 	}
 	return false
+}
+
+func showCommandDescription(c *command) {
+	fmt.Fprintf(Main.OutWriter, c.description)
 }
 
 func showCommandUsage(args []string, flags *flag.FlagSet) {

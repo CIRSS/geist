@@ -34,9 +34,3 @@ func doDestroy(name string) {
 	// }
 	// fmt.Fprintln(Main.OutWriter, string(response))
 }
-
-func showCommandDescription() {
-	fmt.Fprintf(Main.OutWriter,
-		"\nDeletes an RDF dataset and corresponding Blazegraph namespace, all RDF graphs\n"+
-			"in the dataset, and all triples in each of those graphs.\n")
-}
