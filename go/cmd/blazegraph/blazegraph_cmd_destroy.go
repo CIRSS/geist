@@ -9,6 +9,7 @@ import (
 
 func handleDestroySubcommand(args []string, flags *flag.FlagSet) {
 	dataset := flags.String("dataset", "kb", "`name` of RDF dataset to destroy")
+	all := flags.Bool("all", false, "destroy ALL datasets in the Blazegraph instance")
 	if helpRequested(args, flags) {
 		return
 	}
@@ -21,14 +22,24 @@ func handleDestroySubcommand(args []string, flags *flag.FlagSet) {
 		showCommandUsage(args, flags)
 		return
 	}
-	doDestroy(*dataset)
+	if *all {
+		doDestroyAll()
+	} else {
+		doDestroy(*dataset)
+	}
+}
+
+func doDestroyAll() {
+	bc := blazegraph.NewBlazegraphClient(*options.url)
+	datasets, err := bc.ListDatasets()
+	if err == nil {
+		for _, dataset := range datasets {
+			bc.DestroyDataSet(dataset)
+		}
+	}
 }
 
 func doDestroy(name string) {
 	bc := blazegraph.NewBlazegraphClient(*options.url)
 	bc.DestroyDataSet(name)
-	// if err != nil {
-	// 	fmt.Fprintln(Main.ErrWriter, err.Error())
-	// }
-	// fmt.Fprintln(Main.OutWriter, string(response))
 }

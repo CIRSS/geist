@@ -3,6 +3,8 @@ package blazegraph
 import (
 	"io/ioutil"
 	"net/http"
+	"regexp"
+	"sort"
 	"text/template"
 
 	"github.com/cirss/geist"
@@ -80,8 +82,18 @@ func (bc *BlazegraphClient) ExpandReport(rp *geist.Template) (report string, err
 	return
 }
 
-func (sc *BlazegraphClient) ListDatasets() (responseBody []byte, err error) {
-	responseBody, err = sc.GetRequest(sc.NamespaceEndpoint,
+func (sc *BlazegraphClient) ListDatasets() (datasets []string, err error) {
+	responseBody, err := sc.GetRequest(sc.NamespaceEndpoint,
 		"text/plain", "text/plain")
+	if err != nil {
+		return
+	}
+	//	fmt.Println(string(responseBody))
+	re := regexp.MustCompile(`Namespace> "([^"]+)"`)
+	submatchall := re.FindAllStringSubmatch(string(responseBody), -1)
+	for _, element := range submatchall {
+		datasets = append(datasets, element[1])
+	}
+	sort.Strings(datasets)
 	return
 }

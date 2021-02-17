@@ -49,7 +49,7 @@ func init() {
 	commands = []*command{
 		{"help", handleHelpSubcommand, "Show help", ""},
 		{"list", handleListSubcommand, "List RDF datasets",
-			"Lists the RDF datasets in the Blazegraph instance."},
+			"Lists the names of the RDF datasets in the Blazegraph instance."},
 		{"create", handleCreateSubcommand, "Create a new RDF dataset",
 			"Creates an RDF dataset and corresponding Blazegraph namespace."},
 		{"destroy", handleDestroySubcommand, "Delete an RDF dataset",

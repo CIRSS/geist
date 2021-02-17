@@ -20,10 +20,12 @@ func handleListSubcommand(args []string, flags *flag.FlagSet) {
 
 func doList() {
 	bc := blazegraph.NewBlazegraphClient(*options.url)
-	list, re := bc.ListDatasets()
+	datasets, re := bc.ListDatasets()
 	if re != nil {
 		fmt.Fprintf(Main.ErrWriter, re.Error())
 		return
 	}
-	fmt.Fprint(Main.OutWriter, string(list))
+	for _, dataset := range datasets {
+		fmt.Fprintln(Main.OutWriter, dataset)
+	}
 }
