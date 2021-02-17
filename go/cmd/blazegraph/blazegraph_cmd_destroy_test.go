@@ -24,7 +24,7 @@ func TestBlazegraphCmd_destroy_help(t *testing.T) {
 		Flags:
 
 		-dataset name
-	    	name of RDF dataset to destroy (required)
+			name of RDF dataset to destroy (default "kb")
 
 		-url string
 				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
@@ -49,31 +49,31 @@ func TestBlazegraphCmd_help_destroy(t *testing.T) {
 		Flags:
 
 		-dataset name
-	    	name of RDF dataset to destroy (required)
+				name of RDF dataset to destroy (default "kb")
 
-		-url string
+				-url string
 				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
 
 	`)
 }
 
-func TestBlazegraphCmd_destroy_no_flags(t *testing.T) {
+func TestBlazegraphCmd_destroy_no_dataset_argument(t *testing.T) {
 
 	var outputBuffer strings.Builder
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
 
-	run("blazegraph destroy")
+	run("blazegraph destroy -dataset")
 	util.LineContentsEqual(t, outputBuffer.String(), `
 
-		name of dataset must be given using the -dataset flag
+		flag needs an argument: -dataset
 
 		Usage: blazegraph destroy <flags>
 
 		Flags:
 
 		-dataset name
-	    	name of RDF dataset to destroy (required)
+				name of RDF dataset to destroy (default "kb")
 
 		-url string
 				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
@@ -97,7 +97,7 @@ func TestBlazegraphCmd_destroy_bad_flag(t *testing.T) {
 		Flags:
 
 		-dataset name
-	    	name of RDF dataset to destroy (required)
+				name of RDF dataset to destroy (default "kb")
 
 		-url string
 				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")

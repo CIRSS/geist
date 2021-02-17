@@ -8,7 +8,7 @@ import (
 )
 
 func handleCreateSubcommand(args []string, flags *flag.FlagSet) {
-	dataset := flags.String("dataset", "", "Dataset to create")
+	dataset := flags.String("dataset", "kb", "`name` of RDF dataset to create")
 	infer := flags.String("infer", "none", "Inference to perform on update [none, rdfs, owl]")
 	if helpRequested(args, flags) {
 		return

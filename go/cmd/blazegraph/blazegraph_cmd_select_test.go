@@ -137,6 +137,9 @@ func TestBlazegraphCmd_select_help(t *testing.T) {
 		-columnseparators
 				Display column separators in table format (default true)
 
+		-dataset name
+    	    	name of RDF dataset to query (default "kb")
+
 		-dryrun
 				Output query but do not execute it
 
@@ -148,7 +151,6 @@ func TestBlazegraphCmd_select_help(t *testing.T) {
 
 		-url string
 				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
-
 	`)
 }
 
@@ -169,6 +171,9 @@ func TestBlazegraphCmd_help_select(t *testing.T) {
 
 		-columnseparators
 				Display column separators in table format (default true)
+
+		-dataset name
+    	    	name of RDF dataset to query (default "kb")
 
 		-dryrun
 				Output query but do not execute it
@@ -203,6 +208,9 @@ func TestBlazegraphCmd_select_bad_flag(t *testing.T) {
 		-columnseparators
 				Display column separators in table format (default true)
 
+		-dataset name
+    	    	name of RDF dataset to query (default "kb")
+
 		-dryrun
 				Output query but do not execute it
 
@@ -214,7 +222,6 @@ func TestBlazegraphCmd_select_bad_flag(t *testing.T) {
 
 		-url string
 				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
-
 
 	`)
 }

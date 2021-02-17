@@ -8,7 +8,7 @@ import (
 )
 
 func handleDestroySubcommand(args []string, flags *flag.FlagSet) {
-	dataset := flags.String("dataset", "", "`name` of RDF dataset to destroy (required)")
+	dataset := flags.String("dataset", "kb", "`name` of RDF dataset to destroy")
 	if helpRequested(args, flags) {
 		return
 	}

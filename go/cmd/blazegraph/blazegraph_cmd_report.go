@@ -9,6 +9,7 @@ import (
 )
 
 func handleReportSubcommand(args []string, flags *flag.FlagSet) {
+	flags.String("dataset", "", "`name` of RDF dataset to create report from")
 	file := flags.String("file", "-", "File containing report template to expand")
 	if helpRequested(args, flags) {
 		return

@@ -671,6 +671,9 @@ func TestBlazegraphCmd_report_help(t *testing.T) {
 
 		Flags:
 
+		-dataset name
+				name of RDF dataset to create report from
+
 		-file string
 				File containing report template to expand (default "-")
 
@@ -695,6 +698,9 @@ func TestBlazegraphCmd_help_report(t *testing.T) {
 
 		Flags:
 
+		-dataset name
+				name of RDF dataset to create report from
+
 		-file string
 				File containing report template to expand (default "-")
 
@@ -718,6 +724,9 @@ func TestBlazegraphCmd_report_bad_flag(t *testing.T) {
 		Usage: blazegraph report <flags>
 
 		Flags:
+
+		-dataset name
+				name of RDF dataset to create report from
 
 		-file string
 				File containing report template to expand (default "-")

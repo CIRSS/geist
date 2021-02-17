@@ -147,6 +147,9 @@ func TestBlazegraphCmd_import_help(t *testing.T) {
 
 		Flags:
 
+		-dataset name
+				name of RDF dataset to import triples into (default "kb")
+
 		-file string
 				File containing triples to import (default "-")
 
@@ -174,6 +177,9 @@ func TestBlazegraphCmd_help_import(t *testing.T) {
 
 		Flags:
 
+		-dataset name
+				name of RDF dataset to import triples into (default "kb")
+
 		-file string
 				File containing triples to import (default "-")
 
@@ -200,6 +206,9 @@ func TestBlazegraphCmd_import_bad_flag(t *testing.T) {
 		Usage: blazegraph import <flags>
 
 		Flags:
+
+		-dataset name
+				name of RDF dataset to import triples into (default "kb")
 
 		-file string
 				File containing triples to import (default "-")

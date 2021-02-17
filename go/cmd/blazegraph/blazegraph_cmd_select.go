@@ -9,6 +9,7 @@ import (
 )
 
 func handleSelectSubcommand(args []string, flags *flag.FlagSet) {
+	flags.String("dataset", "kb", "`name` of RDF dataset to query")
 	dryrun := flags.Bool("dryrun", false, "Output query but do not execute it")
 	file := flags.String("file", "-", "File containing select query to execute")
 	format := flags.String("format", "json", "Format of result set to produce")

@@ -8,6 +8,7 @@ import (
 )
 
 func handleExportSubcommand(args []string, flags *flag.FlagSet) {
+	flags.String("dataset", "kb", "`name` of RDF dataset to export")
 	format := flags.String("format", "nt", "Format for doExported triples")
 	sort := flags.Bool("sort", false, "Sort the exported triples if true")
 	if helpRequested(args, flags) {

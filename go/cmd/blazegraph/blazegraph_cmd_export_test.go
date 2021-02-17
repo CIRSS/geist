@@ -359,6 +359,9 @@ func TestBlazegraphCmd_export_help(t *testing.T) {
 
 		Flags:
 
+		-dataset name
+				name of RDF dataset to export (default "kb")
+
 		-format string
 				Format for doExported triples (default "nt")
 
@@ -386,6 +389,9 @@ func TestBlazegraphCmd_help_export(t *testing.T) {
 
 		Flags:
 
+		-dataset name
+				name of RDF dataset to export (default "kb")
+
 		-format string
 				Format for doExported triples (default "nt")
 
@@ -412,6 +418,9 @@ func TestBlazegraphCmd_export_bad_flag(t *testing.T) {
 		Usage: blazegraph export <flags>
 
 		Flags:
+
+		-dataset name
+				name of RDF dataset to export (default "kb")
 
 		-format string
 				Format for doExported triples (default "nt")
