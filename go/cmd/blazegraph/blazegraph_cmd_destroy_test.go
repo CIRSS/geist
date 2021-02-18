@@ -19,7 +19,7 @@ func TestBlazegraphCmd_destroy_help(t *testing.T) {
 		Deletes an RDF dataset and corresponding Blazegraph namespace, all RDF graphs
 		in the dataset, and all triples in each of those graphs.
 
-		Usage: blazegraph destroy <flags>
+		Usage: blazegraph destroy [<flags>]
 
 		Flags:
 
@@ -47,7 +47,7 @@ func TestBlazegraphCmd_help_destroy(t *testing.T) {
 		Deletes an RDF dataset and corresponding Blazegraph namespace, all RDF graphs
 		in the dataset, and all triples in each of those graphs.
 
-		Usage: blazegraph destroy <flags>
+		Usage: blazegraph destroy [<flags>]
 
 		Flags:
 
@@ -74,7 +74,7 @@ func TestBlazegraphCmd_destroy_no_dataset_argument(t *testing.T) {
 
 		flag needs an argument: -dataset
 
-		Usage: blazegraph destroy <flags>
+		Usage: blazegraph destroy [<flags>]
 
 		Flags:
 
@@ -101,7 +101,7 @@ func TestBlazegraphCmd_destroy_bad_flag(t *testing.T) {
 
 		flag provided but not defined: -not-a-flag
 
-		Usage: blazegraph destroy <flags>
+		Usage: blazegraph destroy [<flags>]
 
 		Flags:
 

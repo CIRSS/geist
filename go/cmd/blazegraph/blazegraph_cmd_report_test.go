@@ -667,7 +667,7 @@ func TestBlazegraphCmd_report_help(t *testing.T) {
 
 		Expands the provided report template using the identified RDF dataset.
 
-		Usage: blazegraph report <flags>
+		Usage: blazegraph report [<flags>]
 
 		Flags:
 
@@ -694,7 +694,7 @@ func TestBlazegraphCmd_help_report(t *testing.T) {
 
 		Expands the provided report template using the identified RDF dataset.
 
-		Usage: blazegraph report <flags>
+		Usage: blazegraph report [<flags>]
 
 		Flags:
 
@@ -721,7 +721,7 @@ func TestBlazegraphCmd_report_bad_flag(t *testing.T) {
 
 		flag provided but not defined: -not-a-flag
 
-		Usage: blazegraph report <flags>
+		Usage: blazegraph report [<flags>]
 
 		Flags:
 

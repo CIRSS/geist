@@ -74,7 +74,7 @@ func TestBlazegraphCmd_list_help(t *testing.T) {
 
 		Lists the names of the RDF datasets in the Blazegraph instance.
 
-		Usage: blazegraph list <flags>
+		Usage: blazegraph list [<flags>]
 
 		Flags:
 
@@ -95,7 +95,7 @@ func TestBlazegraphCmd_help_list(t *testing.T) {
 
 	Lists the names of the RDF datasets in the Blazegraph instance.
 
-	Usage: blazegraph list <flags>
+	Usage: blazegraph list [<flags>]
 
 	Flags:
 
@@ -116,7 +116,7 @@ func TestBlazegraphCmd_list_bad_flag(t *testing.T) {
 
 		flag provided but not defined: -not-a-flag
 
-		Usage: blazegraph list <flags>
+		Usage: blazegraph list [<flags>]
 
 		Flags:
 

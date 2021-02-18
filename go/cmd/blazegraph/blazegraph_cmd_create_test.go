@@ -18,7 +18,7 @@ func TestBlazegraphCmd_create_help(t *testing.T) {
 
 		Creates an RDF dataset and corresponding Blazegraph namespace.
 
-		Usage: blazegraph create <flags>
+		Usage: blazegraph create [<flags>]
 
 		Flags:
 
@@ -45,7 +45,7 @@ func TestBlazegraphCmd_help_create(t *testing.T) {
 
 		Creates an RDF dataset and corresponding Blazegraph namespace.
 
-		Usage: blazegraph create <flags>
+		Usage: blazegraph create [<flags>]
 
 		Flags:
 
@@ -84,7 +84,7 @@ func TestBlazegraphCmd_create_bad_flag(t *testing.T) {
 
 		flag provided but not defined: -not-a-flag
 
-		Usage: blazegraph create <flags>
+		Usage: blazegraph create [<flags>]
 
 		Flags:
 

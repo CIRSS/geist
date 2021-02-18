@@ -47,7 +47,7 @@ func showCommandDescription(c *command) {
 }
 
 func showCommandUsage(args []string, flags *flag.FlagSet) {
-	fmt.Fprintf(Main.OutWriter, "\nUsage: blazegraph %s <flags>\n\n", args[0])
+	fmt.Fprintf(Main.OutWriter, "\nUsage: blazegraph %s [<flags>]\n\n", args[0])
 	fmt.Fprint(Main.OutWriter, "Flags:\n")
 	flags.PrintDefaults()
 	fmt.Fprintln(Main.OutWriter)

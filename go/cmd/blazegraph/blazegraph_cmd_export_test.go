@@ -355,7 +355,7 @@ func TestBlazegraphCmd_export_help(t *testing.T) {
 
 		Exports all triples in an RDF dataset in the requested format.
 
-		Usage: blazegraph export <flags>
+		Usage: blazegraph export [<flags>]
 
 		Flags:
 
@@ -385,7 +385,7 @@ func TestBlazegraphCmd_help_export(t *testing.T) {
 
 		Exports all triples in an RDF dataset in the requested format.
 
-		Usage: blazegraph export <flags>
+		Usage: blazegraph export [<flags>]
 
 		Flags:
 
@@ -415,7 +415,7 @@ func TestBlazegraphCmd_export_bad_flag(t *testing.T) {
 
 		flag provided but not defined: -not-a-flag
 
-		Usage: blazegraph export <flags>
+		Usage: blazegraph export [<flags>]
 
 		Flags:
 

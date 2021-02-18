@@ -130,7 +130,7 @@ func TestBlazegraphCmd_select_help(t *testing.T) {
 
 		Performs a SPARQL query on the identified RDF dataset.
 
-		Usage: blazegraph query <flags>
+		Usage: blazegraph query [<flags>]
 
 		Flags:
 
@@ -165,7 +165,7 @@ func TestBlazegraphCmd_help_select(t *testing.T) {
 
 		Performs a SPARQL query on the identified RDF dataset.
 
-		Usage: blazegraph query <flags>
+		Usage: blazegraph query [<flags>]
 
 		Flags:
 
@@ -201,7 +201,7 @@ func TestBlazegraphCmd_select_bad_flag(t *testing.T) {
 
 		flag provided but not defined: -not-a-flag
 
-		Usage: blazegraph query <flags>
+		Usage: blazegraph query [<flags>]
 
 		Flags:
 

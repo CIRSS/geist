@@ -143,7 +143,7 @@ func TestBlazegraphCmd_import_help(t *testing.T) {
 
 		Imports triples in the specified format into an RDF dataset.
 
-		Usage: blazegraph import <flags>
+		Usage: blazegraph import [<flags>]
 
 		Flags:
 
@@ -173,7 +173,7 @@ func TestBlazegraphCmd_help_import(t *testing.T) {
 
 		Imports triples in the specified format into an RDF dataset.
 
-		Usage: blazegraph import <flags>
+		Usage: blazegraph import [<flags>]
 
 		Flags:
 
@@ -203,7 +203,7 @@ func TestBlazegraphCmd_import_bad_flag(t *testing.T) {
 
 		flag provided but not defined: -not-a-flag
 
-		Usage: blazegraph import <flags>
+		Usage: blazegraph import [<flags>]
 
 		Flags:
 
