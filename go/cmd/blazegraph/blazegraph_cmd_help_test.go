@@ -17,18 +17,23 @@ func TestBlazegraphCmd_no_command(t *testing.T) {
 	util.LineContentsEqual(t, outputBuffer.String(), `
 		no blazegraph command given
 
-		Usage: blazegraph <command> [<args>]
+		Usage: blazegraph <command> [<flags>]
 
-		Available commands:
+		Commands:
 
-		help     - Show help
-		list     - List RDF datasets
 		create   - Create a new RDF dataset
 		destroy  - Delete an RDF dataset
 		export   - Export contents of a dataset
+		help     - Show help
 		import   - Import data into a dataset
-		report   - Expand a report using a dataset
+		list     - List RDF datasets
 		query    - Perform a SPARQL query on a dataset
+		report   - Expand a report using a dataset
+
+		Common flags:
+
+		-instance URL
+			  URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
 
 		See 'blazegraph help <command>' for help with one of the above commands.
 	`)
@@ -43,18 +48,23 @@ func TestBlazegraphCmd_help_command_with_no_argument(t *testing.T) {
 	run("blazegraph help")
 	util.LineContentsEqual(t, outputBuffer.String(), `
 
-		Usage: blazegraph <command> [<args>]
+		Usage: blazegraph <command> [<flags>]
 
-		Available commands:
+		Commands:
 
-		help     - Show help
-		list     - List RDF datasets
 		create   - Create a new RDF dataset
 		destroy  - Delete an RDF dataset
 		export   - Export contents of a dataset
+		help     - Show help
 		import   - Import data into a dataset
-		report   - Expand a report using a dataset
+		list     - List RDF datasets
 		query    - Perform a SPARQL query on a dataset
+		report   - Expand a report using a dataset
+
+		Common flags:
+
+		-instance URL
+			  URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
 
 		See 'blazegraph help <command>' for help with one of the above commands.
 	`)
@@ -70,18 +80,23 @@ func TestBlazegraphCmd_unsupported_command(t *testing.T) {
 	util.LineContentsEqual(t, outputBuffer.String(), `
 		not a blazegraph command: not-a-command
 
-		Usage: blazegraph <command> [<args>]
+		Usage: blazegraph <command> [<flags>]
 
-		Available commands:
+		Commands:
 
-		help     - Show help
-		list     - List RDF datasets
 		create   - Create a new RDF dataset
 		destroy  - Delete an RDF dataset
 		export   - Export contents of a dataset
+		help     - Show help
 		import   - Import data into a dataset
-		report   - Expand a report using a dataset
+		list     - List RDF datasets
 		query    - Perform a SPARQL query on a dataset
+		report   - Expand a report using a dataset
+
+		Common flags:
+
+		-instance URL
+			  URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
 
 		See 'blazegraph help <command>' for help with one of the above commands.
 	`)
@@ -97,19 +112,25 @@ func TestBlazegraphCmd_help_unsupported_command(t *testing.T) {
 	util.LineContentsEqual(t, outputBuffer.String(), `
 		not a blazegraph command: not-a-command
 
-		Usage: blazegraph <command> [<args>]
+		Usage: blazegraph <command> [<flags>]
 
-		Available commands:
+		Commands:
 
-		help     - Show help
-		list     - List RDF datasets
 		create   - Create a new RDF dataset
 		destroy  - Delete an RDF dataset
 		export   - Export contents of a dataset
+		help     - Show help
 		import   - Import data into a dataset
-		report   - Expand a report using a dataset
+		list     - List RDF datasets
 		query    - Perform a SPARQL query on a dataset
+		report   - Expand a report using a dataset
+
+		Common flags:
+
+		-instance URL
+			  URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
 
 		See 'blazegraph help <command>' for help with one of the above commands.
+
 	`)
 }

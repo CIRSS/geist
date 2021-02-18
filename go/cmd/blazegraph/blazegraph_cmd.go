@@ -47,9 +47,6 @@ var errorMessageWriter ErrorMessageWriter
 func init() {
 
 	commands = []*command{
-		{"help", handleHelpSubcommand, "Show help", ""},
-		{"list", handleListSubcommand, "List RDF datasets",
-			"Lists the names of the RDF datasets in the Blazegraph instance."},
 		{"create", handleCreateSubcommand, "Create a new RDF dataset",
 			"Creates an RDF dataset and corresponding Blazegraph namespace."},
 		{"destroy", handleDestroySubcommand, "Delete an RDF dataset",
@@ -57,12 +54,15 @@ func init() {
 				"in the dataset, and all triples in each of those graphs."},
 		{"export", handleExportSubcommand, "Export contents of a dataset",
 			"Exports all triples in an RDF dataset in the requested format."},
+		{"help", handleHelpSubcommand, "Show help", ""},
 		{"import", handleImportSubcommand, "Import data into a dataset",
 			"Imports triples in the specified format into an RDF dataset."},
-		{"report", handleReportSubcommand, "Expand a report using a dataset",
-			"Expands the provided report template using the identified RDF dataset."},
+		{"list", handleListSubcommand, "List RDF datasets",
+			"Lists the names of the RDF datasets in the Blazegraph instance."},
 		{"query", handleQuerySubcommand, "Perform a SPARQL query on a dataset",
 			"Performs a SPARQL query on the identified RDF dataset."},
+		{"report", handleReportSubcommand, "Expand a report using a dataset",
+			"Expands the provided report template using the identified RDF dataset."},
 	}
 
 	commandmap = make(map[string]*command)
@@ -76,23 +76,24 @@ func main() {
 
 	errorMessageWriter.errorStream = Main.ErrWriter
 
-	if len(os.Args) < 2 {
-		fmt.Fprint(Main.ErrWriter, "\nno blazegraph command given\n\n")
-		showProgramUsage()
-		return
-	}
-
 	flags := Main.InitFlagSet()
 	flags.Usage = func() {}
 	flags.SetOutput(errorMessageWriter)
 	options.url = flags.String("instance", blazegraph.DefaultUrl, "`URL` of Blazegraph instance")
+
+	if len(os.Args) < 2 {
+		fmt.Fprint(Main.ErrWriter, "\nno blazegraph command given\n\n")
+		showProgramUsage(flags)
+		return
+	}
+
 	command := os.Args[1]
 	arguments := os.Args[1:]
 	if c, exists := commandmap[command]; exists {
 		c.handler(arguments, flags)
 	} else {
 		fmt.Fprintf(Main.ErrWriter, "\nnot a blazegraph command: %s\n\n", command)
-		showProgramUsage()
+		showProgramUsage(flags)
 	}
 }
 

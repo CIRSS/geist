@@ -8,7 +8,7 @@ import (
 func handleHelpSubcommand(args []string, flags *flag.FlagSet) {
 	if len(args) < 2 {
 		fmt.Fprintln(Main.OutWriter)
-		showProgramUsage()
+		showProgramUsage(flags)
 		return
 	}
 	command := args[1]
@@ -19,16 +19,18 @@ func handleHelpSubcommand(args []string, flags *flag.FlagSet) {
 		c.handler([]string{command, "help"}, flags)
 	} else {
 		fmt.Fprintf(Main.ErrWriter, "\nnot a blazegraph command: %s\n\n", command)
-		showProgramUsage()
+		showProgramUsage(flags)
 	}
 }
 
-func showProgramUsage() {
-	fmt.Fprint(Main.OutWriter, "Usage: blazegraph <command> [<args>]\n\n")
-	fmt.Fprint(Main.OutWriter, "Available commands:\n\n")
+func showProgramUsage(flags *flag.FlagSet) {
+	fmt.Fprint(Main.OutWriter, "Usage: blazegraph <command> [<flags>]\n\n")
+	fmt.Fprint(Main.OutWriter, "Commands:\n\n")
 	for _, sc := range commands {
 		fmt.Fprintf(Main.OutWriter, "  %-7s  - %s\n", sc.name, sc.summary)
 	}
+	fmt.Fprint(Main.OutWriter, "\nCommon flags:\n")
+	flags.PrintDefaults()
 	fmt.Fprint(Main.OutWriter, "\nSee 'blazegraph help <command>' for help with one of the above commands.\n\n")
 	return
 }
