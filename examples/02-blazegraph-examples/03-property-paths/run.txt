@@ -87,7 +87,7 @@ blazegraph export --format nt | sort
 
 # WHICH PAPERS DIRECTLY CITE WHICH PAPERS?
 
-blazegraph select --format table << END_QUERY
+blazegraph query --format table << END_QUERY
 
     prefix c: <http://learningsparql.com/ns/citations#>
 
@@ -121,7 +121,7 @@ http://learningsparql.com/ns/papers#paperI | http://learningsparql.com/ns/papers
 
 # WHICH PAPERS DEPEND ON WHICH PRIOR WORK?
 
-blazegraph select --format table << END_QUERY
+blazegraph query --format table << END_QUERY
 
     prefix c: <http://learningsparql.com/ns/citations#>
 
@@ -162,7 +162,7 @@ http://learningsparql.com/ns/papers#paperI | http://learningsparql.com/ns/papers
 
 # WHICH PAPERS DEPEND ON PAPER A?
 
-blazegraph select --format table << END_QUERY
+blazegraph query --format table << END_QUERY
 
     prefix c: <http://learningsparql.com/ns/citations#>
     prefix : <http://learningsparql.com/ns/papers#>
@@ -193,7 +193,7 @@ http://learningsparql.com/ns/papers#paperI
 
 # WHICH PAPERS CITE A PAPER THAT CITES PAPER A?
 
-blazegraph select --format table << END_QUERY
+blazegraph query --format table << END_QUERY
 
     prefix c: <http://learningsparql.com/ns/citations#>
     prefix : <http://learningsparql.com/ns/papers#>
@@ -220,7 +220,7 @@ http://learningsparql.com/ns/papers#paperH
 
 # WHICH PAPERS CITE A PAPER CITED BY PAPER D?
 
-blazegraph select --format table << END_QUERY
+blazegraph query --format table << END_QUERY
 
     prefix c: <http://learningsparql.com/ns/citations#>
     prefix : <http://learningsparql.com/ns/papers#>
@@ -247,7 +247,7 @@ http://learningsparql.com/ns/papers#paperE
 
 # WHAT RESULTS DEPEND DIRECTLY ON RESULTS REPORTED BY PAPER A?
 
-blazegraph select --format table << END_QUERY
+blazegraph query --format table << END_QUERY
 
     prefix c: <http://learningsparql.com/ns/citations#>
     prefix : <http://learningsparql.com/ns/papers#>
@@ -273,7 +273,7 @@ http://learningsparql.com/ns/papers#resultE
 
 # WHAT RESULTS DEPEND DIRECTLY OR INDIRECTLY ON RESULTS REPORTED BY PAPER A?
 
-blazegraph select --format table << END_QUERY
+blazegraph query --format table << END_QUERY
 
     prefix c: <http://learningsparql.com/ns/citations#>
     prefix : <http://learningsparql.com/ns/papers#>

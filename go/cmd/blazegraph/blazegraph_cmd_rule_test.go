@@ -38,7 +38,7 @@ func TestBlazegraphCmd_static_macro_in_select(t *testing.T) {
 		ORDER BY ?o
 	`
 	Main.InReader = strings.NewReader(template)
-	run("blazegraph select --format table")
+	run("blazegraph query --format table")
 	util.LineContentsEqual(t, outputBuffer.String(), `
 		s                                   | o
 		=========================================================================
@@ -75,7 +75,7 @@ func TestBlazegraphCmd_included_static_macro_in_select(t *testing.T) {
 		ORDER BY ?o
 	`
 	Main.InReader = strings.NewReader(template)
-	run("blazegraph select --format table")
+	run("blazegraph query --format table")
 	util.LineContentsEqual(t, outputBuffer.String(), `
 		s                                   | o
 		=========================================================================
@@ -114,7 +114,7 @@ func TestBlazegraphCmd_dynamic_macro_in_select(t *testing.T) {
 		ORDER BY ?o
 	`
 	Main.InReader = strings.NewReader(template)
-	run("blazegraph select --format table")
+	run("blazegraph query --format table")
 	util.LineContentsEqual(t, outputBuffer.String(), `
 		s                                   | o
 		=========================================================================
@@ -151,7 +151,7 @@ func TestBlazegraphCmd_included_dynamic_macro_in_select(t *testing.T) {
 		ORDER BY ?o
 	`
 	Main.InReader = strings.NewReader(template)
-	run("blazegraph select --format table")
+	run("blazegraph query --format table")
 	util.LineContentsEqual(t, outputBuffer.String(), `
 		s                                   | o
 		=========================================================================
@@ -192,7 +192,7 @@ func TestBlazegraphCmd_rule_in_select(t *testing.T) {
 		ORDER BY ?o
 	`
 	Main.InReader = strings.NewReader(template)
-	run("blazegraph select --format table")
+	run("blazegraph query --format table")
 	util.LineContentsEqual(t, outputBuffer.String(), `
 		o
 		==
@@ -229,7 +229,7 @@ func TestBlazegraphCmd_included_rule_in_select(t *testing.T) {
 		ORDER BY ?o
 	`
 	Main.InReader = strings.NewReader(template)
-	run("blazegraph select --format table")
+	run("blazegraph query --format table")
 	util.LineContentsEqual(t, outputBuffer.String(), `
 		o
 		==

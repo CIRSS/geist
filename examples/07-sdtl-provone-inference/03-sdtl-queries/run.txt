@@ -291,7 +291,7 @@ blazegraph export --format nt | sort
 
 # WHAT COMMANDS ARE EXECUTED BY THE SCRIPT?
 
-blazegraph select --format table << __END_QUERY__
+blazegraph query --format table << __END_QUERY__
 
     PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
     PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -328,7 +328,7 @@ http://wholetale.org/program/1119/save/2    | 35          | temps.to_csv('output
 
 # WHAT DATA FILES ARE LOADED BY THE SCRIPT?
 
-blazegraph select --format table << __END_QUERY__
+blazegraph query --format table << __END_QUERY__
 
     PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
 
@@ -358,7 +358,7 @@ temps.csv | http://wholetale.org/program/1119/load/2 | 20          | temps = pd.
 
 # WHAT DATA FILES ARE SAVED BY THE SCRIPT?
 
-blazegraph select --format table << __END_QUERY__
+blazegraph query --format table << __END_QUERY__
 
     PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
 
@@ -388,7 +388,7 @@ temps_updated.csv | http://wholetale.org/program/1119/save/2 | 35          | tem
 
 # WHAT VARIABLES ARE LOADED BY THE SCRIPT?
 
-blazegraph select --format table << __END_QUERY__
+blazegraph query --format table << __END_QUERY__
 
     PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
 
@@ -422,7 +422,7 @@ Fahrenheit      | temps     | 20          | temps = pd.read_csv('../data/temps.c
 
 # WHAT VARIABLES ARE SAVED BY THE SCRIPT?
 
-blazegraph select --format table << __END_QUERY__
+blazegraph query --format table << __END_QUERY__
 
     PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
 
@@ -459,7 +459,7 @@ Kelvin         | temps     | 35          | temps.to_csv('outputs/temps_updated.c
 
 # WHAT COMMANDS UPDATE EACH DATAFRAME?
 
-blazegraph select --format table << __END_QUERY__
+blazegraph query --format table << __END_QUERY__
 
     PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
 
@@ -494,7 +494,7 @@ temps     | http://wholetale.org/program/1119/compute/5 | 28          | temps = 
 
 # WHAT COMMANDS UPDATE EACH VARIABLE?
 
-blazegraph select --format table << __END_QUERY__
+blazegraph query --format table << __END_QUERY__
 
     PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
 
@@ -527,7 +527,7 @@ Kelvin           | http://wholetale.org/program/1119/compute/5 | 28          | t
 
 # WHAT COMMANDS USE EACH VARIABLE?
 
-blazegraph select --format table << __END_QUERY__
+blazegraph query --format table << __END_QUERY__
 
     PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
 
@@ -560,7 +560,7 @@ Fahrenheit    | http://wholetale.org/program/1119/compute/4 | 24          | temp
 
 # WHAT VARIABLES WERE DIRECTLY AFFECTED BY OTHER VARIABLES?
 
-blazegraph select --format table << __END_QUERY__
+blazegraph query --format table << __END_QUERY__
 
     PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
 

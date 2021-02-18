@@ -26,7 +26,7 @@ END_SCRIPT
 
 bash ${RUNNER} Q1 "WHAT COMMANDS USE EACH VARIABLE?" << END_SCRIPT
 
-blazegraph select --format table << __END_QUERY__
+blazegraph query --format table << __END_QUERY__
 
     {{{
 
@@ -52,7 +52,7 @@ END_SCRIPT
 
 bash ${RUNNER} Q2 "WHAT VARIABLES DIRECTLY AFFECT OTHER VARIABLES?" << END_SCRIPT
 
-blazegraph select --format table << __END_QUERY__
+blazegraph query --format table << __END_QUERY__
 
     {{{
 
@@ -79,7 +79,7 @@ END_SCRIPT
 
 bash ${RUNNER} Q3 "WHAT VARIABLES DIRECTLY AFFECT THE KELVIN VARIABLE?" << END_SCRIPT
 
-blazegraph select --format table << __END_QUERY__
+blazegraph query --format table << __END_QUERY__
 
     {{{
 
@@ -106,7 +106,7 @@ END_SCRIPT
 
 bash ${RUNNER} Q4 "WHAT VARIABLES DIRECTLY AFFECT VARIABLES THAT DIRECTLY AFFECT THE KELVIN VARIABLE?" << END_SCRIPT
 
-blazegraph select --format table << __END_QUERY__
+blazegraph query --format table << __END_QUERY__
 
     {{{
 
@@ -137,7 +137,7 @@ END_SCRIPT
 
 bash ${RUNNER} Q5 "WHAT VARIABLES DIRECTLY OR INDIRECTLY AFFECT THE KELVIN VARIABLE?" << END_SCRIPT
 
-blazegraph select --format table << __END_QUERY__
+blazegraph query --format table << __END_QUERY__
 
     PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
 
@@ -157,7 +157,7 @@ END_SCRIPT
 
 bash ${RUNNER} Q6 "WHAT COMMANDS AFFECT EACH VARIABLE?" << END_SCRIPT
 
-blazegraph select --format table << __END_QUERY__
+blazegraph query --format table << __END_QUERY__
 
     {{{
 
@@ -191,7 +191,7 @@ END_SCRIPT
 
 bash ${RUNNER} Q7 "WHAT COMMANDS READ VARIABLE VALUES ASSIGNED BY OTHER COMMANDS?" << END_SCRIPT
 
-blazegraph select --format table << __END_QUERY__
+blazegraph query --format table << __END_QUERY__
 
     {{{
 

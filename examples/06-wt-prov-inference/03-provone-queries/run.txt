@@ -16,7 +16,7 @@ blazegraph import --format jsonld --file ../data/branched-pipeline.jsonld
 
 # WHAT DATA WAS USED AS INPUT BY THE PROCESS AS A WHOLE?
 
-blazegraph select --format table << __END_QUERY__
+blazegraph query --format table << __END_QUERY__
 
     PREFIX prov: <http://www.w3.org/ns/prov#>
     PREFIX provone: <http://purl.dataone.org/provone/2015/01/15/ontology#>

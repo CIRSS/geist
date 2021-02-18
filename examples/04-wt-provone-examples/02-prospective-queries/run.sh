@@ -17,7 +17,7 @@ END_SCRIPT
 bash ${RUNNER} RETROSPECTIVE-1 "WHAT FILES WERE PROVIDED AS INPUT TO THE TALE?" \
     << END_SCRIPT
 
-blazegraph select --format table << END_QUERY
+blazegraph query --format table << END_QUERY
 
     prefix prov: <http://www.w3.org/ns/prov#>
     prefix provone: <http://purl.dataone.org/provone/2015/01/15/ontology#>
@@ -40,7 +40,7 @@ END_SCRIPT
 bash ${RUNNER} RETROSPECTIVE-1 "WHAT FILES WERE PRODUCED AS OUTPUTS OF THE TALE?" \
     << END_SCRIPT
 
-blazegraph select --format table << END_QUERY
+blazegraph query --format table << END_QUERY
 
     prefix prov: <http://www.w3.org/ns/prov#>
     prefix provone: <http://purl.dataone.org/provone/2015/01/15/ontology#>

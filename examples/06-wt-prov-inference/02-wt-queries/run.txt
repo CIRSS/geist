@@ -16,7 +16,7 @@ blazegraph import --format jsonld --file ../data/branched-pipeline.jsonld
 
 # WHAT DATA FILES WERE USED AS INPUT BY THE TALE?
 
-blazegraph select --format table << __END_QUERY__
+blazegraph query --format table << __END_QUERY__
 
     PREFIX prov: <http://www.w3.org/ns/prov#>
     PREFIX provone: <http://purl.dataone.org/provone/2015/01/15/ontology#>
@@ -51,7 +51,7 @@ http://wholetale.org/tale/2035/version/1021/run/1119/ | ./inputs/i4.txt      | h
 
 # WHAT FILES WERE PRODUCED AS OUTPUTS OF THE TALE?
 
-blazegraph select --format table << __END_QUERY__
+blazegraph query --format table << __END_QUERY__
 
     PREFIX prov: <http://www.w3.org/ns/prov#>
     PREFIX provone: <http://purl.dataone.org/provone/2015/01/15/ontology#>

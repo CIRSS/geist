@@ -61,8 +61,8 @@ func init() {
 			"Imports triples in the specified format into an RDF dataset."},
 		{"report", handleReportSubcommand, "Expand a report using a dataset",
 			"Expands the provided report template using the identified RDF dataset."},
-		{"select", handleSelectSubcommand, "Perform a select query on a dataset",
-			"Performs a select query on the identified RDF dataset."},
+		{"query", handleQuerySubcommand, "Perform a SPARQL query on a dataset",
+			"Performs a SPARQL query on the identified RDF dataset."},
 	}
 
 	commandmap = make(map[string]*command)

@@ -13,8 +13,8 @@ func TestBlazegraphCmd_query_json(t *testing.T) {
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
 
-	run("blazegraph destroy --dateset kb")
-	run("blazegraph create --dateset kb")
+	run("blazegraph destroy --dataset kb")
+	run("blazegraph create --dataset kb")
 
 	Main.InReader = strings.NewReader(`
 		<http://tmcphill.net/data#y> <http://tmcphill.net/tags#tag> "eight" .
@@ -33,7 +33,7 @@ func TestBlazegraphCmd_query_json(t *testing.T) {
 	t.Run("json", func(t *testing.T) {
 		outputBuffer.Reset()
 		Main.InReader = strings.NewReader(query)
-		run("blazegraph select --format json")
+		run("blazegraph query --format json")
 		util.JSONEquals(t, outputBuffer.String(), `{
 			"head": { "vars": ["s", "o"] },
 			"results": { "bindings": [
@@ -52,7 +52,7 @@ func TestBlazegraphCmd_query_json(t *testing.T) {
 	t.Run("table-with-separators", func(t *testing.T) {
 		outputBuffer.Reset()
 		Main.InReader = strings.NewReader(query)
-		run("blazegraph select --format table")
+		run("blazegraph query --format table")
 		util.LineContentsEqual(t, outputBuffer.String(), `
 			s                          | o
 			==================================
@@ -65,7 +65,7 @@ func TestBlazegraphCmd_query_json(t *testing.T) {
 	t.Run("table-without-separators", func(t *testing.T) {
 		outputBuffer.Reset()
 		Main.InReader = strings.NewReader(query)
-		run("blazegraph select --format table --columnseparators=false")
+		run("blazegraph query --format table --columnseparators=false")
 		util.LineContentsEqual(t, outputBuffer.String(), `
 			s                            o
 			==================================
@@ -78,7 +78,7 @@ func TestBlazegraphCmd_query_json(t *testing.T) {
 	t.Run("xml", func(t *testing.T) {
 		outputBuffer.Reset()
 		Main.InReader = strings.NewReader(query)
-		run("blazegraph select --format xml")
+		run("blazegraph query --format xml")
 		util.LineContentsEqual(t, outputBuffer.String(), `
 			<?xml version='1.0' encoding='UTF-8'?>
             <sparql xmlns='http://www.w3.org/2005/sparql-results#'>
@@ -111,7 +111,7 @@ func TestBlazegraphCmd_query_json(t *testing.T) {
 	t.Run("csv", func(t *testing.T) {
 		outputBuffer.Reset()
 		Main.InReader = strings.NewReader(query)
-		run("blazegraph select --format csv")
+		run("blazegraph query --format csv")
 		util.LineContentsEqual(t, outputBuffer.String(), `
 			s,o
 			http://tmcphill.net/data#x,seven
@@ -125,12 +125,12 @@ func TestBlazegraphCmd_select_help(t *testing.T) {
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
 
-	run("blazegraph select help")
+	run("blazegraph query help")
 	util.LineContentsEqual(t, outputBuffer.String(), `
 
-		Performs a select query on the identified RDF dataset.
+		Performs a SPARQL query on the identified RDF dataset.
 
-		Usage: blazegraph select <flags>
+		Usage: blazegraph query <flags>
 
 		Flags:
 
@@ -144,7 +144,7 @@ func TestBlazegraphCmd_select_help(t *testing.T) {
 				Output query but do not execute it
 
 		-file string
-				File containing select query to execute (default "-")
+				File containing the SPARQL query to execute (default "-")
 
 		-format string
 				Format of result set to produce (default "json")
@@ -160,12 +160,12 @@ func TestBlazegraphCmd_help_select(t *testing.T) {
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
 
-	run("blazegraph help select")
+	run("blazegraph help query")
 	util.LineContentsEqual(t, outputBuffer.String(), `
 
-		Performs a select query on the identified RDF dataset.
+		Performs a SPARQL query on the identified RDF dataset.
 
-		Usage: blazegraph select <flags>
+		Usage: blazegraph query <flags>
 
 		Flags:
 
@@ -179,7 +179,7 @@ func TestBlazegraphCmd_help_select(t *testing.T) {
 				Output query but do not execute it
 
 		-file string
-				File containing select query to execute (default "-")
+				File containing the SPARQL query to execute (default "-")
 
 		-format string
 				Format of result set to produce (default "json")
@@ -196,12 +196,12 @@ func TestBlazegraphCmd_select_bad_flag(t *testing.T) {
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
 
-	run("blazegraph select --not-a-flag")
+	run("blazegraph query --not-a-flag")
 	util.LineContentsEqual(t, outputBuffer.String(), `
 
 		flag provided but not defined: -not-a-flag
 
-		Usage: blazegraph select <flags>
+		Usage: blazegraph query <flags>
 
 		Flags:
 
@@ -215,7 +215,7 @@ func TestBlazegraphCmd_select_bad_flag(t *testing.T) {
 				Output query but do not execute it
 
 		-file string
-				File containing select query to execute (default "-")
+				File containing the SPARQL query to execute (default "-")
 
 		-format string
 				Format of result set to produce (default "json")

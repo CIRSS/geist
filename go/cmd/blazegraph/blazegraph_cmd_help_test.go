@@ -28,7 +28,7 @@ func TestBlazegraphCmd_no_command(t *testing.T) {
 		export   - Export contents of a dataset
 		import   - Import data into a dataset
 		report   - Expand a report using a dataset
-		select   - Perform a select query on a dataset
+		query    - Perform a SPARQL query on a dataset
 
 		See 'blazegraph help <command>' for help with one of the above commands.
 	`)
@@ -54,7 +54,7 @@ func TestBlazegraphCmd_help_command_with_no_argument(t *testing.T) {
 		export   - Export contents of a dataset
 		import   - Import data into a dataset
 		report   - Expand a report using a dataset
-		select   - Perform a select query on a dataset
+		query    - Perform a SPARQL query on a dataset
 
 		See 'blazegraph help <command>' for help with one of the above commands.
 	`)
@@ -81,7 +81,7 @@ func TestBlazegraphCmd_unsupported_command(t *testing.T) {
 		export   - Export contents of a dataset
 		import   - Import data into a dataset
 		report   - Expand a report using a dataset
-		select   - Perform a select query on a dataset
+		query    - Perform a SPARQL query on a dataset
 
 		See 'blazegraph help <command>' for help with one of the above commands.
 	`)
@@ -108,7 +108,7 @@ func TestBlazegraphCmd_help_unsupported_command(t *testing.T) {
 		export   - Export contents of a dataset
 		import   - Import data into a dataset
 		report   - Expand a report using a dataset
-		select   - Perform a select query on a dataset
+		query    - Perform a SPARQL query on a dataset
 
 		See 'blazegraph help <command>' for help with one of the above commands.
 	`)

@@ -713,7 +713,7 @@ blazegraph export --format nt | sort
 
 # WHAT COMMANDS USE EACH VARIABLE?
 
-blazegraph select --format table << __END_QUERY__
+blazegraph query --format table << __END_QUERY__
 
     {{{
 
@@ -748,7 +748,7 @@ Fahrenheit    | http://wholetale.org/program/1119/compute/4 | 24          | temp
 
 # WHAT VARIABLES DIRECTLY AFFECT OTHER VARIABLES?
 
-blazegraph select --format table << __END_QUERY__
+blazegraph query --format table << __END_QUERY__
 
     {{{
 
@@ -784,7 +784,7 @@ Fahrenheit         | Celsius           | http://wholetale.org/program/1119/compu
 
 # WHAT VARIABLES DIRECTLY AFFECT THE KELVIN VARIABLE?
 
-blazegraph select --format table << __END_QUERY__
+blazegraph query --format table << __END_QUERY__
 
     {{{
 
@@ -816,7 +816,7 @@ Celsius            | http://wholetale.org/program/1119/compute/5 | 28          |
 
 # WHAT VARIABLES DIRECTLY AFFECT VARIABLES THAT DIRECTLY AFFECT THE KELVIN VARIABLE?
 
-blazegraph select --format table << __END_QUERY__
+blazegraph query --format table << __END_QUERY__
 
     {{{
 
@@ -852,7 +852,7 @@ Fahrenheit                    | http://wholetale.org/program/1119/compute/4 | 24
 
 # WHAT VARIABLES DIRECTLY OR INDIRECTLY AFFECT THE KELVIN VARIABLE?
 
-blazegraph select --format table << __END_QUERY__
+blazegraph query --format table << __END_QUERY__
 
     PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
 
@@ -878,7 +878,7 @@ Fahrenheit
 
 # WHAT COMMANDS AFFECT EACH VARIABLE?
 
-blazegraph select --format table << __END_QUERY__
+blazegraph query --format table << __END_QUERY__
 
     {{{
 
@@ -924,7 +924,7 @@ Kelvin            | http://wholetale.org/program/1119/compute/5 | 28          | 
 
 # WHAT COMMANDS READ VARIABLE VALUES ASSIGNED BY OTHER COMMANDS?
 
-blazegraph select --format table << __END_QUERY__
+blazegraph query --format table << __END_QUERY__
 
     {{{
 

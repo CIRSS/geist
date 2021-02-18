@@ -17,7 +17,7 @@ END_SCRIPT
 bash ${RUNNER} RETROSPECTIVE-1 "WHAT DATA FILES WERE USED AS INPUT BY THE TALE?" \
     << __END_SCRIPT__
 
-blazegraph select --format table << __END_QUERY__
+blazegraph query --format table << __END_QUERY__
 
     PREFIX prov: <http://www.w3.org/ns/prov#>
     PREFIX provone: <http://purl.dataone.org/provone/2015/01/15/ontology#>
@@ -46,7 +46,7 @@ __END_SCRIPT__
 bash ${RUNNER} RETROSPECTIVE-2 "WHAT FILES WERE PRODUCED AS OUTPUTS OF THE TALE?" \
     << __END_SCRIPT__
 
-blazegraph select --format table << __END_QUERY__
+blazegraph query --format table << __END_QUERY__
 
     PREFIX prov: <http://www.w3.org/ns/prov#>
     PREFIX provone: <http://purl.dataone.org/provone/2015/01/15/ontology#>
