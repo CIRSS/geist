@@ -3,8 +3,6 @@ package main
 import (
 	"flag"
 	"fmt"
-
-	"github.com/cirss/geist/blazegraph"
 )
 
 func handleExportSubcommand(args []string, flags *flag.FlagSet) {
@@ -22,7 +20,7 @@ func handleExportSubcommand(args []string, flags *flag.FlagSet) {
 }
 
 func doExport(format string, sorted bool) {
-	bc := blazegraph.NewBlazegraphClient(*options.url)
+	bc := context.blazegraphClient()
 	var err error
 	var triples string
 

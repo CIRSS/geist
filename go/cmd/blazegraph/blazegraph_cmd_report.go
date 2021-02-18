@@ -5,7 +5,6 @@ import (
 	"fmt"
 
 	"github.com/cirss/geist"
-	"github.com/cirss/geist/blazegraph"
 )
 
 func handleReportSubcommand(args []string, flags *flag.FlagSet) {
@@ -22,7 +21,7 @@ func handleReportSubcommand(args []string, flags *flag.FlagSet) {
 }
 
 func doReport(file string) {
-	bc := blazegraph.NewBlazegraphClient(*options.url)
+	bc := context.blazegraphClient()
 	reportTemplate, err := readFileOrStdin(file)
 	if err != nil {
 		fmt.Fprintf(Main.ErrWriter, err.Error())

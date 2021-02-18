@@ -26,7 +26,7 @@ func handleCreateSubcommand(args []string, flags *flag.FlagSet) {
 }
 
 func doCreate(name string, infer string) {
-	bc := blazegraph.NewBlazegraphClient(*options.url)
+	bc := context.blazegraphClient()
 	p := blazegraph.NewDatasetProperties(name)
 	p.Inference = infer
 	bc.CreateDataSet(p)

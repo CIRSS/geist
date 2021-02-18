@@ -25,9 +25,7 @@ func (emw ErrorMessageWriter) Write(p []byte) (n int, err error) {
 // for each execution so that main() can be called by multiple tests.
 var Main mw.MainWrapper
 
-var options struct {
-	url *string
-}
+var context BlazegraphContext
 
 func init() {
 	Main = mw.NewMainWrapper("blazegraph", main)
@@ -79,7 +77,7 @@ func main() {
 	flags := Main.InitFlagSet()
 	flags.Usage = func() {}
 	flags.SetOutput(errorMessageWriter)
-	options.url = flags.String("instance", blazegraph.DefaultUrl, "`URL` of Blazegraph instance")
+	context.instanceUrl = flags.String("instance", blazegraph.DefaultUrl, "`URL` of Blazegraph instance")
 
 	if len(os.Args) < 2 {
 		fmt.Fprint(Main.ErrWriter, "\nno blazegraph command given\n\n")
@@ -90,6 +88,9 @@ func main() {
 	command := os.Args[1]
 	arguments := os.Args[1:]
 	if c, exists := commandmap[command]; exists {
+		if command != "help" {
+			context.client = blazegraph.NewBlazegraphClient(*context.instanceUrl)
+		}
 		c.handler(arguments, flags)
 	} else {
 		fmt.Fprintf(Main.ErrWriter, "\nnot a blazegraph command: %s\n\n", command)

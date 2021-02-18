@@ -30,7 +30,7 @@ func handleDestroySubcommand(args []string, flags *flag.FlagSet) {
 }
 
 func doDestroyAll() {
-	bc := blazegraph.NewBlazegraphClient(*options.url)
+	bc := blazegraph.NewBlazegraphClient(*context.instanceUrl)
 	datasets, err := bc.ListDatasets()
 	if err == nil {
 		for _, dataset := range datasets {
@@ -40,6 +40,6 @@ func doDestroyAll() {
 }
 
 func doDestroy(name string) {
-	bc := blazegraph.NewBlazegraphClient(*options.url)
+	bc := context.blazegraphClient()
 	bc.DestroyDataSet(name)
 }

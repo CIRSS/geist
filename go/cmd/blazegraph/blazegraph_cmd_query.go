@@ -5,7 +5,6 @@ import (
 	"fmt"
 
 	"github.com/cirss/geist"
-	"github.com/cirss/geist/blazegraph"
 )
 
 func handleQuerySubcommand(args []string, flags *flag.FlagSet) {
@@ -25,8 +24,7 @@ func handleQuerySubcommand(args []string, flags *flag.FlagSet) {
 }
 
 func doSelectQuery(dryrun bool, file string, format string, columnSeparators bool) {
-
-	bc := blazegraph.NewBlazegraphClient(*options.url)
+	bc := context.blazegraphClient()
 	queryText, err := readFileOrStdin(file)
 	if err != nil {
 		fmt.Fprintf(Main.ErrWriter, err.Error())

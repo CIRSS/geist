@@ -3,8 +3,6 @@ package main
 import (
 	"flag"
 	"fmt"
-
-	"github.com/cirss/geist/blazegraph"
 )
 
 func handleImportSubcommand(args []string, flags *flag.FlagSet) {
@@ -22,7 +20,7 @@ func handleImportSubcommand(args []string, flags *flag.FlagSet) {
 }
 
 func doImport(file string, format string) {
-	bc := blazegraph.NewBlazegraphClient(*options.url)
+	bc := context.blazegraphClient()
 	data, err := readFileOrStdin(file)
 	if err != nil {
 		fmt.Fprintf(Main.ErrWriter, err.Error())

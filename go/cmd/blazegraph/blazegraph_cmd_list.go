@@ -3,8 +3,6 @@ package main
 import (
 	"flag"
 	"fmt"
-
-	"github.com/cirss/geist/blazegraph"
 )
 
 func handleListSubcommand(args []string, flags *flag.FlagSet) {
@@ -19,7 +17,7 @@ func handleListSubcommand(args []string, flags *flag.FlagSet) {
 }
 
 func doList() {
-	bc := blazegraph.NewBlazegraphClient(*options.url)
+	bc := context.blazegraphClient()
 	datasets, re := bc.ListDatasets()
 	if re != nil {
 		fmt.Fprintf(Main.ErrWriter, re.Error())
