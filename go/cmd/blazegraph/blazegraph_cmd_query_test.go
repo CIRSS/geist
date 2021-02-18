@@ -149,7 +149,7 @@ func TestBlazegraphCmd_select_help(t *testing.T) {
 		-format string
 				Format of result set to produce (default "json")
 
-		-url string
+		-instance URL
 				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
 	`)
 }
@@ -184,7 +184,7 @@ func TestBlazegraphCmd_help_select(t *testing.T) {
 		-format string
 				Format of result set to produce (default "json")
 
-		-url string
+		-instance URL
 				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
 
 	`)
@@ -220,7 +220,7 @@ func TestBlazegraphCmd_select_bad_flag(t *testing.T) {
 		-format string
 				Format of result set to produce (default "json")
 
-		-url string
+		-instance URL
 				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
 
 	`)

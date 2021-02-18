@@ -365,11 +365,11 @@ func TestBlazegraphCmd_export_help(t *testing.T) {
 		-format string
 				Format for doExported triples (default "nt")
 
+		-instance URL
+				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
+
 		-sort
 				Sort the exported triples if true
-
-		-url string
-				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
 
 	`)
 }
@@ -395,11 +395,11 @@ func TestBlazegraphCmd_help_export(t *testing.T) {
 		-format string
 				Format for doExported triples (default "nt")
 
+		-instance URL
+				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
+
 		-sort
 				Sort the exported triples if true
-
-		-url string
-				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
 
 	`)
 }
@@ -425,11 +425,11 @@ func TestBlazegraphCmd_export_bad_flag(t *testing.T) {
 		-format string
 				Format for doExported triples (default "nt")
 
+		-instance URL
+				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
+
 		-sort
 				Sort the exported triples if true
-
-		-url string
-				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
 
 	`)
 }

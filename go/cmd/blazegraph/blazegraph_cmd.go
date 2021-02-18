@@ -85,7 +85,7 @@ func main() {
 	flags := Main.InitFlagSet()
 	flags.Usage = func() {}
 	flags.SetOutput(errorMessageWriter)
-	options.url = flags.String("url", blazegraph.DefaultUrl, "URL of Blazegraph instance")
+	options.url = flags.String("instance", blazegraph.DefaultUrl, "`URL` of Blazegraph instance")
 	command := os.Args[1]
 	arguments := os.Args[1:]
 	if c, exists := commandmap[command]; exists {

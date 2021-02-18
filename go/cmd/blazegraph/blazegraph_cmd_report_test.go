@@ -677,7 +677,7 @@ func TestBlazegraphCmd_report_help(t *testing.T) {
 		-file string
 				File containing report template to expand (default "-")
 
-		-url string
+		-instance URL
 				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
 
 	`)
@@ -704,7 +704,7 @@ func TestBlazegraphCmd_help_report(t *testing.T) {
 		-file string
 				File containing report template to expand (default "-")
 
-		-url string
+		-instance URL
 				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
 
 	`)
@@ -731,7 +731,7 @@ func TestBlazegraphCmd_report_bad_flag(t *testing.T) {
 		-file string
 				File containing report template to expand (default "-")
 
-		-url string
+		-instance URL
 				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
 
 	`)

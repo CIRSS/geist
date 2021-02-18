@@ -28,7 +28,7 @@ func TestBlazegraphCmd_create_help(t *testing.T) {
 		-infer string
 				Inference to perform on update [none, rdfs, owl] (default "none")
 
-		-url string
+		-instance URL
 				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
 
 	`)
@@ -55,7 +55,7 @@ func TestBlazegraphCmd_help_create(t *testing.T) {
 		-infer string
 				Inference to perform on update [none, rdfs, owl] (default "none")
 
-		-url string
+		-instance URL
 				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
 
 	`)
@@ -94,7 +94,7 @@ func TestBlazegraphCmd_create_bad_flag(t *testing.T) {
 		-infer string
 				Inference to perform on update [none, rdfs, owl] (default "none")
 
-		-url string
+		-instance URL
 				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
 
 	`)
