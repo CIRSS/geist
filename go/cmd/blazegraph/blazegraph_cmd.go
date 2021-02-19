@@ -61,6 +61,9 @@ func init() {
 			"Performs a SPARQL query on the identified RDF dataset."},
 		{"report", handleReportSubcommand, "Expand a report using a dataset",
 			"Expands the provided report template using the identified RDF dataset."},
+		{"status", handleStatusSubcommand, "Check the status of the Blazegraph instance",
+			"Requests the status of the Blazegraph instance, optionally waiting until\n" +
+				"the instance is fully running. Returns status in JSON format."},
 	}
 
 	commandmap = make(map[string]*command)
@@ -88,9 +91,6 @@ func main() {
 	command := os.Args[1]
 	arguments := os.Args[1:]
 	if c, exists := commandmap[command]; exists {
-		if command != "help" {
-			context.client = blazegraph.NewBlazegraphClient(*context.instanceUrl)
-		}
 		c.handler(arguments, flags)
 	} else {
 		fmt.Fprintf(Main.ErrWriter, "\nnot a blazegraph command: %s\n\n", command)

@@ -29,6 +29,7 @@ func TestBlazegraphCmd_no_command(t *testing.T) {
 		list     - List RDF datasets
 		query    - Perform a SPARQL query on a dataset
 		report   - Expand a report using a dataset
+		status   - Check the status of the Blazegraph instance
 
 		Common flags:
 
@@ -60,6 +61,7 @@ func TestBlazegraphCmd_help_command_with_no_argument(t *testing.T) {
 		list     - List RDF datasets
 		query    - Perform a SPARQL query on a dataset
 		report   - Expand a report using a dataset
+		status   - Check the status of the Blazegraph instance
 
 		Common flags:
 
@@ -92,6 +94,7 @@ func TestBlazegraphCmd_unsupported_command(t *testing.T) {
 		list     - List RDF datasets
 		query    - Perform a SPARQL query on a dataset
 		report   - Expand a report using a dataset
+		status   - Check the status of the Blazegraph instance
 
 		Common flags:
 
@@ -124,6 +127,7 @@ func TestBlazegraphCmd_help_unsupported_command(t *testing.T) {
 		list     - List RDF datasets
 		query    - Perform a SPARQL query on a dataset
 		report   - Expand a report using a dataset
+		status   - Check the status of the Blazegraph instance
 
 		Common flags:
 

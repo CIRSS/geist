@@ -1,16 +1,28 @@
 package blazegraph
 
 import (
+	"encoding/json"
 	"io/ioutil"
 	"net/http"
 	"regexp"
 	"sort"
+	"strconv"
 	"text/template"
 
 	"github.com/cirss/geist"
 )
 
 var DefaultUrl = "http://127.0.0.1:9999/blazegraph"
+
+type Status struct {
+	InstanceUrl            string
+	SparqlEndpoint         string
+	BlazegraphBuildVersion string
+	QueryStartCount        int
+	RunningQueriesCount    int
+	QueryDoneCount         int
+	QueryErrorCount        int
+}
 
 type BlazegraphClient struct {
 	geist.SparqlClient
@@ -95,5 +107,37 @@ func (sc *BlazegraphClient) ListDatasets() (datasets []string, err error) {
 		datasets = append(datasets, element[1])
 	}
 	sort.Strings(datasets)
+	return
+}
+
+func ExtractStringUsingRegEx(s string, regex string) string {
+	re := regexp.MustCompile(regex)
+	submatch := re.FindStringSubmatch(s)
+	return submatch[1]
+}
+
+func ExtractIntUsingRegEx(s string, regex string) (value int, err error) {
+	re := regexp.MustCompile(regex)
+	submatch := re.FindStringSubmatch(s)
+	return strconv.Atoi(submatch[1])
+}
+
+func (sc *BlazegraphClient) GetStatus() (statusJSON string, err error) {
+	responseBody, err := sc.GetRequest(sc.Url+"/status",
+		"text/plain", "text/plain")
+	if err != nil {
+		return
+	}
+	statusString := string(responseBody)
+	status := Status{}
+	status.InstanceUrl = sc.Url
+	status.SparqlEndpoint = sc.SparqlEndpoint
+	status.BlazegraphBuildVersion = ExtractStringUsingRegEx(statusString, `span id="buildVersion">([0-9\.]+)</span`)
+	status.QueryStartCount, _ = ExtractIntUsingRegEx(statusString, `queryStartCount=([0-9]+)`)
+	status.RunningQueriesCount, _ = ExtractIntUsingRegEx(statusString, `runningQueriesCount=([0-9]+)`)
+	status.QueryDoneCount, _ = ExtractIntUsingRegEx(statusString, `queryDoneCount=([0-9]+)`)
+	status.QueryErrorCount, _ = ExtractIntUsingRegEx(statusString, `queryErrorCount=([0-9]+)`)
+	statusJSONBytes, err := json.MarshalIndent(status, "", "    ")
+	statusJSON = string(statusJSONBytes)
 	return
 }
