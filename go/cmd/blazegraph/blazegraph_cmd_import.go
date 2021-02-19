@@ -8,7 +8,7 @@ import (
 func handleImportSubcommand(args []string, flags *flag.FlagSet) {
 	flags.String("dataset", "kb", "`name` of RDF dataset to import triples into")
 	file := flags.String("file", "-", "File containing triples to import")
-	format := flags.String("format", "ttl", "Format of triples to import")
+	format := flags.String("format", "ttl", "Format of triples to import [jsonld, nt, ttl, or xml]")
 	if helpRequested(args, flags) {
 		return
 	}

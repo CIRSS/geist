@@ -363,7 +363,7 @@ func TestBlazegraphCmd_export_help(t *testing.T) {
 				name of RDF dataset to export (default "kb")
 
 		-format string
-				Format for doExported triples (default "nt")
+		    	Format for exported triples [jsonld, nt, ttl, or xml] (default "nt")
 
 		-instance URL
 				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
@@ -393,7 +393,7 @@ func TestBlazegraphCmd_help_export(t *testing.T) {
 				name of RDF dataset to export (default "kb")
 
 		-format string
-				Format for doExported triples (default "nt")
+		    	Format for exported triples [jsonld, nt, ttl, or xml] (default "nt")
 
 		-instance URL
 				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
@@ -423,7 +423,7 @@ func TestBlazegraphCmd_export_bad_flag(t *testing.T) {
 				name of RDF dataset to export (default "kb")
 
 		-format string
-				Format for doExported triples (default "nt")
+		    	Format for exported triples [jsonld, nt, ttl, or xml] (default "nt")
 
 		-instance URL
 				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")

@@ -147,7 +147,7 @@ func TestBlazegraphCmd_select_help(t *testing.T) {
 				File containing the SPARQL query to execute (default "-")
 
 		-format string
-				Format of result set to produce (default "json")
+			Format of result set to produce [csv, json, table, or xml] (default "json")
 
 		-instance URL
 				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
@@ -182,7 +182,7 @@ func TestBlazegraphCmd_help_select(t *testing.T) {
 				File containing the SPARQL query to execute (default "-")
 
 		-format string
-				Format of result set to produce (default "json")
+				Format of result set to produce [csv, json, table, or xml] (default "json")
 
 		-instance URL
 				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
@@ -218,7 +218,7 @@ func TestBlazegraphCmd_select_bad_flag(t *testing.T) {
 				File containing the SPARQL query to execute (default "-")
 
 		-format string
-				Format of result set to produce (default "json")
+				Format of result set to produce [csv, json, table, or xml] (default "json")
 
 		-instance URL
 				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")

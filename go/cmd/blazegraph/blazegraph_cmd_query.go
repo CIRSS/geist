@@ -11,7 +11,7 @@ func handleQuerySubcommand(args []string, flags *flag.FlagSet) {
 	flags.String("dataset", "kb", "`name` of RDF dataset to query")
 	dryrun := flags.Bool("dryrun", false, "Output query but do not execute it")
 	file := flags.String("file", "-", "File containing the SPARQL query to execute")
-	format := flags.String("format", "json", "Format of result set to produce")
+	format := flags.String("format", "json", "Format of result set to produce [csv, json, table, or xml]")
 	separators := flags.Bool("columnseparators", true, "Display column separators in table format")
 	if helpRequested(args, flags) {
 		return

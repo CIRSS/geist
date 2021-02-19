@@ -154,7 +154,7 @@ func TestBlazegraphCmd_import_help(t *testing.T) {
 				File containing triples to import (default "-")
 
 		-format string
-				Format of triples to import (default "ttl")
+				Format of triples to import [jsonld, nt, ttl, or xml] (default "ttl")
 
 		-instance URL
 				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
@@ -184,7 +184,7 @@ func TestBlazegraphCmd_help_import(t *testing.T) {
 				File containing triples to import (default "-")
 
 		-format string
-				Format of triples to import (default "ttl")
+				Format of triples to import [jsonld, nt, ttl, or xml] (default "ttl")
 
 		-instance URL
 				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
@@ -214,7 +214,7 @@ func TestBlazegraphCmd_import_bad_flag(t *testing.T) {
 				File containing triples to import (default "-")
 
 		-format string
-				Format of triples to import (default "ttl")
+				Format of triples to import [jsonld, nt, ttl, or xml] (default "ttl")
 
 		-instance URL
 				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
