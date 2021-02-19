@@ -6,6 +6,7 @@ import (
 )
 
 func handleListSubcommand(args []string, flags *flag.FlagSet) {
+	count := flags.String("count", "none", "Include count of triples in each dataset [none, estimate, exact]")
 	if helpRequested(args, flags) {
 		return
 	}
@@ -13,10 +14,10 @@ func handleListSubcommand(args []string, flags *flag.FlagSet) {
 		showCommandUsage(args, flags)
 		return
 	}
-	doList()
+	doList(*count)
 }
 
-func doList() {
+func doList(count string) {
 	bc := context.blazegraphClient()
 	datasets, re := bc.ListDatasets()
 	if re != nil {
@@ -24,6 +25,11 @@ func doList() {
 		return
 	}
 	for _, dataset := range datasets {
-		fmt.Fprintln(Main.OutWriter, dataset)
+		if count == "none" {
+			fmt.Fprintf(Main.OutWriter, "%s\n", dataset)
+		} else {
+			count, _ := bc.CountTriples(dataset, false)
+			fmt.Fprintf(Main.OutWriter, "%-10s %d\n", dataset, count)
+		}
 	}
 }

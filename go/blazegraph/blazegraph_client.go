@@ -100,7 +100,7 @@ func (sc *BlazegraphClient) ListDatasets() (datasets []string, err error) {
 	if err != nil {
 		return
 	}
-	//	fmt.Println(string(responseBody))
+	// fmt.Println(string(responseBody))
 	re := regexp.MustCompile(`Namespace> "([^"]+)"`)
 	submatchall := re.FindAllStringSubmatch(string(responseBody), -1)
 	for _, element := range submatchall {
@@ -139,5 +139,19 @@ func (sc *BlazegraphClient) GetStatus() (statusJSON string, err error) {
 	status.QueryErrorCount, _ = ExtractIntUsingRegEx(statusString, `queryErrorCount=([0-9]+)`)
 	statusJSONBytes, err := json.MarshalIndent(status, "", "    ")
 	statusJSON = string(statusJSONBytes)
+	return
+}
+
+func (sc *BlazegraphClient) SparqlEndpointForDataset(dataset string) string {
+	return sc.NamespaceEndpoint + "/" + dataset + "/sparql"
+}
+
+func (sc *BlazegraphClient) CountTriples(dataset string, exact bool) (count int, err error) {
+	responseBody, err := sc.GetRequest(sc.SparqlEndpointForDataset(dataset)+"?ESTCARD",
+		"text/plain", "application/xml")
+	if err != nil {
+		return
+	}
+	count, err = ExtractIntUsingRegEx(string(responseBody), `rangeCount="([0-9]+)"`)
 	return
 }

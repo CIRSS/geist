@@ -63,6 +63,7 @@ func TestBlazegraphCmd_list_custom_datasets(t *testing.T) {
 		foo
 	`)
 }
+
 func TestBlazegraphCmd_list_help(t *testing.T) {
 
 	var outputBuffer strings.Builder
@@ -77,6 +78,9 @@ func TestBlazegraphCmd_list_help(t *testing.T) {
 		Usage: blazegraph list [<flags>]
 
 		Flags:
+
+		-count string
+				Include count of triples in each dataset [none, estimate, exact] (default "none")
 
 		-instance URL
 				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
@@ -99,6 +103,9 @@ func TestBlazegraphCmd_help_list(t *testing.T) {
 
 	Flags:
 
+	-count string
+			Include count of triples in each dataset [none, estimate, exact] (default "none")
+
 	-instance URL
 			URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
 
@@ -119,6 +126,9 @@ func TestBlazegraphCmd_list_bad_flag(t *testing.T) {
 		Usage: blazegraph list [<flags>]
 
 		Flags:
+
+		-count string
+				Include count of triples in each dataset [none, estimate, exact] (default "none")
 
 		-instance URL
 				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
