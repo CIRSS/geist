@@ -13,7 +13,7 @@ func TestBlazegraphCmd_destroy_help(t *testing.T) {
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
 
-	run("blazegraph destroy help")
+	assertExitCode(t, "blazegraph destroy help", 0)
 	util.LineContentsEqual(t, outputBuffer.String(), `
 
 		Deletes an RDF dataset and corresponding Blazegraph namespace, all RDF graphs
@@ -41,7 +41,7 @@ func TestBlazegraphCmd_help_destroy(t *testing.T) {
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
 
-	run("blazegraph help destroy")
+	assertExitCode(t, "blazegraph help destroy", 0)
 	util.LineContentsEqual(t, outputBuffer.String(), `
 
 		Deletes an RDF dataset and corresponding Blazegraph namespace, all RDF graphs
@@ -69,7 +69,7 @@ func TestBlazegraphCmd_destroy_no_dataset_argument(t *testing.T) {
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
 
-	run("blazegraph destroy -dataset")
+	assertExitCode(t, "blazegraph destroy -dataset", 1)
 	util.LineContentsEqual(t, outputBuffer.String(), `
 
 		flag needs an argument: -dataset
@@ -96,7 +96,7 @@ func TestBlazegraphCmd_destroy_bad_flag(t *testing.T) {
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
 
-	run("blazegraph destroy --not-a-flag")
+	assertExitCode(t, "blazegraph destroy --not-a-flag", 1)
 	util.LineContentsEqual(t, outputBuffer.String(), `
 
 		flag provided but not defined: -not-a-flag
