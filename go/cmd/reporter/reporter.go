@@ -5,7 +5,7 @@ import (
 	"os"
 	"text/template"
 
-	"github.com/tmcphillips/main-wrapper/mw"
+	"github.com/cirss/geist/mw"
 )
 
 // MW wraps the main() function.  It enables tests to manipulate the

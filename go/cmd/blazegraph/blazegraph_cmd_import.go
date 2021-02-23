@@ -5,21 +5,21 @@ import (
 	"fmt"
 )
 
-func handleImportSubcommand(args []string, flags *flag.FlagSet) {
+func handleImportSubcommand(args []string, flags *flag.FlagSet) (err error) {
 	flags.String("dataset", "kb", "`name` of RDF dataset to import triples into")
 	file := flags.String("file", "-", "File containing triples to import")
 	format := flags.String("format", "ttl", "Format of triples to import [jsonld, nt, ttl, or xml]")
 	if helpRequested(args, flags) {
 		return
 	}
-	if err := flags.Parse(args[1:]); err != nil {
+	if err = flags.Parse(args[1:]); err != nil {
 		showCommandUsage(args, flags)
 		return
 	}
-	doImport(*file, *format)
+	return doImport(*file, *format)
 }
 
-func doImport(file string, format string) {
+func doImport(file string, format string) (err error) {
 	bc := context.blazegraphClient()
 	data, err := readFileOrStdin(file)
 	if err != nil {
@@ -44,6 +44,6 @@ func doImport(file string, format string) {
 
 	if err != nil {
 		fmt.Fprintf(Main.ErrWriter, err.Error())
-		return
 	}
+	return
 }

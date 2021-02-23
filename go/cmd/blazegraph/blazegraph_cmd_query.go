@@ -7,7 +7,7 @@ import (
 	"github.com/cirss/geist"
 )
 
-func handleQuerySubcommand(args []string, flags *flag.FlagSet) {
+func handleQuerySubcommand(args []string, flags *flag.FlagSet) (err error) {
 	flags.String("dataset", "kb", "`name` of RDF dataset to query")
 	dryrun := flags.Bool("dryrun", false, "Output query but do not execute it")
 	file := flags.String("file", "-", "File containing the SPARQL query to execute")
@@ -16,14 +16,14 @@ func handleQuerySubcommand(args []string, flags *flag.FlagSet) {
 	if helpRequested(args, flags) {
 		return
 	}
-	if err := flags.Parse(args[1:]); err != nil {
+	if err = flags.Parse(args[1:]); err != nil {
 		showCommandUsage(args, flags)
 		return
 	}
-	doSelectQuery(*dryrun, *file, *format, *separators)
+	return doSelectQuery(*dryrun, *file, *format, *separators)
 }
 
-func doSelectQuery(dryrun bool, file string, format string, columnSeparators bool) {
+func doSelectQuery(dryrun bool, file string, format string, columnSeparators bool) (err error) {
 	bc := context.blazegraphClient()
 	queryText, err := readFileOrStdin(file)
 	if err != nil {
@@ -63,7 +63,8 @@ func doSelectQuery(dryrun bool, file string, format string, columnSeparators boo
 		return
 
 	case "json":
-		rs, err := bc.Select(string(q))
+		rs, e := bc.Select(string(q))
+		err = e
 		if err != nil {
 			break
 		}
@@ -72,7 +73,8 @@ func doSelectQuery(dryrun bool, file string, format string, columnSeparators boo
 		return
 
 	case "table":
-		rs, err := bc.Select(string(q))
+		rs, e := bc.Select(string(q))
+		err = e
 		if err != nil {
 			break
 		}
@@ -81,7 +83,8 @@ func doSelectQuery(dryrun bool, file string, format string, columnSeparators boo
 		return
 
 	case "xml":
-		resultXML, err := bc.SelectXML(string(q))
+		resultXML, e := bc.SelectXML(string(q))
+		err = e
 		if err != nil {
 			break
 		}
@@ -91,7 +94,8 @@ func doSelectQuery(dryrun bool, file string, format string, columnSeparators boo
 
 	if err != nil {
 		fmt.Fprintf(Main.ErrWriter, err.Error())
-		return
 	}
+
+	return
 
 }

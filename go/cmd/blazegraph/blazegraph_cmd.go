@@ -8,7 +8,7 @@ import (
 	"os"
 
 	"github.com/cirss/geist/blazegraph"
-	"github.com/tmcphillips/main-wrapper/mw"
+	"github.com/cirss/geist/mw"
 )
 
 type ErrorMessageWriter struct {
@@ -33,7 +33,7 @@ func init() {
 
 type command struct {
 	name        string
-	handler     func(args []string, flags *flag.FlagSet)
+	handler     func(args []string, flags *flag.FlagSet) (err error)
 	summary     string
 	description string
 }
@@ -65,7 +65,6 @@ func init() {
 			"Requests the status of the Blazegraph instance, optionally waiting until\n" +
 				"the instance is fully running. Returns status in JSON format."},
 	}
-
 	commandmap = make(map[string]*command)
 
 	for _, command := range commands {

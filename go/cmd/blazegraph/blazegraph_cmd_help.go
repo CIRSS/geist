@@ -5,7 +5,7 @@ import (
 	"fmt"
 )
 
-func handleHelpSubcommand(args []string, flags *flag.FlagSet) {
+func handleHelpSubcommand(args []string, flags *flag.FlagSet) (err error) {
 	if len(args) < 2 {
 		fmt.Fprintln(Main.OutWriter)
 		showProgramUsage(flags)
@@ -21,6 +21,7 @@ func handleHelpSubcommand(args []string, flags *flag.FlagSet) {
 		fmt.Fprintf(Main.ErrWriter, "\nnot a blazegraph command: %s\n\n", command)
 		showProgramUsage(flags)
 	}
+	return
 }
 
 func showProgramUsage(flags *flag.FlagSet) {

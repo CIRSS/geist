@@ -7,13 +7,13 @@ import (
 	"github.com/cirss/geist/blazegraph"
 )
 
-func handleDestroySubcommand(args []string, flags *flag.FlagSet) {
+func handleDestroySubcommand(args []string, flags *flag.FlagSet) (err error) {
 	dataset := flags.String("dataset", "kb", "`name` of RDF dataset to destroy")
 	all := flags.Bool("all", false, "destroy ALL datasets in the Blazegraph instance")
 	if helpRequested(args, flags) {
 		return
 	}
-	if err := flags.Parse(args[1:]); err != nil {
+	if err = flags.Parse(args[1:]); err != nil {
 		showCommandUsage(args, flags)
 		return
 	}
@@ -23,23 +23,30 @@ func handleDestroySubcommand(args []string, flags *flag.FlagSet) {
 		return
 	}
 	if *all {
-		doDestroyAll()
+		return doDestroyAll()
 	} else {
-		doDestroy(*dataset)
+		return doDestroy(*dataset)
 	}
+	return
 }
 
-func doDestroyAll() {
+func doDestroyAll() (err error) {
 	bc := blazegraph.NewBlazegraphClient(*context.instanceUrl)
 	datasets, err := bc.ListDatasets()
-	if err == nil {
-		for _, dataset := range datasets {
-			bc.DestroyDataSet(dataset)
+	if err != nil {
+		return
+	}
+	for _, dataset := range datasets {
+		_, err = bc.DestroyDataSet(dataset)
+		if err != nil {
+			return
 		}
 	}
+	return
 }
 
-func doDestroy(name string) {
+func doDestroy(name string) (err error) {
 	bc := context.blazegraphClient()
-	bc.DestroyDataSet(name)
+	_, err = bc.DestroyDataSet(name)
+	return
 }
