@@ -84,16 +84,25 @@ func main() {
 	if len(os.Args) < 2 {
 		fmt.Fprint(Main.ErrWriter, "\nno blazegraph command given\n\n")
 		showProgramUsage(flags)
+		Main.ExitIfNonzero(1)
 		return
 	}
 
-	command := os.Args[1]
+	subcommand := os.Args[1]
 	arguments := os.Args[1:]
-	if c, exists := commandmap[command]; exists {
-		c.handler(arguments, flags)
-	} else {
-		fmt.Fprintf(Main.ErrWriter, "\nnot a blazegraph command: %s\n\n", command)
+
+	c, exists := commandmap[subcommand]
+	if !exists {
+		fmt.Fprintf(Main.ErrWriter, "\nnot a blazegraph command: %s\n\n", subcommand)
 		showProgramUsage(flags)
+		Main.ExitIfNonzero(1)
+		return
+	}
+
+	err := c.handler(arguments, flags)
+	if err != nil {
+		Main.ExitIfNonzero(1)
+		return
 	}
 }
 

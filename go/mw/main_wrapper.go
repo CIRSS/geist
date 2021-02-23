@@ -16,6 +16,8 @@ type MainWrapper struct {
 	InReader  io.Reader
 	OutWriter io.Writer
 	ErrWriter io.Writer
+	ExitCode  int
+	TestMode  bool
 }
 
 // NewMainWrapper creates and initilizes an instance
@@ -39,7 +41,15 @@ func (mw *MainWrapper) InitFlagSet() *flag.FlagSet {
 
 // Run invokes the wrapped main() function after
 // instantiating a new FlagSet.
-func (mw *MainWrapper) Run() {
+func (mw *MainWrapper) Run() int {
+	mw.TestMode = true
 	mw.mainFunc()
-	return
+	return mw.ExitCode
+}
+
+func (mw *MainWrapper) ExitIfNonzero(code int) {
+	mw.ExitCode = code
+	if !mw.TestMode {
+		os.Exit(code)
+	}
 }

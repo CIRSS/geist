@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"flag"
 	"fmt"
 )
@@ -20,6 +21,7 @@ func handleHelpSubcommand(args []string, flags *flag.FlagSet) (err error) {
 	} else {
 		fmt.Fprintf(Main.ErrWriter, "\nnot a blazegraph command: %s\n\n", command)
 		showProgramUsage(flags)
+		err = errors.New("Not a blazegraph command")
 	}
 	return
 }

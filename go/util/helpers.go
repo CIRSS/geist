@@ -2,6 +2,7 @@ package util
 
 import (
 	"encoding/json"
+	"fmt"
 	"strings"
 	"testing"
 
@@ -13,6 +14,13 @@ func canonicalJSON(jsonString string) (string, error) {
 	json.Unmarshal([]byte(jsonString), &originalJSON)
 	canonicalJSONString, err := jcs.Format(originalJSON)
 	return canonicalJSONString, err
+}
+
+func IntEquals(t *testing.T, actual int, expected int) {
+	if actual != expected {
+		t.Log(fmt.Sprintf("IntEquals:\n\nexpected:\n%d\nactual:\n%d\n", expected, actual))
+		t.FailNow()
+	}
 }
 
 func StringEquals(t *testing.T, actual string, expected string) {

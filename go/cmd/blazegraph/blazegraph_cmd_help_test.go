@@ -13,7 +13,8 @@ func TestBlazegraphCmd_no_command(t *testing.T) {
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
 
-	run("blazegraph")
+	assertExitCode(t, "blazegraph", 1)
+
 	util.LineContentsEqual(t, outputBuffer.String(), `
 		no blazegraph command given
 
@@ -46,7 +47,8 @@ func TestBlazegraphCmd_help_command_with_no_argument(t *testing.T) {
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
 
-	run("blazegraph help")
+	assertExitCode(t, "blazegraph help", 0)
+
 	util.LineContentsEqual(t, outputBuffer.String(), `
 
 		Usage: blazegraph <command> [<flags>]
@@ -78,7 +80,8 @@ func TestBlazegraphCmd_unsupported_command(t *testing.T) {
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
 
-	run("blazegraph not-a-command")
+	assertExitCode(t, "blazegraph not-a-command", 1)
+
 	util.LineContentsEqual(t, outputBuffer.String(), `
 		not a blazegraph command: not-a-command
 
@@ -111,7 +114,8 @@ func TestBlazegraphCmd_help_unsupported_command(t *testing.T) {
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
 
-	run("blazegraph help not-a-command")
+	assertExitCode(t, "blazegraph help not-a-command", 1)
+
 	util.LineContentsEqual(t, outputBuffer.String(), `
 		not a blazegraph command: not-a-command
 
