@@ -1,23 +1,22 @@
 package main
 
 import (
-	"flag"
 	"fmt"
 )
 
-func handleStatusSubcommand(args []string, flags *flag.FlagSet) (err error) {
-	if helpRequested(args, flags) {
+func handleStatusSubcommand(cc *BGCommandContext) (err error) {
+	if helpRequested(cc) {
 		return
 	}
-	if err = flags.Parse(args[1:]); err != nil {
-		showCommandUsage(args, flags)
+	if err = cc.flags.Parse(cc.args[1:]); err != nil {
+		showCommandUsage(cc)
 		return
 	}
-	return doStatus()
+	return doStatus(cc)
 }
 
-func doStatus() (err error) {
-	bc := context.blazegraphClient()
+func doStatus(cc *BGCommandContext) (err error) {
+	bc := cc.BlazegraphClient()
 	status, err := bc.GetStatus()
 	if err != nil {
 		fmt.Fprintf(Main.ErrWriter, err.Error())

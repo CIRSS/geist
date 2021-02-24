@@ -1,26 +1,25 @@
 package main
 
 import (
-	"flag"
 	"fmt"
 )
 
-func handleExportSubcommand(args []string, flags *flag.FlagSet) (err error) {
-	flags.String("dataset", "kb", "`name` of RDF dataset to export")
-	format := flags.String("format", "nt", "Format for exported triples [jsonld, nt, ttl, or xml]")
-	sort := flags.Bool("sort", false, "Sort the exported triples if true")
-	if helpRequested(args, flags) {
+func handleExportSubcommand(cc *BGCommandContext) (err error) {
+	cc.flags.String("dataset", "kb", "`name` of RDF dataset to export")
+	format := cc.flags.String("format", "nt", "Format for exported triples [jsonld, nt, ttl, or xml]")
+	sort := cc.flags.Bool("sort", false, "Sort the exported triples if true")
+	if helpRequested(cc) {
 		return
 	}
-	if err = flags.Parse(args[1:]); err != nil {
-		showCommandUsage(args, flags)
+	if err = cc.flags.Parse(cc.args[1:]); err != nil {
+		showCommandUsage(cc)
 		return
 	}
-	return doExport(*format, *sort)
+	return doExport(cc, *format, *sort)
 }
 
-func doExport(format string, sorted bool) (err error) {
-	bc := context.blazegraphClient()
+func doExport(cc *BGCommandContext, format string, sorted bool) (err error) {
+	bc := cc.BlazegraphClient()
 	var triples string
 
 	switch format {

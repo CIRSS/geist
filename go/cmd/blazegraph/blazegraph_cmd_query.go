@@ -1,30 +1,29 @@
 package main
 
 import (
-	"flag"
 	"fmt"
 
 	"github.com/cirss/geist"
 )
 
-func handleQuerySubcommand(args []string, flags *flag.FlagSet) (err error) {
-	flags.String("dataset", "kb", "`name` of RDF dataset to query")
-	dryrun := flags.Bool("dryrun", false, "Output query but do not execute it")
-	file := flags.String("file", "-", "File containing the SPARQL query to execute")
-	format := flags.String("format", "json", "Format of result set to produce [csv, json, table, or xml]")
-	separators := flags.Bool("columnseparators", true, "Display column separators in table format")
-	if helpRequested(args, flags) {
+func handleQuerySubcommand(cc *BGCommandContext) (err error) {
+	cc.flags.String("dataset", "kb", "`name` of RDF dataset to query")
+	dryrun := cc.flags.Bool("dryrun", false, "Output query but do not execute it")
+	file := cc.flags.String("file", "-", "File containing the SPARQL query to execute")
+	format := cc.flags.String("format", "json", "Format of result set to produce [csv, json, table, or xml]")
+	separators := cc.flags.Bool("columnseparators", true, "Display column separators in table format")
+	if helpRequested(cc) {
 		return
 	}
-	if err = flags.Parse(args[1:]); err != nil {
-		showCommandUsage(args, flags)
+	if err = cc.flags.Parse(cc.args[1:]); err != nil {
+		showCommandUsage(cc)
 		return
 	}
-	return doSelectQuery(*dryrun, *file, *format, *separators)
+	return doSelectQuery(cc, *dryrun, *file, *format, *separators)
 }
 
-func doSelectQuery(dryrun bool, file string, format string, columnSeparators bool) (err error) {
-	bc := context.blazegraphClient()
+func doSelectQuery(cc *BGCommandContext, dryrun bool, file string, format string, columnSeparators bool) (err error) {
+	bc := cc.BlazegraphClient()
 	queryText, err := readFileOrStdin(file)
 	if err != nil {
 		fmt.Fprintf(Main.ErrWriter, err.Error())

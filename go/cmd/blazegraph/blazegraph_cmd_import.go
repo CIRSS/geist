@@ -1,26 +1,25 @@
 package main
 
 import (
-	"flag"
 	"fmt"
 )
 
-func handleImportSubcommand(args []string, flags *flag.FlagSet) (err error) {
-	flags.String("dataset", "kb", "`name` of RDF dataset to import triples into")
-	file := flags.String("file", "-", "File containing triples to import")
-	format := flags.String("format", "ttl", "Format of triples to import [jsonld, nt, ttl, or xml]")
-	if helpRequested(args, flags) {
+func handleImportSubcommand(cc *BGCommandContext) (err error) {
+	cc.flags.String("dataset", "kb", "`name` of RDF dataset to import triples into")
+	file := cc.flags.String("file", "-", "File containing triples to import")
+	format := cc.flags.String("format", "ttl", "Format of triples to import [jsonld, nt, ttl, or xml]")
+	if helpRequested(cc) {
 		return
 	}
-	if err = flags.Parse(args[1:]); err != nil {
-		showCommandUsage(args, flags)
+	if err = cc.flags.Parse(cc.args[1:]); err != nil {
+		showCommandUsage(cc)
 		return
 	}
-	return doImport(*file, *format)
+	return doImport(cc, *file, *format)
 }
 
-func doImport(file string, format string) (err error) {
-	bc := context.blazegraphClient()
+func doImport(cc *BGCommandContext, file string, format string) (err error) {
+	bc := cc.BlazegraphClient()
 	data, err := readFileOrStdin(file)
 	if err != nil {
 		fmt.Fprintf(Main.ErrWriter, err.Error())

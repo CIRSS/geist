@@ -1,27 +1,26 @@
 package main
 
 import (
-	"flag"
 	"fmt"
 
 	"github.com/cirss/geist"
 )
 
-func handleReportSubcommand(args []string, flags *flag.FlagSet) (err error) {
-	flags.String("dataset", "", "`name` of RDF dataset to create report from")
-	file := flags.String("file", "-", "File containing report template to expand")
-	if helpRequested(args, flags) {
+func handleReportSubcommand(cc *BGCommandContext) (err error) {
+	cc.flags.String("dataset", "", "`name` of RDF dataset to create report from")
+	file := cc.flags.String("file", "-", "File containing report template to expand")
+	if helpRequested(cc) {
 		return
 	}
-	if err = flags.Parse(args[1:]); err != nil {
-		showCommandUsage(args, flags)
+	if err = cc.flags.Parse(cc.args[1:]); err != nil {
+		showCommandUsage(cc)
 		return
 	}
-	return doReport(*file)
+	return doReport(cc, *file)
 }
 
-func doReport(file string) (err error) {
-	bc := context.blazegraphClient()
+func doReport(cc *BGCommandContext, file string) (err error) {
+	bc := cc.BlazegraphClient()
 	reportTemplate, err := readFileOrStdin(file)
 	if err != nil {
 		fmt.Fprintf(Main.ErrWriter, err.Error())

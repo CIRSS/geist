@@ -1,24 +1,23 @@
 package main
 
 import (
-	"flag"
 	"fmt"
 )
 
-func handleListSubcommand(args []string, flags *flag.FlagSet) (err error) {
-	count := flags.String("count", "none", "Include count of triples in each dataset [none, estimate, exact]")
-	if helpRequested(args, flags) {
+func handleListSubcommand(cc *BGCommandContext) (err error) {
+	count := cc.flags.String("count", "none", "Include count of triples in each dataset [none, estimate, exact]")
+	if helpRequested(cc) {
 		return
 	}
-	if err = flags.Parse(args[1:]); err != nil {
-		showCommandUsage(args, flags)
+	if err = cc.flags.Parse(cc.args[1:]); err != nil {
+		showCommandUsage(cc)
 		return
 	}
-	return doList(*count)
+	return doList(cc, *count)
 }
 
-func doList(count string) (err error) {
-	bc := context.blazegraphClient()
+func doList(cc *BGCommandContext, count string) (err error) {
+	bc := cc.BlazegraphClient()
 	datasets, err := bc.ListDatasets()
 	if err != nil {
 		fmt.Fprintf(Main.ErrWriter, err.Error())

@@ -6,21 +6,22 @@ import (
 	"fmt"
 )
 
-func handleHelpSubcommand(args []string, flags *flag.FlagSet) (err error) {
-	if len(args) < 2 {
+func handleHelpSubcommand(cc *BGCommandContext) (err error) {
+	if len(cc.args) < 2 {
 		fmt.Fprintln(Main.OutWriter)
-		showProgramUsage(flags)
+		showProgramUsage(cc.flags)
 		return
 	}
-	command := args[1]
+	command := cc.args[1]
 	if command == "help" {
 		return
 	}
 	if c, exists := commandmap[command]; exists {
-		c.handler([]string{command, "help"}, flags)
+		cc.args = []string{command, "help"}
+		c.handler(cc)
 	} else {
 		fmt.Fprintf(Main.ErrWriter, "\nnot a blazegraph command: %s\n\n", command)
-		showProgramUsage(flags)
+		showProgramUsage(cc.flags)
 		err = errors.New("Not a blazegraph command")
 	}
 	return
@@ -38,10 +39,10 @@ func showProgramUsage(flags *flag.FlagSet) {
 	return
 }
 
-func helpRequested(args []string, flags *flag.FlagSet) bool {
-	if len(args) > 1 && args[1] == "help" {
-		showCommandDescription(commandmap[args[0]])
-		showCommandUsage(args, flags)
+func helpRequested(cc *BGCommandContext) bool {
+	if len(cc.args) > 1 && cc.args[1] == "help" {
+		showCommandDescription(commandmap[cc.args[0]])
+		showCommandUsage(cc)
 		return true
 	}
 	return false
@@ -51,9 +52,9 @@ func showCommandDescription(c *command) {
 	fmt.Fprintf(Main.OutWriter, "\n%s\n", c.description)
 }
 
-func showCommandUsage(args []string, flags *flag.FlagSet) {
-	fmt.Fprintf(Main.OutWriter, "\nUsage: blazegraph %s [<flags>]\n\n", args[0])
+func showCommandUsage(cc *BGCommandContext) {
+	fmt.Fprintf(Main.OutWriter, "\nUsage: blazegraph %s [<flags>]\n\n", cc.args[0])
 	fmt.Fprint(Main.OutWriter, "Flags:\n")
-	flags.PrintDefaults()
+	cc.flags.PrintDefaults()
 	fmt.Fprintln(Main.OutWriter)
 }

@@ -1,7 +1,6 @@
 package main
 
 import (
-	"flag"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -25,15 +24,13 @@ func (emw ErrorMessageWriter) Write(p []byte) (n int, err error) {
 // for each execution so that main() can be called by multiple tests.
 var Main mw.MainWrapper
 
-var context BlazegraphContext
-
 func init() {
 	Main = mw.NewMainWrapper("blazegraph", main)
 }
 
 type command struct {
 	name        string
-	handler     func(args []string, flags *flag.FlagSet) (err error)
+	handler     func(c *BGCommandContext) (err error)
 	summary     string
 	description string
 }
@@ -79,7 +76,10 @@ func main() {
 	flags := Main.InitFlagSet()
 	flags.Usage = func() {}
 	flags.SetOutput(errorMessageWriter)
-	context.instanceUrl = flags.String("instance", blazegraph.DefaultUrl, "`URL` of Blazegraph instance")
+
+	cc := new(BGCommandContext)
+
+	cc.instanceUrl = flags.String("instance", blazegraph.DefaultUrl, "`URL` of Blazegraph instance")
 
 	if len(os.Args) < 2 {
 		fmt.Fprint(Main.ErrWriter, "\nno blazegraph command given\n\n")
@@ -89,7 +89,8 @@ func main() {
 	}
 
 	subcommand := os.Args[1]
-	arguments := os.Args[1:]
+	cc.args = os.Args[1:]
+	cc.flags = flags
 
 	c, exists := commandmap[subcommand]
 	if !exists {
@@ -99,7 +100,7 @@ func main() {
 		return
 	}
 
-	err := c.handler(arguments, flags)
+	err := c.handler(cc)
 	if err != nil {
 		Main.ExitIfNonzero(1)
 		return
