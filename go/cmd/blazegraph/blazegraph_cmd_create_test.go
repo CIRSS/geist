@@ -13,7 +13,8 @@ func TestBlazegraphCmd_create_help(t *testing.T) {
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
 
-	run("blazegraph create help")
+	assertExitCode(t, "blazegraph create help", 0)
+
 	util.LineContentsEqual(t, outputBuffer.String(), `
 
 		Creates an RDF dataset and corresponding Blazegraph namespace.
@@ -40,7 +41,8 @@ func TestBlazegraphCmd_help_create(t *testing.T) {
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
 
-	run("blazegraph help create")
+	assertExitCode(t, "blazegraph help create", 0)
+
 	util.LineContentsEqual(t, outputBuffer.String(), `
 
 		Creates an RDF dataset and corresponding Blazegraph namespace.
@@ -79,7 +81,8 @@ func TestBlazegraphCmd_create_bad_flag(t *testing.T) {
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
 
-	run("blazegraph create --not-a-flag")
+	assertExitCode(t, "blazegraph create --not-a-flag", 1)
+
 	util.LineContentsEqual(t, outputBuffer.String(), `
 
 		flag provided but not defined: -not-a-flag

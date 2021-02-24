@@ -20,6 +20,7 @@ func TestBlazegraphCmd_query_json(t *testing.T) {
 		<http://tmcphill.net/data#y> <http://tmcphill.net/tags#tag> "eight" .
 		<http://tmcphill.net/data#x> <http://tmcphill.net/tags#tag> "seven" .
 	`)
+
 	run("blazegraph import --format ttl")
 
 	query := `
@@ -33,7 +34,7 @@ func TestBlazegraphCmd_query_json(t *testing.T) {
 	t.Run("json", func(t *testing.T) {
 		outputBuffer.Reset()
 		Main.InReader = strings.NewReader(query)
-		run("blazegraph query --format json")
+		assertExitCode(t, "blazegraph query --format json", 0)
 		util.JSONEquals(t, outputBuffer.String(), `{
 			"head": { "vars": ["s", "o"] },
 			"results": { "bindings": [
@@ -52,7 +53,7 @@ func TestBlazegraphCmd_query_json(t *testing.T) {
 	t.Run("table-with-separators", func(t *testing.T) {
 		outputBuffer.Reset()
 		Main.InReader = strings.NewReader(query)
-		run("blazegraph query --format table")
+		assertExitCode(t, "blazegraph query --format table", 0)
 		util.LineContentsEqual(t, outputBuffer.String(), `
 			s                          | o
 			==================================
@@ -65,7 +66,7 @@ func TestBlazegraphCmd_query_json(t *testing.T) {
 	t.Run("table-without-separators", func(t *testing.T) {
 		outputBuffer.Reset()
 		Main.InReader = strings.NewReader(query)
-		run("blazegraph query --format table --columnseparators=false")
+		assertExitCode(t, "blazegraph query --format table --columnseparators=false", 0)
 		util.LineContentsEqual(t, outputBuffer.String(), `
 			s                            o
 			==================================
@@ -78,7 +79,7 @@ func TestBlazegraphCmd_query_json(t *testing.T) {
 	t.Run("xml", func(t *testing.T) {
 		outputBuffer.Reset()
 		Main.InReader = strings.NewReader(query)
-		run("blazegraph query --format xml")
+		assertExitCode(t, "blazegraph query --format xml", 0)
 		util.LineContentsEqual(t, outputBuffer.String(), `
 			<?xml version='1.0' encoding='UTF-8'?>
             <sparql xmlns='http://www.w3.org/2005/sparql-results#'>
@@ -111,7 +112,7 @@ func TestBlazegraphCmd_query_json(t *testing.T) {
 	t.Run("csv", func(t *testing.T) {
 		outputBuffer.Reset()
 		Main.InReader = strings.NewReader(query)
-		run("blazegraph query --format csv")
+		assertExitCode(t, "blazegraph query --format csv", 0)
 		util.LineContentsEqual(t, outputBuffer.String(), `
 			s,o
 			http://tmcphill.net/data#x,seven
@@ -125,7 +126,7 @@ func TestBlazegraphCmd_select_help(t *testing.T) {
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
 
-	run("blazegraph query help")
+	assertExitCode(t, "blazegraph query help", 0)
 	util.LineContentsEqual(t, outputBuffer.String(), `
 
 		Performs a SPARQL query on the identified RDF dataset.
@@ -160,7 +161,8 @@ func TestBlazegraphCmd_help_select(t *testing.T) {
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
 
-	run("blazegraph help query")
+	assertExitCode(t, "blazegraph help query", 0)
+
 	util.LineContentsEqual(t, outputBuffer.String(), `
 
 		Performs a SPARQL query on the identified RDF dataset.
@@ -196,7 +198,8 @@ func TestBlazegraphCmd_select_bad_flag(t *testing.T) {
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
 
-	run("blazegraph query --not-a-flag")
+	assertExitCode(t, "blazegraph query --not-a-flag", 1)
+
 	util.LineContentsEqual(t, outputBuffer.String(), `
 
 		flag provided but not defined: -not-a-flag

@@ -22,7 +22,8 @@ func TestBlazegraphCmd_import_two_triples(t *testing.T) {
 			<http://tmcphill.net/data#x> <http://tmcphill.net/tags#tag> "seven" .
 			<http://tmcphill.net/data#y> <http://tmcphill.net/tags#tag> "eight" .
 		`)
-		run("blazegraph import --format nt")
+
+		assertExitCode(t, "blazegraph import --format nt", 0)
 
 		outputBuffer.Reset()
 		run("blazegraph export --format nt --sort=true")
@@ -44,7 +45,8 @@ func TestBlazegraphCmd_import_two_triples(t *testing.T) {
 			data:y tags:tag "eight" .
 			data:x tags:tag "seven" .
 		`)
-		run("blazegraph import --format ttl")
+
+		assertExitCode(t, "blazegraph import --format ttl", 0)
 
 		outputBuffer.Reset()
 		run("blazegraph export --format nt --sort=true")
@@ -71,7 +73,8 @@ func TestBlazegraphCmd_import_two_triples(t *testing.T) {
 				}
 			]
 		`)
-		run("blazegraph import --format jsonld")
+
+		assertExitCode(t, "blazegraph import --format jsonld", 0)
 
 		outputBuffer.Reset()
 		run("blazegraph export --format nt --sort=true")
@@ -93,7 +96,8 @@ func TestBlazegraphCmd_import_two_triples(t *testing.T) {
 			data:y tags:tag "eight" .
 			data:x tags:tag "seven" .
 		`)
-		run("blazegraph import --format ttl")
+
+		assertExitCode(t, "blazegraph import --format ttl", 0)
 
 		outputBuffer.Reset()
 		run("blazegraph export --format nt --sort=true")
@@ -121,7 +125,8 @@ func TestBlazegraphCmd_import_two_triples(t *testing.T) {
 
 			</rdf:RDF>
 		`)
-		run("blazegraph import --format xml")
+
+		assertExitCode(t, "blazegraph import --format xml", 0)
 
 		outputBuffer.Reset()
 		run("blazegraph export --format nt --sort=true")
@@ -138,7 +143,8 @@ func TestBlazegraphCmd_import_help(t *testing.T) {
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
 
-	run("blazegraph import help")
+	assertExitCode(t, "blazegraph import help", 0)
+
 	util.LineContentsEqual(t, outputBuffer.String(), `
 
 		Imports triples in the specified format into an RDF dataset.
@@ -168,7 +174,8 @@ func TestBlazegraphCmd_help_import(t *testing.T) {
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
 
-	run("blazegraph help import")
+	assertExitCode(t, "blazegraph help import", 0)
+
 	util.LineContentsEqual(t, outputBuffer.String(), `
 
 		Imports triples in the specified format into an RDF dataset.
@@ -198,7 +205,8 @@ func TestBlazegraphCmd_import_bad_flag(t *testing.T) {
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
 
-	run("blazegraph import --not-a-flag")
+	assertExitCode(t, "blazegraph import --not-a-flag", 1)
+
 	util.LineContentsEqual(t, outputBuffer.String(), `
 
 		flag provided but not defined: -not-a-flag

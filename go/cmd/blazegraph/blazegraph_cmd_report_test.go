@@ -17,7 +17,7 @@ func TestBlazegraphCmd_report_static_content(t *testing.T) {
 		outputBuffer.Reset()
 		template := `A constant template.`
 		Main.InReader = strings.NewReader(template)
-		run("blazegraph report")
+		assertExitCode(t, "blazegraph report", 0)
 		util.LineContentsEqual(t, outputBuffer.String(), `
 			A constant template.
 		`)
@@ -29,7 +29,7 @@ func TestBlazegraphCmd_report_static_content(t *testing.T) {
 			A constant template with % symbol
 		`
 		Main.InReader = strings.NewReader(template)
-		run("blazegraph report")
+		assertExitCode(t, "blazegraph report", 0)
 		util.LineContentsEqual(t, outputBuffer.String(), `
 			A constant template with % symbol
 		`)
@@ -41,7 +41,7 @@ func TestBlazegraphCmd_report_static_content(t *testing.T) {
 			"A constant template"
 		`
 		Main.InReader = strings.NewReader(template)
-		run("blazegraph report")
+		assertExitCode(t, "blazegraph report", 0)
 		util.LineContentsEqual(t, outputBuffer.String(), `
 			"A constant template"
 		`)
@@ -53,7 +53,7 @@ func TestBlazegraphCmd_report_static_content(t *testing.T) {
 			"A constant template with % symbol"
 		`
 		Main.InReader = strings.NewReader(template)
-		run("blazegraph report")
+		assertExitCode(t, "blazegraph report", 0)
 		util.LineContentsEqual(t, outputBuffer.String(), `
 			"A constant template with % symbol"
 		`)
@@ -65,7 +65,7 @@ func TestBlazegraphCmd_report_static_content(t *testing.T) {
 			{{up "A constant template"}}
 		`
 		Main.InReader = strings.NewReader(template)
-		run("blazegraph report")
+		assertExitCode(t, "blazegraph report", 0)
 		util.LineContentsEqual(t, outputBuffer.String(), `
 			A CONSTANT TEMPLATE
 		`)
@@ -77,7 +77,7 @@ func TestBlazegraphCmd_report_static_content(t *testing.T) {
 			{{up '''A constant template'''}}
 		`
 		Main.InReader = strings.NewReader(template)
-		run("blazegraph report")
+		assertExitCode(t, "blazegraph report", 0)
 		util.LineContentsEqual(t, outputBuffer.String(), `
 			A CONSTANT TEMPLATE
 		`)
@@ -89,7 +89,7 @@ func TestBlazegraphCmd_report_static_content(t *testing.T) {
 			{{up '''A 'constant' template'''}}
 		`
 		Main.InReader = strings.NewReader(template)
-		run("blazegraph report")
+		assertExitCode(t, "blazegraph report", 0)
 		util.LineContentsEqual(t, outputBuffer.String(), `
 			A 'CONSTANT' TEMPLATE
 		`)
@@ -102,7 +102,7 @@ func TestBlazegraphCmd_report_static_content(t *testing.T) {
 				template'''}}
 		`
 		Main.InReader = strings.NewReader(template)
-		run("blazegraph report")
+		assertExitCode(t, "blazegraph report", 0)
 		util.LineContentsEqual(t, outputBuffer.String(), `
 			A CONSTANT
 			TEMPLATE
@@ -116,7 +116,7 @@ func TestBlazegraphCmd_report_static_content(t *testing.T) {
 				template'''}}
 		`
 		Main.InReader = strings.NewReader(template)
-		run("blazegraph report")
+		assertExitCode(t, "blazegraph report", 0)
 		util.LineContentsEqual(t, outputBuffer.String(), `
 			A "CONSTANT"
 			TEMPLATE
@@ -153,7 +153,7 @@ func TestBlazegraphCmd_report_two_triples(t *testing.T) {
 				''' | tabulate}}
 		`
 		Main.InReader = strings.NewReader(template)
-		run("blazegraph report")
+		assertExitCode(t, "blazegraph report", 0)
 		util.LineContentsEqual(t, outputBuffer.String(), `
 			Example select query with tabular output in report
 
@@ -178,7 +178,7 @@ func TestBlazegraphCmd_report_two_triples(t *testing.T) {
 					''')}}{{ tabulate $tags}}{{end}}
 			`
 		Main.InReader = strings.NewReader(template)
-		run("blazegraph report")
+		assertExitCode(t, "blazegraph report", 0)
 		util.LineContentsEqual(t, outputBuffer.String(), `
 				Example select query with tabular output in report
 
@@ -203,7 +203,7 @@ func TestBlazegraphCmd_report_two_triples(t *testing.T) {
 					''')}} {{tabulate .}} {{end}}
 			`
 		Main.InReader = strings.NewReader(template)
-		run("blazegraph report")
+		assertExitCode(t, "blazegraph report", 0)
 		util.LineContentsEqual(t, outputBuffer.String(), `
 				Example select query with tabular output in report
 
@@ -236,7 +236,7 @@ func TestBlazegraphCmd_report_two_triples(t *testing.T) {
 				{{end}}
 			`
 		Main.InReader = strings.NewReader(template)
-		run("blazegraph report")
+		assertExitCode(t, "blazegraph report", 0)
 		util.LineContentsEqual(t, outputBuffer.String(), `
 				Example select query with tabular output in report
 
@@ -295,7 +295,9 @@ func TestBlazegraphCmd_report_multiple_queries(t *testing.T) {
 
 `
 	Main.InReader = strings.NewReader(template)
-	run("blazegraph report")
+
+	assertExitCode(t, "blazegraph report", 0)
+
 	util.LineContentsEqual(t, outputBuffer.String(), `
 		o
 		====
@@ -348,7 +350,9 @@ func TestBlazegraphCmd_report_macros(t *testing.T) {
 
 `
 	Main.InReader = strings.NewReader(template)
-	run("blazegraph report")
+
+	assertExitCode(t, "blazegraph report", 0)
+
 	util.LineContentsEqual(t, outputBuffer.String(), `
 		o
 		====
@@ -400,7 +404,9 @@ func TestBlazegraphCmd_report_subqueries(t *testing.T) {
 		{{ end }}											\
 	`
 	Main.InReader = strings.NewReader(template)
-	run("blazegraph report")
+
+	assertExitCode(t, "blazegraph report", 0)
+
 	util.LineContentsEqual(t, outputBuffer.String(), `
 		o
 		====
@@ -441,7 +447,9 @@ func TestBlazegraphCmd_report_address_book(t *testing.T) {
 			{{end}}
 		`
 		Main.InReader = strings.NewReader(template)
-		run("blazegraph report")
+
+		assertExitCode(t, "blazegraph report", 0)
+
 		util.LineContentsEqual(t, outputBuffer.String(), `
 			Craig's email addresses
 			=======================
@@ -478,7 +486,9 @@ func TestBlazegraphCmd_report_address_book_imports(t *testing.T) {
 			{{end}}															\
 		`
 		Main.InReader = strings.NewReader(template)
-		run("blazegraph report")
+
+		assertExitCode(t, "blazegraph report", 0)
+
 		util.LineContentsEqual(t, outputBuffer.String(), `
 			Craig's email addresses
 			=======================
@@ -529,7 +539,9 @@ func TestBlazegraphCmd_report_subquery_functions(t *testing.T) {
 		{{ end }}											\
 	`
 	Main.InReader = strings.NewReader(template)
-	run("blazegraph report")
+
+	assertExitCode(t, "blazegraph report", 0)
+
 	util.LineContentsEqual(t, outputBuffer.String(), `
 		o
 		====
@@ -587,7 +599,9 @@ func TestBlazegraphCmd_report_macro_functions(t *testing.T) {
 
 `
 	Main.InReader = strings.NewReader(template)
-	run("blazegraph report")
+
+	assertExitCode(t, "blazegraph report", 0)
+
 	util.LineContentsEqual(t, outputBuffer.String(), `
 		o
 		====
@@ -644,7 +658,9 @@ func TestBlazegraphCmd_report_macro_calls_query(t *testing.T) {
 
 `
 	Main.InReader = strings.NewReader(template)
-	run("blazegraph report")
+
+	assertExitCode(t, "blazegraph report", 0)
+
 	util.LineContentsEqual(t, outputBuffer.String(), `
 		tag
 		====
@@ -662,7 +678,8 @@ func TestBlazegraphCmd_report_help(t *testing.T) {
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
 
-	run("blazegraph report help")
+	assertExitCode(t, "blazegraph report help", 0)
+
 	util.LineContentsEqual(t, outputBuffer.String(), `
 
 		Expands the provided report template using the identified RDF dataset.
@@ -689,7 +706,8 @@ func TestBlazegraphCmd_help_report(t *testing.T) {
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
 
-	run("blazegraph help report")
+	assertExitCode(t, "blazegraph help report", 0)
+
 	util.LineContentsEqual(t, outputBuffer.String(), `
 
 		Expands the provided report template using the identified RDF dataset.
@@ -716,7 +734,8 @@ func TestBlazegraphCmd_report_bad_flag(t *testing.T) {
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
 
-	run("blazegraph report --not-a-flag")
+	assertExitCode(t, "blazegraph report --not-a-flag", 1)
+
 	util.LineContentsEqual(t, outputBuffer.String(), `
 
 		flag provided but not defined: -not-a-flag

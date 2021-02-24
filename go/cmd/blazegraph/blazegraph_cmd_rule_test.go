@@ -38,7 +38,7 @@ func TestBlazegraphCmd_static_macro_in_select(t *testing.T) {
 		ORDER BY ?o
 	`
 	Main.InReader = strings.NewReader(template)
-	run("blazegraph query --format table")
+	assertExitCode(t, "blazegraph query --format table", 0)
 	util.LineContentsEqual(t, outputBuffer.String(), `
 		s                                   | o
 		=========================================================================
@@ -75,7 +75,7 @@ func TestBlazegraphCmd_included_static_macro_in_select(t *testing.T) {
 		ORDER BY ?o
 	`
 	Main.InReader = strings.NewReader(template)
-	run("blazegraph query --format table")
+	assertExitCode(t, "blazegraph query --format table", 0)
 	util.LineContentsEqual(t, outputBuffer.String(), `
 		s                                   | o
 		=========================================================================
@@ -114,7 +114,7 @@ func TestBlazegraphCmd_dynamic_macro_in_select(t *testing.T) {
 		ORDER BY ?o
 	`
 	Main.InReader = strings.NewReader(template)
-	run("blazegraph query --format table")
+	assertExitCode(t, "blazegraph query --format table", 0)
 	util.LineContentsEqual(t, outputBuffer.String(), `
 		s                                   | o
 		=========================================================================
@@ -151,7 +151,7 @@ func TestBlazegraphCmd_included_dynamic_macro_in_select(t *testing.T) {
 		ORDER BY ?o
 	`
 	Main.InReader = strings.NewReader(template)
-	run("blazegraph query --format table")
+	assertExitCode(t, "blazegraph query --format table", 0)
 	util.LineContentsEqual(t, outputBuffer.String(), `
 		s                                   | o
 		=========================================================================
@@ -192,7 +192,7 @@ func TestBlazegraphCmd_rule_in_select(t *testing.T) {
 		ORDER BY ?o
 	`
 	Main.InReader = strings.NewReader(template)
-	run("blazegraph query --format table")
+	assertExitCode(t, "blazegraph query --format table", 0)
 	util.LineContentsEqual(t, outputBuffer.String(), `
 		o
 		==
@@ -229,7 +229,7 @@ func TestBlazegraphCmd_included_rule_in_select(t *testing.T) {
 		ORDER BY ?o
 	`
 	Main.InReader = strings.NewReader(template)
-	run("blazegraph query --format table")
+	assertExitCode(t, "blazegraph query --format table", 0)
 	util.LineContentsEqual(t, outputBuffer.String(), `
 		o
 		==
@@ -272,7 +272,7 @@ func TestBlazegraphCmd_rule_in_select_in_report(t *testing.T) {
 		''' | value }}
 	`
 	Main.InReader = strings.NewReader(template)
-	run("blazegraph report")
+	assertExitCode(t, "blazegraph report", 0)
 	util.LineContentsEqual(t, outputBuffer.String(), `
 		baz
 	`)
@@ -315,7 +315,7 @@ func TestBlazegraphCmd_rule_in_query(t *testing.T) {
 		{{ select_foo_bar_baz ":x" | value }}
 `
 	Main.InReader = strings.NewReader(template)
-	run("blazegraph report")
+	assertExitCode(t, "blazegraph report", 0)
 	util.LineContentsEqual(t, outputBuffer.String(), `
 		baz
 	`)
@@ -363,7 +363,7 @@ func TestBlazegraphCmd_rule_in_rule(t *testing.T) {
 		{{ foo_bar_baz_query ":x" | tabulate }}
 `
 	Main.InReader = strings.NewReader(template)
-	run("blazegraph report")
+	assertExitCode(t, "blazegraph report", 0)
 	util.LineContentsEqual(t, outputBuffer.String(), `
 		s                                   | o
 		=========================================
@@ -418,7 +418,7 @@ func TestBlazegraphCmd_rule_in_query_called_by_macro(t *testing.T) {
 
 `
 	Main.InReader = strings.NewReader(template)
-	run("blazegraph report")
+	assertExitCode(t, "blazegraph report", 0)
 	util.LineContentsEqual(t, outputBuffer.String(), `
 		tag
 		====

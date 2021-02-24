@@ -14,6 +14,7 @@ func TestBlazegraphCmd_destroy_help(t *testing.T) {
 	Main.ErrWriter = &outputBuffer
 
 	assertExitCode(t, "blazegraph destroy help", 0)
+
 	util.LineContentsEqual(t, outputBuffer.String(), `
 
 		Deletes an RDF dataset and corresponding Blazegraph namespace, all RDF graphs

@@ -15,7 +15,7 @@ func TestBlazegraphCmd_status(t *testing.T) {
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
 
-	run("blazegraph status")
+	assertExitCode(t, "blazegraph status", 0)
 
 	var status blazegraph.Status
 	err := json.Unmarshal([]byte(outputBuffer.String()), &status)
@@ -34,7 +34,8 @@ func TestBlazegraphCmd_status_help(t *testing.T) {
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
 
-	run("blazegraph status help")
+	assertExitCode(t, "blazegraph status help", 0)
+
 	util.LineContentsEqual(t, outputBuffer.String(), `
 
 		Requests the status of the Blazegraph instance, optionally waiting until
@@ -56,7 +57,8 @@ func TestBlazegraphCmd_help_status(t *testing.T) {
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
 
-	run("blazegraph help status")
+	assertExitCode(t, "blazegraph help status", 0)
+
 	util.LineContentsEqual(t, outputBuffer.String(), `
 
 		Requests the status of the Blazegraph instance, optionally waiting until
@@ -78,7 +80,8 @@ func TestBlazegraphCmd_status_bad_flag(t *testing.T) {
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
 
-	run("blazegraph status --not-a-flag")
+	assertExitCode(t, "blazegraph status --not-a-flag", 1)
+
 	util.LineContentsEqual(t, outputBuffer.String(), `
 
 		flag provided but not defined: -not-a-flag
