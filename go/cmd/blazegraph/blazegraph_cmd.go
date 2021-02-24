@@ -29,20 +29,12 @@ func init() {
 	Main = mw.NewMainWrapper("blazegraph", main)
 }
 
-type commandDescriptor struct {
-	name        string
-	handler     func(c *Context) (err error)
-	summary     string
-	description string
-}
-
-var commandList []*commandDescriptor
-var commandMap map[string]*commandDescriptor
 var errorMessageWriter ErrorMessageWriter
+var commandCollection *CommandCollection
 
 func init() {
 
-	commandList = []*commandDescriptor{
+	commandCollection = NewCommandCollection([]CommandDescriptor{
 		{"create", handleCreateSubcommand, "Create a new RDF dataset",
 			"Creates an RDF dataset and corresponding Blazegraph namespace."},
 		{"destroy", handleDestroySubcommand, "Delete an RDF dataset",
@@ -62,12 +54,7 @@ func init() {
 		{"status", handleStatusSubcommand, "Check the status of the Blazegraph instance",
 			"Requests the status of the Blazegraph instance, optionally waiting until\n" +
 				"the instance is fully running. Returns status in JSON format."},
-	}
-	commandMap = make(map[string]*commandDescriptor)
-
-	for _, command := range commandList {
-		commandMap[command.name] = command
-	}
+	})
 }
 
 func main() {
@@ -92,8 +79,7 @@ func main() {
 	}
 
 	commandName := os.Args[1]
-
-	commandHandler, exists := commandMap[commandName]
+	commandDescriptor, exists := commandCollection.commandMap[commandName]
 	if !exists {
 		fmt.Fprintf(Main.ErrWriter, "\nnot a blazegraph command: %s\n\n", commandName)
 		showProgramUsage(c.flags)
@@ -102,7 +88,7 @@ func main() {
 	}
 
 	c.args = os.Args[1:]
-	err := commandHandler.handler(c)
+	err := commandDescriptor.handler(c)
 	if err != nil {
 		Main.ExitIfNonzero(1)
 		return
@@ -122,7 +108,7 @@ func readFileOrStdin(filePath string) (bytes []byte, err error) {
 func showProgramUsage(flags *flag.FlagSet) {
 	fmt.Fprint(Main.OutWriter, "Usage: blazegraph <command> [<flags>]\n\n")
 	fmt.Fprint(Main.OutWriter, "Commands:\n\n")
-	for _, sc := range commandList {
+	for _, sc := range commandCollection.commandList {
 		fmt.Fprintf(Main.OutWriter, "  %-7s  - %s\n", sc.name, sc.summary)
 	}
 	fmt.Fprint(Main.OutWriter, "\nCommon flags:\n")
@@ -131,7 +117,7 @@ func showProgramUsage(flags *flag.FlagSet) {
 	return
 }
 
-func showCommandDescription(c *commandDescriptor) {
+func showCommandDescription(c *CommandDescriptor) {
 	fmt.Fprintf(Main.OutWriter, "\n%s\n", c.description)
 }
 
@@ -144,7 +130,7 @@ func showCommandUsage(cc *Context) {
 
 func helpRequested(cc *Context) bool {
 	if len(cc.args) > 1 && cc.args[1] == "help" {
-		showCommandDescription(commandMap[cc.args[0]])
+		showCommandDescription(commandCollection.commandMap[cc.args[0]])
 		showCommandUsage(cc)
 		return true
 	}

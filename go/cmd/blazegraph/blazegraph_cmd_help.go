@@ -15,7 +15,7 @@ func handleHelpSubcommand(cc *Context) (err error) {
 	if commandName == "help" {
 		return
 	}
-	if c, exists := commandMap[commandName]; exists {
+	if c, exists := commandCollection.commandMap[commandName]; exists {
 		cc.args = []string{commandName, "help"}
 		c.handler(cc)
 	} else {
