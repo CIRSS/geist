@@ -6,7 +6,7 @@ import (
 	"github.com/cirss/geist"
 )
 
-func handleReportSubcommand(cc *BGCommandContext) (err error) {
+func handleReportSubcommand(cc *Context) (err error) {
 	cc.flags.String("dataset", "", "`name` of RDF dataset to create report from")
 	file := cc.flags.String("file", "-", "File containing report template to expand")
 	if helpRequested(cc) {
@@ -19,7 +19,7 @@ func handleReportSubcommand(cc *BGCommandContext) (err error) {
 	return doReport(cc, *file)
 }
 
-func doReport(cc *BGCommandContext, file string) (err error) {
+func doReport(cc *Context, file string) (err error) {
 	bc := cc.BlazegraphClient()
 	reportTemplate, err := readFileOrStdin(file)
 	if err != nil {

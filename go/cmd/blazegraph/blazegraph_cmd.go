@@ -29,20 +29,20 @@ func init() {
 	Main = mw.NewMainWrapper("blazegraph", main)
 }
 
-type command struct {
+type commandDescriptor struct {
 	name        string
-	handler     func(c *BGCommandContext) (err error)
+	handler     func(c *Context) (err error)
 	summary     string
 	description string
 }
 
-var commands []*command
-var commandmap map[string]*command
+var commandList []*commandDescriptor
+var commandMap map[string]*commandDescriptor
 var errorMessageWriter ErrorMessageWriter
 
 func init() {
 
-	commands = []*command{
+	commandList = []*commandDescriptor{
 		{"create", handleCreateSubcommand, "Create a new RDF dataset",
 			"Creates an RDF dataset and corresponding Blazegraph namespace."},
 		{"destroy", handleDestroySubcommand, "Delete an RDF dataset",
@@ -63,10 +63,10 @@ func init() {
 			"Requests the status of the Blazegraph instance, optionally waiting until\n" +
 				"the instance is fully running. Returns status in JSON format."},
 	}
-	commandmap = make(map[string]*command)
+	commandMap = make(map[string]*commandDescriptor)
 
-	for _, command := range commands {
-		commandmap[command.name] = command
+	for _, command := range commandList {
+		commandMap[command.name] = command
 	}
 }
 
@@ -74,34 +74,35 @@ func main() {
 
 	errorMessageWriter.errorStream = Main.ErrWriter
 
-	flags := Main.InitFlagSet()
-	flags.Usage = func() {}
-	flags.SetOutput(errorMessageWriter)
+	c := new(Context)
 
-	cc := new(BGCommandContext)
+	c.ErrWriter = Main.ErrWriter
+	c.OutWriter = Main.OutWriter
+	c.flags = Main.InitFlagSet()
+	c.flags.Usage = func() {}
+	c.flags.SetOutput(errorMessageWriter)
 
-	cc.instanceUrl = flags.String("instance", blazegraph.DefaultUrl, "`URL` of Blazegraph instance")
+	c.instanceUrl = c.flags.String("instance", blazegraph.DefaultUrl, "`URL` of Blazegraph instance")
 
 	if len(os.Args) < 2 {
 		fmt.Fprint(Main.ErrWriter, "\nno blazegraph command given\n\n")
-		showProgramUsage(flags)
+		showProgramUsage(c.flags)
 		Main.ExitIfNonzero(1)
 		return
 	}
 
-	subcommand := os.Args[1]
-	cc.args = os.Args[1:]
-	cc.flags = flags
+	commandName := os.Args[1]
 
-	c, exists := commandmap[subcommand]
+	commandHandler, exists := commandMap[commandName]
 	if !exists {
-		fmt.Fprintf(Main.ErrWriter, "\nnot a blazegraph command: %s\n\n", subcommand)
-		showProgramUsage(flags)
+		fmt.Fprintf(Main.ErrWriter, "\nnot a blazegraph command: %s\n\n", commandName)
+		showProgramUsage(c.flags)
 		Main.ExitIfNonzero(1)
 		return
 	}
 
-	err := c.handler(cc)
+	c.args = os.Args[1:]
+	err := commandHandler.handler(c)
 	if err != nil {
 		Main.ExitIfNonzero(1)
 		return
@@ -121,7 +122,7 @@ func readFileOrStdin(filePath string) (bytes []byte, err error) {
 func showProgramUsage(flags *flag.FlagSet) {
 	fmt.Fprint(Main.OutWriter, "Usage: blazegraph <command> [<flags>]\n\n")
 	fmt.Fprint(Main.OutWriter, "Commands:\n\n")
-	for _, sc := range commands {
+	for _, sc := range commandList {
 		fmt.Fprintf(Main.OutWriter, "  %-7s  - %s\n", sc.name, sc.summary)
 	}
 	fmt.Fprint(Main.OutWriter, "\nCommon flags:\n")
@@ -130,20 +131,20 @@ func showProgramUsage(flags *flag.FlagSet) {
 	return
 }
 
-func showCommandDescription(c *command) {
+func showCommandDescription(c *commandDescriptor) {
 	fmt.Fprintf(Main.OutWriter, "\n%s\n", c.description)
 }
 
-func showCommandUsage(cc *BGCommandContext) {
+func showCommandUsage(cc *Context) {
 	fmt.Fprintf(Main.OutWriter, "\nUsage: blazegraph %s [<flags>]\n\n", cc.args[0])
 	fmt.Fprint(Main.OutWriter, "Flags:\n")
 	cc.flags.PrintDefaults()
 	fmt.Fprintln(Main.OutWriter)
 }
 
-func helpRequested(cc *BGCommandContext) bool {
+func helpRequested(cc *Context) bool {
 	if len(cc.args) > 1 && cc.args[1] == "help" {
-		showCommandDescription(commandmap[cc.args[0]])
+		showCommandDescription(commandMap[cc.args[0]])
 		showCommandUsage(cc)
 		return true
 	}

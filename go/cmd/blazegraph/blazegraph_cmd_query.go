@@ -6,7 +6,7 @@ import (
 	"github.com/cirss/geist"
 )
 
-func handleQuerySubcommand(cc *BGCommandContext) (err error) {
+func handleQuerySubcommand(cc *Context) (err error) {
 	cc.flags.String("dataset", "kb", "`name` of RDF dataset to query")
 	dryrun := cc.flags.Bool("dryrun", false, "Output query but do not execute it")
 	file := cc.flags.String("file", "-", "File containing the SPARQL query to execute")
@@ -22,7 +22,7 @@ func handleQuerySubcommand(cc *BGCommandContext) (err error) {
 	return doSelectQuery(cc, *dryrun, *file, *format, *separators)
 }
 
-func doSelectQuery(cc *BGCommandContext, dryrun bool, file string, format string, columnSeparators bool) (err error) {
+func doSelectQuery(cc *Context, dryrun bool, file string, format string, columnSeparators bool) (err error) {
 	bc := cc.BlazegraphClient()
 	queryText, err := readFileOrStdin(file)
 	if err != nil {

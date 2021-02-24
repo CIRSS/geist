@@ -7,7 +7,7 @@ import (
 	"github.com/cirss/geist/blazegraph"
 )
 
-type BGCommandContext struct {
+type Context struct {
 	InReader    io.Reader
 	OutWriter   io.Writer
 	ErrWriter   io.Writer
@@ -17,7 +17,7 @@ type BGCommandContext struct {
 	instanceUrl *string
 }
 
-func (bc *BGCommandContext) BlazegraphClient() *blazegraph.BlazegraphClient {
+func (bc *Context) BlazegraphClient() *blazegraph.BlazegraphClient {
 	if bc.client == nil {
 		bc.client = blazegraph.NewBlazegraphClient(*bc.instanceUrl)
 	}

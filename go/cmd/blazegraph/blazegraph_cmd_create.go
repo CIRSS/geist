@@ -6,7 +6,7 @@ import (
 	"github.com/cirss/geist/blazegraph"
 )
 
-func handleCreateSubcommand(cc *BGCommandContext) (err error) {
+func handleCreateSubcommand(cc *Context) (err error) {
 	dataset := cc.flags.String("dataset", "kb", "`name` of RDF dataset to create")
 	infer := cc.flags.String("infer", "none", "Inference to perform on update [none, rdfs, owl]")
 	if helpRequested(cc) {
@@ -24,7 +24,7 @@ func handleCreateSubcommand(cc *BGCommandContext) (err error) {
 	return doCreate(cc, *dataset, *infer)
 }
 
-func doCreate(cc *BGCommandContext, name string, infer string) (err error) {
+func doCreate(cc *Context, name string, infer string) (err error) {
 	p := blazegraph.NewDatasetProperties(name)
 	p.Inference = infer
 	_, err = cc.BlazegraphClient().CreateDataSet(p)

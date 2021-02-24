@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-func handleStatusSubcommand(cc *BGCommandContext) (err error) {
+func handleStatusSubcommand(cc *Context) (err error) {
 	if helpRequested(cc) {
 		return
 	}
@@ -15,7 +15,7 @@ func handleStatusSubcommand(cc *BGCommandContext) (err error) {
 	return doStatus(cc)
 }
 
-func doStatus(cc *BGCommandContext) (err error) {
+func doStatus(cc *Context) (err error) {
 	bc := cc.BlazegraphClient()
 	status, err := bc.GetStatus()
 	if err != nil {

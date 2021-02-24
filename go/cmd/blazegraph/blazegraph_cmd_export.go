@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-func handleExportSubcommand(cc *BGCommandContext) (err error) {
+func handleExportSubcommand(cc *Context) (err error) {
 	cc.flags.String("dataset", "kb", "`name` of RDF dataset to export")
 	format := cc.flags.String("format", "nt", "Format for exported triples [jsonld, nt, ttl, or xml]")
 	sort := cc.flags.Bool("sort", false, "Sort the exported triples if true")
@@ -18,7 +18,7 @@ func handleExportSubcommand(cc *BGCommandContext) (err error) {
 	return doExport(cc, *format, *sort)
 }
 
-func doExport(cc *BGCommandContext, format string, sorted bool) (err error) {
+func doExport(cc *Context, format string, sorted bool) (err error) {
 	bc := cc.BlazegraphClient()
 	var triples string
 

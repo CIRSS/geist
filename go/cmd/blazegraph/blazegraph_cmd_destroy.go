@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-func handleDestroySubcommand(cc *BGCommandContext) (err error) {
+func handleDestroySubcommand(cc *Context) (err error) {
 	dataset := cc.flags.String("dataset", "kb", "`name` of RDF dataset to destroy")
 	all := cc.flags.Bool("all", false, "destroy ALL datasets in the Blazegraph instance")
 	if helpRequested(cc) {
@@ -27,7 +27,7 @@ func handleDestroySubcommand(cc *BGCommandContext) (err error) {
 	return
 }
 
-func doDestroyAll(cc *BGCommandContext) (err error) {
+func doDestroyAll(cc *Context) (err error) {
 	bc := cc.BlazegraphClient()
 	datasets, err := bc.ListDatasets()
 	if err != nil {
@@ -42,7 +42,7 @@ func doDestroyAll(cc *BGCommandContext) (err error) {
 	return
 }
 
-func doDestroy(cc *BGCommandContext, name string) (err error) {
+func doDestroy(cc *Context, name string) (err error) {
 	_, err = cc.BlazegraphClient().DestroyDataSet(name)
 	return
 }

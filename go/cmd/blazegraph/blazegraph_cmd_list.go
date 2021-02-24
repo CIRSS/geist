@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-func handleListSubcommand(cc *BGCommandContext) (err error) {
+func handleListSubcommand(cc *Context) (err error) {
 	count := cc.flags.String("count", "none", "Include count of triples in each dataset [none, estimate, exact]")
 	if helpRequested(cc) {
 		return
@@ -16,7 +16,7 @@ func handleListSubcommand(cc *BGCommandContext) (err error) {
 	return doList(cc, *count)
 }
 
-func doList(cc *BGCommandContext, count string) (err error) {
+func doList(cc *Context, count string) (err error) {
 	bc := cc.BlazegraphClient()
 	datasets, err := bc.ListDatasets()
 	if err != nil {
