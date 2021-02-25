@@ -2,11 +2,13 @@ package geist
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
 	"io/ioutil"
 	"net/http"
 	"sort"
 	"strings"
+	"time"
 )
 
 type SparqlClient struct {
@@ -24,6 +26,9 @@ func NewSparqlClient(endpoint string) *SparqlClient {
 func (sc *SparqlClient) GetRequest(url string, contentType string,
 	acceptType string) (responseBody []byte, err error) {
 
+	ctx, cancel := context.WithTimeout(context.Background(), 2000*time.Millisecond)
+	defer cancel()
+
 	// create the http requeest using the provided body
 	request, err := http.NewRequest("GET", url, bytes.NewReader([]byte{}))
 	if err != nil {
@@ -33,7 +38,7 @@ func (sc *SparqlClient) GetRequest(url string, contentType string,
 	request.Header.Add("Accept", acceptType)
 
 	// perform the request and obtain the response
-	response, err := sc.HttpClient.Do(request)
+	response, err := sc.HttpClient.Do(request.WithContext(ctx))
 	if err != nil {
 		return
 	}

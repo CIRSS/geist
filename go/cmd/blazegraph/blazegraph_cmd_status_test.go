@@ -48,6 +48,8 @@ func TestBlazegraphCmd_status_help(t *testing.T) {
 		-instance URL
 				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
 
+		-timeout seconds
+				Number of seconds to wait for Blazegraph instance to respond
 	`)
 }
 
@@ -71,6 +73,9 @@ func TestBlazegraphCmd_help_status(t *testing.T) {
 		-instance URL
 				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
 
+		-timeout seconds
+				Number of seconds to wait for Blazegraph instance to respond
+
 	`)
 }
 
@@ -92,6 +97,9 @@ func TestBlazegraphCmd_status_bad_flag(t *testing.T) {
 
 		-instance URL
 				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
+
+		-timeout seconds
+				Number of seconds to wait for Blazegraph instance to respond
 
 	`)
 }

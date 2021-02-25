@@ -3,7 +3,7 @@
 ## 
 
 run-examples:           ## Run all of the examples.
-	$(RUN_IN_REPRO) 'sleep 2 && make -C ${REPRO_EXAMPLES_DIR} all'
+	$(RUN_IN_REPRO) 'blazegraph status --timeout 5000 && make -C ${REPRO_EXAMPLES_DIR} all'
 
 clean-examples:         ## Delete all products of examples.
 	$(RUN_IN_REPRO) 'make -C ${REPRO_EXAMPLES_DIR} clean'

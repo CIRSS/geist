@@ -24,7 +24,7 @@ RUN echo '***** Install python3 and required pip packages *****'            \
     && pip3 install -U pip                                                  \
     && pip3 install pandas
 
-ENV GO_VERSION       1.13.5
+ENV GO_VERSION       1.16
 ENV GO_DOWNLOADS_URL https://dl.google.com/go
 ENV GO_ARCHIVE       go${GO_VERSION}.linux-amd64.tar.gz
 
