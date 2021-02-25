@@ -2,24 +2,26 @@ package main
 
 import (
 	"fmt"
+
+	"github.com/cirss/geist/cli"
 )
 
-func handleImportSubcommand(cc *Context) (err error) {
-	cc.flags.String("dataset", "kb", "`name` of RDF dataset to import triples into")
-	file := cc.flags.String("file", "-", "File containing triples to import")
-	format := cc.flags.String("format", "ttl", "Format of triples to import [jsonld, nt, ttl, or xml]")
-	if helpRequested(cc) {
+func handleImportSubcommand(cc *cli.CommandContext) (err error) {
+	cc.Flags.String("dataset", "kb", "`name` of RDF dataset to import triples into")
+	file := cc.Flags.String("file", "-", "File containing triples to import")
+	format := cc.Flags.String("format", "ttl", "Format of triples to import [jsonld, nt, ttl, or xml]")
+	if cc.ShowHelpIfRequested() {
 		return
 	}
-	if err = cc.flags.Parse(cc.args[1:]); err != nil {
-		showCommandUsage(cc)
+	if err = cc.Flags.Parse(cc.Args[1:]); err != nil {
+		cc.ShowCommandUsage()
 		return
 	}
 	return doImport(cc, *file, *format)
 }
 
-func doImport(cc *Context, file string, format string) (err error) {
-	bc := cc.BlazegraphClient()
+func doImport(cc *cli.CommandContext, file string, format string) (err error) {
+	bc := BlazegraphClient(cc)
 	data, err := readFileOrStdin(file)
 	if err != nil {
 		fmt.Fprintf(Main.ErrWriter, err.Error())

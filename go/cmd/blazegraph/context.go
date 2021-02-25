@@ -1,25 +1,18 @@
 package main
 
 import (
-	"flag"
-	"io"
-
 	"github.com/cirss/geist/blazegraph"
+	"github.com/cirss/geist/cli"
 )
 
-type Context struct {
-	InReader    io.Reader
-	OutWriter   io.Writer
-	ErrWriter   io.Writer
-	args        []string
-	flags       *flag.FlagSet
-	client      *blazegraph.BlazegraphClient
-	instanceUrl *string
-}
-
-func (bc *Context) BlazegraphClient() *blazegraph.BlazegraphClient {
-	if bc.client == nil {
-		bc.client = blazegraph.NewBlazegraphClient(*bc.instanceUrl)
+func BlazegraphClient(cc *cli.CommandContext) (bc *blazegraph.BlazegraphClient) {
+	bcc, exists := cc.Properties["blazegraph_client"]
+	if exists {
+		bc = bcc.(*blazegraph.BlazegraphClient)
+	} else {
+		instanceFlag := cc.Flags.Lookup("instance").Value.String()
+		bc = blazegraph.NewBlazegraphClient(instanceFlag)
+		cc.Properties["blazegraph_client"] = bc
 	}
-	return bc.client
+	return
 }

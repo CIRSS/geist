@@ -2,24 +2,26 @@ package main
 
 import (
 	"fmt"
+
+	"github.com/cirss/geist/cli"
 )
 
-func handleExportSubcommand(cc *Context) (err error) {
-	cc.flags.String("dataset", "kb", "`name` of RDF dataset to export")
-	format := cc.flags.String("format", "nt", "Format for exported triples [jsonld, nt, ttl, or xml]")
-	sort := cc.flags.Bool("sort", false, "Sort the exported triples if true")
-	if helpRequested(cc) {
+func handleExportSubcommand(cc *cli.CommandContext) (err error) {
+	cc.Flags.String("dataset", "kb", "`name` of RDF dataset to export")
+	format := cc.Flags.String("format", "nt", "Format for exported triples [jsonld, nt, ttl, or xml]")
+	sort := cc.Flags.Bool("sort", false, "Sort the exported triples if true")
+	if cc.ShowHelpIfRequested() {
 		return
 	}
-	if err = cc.flags.Parse(cc.args[1:]); err != nil {
-		showCommandUsage(cc)
+	if err = cc.Flags.Parse(cc.Args[1:]); err != nil {
+		cc.ShowCommandUsage()
 		return
 	}
 	return doExport(cc, *format, *sort)
 }
 
-func doExport(cc *Context, format string, sorted bool) (err error) {
-	bc := cc.BlazegraphClient()
+func doExport(cc *cli.CommandContext, format string, sorted bool) (err error) {
+	bc := BlazegraphClient(cc)
 	var triples string
 
 	switch format {

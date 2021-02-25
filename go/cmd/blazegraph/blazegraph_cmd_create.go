@@ -4,29 +4,30 @@ import (
 	"fmt"
 
 	"github.com/cirss/geist/blazegraph"
+	"github.com/cirss/geist/cli"
 )
 
-func handleCreateSubcommand(cc *Context) (err error) {
-	dataset := cc.flags.String("dataset", "kb", "`name` of RDF dataset to create")
-	infer := cc.flags.String("infer", "none", "Inference to perform on update [none, rdfs, owl]")
-	if helpRequested(cc) {
+func handleCreateSubcommand(cc *cli.CommandContext) (err error) {
+	dataset := cc.Flags.String("dataset", "kb", "`name` of RDF dataset to create")
+	infer := cc.Flags.String("infer", "none", "Inference to perform on update [none, rdfs, owl]")
+	if cc.ShowHelpIfRequested() {
 		return
 	}
-	if err = cc.flags.Parse(cc.args[1:]); err != nil {
-		showCommandUsage(cc)
+	if err = cc.Flags.Parse(cc.Args[1:]); err != nil {
+		cc.ShowCommandUsage()
 		return
 	}
 	if len(*dataset) == 0 {
 		fmt.Fprintln(errorMessageWriter, "name of dataset must be given using the -dataset flag")
-		showCommandUsage(cc)
+		cc.ShowCommandUsage()
 		return
 	}
 	return doCreate(cc, *dataset, *infer)
 }
 
-func doCreate(cc *Context, name string, infer string) (err error) {
+func doCreate(cc *cli.CommandContext, name string, infer string) (err error) {
 	p := blazegraph.NewDatasetProperties(name)
 	p.Inference = infer
-	_, err = cc.BlazegraphClient().CreateDataSet(p)
+	_, err = BlazegraphClient(cc).CreateDataSet(p)
 	return
 }

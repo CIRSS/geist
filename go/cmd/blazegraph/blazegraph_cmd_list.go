@@ -2,22 +2,24 @@ package main
 
 import (
 	"fmt"
+
+	"github.com/cirss/geist/cli"
 )
 
-func handleListSubcommand(cc *Context) (err error) {
-	count := cc.flags.String("count", "none", "Include count of triples in each dataset [none, estimate, exact]")
-	if helpRequested(cc) {
+func handleListSubcommand(cc *cli.CommandContext) (err error) {
+	count := cc.Flags.String("count", "none", "Include count of triples in each dataset [none, estimate, exact]")
+	if cc.ShowHelpIfRequested() {
 		return
 	}
-	if err = cc.flags.Parse(cc.args[1:]); err != nil {
-		showCommandUsage(cc)
+	if err = cc.Flags.Parse(cc.Args[1:]); err != nil {
+		cc.ShowCommandUsage()
 		return
 	}
 	return doList(cc, *count)
 }
 
-func doList(cc *Context, count string) (err error) {
-	bc := cc.BlazegraphClient()
+func doList(cc *cli.CommandContext, count string) (err error) {
+	bc := BlazegraphClient(cc)
 	datasets, err := bc.ListDatasets()
 	if err != nil {
 		fmt.Fprintf(Main.ErrWriter, err.Error())

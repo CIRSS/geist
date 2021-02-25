@@ -1,10 +1,10 @@
-package main
+package cli
 
 type CommandDescriptor struct {
-	name        string
-	handler     func(c *Context) (err error)
-	summary     string
-	description string
+	Name        string
+	Handler     func(c *CommandContext) (err error)
+	Summary     string
+	Description string
 }
 
 type CommandCollection struct {
@@ -18,7 +18,12 @@ func NewCommandCollection(commandList []CommandDescriptor) *CommandCollection {
 	cc.commandMap = make(map[string]*CommandDescriptor)
 	for i, _ := range cc.commandList {
 		command := &cc.commandList[i]
-		cc.commandMap[command.name] = command
+		cc.commandMap[command.Name] = command
 	}
 	return cc
+}
+
+func (cc *CommandCollection) Lookup(name string) (descriptor *CommandDescriptor, exists bool) {
+	descriptor, exists = cc.commandMap[name]
+	return
 }

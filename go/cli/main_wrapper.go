@@ -1,4 +1,4 @@
-package mw
+package cli
 
 import (
 	"flag"

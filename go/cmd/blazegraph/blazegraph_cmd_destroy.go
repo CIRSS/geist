@@ -2,21 +2,23 @@ package main
 
 import (
 	"fmt"
+
+	"github.com/cirss/geist/cli"
 )
 
-func handleDestroySubcommand(cc *Context) (err error) {
-	dataset := cc.flags.String("dataset", "kb", "`name` of RDF dataset to destroy")
-	all := cc.flags.Bool("all", false, "destroy ALL datasets in the Blazegraph instance")
-	if helpRequested(cc) {
+func handleDestroySubcommand(cc *cli.CommandContext) (err error) {
+	dataset := cc.Flags.String("dataset", "kb", "`name` of RDF dataset to destroy")
+	all := cc.Flags.Bool("all", false, "destroy ALL datasets in the Blazegraph instance")
+	if cc.ShowHelpIfRequested() {
 		return
 	}
-	if err = cc.flags.Parse(cc.args[1:]); err != nil {
-		showCommandUsage(cc)
+	if err = cc.Flags.Parse(cc.Args[1:]); err != nil {
+		cc.ShowCommandUsage()
 		return
 	}
 	if len(*dataset) == 0 {
 		fmt.Fprintln(errorMessageWriter, "name of dataset must be given using the -dataset flag")
-		showCommandUsage(cc)
+		cc.ShowCommandUsage()
 		return
 	}
 	if *all {
@@ -27,8 +29,8 @@ func handleDestroySubcommand(cc *Context) (err error) {
 	return
 }
 
-func doDestroyAll(cc *Context) (err error) {
-	bc := cc.BlazegraphClient()
+func doDestroyAll(cc *cli.CommandContext) (err error) {
+	bc := BlazegraphClient(cc)
 	datasets, err := bc.ListDatasets()
 	if err != nil {
 		return
@@ -42,7 +44,7 @@ func doDestroyAll(cc *Context) (err error) {
 	return
 }
 
-func doDestroy(cc *Context, name string) (err error) {
-	_, err = cc.BlazegraphClient().DestroyDataSet(name)
+func doDestroy(cc *cli.CommandContext, name string) (err error) {
+	_, err = BlazegraphClient(cc).DestroyDataSet(name)
 	return
 }

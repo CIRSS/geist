@@ -5,16 +5,16 @@ import (
 	"os"
 	"text/template"
 
-	"github.com/cirss/geist/mw"
+	"github.com/cirss/geist/cli"
 )
 
 // MW wraps the main() function.  It enables tests to manipulate the
 // input and output streams used by main(), and provides a new FlagSet
 // for each execution so that main() can be called by multiple tests.
-var MW mw.MainWrapper
+var MW cli.MainWrapper
 
 func init() {
-	MW = mw.NewMainWrapper("sparqlrep", main)
+	MW = cli.NewMainWrapper("sparqlrep", main)
 }
 
 // Exercises the template package
