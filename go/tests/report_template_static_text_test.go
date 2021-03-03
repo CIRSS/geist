@@ -7,7 +7,7 @@ import (
 	"github.com/cirss/geist/util"
 )
 
-func TestReportTemplate_StaticText_OneLinef(t *testing.T) {
+func TestReportTemplate_StaticText_OneLine(t *testing.T) {
 
 	rt := geist.NewTemplate(
 		"main",

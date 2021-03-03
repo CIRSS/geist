@@ -35,7 +35,8 @@ func TestBlazegraphCmd_query_json(t *testing.T) {
 		outputBuffer.Reset()
 		Main.InReader = strings.NewReader(query)
 		assertExitCode(t, "blazegraph query --format json", 0)
-		util.JSONEquals(t, outputBuffer.String(), `{
+		util.JSONEquals(t, outputBuffer.String(),
+			`{
 			"head": { "vars": ["s", "o"] },
 			"results": { "bindings": [
 				{
@@ -54,25 +55,23 @@ func TestBlazegraphCmd_query_json(t *testing.T) {
 		outputBuffer.Reset()
 		Main.InReader = strings.NewReader(query)
 		assertExitCode(t, "blazegraph query --format table", 0)
-		util.LineContentsEqual(t, outputBuffer.String(), `
-			s                          | o
-			==================================
-            http://tmcphill.net/data#x | seven
-            http://tmcphill.net/data#y | eight
-
-		`)
+		util.LineContentsEqual(t, outputBuffer.String(),
+			`s                          | o
+ 			 ==================================
+             http://tmcphill.net/data#x | seven
+             http://tmcphill.net/data#y | eight
+			`)
 	})
 
 	t.Run("table-without-separators", func(t *testing.T) {
 		outputBuffer.Reset()
 		Main.InReader = strings.NewReader(query)
 		assertExitCode(t, "blazegraph query --format table --columnseparators=false", 0)
-		util.LineContentsEqual(t, outputBuffer.String(), `
-			s                            o
-			==================================
-            http://tmcphill.net/data#x   seven
-            http://tmcphill.net/data#y   eight
-
+		util.LineContentsEqual(t, outputBuffer.String(),
+			`s                            o
+			 ==================================
+             http://tmcphill.net/data#x   seven
+             http://tmcphill.net/data#y   eight
 		`)
 	})
 
@@ -80,9 +79,9 @@ func TestBlazegraphCmd_query_json(t *testing.T) {
 		outputBuffer.Reset()
 		Main.InReader = strings.NewReader(query)
 		assertExitCode(t, "blazegraph query --format xml", 0)
-		util.LineContentsEqual(t, outputBuffer.String(), `
-			<?xml version='1.0' encoding='UTF-8'?>
-            <sparql xmlns='http://www.w3.org/2005/sparql-results#'>
+		util.LineContentsEqual(t, outputBuffer.String(),
+			`<?xml version='1.0' encoding='UTF-8'?>
+             <sparql xmlns='http://www.w3.org/2005/sparql-results#'>
             	<head>
             		<variable name='s'/>
             		<variable name='o'/>
@@ -113,22 +112,23 @@ func TestBlazegraphCmd_query_json(t *testing.T) {
 		outputBuffer.Reset()
 		Main.InReader = strings.NewReader(query)
 		assertExitCode(t, "blazegraph query --format csv", 0)
-		util.LineContentsEqual(t, outputBuffer.String(), `
-			s,o
-			http://tmcphill.net/data#x,seven
-			http://tmcphill.net/data#y,eight`)
+		util.LineContentsEqual(t, outputBuffer.String(),
+			`s,o
+			 http://tmcphill.net/data#x,seven
+			 http://tmcphill.net/data#y,eight
+			`)
 	})
 }
 
-func TestBlazegraphCmd_select_help(t *testing.T) {
+func TestBlazegraphCmd_query_help(t *testing.T) {
 
 	var outputBuffer strings.Builder
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
 
 	assertExitCode(t, "blazegraph query help", 0)
-	util.LineContentsEqual(t, outputBuffer.String(), `
-
+	util.LineContentsEqual(t, outputBuffer.String(),
+		`
 		Performs a SPARQL query on the identified RDF dataset.
 
 		Usage: blazegraph query [<flags>]
@@ -137,21 +137,19 @@ func TestBlazegraphCmd_select_help(t *testing.T) {
 
 		-columnseparators
 				Display column separators in table format (default true)
-
 		-dataset name
     	    	name of RDF dataset to query (default "kb")
-
 		-dryrun
 				Output query but do not execute it
-
 		-file string
 				File containing the SPARQL query to execute (default "-")
-
 		-format string
 			Format of result set to produce [csv, json, table, or xml] (default "json")
-
 		-instance URL
 				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
+		-quiet
+				Discard normal command output
+
 	`)
 }
 
@@ -163,8 +161,8 @@ func TestBlazegraphCmd_help_select(t *testing.T) {
 
 	assertExitCode(t, "blazegraph help query", 0)
 
-	util.LineContentsEqual(t, outputBuffer.String(), `
-
+	util.LineContentsEqual(t, outputBuffer.String(),
+		`
 		Performs a SPARQL query on the identified RDF dataset.
 
 		Usage: blazegraph query [<flags>]
@@ -173,26 +171,23 @@ func TestBlazegraphCmd_help_select(t *testing.T) {
 
 		-columnseparators
 				Display column separators in table format (default true)
-
 		-dataset name
     	    	name of RDF dataset to query (default "kb")
-
 		-dryrun
 				Output query but do not execute it
-
 		-file string
 				File containing the SPARQL query to execute (default "-")
-
 		-format string
-				Format of result set to produce [csv, json, table, or xml] (default "json")
-
+			Format of result set to produce [csv, json, table, or xml] (default "json")
 		-instance URL
 				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
+		-quiet
+				Discard normal command output
 
 	`)
 }
 
-func TestBlazegraphCmd_select_bad_flag(t *testing.T) {
+func TestBlazegraphCmd_query_bad_flag(t *testing.T) {
 
 	var outputBuffer strings.Builder
 	Main.OutWriter = &outputBuffer
@@ -200,8 +195,8 @@ func TestBlazegraphCmd_select_bad_flag(t *testing.T) {
 
 	assertExitCode(t, "blazegraph query --not-a-flag", 1)
 
-	util.LineContentsEqual(t, outputBuffer.String(), `
-
+	util.LineContentsEqual(t, outputBuffer.String(),
+		`
 		flag provided but not defined: -not-a-flag
 
 		Usage: blazegraph query [<flags>]
@@ -210,21 +205,18 @@ func TestBlazegraphCmd_select_bad_flag(t *testing.T) {
 
 		-columnseparators
 				Display column separators in table format (default true)
-
 		-dataset name
     	    	name of RDF dataset to query (default "kb")
-
 		-dryrun
 				Output query but do not execute it
-
 		-file string
 				File containing the SPARQL query to execute (default "-")
-
 		-format string
-				Format of result set to produce [csv, json, table, or xml] (default "json")
-
+			Format of result set to produce [csv, json, table, or xml] (default "json")
 		-instance URL
 				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
+		-quiet
+				Discard normal command output
 
 	`)
 }

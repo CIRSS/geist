@@ -2,24 +2,29 @@ package tests
 
 import (
 	"fmt"
-	"os"
 	"strings"
+	"testing"
 	"text/template"
+
+	"github.com/cirss/geist/util"
 )
 
-func ExampleTemplate_NamedStructInstance() {
+var outputBuffer strings.Builder
+
+func TestTextTemplate_NamedStructInstance(t *testing.T) {
+	outputBuffer.Reset()
 	type Inventory struct {
 		Material string
 		Count    uint
 	}
 	sweaters := Inventory{"wool", 17}
-	tmpl, _ := template.New("test").Parse("{{.Count}} items are made of {{.Material}}\n")
-	tmpl.Execute(os.Stdout, sweaters)
-	// Output:
-	// 17 items are made of wool
+	tmpl, _ := template.New("test").Parse("{{.Count}} items are made of {{.Material}}")
+	tmpl.Execute(&outputBuffer, sweaters)
+	util.StringEquals(t, outputBuffer.String(), "17 items are made of wool")
 }
 
-func ExampleTemplate_AnonymouStructInstance() {
+func TestTemplate_AnonymouStructInstance(t *testing.T) {
+	outputBuffer.Reset()
 	sweaters := struct {
 		Material string
 		Count    uint
@@ -28,12 +33,12 @@ func ExampleTemplate_AnonymouStructInstance() {
 		Count:    42,
 	}
 	tmpl, _ := template.New("test").Parse("{{.Count}} items are made of {{.Material}}\n")
-	tmpl.Execute(os.Stdout, sweaters)
-	// Output:
-	// 42 items are made of cotton
+	tmpl.Execute(&outputBuffer, sweaters)
+	util.StringEquals(t, outputBuffer.String(), "42 items are made of cotton\n")
 }
 
-func ExampleTemplate_Struct_MissingField_NoError() {
+func TestTemplate_Struct_MissingField_NoError_TruncatedTemplateExpansion(t *testing.T) {
+	outputBuffer.Reset()
 	sweaters := struct {
 		Material string
 		Count    uint
@@ -41,13 +46,13 @@ func ExampleTemplate_Struct_MissingField_NoError() {
 		Material: "cotton",
 		Count:    42,
 	}
-	tmpl, _ := template.New("test").Parse("{{.Count}} items are made of {{.Materials}}\n")
-	tmpl.Execute(os.Stdout, sweaters)
-	// Output:
-	// 42 items are made of
+	tmpl, _ := template.New("test").Parse("{{.Count}} items are made of {{.Materials}} SOME EXTRA STUFF")
+	tmpl.Execute(&outputBuffer, sweaters)
+	util.StringEquals(t, outputBuffer.String(), "42 items are made of ")
 }
 
-func ExampleTemplate_Struct_PrintPipelines() {
+func TestTemplate_Struct_PrintPipelines(t *testing.T) {
+	outputBuffer.Reset()
 	sweaters := struct {
 		Material string
 		Count    uint
@@ -56,12 +61,12 @@ func ExampleTemplate_Struct_PrintPipelines() {
 		Count:    42,
 	}
 	tmpl, _ := template.New("test").Parse(`{{print .Count}} items are made of {{print .Material}}`)
-	tmpl.Execute(os.Stdout, sweaters)
-	// Output:
-	// 42 items are made of cotton
+	tmpl.Execute(&outputBuffer, sweaters)
+	util.StringEquals(t, outputBuffer.String(), "42 items are made of cotton")
 }
 
-func ExampleTemplate_Struct_PrintfPipelines() {
+func TestTemplate_Struct_PrintfPipelines(t *testing.T) {
+	outputBuffer.Reset()
 	sweaters := struct {
 		Material string
 		Count    uint
@@ -70,12 +75,12 @@ func ExampleTemplate_Struct_PrintfPipelines() {
 		Count:    42,
 	}
 	tmpl, _ := template.New("test").Parse(`{{printf "%d" .Count}} items are made of {{printf "%s" .Material}}`)
-	tmpl.Execute(os.Stdout, sweaters)
-	// Output:
-	// 42 items are made of cotton
+	tmpl.Execute(&outputBuffer, sweaters)
+	util.StringEquals(t, outputBuffer.String(), "42 items are made of cotton")
 }
 
-func ExampleTemplate_Struct_PrintfPipelines_ArgumentsPiped() {
+func TestTemplate_Struct_PrintfPipelines_ArgumentsPiped(t *testing.T) {
+	outputBuffer.Reset()
 	sweaters := struct {
 		Material string
 		Count    uint
@@ -84,12 +89,12 @@ func ExampleTemplate_Struct_PrintfPipelines_ArgumentsPiped() {
 		Count:    42,
 	}
 	tmpl, _ := template.New("test").Parse(`{{.Count | printf "%d"}} items are made of {{.Material | printf "%s"}}`)
-	tmpl.Execute(os.Stdout, sweaters)
-	// Output:
-	// 42 items are made of cotton
+	tmpl.Execute(&outputBuffer, sweaters)
+	util.StringEquals(t, outputBuffer.String(), "42 items are made of cotton")
 }
 
-func ExampleTemplate_Struct_PrintfPipeline() {
+func TestTemplate_Struct_PrintfPipeline(t *testing.T) {
+	outputBuffer.Reset()
 	sweaters := struct {
 		Material string
 		Count    uint
@@ -98,12 +103,12 @@ func ExampleTemplate_Struct_PrintfPipeline() {
 		Count:    42,
 	}
 	tmpl, _ := template.New("test").Parse(`{{printf "%d items are made of %s" .Count .Material}}`)
-	tmpl.Execute(os.Stdout, sweaters)
-	// Output:
-	// 42 items are made of cotton
+	tmpl.Execute(&outputBuffer, sweaters)
+	util.StringEquals(t, outputBuffer.String(), "42 items are made of cotton")
 }
 
-func ExampleTemplate_Struct_PrintfPipeline_OneArgumentPiped() {
+func TestTemplate_Struct_PrintfPipeline_OneArgumentPiped(t *testing.T) {
+	outputBuffer.Reset()
 	sweaters := struct {
 		Material string
 		Count    uint
@@ -112,12 +117,12 @@ func ExampleTemplate_Struct_PrintfPipeline_OneArgumentPiped() {
 		Count:    42,
 	}
 	tmpl, _ := template.New("test").Parse(`{{.Material | printf "%d items are made of %s" .Count}}`)
-	tmpl.Execute(os.Stdout, sweaters)
-	// Output:
-	// 42 items are made of cotton
+	tmpl.Execute(&outputBuffer, sweaters)
+	util.StringEquals(t, outputBuffer.String(), "42 items are made of cotton")
 }
 
-func ExampleTemplate_Struct_PrintfPipeline_OneArgumentViaDot() {
+func TestTemplate_Struct_PrintfPipeline_OneArgumentViaDot(t *testing.T) {
+	outputBuffer.Reset()
 	sweaters := struct {
 		Material string
 		Count    uint
@@ -126,12 +131,12 @@ func ExampleTemplate_Struct_PrintfPipeline_OneArgumentViaDot() {
 		Count:    42,
 	}
 	tmpl, _ := template.New("test").Parse(`{{with .Count}}{{printf "%d" .}}{{end}} items are made of {{print .Material}}`)
-	tmpl.Execute(os.Stdout, sweaters)
-	// Output:
-	// 42 items are made of cotton
+	tmpl.Execute(&outputBuffer, sweaters)
+	util.StringEquals(t, outputBuffer.String(), "42 items are made of cotton")
 }
 
-func ExampleTemplate_Struct_PrintfPipeline_OneArgumentViaVariable() {
+func TestTemplate_Struct_PrintfPipeline_OneArgumentViaVariable(t *testing.T) {
+	outputBuffer.Reset()
 	sweaters := struct {
 		Material string
 		Count    uint
@@ -142,16 +147,16 @@ func ExampleTemplate_Struct_PrintfPipeline_OneArgumentViaVariable() {
 	tmpl, _ := template.
 		New("test").
 		Parse(`{{with $c := .Count}}{{printf "%d" $c}}{{end}} items are made of {{print .Material}}`)
-	tmpl.Execute(os.Stdout, sweaters)
-	// Output:
-	// 42 items are made of cotton
+	tmpl.Execute(&outputBuffer, sweaters)
+	util.StringEquals(t, outputBuffer.String(), "42 items are made of cotton")
 }
 
 func increment(i int) int {
 	return i + 1
 }
 
-func ExampleTemplate_Execute_PrintfPipeline_OneArgumentViaVariableSetByFunction() {
+func TestTemplate_Execute_PrintfPipeline_OneArgumentViaVariableSetByFunction(t *testing.T) {
+	outputBuffer.Reset()
 
 	sweaters := struct {
 		Material string
@@ -169,12 +174,12 @@ func ExampleTemplate_Execute_PrintfPipeline_OneArgumentViaVariableSetByFunction(
 		New("test").
 		Funcs(funcMap).
 		Parse(`{{with $c := inc .Count}}{{printf "%d" $c}}{{end}} items are made of {{print .Material}}`)
-	tmpl.Execute(os.Stdout, sweaters)
-	// Output:
-	// 43 items are made of cotton
+	tmpl.Execute(&outputBuffer, sweaters)
+	util.StringEquals(t, outputBuffer.String(), "43 items are made of cotton")
 }
 
-func ExampleTemplate_Execute_WrongFunctionArgumentType_Error() {
+func TestTemplate_Execute_WrongFunctionArgumentType_Error(t *testing.T) {
+	outputBuffer.Reset()
 
 	sweaters := struct {
 		Material string
@@ -192,13 +197,13 @@ func ExampleTemplate_Execute_WrongFunctionArgumentType_Error() {
 		New("test").
 		Funcs(funcMap).
 		Parse(`{{with $c := inc .Count}}{{printf "%d" $c}}{{end}} items are made of {{print .Material}}`)
-	err := tmpl.Execute(os.Stdout, sweaters)
-	fmt.Println(err)
-	// Output:
-	// template: test:1:17: executing "test" at <.Count>: wrong type for value; expected int; got int64
+	err := tmpl.Execute(&outputBuffer, sweaters)
+	util.StringEquals(t, err.Error(),
+		`template: test:1:17: executing "test" at <.Count>: wrong type for value; expected int; got int64`)
 }
 
-func ExampleTemplate_Execute_MultilinePipeline() {
+func TestTemplate_Execute_MultilinePipeline(t *testing.T) {
+	outputBuffer.Reset()
 
 	sweaters := struct {
 		Material string
@@ -215,23 +220,26 @@ func ExampleTemplate_Execute_MultilinePipeline() {
 	tmpl, _ := template.
 		New("test").
 		Funcs(funcMap).
-		Parse(`
-			{{with $c := inc .Count}}{{$d := $c}}{{$e := $d}}
-			{{printf "%d" $d}}{{end}} items are made of {{print .Material}}
+		Parse(
+			`{{with $c := inc .Count}}{{$d := $c}}{{$e := $d}}
+			 {{printf "%d" $d}}{{end}} items are made of {{print .Material}}
 		`)
-	err := tmpl.Execute(os.Stdout, sweaters)
+	err := tmpl.Execute(&outputBuffer, sweaters)
 	if err != nil {
 		fmt.Println(err)
 	}
-	// Output:
-	// 43 items are made of cotton
+	util.LineContentsEqual(t, outputBuffer.String(),
+		`
+		43 items are made of cotton
+		`)
 }
 
 func upper(s string) string {
 	return strings.ToUpper(s)
 }
 
-func ExampleTemplate_Execute_MultilineFunctionArgument() {
+func TestTemplate_Execute_MultilineFunctionArgument(t *testing.T) {
+	outputBuffer.Reset()
 
 	funcMap := template.FuncMap{
 		"up": upper,
@@ -247,16 +255,19 @@ bar
 		New("test").
 		Funcs(funcMap).
 		Parse(multilineTemplate)
-	err = tmpl.Execute(os.Stdout, "string")
+	err = tmpl.Execute(&outputBuffer, "string")
 	if err != nil {
 		fmt.Println(err)
 	}
-	// Output:
-	// FOOD
-	// BAR
+	util.LineContentsEqual(t, outputBuffer.String(),
+		`
+		FOOD
+		BAR
+		`)
 }
 
-func ExampleTemplate_Execute_MultilineFunctionArgument_Two() {
+func TestTemplate_Execute_MultilineFunctionArgument_Two(t *testing.T) {
+	outputBuffer.Reset()
 
 	funcMap := template.FuncMap{
 		"up": upper,
@@ -274,11 +285,13 @@ bar
 		New("test").
 		Funcs(funcMap).
 		Parse(multilineTemplate)
-	err = tmpl.Execute(os.Stdout, "string")
+	err = tmpl.Execute(&outputBuffer, "string")
 	if err != nil {
 		fmt.Println(err)
 	}
-	// Output:
-	// FOOD
-	// BAR
+	util.LineContentsEqual(t, outputBuffer.String(),
+		`
+		FOOD
+		BAR
+		`)
 }

@@ -10,6 +10,14 @@ import (
 	"github.com/cirss/geist/cli"
 )
 
+type NullWriter struct {
+	w io.Writer
+}
+
+func (nw NullWriter) Write(p []byte) (n int, err error) {
+	return 0, nil
+}
+
 type ErrorMessageWriter struct {
 	errorStream io.Writer
 }
@@ -27,6 +35,8 @@ var Main cli.MainWrapper
 func init() {
 	Main = cli.NewMainWrapper("blazegraph", main)
 }
+
+var quiet *bool
 
 var errorMessageWriter ErrorMessageWriter
 var commandCollection *cli.CommandCollection
@@ -66,9 +76,9 @@ func main() {
 	cc.OutWriter = Main.OutWriter
 	cc.Flags = Main.InitFlagSet()
 	cc.Flags.Usage = func() {}
-	cc.Flags.SetOutput(errorMessageWriter)
 
 	cc.Flags.String("instance", blazegraph.DefaultUrl, "`URL` of Blazegraph instance")
+	quiet = cc.Flags.Bool("quiet", false, "Discard normal command output")
 
 	if len(os.Args) < 2 {
 		fmt.Fprint(Main.ErrWriter, "\nno blazegraph command given\n\n")
@@ -93,6 +103,23 @@ func main() {
 		Main.ExitIfNonzero(1)
 		return
 	}
+}
+
+func parseFlags(cc *cli.CommandContext) (err error) {
+
+	cc.Flags.SetOutput(errorMessageWriter)
+	if err = cc.Flags.Parse(cc.Args[1:]); err != nil {
+		cc.Flags.SetOutput(cc.ErrWriter)
+		cc.ShowCommandUsage()
+		return
+	}
+	cc.Flags.SetOutput(cc.ErrWriter)
+
+	if *quiet {
+		cc.OutWriter = NullWriter{}
+	}
+
+	return
 }
 
 func readFileOrStdin(filePath string) (bytes []byte, err error) {

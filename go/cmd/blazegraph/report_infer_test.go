@@ -33,28 +33,28 @@ func TestReportInfer_rdfs_subClassOf(t *testing.T) {
 	}
 
 	report := func() {
-		q := `
-			{{ prefix "rdf" "http://www.w3.org/1999/02/22-rdf-syntax-ns#" }}
-			{{ prefix "tm" "http://tmcphill.net/ns/data#" }}
-
+		q :=
+			`{{ prefix "rdf" "http://www.w3.org/1999/02/22-rdf-syntax-ns#" }}	\
+ 			{{ prefix "tm" "http://tmcphill.net/ns/data#" }}					\
+																				\
 			{{ select '''
 				SELECT ?type
 				WHERE
 				{ ?type rdf:type rdfs:Class }
 				ORDER BY ?type ''' | tabulate }}
-
+																				\
 			{{ select '''
 				SELECT ?a
 				WHERE
 				{ ?a rdf:type tm:typea }
 				ORDER BY ?a ''' | tabulate }}
-
+																				\
 			{{ select '''
 				SELECT ?b
 				WHERE
 				{ ?b rdf:type tm:typeb }
 				ORDER BY ?b ''' | tabulate }}
-
+																				\
 			{{ select '''
 				SELECT ?c
 				WHERE
@@ -71,16 +71,14 @@ func TestReportInfer_rdfs_subClassOf(t *testing.T) {
 		run("blazegraph create --dataset kb --infer none")
 		load()
 		report()
-		util.LineContentsEqual(t, outputBuffer.String(), `
-			type
-			===
-
+		util.LineContentsEqual(t, outputBuffer.String(),
+			`type
+			 ===
 
 			a
 			=============================
             http://tmcphill.net/ns/data#a1
 			http://tmcphill.net/ns/data#a2
-
 
             b
             =============================
@@ -88,10 +86,11 @@ func TestReportInfer_rdfs_subClassOf(t *testing.T) {
             http://tmcphill.net/ns/data#b2
             http://tmcphill.net/ns/data#b3
 
-
             c
             =============================
-            http://tmcphill.net/ns/data#c1		`)
+            http://tmcphill.net/ns/data#c1
+
+			`)
 	})
 
 	t.Run("infer-rdfs", func(t *testing.T) {
@@ -100,8 +99,8 @@ func TestReportInfer_rdfs_subClassOf(t *testing.T) {
 		run("blazegraph create --dataset kb --infer rdfs")
 		load()
 		report()
-		util.LineContentsEqual(t, outputBuffer.String(), `
-			type
+		util.LineContentsEqual(t, outputBuffer.String(),
+			`type
             ===============================================================
             http://tmcphill.net/ns/data#typea
             http://tmcphill.net/ns/data#typeb
@@ -120,7 +119,6 @@ func TestReportInfer_rdfs_subClassOf(t *testing.T) {
             http://www.w3.org/2000/01/rdf-schema#Literal
             http://www.w3.org/2000/01/rdf-schema#Resource
 
-
 			a
 			=============================
 			http://tmcphill.net/ns/data#a1
@@ -130,7 +128,6 @@ func TestReportInfer_rdfs_subClassOf(t *testing.T) {
 			http://tmcphill.net/ns/data#b3
 			http://tmcphill.net/ns/data#c1
 
-
 			b
 			=============================
 			http://tmcphill.net/ns/data#b1
@@ -138,10 +135,10 @@ func TestReportInfer_rdfs_subClassOf(t *testing.T) {
 			http://tmcphill.net/ns/data#b3
 			http://tmcphill.net/ns/data#c1
 
-
 			c
 			=============================
 			http://tmcphill.net/ns/data#c1
+
 		`)
 	})
 
@@ -151,8 +148,8 @@ func TestReportInfer_rdfs_subClassOf(t *testing.T) {
 		run("blazegraph create --dataset kb --infer owl")
 		load()
 		report()
-		util.LineContentsEqual(t, outputBuffer.String(), `
-			type
+		util.LineContentsEqual(t, outputBuffer.String(),
+			`type
 			===============================================================
 			http://tmcphill.net/ns/data#typea
 			http://tmcphill.net/ns/data#typeb
@@ -176,7 +173,6 @@ func TestReportInfer_rdfs_subClassOf(t *testing.T) {
 			http://www.w3.org/2002/07/owl#Restriction
 			http://www.w3.org/2002/07/owl#TransitiveProperty
 
-
 			a
 			=============================
 			http://tmcphill.net/ns/data#a1
@@ -186,7 +182,6 @@ func TestReportInfer_rdfs_subClassOf(t *testing.T) {
 			http://tmcphill.net/ns/data#b3
 			http://tmcphill.net/ns/data#c1
 
-
 			b
 			=============================
 			http://tmcphill.net/ns/data#b1
@@ -194,10 +189,10 @@ func TestReportInfer_rdfs_subClassOf(t *testing.T) {
 			http://tmcphill.net/ns/data#b3
 			http://tmcphill.net/ns/data#c1
 
-
 			c
 			=============================
 			http://tmcphill.net/ns/data#c1
+
 		`)
 	})
 
@@ -227,10 +222,10 @@ func TestReportInfer_rdf_inverseOf(t *testing.T) {
 	}
 
 	report := func() {
-		q := `
-			{{ prefix "rdf" "http://www.w3.org/1999/02/22-rdf-syntax-ns#" }}
-			{{ prefix "verb" "http://tmcphill.net/ns/verb#" }}
-
+		q :=
+			`{{ prefix "rdf" "http://www.w3.org/1999/02/22-rdf-syntax-ns#" }} 	\
+			{{ prefix "verb" "http://tmcphill.net/ns/verb#" }}					\
+																				\
 			*** Object of verb:uses ***
 
 			{{ select '''
@@ -257,8 +252,8 @@ func TestReportInfer_rdf_inverseOf(t *testing.T) {
 		run("blazegraph create --dataset kb --infer none")
 		load()
 		report()
-		util.LineContentsEqual(t, outputBuffer.String(), `
-			*** Object of verb:uses ***
+		util.LineContentsEqual(t, outputBuffer.String(),
+			`*** Object of verb:uses ***
 
 			usedTool
 			================================
@@ -270,7 +265,8 @@ func TestReportInfer_rdf_inverseOf(t *testing.T) {
 			usedTool
 			===================================
 			http://tmcphill.net/ns/tool#keyboard
-		`)
+
+			`)
 	})
 
 	t.Run("infer-rdfs", func(t *testing.T) {
@@ -279,8 +275,8 @@ func TestReportInfer_rdf_inverseOf(t *testing.T) {
 		run("blazegraph create --dataset kb --infer rdfs")
 		load()
 		report()
-		util.LineContentsEqual(t, outputBuffer.String(), `
-			*** Object of verb:uses ***
+		util.LineContentsEqual(t, outputBuffer.String(),
+			`*** Object of verb:uses ***
 
 			usedTool
 			================================
@@ -292,7 +288,8 @@ func TestReportInfer_rdf_inverseOf(t *testing.T) {
 			usedTool
 			===================================
 			http://tmcphill.net/ns/tool#keyboard
-		`)
+
+			`)
 	})
 
 	t.Run("infer-owl", func(t *testing.T) {
@@ -301,8 +298,8 @@ func TestReportInfer_rdf_inverseOf(t *testing.T) {
 		run("blazegraph create --dataset kb --infer owl")
 		load()
 		report()
-		util.LineContentsEqual(t, outputBuffer.String(), `
-			*** Object of verb:uses ***
+		util.LineContentsEqual(t, outputBuffer.String(),
+			`*** Object of verb:uses ***
 
 			usedTool
 			===================================
@@ -316,7 +313,8 @@ func TestReportInfer_rdf_inverseOf(t *testing.T) {
 			===================================
 			http://tmcphill.net/ns/tool#keyboard
 			http://tmcphill.net/ns/tool#mouse
-		`)
+
+			`)
 	})
 }
 
@@ -352,13 +350,13 @@ func TestReportInfer_rdfs_domain_range(t *testing.T) {
 	}
 
 	report := func() {
-		q := `
-			{{ prefix "rdf"     "http://www.w3.org/1999/02/22-rdf-syntax-ns#" }}
-			{{ prefix "tm"      "http://tmcphill.net/ns/data#" }}
-			{{ prefix "verb"    "http://tmcphill.net/ns/verb#" }}
-			{{ prefix "tool"    "http://tmcphill.net/ns/tool#" }}
-			{{ prefix "person"  "http://tmcphill.net/ns/person#" }}
-
+		q :=
+			`{{ prefix "rdf"     "http://www.w3.org/1999/02/22-rdf-syntax-ns#" }}	\
+			{{ prefix "tm"      "http://tmcphill.net/ns/data#" }}					\
+			{{ prefix "verb"    "http://tmcphill.net/ns/verb#" }}					\
+			{{ prefix "tool"    "http://tmcphill.net/ns/tool#" }}					\
+			{{ prefix "person"  "http://tmcphill.net/ns/person#" }}					\
+																					\
 			*** Statements about verb:uses ***
 			{{ select '''
 				SELECT ?p ?o
@@ -411,9 +409,8 @@ func TestReportInfer_rdfs_domain_range(t *testing.T) {
 		run("blazegraph create --dataset kb --infer none")
 		load()
 		report()
-		util.LineContentsEqual(t, outputBuffer.String(), `
-
-			*** Statements about verb:uses ***
+		util.LineContentsEqual(t, outputBuffer.String(),
+			`*** Statements about verb:uses ***
 			p                                           | o
 			===========================================================================
 			http://www.w3.org/2000/01/rdf-schema#domain | http://tmcphill.net/ns#Person
@@ -451,7 +448,8 @@ func TestReportInfer_rdfs_domain_range(t *testing.T) {
 			s                                    | o
 			========================================================================
 			http://tmcphill.net/ns/tool#keyboard | http://tmcphill.net/ns/person#tim
-		`)
+
+			`)
 	})
 
 	t.Run("infer-rdfs", func(t *testing.T) {
@@ -460,9 +458,8 @@ func TestReportInfer_rdfs_domain_range(t *testing.T) {
 		run("blazegraph create --dataset kb --infer rdfs")
 		load()
 		report()
-		util.LineContentsEqual(t, outputBuffer.String(), `
-
-			*** Statements about verb:uses ***
+		util.LineContentsEqual(t, outputBuffer.String(),
+			`*** Statements about verb:uses ***
 			p                                                  | o
             =====================================================================================================
             http://www.w3.org/1999/02/22-rdf-syntax-ns#type    | http://www.w3.org/1999/02/22-rdf-syntax-ns#Property
@@ -505,7 +502,8 @@ func TestReportInfer_rdfs_domain_range(t *testing.T) {
             s                                    | o
             ========================================================================
             http://tmcphill.net/ns/tool#keyboard | http://tmcphill.net/ns/person#tim
-        `)
+
+			`)
 	})
 
 	t.Run("infer-owl", func(t *testing.T) {
@@ -514,8 +512,8 @@ func TestReportInfer_rdfs_domain_range(t *testing.T) {
 		run("blazegraph create --dataset kb --infer owl")
 		load()
 		report()
-		util.LineContentsEqual(t, outputBuffer.String(), `
-			*** Statements about verb:uses ***
+		util.LineContentsEqual(t, outputBuffer.String(),
+			`*** Statements about verb:uses ***
 			p                                                  | o
 			=====================================================================================================
 			http://www.w3.org/1999/02/22-rdf-syntax-ns#type    | http://www.w3.org/1999/02/22-rdf-syntax-ns#Property
@@ -565,7 +563,8 @@ func TestReportInfer_rdfs_domain_range(t *testing.T) {
 			http://tmcphill.net/ns/person#tim    | http://tmcphill.net/ns/tool#mouse
 			http://tmcphill.net/ns/tool#keyboard | http://tmcphill.net/ns/person#tim
 			http://tmcphill.net/ns/tool#mouse    | http://tmcphill.net/ns/person#tim
-		`)
+
+			`)
 	})
 
 }

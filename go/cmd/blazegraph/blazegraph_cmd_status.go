@@ -12,12 +12,14 @@ const retryPeriod = 100
 
 func handleStatusSubcommand(cc *cli.CommandContext) (err error) {
 
-	timeout := cc.Flags.Int("timeout", 0, "Total number of `milliseconds` to wait for Blazegraph instance to respond")
+	timeout := cc.Flags.Int("timeout", 0, "Number of `milliseconds` to wait for Blazegraph instance to respond")
+
 	if cc.ShowHelpIfRequested() {
 		return
 	}
-	if err = cc.Flags.Parse(cc.Args[1:]); err != nil {
-		cc.ShowCommandUsage()
+	cc.Flags.Usage()
+
+	if err = parseFlags(cc); err != nil {
 		return
 	}
 
@@ -25,13 +27,12 @@ func handleStatusSubcommand(cc *cli.CommandContext) (err error) {
 
 	var status string
 
-	maxRetries := *timeout / retryPeriod
-
+	maxRetries := max(*timeout/retryPeriod, 1)
 	var retries int
 	for retries = 0; retries < maxRetries; retries++ {
 		status, err = bc.GetStatus()
 		if err != nil {
-			fmt.Fprintln(Main.ErrWriter, err.Error())
+			fmt.Fprintln(cc.ErrWriter, err.Error())
 			switch err.(type) {
 			case *url.Error:
 				time.Sleep(retryPeriod * time.Millisecond)
@@ -42,15 +43,23 @@ func handleStatusSubcommand(cc *cli.CommandContext) (err error) {
 			}
 			return
 		}
+		break
 	}
 
 	if err != nil {
 		if retries >= maxRetries {
-			fmt.Fprintf(Main.ErrWriter, "Exceeded timeout connecting to Blazegraph instance\n", retries)
+			fmt.Fprintf(cc.ErrWriter, "Exceeded timeout connecting to Blazegraph instance\n")
 		}
 		return
 	}
 
-	fmt.Fprintln(Main.OutWriter, status)
+	fmt.Fprintln(cc.OutWriter, status)
 	return
+}
+
+func max(a, b int) int {
+	if a > b {
+		return a
+	}
+	return b
 }

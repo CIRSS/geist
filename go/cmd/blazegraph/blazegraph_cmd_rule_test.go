@@ -39,8 +39,8 @@ func TestBlazegraphCmd_static_macro_in_select(t *testing.T) {
 	`
 	Main.InReader = strings.NewReader(template)
 	assertExitCode(t, "blazegraph query --format table", 0)
-	util.LineContentsEqual(t, outputBuffer.String(), `
-		s                                   | o
+	util.LineContentsEqual(t, outputBuffer.String(),
+		`s                                   | o
 		=========================================================================
 		http://127.0.0.1:9999/blazegraph/:x | http://127.0.0.1:9999/blazegraph/:y
 	`)
@@ -76,8 +76,8 @@ func TestBlazegraphCmd_included_static_macro_in_select(t *testing.T) {
 	`
 	Main.InReader = strings.NewReader(template)
 	assertExitCode(t, "blazegraph query --format table", 0)
-	util.LineContentsEqual(t, outputBuffer.String(), `
-		s                                   | o
+	util.LineContentsEqual(t, outputBuffer.String(),
+		`s                                   | o
 		=========================================================================
 		http://127.0.0.1:9999/blazegraph/:x | http://127.0.0.1:9999/blazegraph/:y
 	`)
@@ -115,8 +115,8 @@ func TestBlazegraphCmd_dynamic_macro_in_select(t *testing.T) {
 	`
 	Main.InReader = strings.NewReader(template)
 	assertExitCode(t, "blazegraph query --format table", 0)
-	util.LineContentsEqual(t, outputBuffer.String(), `
-		s                                   | o
+	util.LineContentsEqual(t, outputBuffer.String(),
+		`s                                   | o
 		=========================================================================
 		http://127.0.0.1:9999/blazegraph/:y | http://127.0.0.1:9999/blazegraph/:z
 	`)
@@ -152,8 +152,8 @@ func TestBlazegraphCmd_included_dynamic_macro_in_select(t *testing.T) {
 	`
 	Main.InReader = strings.NewReader(template)
 	assertExitCode(t, "blazegraph query --format table", 0)
-	util.LineContentsEqual(t, outputBuffer.String(), `
-		s                                   | o
+	util.LineContentsEqual(t, outputBuffer.String(),
+		`s                                   | o
 		=========================================================================
 		http://127.0.0.1:9999/blazegraph/:y | http://127.0.0.1:9999/blazegraph/:z
 	`)
@@ -193,8 +193,8 @@ func TestBlazegraphCmd_rule_in_select(t *testing.T) {
 	`
 	Main.InReader = strings.NewReader(template)
 	assertExitCode(t, "blazegraph query --format table", 0)
-	util.LineContentsEqual(t, outputBuffer.String(), `
-		o
+	util.LineContentsEqual(t, outputBuffer.String(),
+		`o
 		==
 		baz
 	`)
@@ -230,8 +230,8 @@ func TestBlazegraphCmd_included_rule_in_select(t *testing.T) {
 	`
 	Main.InReader = strings.NewReader(template)
 	assertExitCode(t, "blazegraph query --format table", 0)
-	util.LineContentsEqual(t, outputBuffer.String(), `
-		o
+	util.LineContentsEqual(t, outputBuffer.String(),
+		`o
 		==
 		baz
 	`)
@@ -255,7 +255,6 @@ func TestBlazegraphCmd_rule_in_select_in_report(t *testing.T) {
 
 	outputBuffer.Reset()
 	template := `
-
 		{{{
 			{{ rule "foo_bar_baz" "s" "o" '''
 				{{_subject $s}} <:foo> ?y .
@@ -273,7 +272,8 @@ func TestBlazegraphCmd_rule_in_select_in_report(t *testing.T) {
 	`
 	Main.InReader = strings.NewReader(template)
 	assertExitCode(t, "blazegraph report", 0)
-	util.LineContentsEqual(t, outputBuffer.String(), `
+	util.LineContentsEqual(t, outputBuffer.String(),
+		`
 		baz
 	`)
 }
@@ -296,7 +296,6 @@ func TestBlazegraphCmd_rule_in_query(t *testing.T) {
 
 	outputBuffer.Reset()
 	template := `
-
 		{{{
 			{{ rule "foo_bar_baz" "s" "o" '''
 				{{_subject $s}} <:foo> ?y .
@@ -339,7 +338,6 @@ func TestBlazegraphCmd_rule_in_rule(t *testing.T) {
 
 	outputBuffer.Reset()
 	template := `
-
 		{{{
 			{{ rule "foo_bar_baz_rule_1" "s" "o" '''
 				{{_subject $s}} <:foo> ?y .
@@ -359,15 +357,15 @@ func TestBlazegraphCmd_rule_in_rule(t *testing.T) {
 			''' }}
 
 		}}}
-
 		{{ foo_bar_baz_query ":x" | tabulate }}
 `
 	Main.InReader = strings.NewReader(template)
 	assertExitCode(t, "blazegraph report", 0)
-	util.LineContentsEqual(t, outputBuffer.String(), `
-		s                                   | o
+	util.LineContentsEqual(t, outputBuffer.String(),
+		`s                                   | o
 		=========================================
 		http://127.0.0.1:9999/blazegraph/:x | baz
+
 	`)
 }
 
@@ -388,7 +386,6 @@ func TestBlazegraphCmd_rule_in_query_called_by_macro(t *testing.T) {
 
 	outputBuffer.Reset()
 	template := `
-
 		{{{
 			{{ rule "hasTag" "s" "o" '''
 				{{_subject $s}} <:tag> {{_object $o}}
@@ -411,11 +408,10 @@ func TestBlazegraphCmd_rule_in_query_called_by_macro(t *testing.T) {
 				{{ select_tags_for_subject $Subject | tabulate }}
 			''' }}
 		}}}
-
+																	\
 		{{ range $Subject := select_subjects | vector }}
 			{{ tabulate_tags_for_subject $Subject }}
 		{{ end }}
-
 `
 	Main.InReader = strings.NewReader(template)
 	assertExitCode(t, "blazegraph report", 0)
@@ -427,5 +423,6 @@ func TestBlazegraphCmd_rule_in_query_called_by_macro(t *testing.T) {
 		tag
 		====
 		eight
+
 	`)
 }

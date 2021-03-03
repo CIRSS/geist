@@ -16,10 +16,11 @@ func handleQuerySubcommand(cc *cli.CommandContext) (err error) {
 	if cc.ShowHelpIfRequested() {
 		return
 	}
-	if err = cc.Flags.Parse(cc.Args[1:]); err != nil {
-		cc.ShowCommandUsage()
+
+	if err = parseFlags(cc); err != nil {
 		return
 	}
+
 	return doSelectQuery(cc, *dryrun, *file, *format, *separators)
 }
 

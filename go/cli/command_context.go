@@ -39,7 +39,7 @@ func (cc *CommandContext) ShowCommandDescription() {
 
 func (cc *CommandContext) ShowCommandUsage() {
 	fmt.Fprintf(cc.OutWriter, "\nUsage: blazegraph %s [<flags>]\n\n", cc.Descriptor.Name)
-	fmt.Fprint(cc.OutWriter, "Flags:\n")
+	fmt.Fprint(cc.OutWriter, "Flags:\n\n")
 	cc.Flags.PrintDefaults()
 	fmt.Fprintln(cc.OutWriter)
 }
@@ -50,7 +50,7 @@ func (cc *CommandContext) ShowProgramUsage() {
 	for _, sc := range cc.commands.commandList {
 		fmt.Fprintf(cc.OutWriter, "  %-7s  - %s\n", sc.Name, sc.Summary)
 	}
-	fmt.Fprint(cc.OutWriter, "\nCommon flags:\n")
+	fmt.Fprint(cc.OutWriter, "\nCommon flags:\n\n")
 	cc.Flags.PrintDefaults()
 	fmt.Fprint(cc.OutWriter, "\nSee 'blazegraph help <command>' for help with one of the above commands.\n\n")
 	return

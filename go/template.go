@@ -47,7 +47,6 @@ type Template struct {
 func NewTemplate(name string, text string, delimiters *DelimiterPair, client Client) *Template {
 	rt := new(Template)
 	rt.Name = name
-	text = util.Trim(text)
 	rt.Text = util.TrimEachLine(text)
 	rt.Properties.Funcs = textTemplate.FuncMap{}
 	if delimiters != nil {
@@ -133,7 +132,6 @@ func (rp *Template) Expand(data interface{}) (result string, err error) {
 	}
 	result = buffer.String()
 	result = RestoreNewlines(result)
-	result = util.Trim(result)
 	return
 }
 
@@ -150,7 +148,8 @@ func (rp *Template) ExpandSubreport(name string, text string, data interface{}) 
 
 func (rp *Template) expandMacro(name string, args []interface{}) (result interface{}, err error) {
 	macroTemplate := rp.Properties.Macros[name]
-	result, err = macroTemplate.Expand(args)
+	expansion, err := macroTemplate.Expand(args)
+	result = util.Trim(expansion)
 	return
 }
 

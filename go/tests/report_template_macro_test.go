@@ -21,8 +21,7 @@ func TestReportTemplate_constant_macro_function(t *testing.T) {
 	rt.Parse()
 	actual, _ := rt.Expand(nil)
 	util.LineContentsEqual(t, actual,
-		`
-		constant macro
+		`constant macro
 	`)
 }
 
@@ -30,11 +29,10 @@ func TestReportTemplate_macro_function_with_one_parameter(t *testing.T) {
 
 	rt := geist.NewTemplate(
 		"main",
-		`
-		{{{
+		`{{{
 		{{ macro "M1" "P1" '''macro with one parameter: {{$P1}}''' }}
 		}}}
-
+																			\
 		{{ M1 "AA" }}
 		`, nil, nil)
 
@@ -50,11 +48,10 @@ func TestReportTemplate_macro_function_with_two_parameters(t *testing.T) {
 
 	rt := geist.NewTemplate(
 		"main",
-		`
-		{{{
+		`{{{
 		{{ macro "M1" "P1" "P2" '''macro with two parameters: {{$P1}}, {{$P2}}''' }}
 		}}}
-
+																						\
 		{{ M1 "AA" "BB" }}
 		`, nil, nil)
 

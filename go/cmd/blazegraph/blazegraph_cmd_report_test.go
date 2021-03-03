@@ -18,21 +18,17 @@ func TestBlazegraphCmd_report_static_content(t *testing.T) {
 		template := `A constant template.`
 		Main.InReader = strings.NewReader(template)
 		assertExitCode(t, "blazegraph report", 0)
-		util.LineContentsEqual(t, outputBuffer.String(), `
-			A constant template.
-		`)
+		util.LineContentsEqual(t, outputBuffer.String(),
+			`A constant template.`)
 	})
 
 	t.Run("constant-template-containing-unquoted-percent-symbol", func(t *testing.T) {
 		outputBuffer.Reset()
-		template := `
-			A constant template with % symbol
-		`
+		template := `A constant template with % symbol`
 		Main.InReader = strings.NewReader(template)
 		assertExitCode(t, "blazegraph report", 0)
-		util.LineContentsEqual(t, outputBuffer.String(), `
-			A constant template with % symbol
-		`)
+		util.LineContentsEqual(t, outputBuffer.String(),
+			`A constant template with % symbol`)
 	})
 
 	t.Run("constant-template-containing-doublequotes", func(t *testing.T) {
@@ -42,9 +38,10 @@ func TestBlazegraphCmd_report_static_content(t *testing.T) {
 		`
 		Main.InReader = strings.NewReader(template)
 		assertExitCode(t, "blazegraph report", 0)
-		util.LineContentsEqual(t, outputBuffer.String(), `
-			"A constant template"
-		`)
+		util.LineContentsEqual(t, outputBuffer.String(),
+			`
+			 "A constant template"
+			`)
 	})
 
 	t.Run("constant-template-containing-quoted-percent-symbol", func(t *testing.T) {
@@ -54,9 +51,10 @@ func TestBlazegraphCmd_report_static_content(t *testing.T) {
 		`
 		Main.InReader = strings.NewReader(template)
 		assertExitCode(t, "blazegraph report", 0)
-		util.LineContentsEqual(t, outputBuffer.String(), `
-			"A constant template with % symbol"
-		`)
+		util.LineContentsEqual(t, outputBuffer.String(),
+			`
+			 "A constant template with % symbol"
+			`)
 	})
 
 	t.Run("function-with-quoted-argument", func(t *testing.T) {
@@ -66,9 +64,10 @@ func TestBlazegraphCmd_report_static_content(t *testing.T) {
 		`
 		Main.InReader = strings.NewReader(template)
 		assertExitCode(t, "blazegraph report", 0)
-		util.LineContentsEqual(t, outputBuffer.String(), `
-			A CONSTANT TEMPLATE
-		`)
+		util.LineContentsEqual(t, outputBuffer.String(),
+			`
+			 A CONSTANT TEMPLATE
+			 `)
 	})
 
 	t.Run("function-with-delimited-one-line-argument", func(t *testing.T) {
@@ -78,9 +77,10 @@ func TestBlazegraphCmd_report_static_content(t *testing.T) {
 		`
 		Main.InReader = strings.NewReader(template)
 		assertExitCode(t, "blazegraph report", 0)
-		util.LineContentsEqual(t, outputBuffer.String(), `
-			A CONSTANT TEMPLATE
-		`)
+		util.LineContentsEqual(t, outputBuffer.String(),
+			`
+			 A CONSTANT TEMPLATE
+			`)
 	})
 
 	t.Run("function-with-delimited-one-line-argument-containing-single-quotes", func(t *testing.T) {
@@ -90,9 +90,10 @@ func TestBlazegraphCmd_report_static_content(t *testing.T) {
 		`
 		Main.InReader = strings.NewReader(template)
 		assertExitCode(t, "blazegraph report", 0)
-		util.LineContentsEqual(t, outputBuffer.String(), `
-			A 'CONSTANT' TEMPLATE
-		`)
+		util.LineContentsEqual(t, outputBuffer.String(),
+			`
+			 A 'CONSTANT' TEMPLATE
+			`)
 	})
 
 	t.Run("function-with-delimited-two-line-argument", func(t *testing.T) {
@@ -103,10 +104,11 @@ func TestBlazegraphCmd_report_static_content(t *testing.T) {
 		`
 		Main.InReader = strings.NewReader(template)
 		assertExitCode(t, "blazegraph report", 0)
-		util.LineContentsEqual(t, outputBuffer.String(), `
-			A CONSTANT
-			TEMPLATE
-		`)
+		util.LineContentsEqual(t, outputBuffer.String(),
+			`
+			 A CONSTANT
+			 TEMPLATE
+			`)
 	})
 
 	t.Run("function-with-delimited-two-line-argument-containing-double-quotes", func(t *testing.T) {
@@ -117,10 +119,11 @@ func TestBlazegraphCmd_report_static_content(t *testing.T) {
 		`
 		Main.InReader = strings.NewReader(template)
 		assertExitCode(t, "blazegraph report", 0)
-		util.LineContentsEqual(t, outputBuffer.String(), `
-			A "CONSTANT"
-			TEMPLATE
-		`)
+		util.LineContentsEqual(t, outputBuffer.String(),
+			`
+			 A "CONSTANT"
+			 TEMPLATE
+			`)
 	})
 }
 
@@ -154,14 +157,16 @@ func TestBlazegraphCmd_report_two_triples(t *testing.T) {
 		`
 		Main.InReader = strings.NewReader(template)
 		assertExitCode(t, "blazegraph report", 0)
-		util.LineContentsEqual(t, outputBuffer.String(), `
-			Example select query with tabular output in report
+		util.LineContentsEqual(t, outputBuffer.String(),
+			`
+			 Example select query with tabular output in report
 
-			s                          | o
-			==================================
-			http://tmcphill.net/data#x | seven
-			http://tmcphill.net/data#y | eight
-		`)
+			 s                          | o
+			 ==================================
+			 http://tmcphill.net/data#x | seven
+			 http://tmcphill.net/data#y | eight
+
+			`)
 	})
 
 	t.Run("select-to-variable-to-tabulate", func(t *testing.T) {
@@ -179,13 +184,15 @@ func TestBlazegraphCmd_report_two_triples(t *testing.T) {
 			`
 		Main.InReader = strings.NewReader(template)
 		assertExitCode(t, "blazegraph report", 0)
-		util.LineContentsEqual(t, outputBuffer.String(), `
-				Example select query with tabular output in report
+		util.LineContentsEqual(t, outputBuffer.String(),
+			`
+			 Example select query with tabular output in report
 
-				s                          | o
-				==================================
-				http://tmcphill.net/data#x | seven
-				http://tmcphill.net/data#y | eight
+			 s                          | o
+			 ==================================
+			 http://tmcphill.net/data#x | seven
+			 http://tmcphill.net/data#y | eight
+
 			`)
 	})
 
@@ -204,13 +211,15 @@ func TestBlazegraphCmd_report_two_triples(t *testing.T) {
 			`
 		Main.InReader = strings.NewReader(template)
 		assertExitCode(t, "blazegraph report", 0)
-		util.LineContentsEqual(t, outputBuffer.String(), `
-				Example select query with tabular output in report
+		util.LineContentsEqual(t, outputBuffer.String(),
+			`
+			 Example select query with tabular output in report
 
-				s                          | o
-				==================================
-				http://tmcphill.net/data#x | seven
-				http://tmcphill.net/data#y | eight
+			 s                          | o
+			 ==================================
+			 http://tmcphill.net/data#x | seven
+			 http://tmcphill.net/data#y | eight
+
 			`)
 	})
 
@@ -237,15 +246,19 @@ func TestBlazegraphCmd_report_two_triples(t *testing.T) {
 			`
 		Main.InReader = strings.NewReader(template)
 		assertExitCode(t, "blazegraph report", 0)
-		util.LineContentsEqual(t, outputBuffer.String(), `
-				Example select query with tabular output in report
+		util.LineContentsEqual(t, outputBuffer.String(),
+			`
+			 Example select query with tabular output in report
 
-				Variables:
-				s, o
+			 Variables:
+			 s, o
 
-				Values:
-				http://tmcphill.net/data#x, seven
-				http://tmcphill.net/data#y, eight
+			 Values:
+			 http://tmcphill.net/data#x, seven
+			 http://tmcphill.net/data#y, eight
+
+
+
 			`)
 	})
 
@@ -267,17 +280,17 @@ func TestBlazegraphCmd_report_multiple_queries(t *testing.T) {
 	run("blazegraph import --format ttl")
 
 	outputBuffer.Reset()
-	template := `
-		{{prefix "ab" "http://tmcphill.net/tags#"}}
+	template :=
+		`{{prefix "ab" "http://tmcphill.net/tags#"}}	\
 														\
-		{{with $subjects := (select '''
+		 {{with $subjects := (select '''
 
 				SELECT ?s
 				WHERE
 				{ ?s ab:tag ?o }
 				ORDER BY ?s
 
-			''') | vector }}
+			''') | vector }}							\
 														\
 			{{range $subject := $subjects }} 			\
 				{{with $objects := (select '''
@@ -288,25 +301,25 @@ func TestBlazegraphCmd_report_multiple_queries(t *testing.T) {
 						ORDER BY ?o
 
 					''' $subject)}} 					\
-					{{tabulate $objects}}				\
-				{{end}}
-			{{end}}
-		{{end }}
+					{{tabulate $objects}}
+				{{end}}									\
+			{{end}}										\
+		{{end }}`
 
-`
 	Main.InReader = strings.NewReader(template)
 
 	assertExitCode(t, "blazegraph report", 0)
 
-	util.LineContentsEqual(t, outputBuffer.String(), `
-		o
-		====
-		seven
+	util.LineContentsEqual(t, outputBuffer.String(),
+		`o
+		 ====
+		 seven
 
-		o
-		====
-		eight
-	`)
+		 o
+		 ====
+		 eight
+
+		 `)
 }
 
 func TestBlazegraphCmd_report_macros(t *testing.T) {
@@ -325,43 +338,43 @@ func TestBlazegraphCmd_report_macros(t *testing.T) {
 	run("blazegraph import --format ttl")
 
 	outputBuffer.Reset()
-	template := `
-		{{{
-			{{ macro "M1" "Subject" '''{{select <?
-				SELECT ?o
-				WHERE { <{{.}}> ab:tag ?o }
-				ORDER BY ?o
-			?> $Subject | tabulate }}''' }}
-		}}}
-
-	{{prefix "ab" "http://tmcphill.net/tags#"}} \
-										\
-		{{with $subjects := (select '''				\
-				SELECT ?s							\
-				WHERE								\
-				{ ?s ab:tag ?o }					\
-				ORDER BY ?s							\
-			''') | vector }}						\
-			{{range $subject := $subjects }}		\
+	template :=
+		`{{{											\
+			{{ macro "M1" "Subject" '''{{select <?		\
+				SELECT ?o								\
+				WHERE { <{{.}}> ab:tag ?o }				\
+				ORDER BY ?o								\
+			?> $Subject | tabulate }}''' }}				\
+		}}}												\
+														\
+		{{prefix "ab" "http://tmcphill.net/tags#"}} 	\
+														\
+		{{with $subjects := (select '''					\
+				SELECT ?s								\
+				WHERE									\
+				{ ?s ab:tag ?o }						\
+				ORDER BY ?s								\
+			''') | vector }}							\
+			{{range $subject := $subjects }}			\
 				{{ M1 $subject }}
 
-			{{end}}									\
-		{{end}}										\
-
-`
+			{{end}}										\
+		{{end}}											\
+	`
 	Main.InReader = strings.NewReader(template)
 
 	assertExitCode(t, "blazegraph report", 0)
 
-	util.LineContentsEqual(t, outputBuffer.String(), `
-		o
-		====
-		seven
+	util.LineContentsEqual(t, outputBuffer.String(),
+		`o
+		 ====
+		 seven
 
-		o
-		====
-		eight
-	`)
+		 o
+		 ====
+		 eight
+
+		`)
 }
 
 func TestBlazegraphCmd_report_subqueries(t *testing.T) {
@@ -394,28 +407,28 @@ func TestBlazegraphCmd_report_subqueries(t *testing.T) {
 				WHERE { <{{$Subject}}> ab:tag ?o } 				\
 				ORDER BY ?o 									\
 			''' }}												\
-		}}}
-
-		{{ prefix "ab" "http://tmcphill.net/tags#" }}		\
-															\
-		{{ range (Q1 | vector) }}				\
-			{{ Q2 . | tabulate }}				\
-
-		{{ end }}											\
+		}}}														\
+																\
+		{{ prefix "ab" "http://tmcphill.net/tags#" }}			\
+																\
+		{{ range (Q1 | vector) }}								\
+			{{ Q2 . | tabulate }}
+		{{ end }}												\
 	`
 	Main.InReader = strings.NewReader(template)
 
 	assertExitCode(t, "blazegraph report", 0)
 
-	util.LineContentsEqual(t, outputBuffer.String(), `
-		o
-		====
-		seven
+	util.LineContentsEqual(t, outputBuffer.String(),
+		`o
+		 ====
+		 seven
 
-		o
-		====
-		eight
-	`)
+		 o
+		 ====
+		 eight
+
+		`)
 }
 
 func TestBlazegraphCmd_report_address_book(t *testing.T) {
@@ -444,18 +457,19 @@ func TestBlazegraphCmd_report_address_book(t *testing.T) {
 				}
 			''' | vector) }}																	\
 				{{ . }}
-			{{end}}
+			{{end}}																				\
 		`
 		Main.InReader = strings.NewReader(template)
 
 		assertExitCode(t, "blazegraph report", 0)
 
-		util.LineContentsEqual(t, outputBuffer.String(), `
-			Craig's email addresses
-			=======================
-			c.ellis@usairwaysgroup.com
-			craigellis@yahoo.com
-	`)
+		util.LineContentsEqual(t, outputBuffer.String(),
+			`
+			 Craig's email addresses
+			 =======================
+			 c.ellis@usairwaysgroup.com
+			 craigellis@yahoo.com
+			`)
 	})
 }
 
@@ -471,8 +485,8 @@ func TestBlazegraphCmd_report_address_book_imports(t *testing.T) {
 
 	t.Run("constant-template", func(t *testing.T) {
 		outputBuffer.Reset()
-		template := `
-			{{{
+		template :=
+			`{{{
 				{{ include "testdata/address-rules.gst" }}					\
 			}}}
 																			\
@@ -489,12 +503,13 @@ func TestBlazegraphCmd_report_address_book_imports(t *testing.T) {
 
 		assertExitCode(t, "blazegraph report", 0)
 
-		util.LineContentsEqual(t, outputBuffer.String(), `
+		util.LineContentsEqual(t, outputBuffer.String(),
+			`
 			Craig's email addresses
 			=======================
 			c.ellis@usairwaysgroup.com
 			craigellis@yahoo.com
-	`)
+		`)
 	})
 }
 
@@ -534,23 +549,24 @@ func TestBlazegraphCmd_report_subquery_functions(t *testing.T) {
 		{{ prefix "ab" "http://tmcphill.net/tags#" }}		\
 															\
 		{{ range (Q1 | vector) }}							\
-			{{ Q2 . | tabulate }}							\
-
+			{{ Q2 . | tabulate }}
 		{{ end }}											\
 	`
 	Main.InReader = strings.NewReader(template)
 
 	assertExitCode(t, "blazegraph report", 0)
 
-	util.LineContentsEqual(t, outputBuffer.String(), `
-		o
-		====
-		seven
+	util.LineContentsEqual(t, outputBuffer.String(),
+		`
+		 o
+		 ====
+		 seven
 
-		o
-		====
-		eight
-	`)
+		 o
+		 ====
+		 eight
+
+		`)
 }
 
 func TestBlazegraphCmd_report_macro_functions(t *testing.T) {
@@ -594,23 +610,22 @@ func TestBlazegraphCmd_report_macro_functions(t *testing.T) {
 				{{ M1 $subject }}
 
 			{{end}}											\\
-
-		{{end}}
-
+		{{end}}												\\
 `
 	Main.InReader = strings.NewReader(template)
 
 	assertExitCode(t, "blazegraph report", 0)
 
-	util.LineContentsEqual(t, outputBuffer.String(), `
-		o
-		====
-		seven
+	util.LineContentsEqual(t, outputBuffer.String(),
+		`o
+		 ====
+		 seven
 
-		o
-		====
-		eight
-	`)
+		 o
+		 ====
+		 eight
+
+		`)
 }
 
 func TestBlazegraphCmd_report_macro_calls_query(t *testing.T) {
@@ -630,7 +645,6 @@ func TestBlazegraphCmd_report_macro_calls_query(t *testing.T) {
 
 	outputBuffer.Reset()
 	template := `
-
 		{{{
 			{{prefix "ab" "http://tmcphill.net/tags#"}}
 
@@ -651,25 +665,26 @@ func TestBlazegraphCmd_report_macro_calls_query(t *testing.T) {
 				{{ select_tags_for_subject $Subject | tabulate }}
 			''' }}
 		}}}
-
-		{{range $Subject := select_subjects | vector }}
+																	\
+		{{range $Subject := select_subjects | vector }}				\
 			{{ tabulate_tags_for_subject $Subject }}
-		{{end}}
 
+		{{end}}														\
 `
 	Main.InReader = strings.NewReader(template)
 
 	assertExitCode(t, "blazegraph report", 0)
 
-	util.LineContentsEqual(t, outputBuffer.String(), `
-		tag
-		====
-		seven
+	util.LineContentsEqual(t, outputBuffer.String(),
+		`tag
+		 ====
+		 seven
 
-		tag
-		====
-		eight
-	`)
+		 tag
+		 ====
+		 eight
+
+		`)
 }
 
 func TestBlazegraphCmd_report_help(t *testing.T) {
@@ -680,8 +695,8 @@ func TestBlazegraphCmd_report_help(t *testing.T) {
 
 	assertExitCode(t, "blazegraph report help", 0)
 
-	util.LineContentsEqual(t, outputBuffer.String(), `
-
+	util.LineContentsEqual(t, outputBuffer.String(),
+		`
 		Expands the provided report template using the identified RDF dataset.
 
 		Usage: blazegraph report [<flags>]
@@ -690,12 +705,12 @@ func TestBlazegraphCmd_report_help(t *testing.T) {
 
 		-dataset name
 				name of RDF dataset to create report from
-
 		-file string
 				File containing report template to expand (default "-")
-
 		-instance URL
 				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
+		-quiet
+				Discard normal command output
 
 	`)
 }
@@ -708,8 +723,8 @@ func TestBlazegraphCmd_help_report(t *testing.T) {
 
 	assertExitCode(t, "blazegraph help report", 0)
 
-	util.LineContentsEqual(t, outputBuffer.String(), `
-
+	util.LineContentsEqual(t, outputBuffer.String(),
+		`
 		Expands the provided report template using the identified RDF dataset.
 
 		Usage: blazegraph report [<flags>]
@@ -718,12 +733,12 @@ func TestBlazegraphCmd_help_report(t *testing.T) {
 
 		-dataset name
 				name of RDF dataset to create report from
-
 		-file string
 				File containing report template to expand (default "-")
-
 		-instance URL
 				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
+		-quiet
+				Discard normal command output
 
 	`)
 }
@@ -736,8 +751,8 @@ func TestBlazegraphCmd_report_bad_flag(t *testing.T) {
 
 	assertExitCode(t, "blazegraph report --not-a-flag", 1)
 
-	util.LineContentsEqual(t, outputBuffer.String(), `
-
+	util.LineContentsEqual(t, outputBuffer.String(),
+		`
 		flag provided but not defined: -not-a-flag
 
 		Usage: blazegraph report [<flags>]
@@ -746,12 +761,12 @@ func TestBlazegraphCmd_report_bad_flag(t *testing.T) {
 
 		-dataset name
 				name of RDF dataset to create report from
-
 		-file string
 				File containing report template to expand (default "-")
-
 		-instance URL
 				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
+		-quiet
+				Discard normal command output
 
 	`)
 }

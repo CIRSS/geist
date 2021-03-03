@@ -55,6 +55,9 @@ func (sc *SparqlClient) GetRequest(url string, contentType string,
 func (sc *SparqlClient) PostRequest(url string, contentType string, acceptType string,
 	requestBody []byte) (responseBody []byte, err error) {
 
+	// ctx, cancel := context.WithTimeout(context.Background(), 2000*time.Millisecond)
+	// defer cancel()
+
 	// create the http requeest using the provided body
 	request, err := http.NewRequest("POST", url, bytes.NewReader(requestBody))
 	if err != nil {
@@ -140,10 +143,12 @@ func (sc *SparqlClient) ConstructAll(format string, sorted bool) (triples string
 	triples = string(responseBody)
 
 	if sorted && format == "text/plain" {
-		ntriplesSlice := strings.Split(triples, "\n")
+		ntriplesSlice := strings.Split(strings.Trim(triples, "\n"), "\n")
 		sort.Strings(ntriplesSlice)
 		triples = strings.Join(ntriplesSlice, "\n")
 	}
+
+	triples = strings.Trim(triples, " \n")
 
 	return
 }

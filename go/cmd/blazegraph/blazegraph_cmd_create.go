@@ -13,21 +13,18 @@ func handleCreateSubcommand(cc *cli.CommandContext) (err error) {
 	if cc.ShowHelpIfRequested() {
 		return
 	}
-	if err = cc.Flags.Parse(cc.Args[1:]); err != nil {
-		cc.ShowCommandUsage()
+	if err = parseFlags(cc); err != nil {
 		return
 	}
+
 	if len(*dataset) == 0 {
 		fmt.Fprintln(errorMessageWriter, "name of dataset must be given using the -dataset flag")
 		cc.ShowCommandUsage()
 		return
 	}
-	return doCreate(cc, *dataset, *infer)
-}
 
-func doCreate(cc *cli.CommandContext, name string, infer string) (err error) {
-	p := blazegraph.NewDatasetProperties(name)
-	p.Inference = infer
+	p := blazegraph.NewDatasetProperties(*dataset)
+	p.Inference = *infer
 	_, err = BlazegraphClient(cc).CreateDataSet(p)
 	return
 }

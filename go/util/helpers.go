@@ -33,10 +33,12 @@ func StringEquals(t *testing.T, actual string, expected string) {
 func TrimEachLine(s string) string {
 	var sb strings.Builder
 	lines := strings.Split(s, "\n")
-	for _, line := range lines {
+	for i, line := range lines {
 		trimmedLine := Trim(line)
 		sb.WriteString(trimmedLine)
-		sb.WriteString("\n")
+		if i < len(lines)-1 {
+			sb.WriteString("\n")
+		}
 	}
 	return sb.String()
 }
@@ -46,8 +48,8 @@ func Trim(s string) string {
 }
 
 func LineContentsEqual(t *testing.T, actual string, expect string) {
-	actualContent := strings.Split(Trim(actual), "\n")
-	expectContent := strings.Split(Trim(expect), "\n")
+	actualContent := strings.Split(actual, "\n")
+	expectContent := strings.Split(expect, "\n")
 	lineCount := len(actualContent)
 	if lineCount != len(expectContent) {
 		StringEquals(t, actual, expect)

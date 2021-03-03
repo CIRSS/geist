@@ -57,17 +57,14 @@ func TestReportTemplate_AnonymousStructInstance_NilData(t *testing.T) {
 	rt := geist.NewTemplate("main", "{{.Foo}}", nil, nil)
 	rt.Parse()
 	actual, _ := rt.Expand(nil)
-	util.LineContentsEqual(t, actual, `
-		<no value>
-	`)
+	util.LineContentsEqual(t, actual, `<no value>`)
 }
 
 func TestReportTemplate_MultilineVariableValue(t *testing.T) {
 
 	rt := geist.NewTemplate(
 		"main",
-		`
-		{{with $result := <%
+		`{{with $result := <%
 			foo
 			bar
 		%>}}{{$result}}{{end}}
@@ -75,10 +72,12 @@ func TestReportTemplate_MultilineVariableValue(t *testing.T) {
 		nil)
 	rt.Parse()
 	actual, _ := rt.Expand(nil)
-	util.LineContentsEqual(t, actual, `
+	util.LineContentsEqual(t, actual,
+		`
 		foo
 		bar
-	`)
+
+		`)
 }
 
 func TestReportTemplate_MultilineVariableValue_MissingEnd(t *testing.T) {
@@ -93,7 +92,7 @@ func TestReportTemplate_MultilineVariableValue_MissingEnd(t *testing.T) {
 		nil)
 	err := rt.Parse()
 	util.LineContentsEqual(t, err.Error(),
-		`template: main:2: unexpected EOF`)
+		`template: main:3: unexpected EOF`)
 }
 
 func TestReportTemplate_MultilineVariableValue_WrongVariableName(t *testing.T) {
@@ -108,7 +107,7 @@ func TestReportTemplate_MultilineVariableValue_WrongVariableName(t *testing.T) {
 		nil)
 	err := rt.Parse()
 	util.LineContentsEqual(t, err.Error(),
-		`template: main:1: undefined variable "$wrongVariableName"`)
+		`template: main:2: undefined variable "$wrongVariableName"`)
 }
 
 func TestReportTemplate_UnmatchedRawStringDelimiter(t *testing.T) {
@@ -148,6 +147,7 @@ func TestReportTemplate_MultilineFunctionArgument(t *testing.T) {
 	util.LineContentsEqual(t, actual, `
 		FOO
 		BAR
+
 	`)
 }
 
@@ -199,6 +199,7 @@ func TestReportTemplate_TableOfValues(t *testing.T) {
         Tim    | Oakland   | 530-219-4754
         Bob    | Concord   | 510-320-9943
         Joe    | San Diego | 213-101-9313
+
 		`)
 }
 
@@ -222,5 +223,5 @@ func TestReportTemplate_TableOfValues_IndexOutOfRange(t *testing.T) {
 	rt.Parse()
 	_, err := rt.Expand(contacts)
 	util.LineContentsEqual(t, err.Error(),
-		`template: main:3:48: executing "main" at <index . 3>: error calling index: reflect: slice index out of range`)
+		`template: main:4:48: executing "main" at <index . 3>: error calling index: reflect: slice index out of range`)
 }

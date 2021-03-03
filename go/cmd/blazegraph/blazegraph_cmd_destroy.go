@@ -12,10 +12,11 @@ func handleDestroySubcommand(cc *cli.CommandContext) (err error) {
 	if cc.ShowHelpIfRequested() {
 		return
 	}
-	if err = cc.Flags.Parse(cc.Args[1:]); err != nil {
-		cc.ShowCommandUsage()
+
+	if err = parseFlags(cc); err != nil {
 		return
 	}
+
 	if len(*dataset) == 0 {
 		fmt.Fprintln(errorMessageWriter, "name of dataset must be given using the -dataset flag")
 		cc.ShowCommandUsage()

@@ -13,26 +13,22 @@ func handleExportSubcommand(cc *cli.CommandContext) (err error) {
 	if cc.ShowHelpIfRequested() {
 		return
 	}
-	if err = cc.Flags.Parse(cc.Args[1:]); err != nil {
-		cc.ShowCommandUsage()
+	if err = parseFlags(cc); err != nil {
 		return
 	}
-	return doExport(cc, *format, *sort)
-}
 
-func doExport(cc *cli.CommandContext, format string, sorted bool) (err error) {
 	bc := BlazegraphClient(cc)
 	var triples string
 
-	switch format {
+	switch *format {
 	case "jsonld":
-		triples, err = bc.ConstructAll("application/ld+json", sorted)
+		triples, err = bc.ConstructAll("application/ld+json", *sort)
 	case "nt":
-		triples, err = bc.ConstructAll("text/plain", sorted)
+		triples, err = bc.ConstructAll("text/plain", *sort)
 	case "ttl":
-		triples, err = bc.ConstructAll("application/x-turtle", sorted)
+		triples, err = bc.ConstructAll("application/x-turtle", *sort)
 	case "xml":
-		triples, err = bc.ConstructAll("application/rdf+xml", sorted)
+		triples, err = bc.ConstructAll("application/rdf+xml", *sort)
 	}
 
 	if err != nil {
@@ -40,6 +36,10 @@ func doExport(cc *cli.CommandContext, format string, sorted bool) (err error) {
 		return
 	}
 
-	fmt.Fprintf(Main.OutWriter, triples)
+	fmt.Fprintf(Main.OutWriter, "%s", triples)
+	if len(triples) > 0 {
+		fmt.Fprintln(Main.OutWriter)
+
+	}
 	return
 }

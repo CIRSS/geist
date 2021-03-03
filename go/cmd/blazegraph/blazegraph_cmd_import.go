@@ -13,22 +13,19 @@ func handleImportSubcommand(cc *cli.CommandContext) (err error) {
 	if cc.ShowHelpIfRequested() {
 		return
 	}
-	if err = cc.Flags.Parse(cc.Args[1:]); err != nil {
-		cc.ShowCommandUsage()
+
+	if err = parseFlags(cc); err != nil {
 		return
 	}
-	return doImport(cc, *file, *format)
-}
 
-func doImport(cc *cli.CommandContext, file string, format string) (err error) {
 	bc := BlazegraphClient(cc)
-	data, err := readFileOrStdin(file)
+	data, err := readFileOrStdin(*file)
 	if err != nil {
 		fmt.Fprintf(Main.ErrWriter, err.Error())
 		return
 	}
 
-	switch format {
+	switch *format {
 
 	case "jsonld":
 		_, err = bc.PostData("application/ld+json", data)

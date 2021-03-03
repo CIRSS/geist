@@ -11,10 +11,11 @@ func handleListSubcommand(cc *cli.CommandContext) (err error) {
 	if cc.ShowHelpIfRequested() {
 		return
 	}
-	if err = cc.Flags.Parse(cc.Args[1:]); err != nil {
-		cc.ShowCommandUsage()
+
+	if err = parseFlags(cc); err != nil {
 		return
 	}
+
 	return doList(cc, *count)
 }
 
@@ -25,6 +26,7 @@ func doList(cc *cli.CommandContext, count string) (err error) {
 		fmt.Fprintf(Main.ErrWriter, err.Error())
 		return
 	}
+
 	for _, dataset := range datasets {
 		if count == "none" {
 			fmt.Fprintf(Main.OutWriter, "%s\n", dataset)

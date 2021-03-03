@@ -13,26 +13,27 @@ func handleReportSubcommand(cc *cli.CommandContext) (err error) {
 	if cc.ShowHelpIfRequested() {
 		return
 	}
-	if err = cc.Flags.Parse(cc.Args[1:]); err != nil {
-		cc.ShowCommandUsage()
+
+	if err = parseFlags(cc); err != nil {
 		return
 	}
-	return doReport(cc, *file)
-}
 
-func doReport(cc *cli.CommandContext, file string) (err error) {
 	bc := BlazegraphClient(cc)
-	reportTemplate, err := readFileOrStdin(file)
+
+	reportTemplate, err := readFileOrStdin(*file)
 	if err != nil {
 		fmt.Fprintf(Main.ErrWriter, err.Error())
 		return
 	}
+
 	rt := geist.NewTemplate("main", string(reportTemplate), nil, bc)
+
 	report, err := bc.ExpandReport(rt)
 	if err != nil {
 		fmt.Fprintf(Main.ErrWriter, err.Error())
 		return
 	}
+
 	fmt.Fprint(Main.OutWriter, report)
 	return
 }
