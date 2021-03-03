@@ -156,14 +156,13 @@ bash ${DOT_RUNNER} S8 "Visualization of Paper-Citation Graph" \
     << '__END_SCRIPT__'
 
 blazegraph report << '__END_REPORT_TEMPLATE__'
-
     {{{
         {{ include "graphviz.g" }}
-    }}}
-
-    {{ prefix "dc" "http://purl.org/dc/elements/1.1/" }}
-    {{ prefix "c" "http://learningsparql.com/ns/citations#" }}
-
+    }}}                                                             \\
+                                                                    \\
+    {{ prefix "dc" "http://purl.org/dc/elements/1.1/" }}            \\
+    {{ prefix "c" "http://learningsparql.com/ns/citations#" }}      \\
+                                                                    \\
     {{ gv_graph "wt_run" }}
 
     {{ gv_title "Paper-Citation Graph" }}
@@ -208,10 +207,10 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
     {{{
         {{ include "graphviz.g" }}
     }}}
-
-    {{ prefix "dc" "http://purl.org/dc/elements/1.1/" }}
-    {{ prefix "c" "http://learningsparql.com/ns/citations#" }}
-
+                                                                \\
+    {{ prefix "dc" "http://purl.org/dc/elements/1.1/" }}        \\
+    {{ prefix "c" "http://learningsparql.com/ns/citations#" }}  \\
+                                                                \\
     {{ gv_graph "wt_run" }}
 
     {{ gv_title "Result-Dependency Graph" }}
@@ -246,7 +245,7 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
     {{ gv_cluster_end }}
 
     {{ gv_end }}
-
+                                                                    \\
 __END_REPORT_TEMPLATE__
 
 __END_SCRIPT__
@@ -256,14 +255,14 @@ bash ${DOT_RUNNER} S10 "Visualization of Paper-Result Graph" \
     << '__END_SCRIPT__'
 
 blazegraph report << '__END_REPORT_TEMPLATE__'
-
-    {{{
-        {{ include "graphviz.g" }}
-    }}}
-
-    {{ prefix "dc" "http://purl.org/dc/elements/1.1/" }}
-    {{ prefix "c" "http://learningsparql.com/ns/citations#" }}
-
+                                                                    \\
+    {{{                                                             \\
+        {{ include "graphviz.g" }}                                  \\
+    }}}                                                             \\
+                                                                    \\
+    {{ prefix "dc" "http://purl.org/dc/elements/1.1/" }}            \\
+    {{ prefix "c" "http://learningsparql.com/ns/citations#" }}      \\
+                                                                    \\
     {{ gv_graph "wt_run" }}
 
     {{ gv_title "Paper-Result Graph" }}
@@ -318,12 +317,11 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
         ''' | rows }}                                                \\
         {{ gv_edge (index $Use 0) (index $Use 1) }}
     {{ end }}
-
                                                                     \\
     {{ gv_cluster_end }}
 
-    {{ gv_end }}
-
+    {{ gv_end }}                                                    \\
+                                                                    \\
 __END_REPORT_TEMPLATE__
 
 __END_SCRIPT__

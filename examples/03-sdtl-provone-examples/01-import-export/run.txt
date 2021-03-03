@@ -225,3 +225,4 @@ blazegraph export --format jsonld
     "@value" : "newVar"
   } ]
 } ]
+

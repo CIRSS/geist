@@ -16,35 +16,37 @@ blazegraph import --format jsonld --file ../data/branched-pipeline.jsonld
 # EMPTY DOT FILE
 
 blazegraph report << '__END_REPORT_TEMPLATE__'
-
+                                                                    \
 {{{
     {{ include "graphviz.g" }}
 }}}
-
+                                                                    \
     # A graphviz file
     {{ gv_graph "wt_run" }}
     {{ gv_end }}
-
+                                                                    \
 __END_REPORT_TEMPLATE__
 
 ----------------------------------------- GRAPH-1 DOT OUTPUT -----------------------------------------------
+
 
 # A graphviz file
 digraph wt_run {
 rankdir=LR
 }
 
+
 ******************************************* EXAMPLE GRAPH-2 ************************************************
 
 # TITLED EMPTY DOT FILE
 
 blazegraph report << '__END_REPORT_TEMPLATE__'
-
+                                                                    \
 {{{
     {{ include "graphviz.g" }}
     {{ include "wt.g" }}
 }}}
-
+                                                                    \
     {{ with $RunID := wt_select_run | value}}
 
         # Run ID: {{ $RunID }}
@@ -53,10 +55,13 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
         {{ gv_end }}
 
     {{ end }}
-
+                                                                    \
 __END_REPORT_TEMPLATE__
 
 ----------------------------------------- GRAPH-2 DOT OUTPUT -----------------------------------------------
+
+
+
 
 # Run ID: http://wholetale.org/tale2035/version_1021/run_1119#
 digraph wt_run {
@@ -65,17 +70,20 @@ fontname=Courier; fontsize=18; labelloc=t
 label="08-branched-pipeline"
 }
 
+
+
+
 ******************************************* EXAMPLE GRAPH-3 ************************************************
 
 # Node for Tale Run
 
 blazegraph report << '__END_REPORT_TEMPLATE__'
-
+                                                                    \
     {{{
         {{ include "graphviz.g" }}
         {{ include "wt.g" }}
     }}}
-
+                                                                    \
     {{ with $RunID := wt_select_run | value }}
 
         # Run ID: {{ $RunID }}
@@ -85,10 +93,13 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
         {{ gv_end }}
 
     {{ end }}
-
+                                                                    \
 __END_REPORT_TEMPLATE__
 
 ----------------------------------------- GRAPH-3 DOT OUTPUT -----------------------------------------------
+
+
+
 
 # Run ID: http://wholetale.org/tale2035/version_1021/run_1119#
 digraph wt_run {
@@ -99,17 +110,20 @@ node[shape=box style="filled" fillcolor="#FFFFFF" peripheries=2 fontname=Courier
 "http://wholetale.org/tale2035/version_1021/run_1119#" [label="08-branched-pipeline"]
 }
 
+
+
+
 ******************************************* EXAMPLE GRAPH-4 ************************************************
 
 # Tale Run with Inputs and Outputs
 
 blazegraph report << '__END_REPORT_TEMPLATE__'
-
+                                                                                \
     {{{
         {{ include "graphviz.g" }}
         {{ include "wt.g" }}
-    }}}
-
+    }}}                                                                         \
+                                                                                \
     {{ with $RunID := wt_select_run | value }}                                  \
 
         # Run ID: {{ $RunID }}
@@ -134,12 +148,13 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
         {{ end }}                                                               \
                                                                                 \
         {{ gv_end }}
-
-    {{ end }}
-
+                                                                                \
+    {{ end }}                                                                   \
+                                                                                \
 __END_REPORT_TEMPLATE__
 
 ----------------------------------------- GRAPH-4 DOT OUTPUT -----------------------------------------------
+
 
 # Run ID: http://wholetale.org/tale2035/version_1021/run_1119#
 digraph wt_run {
@@ -180,17 +195,18 @@ node[shape=box style="rounded,filled" fillcolor="#FFFFCC" peripheries=1 fontname
 "http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i28" -> "http://wholetale.org/tale2035/version_1021/run_1119#"
 }
 
+
 ******************************************* EXAMPLE GRAPH-5 ************************************************
 
 # Tale Processes and Data Files
 
 blazegraph report << '__END_REPORT_TEMPLATE__'
-
+                                                                                \
     {{{
         {{ include "graphviz.g" }}
         {{ include "wt.g" }}
     }}}
-
+                                                                                \
     {{ with $RunID := wt_select_run | value }}                                  \
 
         # Run ID: {{ $RunID }}
@@ -216,12 +232,14 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
         {{ gv_cluster_end }}
 
         {{ gv_end }}
-
-    {{ end }}
-
+                                                                                \
+    {{ end }}                                                                   \
+                                                                                \
 __END_REPORT_TEMPLATE__
 
 ----------------------------------------- GRAPH-5 DOT OUTPUT -----------------------------------------------
+
+
 
 # Run ID: http://wholetale.org/tale2035/version_1021/run_1119#
 digraph wt_run {
@@ -279,3 +297,4 @@ node[shape=box style="filled" fillcolor="#CCFFCC" peripheries=1 fontname=Courier
 }}
 
 }
+

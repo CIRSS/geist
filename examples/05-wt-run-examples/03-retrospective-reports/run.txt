@@ -15,12 +15,12 @@ blazegraph import --format jsonld --file ../data/branched-pipeline.jsonld
 
 # WHAT DATA FILES WERE USED AS INPUT BY THE TALE?
 
-blazegraph report << __END_REPORT_TEMPLATE__
-
-{{ prefix "prov" "http://www.w3.org/ns/prov#" }}
-{{ prefix "provone" "http://purl.dataone.org/provone/2015/01/15/ontology#" }}
-{{ prefix "wt" "http://wholetale.org/ontology/wt#" }}
-
+blazegraph report << '__END_REPORT_TEMPLATE__'
+                                                                                \
+{{ prefix "prov" "http://www.w3.org/ns/prov#" }}                                \
+{{ prefix "provone" "http://purl.dataone.org/provone/2015/01/15/ontology#" }}   \
+{{ prefix "wt" "http://wholetale.org/ontology/wt#" }}                           \
+                                                                                \
 {{ select '''
 
     SELECT DISTINCT ?tale_input_file_path ?read_file
@@ -34,10 +34,10 @@ blazegraph report << __END_REPORT_TEMPLATE__
             ?_ wt:WroteFile ?read_file . }
         ?read_file wt:FilePath ?tale_input_file_path .
     }
-    ORDER BY ?tale_input_file_path
-
-''' | tabulate }}
-
+    ORDER BY ?tale_input_file_path                                              
+                                                                                
+''' | tabulate }}                                                               \
+                                                                                \
 __END_REPORT_TEMPLATE__
 
 ------------------------------------------- REPORT-1 OUTPUTS ------------------------------------------------
@@ -49,16 +49,17 @@ tale_input_file_path | read_file
 ./inputs/i3.txt      | http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i26
 ./inputs/i4.txt      | http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i28
 
+
 ******************************************* EXAMPLE REPORT-2 ************************************************
 
 # WHAT DATA FILES WERE USED AS INPUT BY THE TALE?
 
 blazegraph report << '__END_REPORT_TEMPLATE__'
-
-{{ prefix "prov" "http://www.w3.org/ns/prov#" }}
-{{ prefix "provone" "http://purl.dataone.org/provone/2015/01/15/ontology#" }}
-{{ prefix "wt" "http://wholetale.org/ontology/wt#" }}
-
+                                                                                                        \
+{{ prefix "prov" "http://www.w3.org/ns/prov#" }}                                                        \
+{{ prefix "provone" "http://purl.dataone.org/provone/2015/01/15/ontology#" }}                           \
+{{ prefix "wt" "http://wholetale.org/ontology/wt#" }}                                                   \
+                                                                                                        \
 {{ with $Run := (select "SELECT ?r WHERE {?r a wt:TaleRun}") | value }}                                 \
                                                                                                         \
     Tale Run:   {{ $Run }}
@@ -78,10 +79,10 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
                 ?f wt:FilePath ?fp .
             } ORDER BY ?fp''' $RunScript | vector) }}                                                   \
                 {{ $InputFile }}
-        {{end}}
-    {{end}}
-{{end}}
-
+        {{end}}                                                                                         \
+    {{end}}                                                                                             \
+{{end}}                                                                                                 \
+                                                                                                        \
 __END_REPORT_TEMPLATE__
 
 ------------------------------------------- REPORT-2 OUTPUTS ------------------------------------------------
@@ -96,17 +97,18 @@ Tale Inputs:
 ./inputs/i3.txt
 ./inputs/i4.txt
 
+
 ******************************************* EXAMPLE REPORT-3 ************************************************
 
 # WHAT DATA FILES WERE USED AS INPUT BY THE TALE?
 
 blazegraph report << '__END_REPORT_TEMPLATE__'
-
+                                                                                                        \
 {{{
 {{ prefix "prov" "http://www.w3.org/ns/prov#" }}
 {{ prefix "provone" "http://purl.dataone.org/provone/2015/01/15/ontology#" }}
 {{ prefix "wt" "http://wholetale.org/ontology/wt#" }}
-
+                                                                                                        
 {{ query "GetRunID" '''
     SELECT ?r
     WHERE {
@@ -148,8 +150,8 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
     }
     ORDER BY ?fp
 ''' }}
-}}}
-
+}}}                                                             \
+                                                                \
 {{ with $RunID := GetRunID | value }}                           \
                                                                 \
     Tale Run:    {{ $RunID }}
@@ -165,7 +167,7 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
         {{ end }}                                               \
     {{ end }}                                                   \
 {{ end }}                                                       \
-
+                                                                \
 __END_REPORT_TEMPLATE__
 
 ------------------------------------------- REPORT-3 OUTPUTS ------------------------------------------------
@@ -179,3 +181,4 @@ Tale Inputs:
 ./inputs/i2.txt
 ./inputs/i3.txt
 ./inputs/i4.txt
+

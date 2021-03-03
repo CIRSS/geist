@@ -308,14 +308,13 @@ http://learningsparql.com/ns/papers#resultI
 # Visualization of Paper-Citation Graph
 
 blazegraph report << '__END_REPORT_TEMPLATE__'
-
     {{{
         {{ include "graphviz.g" }}
-    }}}
-
-    {{ prefix "dc" "http://purl.org/dc/elements/1.1/" }}
-    {{ prefix "c" "http://learningsparql.com/ns/citations#" }}
-
+    }}}                                                             \
+                                                                    \
+    {{ prefix "dc" "http://purl.org/dc/elements/1.1/" }}            \
+    {{ prefix "c" "http://learningsparql.com/ns/citations#" }}      \
+                                                                    \
     {{ gv_graph "wt_run" }}
 
     {{ gv_title "Paper-Citation Graph" }}
@@ -391,6 +390,8 @@ node[shape=box style="filled" fillcolor="#CCFFCC" peripheries=1 fontname=Courier
 
 }
 
+
+
 ******************************************* EXAMPLE S9 ************************************************
 
 # Visualization of Paper-Citation Graph
@@ -400,10 +401,10 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
     {{{
         {{ include "graphviz.g" }}
     }}}
-
-    {{ prefix "dc" "http://purl.org/dc/elements/1.1/" }}
-    {{ prefix "c" "http://learningsparql.com/ns/citations#" }}
-
+                                                                \
+    {{ prefix "dc" "http://purl.org/dc/elements/1.1/" }}        \
+    {{ prefix "c" "http://learningsparql.com/ns/citations#" }}  \
+                                                                \
     {{ gv_graph "wt_run" }}
 
     {{ gv_title "Result-Dependency Graph" }}
@@ -438,7 +439,7 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
     {{ gv_cluster_end }}
 
     {{ gv_end }}
-
+                                                                    \
 __END_REPORT_TEMPLATE__
 
 ----------------------------------------- S9 DOT OUTPUT -----------------------------------------------
@@ -484,19 +485,20 @@ node[shape=box style="rounded,filled" fillcolor="#FFFFCC" peripheries=1 fontname
 
 }
 
+
 ******************************************* EXAMPLE S10 ************************************************
 
 # Visualization of Paper-Result Graph
 
 blazegraph report << '__END_REPORT_TEMPLATE__'
-
-    {{{
-        {{ include "graphviz.g" }}
-    }}}
-
-    {{ prefix "dc" "http://purl.org/dc/elements/1.1/" }}
-    {{ prefix "c" "http://learningsparql.com/ns/citations#" }}
-
+                                                                    \
+    {{{                                                             \
+        {{ include "graphviz.g" }}                                  \
+    }}}                                                             \
+                                                                    \
+    {{ prefix "dc" "http://purl.org/dc/elements/1.1/" }}            \
+    {{ prefix "c" "http://learningsparql.com/ns/citations#" }}      \
+                                                                    \
     {{ gv_graph "wt_run" }}
 
     {{ gv_title "Paper-Result Graph" }}
@@ -551,12 +553,11 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
         ''' | rows }}                                                \
         {{ gv_edge (index $Use 0) (index $Use 1) }}
     {{ end }}
-
                                                                     \
     {{ gv_cluster_end }}
 
-    {{ gv_end }}
-
+    {{ gv_end }}                                                    \
+                                                                    \
 __END_REPORT_TEMPLATE__
 
 ----------------------------------------- S10 DOT OUTPUT -----------------------------------------------
@@ -621,7 +622,6 @@ node[shape=box style="rounded,filled" fillcolor="#FFFFCC" peripheries=1 fontname
 "http://learningsparql.com/ns/papers#resultE" -> "http://learningsparql.com/ns/papers#paperG"
 "http://learningsparql.com/ns/papers#resultD2" -> "http://learningsparql.com/ns/papers#paperH"
 "http://learningsparql.com/ns/papers#resultF" -> "http://learningsparql.com/ns/papers#paperI"
-
 
 }}
 

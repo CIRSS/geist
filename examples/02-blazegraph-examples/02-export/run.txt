@@ -71,6 +71,7 @@ blazegraph export --format jsonld
   } ]
 } ]
 
+
 ******************************************* EXAMPLE S1 ************************************************
 
 # EXPORT ADDRESS BOOK AS TURTLE
@@ -181,3 +182,4 @@ blazegraph export --format xml
 </rdf:Description>
 
 </rdf:RDF>
+

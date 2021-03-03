@@ -15,14 +15,14 @@ END_SCRIPT
 # *****************************************************************************
 
 bash ${RUNNER} REPORT-1 "WHAT DATA FILES WERE USED AS INPUT BY THE TALE?" \
-    << __END_SCRIPT__
+    << '__END_SCRIPT__'
 
-blazegraph report << __END_REPORT_TEMPLATE__
-
-{{ prefix "prov" "http://www.w3.org/ns/prov#" }}
-{{ prefix "provone" "http://purl.dataone.org/provone/2015/01/15/ontology#" }}
-{{ prefix "wt" "http://wholetale.org/ontology/wt#" }}
-
+blazegraph report << '__END_REPORT_TEMPLATE__'
+                                                                                \\
+{{ prefix "prov" "http://www.w3.org/ns/prov#" }}                                \\
+{{ prefix "provone" "http://purl.dataone.org/provone/2015/01/15/ontology#" }}   \\
+{{ prefix "wt" "http://wholetale.org/ontology/wt#" }}                           \\
+                                                                                \\
 {{ select '''
 
     SELECT DISTINCT ?tale_input_file_path ?read_file
@@ -36,10 +36,10 @@ blazegraph report << __END_REPORT_TEMPLATE__
             ?_ wt:WroteFile ?read_file . }
         ?read_file wt:FilePath ?tale_input_file_path .
     }
-    ORDER BY ?tale_input_file_path
-
-''' | tabulate }}
-
+    ORDER BY ?tale_input_file_path                                              
+                                                                                
+''' | tabulate }}                                                               \\
+                                                                                \\
 __END_REPORT_TEMPLATE__
 
 __END_SCRIPT__
@@ -49,11 +49,11 @@ bash ${RUNNER} REPORT-2 "WHAT DATA FILES WERE USED AS INPUT BY THE TALE?" \
     << '__END_SCRIPT__'
 
 blazegraph report << '__END_REPORT_TEMPLATE__'
-
-{{ prefix "prov" "http://www.w3.org/ns/prov#" }}
-{{ prefix "provone" "http://purl.dataone.org/provone/2015/01/15/ontology#" }}
-{{ prefix "wt" "http://wholetale.org/ontology/wt#" }}
-
+                                                                                                        \\
+{{ prefix "prov" "http://www.w3.org/ns/prov#" }}                                                        \\
+{{ prefix "provone" "http://purl.dataone.org/provone/2015/01/15/ontology#" }}                           \\
+{{ prefix "wt" "http://wholetale.org/ontology/wt#" }}                                                   \\
+                                                                                                        \\
 {{ with $Run := (select "SELECT ?r WHERE {?r a wt:TaleRun}") | value }}                                 \\
                                                                                                         \\
     Tale Run:   {{ $Run }}
@@ -73,10 +73,10 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
                 ?f wt:FilePath ?fp .
             } ORDER BY ?fp''' $RunScript | vector) }}                                                   \\
                 {{ $InputFile }}
-        {{end}}
-    {{end}}
-{{end}}
-
+        {{end}}                                                                                         \\
+    {{end}}                                                                                             \\
+{{end}}                                                                                                 \\
+                                                                                                        \\
 __END_REPORT_TEMPLATE__
 
 __END_SCRIPT__
@@ -85,12 +85,12 @@ bash ${RUNNER} REPORT-3 "WHAT DATA FILES WERE USED AS INPUT BY THE TALE?" \
     << '__END_SCRIPT__'
 
 blazegraph report << '__END_REPORT_TEMPLATE__'
-
+                                                                                                        \\
 {{{
 {{ prefix "prov" "http://www.w3.org/ns/prov#" }}
 {{ prefix "provone" "http://purl.dataone.org/provone/2015/01/15/ontology#" }}
 {{ prefix "wt" "http://wholetale.org/ontology/wt#" }}
-
+                                                                                                        
 {{ query "GetRunID" '''
     SELECT ?r
     WHERE {
@@ -132,8 +132,8 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
     }
     ORDER BY ?fp
 ''' }}
-}}}
-
+}}}                                                             \\
+                                                                \\
 {{ with $RunID := GetRunID | value }}                           \\
                                                                 \\
     Tale Run:    {{ $RunID }}
@@ -149,7 +149,7 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
         {{ end }}                                               \\
     {{ end }}                                                   \\
 {{ end }}                                                       \\
-
+                                                                \\
 __END_REPORT_TEMPLATE__
 
 __END_SCRIPT__

@@ -19,15 +19,15 @@ bash ${DOT_RUNNER} GRAPH-1 "EMPTY DOT FILE" \
     << '__END_SCRIPT__'
 
 blazegraph report << '__END_REPORT_TEMPLATE__'
-
+                                                                    \\
 {{{
     {{ include "graphviz.g" }}
 }}}
-
+                                                                    \\
     # A graphviz file
     {{ gv_graph "wt_run" }}
     {{ gv_end }}
-
+                                                                    \\
 __END_REPORT_TEMPLATE__
 
 __END_SCRIPT__
@@ -37,12 +37,12 @@ bash ${DOT_RUNNER} GRAPH-2 "TITLED EMPTY DOT FILE" \
     << '__END_SCRIPT__'
 
 blazegraph report << '__END_REPORT_TEMPLATE__'
-
+                                                                    \\
 {{{
     {{ include "graphviz.g" }}
     {{ include "wt.g" }}
 }}}
-
+                                                                    \\
     {{ with $RunID := wt_select_run | value}}
 
         # Run ID: {{ $RunID }}
@@ -51,7 +51,7 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
         {{ gv_end }}
 
     {{ end }}
-
+                                                                    \\
 __END_REPORT_TEMPLATE__
 
 __END_SCRIPT__
@@ -61,12 +61,12 @@ bash ${DOT_RUNNER} GRAPH-3 "Node for Tale Run" \
     << '__END_SCRIPT__'
 
 blazegraph report << '__END_REPORT_TEMPLATE__'
-
+                                                                    \\
     {{{
         {{ include "graphviz.g" }}
         {{ include "wt.g" }}
     }}}
-
+                                                                    \\
     {{ with $RunID := wt_select_run | value }}
 
         # Run ID: {{ $RunID }}
@@ -76,7 +76,7 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
         {{ gv_end }}
 
     {{ end }}
-
+                                                                    \\
 __END_REPORT_TEMPLATE__
 
 __END_SCRIPT__
@@ -86,12 +86,12 @@ bash ${DOT_RUNNER} GRAPH-4 "Tale Run with Inputs and Outputs" \
     << '__END_SCRIPT__'
 
 blazegraph report << '__END_REPORT_TEMPLATE__'
-
+                                                                                \\
     {{{
         {{ include "graphviz.g" }}
         {{ include "wt.g" }}
-    }}}
-
+    }}}                                                                         \\
+                                                                                \\
     {{ with $RunID := wt_select_run | value }}                                  \\
 
         # Run ID: {{ $RunID }}
@@ -116,9 +116,9 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
         {{ end }}                                                               \\
                                                                                 \\
         {{ gv_end }}
-
-    {{ end }}
-
+                                                                                \\
+    {{ end }}                                                                   \\
+                                                                                \\
 __END_REPORT_TEMPLATE__
 
 __END_SCRIPT__
@@ -128,12 +128,12 @@ bash ${DOT_RUNNER} GRAPH-5 "Tale Processes and Data Files" \
     << '__END_SCRIPT__'
 
 blazegraph report << '__END_REPORT_TEMPLATE__'
-
+                                                                                \\
     {{{
         {{ include "graphviz.g" }}
         {{ include "wt.g" }}
     }}}
-
+                                                                                \\
     {{ with $RunID := wt_select_run | value }}                                  \\
 
         # Run ID: {{ $RunID }}
@@ -159,9 +159,9 @@ blazegraph report << '__END_REPORT_TEMPLATE__'
         {{ gv_cluster_end }}
 
         {{ gv_end }}
-
-    {{ end }}
-
+                                                                                \\
+    {{ end }}                                                                   \\
+                                                                                \\
 __END_REPORT_TEMPLATE__
 
 __END_SCRIPT__

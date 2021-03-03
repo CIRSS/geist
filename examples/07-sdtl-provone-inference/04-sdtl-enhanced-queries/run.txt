@@ -988,6 +988,7 @@ __END_REPORT_TEMPLATE__
 
 ------------------------------------------- R1 OUTPUTS ------------------------------------------------
 
+
 ---------- VARIABLE HISTORY REPORT ----------
 
 ===================
@@ -1031,6 +1032,11 @@ Variable Celsius
 Compute | Line 24 | temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))
 Save    | Line 35 | temps.to_csv('outputs/temps_updated.csv', index=False)
 
+
+
+
+
+
 ******************************************* EXAMPLE R2 ************************************************
 
 # WHAT COMMANDS WRITE TO EACH VARIABLE?
@@ -1057,6 +1063,7 @@ __END_REPORT_TEMPLATE__
 
 ------------------------------------------- R2 OUTPUTS ------------------------------------------------
 
+
 ---------- COMMANDS THAT WRITE TO EACH VARIABLE ----------
 
 written_variable | source_line | source_text
@@ -1069,6 +1076,9 @@ C                | 16          | df['C'] = df.A - df.B
 Celsius          | 24          | temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))
 Fahrenheit       | 20          | temps = pd.read_csv('../data/temps.csv')
 Kelvin           | 28          | temps = temps.assign(Kelvin=(temps.Celsius + 273))
+
+
+
 
 ******************************************* EXAMPLE R3 ************************************************
 
@@ -1096,6 +1106,7 @@ __END_REPORT_TEMPLATE__
 
 ------------------------------------------- R3 OUTPUTS ------------------------------------------------
 
+
 ---------- COMMANDS THAT READ FROM EACH VARIABLE ----------
 
 read_variable | source_line | source_text
@@ -1111,6 +1122,9 @@ Celsius       | 35          | temps.to_csv('outputs/temps_updated.csv', index=Fa
 Fahrenheit    | 24          | temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))
 Fahrenheit    | 35          | temps.to_csv('outputs/temps_updated.csv', index=False)
 Kelvin        | 35          | temps.to_csv('outputs/temps_updated.csv', index=False)
+
+
+
 
 ******************************************* EXAMPLE R4 ************************************************
 
@@ -1140,6 +1154,7 @@ __END_REPORT_TEMPLATE__
 
 ------------------------------------------- R4 OUTPUTS ------------------------------------------------
 
+
 ---------- COMMANDS THAT WRITE VARIABLES READ BY DOWNSTREAM COMMANDS ----------
 
 variable   | writer_line | writer_text                                                     | reader_line | reader_text
@@ -1159,6 +1174,9 @@ Celsius    | 24          | temps = temps.assign(Celsius=((temps.Fahrenheit - 32)
 Fahrenheit | 20          | temps = pd.read_csv('../data/temps.csv')                        | 24          | temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))
 Fahrenheit | 20          | temps = pd.read_csv('../data/temps.csv')                        | 35          | temps.to_csv('outputs/temps_updated.csv', index=False)
 Kelvin     | 28          | temps = temps.assign(Kelvin=(temps.Celsius + 273))              | 35          | temps.to_csv('outputs/temps_updated.csv', index=False)
+
+
+
 
 ******************************************* EXAMPLE R5 ************************************************
 
@@ -1192,12 +1210,16 @@ __END_REPORT_TEMPLATE__
 
 ------------------------------------------- R5 OUTPUTS ------------------------------------------------
 
+
 ---------- COMMANDS THAT READ VARIABLES WRITTEN BY MULTIPLE UPSTREAM COMMANDS ----------
 
 variable | writer_line | writer_text                        | intermediate_writer_line | intermediate_writer_text | reader_line | reader_text
 ===================================================================================================================================
 B        | 4           | df = pd.read_csv('../data/df.csv') | 12                       | df['B'] = df.B + 6.5     | 16          | df['C'] = df.A - df.B
 B        | 4           | df = pd.read_csv('../data/df.csv') | 12                       | df['B'] = df.B + 6.5     | 32          | df.to_csv('outputs/df_updated.csv', index=False)
+
+
+
 
 ******************************************* EXAMPLE GRAPH-1 ************************************************
 
@@ -1240,6 +1262,7 @@ __END_REPORT_TEMPLATE__
 
 ----------------------------------------- GRAPH-1 DOT OUTPUT -----------------------------------------------
 
+
 digraph sdtl_program {
 rankdir=TB
 
@@ -1274,6 +1297,7 @@ node[width=8]
 }}
 
 }
+
 
 ******************************************* EXAMPLE GRAPH-2 ************************************************
 
@@ -1316,6 +1340,7 @@ __END_REPORT_TEMPLATE__
 
 ----------------------------------------- GRAPH-2 DOT OUTPUT -----------------------------------------------
 
+
 digraph sdtl_program {
 rankdir=TB
 
@@ -1355,3 +1380,4 @@ node[width=8]
 }}
 
 }
+

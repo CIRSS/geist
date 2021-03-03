@@ -59,7 +59,6 @@ node[shape=box style="rounded,filled" fillcolor="#FFFFCC" peripheries=1 fontname
 "http://learningsparql.com/ns/papers#resultD2" -> "http://learningsparql.com/ns/papers#paperH"
 "http://learningsparql.com/ns/papers#resultF" -> "http://learningsparql.com/ns/papers#paperI"
 
-
 }}
 
 }
