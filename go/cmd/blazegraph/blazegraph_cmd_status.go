@@ -1,11 +1,11 @@
 package main
 
 import (
-	"errors"
 	"fmt"
-	"net/url"
 	"time"
 
+	"github.com/cirss/geist"
+	"github.com/cirss/geist/blazegraph"
 	"github.com/cirss/geist/cli"
 )
 
@@ -26,35 +26,47 @@ func handleStatusSubcommand(cc *cli.CommandContext) (err error) {
 
 	bc := BlazegraphClient(cc)
 
-	var status string
+	maxTries := max(*timeout/retryPeriod, 1)
 
-	maxRetries := max(*timeout/retryPeriod, 1)
-	var retries int
-	for retries = 0; retries < maxRetries; retries++ {
-		status, err = bc.GetStatus()
-		if err != nil {
-			wrappedError := errors.Unwrap(err)
-			switch wrappedError.(type) {
-			case *url.Error:
-				time.Sleep(retryPeriod * time.Millisecond)
-				continue
+	status, err := getStatusInMaxTries(bc, maxTries)
 
-			default:
-				return
-			}
-			return
-		}
-		break
-	}
+	// if err != nil {
+	// 	if retries >= maxTries {
+	// 		fmt.Fprintf(cc.ErrWriter, "Exceeded timeout connecting to Blazegraph instance\n")
+	// 	}
+	// 	return
+	// }
 
 	if err != nil {
-		if retries >= maxRetries {
-			fmt.Fprintf(cc.ErrWriter, "Exceeded timeout connecting to Blazegraph instance\n")
-		}
-		return
+		fmt.Fprintln(cc.ErrWriter, err.Error())
+	} else {
+		fmt.Fprintln(cc.OutWriter, status)
 	}
 
-	fmt.Fprintln(cc.OutWriter, status)
+	return
+}
+
+func getStatusInMaxTries(bc *blazegraph.BlazegraphClient, maxTries int) (status string, err error) {
+
+	for tries := 1; tries <= maxTries; tries++ {
+
+		// try to get the status
+		status, err = bc.GetStatus()
+
+		// exit loop if successful
+		if err == nil {
+			break
+		}
+
+		// if this was the last allowed try, record a timeout error and exit loop
+		if tries == maxTries {
+			err = geist.NewGeistError("Exceeded timeout connecting to Blazegraph instance", err)
+			break
+		}
+
+		time.Sleep(retryPeriod * time.Millisecond)
+	}
+
 	return
 }
 
