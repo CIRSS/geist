@@ -29,7 +29,7 @@ func (sc *SparqlClient) GetRequest(url string, contentType string,
 	ctx, cancel := context.WithTimeout(context.Background(), 2000*time.Millisecond)
 	defer cancel()
 
-	// create the http requeest using the provided body
+	// create the http request using the provided body
 	request, err := http.NewRequest("GET", url, bytes.NewReader([]byte{}))
 	if err != nil {
 		return
@@ -93,6 +93,11 @@ func (sc *SparqlClient) PostData(format string, data []byte) (responseBody []byt
 
 func (sc SparqlClient) Select(query string) (rs *ResultSet, err error) {
 	responseBody, err := sc.PostSparqlRequest("application/sparql-query", "application/json", []byte(query))
+	if err != nil {
+		err = NewGeistError("Error posting SPARQL request", err)
+		return
+	}
+
 	err = json.Unmarshal(responseBody, &rs)
 	if err != nil {
 		print()

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"net/url"
 	"time"
@@ -32,8 +33,8 @@ func handleStatusSubcommand(cc *cli.CommandContext) (err error) {
 	for retries = 0; retries < maxRetries; retries++ {
 		status, err = bc.GetStatus()
 		if err != nil {
-			fmt.Fprintln(cc.ErrWriter, err.Error())
-			switch err.(type) {
+			wrappedError := errors.Unwrap(err)
+			switch wrappedError.(type) {
 			case *url.Error:
 				time.Sleep(retryPeriod * time.Millisecond)
 				continue

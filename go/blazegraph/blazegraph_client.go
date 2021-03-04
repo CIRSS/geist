@@ -123,11 +123,15 @@ func ExtractIntUsingRegEx(s string, regex string) (value int, err error) {
 }
 
 func (sc *BlazegraphClient) GetStatus() (statusJSON string, err error) {
+
 	responseBody, err := sc.GetRequest(sc.Url+"/status",
 		"text/plain", "text/plain")
+
 	if err != nil {
+		err = geist.NewGeistError("Error posting SPARQL request", err)
 		return
 	}
+
 	statusString := string(responseBody)
 	status := Status{}
 	status.InstanceUrl = sc.Url
