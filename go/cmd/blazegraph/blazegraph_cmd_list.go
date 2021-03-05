@@ -22,16 +22,16 @@ func doList(cc *cli.CommandContext, count string) (err error) {
 	bc := BlazegraphClient(cc)
 	datasets, err := bc.ListDatasets()
 	if err != nil {
-		fmt.Fprintf(Main.ErrWriter, err.Error())
+		fmt.Fprintf(Program.ErrWriter, err.Error())
 		return
 	}
 
 	for _, dataset := range datasets {
 		if count == "none" {
-			fmt.Fprintf(Main.OutWriter, "%s\n", dataset)
+			fmt.Fprintf(Program.OutWriter, "%s\n", dataset)
 		} else {
 			count, _ := bc.CountTriples(dataset, false)
-			fmt.Fprintf(Main.OutWriter, "%-10s %d\n", dataset, count)
+			fmt.Fprintf(Program.OutWriter, "%-10s %d\n", dataset, count)
 		}
 	}
 	return

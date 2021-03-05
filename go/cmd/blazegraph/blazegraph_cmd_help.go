@@ -9,7 +9,7 @@ import (
 
 func handleHelpSubcommand(cc *cli.CommandContext) (err error) {
 	if len(cc.Args) < 2 {
-		fmt.Fprintln(Main.OutWriter)
+		fmt.Fprintln(Program.OutWriter)
 		cc.ShowProgramUsage()
 		return
 	}
@@ -22,7 +22,7 @@ func handleHelpSubcommand(cc *cli.CommandContext) (err error) {
 		cc.Args = []string{commandName, "help"}
 		c.Handler(cc)
 	} else {
-		fmt.Fprintf(Main.ErrWriter, "\nnot a blazegraph command: %s\n\n", commandName)
+		fmt.Fprintf(Program.ErrWriter, "\nnot a blazegraph command: %s\n\n", commandName)
 		cc.ShowProgramUsage()
 		err = errors.New("Not a blazegraph command")
 	}

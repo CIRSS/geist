@@ -8,13 +8,13 @@ import (
 	"github.com/cirss/geist/cli"
 )
 
-// MW wraps the main() function.  It enables tests to manipulate the
+// Program wraps the main() function.  It enables tests to manipulate the
 // input and output streams used by main(), and provides a new FlagSet
 // for each execution so that main() can be called by multiple tests.
-var MW cli.MainWrapper
+var Program *cli.ProgramContext
 
 func init() {
-	MW = cli.NewMainWrapper("sparqlrep", main)
+	Program = cli.NewProgramContext("sparqlrep", main)
 }
 
 // Exercises the template package
@@ -22,7 +22,7 @@ func main() {
 
 	var err error
 
-	flags := MW.InitFlagSet()
+	flags := Program.InitFlagSet()
 	err = flags.Parse(os.Args[1:])
 	if err != nil {
 		fmt.Println(err)

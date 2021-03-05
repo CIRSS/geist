@@ -10,8 +10,8 @@ import (
 func TestBlazegraphCmd_no_command(t *testing.T) {
 
 	var outputBuffer strings.Builder
-	Main.OutWriter = &outputBuffer
-	Main.ErrWriter = &outputBuffer
+	Program.OutWriter = &outputBuffer
+	Program.ErrWriter = &outputBuffer
 
 	assertExitCode(t, "blazegraph", 1)
 
@@ -48,8 +48,8 @@ func TestBlazegraphCmd_no_command(t *testing.T) {
 func TestBlazegraphCmd_help_command_with_no_argument(t *testing.T) {
 
 	var outputBuffer strings.Builder
-	Main.OutWriter = &outputBuffer
-	Main.ErrWriter = &outputBuffer
+	Program.OutWriter = &outputBuffer
+	Program.ErrWriter = &outputBuffer
 
 	assertExitCode(t, "blazegraph help", 0)
 
@@ -84,8 +84,8 @@ func TestBlazegraphCmd_help_command_with_no_argument(t *testing.T) {
 func TestBlazegraphCmd_unsupported_command(t *testing.T) {
 
 	var outputBuffer strings.Builder
-	Main.OutWriter = &outputBuffer
-	Main.ErrWriter = &outputBuffer
+	Program.OutWriter = &outputBuffer
+	Program.ErrWriter = &outputBuffer
 
 	assertExitCode(t, "blazegraph not-a-command", 1)
 
@@ -122,8 +122,8 @@ func TestBlazegraphCmd_unsupported_command(t *testing.T) {
 func TestBlazegraphCmd_help_unsupported_command(t *testing.T) {
 
 	var outputBuffer strings.Builder
-	Main.OutWriter = &outputBuffer
-	Main.ErrWriter = &outputBuffer
+	Program.OutWriter = &outputBuffer
+	Program.ErrWriter = &outputBuffer
 
 	assertExitCode(t, "blazegraph help not-a-command", 1)
 

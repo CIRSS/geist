@@ -10,8 +10,8 @@ import (
 func TestBlazegraphCmd_destroy_help(t *testing.T) {
 
 	var outputBuffer strings.Builder
-	Main.OutWriter = &outputBuffer
-	Main.ErrWriter = &outputBuffer
+	Program.OutWriter = &outputBuffer
+	Program.ErrWriter = &outputBuffer
 
 	assertExitCode(t, "blazegraph destroy help", 0)
 
@@ -39,8 +39,8 @@ func TestBlazegraphCmd_destroy_help(t *testing.T) {
 func TestBlazegraphCmd_help_destroy(t *testing.T) {
 
 	var outputBuffer strings.Builder
-	Main.OutWriter = &outputBuffer
-	Main.ErrWriter = &outputBuffer
+	Program.OutWriter = &outputBuffer
+	Program.ErrWriter = &outputBuffer
 
 	assertExitCode(t, "blazegraph help destroy", 0)
 	util.LineContentsEqual(t, outputBuffer.String(),
@@ -67,8 +67,8 @@ func TestBlazegraphCmd_help_destroy(t *testing.T) {
 func TestBlazegraphCmd_destroy_no_dataset_argument(t *testing.T) {
 
 	var outputBuffer strings.Builder
-	Main.OutWriter = &outputBuffer
-	Main.ErrWriter = &outputBuffer
+	Program.OutWriter = &outputBuffer
+	Program.ErrWriter = &outputBuffer
 
 	assertExitCode(t, "blazegraph destroy -dataset", 1)
 	util.LineContentsEqual(t, outputBuffer.String(),
@@ -94,8 +94,8 @@ func TestBlazegraphCmd_destroy_no_dataset_argument(t *testing.T) {
 func TestBlazegraphCmd_destroy_bad_flag(t *testing.T) {
 
 	var outputBuffer strings.Builder
-	Main.OutWriter = &outputBuffer
-	Main.ErrWriter = &outputBuffer
+	Program.OutWriter = &outputBuffer
+	Program.ErrWriter = &outputBuffer
 
 	assertExitCode(t, "blazegraph destroy --not-a-flag", 1)
 	util.LineContentsEqual(t, outputBuffer.String(),

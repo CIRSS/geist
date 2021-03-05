@@ -10,8 +10,8 @@ import (
 func TestBlazegraphCmd_list_empty_store(t *testing.T) {
 
 	var outputBuffer strings.Builder
-	Main.OutWriter = &outputBuffer
-	Main.ErrWriter = &outputBuffer
+	Program.OutWriter = &outputBuffer
+	Program.ErrWriter = &outputBuffer
 
 	run("blazegraph destroy --all")
 
@@ -23,8 +23,8 @@ func TestBlazegraphCmd_list_empty_store(t *testing.T) {
 func TestBlazegraphCmd_list_default_dataset(t *testing.T) {
 
 	var outputBuffer strings.Builder
-	Main.OutWriter = &outputBuffer
-	Main.ErrWriter = &outputBuffer
+	Program.OutWriter = &outputBuffer
+	Program.ErrWriter = &outputBuffer
 
 	run("blazegraph destroy --all")
 	run("blazegraph create")
@@ -39,8 +39,8 @@ func TestBlazegraphCmd_list_default_dataset(t *testing.T) {
 func TestBlazegraphCmd_list_custom_dataset(t *testing.T) {
 
 	var outputBuffer strings.Builder
-	Main.OutWriter = &outputBuffer
-	Main.ErrWriter = &outputBuffer
+	Program.OutWriter = &outputBuffer
+	Program.ErrWriter = &outputBuffer
 
 	run("blazegraph destroy --all")
 	run("blazegraph create --dataset foo")
@@ -55,8 +55,8 @@ func TestBlazegraphCmd_list_custom_dataset(t *testing.T) {
 func TestBlazegraphCmd_list_custom_datasets(t *testing.T) {
 
 	var outputBuffer strings.Builder
-	Main.OutWriter = &outputBuffer
-	Main.ErrWriter = &outputBuffer
+	Program.OutWriter = &outputBuffer
+	Program.ErrWriter = &outputBuffer
 
 	run("blazegraph destroy --all")
 	run("blazegraph create --dataset foo")
@@ -75,8 +75,8 @@ func TestBlazegraphCmd_list_custom_datasets(t *testing.T) {
 func TestBlazegraphCmd_list_help(t *testing.T) {
 
 	var outputBuffer strings.Builder
-	Main.OutWriter = &outputBuffer
-	Main.ErrWriter = &outputBuffer
+	Program.OutWriter = &outputBuffer
+	Program.ErrWriter = &outputBuffer
 
 	assertExitCode(t, "blazegraph list help", 0)
 
@@ -101,8 +101,8 @@ func TestBlazegraphCmd_list_help(t *testing.T) {
 func TestBlazegraphCmd_help_list(t *testing.T) {
 
 	var outputBuffer strings.Builder
-	Main.OutWriter = &outputBuffer
-	Main.ErrWriter = &outputBuffer
+	Program.OutWriter = &outputBuffer
+	Program.ErrWriter = &outputBuffer
 
 	assertExitCode(t, "blazegraph help list", 0)
 
@@ -127,8 +127,8 @@ func TestBlazegraphCmd_help_list(t *testing.T) {
 func TestBlazegraphCmd_list_bad_flag(t *testing.T) {
 
 	var outputBuffer strings.Builder
-	Main.OutWriter = &outputBuffer
-	Main.ErrWriter = &outputBuffer
+	Program.OutWriter = &outputBuffer
+	Program.ErrWriter = &outputBuffer
 
 	assertExitCode(t, "blazegraph list --not-a-flag", 1)
 

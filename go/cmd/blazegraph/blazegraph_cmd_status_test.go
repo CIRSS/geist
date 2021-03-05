@@ -14,8 +14,8 @@ func TestBlazegraphCmd_status_success(t *testing.T) {
 
 	var outBuffer strings.Builder
 	var errBuffer strings.Builder
-	Main.OutWriter = &outBuffer
-	Main.ErrWriter = &errBuffer
+	Program.OutWriter = &outBuffer
+	Program.ErrWriter = &errBuffer
 
 	assertExitCode(t, "blazegraph status", 0)
 
@@ -38,8 +38,8 @@ func TestBlazegraphCmd_status_failure(t *testing.T) {
 
 	var outBuffer strings.Builder
 	var errBuffer strings.Builder
-	Main.OutWriter = &outBuffer
-	Main.ErrWriter = &errBuffer
+	Program.OutWriter = &outBuffer
+	Program.ErrWriter = &errBuffer
 
 	assertExitCode(t, "blazegraph status --instance http://not-a-blazegraph-instance", 1)
 
@@ -53,8 +53,8 @@ func TestBlazegraphCmd_status_quiet_success(t *testing.T) {
 
 	var outBuffer strings.Builder
 	var errBuffer strings.Builder
-	Main.OutWriter = &outBuffer
-	Main.ErrWriter = &errBuffer
+	Program.OutWriter = &outBuffer
+	Program.ErrWriter = &errBuffer
 
 	assertExitCode(t, "blazegraph status --quiet", 0)
 
@@ -66,8 +66,8 @@ func TestBlazegraphCmd_status_quiet_failure(t *testing.T) {
 
 	var outBuffer strings.Builder
 	var errBuffer strings.Builder
-	Main.OutWriter = &outBuffer
-	Main.ErrWriter = &errBuffer
+	Program.OutWriter = &outBuffer
+	Program.ErrWriter = &errBuffer
 
 	assertExitCode(t, "blazegraph status --quiet --instance http://not-a-blazegraph-instance", 1)
 
@@ -80,8 +80,8 @@ func TestBlazegraphCmd_status_quiet_failure(t *testing.T) {
 func TestBlazegraphCmd_status_help(t *testing.T) {
 
 	var outputBuffer strings.Builder
-	Main.OutWriter = &outputBuffer
-	Main.ErrWriter = &outputBuffer
+	Program.OutWriter = &outputBuffer
+	Program.ErrWriter = &outputBuffer
 
 	assertExitCode(t, "blazegraph status help", 0)
 
@@ -107,8 +107,8 @@ func TestBlazegraphCmd_status_help(t *testing.T) {
 func TestBlazegraphCmd_help_status(t *testing.T) {
 
 	var outputBuffer strings.Builder
-	Main.OutWriter = &outputBuffer
-	Main.ErrWriter = &outputBuffer
+	Program.OutWriter = &outputBuffer
+	Program.ErrWriter = &outputBuffer
 
 	assertExitCode(t, "blazegraph help status", 0)
 
@@ -134,8 +134,8 @@ func TestBlazegraphCmd_help_status(t *testing.T) {
 func TestBlazegraphCmd_status_bad_flag(t *testing.T) {
 
 	var outputBuffer strings.Builder
-	Main.OutWriter = &outputBuffer
-	Main.ErrWriter = &outputBuffer
+	Program.OutWriter = &outputBuffer
+	Program.ErrWriter = &outputBuffer
 
 	assertExitCode(t, "blazegraph status --not-a-flag", 1)
 

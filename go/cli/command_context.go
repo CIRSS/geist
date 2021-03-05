@@ -24,6 +24,7 @@ func (nw NullWriter) Write(p []byte) (n int, err error) {
 }
 
 type CommandContext struct {
+	programContext     *ProgramContext
 	commands           *CommandCollection
 	Descriptor         *CommandDescriptor
 	Args               []string
@@ -36,17 +37,17 @@ type CommandContext struct {
 	Properties         map[string]interface{}
 }
 
-func NewCommandContext(commands *CommandCollection, flags *flag.FlagSet, outWriter io.Writer, errWriter io.Writer) (cc *CommandContext) {
+func NewCommandContext(commands *CommandCollection, pc *ProgramContext) (cc *CommandContext) {
 
 	cc = new(CommandContext)
-
+	cc.programContext = pc
 	cc.commands = commands
 
-	cc.Flags = flags
+	cc.Flags = pc.InitFlagSet()
 	cc.Flags.Usage = func() {}
 
-	cc.ErrWriter = errWriter
-	cc.OutWriter = outWriter
+	cc.ErrWriter = pc.ErrWriter
+	cc.OutWriter = pc.OutWriter
 
 	cc.Properties = make(map[string]interface{})
 	cc.ErrorMessageWriter.errorStream = cc.ErrWriter

@@ -20,7 +20,7 @@ func handleReportSubcommand(cc *cli.CommandContext) (err error) {
 
 	reportTemplate, err := readFileOrStdin(*file)
 	if err != nil {
-		fmt.Fprintf(Main.ErrWriter, err.Error())
+		fmt.Fprintf(Program.ErrWriter, err.Error())
 		return
 	}
 
@@ -28,10 +28,10 @@ func handleReportSubcommand(cc *cli.CommandContext) (err error) {
 
 	report, err := bc.ExpandReport(rt)
 	if err != nil {
-		fmt.Fprintf(Main.ErrWriter, err.Error())
+		fmt.Fprintf(Program.ErrWriter, err.Error())
 		return
 	}
 
-	fmt.Fprint(Main.OutWriter, report)
+	fmt.Fprint(Program.OutWriter, report)
 	return
 }

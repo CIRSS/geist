@@ -10,13 +10,10 @@ import (
 	"github.com/cirss/geist/cli"
 )
 
-// Main wraps the main() function.  It enables tests to manipulate the
-// input and output streams used by main(), and provides a new FlagSet
-// for each execution so that main() can be called by multiple tests.
-var Main cli.MainWrapper
+var Program *cli.ProgramContext
 
 func init() {
-	Main = cli.NewMainWrapper("blazegraph", main)
+	Program = cli.NewProgramContext("blazegraph", main)
 }
 
 func main() {
@@ -43,15 +40,14 @@ func main() {
 				"the instance is fully running. Returns status in JSON format."},
 	})
 
-	cc := cli.NewCommandContext(commandCollection, Main.InitFlagSet(),
-		Main.OutWriter, Main.ErrWriter)
+	cc := cli.NewCommandContext(commandCollection, Program)
 
 	cc.Flags.String("instance", blazegraph.DefaultUrl, "`URL` of Blazegraph instance")
 
 	if len(os.Args) < 2 {
-		fmt.Fprint(Main.ErrWriter, "\nno blazegraph command given\n\n")
+		fmt.Fprint(Program.ErrWriter, "\nno blazegraph command given\n\n")
 		cc.ShowProgramUsage()
-		Main.ExitIfNonzero(1)
+		Program.ExitIfNonzero(1)
 		return
 	}
 
@@ -59,16 +55,16 @@ func main() {
 	descriptor, exists := commandCollection.Lookup(commandName)
 	cc.Descriptor = descriptor
 	if !exists {
-		fmt.Fprintf(Main.ErrWriter, "\nnot a blazegraph command: %s\n\n", commandName)
+		fmt.Fprintf(Program.ErrWriter, "\nnot a blazegraph command: %s\n\n", commandName)
 		cc.ShowProgramUsage()
-		Main.ExitIfNonzero(1)
+		Program.ExitIfNonzero(1)
 		return
 	}
 
 	cc.Args = os.Args[1:]
 	err := cc.Descriptor.Handler(cc)
 	if err != nil {
-		Main.ExitIfNonzero(1)
+		Program.ExitIfNonzero(1)
 		return
 	}
 }
@@ -76,7 +72,7 @@ func main() {
 func readFileOrStdin(filePath string) (bytes []byte, err error) {
 	var r io.Reader
 	if filePath == "-" {
-		r = Main.InReader
+		r = Program.InReader
 	} else {
 		r, _ = os.Open(filePath)
 	}

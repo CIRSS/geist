@@ -10,8 +10,8 @@ import (
 func TestBlazegraphCmd_create_help(t *testing.T) {
 
 	var outputBuffer strings.Builder
-	Main.OutWriter = &outputBuffer
-	Main.ErrWriter = &outputBuffer
+	Program.OutWriter = &outputBuffer
+	Program.ErrWriter = &outputBuffer
 
 	assertExitCode(t, "blazegraph create help", 0)
 
@@ -38,8 +38,8 @@ func TestBlazegraphCmd_create_help(t *testing.T) {
 func TestBlazegraphCmd_help_create(t *testing.T) {
 
 	var outputBuffer strings.Builder
-	Main.OutWriter = &outputBuffer
-	Main.ErrWriter = &outputBuffer
+	Program.OutWriter = &outputBuffer
+	Program.ErrWriter = &outputBuffer
 
 	assertExitCode(t, "blazegraph help create", 0)
 
@@ -66,8 +66,8 @@ func TestBlazegraphCmd_help_create(t *testing.T) {
 func TestBlazegraphCmd_create_bad_flag(t *testing.T) {
 
 	var outputBuffer strings.Builder
-	Main.OutWriter = &outputBuffer
-	Main.ErrWriter = &outputBuffer
+	Program.OutWriter = &outputBuffer
+	Program.ErrWriter = &outputBuffer
 
 	assertExitCode(t, "blazegraph create --not-a-flag", 1)
 
