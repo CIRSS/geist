@@ -10,7 +10,7 @@ import (
 // output streams used by main(), and provides a new FlagSet
 // for each execution.
 type ProgramContext struct {
-	cmd       string
+	Name      string
 	mainFunc  func()
 	Flags     *flag.FlagSet
 	InReader  io.Reader
@@ -23,9 +23,9 @@ type ProgramContext struct {
 // NewProgramContext creates and initilizes an instance
 // of ProgramContext for calling the provided main function
 // and using the standard I/O streams by default.
-func NewProgramContext(cmd string, main func()) *ProgramContext {
+func NewProgramContext(name string, main func()) *ProgramContext {
 	pc := new(ProgramContext)
-	pc.cmd = cmd
+	pc.Name = name
 	pc.mainFunc = main
 	pc.InReader = os.Stdin
 	pc.OutWriter = os.Stdout
@@ -34,7 +34,7 @@ func NewProgramContext(cmd string, main func()) *ProgramContext {
 }
 
 func (pc *ProgramContext) InitFlagSet() *flag.FlagSet {
-	pc.Flags = flag.NewFlagSet(pc.cmd, 0)
+	pc.Flags = flag.NewFlagSet(pc.Name, 0)
 	pc.Flags.SetOutput(pc.ErrWriter)
 	return pc.Flags
 }
