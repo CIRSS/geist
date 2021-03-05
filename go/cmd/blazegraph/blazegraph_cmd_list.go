@@ -7,12 +7,11 @@ import (
 )
 
 func handleListSubcommand(cc *cli.CommandContext) (err error) {
-	count := cc.Flags.String("count", "none", "Include count of triples in each dataset [none, estimate, exact]")
-	if cc.ShowHelpIfRequested() {
-		return
-	}
 
-	if err = parseFlags(cc); err != nil {
+	count := cc.Flags.String("count", "none", "Include count of triples in each dataset [none, estimate, exact]")
+
+	var helped bool
+	if helped, err = cc.ParseFlags(); helped || err != nil {
 		return
 	}
 

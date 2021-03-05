@@ -13,11 +13,9 @@ func handleQuerySubcommand(cc *cli.CommandContext) (err error) {
 	file := cc.Flags.String("file", "-", "File containing the SPARQL query to execute")
 	format := cc.Flags.String("format", "json", "Format of result set to produce [csv, json, table, or xml]")
 	separators := cc.Flags.Bool("columnseparators", true, "Display column separators in table format")
-	if cc.ShowHelpIfRequested() {
-		return
-	}
 
-	if err = parseFlags(cc); err != nil {
+	var helped bool
+	if helped, err = cc.ParseFlags(); helped || err != nil {
 		return
 	}
 
@@ -25,7 +23,9 @@ func handleQuerySubcommand(cc *cli.CommandContext) (err error) {
 }
 
 func doSelectQuery(cc *cli.CommandContext, dryrun bool, file string, format string, columnSeparators bool) (err error) {
+
 	bc := BlazegraphClient(cc)
+
 	queryText, err := readFileOrStdin(file)
 	if err != nil {
 		fmt.Fprintf(Main.ErrWriter, err.Error())

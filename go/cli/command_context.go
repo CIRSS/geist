@@ -6,22 +6,58 @@ import (
 	"io"
 )
 
-type CommandContext struct {
-	commands   *CommandCollection
-	Descriptor *CommandDescriptor
-	Args       []string
-	Flags      *flag.FlagSet
-	InReader   io.Reader
-	OutWriter  io.Writer
-	ErrWriter  io.Writer
-	Properties map[string]interface{}
+type errorMessageWriterStruct struct {
+	errorStream io.Writer
 }
 
-func NewCommandContext(commands *CommandCollection) (cc *CommandContext) {
+func (emw errorMessageWriterStruct) Write(p []byte) (n int, err error) {
+	fmt.Fprintln(emw.errorStream)
+	return emw.errorStream.Write(p)
+}
+
+type NullWriter struct {
+	w io.Writer
+}
+
+func (nw NullWriter) Write(p []byte) (n int, err error) {
+	return 0, nil
+}
+
+type CommandContext struct {
+	commands           *CommandCollection
+	Descriptor         *CommandDescriptor
+	Args               []string
+	Flags              *flag.FlagSet
+	Quiet              *bool
+	InReader           io.Reader
+	OutWriter          io.Writer
+	ErrWriter          io.Writer
+	ErrorMessageWriter errorMessageWriterStruct
+	Properties         map[string]interface{}
+}
+
+func NewCommandContext(commands *CommandCollection, flags *flag.FlagSet, outWriter io.Writer, errWriter io.Writer) (cc *CommandContext) {
+
 	cc = new(CommandContext)
+
 	cc.commands = commands
+
+	cc.Flags = flags
+	cc.Flags.Usage = func() {}
+
+	cc.ErrWriter = errWriter
+	cc.OutWriter = outWriter
+
 	cc.Properties = make(map[string]interface{})
+	cc.ErrorMessageWriter.errorStream = cc.ErrWriter
+
+	cc.Quiet = cc.Flags.Bool("quiet", false, "Discard normal command output")
+
 	return
+}
+
+func (cc *CommandContext) Lookup(commandName string) (*CommandDescriptor, bool) {
+	return cc.commands.Lookup(commandName)
 }
 
 func (cc *CommandContext) ShowHelpIfRequested() bool {
@@ -53,5 +89,34 @@ func (cc *CommandContext) ShowProgramUsage() {
 	fmt.Fprint(cc.OutWriter, "\nCommon flags:\n\n")
 	cc.Flags.PrintDefaults()
 	fmt.Fprint(cc.OutWriter, "\nSee 'blazegraph help <command>' for help with one of the above commands.\n\n")
+	return
+}
+
+func (cc *CommandContext) ParseFlags2() (err error) {
+
+	cc.Flags.SetOutput(cc.ErrorMessageWriter)
+	if err = cc.Flags.Parse(cc.Args[1:]); err != nil {
+		cc.Flags.SetOutput(cc.ErrWriter)
+		cc.ShowCommandUsage()
+		return
+	}
+	cc.Flags.SetOutput(cc.ErrWriter)
+
+	if *cc.Quiet {
+		cc.OutWriter = NullWriter{}
+	}
+
+	return
+}
+
+func (cc *CommandContext) ParseFlags() (helpShown bool, err error) {
+
+	if cc.ShowHelpIfRequested() {
+		helpShown = true
+		return
+	}
+
+	err = cc.ParseFlags2()
+
 	return
 }

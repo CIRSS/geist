@@ -17,7 +17,7 @@ func handleHelpSubcommand(cc *cli.CommandContext) (err error) {
 	if commandName == "help" {
 		return
 	}
-	if c, exists := commandCollection.Lookup(commandName); exists {
+	if c, exists := cc.Lookup(commandName); exists {
 		cc.Descriptor = c
 		cc.Args = []string{commandName, "help"}
 		c.Handler(cc)

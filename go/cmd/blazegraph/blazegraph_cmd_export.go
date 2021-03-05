@@ -7,13 +7,13 @@ import (
 )
 
 func handleExportSubcommand(cc *cli.CommandContext) (err error) {
+
 	cc.Flags.String("dataset", "kb", "`name` of RDF dataset to export")
 	format := cc.Flags.String("format", "nt", "Format for exported triples [jsonld, nt, ttl, or xml]")
 	sort := cc.Flags.Bool("sort", false, "Sort the exported triples if true")
-	if cc.ShowHelpIfRequested() {
-		return
-	}
-	if err = parseFlags(cc); err != nil {
+
+	var helped bool
+	if helped, err = cc.ParseFlags(); helped || err != nil {
 		return
 	}
 

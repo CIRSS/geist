@@ -7,14 +7,13 @@ import (
 )
 
 func handleImportSubcommand(cc *cli.CommandContext) (err error) {
+
 	cc.Flags.String("dataset", "kb", "`name` of RDF dataset to import triples into")
 	file := cc.Flags.String("file", "-", "File containing triples to import")
 	format := cc.Flags.String("format", "ttl", "Format of triples to import [jsonld, nt, ttl, or xml]")
-	if cc.ShowHelpIfRequested() {
-		return
-	}
 
-	if err = parseFlags(cc); err != nil {
+	var helped bool
+	if helped, err = cc.ParseFlags(); helped || err != nil {
 		return
 	}
 

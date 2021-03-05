@@ -10,11 +10,9 @@ import (
 func handleReportSubcommand(cc *cli.CommandContext) (err error) {
 	cc.Flags.String("dataset", "", "`name` of RDF dataset to create report from")
 	file := cc.Flags.String("file", "-", "File containing report template to expand")
-	if cc.ShowHelpIfRequested() {
-		return
-	}
 
-	if err = parseFlags(cc); err != nil {
+	var helped bool
+	if helped, err = cc.ParseFlags(); helped || err != nil {
 		return
 	}
 

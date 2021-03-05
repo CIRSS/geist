@@ -15,27 +15,15 @@ func handleStatusSubcommand(cc *cli.CommandContext) (err error) {
 
 	timeout := cc.Flags.Int("timeout", 0, "Number of `milliseconds` to wait for Blazegraph instance to respond")
 
-	if cc.ShowHelpIfRequested() {
-		return
-	}
-	cc.Flags.Usage()
-
-	if err = parseFlags(cc); err != nil {
+	var helped bool
+	if helped, err = cc.ParseFlags(); helped || err != nil {
 		return
 	}
 
 	bc := BlazegraphClient(cc)
 
 	maxTries := max(*timeout/retryPeriod, 1)
-
 	status, err := getStatusInMaxTries(bc, maxTries)
-
-	// if err != nil {
-	// 	if retries >= maxTries {
-	// 		fmt.Fprintf(cc.ErrWriter, "Exceeded timeout connecting to Blazegraph instance\n")
-	// 	}
-	// 	return
-	// }
 
 	if err != nil {
 		fmt.Fprintln(cc.ErrWriter, err.Error())
