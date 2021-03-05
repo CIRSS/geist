@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"io"
 	"io/ioutil"
 	"os"
@@ -44,29 +43,7 @@ func main() {
 
 	cc.Flags.String("instance", blazegraph.DefaultUrl, "`URL` of Blazegraph instance")
 
-	if len(os.Args) < 2 {
-		fmt.Fprint(Program.ErrWriter, "\nno blazegraph command given\n\n")
-		cc.ShowProgramUsage()
-		Program.ExitIfNonzero(1)
-		return
-	}
-
-	commandName := os.Args[1]
-	descriptor, exists := commandCollection.Lookup(commandName)
-	cc.Descriptor = descriptor
-	if !exists {
-		fmt.Fprintf(Program.ErrWriter, "\nnot a blazegraph command: %s\n\n", commandName)
-		cc.ShowProgramUsage()
-		Program.ExitIfNonzero(1)
-		return
-	}
-
-	cc.Args = os.Args[1:]
-	err := cc.Descriptor.Handler(cc)
-	if err != nil {
-		Program.ExitIfNonzero(1)
-		return
-	}
+	cc.InvokeCommand(os.Args)
 }
 
 func readFileOrStdin(filePath string) (bytes []byte, err error) {

@@ -121,3 +121,30 @@ func (cc *CommandContext) ParseFlags() (helpShown bool, err error) {
 
 	return
 }
+
+func (cc *CommandContext) InvokeCommand(args []string) {
+
+	if len(args) < 2 {
+		fmt.Fprintf(cc.programContext.ErrWriter, "\nno %s command given\n\n", cc.programContext.Name)
+		cc.ShowProgramUsage()
+		cc.programContext.ExitIfNonzero(1)
+		return
+	}
+
+	commandName := args[1]
+	descriptor, exists := cc.commands.Lookup(commandName)
+	cc.Descriptor = descriptor
+	if !exists {
+		fmt.Fprintf(cc.programContext.ErrWriter, "\nnot a %s command: %s\n\n", cc.programContext.Name, commandName)
+		cc.ShowProgramUsage()
+		cc.programContext.ExitIfNonzero(1)
+		return
+	}
+
+	cc.Args = args[1:]
+	err := cc.Descriptor.Handler(cc)
+	if err != nil {
+		cc.programContext.ExitIfNonzero(1)
+		return
+	}
+}
