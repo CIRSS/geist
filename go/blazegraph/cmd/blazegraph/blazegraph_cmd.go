@@ -1,8 +1,6 @@
 package main
 
 import (
-	"io"
-	"io/ioutil"
 	"os"
 
 	"github.com/cirss/geist/blazegraph"
@@ -18,40 +16,43 @@ func init() {
 func main() {
 
 	commands := cli.NewCommandSet([]cli.CommandDescriptor{
-		{"create", handleCreateSubcommand, "Create a new RDF dataset",
+		{"create", blazegraph.Create, "Create a new RDF dataset",
 			"Creates an RDF dataset and corresponding Blazegraph namespace."},
-		{"destroy", handleDestroySubcommand, "Delete an RDF dataset",
+		{"destroy", blazegraph.Destroy, "Delete an RDF dataset",
 			"Deletes an RDF dataset and corresponding Blazegraph namespace, all RDF graphs\n" +
 				"in the dataset, and all triples in each of those graphs."},
-		{"export", handleExportSubcommand, "Export contents of a dataset",
+		{"export", blazegraph.Export, "Export contents of a dataset",
 			"Exports all triples in an RDF dataset in the requested format."},
-		{"help", cli.HandleHelpSubcommand, "Show help", ""},
-		{"import", handleImportSubcommand, "Import data into a dataset",
+		{"help", cli.Help, "Show help", ""},
+		{"import", blazegraph.Import, "Import data into a dataset",
 			"Imports triples in the specified format into an RDF dataset."},
-		{"list", handleListSubcommand, "List RDF datasets",
+		{"list", blazegraph.List, "List RDF datasets",
 			"Lists the names of the RDF datasets in the Blazegraph instance."},
-		{"query", handleQuerySubcommand, "Perform a SPARQL query on a dataset",
+		{"query", blazegraph.Query, "Perform a SPARQL query on a dataset",
 			"Performs a SPARQL query on the identified RDF dataset."},
-		{"report", handleReportSubcommand, "Expand a report using a dataset",
+		{"report", blazegraph.Report, "Expand a report using a dataset",
 			"Expands the provided report template using the identified RDF dataset."},
-		{"status", handleStatusSubcommand, "Check the status of the Blazegraph instance",
+		{"status", blazegraph.Status, "Check the status of the Blazegraph instance",
 			"Requests the status of the Blazegraph instance, optionally waiting until\n" +
 				"the instance is fully running. Returns status in JSON format."},
 	})
 
 	cc := Main.NewCommandContext(commands)
+	cc.AddProvider("BlazegraphClient", getBlazegraphClient)
 
 	cc.Flags.String("instance", blazegraph.DefaultUrl, "`URL` of Blazegraph instance")
 
 	cc.InvokeCommand(os.Args)
 }
 
-func readFileOrStdin(filePath string) (bytes []byte, err error) {
-	var r io.Reader
-	if filePath == "-" {
-		r = Main.InReader
+func getBlazegraphClient(cc *cli.CommandContext) (bc interface{}) {
+	bcc, exists := cc.Properties["blazegraph_client"]
+	if exists {
+		bc = bcc.(*blazegraph.BlazegraphClient)
 	} else {
-		r, _ = os.Open(filePath)
+		instanceFlag := cc.Flags.Lookup("instance").Value.String()
+		bc = blazegraph.NewBlazegraphClient(instanceFlag)
+		cc.Properties["blazegraph_client"] = bc
 	}
-	return ioutil.ReadAll(r)
+	return
 }

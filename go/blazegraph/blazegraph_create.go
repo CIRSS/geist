@@ -1,13 +1,12 @@
-package main
+package blazegraph
 
 import (
 	"fmt"
 
-	"github.com/cirss/geist/blazegraph"
 	"github.com/cirss/geist/cli"
 )
 
-func handleCreateSubcommand(cc *cli.CommandContext) (err error) {
+func Create(cc *cli.CommandContext) (err error) {
 
 	dataset := cc.Flags.String("dataset", "kb", "`name` of RDF dataset to create")
 	infer := cc.Flags.String("infer", "none", "Inference to perform on update [none, rdfs, owl]")
@@ -23,8 +22,11 @@ func handleCreateSubcommand(cc *cli.CommandContext) (err error) {
 		return
 	}
 
-	p := blazegraph.NewDatasetProperties(*dataset)
+	p := NewDatasetProperties(*dataset)
 	p.Inference = *infer
-	_, err = BlazegraphClient(cc).CreateDataSet(p)
+
+	bc := cc.Resource("BlazegraphClient").(*BlazegraphClient)
+
+	_, err = bc.CreateDataSet(p)
 	return
 }

@@ -1,4 +1,4 @@
-package main
+package blazegraph
 
 import (
 	"fmt"
@@ -7,7 +7,7 @@ import (
 	"github.com/cirss/geist/cli"
 )
 
-func handleQuerySubcommand(cc *cli.CommandContext) (err error) {
+func Query(cc *cli.CommandContext) (err error) {
 	cc.Flags.String("dataset", "kb", "`name` of RDF dataset to query")
 	dryrun := cc.Flags.Bool("dryrun", false, "Output query but do not execute it")
 	file := cc.Flags.String("file", "-", "File containing the SPARQL query to execute")
@@ -24,27 +24,27 @@ func handleQuerySubcommand(cc *cli.CommandContext) (err error) {
 
 func doSelectQuery(cc *cli.CommandContext, dryrun bool, file string, format string, columnSeparators bool) (err error) {
 
-	bc := BlazegraphClient(cc)
+	bc := cc.Resource("BlazegraphClient").(*BlazegraphClient)
 
-	queryText, err := readFileOrStdin(file)
+	queryText, err := cc.ReadFileOrStdin(file)
 	if err != nil {
-		fmt.Fprintf(Main.ErrWriter, err.Error())
+		fmt.Fprintf(cc.ErrWriter, err.Error())
 		return
 	}
 
 	queryTemplate := geist.NewTemplate("query", string(queryText), nil, bc)
 	err = queryTemplate.Parse()
 	if err != nil {
-		fmt.Fprintf(Main.ErrWriter, "Error expanding query template:\n")
-		fmt.Fprintf(Main.ErrWriter, "%s\n", err.Error())
+		fmt.Fprintf(cc.ErrWriter, "Error expanding query template:\n")
+		fmt.Fprintf(cc.ErrWriter, "%s\n", err.Error())
 		return
 	}
 
 	q, err := queryTemplate.Expand(nil)
 
 	if err != nil {
-		fmt.Fprintf(Main.ErrWriter, "Error expanding query template: ")
-		fmt.Fprintf(Main.ErrWriter, "%s\n", err.Error())
+		fmt.Fprintf(cc.ErrWriter, "Error expanding query template: ")
+		fmt.Fprintf(cc.ErrWriter, "%s\n", err.Error())
 		return
 	}
 
@@ -60,7 +60,7 @@ func doSelectQuery(cc *cli.CommandContext, dryrun bool, file string, format stri
 		if err != nil {
 			break
 		}
-		fmt.Fprintf(Main.OutWriter, resultCSV)
+		fmt.Fprintf(cc.OutWriter, resultCSV)
 		return
 
 	case "json":
@@ -70,7 +70,7 @@ func doSelectQuery(cc *cli.CommandContext, dryrun bool, file string, format stri
 			break
 		}
 		resultJSON, _ := rs.JSONString()
-		fmt.Fprintf(Main.OutWriter, resultJSON)
+		fmt.Fprintf(cc.OutWriter, resultJSON)
 		return
 
 	case "table":
@@ -80,7 +80,7 @@ func doSelectQuery(cc *cli.CommandContext, dryrun bool, file string, format stri
 			break
 		}
 		table := rs.FormattedTable(columnSeparators)
-		fmt.Fprintf(Main.OutWriter, table)
+		fmt.Fprintf(cc.OutWriter, table)
 		return
 
 	case "xml":
@@ -89,12 +89,12 @@ func doSelectQuery(cc *cli.CommandContext, dryrun bool, file string, format stri
 		if err != nil {
 			break
 		}
-		fmt.Fprintf(Main.OutWriter, resultXML)
+		fmt.Fprintf(cc.OutWriter, resultXML)
 		return
 	}
 
 	if err != nil {
-		fmt.Fprintf(Main.ErrWriter, err.Error())
+		fmt.Fprintf(cc.ErrWriter, err.Error())
 	}
 
 	return

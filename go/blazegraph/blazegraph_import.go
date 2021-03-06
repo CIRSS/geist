@@ -1,4 +1,4 @@
-package main
+package blazegraph
 
 import (
 	"fmt"
@@ -6,7 +6,7 @@ import (
 	"github.com/cirss/geist/cli"
 )
 
-func handleImportSubcommand(cc *cli.CommandContext) (err error) {
+func Import(cc *cli.CommandContext) (err error) {
 
 	cc.Flags.String("dataset", "kb", "`name` of RDF dataset to import triples into")
 	file := cc.Flags.String("file", "-", "File containing triples to import")
@@ -17,10 +17,11 @@ func handleImportSubcommand(cc *cli.CommandContext) (err error) {
 		return
 	}
 
-	bc := BlazegraphClient(cc)
-	data, err := readFileOrStdin(*file)
+	bc := cc.Resource("BlazegraphClient").(*BlazegraphClient)
+
+	data, err := cc.ReadFileOrStdin(*file)
 	if err != nil {
-		fmt.Fprintf(Main.ErrWriter, err.Error())
+		fmt.Fprintf(cc.ErrWriter, err.Error())
 		return
 	}
 
@@ -40,7 +41,7 @@ func handleImportSubcommand(cc *cli.CommandContext) (err error) {
 	}
 
 	if err != nil {
-		fmt.Fprintf(Main.ErrWriter, err.Error())
+		fmt.Fprintf(cc.ErrWriter, err.Error())
 	}
 	return
 }

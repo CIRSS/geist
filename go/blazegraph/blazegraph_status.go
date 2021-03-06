@@ -1,17 +1,16 @@
-package main
+package blazegraph
 
 import (
 	"fmt"
 	"time"
 
 	"github.com/cirss/geist"
-	"github.com/cirss/geist/blazegraph"
 	"github.com/cirss/geist/cli"
 )
 
 const retryPeriod = 100
 
-func handleStatusSubcommand(cc *cli.CommandContext) (err error) {
+func Status(cc *cli.CommandContext) (err error) {
 
 	timeout := cc.Flags.Int("timeout", 0, "Number of `milliseconds` to wait for Blazegraph instance to respond")
 
@@ -20,7 +19,7 @@ func handleStatusSubcommand(cc *cli.CommandContext) (err error) {
 		return
 	}
 
-	bc := BlazegraphClient(cc)
+	bc := cc.Resource("BlazegraphClient").(*BlazegraphClient)
 
 	maxTries := max(*timeout/retryPeriod, 1)
 	status, err := getStatusInMaxTries(bc, maxTries)
@@ -34,7 +33,7 @@ func handleStatusSubcommand(cc *cli.CommandContext) (err error) {
 	return
 }
 
-func getStatusInMaxTries(bc *blazegraph.BlazegraphClient, maxTries int) (status string, err error) {
+func getStatusInMaxTries(bc *BlazegraphClient, maxTries int) (status string, err error) {
 
 	for tries := 1; tries <= maxTries; tries++ {
 

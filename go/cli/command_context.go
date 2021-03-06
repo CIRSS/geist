@@ -5,6 +5,8 @@ import (
 	"flag"
 	"fmt"
 	"io"
+	"io/ioutil"
+	"os"
 )
 
 type errorMessageWriterStruct struct {
@@ -36,6 +38,7 @@ type CommandContext struct {
 	ErrWriter          io.Writer
 	ErrorMessageWriter errorMessageWriterStruct
 	Properties         map[string]interface{}
+	Providers          map[string]func(cc *CommandContext) interface{}
 }
 
 func NewCommandContext(pc *ProgramContext, commands *CommandSet) (cc *CommandContext) {
@@ -47,13 +50,31 @@ func NewCommandContext(pc *ProgramContext, commands *CommandSet) (cc *CommandCon
 	cc.Flags = pc.InitFlagSet()
 	cc.Flags.Usage = func() {}
 
+	cc.InReader = pc.InReader
 	cc.ErrWriter = pc.ErrWriter
 	cc.OutWriter = pc.OutWriter
 
 	cc.Properties = make(map[string]interface{})
+	cc.Providers = make(map[string]func(cc *CommandContext) interface{})
 	cc.ErrorMessageWriter.errorStream = cc.ErrWriter
 
 	cc.Quiet = cc.Flags.Bool("quiet", false, "Discard normal command output")
+
+	return
+}
+
+func (cc *CommandContext) AddProvider(resource string, f func(cc *CommandContext) interface{}) {
+	cc.Providers[resource] = f
+}
+
+func (cc *CommandContext) Resource(resourceName string) (resource interface{}) {
+
+	provider, exists := cc.Providers[resourceName]
+	if !exists {
+		panic("No resource provider for " + resourceName)
+	}
+
+	resource = provider(cc)
 
 	return
 }
@@ -150,7 +171,7 @@ func (cc *CommandContext) InvokeCommand(args []string) {
 	}
 }
 
-func HandleHelpSubcommand(cc *CommandContext) (err error) {
+func Help(cc *CommandContext) (err error) {
 	if len(cc.Args) < 2 {
 		fmt.Fprintln(cc.OutWriter)
 		cc.ShowProgramUsage()
@@ -170,4 +191,14 @@ func HandleHelpSubcommand(cc *CommandContext) (err error) {
 		err = errors.New("Not a blazegraph command")
 	}
 	return
+}
+
+func (cc *CommandContext) ReadFileOrStdin(filePath string) (bytes []byte, err error) {
+	var r io.Reader
+	if filePath == "-" {
+		r = cc.InReader
+	} else {
+		r, _ = os.Open(filePath)
+	}
+	return ioutil.ReadAll(r)
 }

@@ -1,4 +1,4 @@
-package main
+package blazegraph
 
 import (
 	"fmt"
@@ -6,7 +6,7 @@ import (
 	"github.com/cirss/geist/cli"
 )
 
-func handleExportSubcommand(cc *cli.CommandContext) (err error) {
+func Export(cc *cli.CommandContext) (err error) {
 
 	cc.Flags.String("dataset", "kb", "`name` of RDF dataset to export")
 	format := cc.Flags.String("format", "nt", "Format for exported triples [jsonld, nt, ttl, or xml]")
@@ -17,7 +17,8 @@ func handleExportSubcommand(cc *cli.CommandContext) (err error) {
 		return
 	}
 
-	bc := BlazegraphClient(cc)
+	bc := cc.Resource("BlazegraphClient").(*BlazegraphClient)
+
 	var triples string
 
 	switch *format {
@@ -32,13 +33,13 @@ func handleExportSubcommand(cc *cli.CommandContext) (err error) {
 	}
 
 	if err != nil {
-		fmt.Fprintf(Main.ErrWriter, err.Error())
+		fmt.Fprintf(cc.ErrWriter, err.Error())
 		return
 	}
 
-	fmt.Fprintf(Main.OutWriter, "%s", triples)
+	fmt.Fprintf(cc.OutWriter, "%s", triples)
 	if len(triples) > 0 {
-		fmt.Fprintln(Main.OutWriter)
+		fmt.Fprintln(cc.OutWriter)
 
 	}
 	return

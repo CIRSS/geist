@@ -1,4 +1,4 @@
-package main
+package blazegraph
 
 import (
 	"fmt"
@@ -7,7 +7,7 @@ import (
 	"github.com/cirss/geist/cli"
 )
 
-func handleReportSubcommand(cc *cli.CommandContext) (err error) {
+func Report(cc *cli.CommandContext) (err error) {
 	cc.Flags.String("dataset", "", "`name` of RDF dataset to create report from")
 	file := cc.Flags.String("file", "-", "File containing report template to expand")
 
@@ -16,11 +16,11 @@ func handleReportSubcommand(cc *cli.CommandContext) (err error) {
 		return
 	}
 
-	bc := BlazegraphClient(cc)
+	bc := cc.Resource("BlazegraphClient").(*BlazegraphClient)
 
-	reportTemplate, err := readFileOrStdin(*file)
+	reportTemplate, err := cc.ReadFileOrStdin(*file)
 	if err != nil {
-		fmt.Fprintf(Main.ErrWriter, err.Error())
+		fmt.Fprintf(cc.ErrWriter, err.Error())
 		return
 	}
 
@@ -28,10 +28,10 @@ func handleReportSubcommand(cc *cli.CommandContext) (err error) {
 
 	report, err := bc.ExpandReport(rt)
 	if err != nil {
-		fmt.Fprintf(Main.ErrWriter, err.Error())
+		fmt.Fprintf(cc.ErrWriter, err.Error())
 		return
 	}
 
-	fmt.Fprint(Main.OutWriter, report)
+	fmt.Fprint(cc.OutWriter, report)
 	return
 }

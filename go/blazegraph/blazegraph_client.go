@@ -14,7 +14,7 @@ import (
 
 var DefaultUrl = "http://127.0.0.1:9999/blazegraph"
 
-type Status struct {
+type InstanceStatus struct {
 	InstanceUrl            string
 	SparqlEndpoint         string
 	BlazegraphBuildVersion string
@@ -133,7 +133,7 @@ func (sc *BlazegraphClient) GetStatus() (statusJSON string, err error) {
 	}
 
 	statusString := string(responseBody)
-	status := Status{}
+	status := InstanceStatus{}
 	status.InstanceUrl = sc.Url
 	status.SparqlEndpoint = sc.SparqlEndpoint
 	status.BlazegraphBuildVersion = ExtractStringUsingRegEx(statusString, `span id="buildVersion">([0-9\.]+)</span`)

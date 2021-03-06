@@ -21,7 +21,7 @@ func TestBlazegraphCmd_status_success(t *testing.T) {
 
 	util.LineContentsEqual(t, errBuffer.String(), "")
 
-	var status blazegraph.Status
+	var status blazegraph.InstanceStatus
 	fmt.Println(outBuffer.String())
 	err := json.Unmarshal([]byte(outBuffer.String()), &status)
 	if err != nil {
