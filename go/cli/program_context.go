@@ -53,3 +53,7 @@ func (pc *ProgramContext) ExitIfNonzero(code int) {
 		os.Exit(code)
 	}
 }
+
+func (pc *ProgramContext) NewCommandContext(commands *CommandSet) (cc *CommandContext) {
+	return NewCommandContext(pc, commands)
+}

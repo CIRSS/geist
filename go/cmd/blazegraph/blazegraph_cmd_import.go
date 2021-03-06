@@ -20,7 +20,7 @@ func handleImportSubcommand(cc *cli.CommandContext) (err error) {
 	bc := BlazegraphClient(cc)
 	data, err := readFileOrStdin(*file)
 	if err != nil {
-		fmt.Fprintf(Program.ErrWriter, err.Error())
+		fmt.Fprintf(Main.ErrWriter, err.Error())
 		return
 	}
 
@@ -40,7 +40,7 @@ func handleImportSubcommand(cc *cli.CommandContext) (err error) {
 	}
 
 	if err != nil {
-		fmt.Fprintf(Program.ErrWriter, err.Error())
+		fmt.Fprintf(Main.ErrWriter, err.Error())
 	}
 	return
 }

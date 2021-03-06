@@ -28,23 +28,23 @@ func doSelectQuery(cc *cli.CommandContext, dryrun bool, file string, format stri
 
 	queryText, err := readFileOrStdin(file)
 	if err != nil {
-		fmt.Fprintf(Program.ErrWriter, err.Error())
+		fmt.Fprintf(Main.ErrWriter, err.Error())
 		return
 	}
 
 	queryTemplate := geist.NewTemplate("query", string(queryText), nil, bc)
 	err = queryTemplate.Parse()
 	if err != nil {
-		fmt.Fprintf(Program.ErrWriter, "Error expanding query template:\n")
-		fmt.Fprintf(Program.ErrWriter, "%s\n", err.Error())
+		fmt.Fprintf(Main.ErrWriter, "Error expanding query template:\n")
+		fmt.Fprintf(Main.ErrWriter, "%s\n", err.Error())
 		return
 	}
 
 	q, err := queryTemplate.Expand(nil)
 
 	if err != nil {
-		fmt.Fprintf(Program.ErrWriter, "Error expanding query template: ")
-		fmt.Fprintf(Program.ErrWriter, "%s\n", err.Error())
+		fmt.Fprintf(Main.ErrWriter, "Error expanding query template: ")
+		fmt.Fprintf(Main.ErrWriter, "%s\n", err.Error())
 		return
 	}
 
@@ -60,7 +60,7 @@ func doSelectQuery(cc *cli.CommandContext, dryrun bool, file string, format stri
 		if err != nil {
 			break
 		}
-		fmt.Fprintf(Program.OutWriter, resultCSV)
+		fmt.Fprintf(Main.OutWriter, resultCSV)
 		return
 
 	case "json":
@@ -70,7 +70,7 @@ func doSelectQuery(cc *cli.CommandContext, dryrun bool, file string, format stri
 			break
 		}
 		resultJSON, _ := rs.JSONString()
-		fmt.Fprintf(Program.OutWriter, resultJSON)
+		fmt.Fprintf(Main.OutWriter, resultJSON)
 		return
 
 	case "table":
@@ -80,7 +80,7 @@ func doSelectQuery(cc *cli.CommandContext, dryrun bool, file string, format stri
 			break
 		}
 		table := rs.FormattedTable(columnSeparators)
-		fmt.Fprintf(Program.OutWriter, table)
+		fmt.Fprintf(Main.OutWriter, table)
 		return
 
 	case "xml":
@@ -89,12 +89,12 @@ func doSelectQuery(cc *cli.CommandContext, dryrun bool, file string, format stri
 		if err != nil {
 			break
 		}
-		fmt.Fprintf(Program.OutWriter, resultXML)
+		fmt.Fprintf(Main.OutWriter, resultXML)
 		return
 	}
 
 	if err != nil {
-		fmt.Fprintf(Program.ErrWriter, err.Error())
+		fmt.Fprintf(Main.ErrWriter, err.Error())
 	}
 
 	return

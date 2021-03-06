@@ -9,15 +9,15 @@ import (
 	"github.com/cirss/geist/cli"
 )
 
-var Program *cli.ProgramContext
+var Main *cli.ProgramContext
 
 func init() {
-	Program = cli.NewProgramContext("blazegraph", main)
+	Main = cli.NewProgramContext("blazegraph", main)
 }
 
 func main() {
 
-	commandCollection := cli.NewCommandCollection([]cli.CommandDescriptor{
+	commands := cli.NewCommandSet([]cli.CommandDescriptor{
 		{"create", handleCreateSubcommand, "Create a new RDF dataset",
 			"Creates an RDF dataset and corresponding Blazegraph namespace."},
 		{"destroy", handleDestroySubcommand, "Delete an RDF dataset",
@@ -25,7 +25,7 @@ func main() {
 				"in the dataset, and all triples in each of those graphs."},
 		{"export", handleExportSubcommand, "Export contents of a dataset",
 			"Exports all triples in an RDF dataset in the requested format."},
-		{"help", handleHelpSubcommand, "Show help", ""},
+		{"help", cli.HandleHelpSubcommand, "Show help", ""},
 		{"import", handleImportSubcommand, "Import data into a dataset",
 			"Imports triples in the specified format into an RDF dataset."},
 		{"list", handleListSubcommand, "List RDF datasets",
@@ -39,7 +39,7 @@ func main() {
 				"the instance is fully running. Returns status in JSON format."},
 	})
 
-	cc := cli.NewCommandContext(commandCollection, Program)
+	cc := Main.NewCommandContext(commands)
 
 	cc.Flags.String("instance", blazegraph.DefaultUrl, "`URL` of Blazegraph instance")
 
@@ -49,7 +49,7 @@ func main() {
 func readFileOrStdin(filePath string) (bytes []byte, err error) {
 	var r io.Reader
 	if filePath == "-" {
-		r = Program.InReader
+		r = Main.InReader
 	} else {
 		r, _ = os.Open(filePath)
 	}

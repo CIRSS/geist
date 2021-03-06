@@ -10,15 +10,15 @@ import (
 func TestBlazegraphCmd_import_two_triples(t *testing.T) {
 
 	var outputBuffer strings.Builder
-	Program.OutWriter = &outputBuffer
-	Program.ErrWriter = &outputBuffer
+	Main.OutWriter = &outputBuffer
+	Main.ErrWriter = &outputBuffer
 
 	t.Run("import_nt", func(t *testing.T) {
 
 		run("blazegraph destroy --dataset kb")
 		run("blazegraph create --dataset kb")
 
-		Program.InReader = strings.NewReader(`
+		Main.InReader = strings.NewReader(`
 			<http://tmcphill.net/data#x> <http://tmcphill.net/tags#tag> "seven" .
 			<http://tmcphill.net/data#y> <http://tmcphill.net/tags#tag> "eight" .
 		`)
@@ -38,7 +38,7 @@ func TestBlazegraphCmd_import_two_triples(t *testing.T) {
 		run("blazegraph destroy --dataset kb")
 		run("blazegraph create --dataset kb")
 
-		Program.InReader = strings.NewReader(
+		Main.InReader = strings.NewReader(
 			`@prefix data: <http://tmcphill.net/data#> .
 			 @prefix tags: <http://tmcphill.net/tags#> .
 
@@ -61,7 +61,7 @@ func TestBlazegraphCmd_import_two_triples(t *testing.T) {
 		run("blazegraph destroy --dataset kb")
 		run("blazegraph create --dataset kb")
 
-		Program.InReader = strings.NewReader(
+		Main.InReader = strings.NewReader(
 			`
 			[
 				{
@@ -90,7 +90,7 @@ func TestBlazegraphCmd_import_two_triples(t *testing.T) {
 		run("blazegraph destroy --dataset kb")
 		run("blazegraph create --dataset kb")
 
-		Program.InReader = strings.NewReader(
+		Main.InReader = strings.NewReader(
 			`@prefix data: <http://tmcphill.net/data#> .
 			 @prefix tags: <http://tmcphill.net/tags#> .
 
@@ -113,7 +113,7 @@ func TestBlazegraphCmd_import_two_triples(t *testing.T) {
 		run("blazegraph destroy --dataset kb")
 		run("blazegraph create --dataset kb")
 
-		Program.InReader = strings.NewReader(
+		Main.InReader = strings.NewReader(
 			`<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
 
 			 <rdf:Description rdf:about="http://tmcphill.net/data#y">
@@ -141,8 +141,8 @@ func TestBlazegraphCmd_import_two_triples(t *testing.T) {
 func TestBlazegraphCmd_import_help(t *testing.T) {
 
 	var outputBuffer strings.Builder
-	Program.OutWriter = &outputBuffer
-	Program.ErrWriter = &outputBuffer
+	Main.OutWriter = &outputBuffer
+	Main.ErrWriter = &outputBuffer
 
 	assertExitCode(t, "blazegraph import help", 0)
 
@@ -171,8 +171,8 @@ func TestBlazegraphCmd_import_help(t *testing.T) {
 func TestBlazegraphCmd_help_import(t *testing.T) {
 
 	var outputBuffer strings.Builder
-	Program.OutWriter = &outputBuffer
-	Program.ErrWriter = &outputBuffer
+	Main.OutWriter = &outputBuffer
+	Main.ErrWriter = &outputBuffer
 
 	assertExitCode(t, "blazegraph help import", 0)
 
@@ -201,8 +201,8 @@ func TestBlazegraphCmd_help_import(t *testing.T) {
 func TestBlazegraphCmd_import_bad_flag(t *testing.T) {
 
 	var outputBuffer strings.Builder
-	Program.OutWriter = &outputBuffer
-	Program.ErrWriter = &outputBuffer
+	Main.OutWriter = &outputBuffer
+	Main.ErrWriter = &outputBuffer
 
 	assertExitCode(t, "blazegraph import --not-a-flag", 1)
 

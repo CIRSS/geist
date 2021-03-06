@@ -10,8 +10,8 @@ import (
 func TestBlazegraphCmd_export_empty_store(t *testing.T) {
 
 	var outputBuffer strings.Builder
-	Program.OutWriter = &outputBuffer
-	Program.ErrWriter = &outputBuffer
+	Main.OutWriter = &outputBuffer
+	Main.ErrWriter = &outputBuffer
 
 	run("blazegraph destroy --dataset kb")
 	run("blazegraph create --dataset kb")
@@ -75,13 +75,13 @@ func TestBlazegraphCmd_export_empty_store(t *testing.T) {
 func TestBlazegraphCmd_export_two_triples(t *testing.T) {
 
 	var outputBuffer strings.Builder
-	Program.OutWriter = &outputBuffer
-	Program.ErrWriter = &outputBuffer
+	Main.OutWriter = &outputBuffer
+	Main.ErrWriter = &outputBuffer
 
 	run("blazegraph destroy --dataset kb")
 	run("blazegraph create --dataset kb")
 
-	Program.InReader = strings.NewReader(`
+	Main.InReader = strings.NewReader(`
 		<http://tmcphill.net/data#y> <http://tmcphill.net/tags#tag> "eight" .
 		<http://tmcphill.net/data#x> <http://tmcphill.net/tags#tag> "seven" .
 	`)
@@ -178,8 +178,8 @@ func TestBlazegraphCmd_export_two_triples(t *testing.T) {
 func TestBlazegraphCmd_export_address_book(t *testing.T) {
 
 	var outputBuffer strings.Builder
-	Program.OutWriter = &outputBuffer
-	Program.ErrWriter = &outputBuffer
+	Main.OutWriter = &outputBuffer
+	Main.ErrWriter = &outputBuffer
 
 	run("blazegraph destroy --dataset kb")
 	run("blazegraph create --dataset kb")
@@ -351,8 +351,8 @@ func TestBlazegraphCmd_export_address_book(t *testing.T) {
 func TestBlazegraphCmd_export_help(t *testing.T) {
 
 	var outputBuffer strings.Builder
-	Program.OutWriter = &outputBuffer
-	Program.ErrWriter = &outputBuffer
+	Main.OutWriter = &outputBuffer
+	Main.ErrWriter = &outputBuffer
 
 	assertExitCode(t, "blazegraph export help", 0)
 	util.LineContentsEqual(t, outputBuffer.String(),
@@ -380,8 +380,8 @@ func TestBlazegraphCmd_export_help(t *testing.T) {
 func TestBlazegraphCmd_help_export(t *testing.T) {
 
 	var outputBuffer strings.Builder
-	Program.OutWriter = &outputBuffer
-	Program.ErrWriter = &outputBuffer
+	Main.OutWriter = &outputBuffer
+	Main.ErrWriter = &outputBuffer
 
 	assertExitCode(t, "blazegraph help export", 0)
 	util.LineContentsEqual(t, outputBuffer.String(),
@@ -409,8 +409,8 @@ func TestBlazegraphCmd_help_export(t *testing.T) {
 func TestBlazegraphCmd_export_bad_flag(t *testing.T) {
 
 	var outputBuffer strings.Builder
-	Program.OutWriter = &outputBuffer
-	Program.ErrWriter = &outputBuffer
+	Main.OutWriter = &outputBuffer
+	Main.ErrWriter = &outputBuffer
 
 	assertExitCode(t, "blazegraph export --not-a-flag", 1)
 	util.LineContentsEqual(t, outputBuffer.String(),

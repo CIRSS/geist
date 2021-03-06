@@ -10,11 +10,11 @@ import (
 func TestReportInfer_rdfs_subClassOf(t *testing.T) {
 
 	var outputBuffer strings.Builder
-	Program.OutWriter = &outputBuffer
-	Program.ErrWriter = &outputBuffer
+	Main.OutWriter = &outputBuffer
+	Main.ErrWriter = &outputBuffer
 
 	load := func() {
-		Program.InReader = strings.NewReader(`
+		Main.InReader = strings.NewReader(`
 			@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 			@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 			@prefix tm: <http://tmcphill.net/ns/data#> .
@@ -61,7 +61,7 @@ func TestReportInfer_rdfs_subClassOf(t *testing.T) {
 				{ ?c rdf:type tm:typec }
 				ORDER BY ?c ''' | tabulate }}
 		`
-		Program.InReader = strings.NewReader(q)
+		Main.InReader = strings.NewReader(q)
 		run("blazegraph report")
 	}
 
@@ -201,11 +201,11 @@ func TestReportInfer_rdfs_subClassOf(t *testing.T) {
 func TestReportInfer_rdf_inverseOf(t *testing.T) {
 
 	var outputBuffer strings.Builder
-	Program.OutWriter = &outputBuffer
-	Program.ErrWriter = &outputBuffer
+	Main.OutWriter = &outputBuffer
+	Main.ErrWriter = &outputBuffer
 
 	load := func() {
-		Program.InReader = strings.NewReader(`
+		Main.InReader = strings.NewReader(`
 			@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 			@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 			@prefix owl: <http://www.w3.org/2002/07/owl#> .
@@ -242,7 +242,7 @@ func TestReportInfer_rdf_inverseOf(t *testing.T) {
 				{ ?usedTool verb:usedBy ?person }
 				ORDER BY ?usedTool ''' | tabulate }}
 		`
-		Program.InReader = strings.NewReader(q)
+		Main.InReader = strings.NewReader(q)
 		run("blazegraph report")
 	}
 
@@ -321,11 +321,11 @@ func TestReportInfer_rdf_inverseOf(t *testing.T) {
 func TestReportInfer_rdfs_domain_range(t *testing.T) {
 
 	var outputBuffer strings.Builder
-	Program.OutWriter = &outputBuffer
-	Program.ErrWriter = &outputBuffer
+	Main.OutWriter = &outputBuffer
+	Main.ErrWriter = &outputBuffer
 
 	load := func() {
-		Program.InReader = strings.NewReader(`
+		Main.InReader = strings.NewReader(`
 			@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 			@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 			@prefix owl: <http://www.w3.org/2002/07/owl#> .
@@ -399,7 +399,7 @@ func TestReportInfer_rdfs_domain_range(t *testing.T) {
 				{ ?s verb:usedBy ?o }
 				ORDER BY ?s ?o ''' | tabulate }}
 			`
-		Program.InReader = strings.NewReader(q)
+		Main.InReader = strings.NewReader(q)
 		run("blazegraph report")
 	}
 
@@ -572,11 +572,11 @@ func TestReportInfer_rdfs_domain_range(t *testing.T) {
 // func TestReportInfer(t *testing.T) {
 
 // 	var outputBuffer strings.Builder
-// 	Program.OutWriter = &outputBuffer
-// 	Program.ErrWriter = &outputBuffer
+// 	Main.OutWriter = &outputBuffer
+// 	Main.ErrWriter = &outputBuffer
 
 // 	load := func() {
-// 		Program.InReader = strings.NewReader(`
+// 		Main.InReader = strings.NewReader(`
 // 			@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 // 			@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 // 			@prefix tm: <http://tmcphill.net/ns/data#> .
@@ -590,7 +590,7 @@ func TestReportInfer_rdfs_domain_range(t *testing.T) {
 // 			{{ prefix "tm" "http://tmcphill.net/ns/data#" }}
 
 // 		`
-// 		Program.InReader = strings.NewReader(q)
+// 		Main.InReader = strings.NewReader(q)
 // 		run("blazegraph report")
 // 	}
 

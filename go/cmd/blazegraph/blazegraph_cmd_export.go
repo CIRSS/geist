@@ -32,13 +32,13 @@ func handleExportSubcommand(cc *cli.CommandContext) (err error) {
 	}
 
 	if err != nil {
-		fmt.Fprintf(Program.ErrWriter, err.Error())
+		fmt.Fprintf(Main.ErrWriter, err.Error())
 		return
 	}
 
-	fmt.Fprintf(Program.OutWriter, "%s", triples)
+	fmt.Fprintf(Main.OutWriter, "%s", triples)
 	if len(triples) > 0 {
-		fmt.Fprintln(Program.OutWriter)
+		fmt.Fprintln(Main.OutWriter)
 
 	}
 	return

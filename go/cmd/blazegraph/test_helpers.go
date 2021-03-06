@@ -9,9 +9,9 @@ import (
 )
 
 func run(commandLine string) int {
-	Program.ExitCode = 0
+	Main.ExitCode = 0
 	os.Args = strings.Fields(commandLine)
-	exitCode := Program.Run()
+	exitCode := Main.Run()
 	return exitCode
 }
 
