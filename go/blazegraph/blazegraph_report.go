@@ -8,9 +8,12 @@ import (
 )
 
 func Report(cc *cli.CommandContext) (err error) {
+
+	// declare command flags
 	cc.Flags.String("dataset", "", "`name` of RDF dataset to create report from")
 	file := cc.Flags.String("file", "-", "File containing report template to expand")
 
+	// parse flags
 	var helped bool
 	if helped, err = cc.ParseFlags(); helped || err != nil {
 		return

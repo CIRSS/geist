@@ -8,10 +8,12 @@ import (
 
 func Import(cc *cli.CommandContext) (err error) {
 
+	// declare command flags
 	cc.Flags.String("dataset", "kb", "`name` of RDF dataset to import triples into")
 	file := cc.Flags.String("file", "-", "File containing triples to import")
 	format := cc.Flags.String("format", "ttl", "Format of triples to import [jsonld, nt, ttl, or xml]")
 
+	// parse flags
 	var helped bool
 	if helped, err = cc.ParseFlags(); helped || err != nil {
 		return

@@ -8,10 +8,12 @@ import (
 
 func Export(cc *cli.CommandContext) (err error) {
 
+	// declare command flags
 	cc.Flags.String("dataset", "kb", "`name` of RDF dataset to export")
 	format := cc.Flags.String("format", "nt", "Format for exported triples [jsonld, nt, ttl, or xml]")
 	sort := cc.Flags.Bool("sort", false, "Sort the exported triples if true")
 
+	// parse flags
 	var helped bool
 	if helped, err = cc.ParseFlags(); helped || err != nil {
 		return

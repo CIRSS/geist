@@ -8,25 +8,23 @@ import (
 )
 
 func Query(cc *cli.CommandContext) (err error) {
+
+	// declare command flags
 	cc.Flags.String("dataset", "kb", "`name` of RDF dataset to query")
 	dryrun := cc.Flags.Bool("dryrun", false, "Output query but do not execute it")
 	file := cc.Flags.String("file", "-", "File containing the SPARQL query to execute")
 	format := cc.Flags.String("format", "json", "Format of result set to produce [csv, json, table, or xml]")
 	separators := cc.Flags.Bool("columnseparators", true, "Display column separators in table format")
 
+	// parse flags
 	var helped bool
 	if helped, err = cc.ParseFlags(); helped || err != nil {
 		return
 	}
 
-	return doSelectQuery(cc, *dryrun, *file, *format, *separators)
-}
-
-func doSelectQuery(cc *cli.CommandContext, dryrun bool, file string, format string, columnSeparators bool) (err error) {
-
 	bc := cc.Resource("BlazegraphClient").(*BlazegraphClient)
 
-	queryText, err := cc.ReadFileOrStdin(file)
+	queryText, err := cc.ReadFileOrStdin(*file)
 	if err != nil {
 		fmt.Fprintf(cc.ErrWriter, err.Error())
 		return
@@ -48,12 +46,12 @@ func doSelectQuery(cc *cli.CommandContext, dryrun bool, file string, format stri
 		return
 	}
 
-	if dryrun {
+	if *dryrun {
 		fmt.Print(string(q))
 		return
 	}
 
-	switch format {
+	switch *format {
 
 	case "csv":
 		resultCSV, _ := bc.SelectCSV(string(q))
@@ -79,7 +77,7 @@ func doSelectQuery(cc *cli.CommandContext, dryrun bool, file string, format stri
 		if err != nil {
 			break
 		}
-		table := rs.FormattedTable(columnSeparators)
+		table := rs.FormattedTable(*separators)
 		fmt.Fprintf(cc.OutWriter, table)
 		return
 

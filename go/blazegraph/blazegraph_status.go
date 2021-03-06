@@ -12,8 +12,10 @@ const retryPeriod = 100
 
 func Status(cc *cli.CommandContext) (err error) {
 
+	// declare command flags
 	timeout := cc.Flags.Int("timeout", 0, "Number of `milliseconds` to wait for Blazegraph instance to respond")
 
+	// parse flags
 	var helped bool
 	if helped, err = cc.ParseFlags(); helped || err != nil {
 		return

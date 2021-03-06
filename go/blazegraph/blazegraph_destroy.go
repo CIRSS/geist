@@ -8,9 +8,11 @@ import (
 
 func Destroy(cc *cli.CommandContext) (err error) {
 
+	// declare command flags
 	dataset := cc.Flags.String("dataset", "kb", "`name` of RDF dataset to destroy")
 	all := cc.Flags.Bool("all", false, "destroy ALL datasets in the Blazegraph instance")
 
+	// parse flags
 	var helped bool
 	if helped, err = cc.ParseFlags(); helped || err != nil {
 		return

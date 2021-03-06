@@ -8,9 +8,11 @@ import (
 
 func Create(cc *cli.CommandContext) (err error) {
 
+	// declare command flags
 	dataset := cc.Flags.String("dataset", "kb", "`name` of RDF dataset to create")
 	infer := cc.Flags.String("infer", "none", "Inference to perform on update [none, rdfs, owl]")
 
+	// parse flags
 	var helped bool
 	if helped, err = cc.ParseFlags(); helped || err != nil {
 		return
