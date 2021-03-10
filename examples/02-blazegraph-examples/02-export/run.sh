@@ -7,7 +7,7 @@ RUNNER='../../common/run_script_example.sh'
 bash ${RUNNER} SETUP "INITIALIZE BLAZEGRAPH INSTANCE WITH ADDRESS BOOK" << END_SCRIPT
 
 blazegraph destroy --dataset kb
-blazegraph create --dataset kb
+blazegraph create --dataset kb --quiet
 blazegraph import --file ../data/address-book.jsonld --format jsonld
 
 END_SCRIPT

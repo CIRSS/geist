@@ -14,7 +14,7 @@ func TestBlazegraphCmd_query_json(t *testing.T) {
 	Main.ErrWriter = &outputBuffer
 
 	run("blazegraph destroy --dataset kb")
-	run("blazegraph create --dataset kb")
+	run("blazegraph create --quiet --dataset kb")
 
 	Main.InReader = strings.NewReader(`
 		<http://tmcphill.net/data#y> <http://tmcphill.net/tags#tag> "eight" .
@@ -120,6 +120,30 @@ func TestBlazegraphCmd_query_json(t *testing.T) {
 	})
 }
 
+var expectedQueryHelpOutput = string(
+	`
+	blazegraph query: Performs a SPARQL query on the identified RDF dataset.
+
+	usage: blazegraph query [<flags>]
+
+	flags:
+		-columnseparators
+				Display column separators in table format (default true)
+		-dataset name
+				name of RDF dataset to query (default "kb")
+		-dryrun
+				Output query but do not execute it
+		-file string
+				File containing the SPARQL query to execute (default "-")
+		-format string
+			Format of result set to produce [csv, json, table, or xml] (default "json")
+		-instance URL
+				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
+		-quiet
+				Discard normal command output
+
+	`)
+
 func TestBlazegraphCmd_query_help(t *testing.T) {
 
 	var outputBuffer strings.Builder
@@ -127,64 +151,15 @@ func TestBlazegraphCmd_query_help(t *testing.T) {
 	Main.ErrWriter = &outputBuffer
 
 	assertExitCode(t, "blazegraph query help", 0)
-	util.LineContentsEqual(t, outputBuffer.String(),
-		`
-		Performs a SPARQL query on the identified RDF dataset.
-
-		Usage: blazegraph query [<flags>]
-
-		Flags:
-
-		-columnseparators
-				Display column separators in table format (default true)
-		-dataset name
-    	    	name of RDF dataset to query (default "kb")
-		-dryrun
-				Output query but do not execute it
-		-file string
-				File containing the SPARQL query to execute (default "-")
-		-format string
-			Format of result set to produce [csv, json, table, or xml] (default "json")
-		-instance URL
-				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
-		-quiet
-				Discard normal command output
-
-	`)
+	util.LineContentsEqual(t, outputBuffer.String(), expectedQueryHelpOutput)
 }
 
 func TestBlazegraphCmd_help_select(t *testing.T) {
-
 	var outputBuffer strings.Builder
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
-
 	assertExitCode(t, "blazegraph help query", 0)
-
-	util.LineContentsEqual(t, outputBuffer.String(),
-		`
-		Performs a SPARQL query on the identified RDF dataset.
-
-		Usage: blazegraph query [<flags>]
-
-		Flags:
-
-		-columnseparators
-				Display column separators in table format (default true)
-		-dataset name
-    	    	name of RDF dataset to query (default "kb")
-		-dryrun
-				Output query but do not execute it
-		-file string
-				File containing the SPARQL query to execute (default "-")
-		-format string
-			Format of result set to produce [csv, json, table, or xml] (default "json")
-		-instance URL
-				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
-		-quiet
-				Discard normal command output
-
-	`)
+	util.LineContentsEqual(t, outputBuffer.String(), expectedQueryHelpOutput)
 }
 
 func TestBlazegraphCmd_query_bad_flag(t *testing.T) {
@@ -196,27 +171,25 @@ func TestBlazegraphCmd_query_bad_flag(t *testing.T) {
 	assertExitCode(t, "blazegraph query --not-a-flag", 1)
 
 	util.LineContentsEqual(t, outputBuffer.String(),
-		`
-		flag provided but not defined: -not-a-flag
+		`blazegraph query: flag provided but not defined: -not-a-flag
 
-		Usage: blazegraph query [<flags>]
+		usage: blazegraph query [<flags>]
 
-		Flags:
-
-		-columnseparators
-				Display column separators in table format (default true)
-		-dataset name
-    	    	name of RDF dataset to query (default "kb")
-		-dryrun
-				Output query but do not execute it
-		-file string
-				File containing the SPARQL query to execute (default "-")
-		-format string
-			Format of result set to produce [csv, json, table, or xml] (default "json")
-		-instance URL
-				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
-		-quiet
-				Discard normal command output
+		flags:
+			-columnseparators
+					Display column separators in table format (default true)
+			-dataset name
+					name of RDF dataset to query (default "kb")
+			-dryrun
+					Output query but do not execute it
+			-file string
+					File containing the SPARQL query to execute (default "-")
+			-format string
+				Format of result set to produce [csv, json, table, or xml] (default "json")
+			-instance URL
+					URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
+			-quiet
+					Discard normal command output
 
 	`)
 }

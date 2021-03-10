@@ -27,7 +27,7 @@ func Status(cc *cli.CommandContext) (err error) {
 	status, err := getStatusInMaxTries(bc, maxTries)
 
 	if err != nil {
-		fmt.Fprintln(cc.ErrWriter, err.Error())
+		return
 	} else {
 		fmt.Fprintln(cc.OutWriter, status)
 	}
@@ -49,7 +49,7 @@ func getStatusInMaxTries(bc *BlazegraphClient, maxTries int) (status string, err
 
 		// if this was the last allowed try, record a timeout error and exit loop
 		if tries == maxTries {
-			err = geist.NewGeistError("Exceeded timeout connecting to Blazegraph instance", err)
+			err = geist.NewGeistError("Exceeded timeout connecting to Blazegraph instance", err, false)
 			break
 		}
 

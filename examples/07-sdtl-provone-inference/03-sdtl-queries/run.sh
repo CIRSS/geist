@@ -8,7 +8,7 @@ GRAPHER='../../common/run_dot_examples.sh'
 bash ${RUNNER} SETUP "IMPORT SDTL" << END_SCRIPT
 
 blazegraph destroy --dataset kb
-blazegraph create --dataset kb
+blazegraph create --dataset kb --quiet
 blazegraph import --format jsonld --file ../data/compute-sdtl.jsonld
 
 END_SCRIPT

@@ -3,6 +3,7 @@ package blazegraph
 import (
 	"fmt"
 
+	"github.com/cirss/geist"
 	"github.com/cirss/geist/cli"
 )
 
@@ -19,8 +20,8 @@ func Create(cc *cli.CommandContext) (err error) {
 	}
 
 	if len(*dataset) == 0 {
-		fmt.Fprintln(cc.ErrorMessageWriter, "name of dataset must be given using the -dataset flag")
-		cc.ShowCommandUsage()
+		fmt.Fprintln(cc.ErrWriter, "name of dataset must be given using the -dataset flag")
+		cc.ShowCommandUsage(cc.ErrWriter)
 		return
 	}
 
@@ -30,5 +31,12 @@ func Create(cc *cli.CommandContext) (err error) {
 	bc := cc.Resource("BlazegraphClient").(*BlazegraphClient)
 
 	_, err = bc.CreateDataSet(p)
+	if err != nil {
+		err = geist.NewGeistError("create dataset failed", err, true)
+		return
+	}
+
+	fmt.Fprintf(cc.OutWriter, "Successfully created dataset %s\n", *dataset)
+
 	return
 }

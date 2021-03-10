@@ -4,7 +4,7 @@
 # IMPORT PROVONE TRACE
 
 blazegraph destroy --dataset kb
-blazegraph create --dataset kb
+blazegraph create --dataset kb --quiet
 blazegraph import --format jsonld --file ../data/branched-pipeline.jsonld
 
 ------------------------------------------- SETUP OUTPUTS ------------------------------------------------

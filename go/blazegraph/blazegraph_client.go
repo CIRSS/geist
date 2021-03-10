@@ -2,11 +2,13 @@ package blazegraph
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 	"regexp"
 	"sort"
 	"strconv"
+	"strings"
 	"text/template"
 
 	"github.com/cirss/geist"
@@ -39,12 +41,29 @@ func NewBlazegraphClient(url string) *BlazegraphClient {
 	return bc
 }
 
-func (sc *BlazegraphClient) CreateDataSet(dp *DatasetProperties) (responseBody []byte, err error) {
+func (sc *BlazegraphClient) CreateDataSet(dp *DatasetProperties) (response string, err error) {
 
-	body := dp.String()
+	requestBody := dp.String()
 
-	responseBody, err = sc.PostRequest(sc.NamespaceEndpoint,
-		"text/plain", "text/plain", []byte(body))
+	responseBody, err := sc.PostRequest(sc.NamespaceEndpoint,
+		"text/plain", "text/plain", []byte(requestBody))
+	response = string(responseBody)
+	if err != nil {
+		return
+	}
+
+	responseTokens := strings.Split(string(responseBody), ": ")
+	switch responseTokens[0] {
+	case "CREATED":
+		break
+	case "EXISTS":
+		message := fmt.Sprintf("dataset %s already exists", responseTokens[1])
+		err = geist.NewGeistError(message, err, false)
+		break
+	default:
+		err = geist.NewGeistError(string(responseBody), err, false)
+	}
+
 	return
 }
 
@@ -128,7 +147,7 @@ func (sc *BlazegraphClient) GetStatus() (statusJSON string, err error) {
 		"text/plain", "text/plain")
 
 	if err != nil {
-		err = geist.NewGeistError("Error posting SPARQL request", err)
+		err = geist.NewGeistError("Error posting SPARQL request", err, false)
 		return
 	}
 

@@ -94,7 +94,7 @@ func (sc *SparqlClient) PostData(format string, data []byte) (responseBody []byt
 func (sc SparqlClient) Select(query string) (rs *ResultSet, err error) {
 	responseBody, err := sc.PostSparqlRequest("application/sparql-query", "application/json", []byte(query))
 	if err != nil {
-		err = NewGeistError("Error posting SPARQL request", err)
+		err = NewGeistError("Error posting SPARQL request", err, false)
 		return
 	}
 

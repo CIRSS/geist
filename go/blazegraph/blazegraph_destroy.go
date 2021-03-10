@@ -19,8 +19,8 @@ func Destroy(cc *cli.CommandContext) (err error) {
 	}
 
 	if len(*dataset) == 0 {
-		fmt.Fprintln(cc.ErrorMessageWriter, "name of dataset must be given using the -dataset flag")
-		cc.ShowCommandUsage()
+		fmt.Fprintln(cc.ErrWriter, "name of dataset must be given using the -dataset flag")
+		cc.ShowCommandUsage(cc.ErrWriter)
 		return
 	}
 

@@ -7,7 +7,7 @@ SCRIPT_RUNNER='../../common/run_script_example.sh'
 bash ${SCRIPT_RUNNER} SETUP "INITIALIZE BLAZEGRAPH INSTANCE WITH CITATIONS" << END_SCRIPT
 
 blazegraph destroy --dataset kb
-blazegraph create --dataset kb
+blazegraph create --dataset kb --quiet
 blazegraph import --file ../data/citations.ttl --format ttl
 
 END_SCRIPT

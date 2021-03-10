@@ -16,7 +16,7 @@ func TestBlazegraphCmd_import_two_triples(t *testing.T) {
 	t.Run("import_nt", func(t *testing.T) {
 
 		run("blazegraph destroy --dataset kb")
-		run("blazegraph create --dataset kb")
+		run("blazegraph create --quiet --dataset kb")
 
 		Main.InReader = strings.NewReader(`
 			<http://tmcphill.net/data#x> <http://tmcphill.net/tags#tag> "seven" .
@@ -36,7 +36,7 @@ func TestBlazegraphCmd_import_two_triples(t *testing.T) {
 	t.Run("import_ttl", func(t *testing.T) {
 
 		run("blazegraph destroy --dataset kb")
-		run("blazegraph create --dataset kb")
+		run("blazegraph create --quiet --dataset kb")
 
 		Main.InReader = strings.NewReader(
 			`@prefix data: <http://tmcphill.net/data#> .
@@ -59,7 +59,7 @@ func TestBlazegraphCmd_import_two_triples(t *testing.T) {
 	t.Run("import_jsonld", func(t *testing.T) {
 
 		run("blazegraph destroy --dataset kb")
-		run("blazegraph create --dataset kb")
+		run("blazegraph create --quiet --dataset kb")
 
 		Main.InReader = strings.NewReader(
 			`
@@ -88,7 +88,7 @@ func TestBlazegraphCmd_import_two_triples(t *testing.T) {
 	t.Run("import_ttl", func(t *testing.T) {
 
 		run("blazegraph destroy --dataset kb")
-		run("blazegraph create --dataset kb")
+		run("blazegraph create --quiet --dataset kb")
 
 		Main.InReader = strings.NewReader(
 			`@prefix data: <http://tmcphill.net/data#> .
@@ -111,7 +111,7 @@ func TestBlazegraphCmd_import_two_triples(t *testing.T) {
 	t.Run("import_xml", func(t *testing.T) {
 
 		run("blazegraph destroy --dataset kb")
-		run("blazegraph create --dataset kb")
+		run("blazegraph create --quiet --dataset kb")
 
 		Main.InReader = strings.NewReader(
 			`<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
@@ -138,22 +138,13 @@ func TestBlazegraphCmd_import_two_triples(t *testing.T) {
 	})
 }
 
-func TestBlazegraphCmd_import_help(t *testing.T) {
+var expectedImportHelpOutput = string(
+	`
+	blazegraph import: Imports triples in the specified format into an RDF dataset.
 
-	var outputBuffer strings.Builder
-	Main.OutWriter = &outputBuffer
-	Main.ErrWriter = &outputBuffer
+	usage: blazegraph import [<flags>]
 
-	assertExitCode(t, "blazegraph import help", 0)
-
-	util.LineContentsEqual(t, outputBuffer.String(),
-		`
-		Imports triples in the specified format into an RDF dataset.
-
-		Usage: blazegraph import [<flags>]
-
-		Flags:
-
+	flags:
 		-dataset name
 				name of RDF dataset to import triples into (default "kb")
 		-file string
@@ -162,40 +153,25 @@ func TestBlazegraphCmd_import_help(t *testing.T) {
 				Format of triples to import [jsonld, nt, ttl, or xml] (default "ttl")
 		-instance URL
 				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
-	  	-quiet
+		-quiet
 				Discard normal command output
 
 	`)
+
+func TestBlazegraphCmd_import_help(t *testing.T) {
+	var outputBuffer strings.Builder
+	Main.OutWriter = &outputBuffer
+	Main.ErrWriter = &outputBuffer
+	assertExitCode(t, "blazegraph import help", 0)
+	util.LineContentsEqual(t, outputBuffer.String(), expectedImportHelpOutput)
 }
 
 func TestBlazegraphCmd_help_import(t *testing.T) {
-
 	var outputBuffer strings.Builder
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
-
 	assertExitCode(t, "blazegraph help import", 0)
-
-	util.LineContentsEqual(t, outputBuffer.String(),
-		`
-		Imports triples in the specified format into an RDF dataset.
-
-		Usage: blazegraph import [<flags>]
-
-		Flags:
-
-		-dataset name
-				name of RDF dataset to import triples into (default "kb")
-		-file string
-				File containing triples to import (default "-")
-		-format string
-				Format of triples to import [jsonld, nt, ttl, or xml] (default "ttl")
-		-instance URL
-				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
-	  	-quiet
-				Discard normal command output
-
-	`)
+	util.LineContentsEqual(t, outputBuffer.String(), expectedImportHelpOutput)
 }
 
 func TestBlazegraphCmd_import_bad_flag(t *testing.T) {
@@ -207,23 +183,21 @@ func TestBlazegraphCmd_import_bad_flag(t *testing.T) {
 	assertExitCode(t, "blazegraph import --not-a-flag", 1)
 
 	util.LineContentsEqual(t, outputBuffer.String(),
-		`
-		flag provided but not defined: -not-a-flag
+		`blazegraph import: flag provided but not defined: -not-a-flag
 
-		Usage: blazegraph import [<flags>]
+		usage: blazegraph import [<flags>]
 
-		Flags:
-
-		-dataset name
-				name of RDF dataset to import triples into (default "kb")
-		-file string
-				File containing triples to import (default "-")
-		-format string
-				Format of triples to import [jsonld, nt, ttl, or xml] (default "ttl")
-		-instance URL
-				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
-	  	-quiet
-				Discard normal command output
+		flags:
+			-dataset name
+					name of RDF dataset to import triples into (default "kb")
+			-file string
+					File containing triples to import (default "-")
+			-format string
+					Format of triples to import [jsonld, nt, ttl, or xml] (default "ttl")
+			-instance URL
+					URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
+			-quiet
+					Discard normal command output
 
 	`)
 }

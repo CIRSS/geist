@@ -17,7 +17,7 @@ func main() {
 
 	commands := cli.NewCommandSet([]cli.CommandDescriptor{
 		{"create", blazegraph.Create, "Create a new RDF dataset",
-			"Creates an RDF dataset and corresponding Blazegraph namespace."},
+			"Creates a new RDF dataset and corresponding Blazegraph namespace."},
 		{"destroy", blazegraph.Destroy, "Delete an RDF dataset",
 			"Deletes an RDF dataset and corresponding Blazegraph namespace, all RDF graphs\n" +
 				"in the dataset, and all triples in each of those graphs."},

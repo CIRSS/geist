@@ -14,7 +14,7 @@ func TestBlazegraphCmd_export_empty_store(t *testing.T) {
 	Main.ErrWriter = &outputBuffer
 
 	run("blazegraph destroy --dataset kb")
-	run("blazegraph create --dataset kb")
+	run("blazegraph create --quiet --dataset kb")
 
 	t.Run("jsonld", func(t *testing.T) {
 		outputBuffer.Reset()
@@ -79,7 +79,7 @@ func TestBlazegraphCmd_export_two_triples(t *testing.T) {
 	Main.ErrWriter = &outputBuffer
 
 	run("blazegraph destroy --dataset kb")
-	run("blazegraph create --dataset kb")
+	run("blazegraph create --quiet --dataset kb")
 
 	Main.InReader = strings.NewReader(`
 		<http://tmcphill.net/data#y> <http://tmcphill.net/tags#tag> "eight" .
@@ -182,7 +182,7 @@ func TestBlazegraphCmd_export_address_book(t *testing.T) {
 	Main.ErrWriter = &outputBuffer
 
 	run("blazegraph destroy --dataset kb")
-	run("blazegraph create --dataset kb")
+	run("blazegraph create --quiet --dataset kb")
 
 	run("blazegraph import --file testdata/address-book.jsonld --format jsonld")
 
@@ -348,62 +348,40 @@ func TestBlazegraphCmd_export_address_book(t *testing.T) {
 	})
 }
 
-func TestBlazegraphCmd_export_help(t *testing.T) {
+var expectedExportHelpOutput = string(
+	`
+		blazegraph export: Exports all triples in an RDF dataset in the requested format.
 
+		usage: blazegraph export [<flags>]
+
+		flags:
+			-dataset name
+					name of RDF dataset to export (default "kb")
+			-format string
+					Format for exported triples [jsonld, nt, ttl, or xml] (default "nt")
+			-instance URL
+					URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
+			-quiet
+					Discard normal command output
+			-sort
+					Sort the exported triples if true
+
+		`)
+
+func TestBlazegraphCmd_export_help(t *testing.T) {
 	var outputBuffer strings.Builder
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
-
 	assertExitCode(t, "blazegraph export help", 0)
-	util.LineContentsEqual(t, outputBuffer.String(),
-		`
-		Exports all triples in an RDF dataset in the requested format.
-
-		Usage: blazegraph export [<flags>]
-
-		Flags:
-
-		-dataset name
-				name of RDF dataset to export (default "kb")
-		-format string
-		    	Format for exported triples [jsonld, nt, ttl, or xml] (default "nt")
-		-instance URL
-				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
-		-quiet
-				Discard normal command output
-		-sort
-				Sort the exported triples if true
-
-		`)
+	util.LineContentsEqual(t, outputBuffer.String(), expectedExportHelpOutput)
 }
 
 func TestBlazegraphCmd_help_export(t *testing.T) {
-
 	var outputBuffer strings.Builder
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
-
 	assertExitCode(t, "blazegraph help export", 0)
-	util.LineContentsEqual(t, outputBuffer.String(),
-		`
-		Exports all triples in an RDF dataset in the requested format.
-
-		Usage: blazegraph export [<flags>]
-
-		Flags:
-
-		-dataset name
-				name of RDF dataset to export (default "kb")
-		-format string
-		    	Format for exported triples [jsonld, nt, ttl, or xml] (default "nt")
-		-instance URL
-				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
-		-quiet
-				Discard normal command output
-		-sort
-				Sort the exported triples if true
-
-		`)
+	util.LineContentsEqual(t, outputBuffer.String(), expectedExportHelpOutput)
 }
 
 func TestBlazegraphCmd_export_bad_flag(t *testing.T) {
@@ -414,23 +392,21 @@ func TestBlazegraphCmd_export_bad_flag(t *testing.T) {
 
 	assertExitCode(t, "blazegraph export --not-a-flag", 1)
 	util.LineContentsEqual(t, outputBuffer.String(),
-		`
-		flag provided but not defined: -not-a-flag
+		`blazegraph export: flag provided but not defined: -not-a-flag
 
-		Usage: blazegraph export [<flags>]
+		usage: blazegraph export [<flags>]
 
-		Flags:
-
-		-dataset name
-				name of RDF dataset to export (default "kb")
-		-format string
-		    	Format for exported triples [jsonld, nt, ttl, or xml] (default "nt")
-		-instance URL
-				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
-		-quiet
-				Discard normal command output
-		-sort
-				Sort the exported triples if true
+		flags:
+			-dataset name
+					name of RDF dataset to export (default "kb")
+			-format string
+					Format for exported triples [jsonld, nt, ttl, or xml] (default "nt")
+			-instance URL
+					URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
+			-quiet
+					Discard normal command output
+			-sort
+					Sort the exported triples if true
 
 		`)
 }

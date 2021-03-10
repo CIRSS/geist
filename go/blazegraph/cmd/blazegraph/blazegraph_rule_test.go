@@ -14,7 +14,7 @@ func TestBlazegraphCmd_static_macro_in_select(t *testing.T) {
 	Main.ErrWriter = &outputBuffer
 
 	run("blazegraph destroy --dataset kb")
-	run("blazegraph create --dataset kb")
+	run("blazegraph create --quiet --dataset kb")
 
 	Main.InReader = strings.NewReader(`
 		<:x> <:foo> <:y> .
@@ -53,7 +53,7 @@ func TestBlazegraphCmd_included_static_macro_in_select(t *testing.T) {
 	Main.ErrWriter = &outputBuffer
 
 	run("blazegraph destroy --dataset kb")
-	run("blazegraph create --dataset kb")
+	run("blazegraph create --quiet --dataset kb")
 
 	Main.InReader = strings.NewReader(`
 		<:x> <:foo> <:y> .
@@ -90,7 +90,7 @@ func TestBlazegraphCmd_dynamic_macro_in_select(t *testing.T) {
 	Main.ErrWriter = &outputBuffer
 
 	run("blazegraph destroy --dataset kb")
-	run("blazegraph create --dataset kb")
+	run("blazegraph create --quiet --dataset kb")
 
 	Main.InReader = strings.NewReader(`
 		<:x> <:foo> <:y> .
@@ -129,7 +129,7 @@ func TestBlazegraphCmd_included_dynamic_macro_in_select(t *testing.T) {
 	Main.ErrWriter = &outputBuffer
 
 	run("blazegraph destroy --dataset kb")
-	run("blazegraph create --dataset kb")
+	run("blazegraph create --quiet --dataset kb")
 
 	Main.InReader = strings.NewReader(`
 		<:x> <:foo> <:y> .
@@ -166,7 +166,7 @@ func TestBlazegraphCmd_rule_in_select(t *testing.T) {
 	Main.ErrWriter = &outputBuffer
 
 	run("blazegraph destroy --dataset kb")
-	run("blazegraph create --dataset kb")
+	run("blazegraph create --quiet --dataset kb")
 
 	Main.InReader = strings.NewReader(`
 		<:x> <:foo> <:y> .
@@ -207,7 +207,7 @@ func TestBlazegraphCmd_included_rule_in_select(t *testing.T) {
 	Main.ErrWriter = &outputBuffer
 
 	run("blazegraph destroy --dataset kb")
-	run("blazegraph create --dataset kb")
+	run("blazegraph create --quiet --dataset kb")
 
 	Main.InReader = strings.NewReader(`
 		<:x> <:foo> <:y> .
@@ -244,7 +244,7 @@ func TestBlazegraphCmd_rule_in_select_in_report(t *testing.T) {
 	Main.ErrWriter = &outputBuffer
 
 	run("blazegraph destroy --dataset kb")
-	run("blazegraph create --dataset kb")
+	run("blazegraph create --quiet --dataset kb")
 
 	Main.InReader = strings.NewReader(`
 		<:x> <:foo> <:y> .
@@ -285,7 +285,7 @@ func TestBlazegraphCmd_rule_in_query(t *testing.T) {
 	Main.ErrWriter = &outputBuffer
 
 	run("blazegraph destroy --dataset kb")
-	run("blazegraph create --dataset kb")
+	run("blazegraph create --quiet --dataset kb")
 
 	Main.InReader = strings.NewReader(`
 		<:x> <:foo> <:y> .
@@ -327,7 +327,7 @@ func TestBlazegraphCmd_rule_in_rule(t *testing.T) {
 	Main.ErrWriter = &outputBuffer
 
 	run("blazegraph destroy --dataset kb")
-	run("blazegraph create --dataset kb")
+	run("blazegraph create --quiet --dataset kb")
 
 	Main.InReader = strings.NewReader(`
 		<:x> <:foo> <:y> .
@@ -376,7 +376,7 @@ func TestBlazegraphCmd_rule_in_query_called_by_macro(t *testing.T) {
 	Main.ErrWriter = &outputBuffer
 
 	run("blazegraph destroy --dataset kb")
-	run("blazegraph create --dataset kb")
+	run("blazegraph create --quiet --dataset kb")
 
 	Main.InReader = strings.NewReader(`
 		<:y> <:tag> "eight" .

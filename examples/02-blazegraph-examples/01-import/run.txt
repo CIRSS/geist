@@ -4,7 +4,7 @@
 # INITIALIZE BLAZEGRAPH INSTANCE
 
 blazegraph destroy --dataset kb
-blazegraph create --dataset kb
+blazegraph create --dataset kb --quiet
 
 ------------------------------------------- SETUP OUTPUTS ------------------------------------------------
 
@@ -36,7 +36,7 @@ blazegraph export --format nt --sort=true
 # IMPORT TWO TRIPLES AS TURTLE
 
 blazegraph destroy --dataset kb
-blazegraph create --dataset kb
+blazegraph create --dataset kb --quiet
 
 blazegraph import --format ttl << END_DATA
 
@@ -61,7 +61,7 @@ blazegraph export --format nt --sort=true
 # IMPORT TWO TRIPLES AS JSON-LD
 
 blazegraph destroy --dataset kb
-blazegraph create --dataset kb
+blazegraph create --dataset kb --quiet
 
 blazegraph import --format jsonld << END_DATA
 
@@ -91,7 +91,7 @@ blazegraph export --format nt --sort=true
 # IMPORT TWO TRIPLES AS RDF-XML
 
 blazegraph destroy --dataset kb
-blazegraph create --dataset kb
+blazegraph create --dataset kb --quiet
 
 blazegraph import --format xml << END_DATA
 

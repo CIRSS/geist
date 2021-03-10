@@ -4,7 +4,7 @@
 # INITIALIZE BLAZEGRAPH INSTANCE WITH ADDRESS BOOK
 
 blazegraph destroy --dataset kb
-blazegraph create --dataset kb
+blazegraph create --dataset kb --quiet
 blazegraph import --file ../data/address-book.jsonld --format jsonld
 
 ------------------------------------------- SETUP OUTPUTS ------------------------------------------------

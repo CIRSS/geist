@@ -4,7 +4,7 @@
 # IMPORT PROVONE TRACE
 
 blazegraph destroy --dataset kb
-blazegraph create --dataset kb --infer owl
+blazegraph create --dataset kb --quiet --infer owl
 blazegraph import --file ../data/wt-prov-rules.ttl
 blazegraph import --format jsonld --file ../data/branched-pipeline.jsonld
 
