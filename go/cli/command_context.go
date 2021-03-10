@@ -128,7 +128,7 @@ func (cc *CommandContext) ParseCommandFlags() (err error) {
 
 	cc.Flags.SetOutput(errBuffer)
 	if err = cc.Flags.Parse(cc.Args[1:]); err != nil {
-		err = NewCLIError("flag parsing error", err, true)
+		err = NewCLIError(err)
 		fmt.Fprintf(cc.ErrWriter, "%s %s: %s",
 			cc.programContext.Name, cc.Descriptor.Name, errBuffer.String())
 		cc.ShowCommandUsage(cc.ErrWriter)
@@ -159,7 +159,7 @@ func (cc *CommandContext) ParseFlags() (helpShown bool, err error) {
 		fmt.Fprintf(cc.ErrWriter, "%s %s: unused argument: %s\n",
 			cc.programContext.Name, cc.Descriptor.Name, cc.Flags.Args()[0])
 		cc.ShowCommandUsage(cc.ErrWriter)
-		err = NewCLIError("unused arguments", nil, false)
+		err = NewCLIError(nil)
 		return
 	}
 
@@ -225,7 +225,7 @@ func Help(cc *CommandContext) (err error) {
 			cc.programContext.Name, cc.programContext.Name, commandName)
 		cc.ShowProgramUsage()
 		cc.ShowProgramCommands()
-		err = NewCLIError("unrecognized command", nil, false)
+		err = NewCLIError(nil)
 	}
 	return
 }

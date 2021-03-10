@@ -1,24 +1,17 @@
 package cli
 
 type CLIError struct {
-	summary string
-	err     error
+	err error
 }
 
-func NewCLIError(summary string, err error, prepend bool) CLIError {
-	e := CLIError{}
-	e.summary = summary
-	e.err = err
-	if prepend {
-		e.summary += ": " + err.Error()
-	}
-	return e
+func NewCLIError(e error) CLIError {
+	return CLIError{e}
 }
 
-func (e CLIError) Error() string {
-	return e.summary
+func (ce CLIError) Error() string {
+	return ce.err.Error()
 }
 
-func (e CLIError) Unwrap() error {
-	return e.err
+func (ce CLIError) Unwrap() error {
+	return ce.err
 }

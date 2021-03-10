@@ -1,29 +1,29 @@
 package geist
 
-type Error interface {
-	Error() string
-	Unwrap() error
-}
+// type Error interface {
+// 	Error() string
+// 	Unwrap() error
+// }
 
-type errorBase struct {
+type GeistError struct {
 	summary string
 	err     error
 }
 
-func NewGeistError(summary string, err error, prepend bool) Error {
-	ge := errorBase{}
+func NewGeistError(summary string, err error, prepend bool) GeistError {
+	ge := GeistError{}
 	ge.summary = summary
 	ge.err = err
 	if prepend {
 		ge.summary += ": " + err.Error()
 	}
-	return &ge
+	return ge
 }
 
-func (e *errorBase) Error() string {
+func (e GeistError) Error() string {
 	return e.summary
 }
 
-func (e *errorBase) Unwrap() error {
+func (e GeistError) Unwrap() error {
 	return e.err
 }
