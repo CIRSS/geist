@@ -5,8 +5,8 @@ import (
 	"testing"
 	"text/template"
 
-	"github.com/cirss/geist"
-	"github.com/cirss/geist/util"
+	"github.com/cirss/geist/go/geist"
+	"github.com/cirss/geist/go/util"
 )
 
 func TestReportTemplate_AnonymousStructInstance(t *testing.T) {

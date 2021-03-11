@@ -3,8 +3,8 @@ package tests
 import (
 	"testing"
 
-	"github.com/cirss/geist"
-	"github.com/cirss/geist/util"
+	"github.com/cirss/geist/go/geist"
+	"github.com/cirss/geist/go/util"
 )
 
 func TestReportTemplate_StaticText_OneLine(t *testing.T) {

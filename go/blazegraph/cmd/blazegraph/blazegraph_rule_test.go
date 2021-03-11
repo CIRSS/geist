@@ -4,7 +4,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/cirss/geist/util"
+	"github.com/cirss/geist/go/util"
 )
 
 func TestBlazegraphCmd_static_macro_in_select(t *testing.T) {

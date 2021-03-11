@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/cirss/geist/blazegraph"
+	"github.com/cirss/geist/go/blazegraph"
 )
 
 var sparqlEndpoint = blazegraph.DefaultUrl + "/sparql"

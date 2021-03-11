@@ -6,7 +6,7 @@ import (
 	"testing"
 	"text/template"
 
-	"github.com/cirss/geist/util"
+	"github.com/cirss/geist/go/util"
 )
 
 var outputBuffer strings.Builder

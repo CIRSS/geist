@@ -9,10 +9,10 @@ build-code:             ## Build custom code.
 	$(RUN_IN_REPRO) 'make -C ${REPRO_CODE_DIR} build'
 
 test-code:              ## Run tests on custom code.
-	$(RUN_IN_REPRO) 'make -C ${REPRO_CODE_DIR} build test'
+	$(RUN_IN_REPRO) 'make -C ${REPRO_CODE_DIR} test'
 
 install-code:         	## Install custom code.
-	$(RUN_IN_REPRO) 'make -C ${REPRO_CODE_DIR} build test install'
+	$(RUN_IN_REPRO) 'make -C ${REPRO_CODE_DIR} install'
 
 package-code:         	## Package custom artifacts for distribution.
 	$(RUN_IN_REPRO) 'make -C ${REPRO_CODE_DIR} package'

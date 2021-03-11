@@ -4,8 +4,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/cirss/geist"
-	"github.com/cirss/geist/util"
+	"github.com/cirss/geist/go/geist"
+	"github.com/cirss/geist/go/util"
 )
 
 var sr = geist.ResultSet{

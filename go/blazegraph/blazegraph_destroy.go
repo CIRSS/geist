@@ -3,7 +3,7 @@ package blazegraph
 import (
 	"fmt"
 
-	"github.com/cirss/geist/cli"
+	"github.com/cirss/go-cli/go/cli"
 )
 
 func Destroy(cc *cli.CommandContext) (err error) {

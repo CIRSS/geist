@@ -4,7 +4,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/cirss/geist/util"
+	"github.com/cirss/geist/go/util"
 )
 
 func TestBlazegraphCmd_export_empty_store(t *testing.T) {

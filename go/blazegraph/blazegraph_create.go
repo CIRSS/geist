@@ -3,8 +3,8 @@ package blazegraph
 import (
 	"fmt"
 
-	"github.com/cirss/geist"
-	"github.com/cirss/geist/cli"
+	"github.com/cirss/geist/go/geist"
+	"github.com/cirss/go-cli/go/cli"
 )
 
 func Create(cc *cli.CommandContext) (err error) {

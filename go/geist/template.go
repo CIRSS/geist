@@ -8,7 +8,7 @@ import (
 	"strings"
 	textTemplate "text/template"
 
-	"github.com/cirss/geist/util"
+	"github.com/cirss/geist/go/util"
 )
 
 type Properties struct {

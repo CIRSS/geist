@@ -78,12 +78,12 @@ ENV BLAZEGRAPH_LOG ${BLAZEGRAPH_DOT_DIR}/blazegraph_`date +%s`.log
 RUN echo '***** Start Blazegraph at login *****'                            \
     && echo "cd ${BLAZEGRAPH_DOT_DIR} && ${BLAZEGRAPH_CMD} 2>&1 > ${BLAZEGRAPH_LOG} &" >> ${BASHRC}
 
-RUN echo 'PATH=~/go/bin:/usr/local/go/bin:$PATH' >> ${BASHRC}
+ENV GOPATH ${REPRO_MNT}/.gopath
+
+RUN echo 'PATH=${GOPATH}/bin:/usr/local/go/bin:$PATH' >> ${BASHRC}
 RUN echo "export IN_RUNNING_REPRO=${REPRO_NAME}" >> ${BASHRC}
 RUN echo "cd ${REPRO_MNT}" >> ${BASHRC}
 
-COPY go code
 ENV PATH /usr/local/go/bin:${PATH}
-RUN make -C code install
 
 CMD  /bin/bash -il

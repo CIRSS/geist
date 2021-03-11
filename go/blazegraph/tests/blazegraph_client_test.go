@@ -5,8 +5,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/cirss/geist/blazegraph"
-	"github.com/cirss/geist/util"
+	"github.com/cirss/geist/go/blazegraph"
+	"github.com/cirss/geist/go/util"
 )
 
 func recreateDataset(bc *blazegraph.BlazegraphClient) {

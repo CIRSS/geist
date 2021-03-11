@@ -3,8 +3,8 @@ package main
 import (
 	"os"
 
-	"github.com/cirss/geist/blazegraph"
-	"github.com/cirss/geist/cli"
+	"github.com/cirss/geist/go/blazegraph"
+	"github.com/cirss/go-cli/go/cli"
 )
 
 var Main *cli.ProgramContext

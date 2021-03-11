@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/cirss/geist"
-	"github.com/cirss/geist/util"
+	"github.com/cirss/geist/go/geist"
+	"github.com/cirss/geist/go/util"
 )
 
 func TestTableWriter_NoData(t *testing.T) {

@@ -6,8 +6,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/cirss/geist/blazegraph"
-	"github.com/cirss/geist/util"
+	"github.com/cirss/geist/go/blazegraph"
+	"github.com/cirss/geist/go/util"
 )
 
 func TestBlazegraphCmd_status_success(t *testing.T) {

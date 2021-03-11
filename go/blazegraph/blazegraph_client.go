@@ -11,7 +11,7 @@ import (
 	"strings"
 	"text/template"
 
-	"github.com/cirss/geist"
+	"github.com/cirss/geist/go/geist"
 )
 
 var DefaultUrl = "http://127.0.0.1:9999/blazegraph"
