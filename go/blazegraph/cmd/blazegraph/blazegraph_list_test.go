@@ -29,11 +29,29 @@ func TestBlazegraphCmd_list_default_dataset(t *testing.T) {
 	run("blazegraph destroy --all")
 	run("blazegraph create --quiet")
 
-	assertExitCode(t, "blazegraph list", 0)
+	t.Run("no count", func(t *testing.T) {
+		outputBuffer.Reset()
+		assertExitCode(t, "blazegraph list", 0)
+		util.LineContentsEqual(t, outputBuffer.String(),
+			`kb
+			`)
+	})
 
-	util.LineContentsEqual(t, outputBuffer.String(),
-		`kb
-		`)
+	t.Run("exact count", func(t *testing.T) {
+		outputBuffer.Reset()
+		assertExitCode(t, "blazegraph list --count exact", 0)
+		util.LineContentsEqual(t, outputBuffer.String(),
+			`kb         0
+			`)
+	})
+
+	t.Run("estimate count", func(t *testing.T) {
+		outputBuffer.Reset()
+		assertExitCode(t, "blazegraph list --count estimate", 0)
+		util.LineContentsEqual(t, outputBuffer.String(),
+			`kb         0
+			`)
+	})
 }
 
 func TestBlazegraphCmd_list_custom_dataset(t *testing.T) {
@@ -63,13 +81,35 @@ func TestBlazegraphCmd_list_custom_datasets(t *testing.T) {
 	run("blazegraph create --quiet --dataset bar")
 	run("blazegraph create --quiet --dataset baz")
 
-	assertExitCode(t, "blazegraph list", 0)
+	t.Run("no count", func(t *testing.T) {
+		outputBuffer.Reset()
+		assertExitCode(t, "blazegraph list", 0)
+		util.LineContentsEqual(t, outputBuffer.String(),
+			`bar
+			 baz
+			 foo
+			`)
+	})
 
-	util.LineContentsEqual(t, outputBuffer.String(),
-		`bar
-		baz
-		foo
-		`)
+	t.Run("exact count", func(t *testing.T) {
+		outputBuffer.Reset()
+		assertExitCode(t, "blazegraph list --count exact", 0)
+		util.LineContentsEqual(t, outputBuffer.String(),
+			`bar        0
+			 baz        0
+			 foo        0
+			`)
+	})
+
+	t.Run("estimate count", func(t *testing.T) {
+		outputBuffer.Reset()
+		assertExitCode(t, "blazegraph list --count estimate", 0)
+		util.LineContentsEqual(t, outputBuffer.String(),
+			`bar        0
+			 baz        0
+			 foo        0
+			`)
+	})
 }
 
 var expectedListHelpOutput = string(
