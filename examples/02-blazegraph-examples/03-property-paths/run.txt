@@ -3,7 +3,7 @@
 
 # INITIALIZE BLAZEGRAPH INSTANCE WITH CITATIONS
 
-blazegraph destroy --dataset kb
+blazegraph destroy --dataset kb --quiet
 blazegraph create --dataset kb --quiet
 blazegraph import --file ../data/citations.ttl --format ttl
 

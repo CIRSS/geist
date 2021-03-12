@@ -67,7 +67,7 @@ func TestReportInfer_rdfs_subClassOf(t *testing.T) {
 
 	t.Run("infer-none", func(t *testing.T) {
 		outputBuffer.Reset()
-		run("blazegraph destroy --dataset kb")
+		run("blazegraph destroy --all --quiet")
 		run("blazegraph create --quiet --dataset kb --infer none")
 		load()
 		report()
@@ -95,7 +95,7 @@ func TestReportInfer_rdfs_subClassOf(t *testing.T) {
 
 	t.Run("infer-rdfs", func(t *testing.T) {
 		outputBuffer.Reset()
-		run("blazegraph destroy --dataset kb")
+		run("blazegraph destroy --all --quiet")
 		run("blazegraph create --quiet --dataset kb --infer rdfs")
 		load()
 		report()
@@ -144,7 +144,7 @@ func TestReportInfer_rdfs_subClassOf(t *testing.T) {
 
 	t.Run("infer-owl", func(t *testing.T) {
 		outputBuffer.Reset()
-		run("blazegraph destroy --dataset kb")
+		run("blazegraph destroy --all --quiet")
 		run("blazegraph create --quiet --dataset kb --infer owl")
 		load()
 		report()
@@ -248,7 +248,7 @@ func TestReportInfer_rdf_inverseOf(t *testing.T) {
 
 	t.Run("infer-none", func(t *testing.T) {
 		outputBuffer.Reset()
-		run("blazegraph destroy --dataset kb")
+		run("blazegraph destroy --all --quiet")
 		run("blazegraph create --quiet --dataset kb --infer none")
 		load()
 		report()
@@ -271,7 +271,7 @@ func TestReportInfer_rdf_inverseOf(t *testing.T) {
 
 	t.Run("infer-rdfs", func(t *testing.T) {
 		outputBuffer.Reset()
-		run("blazegraph destroy --dataset kb")
+		run("blazegraph destroy --all --quiet")
 		run("blazegraph create --quiet --dataset kb --infer rdfs")
 		load()
 		report()
@@ -294,7 +294,7 @@ func TestReportInfer_rdf_inverseOf(t *testing.T) {
 
 	t.Run("infer-owl", func(t *testing.T) {
 		outputBuffer.Reset()
-		run("blazegraph destroy --dataset kb")
+		run("blazegraph destroy --all --quiet")
 		run("blazegraph create --quiet --dataset kb --infer owl")
 		load()
 		report()
@@ -405,7 +405,7 @@ func TestReportInfer_rdfs_domain_range(t *testing.T) {
 
 	t.Run("infer-none", func(t *testing.T) {
 		outputBuffer.Reset()
-		run("blazegraph destroy --dataset kb")
+		run("blazegraph destroy --all --quiet")
 		run("blazegraph create --quiet --dataset kb --infer none")
 		load()
 		report()
@@ -454,7 +454,7 @@ func TestReportInfer_rdfs_domain_range(t *testing.T) {
 
 	t.Run("infer-rdfs", func(t *testing.T) {
 		outputBuffer.Reset()
-		run("blazegraph destroy --dataset kb")
+		run("blazegraph destroy --all --quiet")
 		run("blazegraph create --quiet --dataset kb --infer rdfs")
 		load()
 		report()
@@ -508,7 +508,7 @@ func TestReportInfer_rdfs_domain_range(t *testing.T) {
 
 	t.Run("infer-owl", func(t *testing.T) {
 		outputBuffer.Reset()
-		run("blazegraph destroy --dataset kb")
+		run("blazegraph destroy --all --quiet")
 		run("blazegraph create --quiet --dataset kb --infer owl")
 		load()
 		report()
@@ -596,7 +596,7 @@ func TestReportInfer_rdfs_domain_range(t *testing.T) {
 
 // 	t.Run("infer-none", func(t *testing.T) {
 // 		outputBuffer.Reset()
-// 		run("blazegraph destroy --dataset kb")
+// 		run("blazegraph destroy --dataset kb --quiet")
 // 		run("blazegraph create --quiet --dataset kb --infer none")
 // 		load()
 // 		report()
@@ -606,7 +606,7 @@ func TestReportInfer_rdfs_domain_range(t *testing.T) {
 
 // 	t.Run("infer-rdfs", func(t *testing.T) {
 // 		outputBuffer.Reset()
-// 		run("blazegraph destroy --dataset kb")
+// 		run("blazegraph destroy --dataset kb --quiet")
 // 		run("blazegraph create --quiet --dataset kb --infer rdfs")
 // 		load()
 // 		report()
@@ -616,7 +616,7 @@ func TestReportInfer_rdfs_domain_range(t *testing.T) {
 
 // 	t.Run("infer-owl", func(t *testing.T) {
 // 		outputBuffer.Reset()
-// 		run("blazegraph destroy --dataset kb")
+// 		run("blazegraph destroy --dataset kb --quiet")
 // 		run("blazegraph create --quiet --dataset kb --infer owl")
 // 		load()
 // 		report()

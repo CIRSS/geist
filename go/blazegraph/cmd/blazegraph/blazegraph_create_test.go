@@ -13,8 +13,7 @@ func TestBlazegraphCmd_create_default_dataset(t *testing.T) {
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
 
-	run("blazegraph destroy --all")
-	outputBuffer.Reset()
+	run("blazegraph destroy --all --quiet")
 
 	assertExitCode(t, "blazegraph create", 0)
 	util.LineContentsEqual(t, outputBuffer.String(),
@@ -34,8 +33,7 @@ func TestBlazegraphCmd_create_dataset_quiet(t *testing.T) {
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
 
-	run("blazegraph destroy --all")
-	outputBuffer.Reset()
+	run("blazegraph destroy --all --quiet")
 
 	assertExitCode(t, "blazegraph create --quiet", 0)
 	util.LineContentsEqual(t, outputBuffer.String(),
@@ -54,9 +52,8 @@ func TestBlazegraphCmd_create_default_already_exists(t *testing.T) {
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
 
-	run("blazegraph destroy --all")
+	run("blazegraph destroy --all --quiet")
 	run("blazegraph create --quiet")
-	outputBuffer.Reset()
 
 	assertExitCode(t, "blazegraph create", 1)
 	util.LineContentsEqual(t, outputBuffer.String(),
@@ -70,8 +67,7 @@ func TestBlazegraphCmd_create_custom_dataset(t *testing.T) {
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
 
-	run("blazegraph destroy --all")
-	outputBuffer.Reset()
+	run("blazegraph destroy --all --quiet")
 
 	assertExitCode(t, "blazegraph create --dataset foo", 0)
 	util.LineContentsEqual(t, outputBuffer.String(),
@@ -89,8 +85,7 @@ func TestBlazegraphCmd_create_custom_already_exists(t *testing.T) {
 	var outputBuffer strings.Builder
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
-	run("blazegraph destroy --all")
-	outputBuffer.Reset()
+	run("blazegraph destroy --all --quiet")
 	assertExitCode(t, "blazegraph create --dataset foo --quiet", 0)
 }
 
@@ -100,8 +95,7 @@ func TestBlazegraphCmd_create_missing_dataset_name(t *testing.T) {
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
 
-	run("blazegraph destroy --all")
-	outputBuffer.Reset()
+	run("blazegraph destroy --all --quiet")
 
 	assertExitCode(t, "blazegraph create --dataset", 1)
 	util.LineContentsEqual(t, outputBuffer.String(),
@@ -128,8 +122,7 @@ func TestBlazegraphCmd_create_dataset_name_without_flag(t *testing.T) {
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
 
-	run("blazegraph destroy --all")
-	outputBuffer.Reset()
+	run("blazegraph destroy --all --quiet")
 
 	assertExitCode(t, "blazegraph create foo", 1)
 	util.LineContentsEqual(t, outputBuffer.String(),

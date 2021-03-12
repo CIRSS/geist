@@ -13,7 +13,7 @@ func TestBlazegraphCmd_export_empty_store(t *testing.T) {
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
 
-	run("blazegraph destroy --dataset kb")
+	run("blazegraph destroy --dataset kb --quiet")
 	run("blazegraph create --quiet --dataset kb")
 
 	t.Run("jsonld", func(t *testing.T) {
@@ -78,7 +78,7 @@ func TestBlazegraphCmd_export_two_triples(t *testing.T) {
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
 
-	run("blazegraph destroy --dataset kb")
+	run("blazegraph destroy --dataset kb --quiet")
 	run("blazegraph create --quiet --dataset kb")
 
 	Main.InReader = strings.NewReader(`
@@ -181,7 +181,7 @@ func TestBlazegraphCmd_export_address_book(t *testing.T) {
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
 
-	run("blazegraph destroy --dataset kb")
+	run("blazegraph destroy --dataset kb --quiet")
 	run("blazegraph create --quiet --dataset kb")
 
 	run("blazegraph import --file testdata/address-book.jsonld --format jsonld")

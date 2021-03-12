@@ -3,6 +3,7 @@ package blazegraph
 import (
 	"fmt"
 
+	"github.com/cirss/geist/go/geist"
 	"github.com/cirss/go-cli/go/cli"
 )
 
@@ -33,13 +34,23 @@ func Destroy(cc *cli.CommandContext) (err error) {
 			return
 		}
 		for _, dataset := range datasets {
-			_, err = bc.DestroyDataSet(dataset)
+			err = destroy_dataset(cc, bc, dataset)
 			if err != nil {
 				return
 			}
 		}
 	} else {
-		_, err = bc.DestroyDataSet(*dataset)
+		err = destroy_dataset(cc, bc, *dataset)
 	}
+	return
+}
+
+func destroy_dataset(cc *cli.CommandContext, bc *BlazegraphClient, dataset string) (err error) {
+	_, err = bc.DestroyDataSet(dataset)
+	if err != nil {
+		err = geist.NewGeistError("destroy dataset failed", err, true)
+		return
+	}
+	fmt.Fprintf(cc.OutWriter, "Successfully destroyed dataset %s\n", dataset)
 	return
 }

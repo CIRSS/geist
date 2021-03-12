@@ -3,7 +3,7 @@
 
 # IMPORT SDTL
 
-blazegraph destroy --dataset kb
+blazegraph destroy --dataset kb --quiet
 blazegraph create --dataset kb --quiet
 blazegraph import --format jsonld --file ../data/compute-sdtl.jsonld
 

@@ -15,7 +15,7 @@ func TestBlazegraphCmd_import_two_triples(t *testing.T) {
 
 	t.Run("import_nt", func(t *testing.T) {
 
-		run("blazegraph destroy --dataset kb")
+		run("blazegraph destroy --dataset kb --quiet")
 		run("blazegraph create --quiet --dataset kb")
 
 		Main.InReader = strings.NewReader(`
@@ -35,7 +35,7 @@ func TestBlazegraphCmd_import_two_triples(t *testing.T) {
 
 	t.Run("import_ttl", func(t *testing.T) {
 
-		run("blazegraph destroy --dataset kb")
+		run("blazegraph destroy --dataset kb --quiet")
 		run("blazegraph create --quiet --dataset kb")
 
 		Main.InReader = strings.NewReader(
@@ -58,7 +58,7 @@ func TestBlazegraphCmd_import_two_triples(t *testing.T) {
 
 	t.Run("import_jsonld", func(t *testing.T) {
 
-		run("blazegraph destroy --dataset kb")
+		run("blazegraph destroy --dataset kb --quiet")
 		run("blazegraph create --quiet --dataset kb")
 
 		Main.InReader = strings.NewReader(
@@ -87,7 +87,7 @@ func TestBlazegraphCmd_import_two_triples(t *testing.T) {
 
 	t.Run("import_ttl", func(t *testing.T) {
 
-		run("blazegraph destroy --dataset kb")
+		run("blazegraph destroy --dataset kb --quiet")
 		run("blazegraph create --quiet --dataset kb")
 
 		Main.InReader = strings.NewReader(
@@ -110,7 +110,7 @@ func TestBlazegraphCmd_import_two_triples(t *testing.T) {
 
 	t.Run("import_xml", func(t *testing.T) {
 
-		run("blazegraph destroy --dataset kb")
+		run("blazegraph destroy --dataset kb --quiet")
 		run("blazegraph create --quiet --dataset kb")
 
 		Main.InReader = strings.NewReader(

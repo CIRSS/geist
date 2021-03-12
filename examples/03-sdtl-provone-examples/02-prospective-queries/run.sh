@@ -6,7 +6,7 @@ RUNNER='../../common/run_script_example.sh'
 
 bash ${RUNNER} SETUP "IMPORT SDTL-PROVONE TRACE" << END_SCRIPT
 
-blazegraph destroy --dataset kb
+blazegraph destroy --dataset kb --quiet
 blazegraph create --dataset kb --quiet
 blazegraph import --format jsonld --file ../data/single-command.jsonld
 

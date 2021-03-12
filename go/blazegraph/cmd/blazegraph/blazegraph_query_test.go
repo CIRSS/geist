@@ -13,7 +13,7 @@ func TestBlazegraphCmd_query_json(t *testing.T) {
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
 
-	run("blazegraph destroy --dataset kb")
+	run("blazegraph destroy --dataset kb --quiet")
 	run("blazegraph create --quiet --dataset kb")
 
 	Main.InReader = strings.NewReader(`

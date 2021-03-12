@@ -6,7 +6,7 @@ RUNNER='../../common/run_script_example.sh'
 
 bash ${RUNNER} SETUP "INITIALIZE BLAZEGRAPH INSTANCE" << END_SCRIPT
 
-blazegraph destroy --dataset kb
+blazegraph destroy --dataset kb --quiet
 blazegraph create --dataset kb --quiet
 
 END_SCRIPT
@@ -30,7 +30,7 @@ END_SCRIPT
 
 bash ${RUNNER} S2 "IMPORT TWO TRIPLES AS TURTLE" << END_SCRIPT
 
-blazegraph destroy --dataset kb
+blazegraph destroy --dataset kb --quiet
 blazegraph create --dataset kb --quiet
 
 blazegraph import --format ttl << END_DATA
@@ -51,7 +51,7 @@ END_SCRIPT
 
 bash ${RUNNER} S3 "IMPORT TWO TRIPLES AS JSON-LD" << END_SCRIPT
 
-blazegraph destroy --dataset kb
+blazegraph destroy --dataset kb --quiet
 blazegraph create --dataset kb --quiet
 
 blazegraph import --format jsonld << END_DATA
@@ -77,7 +77,7 @@ END_SCRIPT
 
 bash ${RUNNER} S4 "IMPORT TWO TRIPLES AS RDF-XML" << END_SCRIPT
 
-blazegraph destroy --dataset kb
+blazegraph destroy --dataset kb --quiet
 blazegraph create --dataset kb --quiet
 
 blazegraph import --format xml << END_DATA

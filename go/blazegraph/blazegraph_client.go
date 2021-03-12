@@ -3,7 +3,6 @@ package blazegraph
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"net/http"
 	"regexp"
 	"sort"
@@ -67,16 +66,27 @@ func (sc *BlazegraphClient) CreateDataSet(dp *DatasetProperties) (response strin
 	return
 }
 
-func (sc *BlazegraphClient) DestroyDataSet(name string) (responseBody []byte, err error) {
-	request, _ := http.NewRequest("DELETE", sc.NamespaceEndpoint+"/"+name, nil)
-	response, err := sc.HttpClient.Do(request)
+func (sc *BlazegraphClient) DestroyDataSet(name string) (response string, err error) {
+
+	responseBody, err := sc.DeleteRequest(sc.NamespaceEndpoint + "/" + name)
+	response = string(responseBody)
 	if err != nil {
 		return
 	}
-	if responseBody, err = ioutil.ReadAll(response.Body); err != nil {
+
+	if strings.Contains(response, "com.bigdata.rdf.sail.webapp.DatasetNotFoundException") {
+		message := fmt.Sprintf("dataset %s does not exist", name)
+		err = geist.NewGeistError(message, nil, false)
 		return
 	}
-	response.Body.Close()
+
+	expectedResponse := "DELETED: " + strings.Trim(name, " ")
+	if response != expectedResponse {
+		message := fmt.Sprintf("error destroying dataset %s:\n%s", name, response)
+		err = geist.NewGeistError(message, nil, false)
+		return
+	}
+
 	return
 }
 

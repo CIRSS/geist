@@ -13,7 +13,7 @@ func TestBlazegraphCmd_list_empty_store(t *testing.T) {
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
 
-	run("blazegraph destroy --all")
+	run("blazegraph destroy --all --quiet")
 
 	assertExitCode(t, "blazegraph list", 0)
 
@@ -26,7 +26,7 @@ func TestBlazegraphCmd_list_default_dataset(t *testing.T) {
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
 
-	run("blazegraph destroy --all")
+	run("blazegraph destroy --all --quiet")
 	run("blazegraph create --quiet")
 
 	t.Run("no count", func(t *testing.T) {
@@ -60,7 +60,7 @@ func TestBlazegraphCmd_list_custom_dataset(t *testing.T) {
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
 
-	run("blazegraph destroy --all")
+	run("blazegraph destroy --all --quiet")
 	run("blazegraph create --quiet --dataset foo")
 
 	assertExitCode(t, "blazegraph list", 0)
@@ -76,7 +76,7 @@ func TestBlazegraphCmd_list_custom_datasets(t *testing.T) {
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
 
-	run("blazegraph destroy --all")
+	run("blazegraph destroy --all --quiet")
 	run("blazegraph create --quiet --dataset foo")
 	run("blazegraph create --quiet --dataset bar")
 	run("blazegraph create --quiet --dataset baz")

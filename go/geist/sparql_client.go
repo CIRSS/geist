@@ -81,6 +81,29 @@ func (sc *SparqlClient) PostRequest(url string, contentType string, acceptType s
 	return
 }
 
+func (sc *SparqlClient) DeleteRequest(url string) (
+	responseBody []byte, err error) {
+
+	request, err := http.NewRequest("DELETE", url, nil)
+	if err != nil {
+		return
+	}
+
+	// perform the request and obtain the response
+	response, err := sc.HttpClient.Do(request)
+	if err != nil {
+		return
+	}
+
+	// read the response
+	responseBody, err = ioutil.ReadAll(response.Body)
+	if err != nil {
+		return
+	}
+	response.Body.Close()
+	return
+}
+
 func (sc *SparqlClient) PostSparqlRequest(contentType string, acceptType string,
 	requestBody []byte) (responseBody []byte, err error) {
 	return sc.PostRequest(sc.SparqlEndpoint, contentType, acceptType, requestBody)

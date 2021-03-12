@@ -3,7 +3,7 @@
 
 # IMPORT SDTL AS JSON-LD AND EXPORT AS N-TRIPLES
 
-blazegraph destroy --dataset kb
+blazegraph destroy --dataset kb --quiet
 blazegraph create --dataset kb --quiet
 blazegraph import --format jsonld --file ../data/compute-sdtl.jsonld
 blazegraph export --format nt | sort
