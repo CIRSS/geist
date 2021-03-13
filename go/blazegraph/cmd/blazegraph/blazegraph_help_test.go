@@ -36,6 +36,8 @@ func TestBlazegraphCmd_no_command(t *testing.T) {
 				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
 		-quiet
 				Discard normal command output
+		-silent
+				Discard normal and error command output
 
 		See 'blazegraph help <command>' for help with one of the above commands.
 
@@ -70,6 +72,8 @@ func TestBlazegraphCmd_help_command_with_no_argument(t *testing.T) {
 				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
 			-quiet
 				Discard normal command output
+			-silent
+				Discard normal and error command output
 
 		See 'blazegraph help <command>' for help with one of the above commands.
 
@@ -105,6 +109,8 @@ func TestBlazegraphCmd_unsupported_command(t *testing.T) {
 				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
 			-quiet
 				Discard normal command output
+			-silent
+				Discard normal and error command output
 
 		See 'blazegraph help <command>' for help with one of the above commands.
 
@@ -140,6 +146,8 @@ func TestBlazegraphCmd_help_unsupported_command(t *testing.T) {
 				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
 			-quiet
 				Discard normal command output
+			-silent
+				Discard normal and error command output
 
 		See 'blazegraph help <command>' for help with one of the above commands.
 

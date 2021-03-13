@@ -14,6 +14,7 @@ import (
 )
 
 var DefaultUrl = "http://127.0.0.1:9999/blazegraph"
+var DefaultDataset = "kb"
 
 type InstanceStatus struct {
 	InstanceUrl            string
@@ -27,17 +28,21 @@ type InstanceStatus struct {
 
 type BlazegraphClient struct {
 	geist.SparqlClient
-	Url               string
 	NamespaceEndpoint string
+	Url               string
 }
 
-func NewBlazegraphClient(url string) *BlazegraphClient {
+func NewBlazegraphClient(instanceUrl string) *BlazegraphClient {
 	bc := new(BlazegraphClient)
-	bc.Url = url
-	bc.SparqlEndpoint = bc.Url + "/sparql"
+	bc.Url = instanceUrl
 	bc.NamespaceEndpoint = bc.Url + "/namespace"
 	bc.HttpClient = &http.Client{}
+	bc.SetDataset(DefaultDataset)
 	return bc
+}
+
+func (bc *BlazegraphClient) SetDataset(dataset string) {
+	bc.SparqlEndpoint = bc.NamespaceEndpoint + "/" + dataset + "/sparql"
 }
 
 func (sc *BlazegraphClient) CreateDataSet(dp *DatasetProperties) (response string, err error) {

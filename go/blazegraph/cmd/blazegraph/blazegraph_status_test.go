@@ -30,7 +30,7 @@ func TestBlazegraphCmd_status_success(t *testing.T) {
 	}
 	fmt.Printf("%v\n", status)
 	util.StringEquals(t, status.InstanceUrl, "http://127.0.0.1:9999/blazegraph")
-	util.StringEquals(t, status.SparqlEndpoint, "http://127.0.0.1:9999/blazegraph/sparql")
+	util.StringEquals(t, status.SparqlEndpoint, "http://127.0.0.1:9999/blazegraph/namespace/kb/sparql")
 	util.StringEquals(t, status.BlazegraphBuildVersion, "2.1.5")
 }
 
@@ -89,6 +89,8 @@ var expectedStatusHelpOutput = string(
 				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
 		-quiet
 				Discard normal command output
+		-silent
+				Discard normal and error command output
 		-timeout milliseconds
 				Number of milliseconds to wait for Blazegraph instance to respond
 
@@ -128,6 +130,8 @@ func TestBlazegraphCmd_status_bad_flag(t *testing.T) {
 				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
 		-quiet
 				Discard normal command output
+		-silent
+				Discard normal and error command output
 		-timeout milliseconds
 				Number of milliseconds to wait for Blazegraph instance to respond
 

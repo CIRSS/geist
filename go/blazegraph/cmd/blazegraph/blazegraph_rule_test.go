@@ -40,10 +40,10 @@ func TestBlazegraphCmd_static_macro_in_select(t *testing.T) {
 	Main.InReader = strings.NewReader(template)
 	assertExitCode(t, "blazegraph query --format table", 0)
 	util.LineContentsEqual(t, outputBuffer.String(),
-		`s                                   | o
-		=========================================================================
-		http://127.0.0.1:9999/blazegraph/:x | http://127.0.0.1:9999/blazegraph/:y
-	`)
+		`s                                                | o
+		 ===================================================================================================
+		 http://127.0.0.1:9999/blazegraph/namespace/kb/:x | http://127.0.0.1:9999/blazegraph/namespace/kb/:y
+		`)
 }
 
 func TestBlazegraphCmd_included_static_macro_in_select(t *testing.T) {
@@ -77,10 +77,10 @@ func TestBlazegraphCmd_included_static_macro_in_select(t *testing.T) {
 	Main.InReader = strings.NewReader(template)
 	assertExitCode(t, "blazegraph query --format table", 0)
 	util.LineContentsEqual(t, outputBuffer.String(),
-		`s                                   | o
-		=========================================================================
-		http://127.0.0.1:9999/blazegraph/:x | http://127.0.0.1:9999/blazegraph/:y
-	`)
+		`s                                                | o
+		===================================================================================================
+		http://127.0.0.1:9999/blazegraph/namespace/kb/:x | http://127.0.0.1:9999/blazegraph/namespace/kb/:y
+		`)
 }
 
 func TestBlazegraphCmd_dynamic_macro_in_select(t *testing.T) {
@@ -116,10 +116,10 @@ func TestBlazegraphCmd_dynamic_macro_in_select(t *testing.T) {
 	Main.InReader = strings.NewReader(template)
 	assertExitCode(t, "blazegraph query --format table", 0)
 	util.LineContentsEqual(t, outputBuffer.String(),
-		`s                                   | o
-		=========================================================================
-		http://127.0.0.1:9999/blazegraph/:y | http://127.0.0.1:9999/blazegraph/:z
-	`)
+		`s                                                | o
+		===================================================================================================
+		http://127.0.0.1:9999/blazegraph/namespace/kb/:y | http://127.0.0.1:9999/blazegraph/namespace/kb/:z
+	   `)
 }
 
 func TestBlazegraphCmd_included_dynamic_macro_in_select(t *testing.T) {
@@ -153,10 +153,10 @@ func TestBlazegraphCmd_included_dynamic_macro_in_select(t *testing.T) {
 	Main.InReader = strings.NewReader(template)
 	assertExitCode(t, "blazegraph query --format table", 0)
 	util.LineContentsEqual(t, outputBuffer.String(),
-		`s                                   | o
-		=========================================================================
-		http://127.0.0.1:9999/blazegraph/:y | http://127.0.0.1:9999/blazegraph/:z
-	`)
+		`s                                                | o
+		===================================================================================================
+		http://127.0.0.1:9999/blazegraph/namespace/kb/:y | http://127.0.0.1:9999/blazegraph/namespace/kb/:z
+		`)
 }
 
 func TestBlazegraphCmd_rule_in_select(t *testing.T) {
@@ -362,9 +362,9 @@ func TestBlazegraphCmd_rule_in_rule(t *testing.T) {
 	Main.InReader = strings.NewReader(template)
 	assertExitCode(t, "blazegraph report", 0)
 	util.LineContentsEqual(t, outputBuffer.String(),
-		`s                                   | o
-		=========================================
-		http://127.0.0.1:9999/blazegraph/:x | baz
+		`s                                                | o
+	 	 ======================================================
+		 http://127.0.0.1:9999/blazegraph/namespace/kb/:x | baz
 
 	`)
 }

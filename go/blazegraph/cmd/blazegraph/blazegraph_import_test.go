@@ -138,6 +138,38 @@ func TestBlazegraphCmd_import_two_triples(t *testing.T) {
 	})
 }
 
+func TestBlazegraphCmd_import_specific_dataset(t *testing.T) {
+
+	triples_ttl :=
+		`<http://tmcphill.net/data#x> <http://tmcphill.net/tags#tag> "seven" .
+		 <http://tmcphill.net/data#y> <http://tmcphill.net/tags#tag> "eight" .
+		`
+	var outputBuffer strings.Builder
+	Main.OutWriter = &outputBuffer
+	Main.ErrWriter = &outputBuffer
+
+	// t.Run("default", func(t *testing.T) {
+	// 	outputBuffer.Reset()
+	// 	run("blazegraph destroy --silent")
+	// 	run("blazegraph create --quiet")
+	// 	Main.InReader = strings.NewReader(triples_ttl)
+	// 	assertExitCode(t, "blazegraph import", 0)
+	// 	run("blazegraph export --sort=true")
+	// 	util.LineContentsEqual(t, outputBuffer.String(), triples_ttl)
+	// })
+
+	t.Run("single_custom", func(t *testing.T) {
+		outputBuffer.Reset()
+		run("blazegraph destroy --dataset foo --silent")
+		run("blazegraph create --dataset foo --quiet")
+		Main.InReader = strings.NewReader(triples_ttl)
+		assertExitCode(t, "blazegraph import --dataset foo", 0)
+		run("blazegraph export --dataset foo --sort=true")
+		util.LineContentsEqual(t, outputBuffer.String(), triples_ttl)
+	})
+
+}
+
 var expectedImportHelpOutput = string(
 	`
 	blazegraph import: Imports triples in the specified format into an RDF dataset.
@@ -155,6 +187,8 @@ var expectedImportHelpOutput = string(
 				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
 		-quiet
 				Discard normal command output
+		-silent
+				Discard normal and error command output
 
 	`)
 
@@ -198,6 +232,8 @@ func TestBlazegraphCmd_import_bad_flag(t *testing.T) {
 					URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
 			-quiet
 					Discard normal command output
+			-silent
+					Discard normal and error command output
 
 	`)
 }

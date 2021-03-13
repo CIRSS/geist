@@ -149,14 +149,16 @@ func TestBlazegraphCmd_destroy_missing_dataset_name(t *testing.T) {
         usage: blazegraph destroy [<flags>]
 
         flags:
-          -all
+        	-all
             	destroy ALL datasets in the Blazegraph instance
-          -dataset name
+          	-dataset name
             	name of RDF dataset to destroy (default "kb")
-          -instance URL
+          	-instance URL
             	URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
-          -quiet
+          	-quiet
             	Discard normal command output
+		 	-silent
+				Discard normal and error command output
 
 		`)
 }
@@ -169,14 +171,16 @@ var expectedDestroyHelpOutput = string(
         usage: blazegraph destroy [<flags>]
 
         flags:
-          -all
-            	destroy ALL datasets in the Blazegraph instance
-          -dataset name
-            	name of RDF dataset to destroy (default "kb")
-          -instance URL
-            	URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
-          -quiet
-            	Discard normal command output
+			-all
+				destroy ALL datasets in the Blazegraph instance
+			-dataset name
+				name of RDF dataset to destroy (default "kb")
+			-instance URL
+				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
+			-quiet
+				Discard normal command output
+			-silent
+				Discard normal and error command output
 
 		`)
 
@@ -217,6 +221,8 @@ func TestBlazegraphCmd_destroy_no_dataset_argument(t *testing.T) {
 					URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
 			-quiet
 					Discard normal command output
+			-silent
+					Discard normal and error command output
 
 	`)
 }
@@ -242,6 +248,8 @@ func TestBlazegraphCmd_destroy_bad_flag(t *testing.T) {
 					URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
 			-quiet
 					Discard normal command output
+			-silent
+					Discard normal and error command output
 
 	`)
 }

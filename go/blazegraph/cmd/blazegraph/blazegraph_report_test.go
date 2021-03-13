@@ -702,6 +702,8 @@ var expectedReportHelpOutput = string(
 				URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
 		-quiet
 				Discard normal command output
+		-silent
+				Discard normal and error command output
 
 	`)
 
@@ -743,6 +745,8 @@ func TestBlazegraphCmd_report_bad_flag(t *testing.T) {
 					URL of Blazegraph instance (default "http://127.0.0.1:9999/blazegraph")
 			-quiet
 					Discard normal command output
+			-silent
+					Discard normal and error command output
 
 	`)
 }
