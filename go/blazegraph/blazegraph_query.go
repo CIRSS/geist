@@ -10,7 +10,7 @@ import (
 func Query(cc *cli.CommandContext) (err error) {
 
 	// declare command flags
-	cc.Flags.String("dataset", "kb", "`name` of RDF dataset to query")
+	dataset := cc.Flags.String("dataset", "kb", "`name` of RDF dataset to query")
 	dryrun := cc.Flags.Bool("dryrun", false, "Output query but do not execute it")
 	file := cc.Flags.String("file", "-", "File containing the SPARQL query to execute")
 	format := cc.Flags.String("format", "json", "Format of result set to produce [csv, json, table, or xml]")
@@ -23,6 +23,7 @@ func Query(cc *cli.CommandContext) (err error) {
 	}
 
 	bc := cc.Resource("BlazegraphClient").(*BlazegraphClient)
+	bc.SetDataset(*dataset)
 
 	queryText, err := cc.ReadFileOrStdin(*file)
 	if err != nil {

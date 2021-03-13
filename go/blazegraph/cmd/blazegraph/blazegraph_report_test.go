@@ -695,7 +695,7 @@ var expectedReportHelpOutput = string(
 
 	flags:
 		-dataset name
-				name of RDF dataset to create report from
+				name of RDF dataset to create report from (default "kb")
 		-file string
 				File containing report template to expand (default "-")
 		-instance URL
@@ -738,7 +738,7 @@ func TestBlazegraphCmd_report_bad_flag(t *testing.T) {
 
 		flags:
 			-dataset name
-					name of RDF dataset to create report from
+					name of RDF dataset to create report from (default "kb")
 			-file string
 					File containing report template to expand (default "-")
 			-instance URL

@@ -42,14 +42,18 @@ func NewBlazegraphClient(instanceUrl string) *BlazegraphClient {
 }
 
 func (bc *BlazegraphClient) SetDataset(dataset string) {
-	bc.SparqlEndpoint = bc.NamespaceEndpoint + "/" + dataset + "/sparql"
+	bc.SparqlEndpoint = bc.SparqlEndpointForDataset(dataset)
 }
 
-func (sc *BlazegraphClient) CreateDataSet(dp *DatasetProperties) (response string, err error) {
+func (bc *BlazegraphClient) SparqlEndpointForDataset(dataset string) string {
+	return bc.NamespaceEndpoint + "/" + dataset + "/sparql"
+}
+
+func (bc *BlazegraphClient) CreateDataSet(dp *DatasetProperties) (response string, err error) {
 
 	requestBody := dp.String()
 
-	responseBody, err := sc.PostRequest(sc.NamespaceEndpoint,
+	responseBody, err := bc.PostRequest(bc.NamespaceEndpoint,
 		"text/plain", "text/plain", []byte(requestBody))
 	response = string(responseBody)
 	if err != nil {
@@ -71,9 +75,9 @@ func (sc *BlazegraphClient) CreateDataSet(dp *DatasetProperties) (response strin
 	return
 }
 
-func (sc *BlazegraphClient) DestroyDataSet(name string) (response string, err error) {
+func (bc *BlazegraphClient) DestroyDataSet(name string) (response string, err error) {
 
-	responseBody, err := sc.DeleteRequest(sc.NamespaceEndpoint + "/" + name)
+	responseBody, err := bc.DeleteRequest(bc.NamespaceEndpoint + "/" + name)
 	response = string(responseBody)
 	if err != nil {
 		return
@@ -128,8 +132,8 @@ func (bc *BlazegraphClient) ExpandReport(rp *geist.Template) (report string, err
 	return
 }
 
-func (sc *BlazegraphClient) ListDatasets() (datasets []string, err error) {
-	responseBody, err := sc.GetRequest(sc.NamespaceEndpoint,
+func (bc *BlazegraphClient) ListDatasets() (datasets []string, err error) {
+	responseBody, err := bc.GetRequest(bc.NamespaceEndpoint,
 		"text/plain", "text/plain")
 	if err != nil {
 		return
@@ -156,9 +160,9 @@ func ExtractIntUsingRegEx(s string, regex string) (value int, err error) {
 	return strconv.Atoi(submatch[1])
 }
 
-func (sc *BlazegraphClient) GetStatus() (statusJSON string, err error) {
+func (bc *BlazegraphClient) GetStatus() (statusJSON string, err error) {
 
-	responseBody, err := sc.GetRequest(sc.Url+"/status",
+	responseBody, err := bc.GetRequest(bc.Url+"/status",
 		"text/plain", "text/plain")
 
 	if err != nil {
@@ -168,8 +172,8 @@ func (sc *BlazegraphClient) GetStatus() (statusJSON string, err error) {
 
 	statusString := string(responseBody)
 	status := InstanceStatus{}
-	status.InstanceUrl = sc.Url
-	status.SparqlEndpoint = sc.SparqlEndpoint
+	status.InstanceUrl = bc.Url
+	status.SparqlEndpoint = bc.SparqlEndpoint
 	status.BlazegraphBuildVersion = ExtractStringUsingRegEx(statusString, `span id="buildVersion">([0-9\.]+)</span`)
 	status.QueryStartCount, _ = ExtractIntUsingRegEx(statusString, `queryStartCount=([0-9]+)`)
 	status.RunningQueriesCount, _ = ExtractIntUsingRegEx(statusString, `runningQueriesCount=([0-9]+)`)
@@ -180,12 +184,8 @@ func (sc *BlazegraphClient) GetStatus() (statusJSON string, err error) {
 	return
 }
 
-func (sc *BlazegraphClient) SparqlEndpointForDataset(dataset string) string {
-	return sc.NamespaceEndpoint + "/" + dataset + "/sparql"
-}
-
-func (sc *BlazegraphClient) CountTriples(dataset string, exact bool) (count int, err error) {
-	responseBody, err := sc.GetRequest(sc.SparqlEndpointForDataset(dataset)+"?ESTCARD",
+func (bc *BlazegraphClient) CountTriples(dataset string, exact bool) (count int, err error) {
+	responseBody, err := bc.GetRequest(bc.SparqlEndpointForDataset(dataset)+"?ESTCARD",
 		"text/plain", "application/xml")
 	if err != nil {
 		return

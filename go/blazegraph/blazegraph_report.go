@@ -10,7 +10,7 @@ import (
 func Report(cc *cli.CommandContext) (err error) {
 
 	// declare command flags
-	cc.Flags.String("dataset", "", "`name` of RDF dataset to create report from")
+	dataset := cc.Flags.String("dataset", "kb", "`name` of RDF dataset to create report from")
 	file := cc.Flags.String("file", "-", "File containing report template to expand")
 
 	// parse flags
@@ -20,6 +20,7 @@ func Report(cc *cli.CommandContext) (err error) {
 	}
 
 	bc := cc.Resource("BlazegraphClient").(*BlazegraphClient)
+	bc.SetDataset(*dataset)
 
 	reportTemplate, err := cc.ReadFileOrStdin(*file)
 	if err != nil {
