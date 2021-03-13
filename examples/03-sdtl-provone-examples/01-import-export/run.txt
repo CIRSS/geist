@@ -20,7 +20,7 @@ blazegraph export --format nt | sort
 ------------------------------------------- S1 OUTPUTS ------------------------------------------------
 
 <http://wholetale.org/tale38/run15#associated_plan> <http://purl.dataone.org/provone/2015/01/15/ontology#hadPlan> <http://wholetale.org/tale38/run15#create_var.sps> .
-<http://wholetale.org/tale38/run15#associated_plan> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://127.0.0.1:9999/blazegraph/Association> .
+<http://wholetale.org/tale38/run15#associated_plan> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://127.0.0.1:9999/blazegraph/namespace/kb/Association> .
 <http://wholetale.org/tale38/run15#create_var.sps> <http://SDTLnamespaceURL#commandCount> "1"^^<http://www.w3.org/2001/XMLSchema#integer> .
 <http://wholetale.org/tale38/run15#create_var.sps> <http://SDTLnamespaceURL#lineCount> "1"^^<http://www.w3.org/2001/XMLSchema#integer> .
 <http://wholetale.org/tale38/run15#create_var.sps> <http://SDTLnamespaceURL#scriptMD5> "518001a968c359366bf7ceb12bf209ea"^^<http://www.w3.org/2001/XMLSchema#string> .
@@ -76,7 +76,7 @@ blazegraph export --format jsonld
 
 [ {
   "@id" : "http://wholetale.org/tale38/run15#associated_plan",
-  "@type" : [ "http://127.0.0.1:9999/blazegraph/Association" ],
+  "@type" : [ "http://127.0.0.1:9999/blazegraph/namespace/kb/Association" ],
   "http://purl.dataone.org/provone/2015/01/15/ontology#hadPlan" : [ {
     "@id" : "http://wholetale.org/tale38/run15#create_var.sps"
   } ]

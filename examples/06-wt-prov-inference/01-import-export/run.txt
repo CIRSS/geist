@@ -89,7 +89,7 @@ blazegraph export --format nt | sort
 <http://wholetale.org/tale/2035/version/1021/run/1119/> <http://wholetale.org/ontology/wt/TaleId> <http://wholetale.org/tale/2035/> .
 <http://wholetale.org/tale/2035/version/1021/run/1119/> <http://wholetale.org/ontology/wt/TaleName> "08-branched-pipeline"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://wholetale.org/tale/2035/version/1021/run/1119/> <http://wholetale.org/ontology/wt/TaleRunScript> <http://wholetale.org/tale/2035/version/1021/run/1119/programfile/1> .
-<http://wholetale.org/tale/2035/version/1021/run/1119/> <http://wholetale.org/ontology/wt/TaleVersion> <http://127.0.0.1:9999/blazegraph/tale_version> .
+<http://wholetale.org/tale/2035/version/1021/run/1119/> <http://wholetale.org/ontology/wt/TaleVersion> <http://127.0.0.1:9999/blazegraph/namespace/kb/tale_version> .
 <http://wholetale.org/tale/2035/version/1021/run/1119/> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://wholetale.org/ontology/wt/TaleRun> .
 <http://wholetale.org/tale/2035/version/1021/run/1119/datafile/11> <http://wholetale.org/ontology/wt/FilePath> "./temp/t12.txt"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://wholetale.org/tale/2035/version/1021/run/1119/datafile/11> <http://wholetale.org/ontology/wt/FileRole> <http://wholetale.org/ontology/wt/TaleIntermediateData> .

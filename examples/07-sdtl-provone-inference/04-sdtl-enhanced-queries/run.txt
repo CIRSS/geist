@@ -20,15 +20,15 @@ blazegraph export --format nt | sort
 
 ------------------------------------------- E1 OUTPUTS ------------------------------------------------
 
-<http://127.0.0.1:9999/blazegraph/FunctionCallExpression> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Class> .
-<http://127.0.0.1:9999/blazegraph/FunctionCallExpression> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://127.0.0.1:9999/blazegraph/FunctionCallExpression> .
-<http://127.0.0.1:9999/blazegraph/FunctionCallExpression> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2000/01/rdf-schema#Resource> .
-<http://127.0.0.1:9999/blazegraph/NumericConstantExpression> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Class> .
-<http://127.0.0.1:9999/blazegraph/NumericConstantExpression> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://127.0.0.1:9999/blazegraph/NumericConstantExpression> .
-<http://127.0.0.1:9999/blazegraph/NumericConstantExpression> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2000/01/rdf-schema#Resource> .
-<http://127.0.0.1:9999/blazegraph/VariableSymbolExpression> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Class> .
-<http://127.0.0.1:9999/blazegraph/VariableSymbolExpression> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://127.0.0.1:9999/blazegraph/VariableSymbolExpression> .
-<http://127.0.0.1:9999/blazegraph/VariableSymbolExpression> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://127.0.0.1:9999/blazegraph/namespace/kb/FunctionCallExpression> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Class> .
+<http://127.0.0.1:9999/blazegraph/namespace/kb/FunctionCallExpression> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://127.0.0.1:9999/blazegraph/namespace/kb/FunctionCallExpression> .
+<http://127.0.0.1:9999/blazegraph/namespace/kb/FunctionCallExpression> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://127.0.0.1:9999/blazegraph/namespace/kb/NumericConstantExpression> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Class> .
+<http://127.0.0.1:9999/blazegraph/namespace/kb/NumericConstantExpression> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://127.0.0.1:9999/blazegraph/namespace/kb/NumericConstantExpression> .
+<http://127.0.0.1:9999/blazegraph/namespace/kb/NumericConstantExpression> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://127.0.0.1:9999/blazegraph/namespace/kb/VariableSymbolExpression> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Class> .
+<http://127.0.0.1:9999/blazegraph/namespace/kb/VariableSymbolExpression> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://127.0.0.1:9999/blazegraph/namespace/kb/VariableSymbolExpression> .
+<http://127.0.0.1:9999/blazegraph/namespace/kb/VariableSymbolExpression> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2000/01/rdf-schema#Resource> .
 <http://wholetale.org/program/1119/argument/10> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#FunctionArgument> .
 <http://wholetale.org/program/1119/argument/10> <https://rdf-vocabulary.ddialliance.org/sdtl#ArgumentName> "EXP2"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://wholetale.org/program/1119/argument/10> <https://rdf-vocabulary.ddialliance.org/sdtl#ArgumentValue> <http://wholetale.org/program/1119/argumentvalue/10> .
@@ -97,16 +97,16 @@ blazegraph export --format nt | sort
 <http://wholetale.org/program/1119/argumentvalue/12> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#NumericConstantExpression> .
 <http://wholetale.org/program/1119/argumentvalue/12> <https://rdf-vocabulary.ddialliance.org/sdtl#NumericType> "Integer"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://wholetale.org/program/1119/argumentvalue/12> <https://rdf-vocabulary.ddialliance.org/sdtl#Value> "273"^^<http://www.w3.org/2001/XMLSchema#string> .
-<http://wholetale.org/program/1119/argumentvalue/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://127.0.0.1:9999/blazegraph/VariableSymbolExpression> .
+<http://wholetale.org/program/1119/argumentvalue/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://127.0.0.1:9999/blazegraph/namespace/kb/VariableSymbolExpression> .
 <http://wholetale.org/program/1119/argumentvalue/1> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableName> "B"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://wholetale.org/program/1119/argumentvalue/2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#NumericConstantExpression> .
 <http://wholetale.org/program/1119/argumentvalue/2> <https://rdf-vocabulary.ddialliance.org/sdtl#NumericType> "Real"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://wholetale.org/program/1119/argumentvalue/2> <https://rdf-vocabulary.ddialliance.org/sdtl#Value> "6.5"^^<http://www.w3.org/2001/XMLSchema#string> .
-<http://wholetale.org/program/1119/argumentvalue/3> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://127.0.0.1:9999/blazegraph/VariableSymbolExpression> .
+<http://wholetale.org/program/1119/argumentvalue/3> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://127.0.0.1:9999/blazegraph/namespace/kb/VariableSymbolExpression> .
 <http://wholetale.org/program/1119/argumentvalue/3> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableName> "A"^^<http://www.w3.org/2001/XMLSchema#string> .
-<http://wholetale.org/program/1119/argumentvalue/4> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://127.0.0.1:9999/blazegraph/VariableSymbolExpression> .
+<http://wholetale.org/program/1119/argumentvalue/4> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://127.0.0.1:9999/blazegraph/namespace/kb/VariableSymbolExpression> .
 <http://wholetale.org/program/1119/argumentvalue/4> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableName> "B"^^<http://www.w3.org/2001/XMLSchema#string> .
-<http://wholetale.org/program/1119/argumentvalue/5> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://127.0.0.1:9999/blazegraph/FunctionCallExpression> .
+<http://wholetale.org/program/1119/argumentvalue/5> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://127.0.0.1:9999/blazegraph/namespace/kb/FunctionCallExpression> .
 <http://wholetale.org/program/1119/argumentvalue/5> <https://rdf-vocabulary.ddialliance.org/sdtl#Arguments> <http://wholetale.org/program/1119/argument/6> .
 <http://wholetale.org/program/1119/argumentvalue/5> <https://rdf-vocabulary.ddialliance.org/sdtl#Arguments> <http://wholetale.org/program/1119/argument/9> .
 <http://wholetale.org/program/1119/argumentvalue/5> <https://rdf-vocabulary.ddialliance.org/sdtl#Function> "multiplication"^^<http://www.w3.org/2001/XMLSchema#string> .
@@ -133,7 +133,7 @@ blazegraph export --format nt | sort
 <http://wholetale.org/program/1119/argumentvalue/8> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#NumericConstantExpression> .
 <http://wholetale.org/program/1119/argumentvalue/8> <https://rdf-vocabulary.ddialliance.org/sdtl#NumericType> "Integer"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://wholetale.org/program/1119/argumentvalue/8> <https://rdf-vocabulary.ddialliance.org/sdtl#Value> "32"^^<http://www.w3.org/2001/XMLSchema#string> .
-<http://wholetale.org/program/1119/argumentvalue/9> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://127.0.0.1:9999/blazegraph/NumericConstantExpression> .
+<http://wholetale.org/program/1119/argumentvalue/9> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://127.0.0.1:9999/blazegraph/namespace/kb/NumericConstantExpression> .
 <http://wholetale.org/program/1119/argumentvalue/9> <https://rdf-vocabulary.ddialliance.org/sdtl#NumericType> "Integer"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://wholetale.org/program/1119/argumentvalue/9> <https://rdf-vocabulary.ddialliance.org/sdtl#Value> "5"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://wholetale.org/program/1119/commandinventory/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#_1> <http://wholetale.org/program/1119/load/1> .
@@ -304,7 +304,7 @@ blazegraph export --format nt | sort
 <http://wholetale.org/program/1119/expression/4> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argumentvalue/7> .
 <http://wholetale.org/program/1119/expression/4> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argumentvalue/8> .
 <http://wholetale.org/program/1119/expression/4> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argumentvalue/9> .
-<http://wholetale.org/program/1119/expression/5> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://127.0.0.1:9999/blazegraph/FunctionCallExpression> .
+<http://wholetale.org/program/1119/expression/5> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://127.0.0.1:9999/blazegraph/namespace/kb/FunctionCallExpression> .
 <http://wholetale.org/program/1119/expression/5> <https://rdf-vocabulary.ddialliance.org/sdtl#Arguments> <http://wholetale.org/program/1119/argument/11> .
 <http://wholetale.org/program/1119/expression/5> <https://rdf-vocabulary.ddialliance.org/sdtl#Arguments> <http://wholetale.org/program/1119/argument/12> .
 <http://wholetale.org/program/1119/expression/5> <https://rdf-vocabulary.ddialliance.org/sdtl#Function> "addition"^^<http://www.w3.org/2001/XMLSchema#string> .
