@@ -3,7 +3,7 @@ package blaze
 import (
 	"fmt"
 
-	"github.com/cirss/go-cli/go/cli"
+	"github.com/cirss/go-cli/pkg/cli"
 )
 
 func Export(cc *cli.CommandContext) (err error) {

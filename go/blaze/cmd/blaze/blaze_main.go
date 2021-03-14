@@ -4,7 +4,7 @@ import (
 	"os"
 
 	"github.com/cirss/geist/go/blaze"
-	"github.com/cirss/go-cli/go/cli"
+	"github.com/cirss/go-cli/pkg/cli"
 )
 
 var Main *cli.ProgramContext

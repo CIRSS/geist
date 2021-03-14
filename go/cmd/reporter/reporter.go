@@ -5,7 +5,7 @@ import (
 	"os"
 	"text/template"
 
-	"github.com/cirss/go-cli/go/cli"
+	"github.com/cirss/go-cli/pkg/cli"
 )
 
 // Main wraps the main() function.  It enables tests to manipulate the

@@ -1,7 +1,6 @@
-github.com/cirss/go-cli v0.1.1 h1:1B7Yse17+Bi7B/yLRp38OLFOMcol0fTMc1ivjJAMSOg=
-github.com/cirss/go-cli v0.1.1/go.mod h1:rbQvOhQFfQ8FAS2MEN+aj6f66Rd7T8ZzsSeINDd+HlM=
-github.com/cirss/go-cli v0.1.2 h1:bKb7WorNAJB59g+JCloMlLA7wmdCxOzNXFvUIlNUkzk=
-github.com/cirss/go-cli v0.1.2/go.mod h1:rbQvOhQFfQ8FAS2MEN+aj6f66Rd7T8ZzsSeINDd+HlM=
+github.com/cirss/geist v0.2.0/go.mod h1:V5/9suj6/LnQGQwF3laLStUGB2Lihcd5Pr5QgPj+LhQ=
+github.com/cirss/go-cli v0.1.3 h1:dlfoHkrdwLj0xJULM2y3Eb1vG8/l54quCVyKlFbZ9pM=
+github.com/cirss/go-cli v0.1.3/go.mod h1:rbQvOhQFfQ8FAS2MEN+aj6f66Rd7T8ZzsSeINDd+HlM=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=

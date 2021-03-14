@@ -1,6 +1,6 @@
 package blaze
 
-import "github.com/cirss/go-cli/go/cli"
+import "github.com/cirss/go-cli/pkg/cli"
 
 func NewBlazeCommandContext(pc *cli.ProgramContext) (cc *cli.CommandContext) {
 

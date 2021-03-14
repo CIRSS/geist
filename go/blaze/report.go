@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/cirss/geist/go/geist"
-	"github.com/cirss/go-cli/go/cli"
+	"github.com/cirss/go-cli/pkg/cli"
 )
 
 func Report(cc *cli.CommandContext) (err error) {

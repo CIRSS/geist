@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/cirss/geist/go/geist"
-	"github.com/cirss/go-cli/go/cli"
+	"github.com/cirss/go-cli/pkg/cli"
 )
 
 const retryPeriod = 100

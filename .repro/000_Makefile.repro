@@ -7,8 +7,8 @@ REPRO_IMAGE=${REPRO_DOCKER_ORG}/${REPRO_NAME}:${REPRO_IMAGE_TAG}
 
 # provide runtime options for Docker when running this REPRO
 REPRO_DOCKER_OPTIONS=-p 9999:9999 
-REPRO_MOUNT_GOCLI=--volume $(CURDIR)/../go-cli:/mnt/go-cli
-REPRO_MOUNT_OTHER_VOLUMES=$(REPRO_MOUNT_GOCLI)
+REPRO_MOUNT_CLI=--volume $(CURDIR)/../go-cli:/mnt/go-cli
+REPRO_MOUNT_OTHER_VOLUMES=$(REPRO_MOUNT_CLI)
 
 # define mount point for REPRO directory tree in running container
 REPRO_DIR=/mnt/${REPRO_NAME}
