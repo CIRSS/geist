@@ -1,4 +1,4 @@
-package blazegraph
+package blaze
 
 import "github.com/cirss/go-cli/go/cli"
 

@@ -6,10 +6,10 @@ RUNNER='../../common/run_script_example.sh'
 
 bash ${RUNNER} SETUP "IMPORT PROVONE TRACE" << END_SCRIPT
 
-blazegraph destroy --dataset kb --quiet
-blazegraph create --dataset kb --quiet --infer owl
-blazegraph import --file ../data/wt-prov-rules.ttl
-blazegraph import --format jsonld --file ../data/branched-pipeline.jsonld
+blaze destroy --dataset kb --quiet
+blaze create --dataset kb --quiet --infer owl
+blaze import --file ../data/wt-prov-rules.ttl
+blaze import --format jsonld --file ../data/branched-pipeline.jsonld
 
 END_SCRIPT
 
@@ -18,7 +18,7 @@ END_SCRIPT
 bash ${RUNNER} RETROSPECTIVE-1 "WHAT DATA WAS USED AS INPUT BY THE PROCESS AS A WHOLE?" \
     << __END_SCRIPT__
 
-blazegraph query --format table << __END_QUERY__
+blaze query --format table << __END_QUERY__
 
     PREFIX prov: <http://www.w3.org/ns/prov#>
     PREFIX provone: <http://purl.dataone.org/provone/2015/01/15/ontology#>
@@ -51,7 +51,7 @@ __END_SCRIPT__
 # bash ${RUNNER} RETROSPECTIVE-2 "WHAT FILES WERE PRODUCED AS OUTPUTS OF THE TALE?" \
 #     << __END_SCRIPT__
 
-# blazegraph query --format table << __END_QUERY__
+# blaze query --format table << __END_QUERY__
 
 #     PREFIX prov: <http://www.w3.org/ns/prov#>
 #     PREFIX provone: <http://purl.dataone.org/provone/2015/01/15/ontology#>

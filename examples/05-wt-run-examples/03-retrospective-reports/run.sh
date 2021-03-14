@@ -6,9 +6,9 @@ RUNNER='../../common/run_script_example.sh'
 
 bash ${RUNNER} SETUP "IMPORT PROVONE TRACE" << END_SCRIPT
 
-blazegraph destroy --dataset kb --quiet
-blazegraph create --dataset kb --quiet
-blazegraph import --format jsonld --file ../data/branched-pipeline.jsonld
+blaze destroy --dataset kb --quiet
+blaze create --dataset kb --quiet
+blaze import --format jsonld --file ../data/branched-pipeline.jsonld
 
 END_SCRIPT
 
@@ -17,7 +17,7 @@ END_SCRIPT
 bash ${RUNNER} REPORT-1 "WHAT DATA FILES WERE USED AS INPUT BY THE TALE?" \
     << '__END_SCRIPT__'
 
-blazegraph report << '__END_REPORT_TEMPLATE__'
+blaze report << '__END_REPORT_TEMPLATE__'
                                                                                 \\
 {{ prefix "prov" "http://www.w3.org/ns/prov#" }}                                \\
 {{ prefix "provone" "http://purl.dataone.org/provone/2015/01/15/ontology#" }}   \\
@@ -48,7 +48,7 @@ __END_SCRIPT__
 bash ${RUNNER} REPORT-2 "WHAT DATA FILES WERE USED AS INPUT BY THE TALE?" \
     << '__END_SCRIPT__'
 
-blazegraph report << '__END_REPORT_TEMPLATE__'
+blaze report << '__END_REPORT_TEMPLATE__'
                                                                                                         \\
 {{ prefix "prov" "http://www.w3.org/ns/prov#" }}                                                        \\
 {{ prefix "provone" "http://purl.dataone.org/provone/2015/01/15/ontology#" }}                           \\
@@ -84,7 +84,7 @@ __END_SCRIPT__
 bash ${RUNNER} REPORT-3 "WHAT DATA FILES WERE USED AS INPUT BY THE TALE?" \
     << '__END_SCRIPT__'
 
-blazegraph report << '__END_REPORT_TEMPLATE__'
+blaze report << '__END_REPORT_TEMPLATE__'
                                                                                                         \\
 {{{
 {{ prefix "prov" "http://www.w3.org/ns/prov#" }}

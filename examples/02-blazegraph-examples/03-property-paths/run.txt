@@ -3,9 +3,9 @@
 
 # INITIALIZE BLAZEGRAPH INSTANCE WITH CITATIONS
 
-blazegraph destroy --dataset kb --quiet
-blazegraph create --dataset kb --quiet
-blazegraph import --file ../data/citations.ttl --format ttl
+blaze destroy --dataset kb --quiet
+blaze create --dataset kb --quiet
+blaze import --file ../data/citations.ttl --format ttl
 
 ------------------------------------------- SETUP OUTPUTS ------------------------------------------------
 
@@ -15,7 +15,7 @@ blazegraph import --file ../data/citations.ttl --format ttl
 
 # EXPORT CITATIONS AS N-TRIPLES
 
-blazegraph export --format nt | sort
+blaze export --format nt | sort
 
 ------------------------------------------- S1 OUTPUTS ------------------------------------------------
 
@@ -87,7 +87,7 @@ blazegraph export --format nt | sort
 
 # WHICH PAPERS DIRECTLY CITE WHICH PAPERS?
 
-blazegraph query --format table << END_QUERY
+blaze query --format table << END_QUERY
 
     prefix c: <http://learningsparql.com/ns/citations#>
 
@@ -121,7 +121,7 @@ http://learningsparql.com/ns/papers#paperI | http://learningsparql.com/ns/papers
 
 # WHICH PAPERS DEPEND ON WHICH PRIOR WORK?
 
-blazegraph query --format table << END_QUERY
+blaze query --format table << END_QUERY
 
     prefix c: <http://learningsparql.com/ns/citations#>
 
@@ -162,7 +162,7 @@ http://learningsparql.com/ns/papers#paperI | http://learningsparql.com/ns/papers
 
 # WHICH PAPERS DEPEND ON PAPER A?
 
-blazegraph query --format table << END_QUERY
+blaze query --format table << END_QUERY
 
     prefix c: <http://learningsparql.com/ns/citations#>
     prefix : <http://learningsparql.com/ns/papers#>
@@ -193,7 +193,7 @@ http://learningsparql.com/ns/papers#paperI
 
 # WHICH PAPERS CITE A PAPER THAT CITES PAPER A?
 
-blazegraph query --format table << END_QUERY
+blaze query --format table << END_QUERY
 
     prefix c: <http://learningsparql.com/ns/citations#>
     prefix : <http://learningsparql.com/ns/papers#>
@@ -220,7 +220,7 @@ http://learningsparql.com/ns/papers#paperH
 
 # WHICH PAPERS CITE A PAPER CITED BY PAPER D?
 
-blazegraph query --format table << END_QUERY
+blaze query --format table << END_QUERY
 
     prefix c: <http://learningsparql.com/ns/citations#>
     prefix : <http://learningsparql.com/ns/papers#>
@@ -247,7 +247,7 @@ http://learningsparql.com/ns/papers#paperE
 
 # WHAT RESULTS DEPEND DIRECTLY ON RESULTS REPORTED BY PAPER A?
 
-blazegraph query --format table << END_QUERY
+blaze query --format table << END_QUERY
 
     prefix c: <http://learningsparql.com/ns/citations#>
     prefix : <http://learningsparql.com/ns/papers#>
@@ -273,7 +273,7 @@ http://learningsparql.com/ns/papers#resultE
 
 # WHAT RESULTS DEPEND DIRECTLY OR INDIRECTLY ON RESULTS REPORTED BY PAPER A?
 
-blazegraph query --format table << END_QUERY
+blaze query --format table << END_QUERY
 
     prefix c: <http://learningsparql.com/ns/citations#>
     prefix : <http://learningsparql.com/ns/papers#>
@@ -307,7 +307,7 @@ http://learningsparql.com/ns/papers#resultI
 
 # Visualization of Paper-Citation Graph
 
-blazegraph report << '__END_REPORT_TEMPLATE__'
+blaze report << '__END_REPORT_TEMPLATE__'
     {{{
         {{ include "graphviz.g" }}
     }}}                                                             \
@@ -396,7 +396,7 @@ node[shape=box style="filled" fillcolor="#CCFFCC" peripheries=1 fontname=Courier
 
 # Visualization of Paper-Citation Graph
 
-blazegraph report << '__END_REPORT_TEMPLATE__'
+blaze report << '__END_REPORT_TEMPLATE__'
 
     {{{
         {{ include "graphviz.g" }}
@@ -490,7 +490,7 @@ node[shape=box style="rounded,filled" fillcolor="#FFFFCC" peripheries=1 fontname
 
 # Visualization of Paper-Result Graph
 
-blazegraph report << '__END_REPORT_TEMPLATE__'
+blaze report << '__END_REPORT_TEMPLATE__'
                                                                     \
     {{{                                                             \
         {{ include "graphviz.g" }}                                  \

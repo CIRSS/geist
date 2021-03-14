@@ -13,12 +13,12 @@ func TestBlazegraphCmd_export_empty_store(t *testing.T) {
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
 
-	run("blazegraph destroy --dataset kb --quiet")
-	run("blazegraph create --quiet --dataset kb")
+	run("blaze destroy --dataset kb --quiet")
+	run("blaze create --quiet --dataset kb")
 
 	t.Run("jsonld", func(t *testing.T) {
 		outputBuffer.Reset()
-		assertExitCode(t, "blazegraph export --format jsonld", 0)
+		assertExitCode(t, "blaze export --format jsonld", 0)
 		util.LineContentsEqual(t, outputBuffer.String(),
 			`[ ]
 			`)
@@ -26,14 +26,14 @@ func TestBlazegraphCmd_export_empty_store(t *testing.T) {
 
 	t.Run("nt", func(t *testing.T) {
 		outputBuffer.Reset()
-		assertExitCode(t, "blazegraph export --format nt", 0)
+		assertExitCode(t, "blaze export --format nt", 0)
 		util.LineContentsEqual(t, outputBuffer.String(),
 			``)
 	})
 
 	t.Run("ttl", func(t *testing.T) {
 		outputBuffer.Reset()
-		assertExitCode(t, "blazegraph export --format ttl", 0)
+		assertExitCode(t, "blaze export --format ttl", 0)
 		util.LineContentsEqual(t, outputBuffer.String(),
 			`@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 			@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -51,7 +51,7 @@ func TestBlazegraphCmd_export_empty_store(t *testing.T) {
 
 	t.Run("xml", func(t *testing.T) {
 		outputBuffer.Reset()
-		assertExitCode(t, "blazegraph export --format xml", 0)
+		assertExitCode(t, "blaze export --format xml", 0)
 		util.LineContentsEqual(t, outputBuffer.String(),
 			`<?xml version="1.0" encoding="UTF-8"?>
 	        <rdf:RDF
@@ -78,18 +78,18 @@ func TestBlazegraphCmd_export_two_triples(t *testing.T) {
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
 
-	run("blazegraph destroy --dataset kb --quiet")
-	run("blazegraph create --quiet --dataset kb")
+	run("blaze destroy --dataset kb --quiet")
+	run("blaze create --quiet --dataset kb")
 
 	Main.InReader = strings.NewReader(`
 		<http://tmcphill.net/data#y> <http://tmcphill.net/tags#tag> "eight" .
 		<http://tmcphill.net/data#x> <http://tmcphill.net/tags#tag> "seven" .
 	`)
-	run("blazegraph import --format ttl")
+	run("blaze import --format ttl")
 
 	t.Run("jsonld", func(t *testing.T) {
 		outputBuffer.Reset()
-		assertExitCode(t, "blazegraph export --format jsonld", 0)
+		assertExitCode(t, "blaze export --format jsonld", 0)
 		util.JSONEquals(t, outputBuffer.String(),
 			`[
 			{
@@ -114,7 +114,7 @@ func TestBlazegraphCmd_export_two_triples(t *testing.T) {
 
 	t.Run("nt", func(t *testing.T) {
 		outputBuffer.Reset()
-		assertExitCode(t, "blazegraph export --format nt --sort=true", 0)
+		assertExitCode(t, "blaze export --format nt --sort=true", 0)
 		util.LineContentsEqual(t, outputBuffer.String(),
 			`<http://tmcphill.net/data#x> <http://tmcphill.net/tags#tag> "seven" .
 			<http://tmcphill.net/data#y> <http://tmcphill.net/tags#tag> "eight" .
@@ -123,7 +123,7 @@ func TestBlazegraphCmd_export_two_triples(t *testing.T) {
 
 	t.Run("ttl", func(t *testing.T) {
 		outputBuffer.Reset()
-		assertExitCode(t, "blazegraph export --format ttl", 0)
+		assertExitCode(t, "blaze export --format ttl", 0)
 		util.LineContentsEqual(t, outputBuffer.String(),
 			`@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 			@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -145,7 +145,7 @@ func TestBlazegraphCmd_export_two_triples(t *testing.T) {
 
 	t.Run("xml", func(t *testing.T) {
 		outputBuffer.Reset()
-		assertExitCode(t, "blazegraph export --format xml", 0)
+		assertExitCode(t, "blaze export --format xml", 0)
 		util.LineContentsEqual(t, outputBuffer.String(),
 			`<?xml version="1.0" encoding="UTF-8"?>
             <rdf:RDF
@@ -181,14 +181,14 @@ func TestBlazegraphCmd_export_address_book(t *testing.T) {
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
 
-	run("blazegraph destroy --dataset kb --quiet")
-	run("blazegraph create --quiet --dataset kb")
+	run("blaze destroy --dataset kb --quiet")
+	run("blaze create --quiet --dataset kb")
 
-	run("blazegraph import --file testdata/address-book.jsonld --format jsonld")
+	run("blaze import --file testdata/address-book.jsonld --format jsonld")
 
 	t.Run("jsonld", func(t *testing.T) {
 		outputBuffer.Reset()
-		assertExitCode(t, "blazegraph export --format jsonld", 0)
+		assertExitCode(t, "blaze export --format jsonld", 0)
 		util.LineContentsEqual(t, outputBuffer.String(),
 			`[ {
 			"@id" : "http://learningsparql.com/ns/data#i0432",
@@ -246,7 +246,7 @@ func TestBlazegraphCmd_export_address_book(t *testing.T) {
 
 	t.Run("nt", func(t *testing.T) {
 		outputBuffer.Reset()
-		assertExitCode(t, "blazegraph export --format nt", 0)
+		assertExitCode(t, "blaze export --format nt", 0)
 		util.LineContentsEqual(t, outputBuffer.String(),
 			`<http://learningsparql.com/ns/data#i0432> <http://learningsparql.com/ns/addressbook#email> "richard49@hotmail.com"^^<http://www.w3.org/2001/XMLSchema#string> .
 			<http://learningsparql.com/ns/data#i0432> <http://learningsparql.com/ns/addressbook#firstname> "Richard"^^<http://www.w3.org/2001/XMLSchema#string> .
@@ -268,7 +268,7 @@ func TestBlazegraphCmd_export_address_book(t *testing.T) {
 
 	t.Run("ttl", func(t *testing.T) {
 		outputBuffer.Reset()
-		assertExitCode(t, "blazegraph export --format ttl", 0)
+		assertExitCode(t, "blaze export --format ttl", 0)
 		util.LineContentsEqual(t, outputBuffer.String(),
 			`@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 			@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -303,7 +303,7 @@ func TestBlazegraphCmd_export_address_book(t *testing.T) {
 
 	t.Run("xml", func(t *testing.T) {
 		outputBuffer.Reset()
-		assertExitCode(t, "blazegraph export --format xml", 0)
+		assertExitCode(t, "blaze export --format xml", 0)
 		util.LineContentsEqual(t, outputBuffer.String(),
 			`<?xml version="1.0" encoding="UTF-8"?>
 			<rdf:RDF
@@ -350,9 +350,9 @@ func TestBlazegraphCmd_export_address_book(t *testing.T) {
 
 var expectedExportHelpOutput = string(
 	`
-		blazegraph export: Exports all triples in an RDF dataset in the requested format.
+		blaze export: Exports all triples in an RDF dataset in the requested format.
 
-		usage: blazegraph export [<flags>]
+		usage: blaze export [<flags>]
 
 		flags:
 			-dataset name
@@ -374,7 +374,7 @@ func TestBlazegraphCmd_export_help(t *testing.T) {
 	var outputBuffer strings.Builder
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
-	assertExitCode(t, "blazegraph export help", 0)
+	assertExitCode(t, "blaze export help", 0)
 	util.LineContentsEqual(t, outputBuffer.String(), expectedExportHelpOutput)
 }
 
@@ -382,7 +382,7 @@ func TestBlazegraphCmd_help_export(t *testing.T) {
 	var outputBuffer strings.Builder
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
-	assertExitCode(t, "blazegraph help export", 0)
+	assertExitCode(t, "blaze help export", 0)
 	util.LineContentsEqual(t, outputBuffer.String(), expectedExportHelpOutput)
 }
 
@@ -392,11 +392,11 @@ func TestBlazegraphCmd_export_bad_flag(t *testing.T) {
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
 
-	assertExitCode(t, "blazegraph export --not-a-flag", 1)
+	assertExitCode(t, "blaze export --not-a-flag", 1)
 	util.LineContentsEqual(t, outputBuffer.String(),
-		`blazegraph export: flag provided but not defined: -not-a-flag
+		`blaze export: flag provided but not defined: -not-a-flag
 
-		usage: blazegraph export [<flags>]
+		usage: blaze export [<flags>]
 
 		flags:
 			-dataset name

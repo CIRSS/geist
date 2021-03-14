@@ -1,4 +1,4 @@
-package blazegraph
+package blaze
 
 type DatasetProperties struct {
 	Name      string

@@ -3,9 +3,9 @@
 
 # INITIALIZE BLAZEGRAPH INSTANCE WITH ADDRESS BOOK
 
-blazegraph destroy --dataset kb --quiet
-blazegraph create --dataset kb --quiet
-blazegraph import --file ../data/address-book.jsonld --format jsonld
+blaze destroy --dataset kb --quiet
+blaze create --dataset kb --quiet
+blaze import --file ../data/address-book.jsonld --format jsonld
 
 ------------------------------------------- SETUP OUTPUTS ------------------------------------------------
 
@@ -15,7 +15,7 @@ blazegraph import --file ../data/address-book.jsonld --format jsonld
 
 # EXPORT ADDRESS BOOK AS JSON-LD
 
-blazegraph export --format jsonld
+blaze export --format jsonld
 
 ------------------------------------------- S1 OUTPUTS ------------------------------------------------
 
@@ -76,7 +76,7 @@ blazegraph export --format jsonld
 
 # EXPORT ADDRESS BOOK AS TURTLE
 
-blazegraph export --format ttl
+blaze export --format ttl
 
 ------------------------------------------- S1 OUTPUTS ------------------------------------------------
 
@@ -114,7 +114,7 @@ blazegraph export --format ttl
 
 # EXPORT ADDRESS BOOK AS N-TRIPLES
 
-blazegraph export --format nt | sort
+blaze export --format nt | sort
 
 ------------------------------------------- S1 OUTPUTS ------------------------------------------------
 
@@ -139,7 +139,7 @@ blazegraph export --format nt | sort
 
 # EXPORT ADDRESS BOOK AS RDF-XML
 
-blazegraph export --format xml
+blaze export --format xml
 
 ------------------------------------------- S1 OUTPUTS ------------------------------------------------
 

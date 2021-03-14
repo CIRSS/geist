@@ -3,9 +3,9 @@
 
 # IMPORT PROVONE TRACE
 
-blazegraph destroy --dataset kb --quiet
-blazegraph create --dataset kb --quiet
-blazegraph import --format jsonld --file ../data/branched-pipeline.jsonld
+blaze destroy --dataset kb --quiet
+blaze create --dataset kb --quiet
+blaze import --format jsonld --file ../data/branched-pipeline.jsonld
 
 ------------------------------------------- SETUP OUTPUTS ------------------------------------------------
 
@@ -15,7 +15,7 @@ blazegraph import --format jsonld --file ../data/branched-pipeline.jsonld
 
 # WHAT DATA FILES WERE USED AS INPUT BY THE TALE?
 
-blazegraph report << '__END_REPORT_TEMPLATE__'
+blaze report << '__END_REPORT_TEMPLATE__'
                                                                                 \
 {{ prefix "prov" "http://www.w3.org/ns/prov#" }}                                \
 {{ prefix "provone" "http://purl.dataone.org/provone/2015/01/15/ontology#" }}   \
@@ -54,7 +54,7 @@ tale_input_file_path | read_file
 
 # WHAT DATA FILES WERE USED AS INPUT BY THE TALE?
 
-blazegraph report << '__END_REPORT_TEMPLATE__'
+blaze report << '__END_REPORT_TEMPLATE__'
                                                                                                         \
 {{ prefix "prov" "http://www.w3.org/ns/prov#" }}                                                        \
 {{ prefix "provone" "http://purl.dataone.org/provone/2015/01/15/ontology#" }}                           \
@@ -102,7 +102,7 @@ Tale Inputs:
 
 # WHAT DATA FILES WERE USED AS INPUT BY THE TALE?
 
-blazegraph report << '__END_REPORT_TEMPLATE__'
+blaze report << '__END_REPORT_TEMPLATE__'
                                                                                                         \
 {{{
 {{ prefix "prov" "http://www.w3.org/ns/prov#" }}

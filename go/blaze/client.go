@@ -1,4 +1,4 @@
-package blazegraph
+package blaze
 
 import (
 	"encoding/json"

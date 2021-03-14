@@ -3,9 +3,9 @@
 
 # IMPORT PROVONE TRACE
 
-blazegraph destroy --dataset kb --quiet
-blazegraph create --dataset kb --quiet
-blazegraph import --format jsonld --file ../data/branched-pipeline.jsonld
+blaze destroy --dataset kb --quiet
+blaze create --dataset kb --quiet
+blaze import --format jsonld --file ../data/branched-pipeline.jsonld
 
 ------------------------------------------- SETUP OUTPUTS ------------------------------------------------
 
@@ -15,7 +15,7 @@ blazegraph import --format jsonld --file ../data/branched-pipeline.jsonld
 
 # EMPTY DOT FILE
 
-blazegraph report << '__END_REPORT_TEMPLATE__'
+blaze report << '__END_REPORT_TEMPLATE__'
                                                                     \
 {{{
     {{ include "graphviz.g" }}
@@ -40,7 +40,7 @@ rankdir=LR
 
 # TITLED EMPTY DOT FILE
 
-blazegraph report << '__END_REPORT_TEMPLATE__'
+blaze report << '__END_REPORT_TEMPLATE__'
                                                                     \
 {{{
     {{ include "graphviz.g" }}
@@ -77,7 +77,7 @@ label="08-branched-pipeline"
 
 # Node for Tale Run
 
-blazegraph report << '__END_REPORT_TEMPLATE__'
+blaze report << '__END_REPORT_TEMPLATE__'
                                                                     \
     {{{
         {{ include "graphviz.g" }}
@@ -117,7 +117,7 @@ node[shape=box style="filled" fillcolor="#FFFFFF" peripheries=2 fontname=Courier
 
 # Tale Run with Inputs and Outputs
 
-blazegraph report << '__END_REPORT_TEMPLATE__'
+blaze report << '__END_REPORT_TEMPLATE__'
                                                                                 \
     {{{
         {{ include "graphviz.g" }}
@@ -200,7 +200,7 @@ node[shape=box style="rounded,filled" fillcolor="#FFFFCC" peripheries=1 fontname
 
 # Tale Processes and Data Files
 
-blazegraph report << '__END_REPORT_TEMPLATE__'
+blaze report << '__END_REPORT_TEMPLATE__'
                                                                                 \
     {{{
         {{ include "graphviz.g" }}

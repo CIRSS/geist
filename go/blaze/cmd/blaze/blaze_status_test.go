@@ -6,7 +6,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/cirss/geist/go/blazegraph"
+	"github.com/cirss/geist/go/blaze"
 	"github.com/cirss/geist/go/util"
 )
 
@@ -17,11 +17,11 @@ func TestBlazegraphCmd_status_success(t *testing.T) {
 	Main.OutWriter = &outBuffer
 	Main.ErrWriter = &errBuffer
 
-	assertExitCode(t, "blazegraph status", 0)
+	assertExitCode(t, "blaze status", 0)
 
 	util.LineContentsEqual(t, errBuffer.String(), "")
 
-	var status blazegraph.InstanceStatus
+	var status blaze.InstanceStatus
 	fmt.Println(outBuffer.String())
 	err := json.Unmarshal([]byte(outBuffer.String()), &status)
 	if err != nil {
@@ -41,11 +41,11 @@ func TestBlazegraphCmd_status_failure(t *testing.T) {
 	Main.OutWriter = &outBuffer
 	Main.ErrWriter = &errBuffer
 
-	assertExitCode(t, "blazegraph status --instance http://not-a-blazegraph-instance", 1)
+	assertExitCode(t, "blaze status --instance http://not-a-blazegraph-instance", 1)
 
 	util.LineContentsEqual(t, outBuffer.String(), "")
 	util.LineContentsEqual(t, errBuffer.String(),
-		`blazegraph status: Exceeded timeout connecting to Blazegraph instance
+		`blaze status: Exceeded timeout connecting to Blazegraph instance
 		`)
 }
 
@@ -56,7 +56,7 @@ func TestBlazegraphCmd_status_quiet_success(t *testing.T) {
 	Main.OutWriter = &outBuffer
 	Main.ErrWriter = &errBuffer
 
-	assertExitCode(t, "blazegraph status --quiet", 0)
+	assertExitCode(t, "blaze status --quiet", 0)
 
 	util.LineContentsEqual(t, outBuffer.String(), "")
 	util.LineContentsEqual(t, errBuffer.String(), "")
@@ -69,20 +69,20 @@ func TestBlazegraphCmd_status_quiet_failure(t *testing.T) {
 	Main.OutWriter = &outBuffer
 	Main.ErrWriter = &errBuffer
 
-	assertExitCode(t, "blazegraph status --quiet --instance http://not-a-blazegraph-instance", 1)
+	assertExitCode(t, "blaze status --quiet --instance http://not-a-blazegraph-instance", 1)
 
 	util.LineContentsEqual(t, outBuffer.String(), "")
 	util.LineContentsEqual(t, errBuffer.String(),
-		`blazegraph status: Exceeded timeout connecting to Blazegraph instance
+		`blaze status: Exceeded timeout connecting to Blazegraph instance
 		`)
 }
 
 var expectedStatusHelpOutput = string(
 	`
-	blazegraph status: Requests the status of the Blazegraph instance, optionally waiting until
+	blaze status: Requests the status of the Blazegraph instance, optionally waiting until
 	the instance is fully running. Returns status in JSON format.
 
-	usage: blazegraph status [<flags>]
+	usage: blaze status [<flags>]
 
 	flags:
 		-instance URL
@@ -100,7 +100,7 @@ func TestBlazegraphCmd_status_help(t *testing.T) {
 	var outputBuffer strings.Builder
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
-	assertExitCode(t, "blazegraph status help", 0)
+	assertExitCode(t, "blaze status help", 0)
 	util.LineContentsEqual(t, outputBuffer.String(), expectedStatusHelpOutput)
 }
 
@@ -108,7 +108,7 @@ func TestBlazegraphCmd_help_status(t *testing.T) {
 	var outputBuffer strings.Builder
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
-	assertExitCode(t, "blazegraph help status", 0)
+	assertExitCode(t, "blaze help status", 0)
 	util.LineContentsEqual(t, outputBuffer.String(), expectedStatusHelpOutput)
 }
 
@@ -118,12 +118,12 @@ func TestBlazegraphCmd_status_bad_flag(t *testing.T) {
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
 
-	assertExitCode(t, "blazegraph status --not-a-flag", 1)
+	assertExitCode(t, "blaze status --not-a-flag", 1)
 
 	util.LineContentsEqual(t, outputBuffer.String(),
-		`blazegraph status: flag provided but not defined: -not-a-flag
+		`blaze status: flag provided but not defined: -not-a-flag
 
-		usage: blazegraph status [<flags>]
+		usage: blaze status [<flags>]
 
 		flags:
 		-instance URL

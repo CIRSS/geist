@@ -3,9 +3,9 @@
 
 # IMPORT PROVONE TRACE
 
-blazegraph destroy --dataset kb --quiet
-blazegraph create --dataset kb --quiet
-blazegraph import --format jsonld --file ../data/branched-pipeline.jsonld
+blaze destroy --dataset kb --quiet
+blaze create --dataset kb --quiet
+blaze import --format jsonld --file ../data/branched-pipeline.jsonld
 
 ------------------------------------------- SETUP OUTPUTS ------------------------------------------------
 
@@ -15,7 +15,7 @@ blazegraph import --format jsonld --file ../data/branched-pipeline.jsonld
 
 # EXPORT AS N-TRIPLES
 
-blazegraph export --format nt | sort
+blaze export --format nt | sort
 
 ------------------------------------------- S1 OUTPUTS ------------------------------------------------
 
@@ -47,7 +47,7 @@ blazegraph export --format nt | sort
 
 # EXPORT AS JSON-LD
 
-blazegraph export --format jsonld
+blaze export --format jsonld
 
 ------------------------------------------- S2 OUTPUTS ------------------------------------------------
 

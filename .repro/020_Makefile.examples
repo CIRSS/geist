@@ -5,7 +5,7 @@
 ## run-examples:           Run all of the examples.
 run-examples: 
 	$(RUN_IN_REPRO) 'make -C go install 				      	&&	\
-	 				 blazegraph status --timeout 5000 --quiet 	&& 	\
+	 				 blaze status --timeout 5000 --quiet 	&& 	\
 	 				 make -C examples all'
 
 clean-examples:         ## Delete all products of examples.

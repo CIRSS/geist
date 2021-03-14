@@ -6,9 +6,9 @@ RUNNER='../../common/run_script_example.sh'
 
 bash ${RUNNER} SETUP "IMPORT PROVONE TRACE" << END_SCRIPT
 
-blazegraph destroy --dataset kb --quiet
-blazegraph create --dataset kb --quiet
-blazegraph import --format jsonld --file ../data/branched-pipeline.jsonld
+blaze destroy --dataset kb --quiet
+blaze create --dataset kb --quiet
+blaze import --format jsonld --file ../data/branched-pipeline.jsonld
 
 END_SCRIPT
 
@@ -17,7 +17,7 @@ END_SCRIPT
 bash ${RUNNER} RETROSPECTIVE-1 "WHAT FILES WERE PROVIDED AS INPUT TO THE TALE?" \
     << END_SCRIPT
 
-blazegraph query --format table << END_QUERY
+blaze query --format table << END_QUERY
 
     prefix prov: <http://www.w3.org/ns/prov#>
     prefix provone: <http://purl.dataone.org/provone/2015/01/15/ontology#>
@@ -40,7 +40,7 @@ END_SCRIPT
 bash ${RUNNER} RETROSPECTIVE-1 "WHAT FILES WERE PRODUCED AS OUTPUTS OF THE TALE?" \
     << END_SCRIPT
 
-blazegraph query --format table << END_QUERY
+blaze query --format table << END_QUERY
 
     prefix prov: <http://www.w3.org/ns/prov#>
     prefix provone: <http://purl.dataone.org/provone/2015/01/15/ontology#>

@@ -5,18 +5,18 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/cirss/geist/go/blazegraph"
+	"github.com/cirss/geist/go/blaze"
 	"github.com/cirss/geist/go/util"
 )
 
-func recreateDataset(bc *blazegraph.BlazegraphClient) {
+func recreateDataset(bc *blaze.BlazegraphClient) {
 	bc.DestroyDataSet("kb")
-	p := blazegraph.NewDatasetProperties("kb")
+	p := blaze.NewDatasetProperties("kb")
 	bc.CreateDataSet(p)
 }
 
 func TestBlazegraphClient_GetAllTriplesAsJSON_EmptyStore(t *testing.T) {
-	bc := blazegraph.NewBlazegraphClient(blazegraph.DefaultUrl)
+	bc := blaze.NewBlazegraphClient(blaze.DefaultUrl)
 	recreateDataset(bc)
 	triples, _ := bc.SelectAll()
 	actual, _ := triples.JSONString()
@@ -32,7 +32,7 @@ func TestBlazegraphClient_GetAllTriplesAsJSON_EmptyStore(t *testing.T) {
 }
 
 func TestBlazegraphClient_InsertOneTriple(t *testing.T) {
-	bc := blazegraph.NewBlazegraphClient(blazegraph.DefaultUrl)
+	bc := blaze.NewBlazegraphClient(blaze.DefaultUrl)
 	recreateDataset(bc)
 	bc.PostData("application/x-turtle", []byte(`
 	@prefix t: <http://tmcphill.net/tags#> .
@@ -63,7 +63,7 @@ func TestBlazegraphClient_InsertOneTriple(t *testing.T) {
 }
 
 func TestBlazegraphClient_InsertTwoTriples(t *testing.T) {
-	bc := blazegraph.NewBlazegraphClient(blazegraph.DefaultUrl)
+	bc := blaze.NewBlazegraphClient(blaze.DefaultUrl)
 	recreateDataset(bc)
 	bc.PostData("application/x-turtle", []byte(`
 		@prefix t: <http://tmcphill.net/tags#> .
@@ -100,7 +100,7 @@ func TestBlazegraphClient_InsertTwoTriples(t *testing.T) {
 }
 
 func TestBlazegraphClient_InsertTwoTriples_Struct(t *testing.T) {
-	bc := blazegraph.NewBlazegraphClient(blazegraph.DefaultUrl)
+	bc := blaze.NewBlazegraphClient(blaze.DefaultUrl)
 	recreateDataset(bc)
 	bc.PostData("application/x-turtle", []byte(`
 		@prefix t: <http://tmcphill.net/tags#> .
@@ -131,7 +131,7 @@ func TestBlazegraphClient_InsertTwoTriples_Struct(t *testing.T) {
 }
 
 func ExampleBlazegraphClient_DumpAsNTriples() {
-	bc := blazegraph.NewBlazegraphClient(blazegraph.DefaultUrl)
+	bc := blaze.NewBlazegraphClient(blaze.DefaultUrl)
 	recreateDataset(bc)
 	bc.PostData("application/x-turtle", []byte(`
 		@prefix t: <http://tmcphill.net/tags#> .

@@ -7,9 +7,9 @@ GRAPHER='../../common/run_dot_examples.sh'
 
 bash ${RUNNER} SETUP "IMPORT SDTL" << END_SCRIPT
 
-blazegraph destroy --dataset kb --quiet
-blazegraph create --dataset kb --quiet
-blazegraph import --format jsonld --file ../data/compute-sdtl.jsonld
+blaze destroy --dataset kb --quiet
+blaze create --dataset kb --quiet
+blaze import --format jsonld --file ../data/compute-sdtl.jsonld
 
 END_SCRIPT
 
@@ -17,7 +17,7 @@ END_SCRIPT
 
 bash ${RUNNER} E1 "EXPORT AS N-TRIPLES" << END_SCRIPT
 
-blazegraph export --format nt | sort
+blaze export --format nt | sort
 
 END_SCRIPT
 
@@ -25,7 +25,7 @@ END_SCRIPT
 
 bash ${RUNNER} Q1 "WHAT COMMANDS ARE EXECUTED BY THE SCRIPT?" << END_SCRIPT
 
-blazegraph query --format table << __END_QUERY__
+blaze query --format table << __END_QUERY__
 
     PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
     PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
@@ -49,7 +49,7 @@ END_SCRIPT
 
 bash ${RUNNER} Q2 "WHAT DATA FILES ARE LOADED BY THE SCRIPT?" << END_SCRIPT
 
-blazegraph query --format table << __END_QUERY__
+blaze query --format table << __END_QUERY__
 
     PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
 
@@ -73,7 +73,7 @@ END_SCRIPT
 
 bash ${RUNNER} Q3 "WHAT DATA FILES ARE SAVED BY THE SCRIPT?" << END_SCRIPT
 
-blazegraph query --format table << __END_QUERY__
+blaze query --format table << __END_QUERY__
 
     PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
 
@@ -97,7 +97,7 @@ END_SCRIPT
 
 bash ${RUNNER} Q4 "WHAT VARIABLES ARE LOADED BY THE SCRIPT?" << END_SCRIPT
 
-blazegraph query --format table << __END_QUERY__
+blaze query --format table << __END_QUERY__
 
     PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
 
@@ -124,7 +124,7 @@ END_SCRIPT
 
 bash ${RUNNER} Q5 "WHAT VARIABLES ARE SAVED BY THE SCRIPT?" << END_SCRIPT
 
-blazegraph query --format table << __END_QUERY__
+blaze query --format table << __END_QUERY__
 
     PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
 
@@ -151,7 +151,7 @@ END_SCRIPT
 
 bash ${RUNNER} Q6 "WHAT COMMANDS UPDATE EACH DATAFRAME?" << END_SCRIPT
 
-blazegraph query --format table << __END_QUERY__
+blaze query --format table << __END_QUERY__
 
     PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
 
@@ -175,7 +175,7 @@ END_SCRIPT
 
 bash ${RUNNER} Q7 "WHAT COMMANDS UPDATE EACH VARIABLE?" << END_SCRIPT
 
-blazegraph query --format table << __END_QUERY__
+blaze query --format table << __END_QUERY__
 
     PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
 
@@ -198,7 +198,7 @@ END_SCRIPT
 
 bash ${RUNNER} Q8 "WHAT COMMANDS USE EACH VARIABLE?" << END_SCRIPT
 
-blazegraph query --format table << __END_QUERY__
+blaze query --format table << __END_QUERY__
 
     PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
 
@@ -222,7 +222,7 @@ END_SCRIPT
 
 bash ${RUNNER} Q9 "WHAT VARIABLES WERE DIRECTLY AFFECTED BY OTHER VARIABLES?" << END_SCRIPT
 
-blazegraph query --format table << __END_QUERY__
+blaze query --format table << __END_QUERY__
 
     PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
 
@@ -247,7 +247,7 @@ END_SCRIPT
 bash ${GRAPHER} GRAPH-1 "DATAFRAME FLOW THROUGH COMMANDS" \
     << '__END_SCRIPT__'
 
-blazegraph report << '__END_REPORT_TEMPLATE__'
+blaze report << '__END_REPORT_TEMPLATE__'
 
     {{{
         {{ include "../../common/graphviz.g" }}

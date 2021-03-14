@@ -29,7 +29,7 @@ func TestReportInfer_rdfs_subClassOf(t *testing.T) {
 			tm:b3 rdf:type tm:typeb .
 			tm:c1 rdf:type tm:typec .
 		`)
-		run("blazegraph import --format ttl")
+		run("blaze import --format ttl")
 	}
 
 	report := func() {
@@ -62,13 +62,13 @@ func TestReportInfer_rdfs_subClassOf(t *testing.T) {
 				ORDER BY ?c ''' | tabulate }}
 		`
 		Main.InReader = strings.NewReader(q)
-		run("blazegraph report")
+		run("blaze report")
 	}
 
 	t.Run("infer-none", func(t *testing.T) {
 		outputBuffer.Reset()
-		run("blazegraph destroy --all --quiet")
-		run("blazegraph create --quiet --dataset kb --infer none")
+		run("blaze destroy --all --quiet")
+		run("blaze create --quiet --dataset kb --infer none")
 		load()
 		report()
 		util.LineContentsEqual(t, outputBuffer.String(),
@@ -95,8 +95,8 @@ func TestReportInfer_rdfs_subClassOf(t *testing.T) {
 
 	t.Run("infer-rdfs", func(t *testing.T) {
 		outputBuffer.Reset()
-		run("blazegraph destroy --all --quiet")
-		run("blazegraph create --quiet --dataset kb --infer rdfs")
+		run("blaze destroy --all --quiet")
+		run("blaze create --quiet --dataset kb --infer rdfs")
 		load()
 		report()
 		util.LineContentsEqual(t, outputBuffer.String(),
@@ -144,8 +144,8 @@ func TestReportInfer_rdfs_subClassOf(t *testing.T) {
 
 	t.Run("infer-owl", func(t *testing.T) {
 		outputBuffer.Reset()
-		run("blazegraph destroy --all --quiet")
-		run("blazegraph create --quiet --dataset kb --infer owl")
+		run("blaze destroy --all --quiet")
+		run("blaze create --quiet --dataset kb --infer owl")
 		load()
 		report()
 		util.LineContentsEqual(t, outputBuffer.String(),
@@ -218,7 +218,7 @@ func TestReportInfer_rdf_inverseOf(t *testing.T) {
 			person:tim verb:uses tool:mouse .
 			tool:keyboard verb:usedBy person:tim .
 		`)
-		run("blazegraph import --format ttl")
+		run("blaze import --format ttl")
 	}
 
 	report := func() {
@@ -243,13 +243,13 @@ func TestReportInfer_rdf_inverseOf(t *testing.T) {
 				ORDER BY ?usedTool ''' | tabulate }}
 		`
 		Main.InReader = strings.NewReader(q)
-		run("blazegraph report")
+		run("blaze report")
 	}
 
 	t.Run("infer-none", func(t *testing.T) {
 		outputBuffer.Reset()
-		run("blazegraph destroy --all --quiet")
-		run("blazegraph create --quiet --dataset kb --infer none")
+		run("blaze destroy --all --quiet")
+		run("blaze create --quiet --dataset kb --infer none")
 		load()
 		report()
 		util.LineContentsEqual(t, outputBuffer.String(),
@@ -271,8 +271,8 @@ func TestReportInfer_rdf_inverseOf(t *testing.T) {
 
 	t.Run("infer-rdfs", func(t *testing.T) {
 		outputBuffer.Reset()
-		run("blazegraph destroy --all --quiet")
-		run("blazegraph create --quiet --dataset kb --infer rdfs")
+		run("blaze destroy --all --quiet")
+		run("blaze create --quiet --dataset kb --infer rdfs")
 		load()
 		report()
 		util.LineContentsEqual(t, outputBuffer.String(),
@@ -294,8 +294,8 @@ func TestReportInfer_rdf_inverseOf(t *testing.T) {
 
 	t.Run("infer-owl", func(t *testing.T) {
 		outputBuffer.Reset()
-		run("blazegraph destroy --all --quiet")
-		run("blazegraph create --quiet --dataset kb --infer owl")
+		run("blaze destroy --all --quiet")
+		run("blaze create --quiet --dataset kb --infer owl")
 		load()
 		report()
 		util.LineContentsEqual(t, outputBuffer.String(),
@@ -346,7 +346,7 @@ func TestReportInfer_rdfs_domain_range(t *testing.T) {
 
 			tool:mouse verb:uses person:tim .
 		`)
-		run("blazegraph import --format ttl")
+		run("blaze import --format ttl")
 	}
 
 	report := func() {
@@ -400,13 +400,13 @@ func TestReportInfer_rdfs_domain_range(t *testing.T) {
 				ORDER BY ?s ?o ''' | tabulate }}
 			`
 		Main.InReader = strings.NewReader(q)
-		run("blazegraph report")
+		run("blaze report")
 	}
 
 	t.Run("infer-none", func(t *testing.T) {
 		outputBuffer.Reset()
-		run("blazegraph destroy --all --quiet")
-		run("blazegraph create --quiet --dataset kb --infer none")
+		run("blaze destroy --all --quiet")
+		run("blaze create --quiet --dataset kb --infer none")
 		load()
 		report()
 		util.LineContentsEqual(t, outputBuffer.String(),
@@ -454,8 +454,8 @@ func TestReportInfer_rdfs_domain_range(t *testing.T) {
 
 	t.Run("infer-rdfs", func(t *testing.T) {
 		outputBuffer.Reset()
-		run("blazegraph destroy --all --quiet")
-		run("blazegraph create --quiet --dataset kb --infer rdfs")
+		run("blaze destroy --all --quiet")
+		run("blaze create --quiet --dataset kb --infer rdfs")
 		load()
 		report()
 		util.LineContentsEqual(t, outputBuffer.String(),
@@ -508,8 +508,8 @@ func TestReportInfer_rdfs_domain_range(t *testing.T) {
 
 	t.Run("infer-owl", func(t *testing.T) {
 		outputBuffer.Reset()
-		run("blazegraph destroy --all --quiet")
-		run("blazegraph create --quiet --dataset kb --infer owl")
+		run("blaze destroy --all --quiet")
+		run("blaze create --quiet --dataset kb --infer owl")
 		load()
 		report()
 		util.LineContentsEqual(t, outputBuffer.String(),
@@ -581,7 +581,7 @@ func TestReportInfer_rdfs_domain_range(t *testing.T) {
 // 			@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 // 			@prefix tm: <http://tmcphill.net/ns/data#> .
 // 		`)
-// 		run("blazegraph import --format ttl")
+// 		run("blaze import --format ttl")
 // 	}
 
 // 	report := func() {
@@ -591,13 +591,13 @@ func TestReportInfer_rdfs_domain_range(t *testing.T) {
 
 // 		`
 // 		Main.InReader = strings.NewReader(q)
-// 		run("blazegraph report")
+// 		run("blaze report")
 // 	}
 
 // 	t.Run("infer-none", func(t *testing.T) {
 // 		outputBuffer.Reset()
-// 		run("blazegraph destroy --dataset kb --quiet")
-// 		run("blazegraph create --quiet --dataset kb --infer none")
+// 		run("blaze destroy --dataset kb --quiet")
+// 		run("blaze create --quiet --dataset kb --infer none")
 // 		load()
 // 		report()
 // 		util.LineContentsEqual(t, outputBuffer.String(), `
@@ -606,8 +606,8 @@ func TestReportInfer_rdfs_domain_range(t *testing.T) {
 
 // 	t.Run("infer-rdfs", func(t *testing.T) {
 // 		outputBuffer.Reset()
-// 		run("blazegraph destroy --dataset kb --quiet")
-// 		run("blazegraph create --quiet --dataset kb --infer rdfs")
+// 		run("blaze destroy --dataset kb --quiet")
+// 		run("blaze create --quiet --dataset kb --infer rdfs")
 // 		load()
 // 		report()
 // 		util.LineContentsEqual(t, outputBuffer.String(), `
@@ -616,8 +616,8 @@ func TestReportInfer_rdfs_domain_range(t *testing.T) {
 
 // 	t.Run("infer-owl", func(t *testing.T) {
 // 		outputBuffer.Reset()
-// 		run("blazegraph destroy --dataset kb --quiet")
-// 		run("blazegraph create --quiet --dataset kb --infer owl")
+// 		run("blaze destroy --dataset kb --quiet")
+// 		run("blaze create --quiet --dataset kb --infer owl")
 // 		load()
 // 		report()
 // 		util.LineContentsEqual(t, outputBuffer.String(), `

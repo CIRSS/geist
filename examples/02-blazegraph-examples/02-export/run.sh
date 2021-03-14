@@ -6,9 +6,9 @@ RUNNER='../../common/run_script_example.sh'
 
 bash ${RUNNER} SETUP "INITIALIZE BLAZEGRAPH INSTANCE WITH ADDRESS BOOK" << END_SCRIPT
 
-blazegraph destroy --dataset kb --quiet
-blazegraph create --dataset kb --quiet
-blazegraph import --file ../data/address-book.jsonld --format jsonld
+blaze destroy --dataset kb --quiet
+blaze create --dataset kb --quiet
+blaze import --file ../data/address-book.jsonld --format jsonld
 
 END_SCRIPT
 
@@ -16,7 +16,7 @@ END_SCRIPT
 
 bash ${RUNNER} S1 "EXPORT ADDRESS BOOK AS JSON-LD" << END_SCRIPT
 
-blazegraph export --format jsonld
+blaze export --format jsonld
 
 END_SCRIPT
 
@@ -24,7 +24,7 @@ END_SCRIPT
 
 bash ${RUNNER} S1 "EXPORT ADDRESS BOOK AS TURTLE" << END_SCRIPT
 
-blazegraph export --format ttl
+blaze export --format ttl
 
 END_SCRIPT
 
@@ -32,7 +32,7 @@ END_SCRIPT
 
 bash ${RUNNER} S1 "EXPORT ADDRESS BOOK AS N-TRIPLES" << END_SCRIPT
 
-blazegraph export --format nt | sort
+blaze export --format nt | sort
 
 END_SCRIPT
 
@@ -40,6 +40,6 @@ END_SCRIPT
 
 bash ${RUNNER} S1 "EXPORT ADDRESS BOOK AS RDF-XML" << END_SCRIPT
 
-blazegraph export --format xml
+blaze export --format xml
 
 END_SCRIPT

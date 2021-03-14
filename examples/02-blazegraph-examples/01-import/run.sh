@@ -6,8 +6,8 @@ RUNNER='../../common/run_script_example.sh'
 
 bash ${RUNNER} SETUP "INITIALIZE BLAZEGRAPH INSTANCE" << END_SCRIPT
 
-blazegraph destroy --dataset kb --quiet
-blazegraph create --dataset kb --quiet
+blaze destroy --dataset kb --quiet
+blaze create --dataset kb --quiet
 
 END_SCRIPT
 
@@ -15,14 +15,14 @@ END_SCRIPT
 
 bash ${RUNNER} S1 "IMPORT TWO TRIPLES AS N-TRIPLES" << END_SCRIPT
 
-blazegraph import --format nt | sort << END_DATA
+blaze import --format nt | sort << END_DATA
 
 	<http://tmcphill.net/data#y> <http://tmcphill.net/tags#tag> "eight" .
 	<http://tmcphill.net/data#x> <http://tmcphill.net/tags#tag> "seven" .
 
 END_DATA
 
-blazegraph export --format nt --sort=true
+blaze export --format nt --sort=true
 
 END_SCRIPT
 
@@ -30,10 +30,10 @@ END_SCRIPT
 
 bash ${RUNNER} S2 "IMPORT TWO TRIPLES AS TURTLE" << END_SCRIPT
 
-blazegraph destroy --dataset kb --quiet
-blazegraph create --dataset kb --quiet
+blaze destroy --dataset kb --quiet
+blaze create --dataset kb --quiet
 
-blazegraph import --format ttl << END_DATA
+blaze import --format ttl << END_DATA
 
 	@prefix data: <http://tmcphill.net/data#> .
 	@prefix tags: <http://tmcphill.net/tags#> .
@@ -43,7 +43,7 @@ blazegraph import --format ttl << END_DATA
 
 END_DATA
 
-blazegraph export --format nt --sort=true
+blaze export --format nt --sort=true
 
 END_SCRIPT
 
@@ -51,10 +51,10 @@ END_SCRIPT
 
 bash ${RUNNER} S3 "IMPORT TWO TRIPLES AS JSON-LD" << END_SCRIPT
 
-blazegraph destroy --dataset kb --quiet
-blazegraph create --dataset kb --quiet
+blaze destroy --dataset kb --quiet
+blaze create --dataset kb --quiet
 
-blazegraph import --format jsonld << END_DATA
+blaze import --format jsonld << END_DATA
 
     [
         {
@@ -69,7 +69,7 @@ blazegraph import --format jsonld << END_DATA
 
 END_DATA
 
-blazegraph export --format nt --sort=true
+blaze export --format nt --sort=true
 
 END_SCRIPT
 
@@ -77,10 +77,10 @@ END_SCRIPT
 
 bash ${RUNNER} S4 "IMPORT TWO TRIPLES AS RDF-XML" << END_SCRIPT
 
-blazegraph destroy --dataset kb --quiet
-blazegraph create --dataset kb --quiet
+blaze destroy --dataset kb --quiet
+blaze create --dataset kb --quiet
 
-blazegraph import --format xml << END_DATA
+blaze import --format xml << END_DATA
 
     <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
 
@@ -96,6 +96,6 @@ blazegraph import --format xml << END_DATA
 
 END_DATA
 
-blazegraph export --format nt --sort=true
+blaze export --format nt --sort=true
 
 END_SCRIPT

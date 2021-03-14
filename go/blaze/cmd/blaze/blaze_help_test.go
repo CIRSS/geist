@@ -16,9 +16,9 @@ func TestBlazegraphCmd_no_command(t *testing.T) {
 	assertExitCode(t, "blazegraph", 1)
 
 	util.LineContentsEqual(t, outputBuffer.String(),
-		`blazegraph: no command given
+		`blaze: no command given
 
-		usage: blazegraph <command> [<flags>]
+		usage: blaze <command> [<flags>]
 
 		commands:
 		create   - Create a new RDF dataset
@@ -39,7 +39,7 @@ func TestBlazegraphCmd_no_command(t *testing.T) {
 		-silent
 				Discard normal and error command output
 
-		See 'blazegraph help <command>' for help with one of the above commands.
+		See 'blaze help <command>' for help with one of the above commands.
 
 		`)
 }
@@ -50,11 +50,11 @@ func TestBlazegraphCmd_help_command_with_no_argument(t *testing.T) {
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
 
-	assertExitCode(t, "blazegraph help", 0)
+	assertExitCode(t, "blaze help", 0)
 
 	util.LineContentsEqual(t, outputBuffer.String(),
 		`
-		usage: blazegraph <command> [<flags>]
+		usage: blaze <command> [<flags>]
 
 		commands:
 			create   - Create a new RDF dataset
@@ -75,7 +75,7 @@ func TestBlazegraphCmd_help_command_with_no_argument(t *testing.T) {
 			-silent
 				Discard normal and error command output
 
-		See 'blazegraph help <command>' for help with one of the above commands.
+		See 'blaze help <command>' for help with one of the above commands.
 
 		`)
 }
@@ -86,12 +86,12 @@ func TestBlazegraphCmd_unsupported_command(t *testing.T) {
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
 
-	assertExitCode(t, "blazegraph not-a-command", 1)
+	assertExitCode(t, "blaze not-a-command", 1)
 
 	util.LineContentsEqual(t, outputBuffer.String(),
-		`blazegraph: unrecognized command: not-a-command
+		`blaze: unrecognized command: not-a-command
 
-		usage: blazegraph <command> [<flags>]
+		usage: blaze <command> [<flags>]
 
 		commands:
 			create   - Create a new RDF dataset
@@ -112,7 +112,7 @@ func TestBlazegraphCmd_unsupported_command(t *testing.T) {
 			-silent
 				Discard normal and error command output
 
-		See 'blazegraph help <command>' for help with one of the above commands.
+		See 'blaze help <command>' for help with one of the above commands.
 
 		`)
 }
@@ -123,12 +123,12 @@ func TestBlazegraphCmd_help_unsupported_command(t *testing.T) {
 	Main.OutWriter = &outputBuffer
 	Main.ErrWriter = &outputBuffer
 
-	assertExitCode(t, "blazegraph help not-a-command", 1)
+	assertExitCode(t, "blaze help not-a-command", 1)
 
 	util.LineContentsEqual(t, outputBuffer.String(),
-		`blazegraph help: unrecognized blazegraph command: not-a-command
+		`blaze help: unrecognized blaze command: not-a-command
 
-		usage: blazegraph <command> [<flags>]
+		usage: blaze <command> [<flags>]
 
 		commands:
 			create   - Create a new RDF dataset
@@ -149,7 +149,7 @@ func TestBlazegraphCmd_help_unsupported_command(t *testing.T) {
 			-silent
 				Discard normal and error command output
 
-		See 'blazegraph help <command>' for help with one of the above commands.
+		See 'blaze help <command>' for help with one of the above commands.
 
 		`)
 }
