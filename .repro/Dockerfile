@@ -19,11 +19,6 @@ RUN echo '***** Install packages required for creating this image *****'    \
     && echo '***** Install command-line utility packages *****'             \
     && apt -y install sudo man less file tree jq graphviz libxml2-utils
 
-RUN echo '***** Install python3 and required pip packages *****'            \
-    && apt -y install python3 python3-pip                                   \
-    && pip3 install -U pip                                                  \
-    && pip3 install pandas
-
 ENV GO_VERSION       1.16
 ENV GO_DOWNLOADS_URL https://dl.google.com/go
 ENV GO_ARCHIVE       go${GO_VERSION}.linux-amd64.tar.gz
@@ -76,7 +71,8 @@ ENV BLAZEGRAPH_CMD "java ${BLAZEGRAPH_OPTIONS} -jar ${BLAZEGRAPH_JAR}"
 ENV BLAZEGRAPH_LOG ${BLAZEGRAPH_DOT_DIR}/blazegraph_`date +%s`.log
 
 RUN echo '***** Start Blazegraph at login *****'                            \
-    && echo "cd ${BLAZEGRAPH_DOT_DIR} && ${BLAZEGRAPH_CMD} 2>&1 > ${BLAZEGRAPH_LOG} &" >> ${BASHRC}
+    && echo "source .bashrc" >> .bash_profile                               \
+    && echo "cd ${BLAZEGRAPH_DOT_DIR} && ${BLAZEGRAPH_CMD} 2>&1 > ${BLAZEGRAPH_LOG} &" >> .bash_profile
 
 ENV GOPATH ${REPRO_MNT}/.gopath
 

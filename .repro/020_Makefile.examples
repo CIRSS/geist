@@ -4,8 +4,8 @@
 
 ## run-examples:           Run all of the examples.
 run-examples: 
-	$(RUN_IN_REPRO) 'make -C go install 				      	&&	\
-	 				 blaze status --timeout 5000 --quiet 	&& 	\
+	$(RUN_IN_REPRO) 'make -C ${REPRO_DIR} -f Makefile-go install 	&&	\
+	 				 geist status --timeout 5000 --quiet 			&& 	\
 	 				 make -C examples all'
 
 clean-examples:         ## Delete all products of examples.

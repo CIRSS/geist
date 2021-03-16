@@ -3,10 +3,10 @@
 
 # IMPORT SDTL
 
-blaze destroy --dataset kb --quiet
-blaze create --dataset kb --quiet --infer owl
-blaze import --file ../data/sdtl-enhanced-rules.ttl
-blaze import --format jsonld --file ../data/compute-sdtl.jsonld
+geist destroy --dataset kb --quiet
+geist create --dataset kb --quiet --infer owl
+geist import --file ../data/sdtl-enhanced-rules.ttl
+geist import --format jsonld --file ../data/compute-sdtl.jsonld
 
 ------------------------------------------- SETUP OUTPUTS ------------------------------------------------
 
@@ -16,7 +16,7 @@ blaze import --format jsonld --file ../data/compute-sdtl.jsonld
 
 # EXPORT AS N-TRIPLES
 
-blaze export --format nt | sort
+geist export --format nt | sort
 
 ------------------------------------------- E1 OUTPUTS ------------------------------------------------
 
@@ -713,7 +713,7 @@ blaze export --format nt | sort
 
 # WHAT COMMANDS USE EACH VARIABLE?
 
-blaze query --format table << __END_QUERY__
+geist query --format table << __END_QUERY__
 
     {{{
 
@@ -748,7 +748,7 @@ Fahrenheit    | http://wholetale.org/program/1119/compute/4 | 24          | temp
 
 # WHAT VARIABLES DIRECTLY AFFECT OTHER VARIABLES?
 
-blaze query --format table << __END_QUERY__
+geist query --format table << __END_QUERY__
 
     {{{
 
@@ -784,7 +784,7 @@ Fahrenheit         | Celsius           | http://wholetale.org/program/1119/compu
 
 # WHAT VARIABLES DIRECTLY AFFECT THE KELVIN VARIABLE?
 
-blaze query --format table << __END_QUERY__
+geist query --format table << __END_QUERY__
 
     {{{
 
@@ -816,7 +816,7 @@ Celsius            | http://wholetale.org/program/1119/compute/5 | 28          |
 
 # WHAT VARIABLES DIRECTLY AFFECT VARIABLES THAT DIRECTLY AFFECT THE KELVIN VARIABLE?
 
-blaze query --format table << __END_QUERY__
+geist query --format table << __END_QUERY__
 
     {{{
 
@@ -852,7 +852,7 @@ Fahrenheit                    | http://wholetale.org/program/1119/compute/4 | 24
 
 # WHAT VARIABLES DIRECTLY OR INDIRECTLY AFFECT THE KELVIN VARIABLE?
 
-blaze query --format table << __END_QUERY__
+geist query --format table << __END_QUERY__
 
     PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
 
@@ -878,7 +878,7 @@ Fahrenheit
 
 # WHAT COMMANDS AFFECT EACH VARIABLE?
 
-blaze query --format table << __END_QUERY__
+geist query --format table << __END_QUERY__
 
     {{{
 
@@ -924,7 +924,7 @@ Kelvin            | http://wholetale.org/program/1119/compute/5 | 28          | 
 
 # WHAT COMMANDS READ VARIABLE VALUES ASSIGNED BY OTHER COMMANDS?
 
-blaze query --format table << __END_QUERY__
+geist query --format table << __END_QUERY__
 
     {{{
 
@@ -957,7 +957,7 @@ A        | 8           | df['A'] = 3 | 32          | df.to_csv('outputs/df_updat
 
 # REPORT HISTORY OF EACH VARIABLE
 
-blaze report << '__END_REPORT_TEMPLATE__'
+geist report << '__END_REPORT_TEMPLATE__'
 
 {{{
     {{ include "../../common/sdtl.g" }}
@@ -1041,7 +1041,7 @@ Save    | Line 35 | temps.to_csv('outputs/temps_updated.csv', index=False)
 
 # WHAT COMMANDS WRITE TO EACH VARIABLE?
 
-blaze report << '__END_REPORT_TEMPLATE__'
+geist report << '__END_REPORT_TEMPLATE__'
 
 {{{
     {{ include "../../common/sdtl.g" }}
@@ -1084,7 +1084,7 @@ Kelvin           | 28          | temps = temps.assign(Kelvin=(temps.Celsius + 27
 
 # WHAT COMMANDS READ FROM EACH VARIABLE?
 
-blaze report << '__END_REPORT_TEMPLATE__'
+geist report << '__END_REPORT_TEMPLATE__'
 
 {{{
     {{ include "../../common/sdtl.g" }}
@@ -1130,7 +1130,7 @@ Kelvin        | 35          | temps.to_csv('outputs/temps_updated.csv', index=Fa
 
 # WHAT COMMANDS WRITE VARIABLES READ BY DOWNSTREAM COMMANDS?
 
-blaze report << '__END_REPORT_TEMPLATE__'
+geist report << '__END_REPORT_TEMPLATE__'
 
 {{{
     {{ include "../../common/sdtl.g" }}
@@ -1182,7 +1182,7 @@ Kelvin     | 28          | temps = temps.assign(Kelvin=(temps.Celsius + 273))   
 
 # WHAT COMMANDS READ VARIABLES WRITTEN BY MULTIPLE UPSTREAM COMMANDS?
 
-blaze report << '__END_REPORT_TEMPLATE__'
+geist report << '__END_REPORT_TEMPLATE__'
 
 {{{
     {{ include "../../common/sdtl.g" }}
@@ -1225,7 +1225,7 @@ B        | 4           | df = pd.read_csv('../data/df.csv') | 12                
 
 # DATAFRAME FLOW THROUGH COMMANDS
 
-blaze report << '__END_REPORT_TEMPLATE__'
+geist report << '__END_REPORT_TEMPLATE__'
 
     {{{
         {{ include "../../common/graphviz.g" }}
@@ -1303,7 +1303,7 @@ node[width=8]
 
 # VARIABLE FLOW THROUGH COMMANDS
 
-blaze report << '__END_REPORT_TEMPLATE__'
+geist report << '__END_REPORT_TEMPLATE__'
 
     {{{
         {{ include "../../common/graphviz.g" }}

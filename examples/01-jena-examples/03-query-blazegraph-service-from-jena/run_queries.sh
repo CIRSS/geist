@@ -3,8 +3,8 @@
 run_query='../common/run_query.sh'
 data_file='../data/address-book.jsonld'
 
-blaze destroy --dataset kb --quiet
-blaze create --dataset kb --quiet
+geist destroy --dataset kb --quiet
+geist create --dataset kb --quiet
 
 bash ${run_query} ${data_file} Q1 "List all triples in blazegraph." << END_QUERY
 PREFIX ab: <http://learningsparql.com/ns/addressbook#>

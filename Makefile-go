@@ -1,0 +1,18 @@
+
+build:
+	go build ./...
+
+# disable test result caching using: -count 1
+# disable parallel execution of tests using: -p 1 
+test:
+	go test ./... -count 1 -p 1
+
+clean:
+	go clean ./...
+	chmod -R +w ${GOPATH}
+	rm -rf ${GOPATH}/*
+
+package: install
+
+install:                 # Install custom code.
+	go install ./...   

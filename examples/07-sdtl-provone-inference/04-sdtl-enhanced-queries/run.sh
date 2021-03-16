@@ -7,10 +7,10 @@ GRAPHER='../../common/run_dot_examples.sh'
 
 bash ${RUNNER} SETUP "IMPORT SDTL" << END_SCRIPT
 
-blaze destroy --dataset kb --quiet
-blaze create --dataset kb --quiet --infer owl
-blaze import --file ../data/sdtl-enhanced-rules.ttl
-blaze import --format jsonld --file ../data/compute-sdtl.jsonld
+geist destroy --dataset kb --quiet
+geist create --dataset kb --quiet --infer owl
+geist import --file ../data/sdtl-enhanced-rules.ttl
+geist import --format jsonld --file ../data/compute-sdtl.jsonld
 
 END_SCRIPT
 
@@ -18,7 +18,7 @@ END_SCRIPT
 
 bash ${RUNNER} E1 "EXPORT AS N-TRIPLES" << END_SCRIPT
 
-blaze export --format nt | sort
+geist export --format nt | sort
 
 END_SCRIPT
 
@@ -26,7 +26,7 @@ END_SCRIPT
 
 bash ${RUNNER} Q1 "WHAT COMMANDS USE EACH VARIABLE?" << END_SCRIPT
 
-blaze query --format table << __END_QUERY__
+geist query --format table << __END_QUERY__
 
     {{{
 
@@ -52,7 +52,7 @@ END_SCRIPT
 
 bash ${RUNNER} Q2 "WHAT VARIABLES DIRECTLY AFFECT OTHER VARIABLES?" << END_SCRIPT
 
-blaze query --format table << __END_QUERY__
+geist query --format table << __END_QUERY__
 
     {{{
 
@@ -79,7 +79,7 @@ END_SCRIPT
 
 bash ${RUNNER} Q3 "WHAT VARIABLES DIRECTLY AFFECT THE KELVIN VARIABLE?" << END_SCRIPT
 
-blaze query --format table << __END_QUERY__
+geist query --format table << __END_QUERY__
 
     {{{
 
@@ -106,7 +106,7 @@ END_SCRIPT
 
 bash ${RUNNER} Q4 "WHAT VARIABLES DIRECTLY AFFECT VARIABLES THAT DIRECTLY AFFECT THE KELVIN VARIABLE?" << END_SCRIPT
 
-blaze query --format table << __END_QUERY__
+geist query --format table << __END_QUERY__
 
     {{{
 
@@ -137,7 +137,7 @@ END_SCRIPT
 
 bash ${RUNNER} Q5 "WHAT VARIABLES DIRECTLY OR INDIRECTLY AFFECT THE KELVIN VARIABLE?" << END_SCRIPT
 
-blaze query --format table << __END_QUERY__
+geist query --format table << __END_QUERY__
 
     PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
 
@@ -157,7 +157,7 @@ END_SCRIPT
 
 bash ${RUNNER} Q6 "WHAT COMMANDS AFFECT EACH VARIABLE?" << END_SCRIPT
 
-blaze query --format table << __END_QUERY__
+geist query --format table << __END_QUERY__
 
     {{{
 
@@ -191,7 +191,7 @@ END_SCRIPT
 
 bash ${RUNNER} Q7 "WHAT COMMANDS READ VARIABLE VALUES ASSIGNED BY OTHER COMMANDS?" << END_SCRIPT
 
-blaze query --format table << __END_QUERY__
+geist query --format table << __END_QUERY__
 
     {{{
 
@@ -216,7 +216,7 @@ END_SCRIPT
 
 bash ${RUNNER} R1 "REPORT HISTORY OF EACH VARIABLE" << 'END_SCRIPT'
 
-blaze report << '__END_REPORT_TEMPLATE__'
+geist report << '__END_REPORT_TEMPLATE__'
 
 {{{
     {{ include "../../common/sdtl.g" }}
@@ -251,7 +251,7 @@ END_SCRIPT
 
 bash ${RUNNER} R2 "WHAT COMMANDS WRITE TO EACH VARIABLE?" << END_SCRIPT
 
-blaze report << '__END_REPORT_TEMPLATE__'
+geist report << '__END_REPORT_TEMPLATE__'
 
 {{{
     {{ include "../../common/sdtl.g" }}
@@ -278,7 +278,7 @@ END_SCRIPT
 
 bash ${RUNNER} R3 "WHAT COMMANDS READ FROM EACH VARIABLE?" << END_SCRIPT
 
-blaze report << '__END_REPORT_TEMPLATE__'
+geist report << '__END_REPORT_TEMPLATE__'
 
 {{{
     {{ include "../../common/sdtl.g" }}
@@ -304,7 +304,7 @@ END_SCRIPT
 
 bash ${RUNNER} R4 "WHAT COMMANDS WRITE VARIABLES READ BY DOWNSTREAM COMMANDS?" << END_SCRIPT
 
-blaze report << '__END_REPORT_TEMPLATE__'
+geist report << '__END_REPORT_TEMPLATE__'
 
 {{{
     {{ include "../../common/sdtl.g" }}
@@ -332,7 +332,7 @@ END_SCRIPT
 
 bash ${RUNNER} R5 "WHAT COMMANDS READ VARIABLES WRITTEN BY MULTIPLE UPSTREAM COMMANDS?" << END_SCRIPT
 
-blaze report << '__END_REPORT_TEMPLATE__'
+geist report << '__END_REPORT_TEMPLATE__'
 
 {{{
     {{ include "../../common/sdtl.g" }}
@@ -365,7 +365,7 @@ END_SCRIPT
 bash ${GRAPHER} GRAPH-1 "DATAFRAME FLOW THROUGH COMMANDS" \
     << '__END_SCRIPT__'
 
-blaze report << '__END_REPORT_TEMPLATE__'
+geist report << '__END_REPORT_TEMPLATE__'
 
     {{{
         {{ include "../../common/graphviz.g" }}
@@ -408,7 +408,7 @@ __END_SCRIPT__
 bash ${GRAPHER} GRAPH-2 "VARIABLE FLOW THROUGH COMMANDS" \
     << '__END_SCRIPT__'
 
-blaze report << '__END_REPORT_TEMPLATE__'
+geist report << '__END_REPORT_TEMPLATE__'
 
     {{{
         {{ include "../../common/graphviz.g" }}

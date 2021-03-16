@@ -3,10 +3,10 @@
 
 # IMPORT SDTL AS JSON-LD AND EXPORT AS N-TRIPLES
 
-blaze destroy --dataset kb --quiet
-blaze create --dataset kb --quiet
-blaze import --format jsonld --file ../data/compute-sdtl.jsonld
-blaze export --format nt | sort
+geist destroy --dataset kb --quiet
+geist create --dataset kb --quiet
+geist import --format jsonld --file ../data/compute-sdtl.jsonld
+geist export --format nt | sort
 
 ------------------------------------------- DUMP-1 OUTPUTS ------------------------------------------------
 

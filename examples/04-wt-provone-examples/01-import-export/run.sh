@@ -6,9 +6,9 @@ RUNNER='../../common/run_script_example.sh'
 
 bash ${RUNNER} SETUP "IMPORT PROVONE TRACE" << END_SCRIPT
 
-blaze destroy --dataset kb --quiet
-blaze create --dataset kb --quiet
-blaze import --format jsonld --file ../data/branched-pipeline.jsonld
+geist destroy --dataset kb --quiet
+geist create --dataset kb --quiet
+geist import --format jsonld --file ../data/branched-pipeline.jsonld
 
 END_SCRIPT
 
@@ -16,7 +16,7 @@ END_SCRIPT
 
 bash ${RUNNER} S1 "EXPORT AS N-TRIPLES" << END_SCRIPT
 
-blaze export --format nt | sort
+geist export --format nt | sort
 
 END_SCRIPT
 
@@ -24,7 +24,7 @@ END_SCRIPT
 
 bash ${RUNNER} S2 "EXPORT AS JSON-LD" << END_SCRIPT
 
-blaze export --format jsonld
+geist export --format jsonld
 
 END_SCRIPT
 
@@ -32,7 +32,7 @@ END_SCRIPT
 #
 # bash ${RUNNER} S2 "EXPORT AS TURTLE" << END_SCRIPT
 #
-# blaze export --format ttl
+# geist export --format ttl
 #
 # END_SCRIPT
 #
@@ -41,6 +41,6 @@ END_SCRIPT
 #
 # bash ${RUNNER} S4 "EXPORT AS RDF/XML" << END_SCRIPT
 #
-# blaze export --format xml | xmllint - --c14n11
+# geist export --format xml | xmllint - --c14n11
 #
 # END_SCRIPT

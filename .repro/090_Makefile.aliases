@@ -3,17 +3,22 @@
 ## 
 
 # Define target aliases available both inside and outside a running REPRO
-examples: run-examples  ## Run all of the examples
+
+examples: run-examples  ## Run all of the examples.
+## 
+clean:    clean-code    ## Delete artifacts from previous builds.
 build:    build-code    ## Build all of the custom code.
 test:     test-code     ## Run all of the tests on custom code.
+install:  install-code  ## Install built artifacts in REPRO.
 package:  package-code  ## Package custom artifacts for distribution.
-
 ## 
+serve: start-service    ## Run the service provided by this REPRO locally.
 
 # Define target aliases available only outside a running REPRO
 ifndef IN_RUNNING_REPRO
-start:    start-image   ## Start a container using this REPRO's Docker image.
-image:    build-image   ## Build the Docker image used to run this REPRO.
-endif
 
+image: build-image      ## Build the Docker image used to run this REPRO.
+start: start-image      ## Start a new container using the REPRO Docker image.
+
+endif
 ## 

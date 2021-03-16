@@ -3,9 +3,9 @@
 
 # IMPORT PROVONE TRACE
 
-blaze destroy --dataset kb --quiet
-blaze create --dataset kb --quiet
-blaze import --format jsonld --file ../data/branched-pipeline.jsonld
+geist destroy --dataset kb --quiet
+geist create --dataset kb --quiet
+geist import --format jsonld --file ../data/branched-pipeline.jsonld
 
 ------------------------------------------- SETUP OUTPUTS ------------------------------------------------
 
@@ -15,7 +15,7 @@ blaze import --format jsonld --file ../data/branched-pipeline.jsonld
 
 # EXPORT AS N-TRIPLES
 
-blaze export --format nt | sort
+geist export --format nt | sort
 
 ------------------------------------------- S1 OUTPUTS ------------------------------------------------
 

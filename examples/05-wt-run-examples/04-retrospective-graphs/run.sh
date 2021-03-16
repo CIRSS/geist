@@ -8,9 +8,9 @@ SCRIPT_RUNNER='../../common/run_script_example.sh'
 
 bash ${SCRIPT_RUNNER} SETUP "IMPORT PROVONE TRACE" << END_SCRIPT
 
-blaze destroy --dataset kb --quiet
-blaze create --dataset kb --quiet
-blaze import --format jsonld --file ../data/branched-pipeline.jsonld
+geist destroy --dataset kb --quiet
+geist create --dataset kb --quiet
+geist import --format jsonld --file ../data/branched-pipeline.jsonld
 
 END_SCRIPT
 
@@ -18,7 +18,7 @@ END_SCRIPT
 bash ${DOT_RUNNER} GRAPH-1 "EMPTY DOT FILE" \
     << '__END_SCRIPT__'
 
-blaze report << '__END_REPORT_TEMPLATE__'
+geist report << '__END_REPORT_TEMPLATE__'
                                                                     \\
 {{{
     {{ include "graphviz.g" }}
@@ -36,7 +36,7 @@ __END_SCRIPT__
 bash ${DOT_RUNNER} GRAPH-2 "TITLED EMPTY DOT FILE" \
     << '__END_SCRIPT__'
 
-blaze report << '__END_REPORT_TEMPLATE__'
+geist report << '__END_REPORT_TEMPLATE__'
                                                                     \\
 {{{
     {{ include "graphviz.g" }}
@@ -60,7 +60,7 @@ __END_SCRIPT__
 bash ${DOT_RUNNER} GRAPH-3 "Node for Tale Run" \
     << '__END_SCRIPT__'
 
-blaze report << '__END_REPORT_TEMPLATE__'
+geist report << '__END_REPORT_TEMPLATE__'
                                                                     \\
     {{{
         {{ include "graphviz.g" }}
@@ -85,7 +85,7 @@ __END_SCRIPT__
 bash ${DOT_RUNNER} GRAPH-4 "Tale Run with Inputs and Outputs" \
     << '__END_SCRIPT__'
 
-blaze report << '__END_REPORT_TEMPLATE__'
+geist report << '__END_REPORT_TEMPLATE__'
                                                                                 \\
     {{{
         {{ include "graphviz.g" }}
@@ -127,7 +127,7 @@ __END_SCRIPT__
 bash ${DOT_RUNNER} GRAPH-5 "Tale Processes and Data Files" \
     << '__END_SCRIPT__'
 
-blaze report << '__END_REPORT_TEMPLATE__'
+geist report << '__END_REPORT_TEMPLATE__'
                                                                                 \\
     {{{
         {{ include "graphviz.g" }}
