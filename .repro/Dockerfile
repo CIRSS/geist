@@ -80,6 +80,4 @@ RUN echo 'PATH=${GOPATH}/bin:/usr/local/go/bin:$PATH' >> ${BASHRC}
 RUN echo "export IN_RUNNING_REPRO=${REPRO_NAME}" >> ${BASHRC}
 RUN echo "cd ${REPRO_MNT}" >> ${BASHRC}
 
-ENV PATH /usr/local/go/bin:${PATH}
-
 CMD  /bin/bash -il
