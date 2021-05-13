@@ -7,6 +7,62 @@ python3 ../python/compute.py
 
 ------------------------------------------------- OUTPUTS -------------------------------------------------------
 
+Load two variables A and B from df.csv 
+
+   A  B
+0  1  4
+1  2  5
+2  3  6 
+
+Overwrite variable with 3 
+
+   A  B
+0  3  4
+1  3  5
+2  3  6 
+
+Add 6.5 to B 
+
+   A     B
+0  3  10.5
+1  3  11.5
+2  3  12.5 
+
+Append new variable C with representing difference between A and B 
+
+   A     B    C
+0  3  10.5 -7.5
+1  3  11.5 -8.5
+2  3  12.5 -9.5 
+
+Load Fahrenheit variable from temps.csv 
+
+   Fahrenheit
+0          45
+1          69
+2          12
+3         -40 
+
+Append new variable Celcius 
+
+   Fahrenheit    Celsius
+0          45   7.222222
+1          69  20.555556
+2          12 -11.111111
+3         -40 -40.000000 
+
+Append new variable Kelvin 
+
+   Fahrenheit    Celsius      Kelvin
+0          45   7.222222  280.222222
+1          69  20.555556  293.555556
+2          12 -11.111111  261.888889
+3         -40 -40.000000  233.000000 
+
+Write A and B variables to df_updated.csv 
+
+Write Fahrenheit, Celsius, and Kelvin variables to temps_updated.csv 
+
 
 
 ************************************************* COMMANDS ******************************************************
@@ -17,6 +73,10 @@ cat outputs/df_updated.csv
 
 ------------------------------------------------- OUTPUTS -------------------------------------------------------
 
+A,B,C
+3,10.5,-7.5
+3,11.5,-8.5
+3,12.5,-9.5
 
 
 ************************************************* COMMANDS ******************************************************
@@ -27,4 +87,9 @@ cat outputs/temps_updated.csv
 
 ------------------------------------------------- OUTPUTS -------------------------------------------------------
 
+Fahrenheit,Celsius,Kelvin
+45,7.222222222222222,280.22222222222223
+69,20.555555555555557,293.55555555555554
+12,-11.11111111111111,261.8888888888889
+-40,-40.0,233.0
 
