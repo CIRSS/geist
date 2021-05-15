@@ -1,112 +1,27 @@
 package geist
 
 import (
-	"bytes"
-	"context"
 	"encoding/json"
-	"io/ioutil"
 	"net/http"
 	"sort"
 	"strings"
-	"time"
 )
 
 type SparqlClient struct {
-	HttpClient     *http.Client
-	SparqlEndpoint string
+	RestClient
+	Parameters string
 }
 
 func NewSparqlClient(endpoint string) *SparqlClient {
 	sc := new(SparqlClient)
 	sc.HttpClient = &http.Client{}
-	sc.SparqlEndpoint = endpoint
+	sc.Endpoint = endpoint
 	return sc
-}
-
-func (sc *SparqlClient) GetRequest(url string, contentType string,
-	acceptType string) (responseBody []byte, err error) {
-
-	ctx, cancel := context.WithTimeout(context.Background(), 2000*time.Millisecond)
-	defer cancel()
-
-	// create the http request using the provided body
-	request, err := http.NewRequest("GET", url, bytes.NewReader([]byte{}))
-	if err != nil {
-		return
-	}
-	request.Header.Add("Content-Type", contentType)
-	request.Header.Add("Accept", acceptType)
-
-	// perform the request and obtain the response
-	response, err := sc.HttpClient.Do(request.WithContext(ctx))
-	if err != nil {
-		return
-	}
-
-	// read the response
-	responseBody, err = ioutil.ReadAll(response.Body)
-	if err != nil {
-		return
-	}
-	response.Body.Close()
-	return
-}
-
-func (sc *SparqlClient) PostRequest(url string, contentType string, acceptType string,
-	requestBody []byte) (responseBody []byte, err error) {
-
-	// ctx, cancel := context.WithTimeout(context.Background(), 2000*time.Millisecond)
-	// defer cancel()
-
-	// create the http requeest using the provided body
-	request, err := http.NewRequest("POST", url, bytes.NewReader(requestBody))
-	if err != nil {
-		return
-	}
-	request.Header.Add("Content-Type", contentType)
-	request.Header.Add("Accept", acceptType)
-
-	// perform the request and obtain the response
-	response, err := sc.HttpClient.Do(request)
-	if err != nil {
-		return
-	}
-
-	// read the response
-	responseBody, err = ioutil.ReadAll(response.Body)
-	if err != nil {
-		return
-	}
-	response.Body.Close()
-	return
-}
-
-func (sc *SparqlClient) DeleteRequest(url string) (
-	responseBody []byte, err error) {
-
-	request, err := http.NewRequest("DELETE", url, nil)
-	if err != nil {
-		return
-	}
-
-	// perform the request and obtain the response
-	response, err := sc.HttpClient.Do(request)
-	if err != nil {
-		return
-	}
-
-	// read the response
-	responseBody, err = ioutil.ReadAll(response.Body)
-	if err != nil {
-		return
-	}
-	response.Body.Close()
-	return
 }
 
 func (sc *SparqlClient) PostSparqlRequest(contentType string, acceptType string,
 	requestBody []byte) (responseBody []byte, err error) {
-	return sc.PostRequest(sc.SparqlEndpoint, contentType, acceptType, requestBody)
+	return sc.PostRequest(sc.Endpoint+sc.Parameters, contentType, acceptType, requestBody)
 }
 
 func (sc *SparqlClient) PostData(format string, data []byte) (responseBody []byte, err error) {
