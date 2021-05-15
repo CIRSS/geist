@@ -3,8 +3,6 @@ package geist
 import (
 	"encoding/json"
 	"net/http"
-	"sort"
-	"strings"
 )
 
 type SparqlClient struct {
@@ -68,30 +66,5 @@ func (sc *SparqlClient) SelectAll() (rs *ResultSet, err error) {
 
 func (sc *SparqlClient) Construct(format string, query string) (triples []byte, err error) {
 	triples, err = sc.PostSparqlRequest("application/sparql-query", format, []byte(query))
-	return
-}
-
-func (sc *SparqlClient) ConstructAll(format string, sorted bool) (triples string, err error) {
-
-	responseBody, err := sc.Construct(format, `
-		CONSTRUCT
-		{ ?s ?p ?o }
-		WHERE
-		{ ?s ?p ?o }`,
-	)
-	if err != nil {
-		return
-	}
-
-	triples = string(responseBody)
-
-	if sorted && format == "text/plain" {
-		ntriplesSlice := strings.Split(strings.Trim(triples, "\n"), "\n")
-		sort.Strings(ntriplesSlice)
-		triples = strings.Join(ntriplesSlice, "\n")
-	}
-
-	triples = strings.Trim(triples, " \n")
-
 	return
 }

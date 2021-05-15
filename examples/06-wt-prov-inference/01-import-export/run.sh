@@ -15,8 +15,16 @@ END_SCRIPT
 
 # *****************************************************************************
 
-bash ${RUNNER} S1 "EXPORT AS N-TRIPLES" << END_SCRIPT
+bash ${RUNNER} S1 "EXPORT AS N-TRIPLES WITHOUT INFERENCE" << END_SCRIPT
 
-geist export --format nt | sort
+geist export --format nt --includeinferred=false | sort
+
+END_SCRIPT
+
+# *****************************************************************************
+
+bash ${RUNNER} S2 "EXPORT AS N-TRIPLES WITH INFERENCE" << END_SCRIPT
+
+geist export --format nt --includeinferred=true | sort
 
 END_SCRIPT
