@@ -1,14 +1,23 @@
+BINARIES_DIR=./binaries
+LINUX_BINARY=${BINARIES_DIR}/geist-0.2.5-linux-x86-64-static
+
+FORCE_STATIC_LINKING=-ldflags '-extldflags "-static"' 
+#GO_LINKER_FLAGS=${FORCE_STATIC_LINKING}
+GO_LINKER_FLAGS=
 
 clean:
 	go clean -cache -x ./... || true
 
 purge: clean
+	rm -rf ${BINARIES_DIR}
 	rm -f go.sum
 	chmod -R +w ${GOPATH}
 	rm -rf ${GOPATH}/*
 
-build:
+depend:
 	go mod tidy
+
+build: depend
 	go build ./...
 
 # disable test result caching using: -count 1
@@ -16,7 +25,15 @@ build:
 test: build
 	go test ./... -count 1 -p 1
 
-install: build
-	go install ./...   
+install: depend
+	go install ./...
 
-package: install
+package: ${LINUX_BINARY}
+
+${LINUX_BINARY}: depend
+	CGO_ENABLED=0 GOOS=linux go build -a ${GO_LINKER_FLAGS} -o ${LINUX_BINARY} ./cmd/...
+	(echo "\nExecutable has these properties:\n" &&						\
+	file -b ${LINUX_BINARY} | sed "s/, /\\n/g" && 					\
+	echo "\nExecutable dynamically links to these libraries:\n" &&		\
+	ldd ${LINUX_BINARY} | sort											\
+	) > ${LINUX_BINARY}.properties

@@ -2,6 +2,7 @@
 ## # Aliases for targets in this Makefile.
 
 # Define target aliases available both inside and outside a running REPRO
+binaries:               package-code    ## 
 build:                  build-code      ## 
 test:                   test-code       ## 
 
