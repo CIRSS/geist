@@ -19,6 +19,11 @@ RUN echo '***** Install packages required for creating this image *****'    \
     && echo '***** Install command-line utility packages *****'             \
     && apt -y install sudo man less file tree jq graphviz libxml2-utils
 
+RUN echo '***** Install python3 and required pip packages *****'            \
+    && apt -y install python3 python3-pip                                   \
+    && pip3 install -U pip                                                  \
+    && pip3 install pandas
+
 ENV GO_VERSION       1.16
 ENV GO_DOWNLOADS_URL https://dl.google.com/go
 ENV GO_ARCHIVE       go${GO_VERSION}.linux-amd64.tar.gz
@@ -44,7 +49,7 @@ WORKDIR $HOME
 
 # Download Apache Jena and add arq to PATH
 ENV JENA_VERSION 3.17.0
-ENV JENA_BINARIES https://mirror.olnevhost.net/pub/apache/jena/binaries
+ENV JENA_BINARIES http://archive.apache.org/dist/jena/binaries/
 ENV JENA_VERSION_NAME apache-jena-${JENA_VERSION}
 ENV JENA_HOME $HOME/${JENA_VERSION_NAME}
 ENV JENA_CLASSPATH=${JENA_HOME}/lib/*
@@ -76,7 +81,7 @@ RUN echo '***** Start Blazegraph at login *****'                            \
 
 ENV GOPATH ${REPRO_MNT}/.gopath
 
-RUN echo 'PATH=${GOPATH}/bin:/usr/local/go/bin:$PATH' >> ${BASHRC}
+RUN echo "export PATH=${REPRO_MNT}/binaries:${GOPATH}/bin:/usr/local/go/bin:$PATH" >> ${BASHRC}
 RUN echo "export IN_RUNNING_REPRO=${REPRO_NAME}" >> ${BASHRC}
 RUN echo "cd ${REPRO_MNT}" >> ${BASHRC}
 

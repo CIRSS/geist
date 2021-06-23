@@ -1,5 +1,6 @@
-BINARIES_DIR=./binaries
-LINUX_BINARY=${BINARIES_DIR}/geist-0.2.5-linux-x86-64-static
+BINARIES_DIR=${REPRO_MNT}/binaries
+LINUX_BINARY_NAME=geist-0.2.5-linux-x86-64-static
+LINUX_BINARY=${BINARIES_DIR}/${LINUX_BINARY_NAME}
 
 FORCE_STATIC_LINKING=-ldflags '-extldflags "-static"' 
 #GO_LINKER_FLAGS=${FORCE_STATIC_LINKING}
@@ -33,7 +34,9 @@ package: ${LINUX_BINARY}
 ${LINUX_BINARY}: depend
 	CGO_ENABLED=0 GOOS=linux go build -a ${GO_LINKER_FLAGS} -o ${LINUX_BINARY} ./cmd/...
 	(echo "\nExecutable has these properties:\n" &&						\
-	file -b ${LINUX_BINARY} | sed "s/, /\\n/g" && 					\
+	file -b ${LINUX_BINARY} | sed "s/, /\\n/g" && 						\
 	echo "\nExecutable dynamically links to these libraries:\n" &&		\
 	ldd ${LINUX_BINARY} | sort											\
 	) > ${LINUX_BINARY}.properties
+	rm -f ${BINARIES_DIR}/geist
+	ln -s ${LINUX_BINARY_NAME} ${BINARIES_DIR}/geist
