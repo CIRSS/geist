@@ -17,6 +17,7 @@ func (p *Prefix) Turtle() string {
 type Graph struct {
 	prefixes []Prefix
 	triples  []Triple
+	Base     Uri
 }
 
 func NewGraph() *Graph {
@@ -25,18 +26,12 @@ func NewGraph() *Graph {
 }
 
 func (g *Graph) NewUri(s string) (uri Uri) {
-	if s[0] == ':' {
-		uri = Uri{s, "relative"}
-	} else if g.StartsWithPrefix(s) {
-		uri = Uri{s, "prefixed"}
-	} else {
-		uri = Uri{s, "absolute"}
-	}
+	uri = Uri{s, g.StartsWithPrefix(s)}
 	return
 }
 
 func (g *Graph) NewExtendedUri(base Uri, extension string) (uri Uri) {
-	return Uri{base.Value + "/" + extension, base.Type}
+	return Uri{base.Value + "/" + extension, base.Prefixed}
 }
 
 func (g *Graph) StartsWithPrefix(s string) bool {
@@ -59,12 +54,17 @@ func (g *Graph) AddNewPrefix(prefix string, expansion string) {
 	g.prefixes = append(g.prefixes, Prefix{prefix, expansion})
 }
 
-func (g *Graph) String() string {
+func (g *Graph) TurtleString() string {
 	var buffer strings.Builder
 	for _, prefix := range g.prefixes {
 		buffer.WriteString(prefix.Turtle())
 	}
 	buffer.WriteRune('\n')
+
+	if g.Base.Value != "" {
+		buffer.WriteString("@base " + g.Base.String() + " .\n\n")
+	}
+
 	for _, triple := range g.triples {
 		buffer.WriteString(triple.Turtle())
 	}
