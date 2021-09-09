@@ -1,0 +1,93 @@
+
+******************************************* EXAMPLE SETUP ************************************************
+
+# IMPORT SDTL
+
+geist destroy --dataset kb --quiet
+geist create --dataset kb --quiet 
+geist import --format jsonld --file ../data/compute-sdth.jsonld
+
+------------------------------------------- SETUP OUTPUTS ------------------------------------------------
+
+
+
+******************************************* EXAMPLE E1 ************************************************
+
+# EXPORT AS N-TRIPLES
+
+geist export --format nt | sort
+
+------------------------------------------- E1 OUTPUTS ------------------------------------------------
+
+<http://wholetale.org/program/1119/command/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdth#ProgramStep> .
+<http://wholetale.org/program/1119/command/1> <https://rdf-vocabulary.ddialliance.org/sdth#assignsVariable> "run:variable/1"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/command/1> <https://rdf-vocabulary.ddialliance.org/sdth#assignsVariable> "run:variable/2"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/command/1> <https://rdf-vocabulary.ddialliance.org/sdth#hasSourceCode> "df = pd.read_csv('../data/df.csv')"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/command/1> <https://rdf-vocabulary.ddialliance.org/sdth#loadsFile> <http://wholetale.org/program/1119/file/1> .
+<http://wholetale.org/program/1119/command/1> <https://rdf-vocabulary.ddialliance.org/sdth#producesDataframe> <http://wholetale.org/program/1119/dataframe/1> .
+<http://wholetale.org/program/1119/dataframe/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdth#Dataframe> .
+<http://wholetale.org/program/1119/dataframe/1> <https://rdf-vocabulary.ddialliance.org/sdth#hasName> "df"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/dataframe/1> <https://rdf-vocabulary.ddialliance.org/sdth#includesVariable> <http://wholetale.org/program/1119/variable/1> .
+<http://wholetale.org/program/1119/dataframe/1> <https://rdf-vocabulary.ddialliance.org/sdth#includesVariable> <http://wholetale.org/program/1119/variable/2> .
+<http://wholetale.org/program/1119/file/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdth#File> .
+<http://wholetale.org/program/1119/file/1> <https://rdf-vocabulary.ddialliance.org/sdth#hasFormat> "csv"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/file/1> <https://rdf-vocabulary.ddialliance.org/sdth#hasName> "df.csv"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/program/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdth#Program> .
+<http://wholetale.org/program/1119/program/1> <https://rdf-vocabulary.ddialliance.org/sdth#hasStep> <http://wholetale.org/program/1119/command/1> .
+<http://wholetale.org/program/1119/variable/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <stdh:Variable> .
+<http://wholetale.org/program/1119/variable/1> <sdtl:hasName> "A"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/variable/2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdth#Variable> .
+<http://wholetale.org/program/1119/variable/2> <https://rdf-vocabulary.ddialliance.org/sdth#hasName> "B"^^<http://www.w3.org/2001/XMLSchema#string> .
+
+
+******************************************* EXAMPLE Q1 ************************************************
+
+# WHAT STEPS ARE EXECUTED BY THE PROGRAM?
+
+geist query --format table << __END_QUERY__
+
+    PREFIX sdth: <https://rdf-vocabulary.ddialliance.org/sdth#>
+    PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+    PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+    SELECT DISTINCT ?step ?step_source_code
+    WHERE {
+        ?program rdf:type sdth:Program .
+        ?program sdth:hasStep ?step .
+        ?step sdth:hasSourceCode ?step_source_code .
+    }
+
+__END_QUERY__
+
+------------------------------------------- Q1 OUTPUTS ------------------------------------------------
+
+step                                        | step_source_code
+================================================================================
+http://wholetale.org/program/1119/command/1 | df = pd.read_csv('../data/df.csv')
+
+
+******************************************* EXAMPLE Q2 ************************************************
+
+# WHAT DATA FILES ARE LOADED BY THE SCRIPT?
+
+geist query --format table << __END_QUERY__
+
+    PREFIX sdth: <https://rdf-vocabulary.ddialliance.org/sdth#>
+
+    SELECT DISTINCT ?file_name ?step ?step_source_code
+    WHERE {
+        ?program rdf:type sdth:Program .
+        ?program sdth:hasStep ?step .
+        ?step sdth:loadsFile ?file .
+        ?file sdth:hasName ?file_name .
+        ?step sdth:hasSourceCode ?step_source_code .
+    }
+
+__END_QUERY__
+
+------------------------------------------- Q2 OUTPUTS ------------------------------------------------
+
+file_name | step                                        | step_source_code
+==========================================================================================
+df.csv    | http://wholetale.org/program/1119/command/1 | df = pd.read_csv('../data/df.csv')
+

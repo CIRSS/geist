@@ -1,0 +1,50 @@
+{
+  "@context": [
+    {
+      "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+      "sdth": "https://rdf-vocabulary.ddialliance.org/sdth#"
+    },
+    {
+      "run": "http://wholetale.org/program/1119/"
+    }
+
+  ],
+  "@graph": [
+    {
+      "@id": "run:program/1",
+      "@type": "sdth:Program",
+      "sdth:hasStep": {
+        "@id": "run:command/1",
+        "@type": "sdth:ProgramStep",
+        "sdth:loadsFile": {
+          "@id": "run:file/1",
+          "@type": "sdth:File",
+          "sdth:hasName": "df.csv",
+          "sdth:hasFormat": "csv"
+        },
+        "sdth:producesDataframe": {
+          "@id": "run:dataframe/1",
+          "@type": "sdth:Dataframe",
+          "sdth:hasName": "df",
+          "sdth:includesVariable": [
+            {
+              "@id": "run:variable/1",
+              "@type": "stdh:Variable",
+              "sdtl:hasName": "A"
+            },
+            {
+              "@id": "run:variable/2",
+              "@type": "sdth:Variable",
+              "sdth:hasName": "B"
+            }
+          ]
+        },
+        "sdth:assignsVariable": [
+          "run:variable/1",
+          "run:variable/2"
+        ],
+        "sdth:hasSourceCode": "df = pd.read_csv('../data/df.csv')"
+      }
+    }
+  ]
+}
