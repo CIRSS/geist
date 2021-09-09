@@ -1,5 +1,5 @@
 BINARIES_DIR=${REPRO_MNT}/binaries
-LINUX_BINARY_NAME=geist-0.2.5-linux-x86-64-static
+LINUX_BINARY_NAME=geist-0.2.6-linux-x86-64-static
 LINUX_BINARY=${BINARIES_DIR}/${LINUX_BINARY_NAME}
 
 FORCE_STATIC_LINKING=-ldflags '-extldflags "-static"' 
