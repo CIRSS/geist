@@ -30,11 +30,11 @@ geist query --format table << __END_QUERY__
     PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
     PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 
-    SELECT DISTINCT ?step ?step_source_code
+    SELECT DISTINCT ?step ?step_source_text
     WHERE {
         ?program rdf:type sdth:Program .
         ?program sdth:hasStep ?step .
-        ?step sdth:hasSourceCode ?step_source_code .
+        ?step sdth:hasSourceCode ?step_source_text .
     }
 
 __END_QUERY__
@@ -48,13 +48,13 @@ geist query --format table << __END_QUERY__
 
     PREFIX sdth: <https://rdf-vocabulary.ddialliance.org/sdth#>
 
-    SELECT DISTINCT ?file_name ?step ?step_source_code
+    SELECT DISTINCT ?file_name ?step ?step_source_text
     WHERE {
         ?program rdf:type sdth:Program .
         ?program sdth:hasStep ?step .
         ?step sdth:loadsFile ?file .
         ?file sdth:hasName ?file_name .
-        ?step sdth:hasSourceCode ?step_source_code .
+        ?step sdth:hasSourceCode ?step_source_text .
     }
 
 __END_QUERY__
@@ -62,28 +62,24 @@ __END_QUERY__
 END_SCRIPT
 
 
+bash ${RUNNER} Q3 "WHAT DATA FILES ARE SAVED BY THE SCRIPT?" << END_SCRIPT
 
-# bash ${RUNNER} Q3 "WHAT DATA FILES ARE SAVED BY THE SCRIPT?" << END_SCRIPT
+geist query --format table << __END_QUERY__
 
-# geist query --format table << __END_QUERY__
+    PREFIX sdth: <https://rdf-vocabulary.ddialliance.org/sdth#>
 
-#     PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
+    SELECT DISTINCT ?file_name ?step ?step_source_text
+    WHERE {
+        ?program rdf:type sdth:Program .
+        ?program sdth:hasStep ?step .
+        ?step sdth:savesFile ?file .
+        ?file sdth:hasName ?file_name .
+        ?step sdth:hasSourceCode ?step_source_text .
+    }
 
-#     SELECT DISTINCT ?file_name ?command ?source_line ?source_text
-#     WHERE {
-#         ?program rdf:type sdtl:Program .
-#         ?program sdtl:Commands ?commandinventory .
-#         ?commandinventory (<>|!<>) ?command .
-#         ?command rdf:type sdtl:Save .
-#         ?command sdtl:FileName ?file_name .
-#         ?command sdtl:SourceInformation ?source_info .
-#         ?source_info sdtl:LineNumberStart ?source_line .
-#         ?source_info sdtl:OriginalSourceText ?source_text .
-#     }
+__END_QUERY__
 
-# __END_QUERY__
-
-# END_SCRIPT
+END_SCRIPT
 
 
 

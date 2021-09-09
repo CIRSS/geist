@@ -13,38 +13,61 @@
     {
       "@id": "run:program/1",
       "@type": "sdth:Program",
-      "sdth:hasStep": {
-        "@id": "run:command/1",
-        "@type": "sdth:ProgramStep",
-        "sdth:loadsFile": {
-          "@id": "run:file/1",
-          "@type": "sdth:File",
-          "sdth:hasName": "df.csv",
-          "sdth:hasFormat": "csv"
+      "sdth:hasStep": [ 
+        
+        {
+          "@id": "run:step/1",
+          "@type": "sdth:ProgramStep",
+          "sdth:loadsFile": {
+            "@id": "run:file/1",
+            "@type": "sdth:File",
+            "sdth:hasName": "df.csv",
+            "sdth:hasFormat": "csv"
+          },
+          "sdth:producesDataframe": {
+            "@id": "run:dataframe/1",
+            "@type": "sdth:Dataframe",
+            "sdth:hasName": "df",
+            "sdth:includesVariable": [
+              {
+                "@id": "run:variable/1",
+                "@type": "stdh:Variable",
+                "sdtl:hasName": "A"
+              },
+              {
+                "@id": "run:variable/2",
+                "@type": "sdth:Variable",
+                "sdth:hasName": "B"
+              }
+            ]
+          },
+          "sdth:assignsVariable": [
+            "run:variable/1",
+            "run:variable/2"
+          ],
+          "sdth:hasSourceCode": "df = pd.read_csv('../data/df.csv')"
         },
-        "sdth:producesDataframe": {
-          "@id": "run:dataframe/1",
-          "@type": "sdth:Dataframe",
-          "sdth:hasName": "df",
-          "sdth:includesVariable": [
-            {
-              "@id": "run:variable/1",
-              "@type": "stdh:Variable",
-              "sdtl:hasName": "A"
-            },
-            {
-              "@id": "run:variable/2",
-              "@type": "sdth:Variable",
-              "sdth:hasName": "B"
-            }
-          ]
-        },
-        "sdth:assignsVariable": [
-          "run:variable/1",
-          "run:variable/2"
-        ],
-        "sdth:hasSourceCode": "df = pd.read_csv('../data/df.csv')"
-      }
+
+        {
+          "@id": "run:step/8",
+          "@type": "sdth:ProgramStep",
+          "sdth:consumesDataframe": {"@id": "run:dataframe/1"},
+          "sdth:usesVariable": [
+            "run:variable/1",
+            "run:variable/2"
+          ],
+          "sdth:savesFile": {
+            "@id": "run:file/2",
+            "@type": "sdth:File",
+            "sdth:hasName": "df_updated.csv",
+            "sdth:hasFormat": "csv"
+          },
+          "sdth:hasSourceCode": "df.to_csv('outputs/df_updated.csv', index=False)"
+        }
+
+
+
+      ]
     }
   ]
 }
