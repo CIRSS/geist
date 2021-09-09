@@ -99,7 +99,6 @@ geist query --format table << __END_QUERY__
         ?variable sdth:hasName ?variable_name .
         ?dataframe sdth:hasName ?dataframe_name .
         ?step sdth:hasSourceCode ?step_source_text .
-
     } ORDER BY ?variable_name ?source_line
 
 __END_QUERY__
@@ -108,30 +107,28 @@ END_SCRIPT
 
 
 
-# bash ${RUNNER} Q5 "WHAT VARIABLES ARE SAVED BY THE SCRIPT?" << END_SCRIPT
+bash ${RUNNER} Q5 "WHAT VARIABLES ARE SAVED BY THE SCRIPT?" << END_SCRIPT
 
-# geist query --format table << __END_QUERY__
+geist query --format table << __END_QUERY__
 
-#     PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
+    PREFIX sdth: <https://rdf-vocabulary.ddialliance.org/sdth#>
 
-#     SELECT DISTINCT ?saved_variable ?dataframe ?source_line ?source_text
-#     WHERE {
-#         ?program rdf:type sdtl:Program .
-#         ?program sdtl:Commands ?commandinventory .
-#         ?commandinventory (<>|!<>) ?command .
-#         ?command rdf:type sdtl:Save .
-#         ?command sdtl:ConsumesDataframe ?dataframe_description .
-#         ?dataframe_description sdtl:DataframeName ?dataframe .
-#         ?dataframe_description sdtl:VariableInventory ?variable_inventory .
-#         ?variable_inventory (<>|!<>)/sdtl:VariableName ?saved_variable .
-#         ?command sdtl:SourceInformation ?source_info .
-#         ?source_info sdtl:LineNumberStart ?source_line .
-#         ?source_info sdtl:OriginalSourceText ?source_text .
-#     } ORDER BY ?saved_variable ?source_line
+    SELECT DISTINCT ?dataframe_name ?variable_name ?step_source_text
+    WHERE {
+        ?program rdf:type sdth:Program .
+        ?program sdth:hasStep ?step .
+        ?step sdth:savesFile ?file .
+        ?step sdth:consumesDataframe ?dataframe .
+        ?dataframe sdth:includesVariable ?variable .
+        ?variable sdth:hasName ?variable_name .
+        ?dataframe sdth:hasName ?dataframe_name .
+        ?step sdth:hasSourceCode ?step_source_text .
 
-# __END_QUERY__
+    } ORDER BY ?saved_variable ?source_line
 
-# END_SCRIPT
+__END_QUERY__
+
+END_SCRIPT
 
 
 

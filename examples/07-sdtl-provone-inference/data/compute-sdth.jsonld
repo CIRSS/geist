@@ -32,7 +32,7 @@
               {
                 "@id": "run:variable/1",
                 "@type": "stdh:Variable",
-                "sdtl:hasName": "A"
+                "sdth:hasName": "A"
               },
               {
                 "@id": "run:variable/2",
