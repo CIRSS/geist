@@ -79,7 +79,7 @@ http://wholetale.org/program/1119/step/8 | df.to_csv('outputs/df_updated.csv', i
 
 ******************************************* EXAMPLE Q2 ************************************************
 
-# WHAT DATA FILES ARE LOADED BY THE SCRIPT?
+# WHAT DATA FILES ARE LOADED BY THE PROGRAM?
 
 geist query --format table << __END_QUERY__
 
@@ -105,7 +105,7 @@ df.csv    | http://wholetale.org/program/1119/step/1 | df = pd.read_csv('../data
 
 ******************************************* EXAMPLE Q3 ************************************************
 
-# WHAT DATA FILES ARE SAVED BY THE SCRIPT?
+# WHAT DATA FILES ARE SAVED BY THE PROGRAM?
 
 geist query --format table << __END_QUERY__
 
@@ -127,4 +127,34 @@ __END_QUERY__
 file_name      | step                                     | step_source_text
 =============================================================================================================
 df_updated.csv | http://wholetale.org/program/1119/step/8 | df.to_csv('outputs/df_updated.csv', index=False)
+
+
+******************************************* EXAMPLE Q4 ************************************************
+
+# WHAT VARIABLES ARE LOADED BY THE PROGRAM?
+
+geist query --format table << __END_QUERY__
+
+    PREFIX sdth: <https://rdf-vocabulary.ddialliance.org/sdth#>
+
+    SELECT DISTINCT ?dataframe_name ?variable_name ?step_source_text
+    WHERE {
+        ?program rdf:type sdth:Program .
+        ?program sdth:hasStep ?step .
+        ?step sdth:loadsFile ?file .
+        ?step sdth:producesDataframe ?dataframe .
+        ?dataframe sdth:includesVariable ?variable .
+        ?variable sdth:hasName ?variable_name .
+        ?dataframe sdth:hasName ?dataframe_name .
+        ?step sdth:hasSourceCode ?step_source_text .
+
+    } ORDER BY ?variable_name ?source_line
+
+__END_QUERY__
+
+------------------------------------------- Q4 OUTPUTS ------------------------------------------------
+
+dataframe_name | variable_name | step_source_text
+==================================================
+df             | B             | df = pd.read_csv('../data/df.csv')
 

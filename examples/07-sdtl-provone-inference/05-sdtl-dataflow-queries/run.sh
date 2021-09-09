@@ -42,7 +42,7 @@ __END_QUERY__
 END_SCRIPT
 
 
-bash ${RUNNER} Q2 "WHAT DATA FILES ARE LOADED BY THE SCRIPT?" << END_SCRIPT
+bash ${RUNNER} Q2 "WHAT DATA FILES ARE LOADED BY THE PROGRAM?" << END_SCRIPT
 
 geist query --format table << __END_QUERY__
 
@@ -62,7 +62,7 @@ __END_QUERY__
 END_SCRIPT
 
 
-bash ${RUNNER} Q3 "WHAT DATA FILES ARE SAVED BY THE SCRIPT?" << END_SCRIPT
+bash ${RUNNER} Q3 "WHAT DATA FILES ARE SAVED BY THE PROGRAM?" << END_SCRIPT
 
 geist query --format table << __END_QUERY__
 
@@ -83,30 +83,28 @@ END_SCRIPT
 
 
 
-# bash ${RUNNER} Q4 "WHAT VARIABLES ARE LOADED BY THE SCRIPT?" << END_SCRIPT
+bash ${RUNNER} Q4 "WHAT VARIABLES ARE LOADED BY THE PROGRAM?" << END_SCRIPT
 
-# geist query --format table << __END_QUERY__
+geist query --format table << __END_QUERY__
 
-#     PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
+    PREFIX sdth: <https://rdf-vocabulary.ddialliance.org/sdth#>
 
-#     SELECT DISTINCT ?loaded_variable ?dataframe ?source_line ?source_text
-#     WHERE {
-#         ?program rdf:type sdtl:Program .
-#         ?program sdtl:Commands ?commandinventory .
-#         ?commandinventory (<>|!<>) ?command .
-#         ?command rdf:type sdtl:Load .
-#         ?command sdtl:ProducesDataframe ?dataframe_description .
-#         ?dataframe_description sdtl:DataframeName ?dataframe .
-#         ?dataframe_description sdtl:VariableInventory ?variable_inventory .
-#         ?variable_inventory (<>|!<>)/sdtl:VariableName ?loaded_variable .
-#         ?command sdtl:SourceInformation ?source_info .
-#         ?source_info sdtl:LineNumberStart ?source_line .
-#         ?source_info sdtl:OriginalSourceText ?source_text .
-#     } ORDER BY ?loaded_variable ?source_line
+    SELECT DISTINCT ?dataframe_name ?variable_name ?step_source_text
+    WHERE {
+        ?program rdf:type sdth:Program .
+        ?program sdth:hasStep ?step .
+        ?step sdth:loadsFile ?file .
+        ?step sdth:producesDataframe ?dataframe .
+        ?dataframe sdth:includesVariable ?variable .
+        ?variable sdth:hasName ?variable_name .
+        ?dataframe sdth:hasName ?dataframe_name .
+        ?step sdth:hasSourceCode ?step_source_text .
 
-# __END_QUERY__
+    } ORDER BY ?variable_name ?source_line
 
-# END_SCRIPT
+__END_QUERY__
+
+END_SCRIPT
 
 
 
