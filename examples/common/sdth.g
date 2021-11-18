@@ -7,7 +7,13 @@
 {{ prefix "rdfs"       "http://www.w3.org/2000/01/rdf-schema#" }}
 {{ prefix "sdth"       "https://rdf-vocabulary.ddialliance.org/sdth#" }}
 
-{{ query "sdth_construct_provone_programs" '''
+
+{{ macro "ntriple_print" "Triple" '''
+        <{{ index $Triple 0 }}> <{{ index $Triple 1 }}> <{{ index $Triple 2 }}> .
+    ''' 
+}}
+
+{{ query "sdth_construct_provone_program_triples" '''
     CONSTRUCT {
         ?program rdf:type provone:Program .
     }

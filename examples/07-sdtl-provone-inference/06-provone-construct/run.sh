@@ -59,8 +59,8 @@ geist report << '__END_REPORT_TEMPLATE__'
         {{ include "../../common/sdth.g" }}
     }}}
                                                                                         \\
-    {{ range $Program := (sdth_construct_provone_programs | rows) }}                    \\
-        <{{ index $Program 0 }}> <{{ index $Program 1 }}> <{{ index $Program 2 }}> .
+    {{ range $Program := (sdth_construct_provone_program_triples | rows) }}             \\
+        {{ ntriple_print $Program }}
     {{ end }}
 
 __END_REPORT_TEMPLATE__
