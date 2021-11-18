@@ -33,7 +33,7 @@ geist query --format table << __END_QUERY__
     SELECT DISTINCT ?step ?step_source_text
     WHERE {
         ?program rdf:type sdth:Program .
-        ?program sdth:hasStep ?step .
+        ?program sdth:hasProgramStep ?step .
         ?step sdth:hasSourceCode ?step_source_text .
     }
 
@@ -51,7 +51,7 @@ geist query --format table << __END_QUERY__
     SELECT DISTINCT ?file_name ?step ?step_source_text
     WHERE {
         ?program rdf:type sdth:Program .
-        ?program sdth:hasStep ?step .
+        ?program sdth:hasProgramStep ?step .
         ?step sdth:loadsFile ?file .
         ?file sdth:hasName ?file_name .
         ?step sdth:hasSourceCode ?step_source_text .
@@ -71,7 +71,7 @@ geist query --format table << __END_QUERY__
     SELECT DISTINCT ?file_name ?step ?step_source_text
     WHERE {
         ?program rdf:type sdth:Program .
-        ?program sdth:hasStep ?step .
+        ?program sdth:hasProgramStep ?step .
         ?step sdth:savesFile ?file .
         ?file sdth:hasName ?file_name .
         ?step sdth:hasSourceCode ?step_source_text .
@@ -92,7 +92,7 @@ geist query --format table << __END_QUERY__
     SELECT DISTINCT ?dataframe_name ?variable_name ?step_source_text
     WHERE {
         ?program rdf:type sdth:Program .
-        ?program sdth:hasStep ?step .
+        ?program sdth:hasProgramStep ?step .
         ?step sdth:loadsFile ?file .
         ?step sdth:producesDataframe ?dataframe .
         ?dataframe sdth:includesVariable ?variable .
@@ -116,7 +116,7 @@ geist query --format table << __END_QUERY__
     SELECT DISTINCT ?dataframe_name ?variable_name ?step_source_text
     WHERE {
         ?program rdf:type sdth:Program .
-        ?program sdth:hasStep ?step .
+        ?program sdth:hasProgramStep ?step .
         ?step sdth:savesFile ?file .
         ?step sdth:consumesDataframe ?dataframe .
         ?dataframe sdth:includesVariable ?variable .

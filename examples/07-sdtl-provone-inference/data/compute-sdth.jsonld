@@ -13,7 +13,7 @@
     {
       "@id": "run:program/1",
       "@type": "sdth:Program",
-      "sdth:hasStep": [ 
+      "sdth:hasProgramStep": [ 
         
         {
           "@id": "run:step/1",
@@ -47,8 +47,6 @@
           ],
           "sdth:hasSourceCode": "df = pd.read_csv('../data/df.csv')"
         },
-
-
         
         {
           "@id": "run:step/8",
