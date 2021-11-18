@@ -42,19 +42,21 @@
             ]
           },
           "sdth:assignsVariable": [
-            "run:variable/1",
-            "run:variable/2"
+            { "@id": "run:variable/1" },
+            { "@id": "run:variable/2" }
           ],
           "sdth:hasSourceCode": "df = pd.read_csv('../data/df.csv')"
         },
 
+
+        
         {
           "@id": "run:step/8",
           "@type": "sdth:ProgramStep",
           "sdth:consumesDataframe": {"@id": "run:dataframe/1"},
           "sdth:usesVariable": [
-            "run:variable/1",
-            "run:variable/2"
+            { "@id": "run:variable/1" },
+            { "@id": "run:variable/2" }
           ],
           "sdth:savesFile": {
             "@id": "run:file/2",
@@ -64,8 +66,6 @@
           },
           "sdth:hasSourceCode": "df.to_csv('outputs/df_updated.csv', index=False)"
         }
-
-
 
       ]
     }
