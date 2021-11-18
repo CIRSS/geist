@@ -27,3 +27,17 @@
         }
     } 
 '''}}
+
+{{ query "select_sdth_program" '''
+    SELECT ?program
+    WHERE {
+        ?program rdf:type sdth:Program .
+    }
+'''}}
+
+{{ query "select_sdth_program_steps" "ProgramID" '''
+    SELECT ?step
+    WHERE {
+        <{{$ProgramID}}> sdth:hasProgramStep ?step .
+    }
+'''}}

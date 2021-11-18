@@ -61,8 +61,14 @@ geist report << '__END_REPORT_TEMPLATE__'
                                                                                         \\
     {{ range $Program := (sdth_construct_provone_program_triples | rows) }}             \\
         {{ ntriple_print $Program }}
+    {{ end }}                                                                           \
+                                                                                        \\
+    {{ range $Program := select_sdth_program | vector }}                                \\
+        {{ range $ProgramStep := (select_sdth_program_steps $Program | rows) }}         \\
+            <{{$Program}}> provone:hasSubProgram <{{ index $ProgramStep 0 }}> .
+        {{ end }}
     {{ end }}
-
+    
 __END_REPORT_TEMPLATE__
 
 __END_SCRIPT__

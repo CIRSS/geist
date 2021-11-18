@@ -82,9 +82,9 @@ __END_QUERY__
 
 subject                                     | predicate                                       | object                                                      | context
 ================================================================================================================================================================
+http://wholetale.org/program/1119/program/1 | http://www.w3.org/1999/02/22-rdf-syntax-ns#type | http://purl.dataone.org/provone/2015/01/15/ontology#Program | 
 http://wholetale.org/program/1119/step/1    | http://www.w3.org/1999/02/22-rdf-syntax-ns#type | http://purl.dataone.org/provone/2015/01/15/ontology#Program | 
 http://wholetale.org/program/1119/step/8    | http://www.w3.org/1999/02/22-rdf-syntax-ns#type | http://purl.dataone.org/provone/2015/01/15/ontology#Program | 
-http://wholetale.org/program/1119/program/1 | http://www.w3.org/1999/02/22-rdf-syntax-ns#type | http://purl.dataone.org/provone/2015/01/15/ontology#Program | 
 
 
 ******************************************* EXAMPLE R1 ************************************************
@@ -99,7 +99,13 @@ geist report << '__END_REPORT_TEMPLATE__'
                                                                                         \
     {{ range $Program := (sdth_construct_provone_program_triples | rows) }}             \
         {{ ntriple_print $Program }}
+    {{ end }}                                                                                                                                                                   \
+    {{ range $Program := select_sdth_program | vector }}                                \
+        {{ range $ProgramStep := (select_sdth_program_steps $Program | rows) }}         \
+            <{{$Program}}> provone:hasSubProgram <{{ index $ProgramStep 0 }}> .
+        {{ end }}
     {{ end }}
+    
 
 __END_REPORT_TEMPLATE__
 
@@ -108,6 +114,10 @@ __END_REPORT_TEMPLATE__
 <http://wholetale.org/program/1119/program/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.dataone.org/provone/2015/01/15/ontology#Program> .
 <http://wholetale.org/program/1119/step/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.dataone.org/provone/2015/01/15/ontology#Program> .
 <http://wholetale.org/program/1119/step/8> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.dataone.org/provone/2015/01/15/ontology#Program> .
+<http://wholetale.org/program/1119/program/1> provone:hasSubProgram <http://wholetale.org/program/1119/step/1> .
+<http://wholetale.org/program/1119/program/1> provone:hasSubProgram <http://wholetale.org/program/1119/step/8> .
+
+
 
 
 
