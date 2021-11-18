@@ -41,3 +41,20 @@
         <{{$ProgramID}}> sdth:hasProgramStep ?step .
     }
 '''}}
+
+
+{{ query "select_dataframe_producers" '''
+    SELECT ?program_id ?dataframe_id ?dataframe_name 
+    WHERE {
+        ?program_id sdth:producesDataframe ?dataframe_id .
+        ?dataframe_id sdth:hasName ?dataframe_name .
+    }
+'''}}
+
+{{ query "select_dataframe_consumers" '''
+    SELECT ?program_id ?dataframe_id ?dataframe_name 
+    WHERE {
+        ?program_id sdth:consumesDataframe ?dataframe_id .
+        ?dataframe_id sdth:hasName ?dataframe_name .
+    }
+'''}}

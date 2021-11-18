@@ -82,9 +82,9 @@ __END_QUERY__
 
 subject                                     | predicate                                       | object                                                      | context
 ================================================================================================================================================================
-http://wholetale.org/program/1119/program/1 | http://www.w3.org/1999/02/22-rdf-syntax-ns#type | http://purl.dataone.org/provone/2015/01/15/ontology#Program | 
 http://wholetale.org/program/1119/step/1    | http://www.w3.org/1999/02/22-rdf-syntax-ns#type | http://purl.dataone.org/provone/2015/01/15/ontology#Program | 
 http://wholetale.org/program/1119/step/8    | http://www.w3.org/1999/02/22-rdf-syntax-ns#type | http://purl.dataone.org/provone/2015/01/15/ontology#Program | 
+http://wholetale.org/program/1119/program/1 | http://www.w3.org/1999/02/22-rdf-syntax-ns#type | http://purl.dataone.org/provone/2015/01/15/ontology#Program | 
 
 
 ******************************************* EXAMPLE R1 ************************************************
@@ -106,6 +106,17 @@ geist report << '__END_REPORT_TEMPLATE__'
         {{ end }}
     {{ end }}
     
+    {{ range $DataframeProducer := (select_dataframe_producers | rows) }}
+        {{ with $StepName := (index $DataframeProducer 0) }}
+            <{{ $StepName }}> provone:hasOutputPort <{{ $StepName }}/dataframeport/{{ index $DataframeProducer 2 }}_out> .
+        {{ end }}
+    {{ end }}
+
+    {{ range $DataframeConsumer := (select_dataframe_consumers | rows) }}
+        {{ with $StepName := (index $DataframeConsumer 0) }}
+            <{{ $StepName }}> provone:hasInputPort <{{ $StepName }}/dataframeport/{{ index $DataframeConsumer 2 }}_in> .
+        {{ end }}
+    {{ end }}
 
 __END_REPORT_TEMPLATE__
 
@@ -117,6 +128,17 @@ __END_REPORT_TEMPLATE__
 <http://wholetale.org/program/1119/program/1> provone:hasSubProgram <http://wholetale.org/program/1119/step/1> .
 <http://wholetale.org/program/1119/program/1> provone:hasSubProgram <http://wholetale.org/program/1119/step/8> .
 
+
+
+
+
+<http://wholetale.org/program/1119/step/1> provone:hasOutputPort <http://wholetale.org/program/1119/step/1/dataframeport/df_out> .
+
+
+
+
+
+<http://wholetale.org/program/1119/step/8> provone:hasInputPort <http://wholetale.org/program/1119/step/8/dataframeport/df_in> .
 
 
 
