@@ -1,0 +1,88 @@
+
+******************************************* EXAMPLE SETUP ************************************************
+
+# IMPORT SDTL AS JSON-LD
+
+geist destroy --dataset kb --quiet
+geist create --dataset kb --quiet 
+geist import --format jsonld --file ../data/compute-sdth.jsonld
+
+------------------------------------------- SETUP OUTPUTS ------------------------------------------------
+
+
+
+******************************************* EXAMPLE E1 ************************************************
+
+# EXPORT ORIGINAL SDTL AS N-TRIPLES
+
+geist export --format nt | sort
+
+------------------------------------------- E1 OUTPUTS ------------------------------------------------
+
+<http://wholetale.org/program/1119/dataframe/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdth#Dataframe> .
+<http://wholetale.org/program/1119/dataframe/1> <https://rdf-vocabulary.ddialliance.org/sdth#hasName> "df"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/dataframe/1> <https://rdf-vocabulary.ddialliance.org/sdth#includesVariable> <http://wholetale.org/program/1119/variable/1> .
+<http://wholetale.org/program/1119/dataframe/1> <https://rdf-vocabulary.ddialliance.org/sdth#includesVariable> <http://wholetale.org/program/1119/variable/2> .
+<http://wholetale.org/program/1119/file/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdth#File> .
+<http://wholetale.org/program/1119/file/1> <https://rdf-vocabulary.ddialliance.org/sdth#hasFormat> "csv"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/file/1> <https://rdf-vocabulary.ddialliance.org/sdth#hasName> "df.csv"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/file/2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdth#File> .
+<http://wholetale.org/program/1119/file/2> <https://rdf-vocabulary.ddialliance.org/sdth#hasFormat> "csv"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/file/2> <https://rdf-vocabulary.ddialliance.org/sdth#hasName> "df_updated.csv"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/program/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdth#Program> .
+<http://wholetale.org/program/1119/program/1> <https://rdf-vocabulary.ddialliance.org/sdth#hasProgramStep> <http://wholetale.org/program/1119/step/1> .
+<http://wholetale.org/program/1119/program/1> <https://rdf-vocabulary.ddialliance.org/sdth#hasProgramStep> <http://wholetale.org/program/1119/step/8> .
+<http://wholetale.org/program/1119/step/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdth#ProgramStep> .
+<http://wholetale.org/program/1119/step/1> <https://rdf-vocabulary.ddialliance.org/sdth#assignsVariable> <http://wholetale.org/program/1119/variable/1> .
+<http://wholetale.org/program/1119/step/1> <https://rdf-vocabulary.ddialliance.org/sdth#assignsVariable> <http://wholetale.org/program/1119/variable/2> .
+<http://wholetale.org/program/1119/step/1> <https://rdf-vocabulary.ddialliance.org/sdth#hasSourceCode> "df = pd.read_csv('../data/df.csv')"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/step/1> <https://rdf-vocabulary.ddialliance.org/sdth#loadsFile> <http://wholetale.org/program/1119/file/1> .
+<http://wholetale.org/program/1119/step/1> <https://rdf-vocabulary.ddialliance.org/sdth#producesDataframe> <http://wholetale.org/program/1119/dataframe/1> .
+<http://wholetale.org/program/1119/step/8> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdth#ProgramStep> .
+<http://wholetale.org/program/1119/step/8> <https://rdf-vocabulary.ddialliance.org/sdth#consumesDataframe> <http://wholetale.org/program/1119/dataframe/1> .
+<http://wholetale.org/program/1119/step/8> <https://rdf-vocabulary.ddialliance.org/sdth#hasSourceCode> "df.to_csv('outputs/df_updated.csv', index=False)"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/step/8> <https://rdf-vocabulary.ddialliance.org/sdth#savesFile> <http://wholetale.org/program/1119/file/2> .
+<http://wholetale.org/program/1119/step/8> <https://rdf-vocabulary.ddialliance.org/sdth#usesVariable> <http://wholetale.org/program/1119/variable/1> .
+<http://wholetale.org/program/1119/step/8> <https://rdf-vocabulary.ddialliance.org/sdth#usesVariable> <http://wholetale.org/program/1119/variable/2> .
+<http://wholetale.org/program/1119/variable/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <stdh:Variable> .
+<http://wholetale.org/program/1119/variable/1> <https://rdf-vocabulary.ddialliance.org/sdth#hasName> "A"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/variable/2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdth#Variable> .
+<http://wholetale.org/program/1119/variable/2> <https://rdf-vocabulary.ddialliance.org/sdth#hasName> "B"^^<http://www.w3.org/2001/XMLSchema#string> .
+
+
+******************************************* EXAMPLE Q1 ************************************************
+
+# CONSTRUCT PROVONE PROGRAMS VIA CONSTRUCT QUERY
+
+geist query --format table << __END_QUERY__
+
+    PREFIX prov: <http://www.w3.org/ns/prov#>
+    PREFIX provone: <http://purl.dataone.org/provone/2015/01/15/ontology#>
+    PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+    PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+    PREFIX sdth: <https://rdf-vocabulary.ddialliance.org/sdth#>
+
+    CONSTRUCT {
+        ?program rdf:type provone:Program . 
+    }
+    WHERE {
+        {
+            ?program rdf:type sdth:Program . 
+        }
+        UNION
+        {
+            ?program rdf:type sdth:ProgramStep .
+        }
+    } 
+
+
+__END_QUERY__
+
+------------------------------------------- Q1 OUTPUTS ------------------------------------------------
+
+subject                                     | predicate                                       | object                                                      | context
+================================================================================================================================================================
+http://wholetale.org/program/1119/program/1 | http://www.w3.org/1999/02/22-rdf-syntax-ns#type | http://purl.dataone.org/provone/2015/01/15/ontology#Program | 
+http://wholetale.org/program/1119/step/1    | http://www.w3.org/1999/02/22-rdf-syntax-ns#type | http://purl.dataone.org/provone/2015/01/15/ontology#Program | 
+http://wholetale.org/program/1119/step/8    | http://www.w3.org/1999/02/22-rdf-syntax-ns#type | http://purl.dataone.org/provone/2015/01/15/ontology#Program | 
+
