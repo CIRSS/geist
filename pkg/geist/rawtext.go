@@ -20,9 +20,10 @@ type DelimiterPair struct {
 	End   string
 }
 
-// EscapeDoubleQuotes substitutes an escaped double-quote character sequence
-// (\") for each actual doublequote character in the argument and returns the
-// updated string.
+/*
+EscapeDoubleQuotes substitutes an escaped double-quote character sequence
+(\") for each actual doublequote character in the argument and returns the
+updated string.*/
 func EscapeDoubleQuotes(text string) string {
 	return strings.ReplaceAll(text, doubleQuote, escDoubleQuote)
 }

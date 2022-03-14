@@ -9,8 +9,8 @@ import (
 )
 
 var sr = geist.ResultSet{
-	geist.Head{[]string{"s", "o"}},
-	geist.Results{[]geist.Binding{{
+	Head: geist.Head{Vars: []string{"s", "o"}},
+	Results: geist.Results{Bindings: []geist.Binding{{
 		"s": {"uri", "http://tmcphill.net/data#x"},
 		"o": {"literal", "seven"},
 	}, {

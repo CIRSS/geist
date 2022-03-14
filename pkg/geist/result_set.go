@@ -65,7 +65,7 @@ func (sr *ResultSet) Row(rowIndex int) []string {
 }
 
 func (rs *ResultSet) appendRows(rows [][]string) [][]string {
-	for i, _ := range rs.Results.Bindings {
+	for i := range rs.Results.Bindings {
 		rows = append(rows, rs.Row(i))
 	}
 	return rows
