@@ -1,4 +1,4 @@
-BINARIES_DIR=${REPRO_MNT}/binaries
+BINARIES_DIR=${REPRO_EXPORTED_DIR}/binaries
 LINUX_BINARY_NAME=geist-0.2.6-linux-x86-64-static
 LINUX_BINARY=${BINARIES_DIR}/${LINUX_BINARY_NAME}
 
@@ -14,6 +14,7 @@ purge: clean
 	rm -f go.sum
 	chmod -R +w ${GOPATH}
 	rm -rf ${GOPATH}/*
+	rm -f ${REPRO_EXPORTED_DIR}/geist
 
 depend:
 	go mod tidy
@@ -26,17 +27,22 @@ build: depend
 test: build
 	go test ./... -count 1 -p 1
 
-install: depend
-	go install ./...
+install: build
+	go install ./...   
 
-package: ${LINUX_BINARY}
+package: link-to-binary
 
 ${LINUX_BINARY}: depend
-	CGO_ENABLED=0 GOOS=linux go build -a ${GO_LINKER_FLAGS} -o ${LINUX_BINARY} ./cmd/...
+	mkdir -p ${BINARIES_DIR}
+	cd ${BINARIES_DIR}
+	CGO_ENABLED=0 GOOS=linux go build -a ${GO_LINKER_FLAGS} -o ${LINUX_BINARY} ${REPRO_MNT}/cmd/...
 	(echo "\nExecutable has these properties:\n" &&						\
 	file -b ${LINUX_BINARY} | sed "s/, /\\n/g" && 						\
 	echo "\nExecutable dynamically links to these libraries:\n" &&		\
 	ldd ${LINUX_BINARY} | sort											\
 	) > ${LINUX_BINARY}.properties
-	rm -f ${BINARIES_DIR}/geist
-	ln -s ${LINUX_BINARY_NAME} ${BINARIES_DIR}/geist
+
+link-to-binary: ${LINUX_BINARY}
+	cd ${REPRO_EXPORTED_DIR} && 				\
+	rm -f geist		 && 						\
+	ln -s binaries/${LINUX_BINARY_NAME} geist
