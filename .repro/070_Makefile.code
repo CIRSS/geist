@@ -17,4 +17,4 @@ install-code:           ## Install built artifacts in REPRO.
 	$(RUN_IN_REPRO) 'make -C ${REPRO_MNT} -f ${GO_DEV_MAKEFILE} install'
 
 package-code:           # Package custom artifacts for distribution.
-	$(RUN_IN_REPRO) 'make -C ${REPRO_MNT} -f ${GO_DEV_MAKEFILE} package'
+	$(RUN_IN_REPRO) 'make -C ${REPRO_MNT} -f ${GO_DEV_MAKEFILE} commands'
