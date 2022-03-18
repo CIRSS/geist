@@ -1,13 +1,13 @@
 ## 
 ## # Targets for managing the REPRO-local Blazegraph instance.
 
-BLAZEGRAPH_DIR=./.blazegraph
+DOT_BLAZEGRAPH_SERVICE=./.blazegraph-service
 
 clean-blazegraph:       ## Delete the Blazegraph logs.
-	rm -f ${BLAZEGRAPH_DIR}/*.log
+	rm -f ${DOT_BLAZEGRAPH_SERVICE}/*.log
 	
 drop-blazegraph:        ## Delete the Blazegraph storage file.
-	rm -f ${BLAZEGRAPH_DIR}/blazegraph.diskrw
+	rm -f ${DOT_BLAZEGRAPH_SERVICE}/blazegraph.diskrw
 
 ## purge-blazegraph:       Delete all artifacts associated with Blazegraph instance.
 purge-blazegraph: drop-blazegraph clean-blazegraph
