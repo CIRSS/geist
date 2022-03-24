@@ -1,13 +1,8 @@
-## 
-## # Targets for managing the REPRO-local Blazegraph instance.
-
-DOT_BLAZEGRAPH_SERVICE=./.blazegraph-service
-
-clean-blazegraph:       ## Delete the Blazegraph logs.
-	rm -f ${DOT_BLAZEGRAPH_SERVICE}/*.log
+clean-database:       ## Delete the database logs.
+	$(RUN_IN_REPRO) 'repro.run_target clean-database'
 	
-drop-blazegraph:        ## Delete the Blazegraph storage file.
-	rm -f ${DOT_BLAZEGRAPH_SERVICE}/blazegraph.diskrw
+drop-database:        ## Delete the database storage files.
+	$(RUN_IN_REPRO) 'repro.run_target drop-database'
 
-## purge-blazegraph:       Delete all artifacts associated with Blazegraph instance.
-purge-blazegraph: drop-blazegraph clean-blazegraph
+purge-database:       ## Delete all artifacts associated with the database instance.
+	$(RUN_IN_REPRO) 'repro.run_target purge-database'

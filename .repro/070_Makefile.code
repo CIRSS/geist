@@ -2,19 +2,19 @@
 ## # Targets for building and testing custom code in this REPRO.
 
 clean-code:             ## Delete artifacts from previous builds.
-	$(RUN_IN_REPRO) 'make -C ${REPRO_MNT} -f ${GO_DEV_MAKEFILE} clean'
+	$(RUN_IN_REPRO) 'repro.run_target clean-code'
 
 purge-code:             ## Delete all downloaded, cached, and built artifacts.
-	$(RUN_IN_REPRO) 'make -C ${REPRO_MNT} -f ${GO_DEV_MAKEFILE} purge'
+	$(RUN_IN_REPRO) 'repro.run_target purge-code'
 
 build-code:             ## Build custom code.
-	$(RUN_IN_REPRO) 'make -C ${REPRO_MNT} -f ${GO_DEV_MAKEFILE} build'
+	$(RUN_IN_REPRO) 'repro.run_target build-code'
 
 test-code:              ## Run tests on custom code.
-	$(RUN_IN_REPRO) 'make -C ${REPRO_MNT} -f ${GO_DEV_MAKEFILE} test'
+	$(RUN_IN_REPRO) 'repro.run_target test-code'
 
 install-code:           ## Install built artifacts in REPRO.
-	$(RUN_IN_REPRO) 'make -C ${REPRO_MNT} -f ${GO_DEV_MAKEFILE} install'
+	$(RUN_IN_REPRO) 'repro.run_target install-code'
 
 package-code:           # Package custom artifacts for distribution.
-	$(RUN_IN_REPRO) 'make -C ${REPRO_MNT} -f ${GO_DEV_MAKEFILE} commands'
+	$(RUN_IN_REPRO) 'repro.run_target package-code'
