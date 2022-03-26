@@ -10,7 +10,7 @@ jena_version_name=apache-jena-${jena_version}
 jena_archive=${jena_version_name}.tar.gz
 
 cd ${HOME}
-wget http://archive.apache.org/dist/jena/binaries/${jena_archive}
+curl -f -L http://archive.apache.org/dist/jena/binaries/${jena_archive} -o ${jena_archive}
 tar xvvf ${jena_archive}
 rm ${jena_archive}
  
