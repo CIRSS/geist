@@ -1,0 +1,6 @@
+run:
+	make -C ${REPRO_MNT}/demo all
+
+clean:
+	make -C ${REPRO_MNT}/demo clean
+
