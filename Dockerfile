@@ -4,7 +4,7 @@ COPY exports /repro/exports
 
 USER repro
 
-RUN repro.require geist exports --dev --demo
+RUN repro.require geist exports --code --demo
 RUN repro.require blaze 0.2.6 ${CIRSS_RELEASE}
 RUN repro.require blazegraph-service master ${CIRSS_BRANCH}
 
