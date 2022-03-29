@@ -1,0 +1,3 @@
+REPRO_NAME=geist
+REPRO_DOCKER_ORG=cirss
+REPRO_IMAGE_TAG=latest
