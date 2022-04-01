@@ -1,3 +1,3 @@
 
-repro.require go-dev master ${REPROS_DEV_BRANCH}
+repro.require go-dev master ${REPROS_DEV}
 
