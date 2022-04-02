@@ -14,7 +14,7 @@ curl -f -L http://archive.apache.org/dist/jena/binaries/${jena_archive} -o ${jen
 tar xvvf ${jena_archive}
 rm ${jena_archive}
  
-repro.setenv JENA_HOME ${HOME}/${jena_version_name}
-repro.setenv JENA_CLASSPATH '${JENA_HOME}/lib/*'
+repro.env JENA_HOME ${HOME}/${jena_version_name}
+repro.env JENA_CLASSPATH '${JENA_HOME}/lib/*'
 
-repro.prefixpath '${JENA_HOME}/bin'
+repro.path '${JENA_HOME}/bin'
