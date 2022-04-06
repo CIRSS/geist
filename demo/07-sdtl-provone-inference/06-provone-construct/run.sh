@@ -1,28 +1,25 @@
 #!/usr/bin/env bash
 
-RUNNER='../../common/run_script_example.sh'
-GRAPHER='../../common/run_dot_examples.sh'
-
 # *****************************************************************************
 
-bash ${RUNNER} SETUP "IMPORT SDTL AS JSON-LD" << END_SCRIPT
+run_cell SETUP "IMPORT SDTL AS JSON-LD" << END_CELL
 
 geist destroy --dataset kb --quiet
 geist create --dataset kb --quiet 
 geist import --format jsonld --file ../data/compute-sdth.jsonld
 
-END_SCRIPT
+END_CELL
 
 # *****************************************************************************
 
-bash ${RUNNER} E1 "EXPORT ORIGINAL SDTL AS N-TRIPLES" << END_SCRIPT
+run_cell E1 "EXPORT ORIGINAL SDTL AS N-TRIPLES" << END_CELL
 
 geist export --format nt | sort
 
-END_SCRIPT
+END_CELL
 
 
-bash ${RUNNER} Q1 "CONSTRUCT PROVONE PROGRAMS VIA SPARQL CONSTRUCT QUERY" << END_SCRIPT
+run_cell Q1 "CONSTRUCT PROVONE PROGRAMS VIA SPARQL CONSTRUCT QUERY" << END_CELL
 
 geist query --format table << __END_QUERY__
 
@@ -48,10 +45,10 @@ geist query --format table << __END_QUERY__
 
 __END_QUERY__
 
-END_SCRIPT
+END_CELL
 
 
-bash ${RUNNER} R1 "CONSTRUCT PROVONE PROGRAMS VIA GEIST REPORT" << '__END_SCRIPT__'
+run_cell R1 "CONSTRUCT PROVONE PROGRAMS VIA GEIST REPORT" << '__END_CELL__'
 
 geist report << '__END_REPORT_TEMPLATE__'
 
@@ -83,4 +80,4 @@ geist report << '__END_REPORT_TEMPLATE__'
 
 __END_REPORT_TEMPLATE__
 
-__END_SCRIPT__
+__END_CELL__

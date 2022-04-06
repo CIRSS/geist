@@ -1,21 +1,19 @@
 #!/usr/bin/env bash
 
-RUNNER='../../common/run_script_example.sh'
-
 # *****************************************************************************
 
-bash ${RUNNER} SETUP "IMPORT PROVONE TRACE" << END_SCRIPT
+run_cell SETUP "IMPORT PROVONE TRACE" << END_CELL
 
 geist destroy --dataset kb --quiet
 geist create --dataset kb --quiet
 geist import --format jsonld --file ../data/branched-pipeline.jsonld
 
-END_SCRIPT
+END_CELL
 
 # *****************************************************************************
 
-bash ${RUNNER} RETROSPECTIVE-1 "WHAT FILES WERE PROVIDED AS INPUT TO THE TALE?" \
-    << END_SCRIPT
+run_cell RETROSPECTIVE-1 "WHAT FILES WERE PROVIDED AS INPUT TO THE TALE?" \
+    << END_CELL
 
 geist query --format table << END_QUERY
 
@@ -33,12 +31,12 @@ geist query --format table << END_QUERY
 
 END_QUERY
 
-END_SCRIPT
+END_CELL
 
 # *****************************************************************************
 
-bash ${RUNNER} RETROSPECTIVE-1 "WHAT FILES WERE PRODUCED AS OUTPUTS OF THE TALE?" \
-    << END_SCRIPT
+run_cell RETROSPECTIVE-1 "WHAT FILES WERE PRODUCED AS OUTPUTS OF THE TALE?" \
+    << END_CELL
 
 geist query --format table << END_QUERY
 
@@ -56,4 +54,4 @@ geist query --format table << END_QUERY
 
 END_QUERY
 
-END_SCRIPT
+END_CELL

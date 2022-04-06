@@ -1,5 +1,5 @@
 
-******************************************* EXAMPLE SETUP ************************************************
+********************************************** CELL SETUP ************************************************
 
 # IMPORT SDTL AS JSON-LD
 
@@ -11,7 +11,7 @@ geist import --format jsonld --file ../data/compute-sdth.jsonld
 
 
 
-******************************************* EXAMPLE E1 ************************************************
+********************************************** CELL E1 ************************************************
 
 # EXPORT ORIGINAL SDTL AS N-TRIPLES
 
@@ -40,7 +40,7 @@ geist export --format nt | sort
 <http://wholetale.org/program/1119/step/1> <https://rdf-vocabulary.ddialliance.org/sdth#producesDataframe> <http://wholetale.org/program/1119/dataframe/1> .
 <http://wholetale.org/program/1119/step/8> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdth#ProgramStep> .
 <http://wholetale.org/program/1119/step/8> <https://rdf-vocabulary.ddialliance.org/sdth#consumesDataframe> <http://wholetale.org/program/1119/dataframe/1> .
-<http://wholetale.org/program/1119/step/8> <https://rdf-vocabulary.ddialliance.org/sdth#hasSourceCode> "df.to_csv('outputs/df_updated.csv', index=False)"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/step/8> <https://rdf-vocabulary.ddialliance.org/sdth#hasSourceCode> "df.to_csv('products/df_updated.csv', index=False)"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://wholetale.org/program/1119/step/8> <https://rdf-vocabulary.ddialliance.org/sdth#savesFile> <http://wholetale.org/program/1119/file/2> .
 <http://wholetale.org/program/1119/step/8> <https://rdf-vocabulary.ddialliance.org/sdth#usesVariable> <http://wholetale.org/program/1119/variable/1> .
 <http://wholetale.org/program/1119/step/8> <https://rdf-vocabulary.ddialliance.org/sdth#usesVariable> <http://wholetale.org/program/1119/variable/2> .
@@ -50,7 +50,7 @@ geist export --format nt | sort
 <http://wholetale.org/program/1119/variable/2> <https://rdf-vocabulary.ddialliance.org/sdth#hasName> "B"^^<http://www.w3.org/2001/XMLSchema#string> .
 
 
-******************************************* EXAMPLE Q1 ************************************************
+********************************************** CELL Q1 ************************************************
 
 # CONSTRUCT PROVONE PROGRAMS VIA SPARQL CONSTRUCT QUERY
 
@@ -87,7 +87,7 @@ http://wholetale.org/program/1119/step/8    | http://www.w3.org/1999/02/22-rdf-s
 http://wholetale.org/program/1119/program/1 | http://www.w3.org/1999/02/22-rdf-syntax-ns#type | http://purl.dataone.org/provone/2015/01/15/ontology#Program | 
 
 
-******************************************* EXAMPLE R1 ************************************************
+********************************************** CELL R1 ************************************************
 
 # CONSTRUCT PROVONE PROGRAMS VIA GEIST REPORT
 
@@ -122,9 +122,9 @@ __END_REPORT_TEMPLATE__
 
 ------------------------------------------- R1 OUTPUTS ------------------------------------------------
 
+<http://wholetale.org/program/1119/program/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.dataone.org/provone/2015/01/15/ontology#Program> .
 <http://wholetale.org/program/1119/step/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.dataone.org/provone/2015/01/15/ontology#Program> .
 <http://wholetale.org/program/1119/step/8> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.dataone.org/provone/2015/01/15/ontology#Program> .
-<http://wholetale.org/program/1119/program/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.dataone.org/provone/2015/01/15/ontology#Program> .
 <http://wholetale.org/program/1119/program/1> provone:hasSubProgram <http://wholetale.org/program/1119/step/1> .
 <http://wholetale.org/program/1119/program/1> provone:hasSubProgram <http://wholetale.org/program/1119/step/8> .
 

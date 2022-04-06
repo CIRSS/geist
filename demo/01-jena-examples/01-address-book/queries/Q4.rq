@@ -1,9 +1,0 @@
-# List everything known about Cindy.
-
-PREFIX ab: <http://learningsparql.com/ns/addressbook#> 
-SELECT ?propertyName ?propertyValue
-WHERE
-{
-    ?person ab:firstname  "Cindy"           ;
-            ?propertyName ?propertyValue    . 
-}

@@ -1,5 +1,5 @@
 
-******************************************* EXAMPLE SETUP ************************************************
+********************************************** CELL SETUP ************************************************
 
 # IMPORT SDTL
 
@@ -11,7 +11,7 @@ geist import --format jsonld --file ../data/compute-sdth.jsonld
 
 
 
-******************************************* EXAMPLE E1 ************************************************
+********************************************** CELL E1 ************************************************
 
 # EXPORT AS N-TRIPLES
 
@@ -40,7 +40,7 @@ geist export --format nt | sort
 <http://wholetale.org/program/1119/step/1> <https://rdf-vocabulary.ddialliance.org/sdth#producesDataframe> <http://wholetale.org/program/1119/dataframe/1> .
 <http://wholetale.org/program/1119/step/8> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdth#ProgramStep> .
 <http://wholetale.org/program/1119/step/8> <https://rdf-vocabulary.ddialliance.org/sdth#consumesDataframe> <http://wholetale.org/program/1119/dataframe/1> .
-<http://wholetale.org/program/1119/step/8> <https://rdf-vocabulary.ddialliance.org/sdth#hasSourceCode> "df.to_csv('outputs/df_updated.csv', index=False)"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/step/8> <https://rdf-vocabulary.ddialliance.org/sdth#hasSourceCode> "df.to_csv('products/df_updated.csv', index=False)"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://wholetale.org/program/1119/step/8> <https://rdf-vocabulary.ddialliance.org/sdth#savesFile> <http://wholetale.org/program/1119/file/2> .
 <http://wholetale.org/program/1119/step/8> <https://rdf-vocabulary.ddialliance.org/sdth#usesVariable> <http://wholetale.org/program/1119/variable/1> .
 <http://wholetale.org/program/1119/step/8> <https://rdf-vocabulary.ddialliance.org/sdth#usesVariable> <http://wholetale.org/program/1119/variable/2> .
@@ -50,7 +50,7 @@ geist export --format nt | sort
 <http://wholetale.org/program/1119/variable/2> <https://rdf-vocabulary.ddialliance.org/sdth#hasName> "B"^^<http://www.w3.org/2001/XMLSchema#string> .
 
 
-******************************************* EXAMPLE Q1 ************************************************
+********************************************** CELL Q1 ************************************************
 
 # WHAT STEPS ARE EXECUTED BY THE PROGRAM?
 
@@ -72,12 +72,12 @@ __END_QUERY__
 ------------------------------------------- Q1 OUTPUTS ------------------------------------------------
 
 step                                     | step_source_text
-===========================================================================================
+============================================================================================
 http://wholetale.org/program/1119/step/1 | df = pd.read_csv('../data/df.csv')
-http://wholetale.org/program/1119/step/8 | df.to_csv('outputs/df_updated.csv', index=False)
+http://wholetale.org/program/1119/step/8 | df.to_csv('products/df_updated.csv', index=False)
 
 
-******************************************* EXAMPLE Q2 ************************************************
+********************************************** CELL Q2 ************************************************
 
 # WHAT DATA FILES ARE LOADED BY THE PROGRAM?
 
@@ -103,7 +103,7 @@ file_name | step                                     | step_source_text
 df.csv    | http://wholetale.org/program/1119/step/1 | df = pd.read_csv('../data/df.csv')
 
 
-******************************************* EXAMPLE Q3 ************************************************
+********************************************** CELL Q3 ************************************************
 
 # WHAT DATA FILES ARE SAVED BY THE PROGRAM?
 
@@ -125,11 +125,11 @@ __END_QUERY__
 ------------------------------------------- Q3 OUTPUTS ------------------------------------------------
 
 file_name      | step                                     | step_source_text
-=============================================================================================================
-df_updated.csv | http://wholetale.org/program/1119/step/8 | df.to_csv('outputs/df_updated.csv', index=False)
+==============================================================================================================
+df_updated.csv | http://wholetale.org/program/1119/step/8 | df.to_csv('products/df_updated.csv', index=False)
 
 
-******************************************* EXAMPLE Q4 ************************************************
+********************************************** CELL Q4 ************************************************
 
 # WHAT VARIABLES ARE LOADED BY THE PROGRAM?
 
@@ -159,7 +159,7 @@ df             | A             | df = pd.read_csv('../data/df.csv')
 df             | B             | df = pd.read_csv('../data/df.csv')
 
 
-******************************************* EXAMPLE Q5 ************************************************
+********************************************** CELL Q5 ************************************************
 
 # WHAT VARIABLES ARE SAVED BY THE SCRIPT?
 
@@ -185,7 +185,7 @@ __END_QUERY__
 ------------------------------------------- Q5 OUTPUTS ------------------------------------------------
 
 dataframe_name | variable_name | step_source_text
-==========================================================
-df             | A             | df.to_csv('outputs/df_updated.csv', index=False)
-df             | B             | df.to_csv('outputs/df_updated.csv', index=False)
+===========================================================
+df             | A             | df.to_csv('products/df_updated.csv', index=False)
+df             | B             | df.to_csv('products/df_updated.csv', index=False)
 

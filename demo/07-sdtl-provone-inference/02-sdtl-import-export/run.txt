@@ -1,5 +1,5 @@
 
-******************************************* EXAMPLE DUMP-1 ************************************************
+********************************************** CELL DUMP-1 ************************************************
 
 # IMPORT SDTL AS JSON-LD AND EXPORT AS N-TRIPLES
 
@@ -240,10 +240,10 @@ geist export --format nt | sort
 <http://wholetale.org/program/1119/sourceinfo/7> <https://rdf-vocabulary.ddialliance.org/sdtl#OriginalSourceText> "temps = temps.assign(Kelvin=(temps.Celsius + 273))"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://wholetale.org/program/1119/sourceinfo/8> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#SourceInformation> .
 <http://wholetale.org/program/1119/sourceinfo/8> <https://rdf-vocabulary.ddialliance.org/sdtl#LineNumberStart> "32"^^<http://www.w3.org/2001/XMLSchema#integer> .
-<http://wholetale.org/program/1119/sourceinfo/8> <https://rdf-vocabulary.ddialliance.org/sdtl#OriginalSourceText> "df.to_csv('outputs/df_updated.csv', index=False)"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/sourceinfo/8> <https://rdf-vocabulary.ddialliance.org/sdtl#OriginalSourceText> "df.to_csv('products/df_updated.csv', index=False)"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://wholetale.org/program/1119/sourceinfo/9> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#SourceInformation> .
 <http://wholetale.org/program/1119/sourceinfo/9> <https://rdf-vocabulary.ddialliance.org/sdtl#LineNumberStart> "35"^^<http://www.w3.org/2001/XMLSchema#integer> .
-<http://wholetale.org/program/1119/sourceinfo/9> <https://rdf-vocabulary.ddialliance.org/sdtl#OriginalSourceText> "temps.to_csv('outputs/temps_updated.csv', index=False)"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/sourceinfo/9> <https://rdf-vocabulary.ddialliance.org/sdtl#OriginalSourceText> "temps.to_csv('products/temps_updated.csv', index=False)"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://wholetale.org/program/1119/variable/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableSymbolExpression> .
 <http://wholetale.org/program/1119/variable/1> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableName> "A"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://wholetale.org/program/1119/variable/2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableSymbolExpression> .

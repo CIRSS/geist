@@ -1,5 +1,5 @@
 
-******************************************* EXAMPLE SETUP ************************************************
+********************************************** CELL SETUP ************************************************
 
 # INITIALIZE BLAZEGRAPH INSTANCE WITH CITATIONS
 
@@ -11,7 +11,7 @@ geist import --file ../data/citations.ttl --format ttl
 
 
 
-******************************************* EXAMPLE S1 ************************************************
+********************************************** CELL S1 ************************************************
 
 # EXPORT CITATIONS AS N-TRIPLES
 
@@ -83,7 +83,7 @@ geist export --format nt | sort
 <http://learningsparql.com/ns/papers#resultI> <http://www.w3.org/2000/01/rdf-schema#label> "Result I" .
 
 
-******************************************* EXAMPLE S2 ************************************************
+********************************************** CELL S2 ************************************************
 
 # WHICH PAPERS DIRECTLY CITE WHICH PAPERS?
 
@@ -117,7 +117,7 @@ http://learningsparql.com/ns/papers#paperI | http://learningsparql.com/ns/papers
 http://learningsparql.com/ns/papers#paperI | http://learningsparql.com/ns/papers#paperG
 
 
-******************************************* EXAMPLE S3 ************************************************
+********************************************** CELL S3 ************************************************
 
 # WHICH PAPERS DEPEND ON WHICH PRIOR WORK?
 
@@ -158,7 +158,7 @@ http://learningsparql.com/ns/papers#paperI | http://learningsparql.com/ns/papers
 http://learningsparql.com/ns/papers#paperI | http://learningsparql.com/ns/papers#paperG
 
 
-******************************************* EXAMPLE S4 ************************************************
+********************************************** CELL S4 ************************************************
 
 # WHICH PAPERS DEPEND ON PAPER A?
 
@@ -189,7 +189,7 @@ http://learningsparql.com/ns/papers#paperH
 http://learningsparql.com/ns/papers#paperI
 
 
-******************************************* EXAMPLE S5 ************************************************
+********************************************** CELL S5 ************************************************
 
 # WHICH PAPERS CITE A PAPER THAT CITES PAPER A?
 
@@ -216,7 +216,7 @@ http://learningsparql.com/ns/papers#paperG
 http://learningsparql.com/ns/papers#paperH
 
 
-******************************************* EXAMPLE S6 ************************************************
+********************************************** CELL S6 ************************************************
 
 # WHICH PAPERS CITE A PAPER CITED BY PAPER D?
 
@@ -243,7 +243,7 @@ http://learningsparql.com/ns/papers#paperC
 http://learningsparql.com/ns/papers#paperE
 
 
-******************************************* EXAMPLE S7 ************************************************
+********************************************** CELL S7 ************************************************
 
 # WHAT RESULTS DEPEND DIRECTLY ON RESULTS REPORTED BY PAPER A?
 
@@ -269,7 +269,7 @@ http://learningsparql.com/ns/papers#resultC
 http://learningsparql.com/ns/papers#resultE
 
 
-******************************************* EXAMPLE S7 ************************************************
+********************************************** CELL S7 ************************************************
 
 # WHAT RESULTS DEPEND DIRECTLY OR INDIRECTLY ON RESULTS REPORTED BY PAPER A?
 
@@ -303,7 +303,7 @@ http://learningsparql.com/ns/papers#resultH
 http://learningsparql.com/ns/papers#resultI
 
 
-******************************************* EXAMPLE S8 ************************************************
+********************************************** CELL S8 ************************************************
 
 # Visualization of Paper-Citation Graph
 
@@ -349,7 +349,7 @@ geist report << '__END_REPORT_TEMPLATE__'
 
 __END_REPORT_TEMPLATE__
 
------------------------------------------ S8 DOT OUTPUT -----------------------------------------------
+------------------------------------------- S8 OUTPUTS ------------------------------------------------
 
 digraph wt_run {
 rankdir=BT
@@ -392,7 +392,7 @@ node[shape=box style="filled" fillcolor="#CCFFCC" peripheries=1 fontname=Courier
 
 
 
-******************************************* EXAMPLE S9 ************************************************
+********************************************** CELL S9 ************************************************
 
 # Visualization of Paper-Citation Graph
 
@@ -442,7 +442,7 @@ geist report << '__END_REPORT_TEMPLATE__'
                                                                     \
 __END_REPORT_TEMPLATE__
 
------------------------------------------ S9 DOT OUTPUT -----------------------------------------------
+------------------------------------------- S9 OUTPUTS ------------------------------------------------
 
 digraph wt_run {
 rankdir=BT
@@ -486,7 +486,7 @@ node[shape=box style="rounded,filled" fillcolor="#FFFFCC" peripheries=1 fontname
 }
 
 
-******************************************* EXAMPLE S10 ************************************************
+********************************************** CELL S10 ************************************************
 
 # Visualization of Paper-Result Graph
 
@@ -560,7 +560,7 @@ geist report << '__END_REPORT_TEMPLATE__'
                                                                     \
 __END_REPORT_TEMPLATE__
 
------------------------------------------ S10 DOT OUTPUT -----------------------------------------------
+------------------------------------------- S10 OUTPUTS ------------------------------------------------
 
 digraph wt_run {
 rankdir=BT

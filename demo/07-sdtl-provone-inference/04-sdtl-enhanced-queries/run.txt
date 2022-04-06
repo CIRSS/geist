@@ -1,5 +1,5 @@
 
-******************************************* EXAMPLE SETUP ************************************************
+********************************************** CELL SETUP ************************************************
 
 # IMPORT SDTL
 
@@ -12,7 +12,7 @@ geist import --format jsonld --file ../data/compute-sdtl.jsonld
 
 
 
-******************************************* EXAMPLE E1 ************************************************
+********************************************** CELL E1 ************************************************
 
 # EXPORT AS N-TRIPLES
 
@@ -358,10 +358,10 @@ geist export --format nt | sort
 <http://wholetale.org/program/1119/sourceinfo/7> <https://rdf-vocabulary.ddialliance.org/sdtl#OriginalSourceText> "temps = temps.assign(Kelvin=(temps.Celsius + 273))"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://wholetale.org/program/1119/sourceinfo/8> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#SourceInformation> .
 <http://wholetale.org/program/1119/sourceinfo/8> <https://rdf-vocabulary.ddialliance.org/sdtl#LineNumberStart> "32"^^<http://www.w3.org/2001/XMLSchema#integer> .
-<http://wholetale.org/program/1119/sourceinfo/8> <https://rdf-vocabulary.ddialliance.org/sdtl#OriginalSourceText> "df.to_csv('outputs/df_updated.csv', index=False)"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/sourceinfo/8> <https://rdf-vocabulary.ddialliance.org/sdtl#OriginalSourceText> "df.to_csv('products/df_updated.csv', index=False)"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://wholetale.org/program/1119/sourceinfo/9> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#SourceInformation> .
 <http://wholetale.org/program/1119/sourceinfo/9> <https://rdf-vocabulary.ddialliance.org/sdtl#LineNumberStart> "35"^^<http://www.w3.org/2001/XMLSchema#integer> .
-<http://wholetale.org/program/1119/sourceinfo/9> <https://rdf-vocabulary.ddialliance.org/sdtl#OriginalSourceText> "temps.to_csv('outputs/temps_updated.csv', index=False)"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/sourceinfo/9> <https://rdf-vocabulary.ddialliance.org/sdtl#OriginalSourceText> "temps.to_csv('products/temps_updated.csv', index=False)"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://wholetale.org/program/1119/variable/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableSymbolExpression> .
 <http://wholetale.org/program/1119/variable/1> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableName> "A"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://wholetale.org/program/1119/variable/2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableSymbolExpression> .
@@ -709,7 +709,7 @@ geist export --format nt | sort
 <https://rdf-vocabulary.ddialliance.org/sdtl#VariableSymbolExpression> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableSymbolExpression> .
 
 
-******************************************* EXAMPLE Q1 ************************************************
+********************************************** CELL Q1 ************************************************
 
 # WHAT COMMANDS USE EACH VARIABLE?
 
@@ -744,7 +744,7 @@ Celsius       | http://wholetale.org/program/1119/compute/5 | 28          | temp
 Fahrenheit    | http://wholetale.org/program/1119/compute/4 | 24          | temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))
 
 
-******************************************* EXAMPLE Q2 ************************************************
+********************************************** CELL Q2 ************************************************
 
 # WHAT VARIABLES DIRECTLY AFFECT OTHER VARIABLES?
 
@@ -780,7 +780,7 @@ Celsius            | Kelvin            | http://wholetale.org/program/1119/compu
 Fahrenheit         | Celsius           | http://wholetale.org/program/1119/compute/4 | 24          | temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))
 
 
-******************************************* EXAMPLE Q3 ************************************************
+********************************************** CELL Q3 ************************************************
 
 # WHAT VARIABLES DIRECTLY AFFECT THE KELVIN VARIABLE?
 
@@ -812,7 +812,7 @@ affecting_variable | command                                     | source_line |
 Celsius            | http://wholetale.org/program/1119/compute/5 | 28          | temps = temps.assign(Kelvin=(temps.Celsius + 273))
 
 
-******************************************* EXAMPLE Q4 ************************************************
+********************************************** CELL Q4 ************************************************
 
 # WHAT VARIABLES DIRECTLY AFFECT VARIABLES THAT DIRECTLY AFFECT THE KELVIN VARIABLE?
 
@@ -848,7 +848,7 @@ indirectly_affecting_variable | indirectly_affecting_command                | so
 Fahrenheit                    | http://wholetale.org/program/1119/compute/4 | 24          | temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))
 
 
-******************************************* EXAMPLE Q5 ************************************************
+********************************************** CELL Q5 ************************************************
 
 # WHAT VARIABLES DIRECTLY OR INDIRECTLY AFFECT THE KELVIN VARIABLE?
 
@@ -874,7 +874,7 @@ Celsius
 Fahrenheit
 
 
-******************************************* EXAMPLE Q6 ************************************************
+********************************************** CELL Q6 ************************************************
 
 # WHAT COMMANDS AFFECT EACH VARIABLE?
 
@@ -920,7 +920,7 @@ Fahrenheit        | http://wholetale.org/program/1119/load/2    | 20          | 
 Kelvin            | http://wholetale.org/program/1119/compute/5 | 28          | temps = temps.assign(Kelvin=(temps.Celsius + 273))
 
 
-******************************************* EXAMPLE Q7 ************************************************
+********************************************** CELL Q7 ************************************************
 
 # WHAT COMMANDS READ VARIABLE VALUES ASSIGNED BY OTHER COMMANDS?
 
@@ -948,12 +948,12 @@ __END_QUERY__
 ------------------------------------------- Q7 OUTPUTS ------------------------------------------------
 
 variable | writer_line | writer_text | reader_line | reader_text
-==============================================================================
+===============================================================================
 A        | 8           | df['A'] = 3 | 16          | df['C'] = df.A - df.B
-A        | 8           | df['A'] = 3 | 32          | df.to_csv('outputs/df_updated.csv', index=False)
+A        | 8           | df['A'] = 3 | 32          | df.to_csv('products/df_updated.csv', index=False)
 
 
-******************************************* EXAMPLE R1 ************************************************
+********************************************** CELL R1 ************************************************
 
 # REPORT HISTORY OF EACH VARIABLE
 
@@ -999,18 +999,18 @@ Variable A
 -------------------
 Load    | Line 4 | df = pd.read_csv('../data/df.csv')
 Compute | Line 8 | df['A'] = 3
-Save    | Line 32 | df.to_csv('outputs/df_updated.csv', index=False)
+Save    | Line 32 | df.to_csv('products/df_updated.csv', index=False)
 
 Variable B
 -------------------
 Load    | Line 4 | df = pd.read_csv('../data/df.csv')
 Compute | Line 12 | df['B'] = df.B + 6.5
-Save    | Line 32 | df.to_csv('outputs/df_updated.csv', index=False)
+Save    | Line 32 | df.to_csv('products/df_updated.csv', index=False)
 
 Variable C
 -------------------
 Compute | Line 16 | df['C'] = df.A - df.B
-Save    | Line 32 | df.to_csv('outputs/df_updated.csv', index=False)
+Save    | Line 32 | df.to_csv('products/df_updated.csv', index=False)
 
 
 ===================
@@ -1020,24 +1020,24 @@ Dataframe temps
 Variable Fahrenheit
 -------------------
 Load    | Line 20 | temps = pd.read_csv('../data/temps.csv')
-Save    | Line 35 | temps.to_csv('outputs/temps_updated.csv', index=False)
+Save    | Line 35 | temps.to_csv('products/temps_updated.csv', index=False)
 
 Variable Kelvin
 -------------------
 Compute | Line 28 | temps = temps.assign(Kelvin=(temps.Celsius + 273))
-Save    | Line 35 | temps.to_csv('outputs/temps_updated.csv', index=False)
+Save    | Line 35 | temps.to_csv('products/temps_updated.csv', index=False)
 
 Variable Celsius
 -------------------
 Compute | Line 24 | temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))
-Save    | Line 35 | temps.to_csv('outputs/temps_updated.csv', index=False)
+Save    | Line 35 | temps.to_csv('products/temps_updated.csv', index=False)
 
 
 
 
 
 
-******************************************* EXAMPLE R2 ************************************************
+********************************************** CELL R2 ************************************************
 
 # WHAT COMMANDS WRITE TO EACH VARIABLE?
 
@@ -1080,7 +1080,7 @@ Kelvin           | 28          | temps = temps.assign(Kelvin=(temps.Celsius + 27
 
 
 
-******************************************* EXAMPLE R3 ************************************************
+********************************************** CELL R3 ************************************************
 
 # WHAT COMMANDS READ FROM EACH VARIABLE?
 
@@ -1112,21 +1112,21 @@ __END_REPORT_TEMPLATE__
 read_variable | source_line | source_text
 ==================================================================================
 A             | 16          | df['C'] = df.A - df.B
-A             | 32          | df.to_csv('outputs/df_updated.csv', index=False)
+A             | 32          | df.to_csv('products/df_updated.csv', index=False)
 B             | 12          | df['B'] = df.B + 6.5
 B             | 16          | df['C'] = df.A - df.B
-B             | 32          | df.to_csv('outputs/df_updated.csv', index=False)
-C             | 32          | df.to_csv('outputs/df_updated.csv', index=False)
+B             | 32          | df.to_csv('products/df_updated.csv', index=False)
+C             | 32          | df.to_csv('products/df_updated.csv', index=False)
 Celsius       | 28          | temps = temps.assign(Kelvin=(temps.Celsius + 273))
-Celsius       | 35          | temps.to_csv('outputs/temps_updated.csv', index=False)
+Celsius       | 35          | temps.to_csv('products/temps_updated.csv', index=False)
 Fahrenheit    | 24          | temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))
-Fahrenheit    | 35          | temps.to_csv('outputs/temps_updated.csv', index=False)
-Kelvin        | 35          | temps.to_csv('outputs/temps_updated.csv', index=False)
+Fahrenheit    | 35          | temps.to_csv('products/temps_updated.csv', index=False)
+Kelvin        | 35          | temps.to_csv('products/temps_updated.csv', index=False)
 
 
 
 
-******************************************* EXAMPLE R4 ************************************************
+********************************************** CELL R4 ************************************************
 
 # WHAT COMMANDS WRITE VARIABLES READ BY DOWNSTREAM COMMANDS?
 
@@ -1158,27 +1158,27 @@ __END_REPORT_TEMPLATE__
 ---------- COMMANDS THAT WRITE VARIABLES READ BY DOWNSTREAM COMMANDS ----------
 
 variable   | writer_line | writer_text                                                     | reader_line | reader_text
-===============================================================================================================================================
+================================================================================================================================================
 A          | 4           | df = pd.read_csv('../data/df.csv')                              | 16          | df['C'] = df.A - df.B
-A          | 4           | df = pd.read_csv('../data/df.csv')                              | 32          | df.to_csv('outputs/df_updated.csv', index=False)
+A          | 4           | df = pd.read_csv('../data/df.csv')                              | 32          | df.to_csv('products/df_updated.csv', index=False)
 A          | 8           | df['A'] = 3                                                     | 16          | df['C'] = df.A - df.B
-A          | 8           | df['A'] = 3                                                     | 32          | df.to_csv('outputs/df_updated.csv', index=False)
+A          | 8           | df['A'] = 3                                                     | 32          | df.to_csv('products/df_updated.csv', index=False)
 B          | 4           | df = pd.read_csv('../data/df.csv')                              | 12          | df['B'] = df.B + 6.5
 B          | 4           | df = pd.read_csv('../data/df.csv')                              | 16          | df['C'] = df.A - df.B
-B          | 4           | df = pd.read_csv('../data/df.csv')                              | 32          | df.to_csv('outputs/df_updated.csv', index=False)
+B          | 4           | df = pd.read_csv('../data/df.csv')                              | 32          | df.to_csv('products/df_updated.csv', index=False)
 B          | 12          | df['B'] = df.B + 6.5                                            | 16          | df['C'] = df.A - df.B
-B          | 12          | df['B'] = df.B + 6.5                                            | 32          | df.to_csv('outputs/df_updated.csv', index=False)
-C          | 16          | df['C'] = df.A - df.B                                           | 32          | df.to_csv('outputs/df_updated.csv', index=False)
+B          | 12          | df['B'] = df.B + 6.5                                            | 32          | df.to_csv('products/df_updated.csv', index=False)
+C          | 16          | df['C'] = df.A - df.B                                           | 32          | df.to_csv('products/df_updated.csv', index=False)
 Celsius    | 24          | temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9)) | 28          | temps = temps.assign(Kelvin=(temps.Celsius + 273))
-Celsius    | 24          | temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9)) | 35          | temps.to_csv('outputs/temps_updated.csv', index=False)
+Celsius    | 24          | temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9)) | 35          | temps.to_csv('products/temps_updated.csv', index=False)
 Fahrenheit | 20          | temps = pd.read_csv('../data/temps.csv')                        | 24          | temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))
-Fahrenheit | 20          | temps = pd.read_csv('../data/temps.csv')                        | 35          | temps.to_csv('outputs/temps_updated.csv', index=False)
-Kelvin     | 28          | temps = temps.assign(Kelvin=(temps.Celsius + 273))              | 35          | temps.to_csv('outputs/temps_updated.csv', index=False)
+Fahrenheit | 20          | temps = pd.read_csv('../data/temps.csv')                        | 35          | temps.to_csv('products/temps_updated.csv', index=False)
+Kelvin     | 28          | temps = temps.assign(Kelvin=(temps.Celsius + 273))              | 35          | temps.to_csv('products/temps_updated.csv', index=False)
 
 
 
 
-******************************************* EXAMPLE R5 ************************************************
+********************************************** CELL R5 ************************************************
 
 # WHAT COMMANDS READ VARIABLES WRITTEN BY MULTIPLE UPSTREAM COMMANDS?
 
@@ -1214,14 +1214,14 @@ __END_REPORT_TEMPLATE__
 ---------- COMMANDS THAT READ VARIABLES WRITTEN BY MULTIPLE UPSTREAM COMMANDS ----------
 
 variable | writer_line | writer_text                        | intermediate_writer_line | intermediate_writer_text | reader_line | reader_text
-===================================================================================================================================
+====================================================================================================================================
 B        | 4           | df = pd.read_csv('../data/df.csv') | 12                       | df['B'] = df.B + 6.5     | 16          | df['C'] = df.A - df.B
-B        | 4           | df = pd.read_csv('../data/df.csv') | 12                       | df['B'] = df.B + 6.5     | 32          | df.to_csv('outputs/df_updated.csv', index=False)
+B        | 4           | df = pd.read_csv('../data/df.csv') | 12                       | df['B'] = df.B + 6.5     | 32          | df.to_csv('products/df_updated.csv', index=False)
 
 
 
 
-******************************************* EXAMPLE GRAPH-1 ************************************************
+********************************************** CELL G1 ************************************************
 
 # DATAFRAME FLOW THROUGH COMMANDS
 
@@ -1260,7 +1260,7 @@ geist report << '__END_REPORT_TEMPLATE__'
 
 __END_REPORT_TEMPLATE__
 
------------------------------------------ GRAPH-1 DOT OUTPUT -----------------------------------------------
+------------------------------------------- G1 OUTPUTS ------------------------------------------------
 
 
 digraph sdtl_program {
@@ -1283,8 +1283,8 @@ node[width=8]
 "http://wholetale.org/program/1119/load/2" [label="temps = pd.read_csv('../data/temps.csv')"]
 "http://wholetale.org/program/1119/compute/4" [label="temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))"]
 "http://wholetale.org/program/1119/compute/5" [label="temps = temps.assign(Kelvin=(temps.Celsius + 273))"]
-"http://wholetale.org/program/1119/save/1" [label="df.to_csv('outputs/df_updated.csv', index=False)"]
-"http://wholetale.org/program/1119/save/2" [label="temps.to_csv('outputs/temps_updated.csv', index=False)"]
+"http://wholetale.org/program/1119/save/1" [label="df.to_csv('products/df_updated.csv', index=False)"]
+"http://wholetale.org/program/1119/save/2" [label="temps.to_csv('products/temps_updated.csv', index=False)"]
 
 # dataframe edges
 "http://wholetale.org/program/1119/load/1" -> "http://wholetale.org/program/1119/compute/1" [label="df"]
@@ -1299,7 +1299,7 @@ node[width=8]
 }
 
 
-******************************************* EXAMPLE GRAPH-2 ************************************************
+********************************************** CELL G2 ************************************************
 
 # VARIABLE FLOW THROUGH COMMANDS
 
@@ -1338,7 +1338,7 @@ geist report << '__END_REPORT_TEMPLATE__'
 
 __END_REPORT_TEMPLATE__
 
------------------------------------------ GRAPH-2 DOT OUTPUT -----------------------------------------------
+------------------------------------------- G2 OUTPUTS ------------------------------------------------
 
 
 digraph sdtl_program {
@@ -1361,8 +1361,8 @@ node[width=8]
 "http://wholetale.org/program/1119/load/2" [label="temps = pd.read_csv('../data/temps.csv')"]
 "http://wholetale.org/program/1119/compute/4" [label="temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))"]
 "http://wholetale.org/program/1119/compute/5" [label="temps = temps.assign(Kelvin=(temps.Celsius + 273))"]
-"http://wholetale.org/program/1119/save/1" [label="df.to_csv('outputs/df_updated.csv', index=False)"]
-"http://wholetale.org/program/1119/save/2" [label="temps.to_csv('outputs/temps_updated.csv', index=False)"]
+"http://wholetale.org/program/1119/save/1" [label="df.to_csv('products/df_updated.csv', index=False)"]
+"http://wholetale.org/program/1119/save/2" [label="temps.to_csv('products/temps_updated.csv', index=False)"]
 
 # variable write->read edges
 "http://wholetale.org/program/1119/compute/1" -> "http://wholetale.org/program/1119/compute/3" [label="A"]

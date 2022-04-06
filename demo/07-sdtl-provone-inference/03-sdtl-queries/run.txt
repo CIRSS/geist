@@ -1,5 +1,5 @@
 
-******************************************* EXAMPLE SETUP ************************************************
+********************************************** CELL SETUP ************************************************
 
 # IMPORT SDTL
 
@@ -11,7 +11,7 @@ geist import --format jsonld --file ../data/compute-sdtl.jsonld
 
 
 
-******************************************* EXAMPLE E1 ************************************************
+********************************************** CELL E1 ************************************************
 
 # EXPORT AS N-TRIPLES
 
@@ -249,10 +249,10 @@ geist export --format nt | sort
 <http://wholetale.org/program/1119/sourceinfo/7> <https://rdf-vocabulary.ddialliance.org/sdtl#OriginalSourceText> "temps = temps.assign(Kelvin=(temps.Celsius + 273))"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://wholetale.org/program/1119/sourceinfo/8> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#SourceInformation> .
 <http://wholetale.org/program/1119/sourceinfo/8> <https://rdf-vocabulary.ddialliance.org/sdtl#LineNumberStart> "32"^^<http://www.w3.org/2001/XMLSchema#integer> .
-<http://wholetale.org/program/1119/sourceinfo/8> <https://rdf-vocabulary.ddialliance.org/sdtl#OriginalSourceText> "df.to_csv('outputs/df_updated.csv', index=False)"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/sourceinfo/8> <https://rdf-vocabulary.ddialliance.org/sdtl#OriginalSourceText> "df.to_csv('products/df_updated.csv', index=False)"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://wholetale.org/program/1119/sourceinfo/9> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#SourceInformation> .
 <http://wholetale.org/program/1119/sourceinfo/9> <https://rdf-vocabulary.ddialliance.org/sdtl#LineNumberStart> "35"^^<http://www.w3.org/2001/XMLSchema#integer> .
-<http://wholetale.org/program/1119/sourceinfo/9> <https://rdf-vocabulary.ddialliance.org/sdtl#OriginalSourceText> "temps.to_csv('outputs/temps_updated.csv', index=False)"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/sourceinfo/9> <https://rdf-vocabulary.ddialliance.org/sdtl#OriginalSourceText> "temps.to_csv('products/temps_updated.csv', index=False)"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://wholetale.org/program/1119/variable/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableSymbolExpression> .
 <http://wholetale.org/program/1119/variable/1> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableName> "A"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://wholetale.org/program/1119/variable/2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableSymbolExpression> .
@@ -287,7 +287,7 @@ geist export --format nt | sort
 <http://wholetale.org/program/1119/variableinventory/7> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq> .
 
 
-******************************************* EXAMPLE Q1 ************************************************
+********************************************** CELL Q1 ************************************************
 
 # WHAT COMMANDS ARE EXECUTED BY THE SCRIPT?
 
@@ -320,11 +320,11 @@ http://wholetale.org/program/1119/compute/3 | 16          | df['C'] = df.A - df.
 http://wholetale.org/program/1119/load/2    | 20          | temps = pd.read_csv('../data/temps.csv')
 http://wholetale.org/program/1119/compute/4 | 24          | temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))
 http://wholetale.org/program/1119/compute/5 | 28          | temps = temps.assign(Kelvin=(temps.Celsius + 273))
-http://wholetale.org/program/1119/save/1    | 32          | df.to_csv('outputs/df_updated.csv', index=False)
-http://wholetale.org/program/1119/save/2    | 35          | temps.to_csv('outputs/temps_updated.csv', index=False)
+http://wholetale.org/program/1119/save/1    | 32          | df.to_csv('products/df_updated.csv', index=False)
+http://wholetale.org/program/1119/save/2    | 35          | temps.to_csv('products/temps_updated.csv', index=False)
 
 
-******************************************* EXAMPLE Q2 ************************************************
+********************************************** CELL Q2 ************************************************
 
 # WHAT DATA FILES ARE LOADED BY THE SCRIPT?
 
@@ -354,7 +354,7 @@ df.csv    | http://wholetale.org/program/1119/load/1 | 4           | df = pd.rea
 temps.csv | http://wholetale.org/program/1119/load/2 | 20          | temps = pd.read_csv('../data/temps.csv')
 
 
-******************************************* EXAMPLE Q3 ************************************************
+********************************************** CELL Q3 ************************************************
 
 # WHAT DATA FILES ARE SAVED BY THE SCRIPT?
 
@@ -379,12 +379,12 @@ __END_QUERY__
 ------------------------------------------- Q3 OUTPUTS ------------------------------------------------
 
 file_name         | command                                  | source_line | source_text
-============================================================================================================================
-df_updated.csv    | http://wholetale.org/program/1119/save/1 | 32          | df.to_csv('outputs/df_updated.csv', index=False)
-temps_updated.csv | http://wholetale.org/program/1119/save/2 | 35          | temps.to_csv('outputs/temps_updated.csv', index=False)
+=============================================================================================================================
+df_updated.csv    | http://wholetale.org/program/1119/save/1 | 32          | df.to_csv('products/df_updated.csv', index=False)
+temps_updated.csv | http://wholetale.org/program/1119/save/2 | 35          | temps.to_csv('products/temps_updated.csv', index=False)
 
 
-******************************************* EXAMPLE Q4 ************************************************
+********************************************** CELL Q4 ************************************************
 
 # WHAT VARIABLES ARE LOADED BY THE SCRIPT?
 
@@ -418,7 +418,7 @@ B               | df        | 4           | df = pd.read_csv('../data/df.csv')
 Fahrenheit      | temps     | 20          | temps = pd.read_csv('../data/temps.csv')
 
 
-******************************************* EXAMPLE Q5 ************************************************
+********************************************** CELL Q5 ************************************************
 
 # WHAT VARIABLES ARE SAVED BY THE SCRIPT?
 
@@ -446,16 +446,16 @@ __END_QUERY__
 ------------------------------------------- Q5 OUTPUTS ------------------------------------------------
 
 saved_variable | dataframe | source_line | source_text
-==================================================================================
-A              | df        | 32          | df.to_csv('outputs/df_updated.csv', index=False)
-B              | df        | 32          | df.to_csv('outputs/df_updated.csv', index=False)
-C              | df        | 32          | df.to_csv('outputs/df_updated.csv', index=False)
-Celsius        | temps     | 35          | temps.to_csv('outputs/temps_updated.csv', index=False)
-Fahrenheit     | temps     | 35          | temps.to_csv('outputs/temps_updated.csv', index=False)
-Kelvin         | temps     | 35          | temps.to_csv('outputs/temps_updated.csv', index=False)
+===================================================================================
+A              | df        | 32          | df.to_csv('products/df_updated.csv', index=False)
+B              | df        | 32          | df.to_csv('products/df_updated.csv', index=False)
+C              | df        | 32          | df.to_csv('products/df_updated.csv', index=False)
+Celsius        | temps     | 35          | temps.to_csv('products/temps_updated.csv', index=False)
+Fahrenheit     | temps     | 35          | temps.to_csv('products/temps_updated.csv', index=False)
+Kelvin         | temps     | 35          | temps.to_csv('products/temps_updated.csv', index=False)
 
 
-******************************************* EXAMPLE Q6 ************************************************
+********************************************** CELL Q6 ************************************************
 
 # WHAT COMMANDS UPDATE EACH DATAFRAME?
 
@@ -490,7 +490,7 @@ temps     | http://wholetale.org/program/1119/compute/4 | 24          | temps = 
 temps     | http://wholetale.org/program/1119/compute/5 | 28          | temps = temps.assign(Kelvin=(temps.Celsius + 273))
 
 
-******************************************* EXAMPLE Q7 ************************************************
+********************************************** CELL Q7 ************************************************
 
 # WHAT COMMANDS UPDATE EACH VARIABLE?
 
@@ -523,7 +523,7 @@ Celsius          | http://wholetale.org/program/1119/compute/4 | 24          | t
 Kelvin           | http://wholetale.org/program/1119/compute/5 | 28          | temps = temps.assign(Kelvin=(temps.Celsius + 273))
 
 
-******************************************* EXAMPLE Q8 ************************************************
+********************************************** CELL Q8 ************************************************
 
 # WHAT COMMANDS USE EACH VARIABLE?
 
@@ -556,7 +556,7 @@ Celsius       | http://wholetale.org/program/1119/compute/5 | 28          | temp
 Fahrenheit    | http://wholetale.org/program/1119/compute/4 | 24          | temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))
 
 
-******************************************* EXAMPLE Q9 ************************************************
+********************************************** CELL Q9 ************************************************
 
 # WHAT VARIABLES WERE DIRECTLY AFFECTED BY OTHER VARIABLES?
 
@@ -590,7 +590,7 @@ Celsius           | Fahrenheit         | http://wholetale.org/program/1119/compu
 Kelvin            | Celsius            | http://wholetale.org/program/1119/compute/5 | 28          | temps = temps.assign(Kelvin=(temps.Celsius + 273))
 
 
-******************************************* EXAMPLE GRAPH-1 ************************************************
+********************************************** CELL GRAPH-1 ************************************************
 
 # DATAFRAME FLOW THROUGH COMMANDS
 
@@ -629,7 +629,7 @@ geist report << '__END_REPORT_TEMPLATE__'
 
 __END_REPORT_TEMPLATE__
 
------------------------------------------ GRAPH-1 DOT OUTPUT -----------------------------------------------
+------------------------------------------- GRAPH-1 OUTPUTS ------------------------------------------------
 
 
 digraph sdtl_program {
@@ -652,8 +652,8 @@ node[width=8]
 "http://wholetale.org/program/1119/load/2" [label="temps = pd.read_csv('../data/temps.csv')"]
 "http://wholetale.org/program/1119/compute/4" [label="temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))"]
 "http://wholetale.org/program/1119/compute/5" [label="temps = temps.assign(Kelvin=(temps.Celsius + 273))"]
-"http://wholetale.org/program/1119/save/1" [label="df.to_csv('outputs/df_updated.csv', index=False)"]
-"http://wholetale.org/program/1119/save/2" [label="temps.to_csv('outputs/temps_updated.csv', index=False)"]
+"http://wholetale.org/program/1119/save/1" [label="df.to_csv('products/df_updated.csv', index=False)"]
+"http://wholetale.org/program/1119/save/2" [label="temps.to_csv('products/temps_updated.csv', index=False)"]
 
 # dataframe edges
 "http://wholetale.org/program/1119/load/1" -> "http://wholetale.org/program/1119/compute/1"

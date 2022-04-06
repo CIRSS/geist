@@ -1,9 +1,0 @@
-# Whose telephone number is (245) 646-5488?
-
-PREFIX ab: <http://learningsparql.com/ns/addressbook#> 
-SELECT ?name
-WHERE
-{
-    ?person ab:homeTel   "(245) 646-5488"   ; 
-            ab:firstname ?name              .
-}

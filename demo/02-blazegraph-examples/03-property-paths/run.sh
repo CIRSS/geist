@@ -1,27 +1,23 @@
 #!/usr/bin/env bash
 
-DOT_RUNNER='../../common/run_dot_examples.sh'
-SCRIPT_RUNNER='../../common/run_script_example.sh'
-
-
-bash ${SCRIPT_RUNNER} SETUP "INITIALIZE BLAZEGRAPH INSTANCE WITH CITATIONS" << END_SCRIPT
+run_cell SETUP "INITIALIZE BLAZEGRAPH INSTANCE WITH CITATIONS" << END_CELL
 
 geist destroy --dataset kb --quiet
 geist create --dataset kb --quiet
 geist import --file ../data/citations.ttl --format ttl
 
-END_SCRIPT
+END_CELL
 
 
-bash ${SCRIPT_RUNNER} S1 "EXPORT CITATIONS AS N-TRIPLES" << END_SCRIPT
+run_cell S1 "EXPORT CITATIONS AS N-TRIPLES" << END_CELL
 
 geist export --format nt | sort
 
-END_SCRIPT
+END_CELL
 
 
-bash ${SCRIPT_RUNNER} S2 "WHICH PAPERS DIRECTLY CITE WHICH PAPERS?" \
-    << END_SCRIPT
+run_cell S2 "WHICH PAPERS DIRECTLY CITE WHICH PAPERS?" \
+    << END_CELL
 
 geist query --format table << END_QUERY
 
@@ -35,11 +31,11 @@ geist query --format table << END_QUERY
 
 END_QUERY
 
-END_SCRIPT
+END_CELL
 
 
-bash ${SCRIPT_RUNNER} S3 "WHICH PAPERS DEPEND ON WHICH PRIOR WORK?" \
-    << END_SCRIPT
+run_cell S3 "WHICH PAPERS DEPEND ON WHICH PRIOR WORK?" \
+    << END_CELL
 
 geist query --format table << END_QUERY
 
@@ -53,11 +49,11 @@ geist query --format table << END_QUERY
 
 END_QUERY
 
-END_SCRIPT
+END_CELL
 
 
-bash ${SCRIPT_RUNNER} S4 "WHICH PAPERS DEPEND ON PAPER A?" \
-    << END_SCRIPT
+run_cell S4 "WHICH PAPERS DEPEND ON PAPER A?" \
+    << END_CELL
 
 geist query --format table << END_QUERY
 
@@ -72,11 +68,11 @@ geist query --format table << END_QUERY
 
 END_QUERY
 
-END_SCRIPT
+END_CELL
 
 
-bash ${SCRIPT_RUNNER} S5 "WHICH PAPERS CITE A PAPER THAT CITES PAPER A?" \
-    << END_SCRIPT
+run_cell S5 "WHICH PAPERS CITE A PAPER THAT CITES PAPER A?" \
+    << END_CELL
 
 geist query --format table << END_QUERY
 
@@ -91,11 +87,11 @@ geist query --format table << END_QUERY
 
 END_QUERY
 
-END_SCRIPT
+END_CELL
 
 
-bash ${SCRIPT_RUNNER} S6 "WHICH PAPERS CITE A PAPER CITED BY PAPER D?" \
-    << END_SCRIPT
+run_cell S6 "WHICH PAPERS CITE A PAPER CITED BY PAPER D?" \
+    << END_CELL
 
 geist query --format table << END_QUERY
 
@@ -111,11 +107,11 @@ geist query --format table << END_QUERY
 
 END_QUERY
 
-END_SCRIPT
+END_CELL
 
 
-bash ${SCRIPT_RUNNER} S7 "WHAT RESULTS DEPEND DIRECTLY ON RESULTS REPORTED BY PAPER A?" \
-    << END_SCRIPT
+run_cell S7 "WHAT RESULTS DEPEND DIRECTLY ON RESULTS REPORTED BY PAPER A?" \
+    << END_CELL
 
 geist query --format table << END_QUERY
 
@@ -130,11 +126,11 @@ geist query --format table << END_QUERY
 
 END_QUERY
 
-END_SCRIPT
+END_CELL
 
 
-bash ${SCRIPT_RUNNER} S7 "WHAT RESULTS DEPEND DIRECTLY OR INDIRECTLY ON RESULTS REPORTED BY PAPER A?" \
-    << END_SCRIPT
+run_cell S7 "WHAT RESULTS DEPEND DIRECTLY OR INDIRECTLY ON RESULTS REPORTED BY PAPER A?" \
+    << END_CELL
 
 geist query --format table << END_QUERY
 
@@ -149,11 +145,11 @@ geist query --format table << END_QUERY
 
 END_QUERY
 
-END_SCRIPT
+END_CELL
 
 
-bash ${DOT_RUNNER} S8 "Visualization of Paper-Citation Graph" \
-    << '__END_SCRIPT__'
+dot_cell S8 "Visualization of Paper-Citation Graph" \
+    << '__END_CELL__'
 
 geist report << '__END_REPORT_TEMPLATE__'
     {{{
@@ -197,10 +193,10 @@ geist report << '__END_REPORT_TEMPLATE__'
 
 __END_REPORT_TEMPLATE__
 
-__END_SCRIPT__
+__END_CELL__
 
-bash ${DOT_RUNNER} S9 "Visualization of Paper-Citation Graph" \
-    << '__END_SCRIPT__'
+dot_cell S9 "Visualization of Paper-Citation Graph" \
+    << '__END_CELL__'
 
 geist report << '__END_REPORT_TEMPLATE__'
 
@@ -248,11 +244,11 @@ geist report << '__END_REPORT_TEMPLATE__'
                                                                     \\
 __END_REPORT_TEMPLATE__
 
-__END_SCRIPT__
+__END_CELL__
 
 
-bash ${DOT_RUNNER} S10 "Visualization of Paper-Result Graph" \
-    << '__END_SCRIPT__'
+dot_cell S10 "Visualization of Paper-Result Graph" \
+    << '__END_CELL__'
 
 geist report << '__END_REPORT_TEMPLATE__'
                                                                     \\
@@ -324,4 +320,4 @@ geist report << '__END_REPORT_TEMPLATE__'
                                                                     \\
 __END_REPORT_TEMPLATE__
 
-__END_SCRIPT__
+__END_CELL__

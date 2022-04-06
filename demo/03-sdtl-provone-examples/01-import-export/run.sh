@@ -1,46 +1,44 @@
 #!/usr/bin/env bash
 
-RUNNER='../../common/run_script_example.sh'
-
 # *****************************************************************************
 
-bash ${RUNNER} SETUP "IMPORT SDTL-PROVONE TRACE" << END_SCRIPT
+run_cell SETUP "IMPORT SDTL-PROVONE TRACE" << END_CELL
 
 geist destroy --dataset kb --quiet
 geist create --dataset kb --quiet
 geist import --format jsonld --file ../data/single-command.jsonld
 
-END_SCRIPT
+END_CELL
 
 # *****************************************************************************
 
-bash ${RUNNER} S1 "EXPORT AS N-TRIPLES" << END_SCRIPT
+run_cell S1 "EXPORT AS N-TRIPLES" << END_CELL
 
 geist export --format nt | sort
 
-END_SCRIPT
+END_CELL
 
 # *****************************************************************************
 
-bash ${RUNNER} S2 "EXPORT AS JSON-LD" << END_SCRIPT
+run_cell S2 "EXPORT AS JSON-LD" << END_CELL
 
 geist export --format jsonld
 
-END_SCRIPT
+END_CELL
 
 # # *****************************************************************************
 #
-# bash ${RUNNER} S2 "EXPORT AS TURTLE" << END_SCRIPT
+# run_cell S2 "EXPORT AS TURTLE" << END_CELL
 #
 # geist export --format ttl
 #
-# END_SCRIPT
+# END_CELL
 #
 #
 # # *****************************************************************************
 #
-# bash ${RUNNER} S4 "EXPORT AS RDF/XML" << END_SCRIPT
+# run_cell S4 "EXPORT AS RDF/XML" << END_CELL
 #
 # geist export --format xml | xmllint - --c14n11
 #
-# END_SCRIPT
+# END_CELL

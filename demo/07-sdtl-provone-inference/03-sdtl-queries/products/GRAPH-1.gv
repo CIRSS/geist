@@ -19,8 +19,8 @@ node[width=8]
 "http://wholetale.org/program/1119/load/2" [label="temps = pd.read_csv('../data/temps.csv')"]
 "http://wholetale.org/program/1119/compute/4" [label="temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))"]
 "http://wholetale.org/program/1119/compute/5" [label="temps = temps.assign(Kelvin=(temps.Celsius + 273))"]
-"http://wholetale.org/program/1119/save/1" [label="df.to_csv('outputs/df_updated.csv', index=False)"]
-"http://wholetale.org/program/1119/save/2" [label="temps.to_csv('outputs/temps_updated.csv', index=False)"]
+"http://wholetale.org/program/1119/save/1" [label="df.to_csv('products/df_updated.csv', index=False)"]
+"http://wholetale.org/program/1119/save/2" [label="temps.to_csv('products/temps_updated.csv', index=False)"]
 
 # dataframe edges
 "http://wholetale.org/program/1119/load/1" -> "http://wholetale.org/program/1119/compute/1"

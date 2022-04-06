@@ -15,9 +15,9 @@ node[shape=box style="filled" fillcolor="#FFFFFF" peripheries=2 fontname=Courier
 subgraph cluster_outputs { label=""; color=white; penwidth=0
 subgraph cluster_outputs_inner { label=""; color=white
 node[shape=box style="rounded,filled" fillcolor="#FFFFCC" peripheries=1 fontname=Helvetica]
-"http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i29" [label="./outputs/o12.txt"]
-"http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i30" [label="./outputs/o1234.txt"]
-"http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i31" [label="./outputs/o4.txt"]
+"http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i29" [label="./products/o12.txt"]
+"http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i30" [label="./products/o1234.txt"]
+"http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i31" [label="./products/o4.txt"]
 }}
 "http://wholetale.org/tale2035/version_1021/run_1119#" -> "http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i29"
 "http://wholetale.org/tale2035/version_1021/run_1119#" -> "http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i30"

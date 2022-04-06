@@ -1,9 +1,0 @@
--------------------------------------
-| propertyName | propertyValue      |
-=====================================
-| ab:mobileTel | "(245) 732-8991"   |
-| ab:email     | "cindym@gmail.com" |
-| ab:lastname  | "Marshall"         |
-| ab:homeTel   | "(245) 646-5488"   |
-| ab:firstname | "Cindy"            |
--------------------------------------

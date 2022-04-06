@@ -1,5 +1,5 @@
 
-******************************************* EXAMPLE SETUP ************************************************
+********************************************** CELL SETUP ************************************************
 
 # IMPORT PROVONE TRACE
 
@@ -12,7 +12,7 @@ geist import --format jsonld --file ../data/branched-pipeline.jsonld
 
 
 
-******************************************* EXAMPLE RETROSPECTIVE-1 ************************************************
+********************************************** CELL RETROSPECTIVE-1 ************************************************
 
 # WHAT DATA FILES WERE USED AS INPUT BY THE TALE?
 
@@ -47,7 +47,7 @@ http://wholetale.org/tale/2035/version/1021/run/1119/ | ./inputs/i3.txt      | h
 http://wholetale.org/tale/2035/version/1021/run/1119/ | ./inputs/i4.txt      | http://wholetale.org/tale/2035/version/1021/run/1119/datafile/28
 
 
-******************************************* EXAMPLE RETROSPECTIVE-2 ************************************************
+********************************************** CELL RETROSPECTIVE-2 ************************************************
 
 # WHAT FILES WERE PRODUCED AS OUTPUTS OF THE TALE?
 
@@ -74,8 +74,8 @@ __END_QUERY__
 ------------------------------------------- RETROSPECTIVE-2 OUTPUTS ------------------------------------------------
 
 tale_output_file_path | written_file
-======================================================================================
-./outputs/o12.txt     | http://wholetale.org/tale/2035/version/1021/run/1119/datafile/29
-./outputs/o1234.txt   | http://wholetale.org/tale/2035/version/1021/run/1119/datafile/30
-./outputs/o4.txt      | http://wholetale.org/tale/2035/version/1021/run/1119/datafile/31
+=======================================================================================
+./products/o12.txt    | http://wholetale.org/tale/2035/version/1021/run/1119/datafile/29
+./products/o1234.txt  | http://wholetale.org/tale/2035/version/1021/run/1119/datafile/30
+./products/o4.txt     | http://wholetale.org/tale/2035/version/1021/run/1119/datafile/31
 

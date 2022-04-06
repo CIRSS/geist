@@ -1,5 +1,5 @@
 
-******************************************* EXAMPLE SETUP ************************************************
+********************************************** CELL SETUP ************************************************
 
 # IMPORT PROVONE TRACE
 
@@ -11,7 +11,7 @@ geist import --format jsonld --file ../data/branched-pipeline.jsonld
 
 
 
-******************************************* EXAMPLE S1 ************************************************
+********************************************** CELL S1 ************************************************
 
 # EXPORT AS N-TRIPLES
 
@@ -45,13 +45,13 @@ geist export --format nt | sort
 <http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i28> <http://wholetale.org/ontology/wt#FilePath> "./inputs/i4.txt"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i28> <http://wholetale.org/ontology/wt#FileRole> <http://wholetale.org/ontology/wt#TaleInputData> .
 <http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i28> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://wholetale.org/ontology/wt#DataFile> .
-<http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i29> <http://wholetale.org/ontology/wt#FilePath> "./outputs/o12.txt"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i29> <http://wholetale.org/ontology/wt#FilePath> "./products/o12.txt"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i29> <http://wholetale.org/ontology/wt#FileRole> <http://wholetale.org/ontology/wt#TaleOutputData> .
 <http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i29> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://wholetale.org/ontology/wt#DataFile> .
-<http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i30> <http://wholetale.org/ontology/wt#FilePath> "./outputs/o1234.txt"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i30> <http://wholetale.org/ontology/wt#FilePath> "./products/o1234.txt"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i30> <http://wholetale.org/ontology/wt#FileRole> <http://wholetale.org/ontology/wt#TaleOutputData> .
 <http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i30> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://wholetale.org/ontology/wt#DataFile> .
-<http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i31> <http://wholetale.org/ontology/wt#FilePath> "./outputs/o4.txt"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i31> <http://wholetale.org/ontology/wt#FilePath> "./products/o4.txt"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i31> <http://wholetale.org/ontology/wt#FileRole> <http://wholetale.org/ontology/wt#TaleOutputData> .
 <http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i31> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://wholetale.org/ontology/wt#DataFile> .
 <http://wholetale.org/tale_2035/version_1021/run_1119#process_p1> <http://wholetale.org/ontology/wt#ExecutionOf> <http://wholetale.org/tale_2035/version_1021/run_1119#program_file_i1> .

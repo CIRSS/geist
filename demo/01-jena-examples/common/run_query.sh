@@ -5,9 +5,16 @@ data_file=$1
 query_id=$2
 query_description=$3
 
+if [[ -n REPRO_DEMO_TMP_DIRNAME ]] ; then
+    tmp_dir=${REPRO_DEMO_TMP_DIRNAME}
+    mkdir -p ${tmp_dir}
+else
+    tmp_dir=$(mktemp --tmpdir=/tmp -d bash_dev_XXXXXXX)
+fi
+
 # define names of query and query result files
-query_file=queries/${query_id}.rq
-result_file=queries/${query_id}.txt
+query_file=${REPRO_DEMO_TMP_DIRNAME}/${query_id}.rq
+result_file=${REPRO_DEMO_TMP_DIRNAME}/${query_id}.txt
 
 # copy query from stdin to the query file
 printf "# ${query_description}\n\n" > ${query_file}

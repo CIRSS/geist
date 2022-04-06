@@ -453,7 +453,7 @@
               "@id": "run:sourceinfo/8",
               "@type": "sdtl:SourceInformation",
               "sdtl:LineNumberStart": 32,
-              "sdtl:OriginalSourceText": "df.to_csv('outputs/df_updated.csv', index=False)"
+              "sdtl:OriginalSourceText": "df.to_csv('products/df_updated.csv', index=False)"
             }
           },
           "rdf:_9": {
@@ -466,7 +466,7 @@
               "@id": "run:sourceinfo/9",
               "@type": "sdtl:SourceInformation",
               "sdtl:LineNumberStart": 35,
-              "sdtl:OriginalSourceText": "temps.to_csv('outputs/temps_updated.csv', index=False)"
+              "sdtl:OriginalSourceText": "temps.to_csv('products/temps_updated.csv', index=False)"
             }
           }
         }

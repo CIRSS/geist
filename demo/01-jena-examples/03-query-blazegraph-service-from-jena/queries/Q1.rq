@@ -1,8 +1,0 @@
-# List all triples in blazegraph.
-
-PREFIX ab: <http://learningsparql.com/ns/addressbook#>
-CONSTRUCT
-{ ?s ?p ?o }
-FROM <http://127.0.0.1:9999/blazegraph/sparql>
-WHERE
-{ ?s ?p ?o }

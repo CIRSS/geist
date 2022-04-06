@@ -1,5 +1,5 @@
 
-******************************************* EXAMPLE SETUP ************************************************
+********************************************** CELL SETUP ************************************************
 
 # IMPORT PROVONE TRACE
 
@@ -11,7 +11,7 @@ geist import --format jsonld --file ../data/branched-pipeline.jsonld
 
 
 
-******************************************* EXAMPLE RETROSPECTIVE-1 ************************************************
+********************************************** CELL RETROSPECTIVE-1 ************************************************
 
 # WHAT DATA FILES WERE USED AS INPUT BY THE TALE?
 
@@ -46,7 +46,7 @@ tale_input_file_path | read_file
 ./inputs/i4.txt      | http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i28
 
 
-******************************************* EXAMPLE RETROSPECTIVE-2 ************************************************
+********************************************** CELL RETROSPECTIVE-2 ************************************************
 
 # WHAT FILES WERE PRODUCED AS OUTPUTS OF THE TALE?
 
@@ -73,8 +73,8 @@ __END_QUERY__
 ------------------------------------------- RETROSPECTIVE-2 OUTPUTS ------------------------------------------------
 
 tale_output_file_path | written_file
-========================================================================================
-./outputs/o12.txt     | http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i29
-./outputs/o1234.txt   | http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i30
-./outputs/o4.txt      | http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i31
+=========================================================================================
+./products/o12.txt    | http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i29
+./products/o1234.txt  | http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i30
+./products/o4.txt     | http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i31
 

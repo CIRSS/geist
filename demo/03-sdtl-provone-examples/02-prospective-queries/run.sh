@@ -1,21 +1,19 @@
 #!/usr/bin/env bash
 
-RUNNER='../../common/run_script_example.sh'
-
 # *****************************************************************************
 
-bash ${RUNNER} SETUP "IMPORT SDTL-PROVONE TRACE" << END_SCRIPT
+run_cell SETUP "IMPORT SDTL-PROVONE TRACE" << END_CELL
 
 geist destroy --dataset kb --quiet
 geist create --dataset kb --quiet
 geist import --format jsonld --file ../data/single-command.jsonld
 
-END_SCRIPT
+END_CELL
 
 # *****************************************************************************
 
-bash ${RUNNER} PROSPECTIVE-1 "WHAT IS THE TOP-LEVEL PROGRAM IN THE TRACE?" \
-    << END_SCRIPT
+run_cell PROSPECTIVE-1 "WHAT IS THE TOP-LEVEL PROGRAM IN THE TRACE?" \
+    << END_CELL
 
 geist query --format table << END_QUERY
 
@@ -29,12 +27,12 @@ geist query --format table << END_QUERY
 
 END_QUERY
 
-END_SCRIPT
+END_CELL
 
 # *****************************************************************************
 
-bash ${RUNNER} PROSPECTIVE-2 "WHAT ARE THE SUB-PROGRAMS IN THE TRACE?" \
-    << END_SCRIPT
+run_cell PROSPECTIVE-2 "WHAT ARE THE SUB-PROGRAMS IN THE TRACE?" \
+    << END_CELL
 
 geist query --format table << END_QUERY
 
@@ -47,12 +45,12 @@ geist query --format table << END_QUERY
 
 END_QUERY
 
-END_SCRIPT
+END_CELL
 
 # *****************************************************************************
 
-bash ${RUNNER} PROSPECTIVE-3 "WHAT ARE THE OUTPUT PORTS AND ASSOCIATED VARIABLES IN THE TRACE?" \
-    << END_SCRIPT
+run_cell PROSPECTIVE-3 "WHAT ARE THE OUTPUT PORTS AND ASSOCIATED VARIABLES IN THE TRACE?" \
+    << END_CELL
 
 geist query --format table << END_QUERY
 
@@ -69,4 +67,4 @@ geist query --format table << END_QUERY
 
 END_QUERY
 
-END_SCRIPT
+END_CELL

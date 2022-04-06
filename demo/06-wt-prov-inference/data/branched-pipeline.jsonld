@@ -131,19 +131,19 @@
     {
       "@id": "run:datafile/29",
       "@type": "wt:DataFile",
-      "wt:FilePath": "./outputs/o12.txt",
+      "wt:FilePath": "./products/o12.txt",
       "wt:FileRole": {"@id": "wt:TaleOutputData"}
     },
     {
       "@id": "run:datafile/31",
       "@type": "wt:DataFile",
-      "wt:FilePath": "./outputs/o4.txt",
+      "wt:FilePath": "./products/o4.txt",
       "wt:FileRole": {"@id": "wt:TaleOutputData"}
     },
     {
       "@id": "run:datafile/30",
       "@type": "wt:DataFile",
-      "wt:FilePath": "./outputs/o1234.txt",
+      "wt:FilePath": "./products/o1234.txt",
       "wt:FileRole": {"@id": "wt:TaleOutputData"}
     },
     {

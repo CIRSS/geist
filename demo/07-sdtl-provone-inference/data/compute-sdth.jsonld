@@ -62,7 +62,7 @@
             "sdth:hasName": "df_updated.csv",
             "sdth:hasFormat": "csv"
           },
-          "sdth:hasSourceCode": "df.to_csv('outputs/df_updated.csv', index=False)"
+          "sdth:hasSourceCode": "df.to_csv('products/df_updated.csv', index=False)"
         }
 
       ]

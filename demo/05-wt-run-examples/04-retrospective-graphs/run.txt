@@ -1,5 +1,5 @@
 
-******************************************* EXAMPLE SETUP ************************************************
+********************************************** CELL SETUP ************************************************
 
 # IMPORT PROVONE TRACE
 
@@ -11,7 +11,7 @@ geist import --format jsonld --file ../data/branched-pipeline.jsonld
 
 
 
-******************************************* EXAMPLE GRAPH-1 ************************************************
+********************************************** CELL GRAPH-1 ************************************************
 
 # EMPTY DOT FILE
 
@@ -27,7 +27,7 @@ geist report << '__END_REPORT_TEMPLATE__'
                                                                     \
 __END_REPORT_TEMPLATE__
 
------------------------------------------ GRAPH-1 DOT OUTPUT -----------------------------------------------
+------------------------------------------- GRAPH-1 OUTPUTS ------------------------------------------------
 
 
 # A graphviz file
@@ -36,7 +36,7 @@ rankdir=LR
 }
 
 
-******************************************* EXAMPLE GRAPH-2 ************************************************
+********************************************** CELL GRAPH-2 ************************************************
 
 # TITLED EMPTY DOT FILE
 
@@ -58,7 +58,7 @@ geist report << '__END_REPORT_TEMPLATE__'
                                                                     \
 __END_REPORT_TEMPLATE__
 
------------------------------------------ GRAPH-2 DOT OUTPUT -----------------------------------------------
+------------------------------------------- GRAPH-2 OUTPUTS ------------------------------------------------
 
 
 
@@ -73,7 +73,7 @@ label="08-branched-pipeline"
 
 
 
-******************************************* EXAMPLE GRAPH-3 ************************************************
+********************************************** CELL GRAPH-3 ************************************************
 
 # Node for Tale Run
 
@@ -96,7 +96,7 @@ geist report << '__END_REPORT_TEMPLATE__'
                                                                     \
 __END_REPORT_TEMPLATE__
 
------------------------------------------ GRAPH-3 DOT OUTPUT -----------------------------------------------
+------------------------------------------- GRAPH-3 OUTPUTS ------------------------------------------------
 
 
 
@@ -113,7 +113,7 @@ node[shape=box style="filled" fillcolor="#FFFFFF" peripheries=2 fontname=Courier
 
 
 
-******************************************* EXAMPLE GRAPH-4 ************************************************
+********************************************** CELL GRAPH-4 ************************************************
 
 # Tale Run with Inputs and Outputs
 
@@ -153,7 +153,7 @@ geist report << '__END_REPORT_TEMPLATE__'
                                                                                 \
 __END_REPORT_TEMPLATE__
 
------------------------------------------ GRAPH-4 DOT OUTPUT -----------------------------------------------
+------------------------------------------- GRAPH-4 OUTPUTS ------------------------------------------------
 
 
 # Run ID: http://wholetale.org/tale2035/version_1021/run_1119#
@@ -172,9 +172,9 @@ node[shape=box style="filled" fillcolor="#FFFFFF" peripheries=2 fontname=Courier
 subgraph cluster_outputs { label=""; color=white; penwidth=0
 subgraph cluster_outputs_inner { label=""; color=white
 node[shape=box style="rounded,filled" fillcolor="#FFFFCC" peripheries=1 fontname=Helvetica]
-"http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i29" [label="./outputs/o12.txt"]
-"http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i30" [label="./outputs/o1234.txt"]
-"http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i31" [label="./outputs/o4.txt"]
+"http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i29" [label="./products/o12.txt"]
+"http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i30" [label="./products/o1234.txt"]
+"http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i31" [label="./products/o4.txt"]
 }}
 "http://wholetale.org/tale2035/version_1021/run_1119#" -> "http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i29"
 "http://wholetale.org/tale2035/version_1021/run_1119#" -> "http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i30"
@@ -196,7 +196,7 @@ node[shape=box style="rounded,filled" fillcolor="#FFFFCC" peripheries=1 fontname
 }
 
 
-******************************************* EXAMPLE GRAPH-5 ************************************************
+********************************************** CELL GRAPH-5 ************************************************
 
 # Tale Processes and Data Files
 
@@ -237,7 +237,7 @@ geist report << '__END_REPORT_TEMPLATE__'
                                                                                 \
 __END_REPORT_TEMPLATE__
 
------------------------------------------ GRAPH-5 DOT OUTPUT -----------------------------------------------
+------------------------------------------- GRAPH-5 OUTPUTS ------------------------------------------------
 
 
 
@@ -258,9 +258,9 @@ node[shape=box style="rounded,filled" fillcolor="#FFFFCC" peripheries=1 fontname
 "http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i24" [label="./inputs/i2.txt"]
 "http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i26" [label="./inputs/i3.txt"]
 "http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i28" [label="./inputs/i4.txt"]
-"http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i29" [label="./outputs/o12.txt"]
-"http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i30" [label="./outputs/o1234.txt"]
-"http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i31" [label="./outputs/o4.txt"]
+"http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i29" [label="./products/o12.txt"]
+"http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i30" [label="./products/o1234.txt"]
+"http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i31" [label="./products/o4.txt"]
 "http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i11" [label="./temp/t12.txt"]
 "http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i25" [label="./temp/t123.txt"]
 "http://wholetale.org/tale_2035/version_1021/run_1119#data_file_i27" [label="./temp/t4.txt"]

@@ -1,45 +1,43 @@
 #!/usr/bin/env bash
 
-RUNNER='../../common/run_script_example.sh'
-
 # *****************************************************************************
 
-bash ${RUNNER} SETUP "INITIALIZE BLAZEGRAPH INSTANCE WITH ADDRESS BOOK" << END_SCRIPT
+run_cell SETUP "INITIALIZE BLAZEGRAPH INSTANCE WITH ADDRESS BOOK" << END_CELL
 
 geist destroy --dataset kb --quiet
 geist create --dataset kb --quiet
 geist import --file ../data/address-book.jsonld --format jsonld
 
-END_SCRIPT
+END_CELL
 
 # *****************************************************************************
 
-bash ${RUNNER} S1 "EXPORT ADDRESS BOOK AS JSON-LD" << END_SCRIPT
+run_cell S1 "EXPORT ADDRESS BOOK AS JSON-LD" << END_CELL
 
 geist export --format jsonld
 
-END_SCRIPT
+END_CELL
 
 # *****************************************************************************
 
-bash ${RUNNER} S1 "EXPORT ADDRESS BOOK AS TURTLE" << END_SCRIPT
+run_cell S1 "EXPORT ADDRESS BOOK AS TURTLE" << END_CELL
 
 geist export --format ttl
 
-END_SCRIPT
+END_CELL
 
 # *****************************************************************************
 
-bash ${RUNNER} S1 "EXPORT ADDRESS BOOK AS N-TRIPLES" << END_SCRIPT
+run_cell S1 "EXPORT ADDRESS BOOK AS N-TRIPLES" << END_CELL
 
 geist export --format nt | sort
 
-END_SCRIPT
+END_CELL
 
 # *****************************************************************************
 
-bash ${RUNNER} S1 "EXPORT ADDRESS BOOK AS RDF-XML" << END_SCRIPT
+run_cell S1 "EXPORT ADDRESS BOOK AS RDF-XML" << END_CELL
 
 geist export --format xml
 
-END_SCRIPT
+END_CELL

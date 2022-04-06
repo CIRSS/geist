@@ -1,22 +1,18 @@
 #!/usr/bin/env bash
 
-DOT_RUNNER='../../common/run_dot_examples.sh'
-SCRIPT_RUNNER='../../common/run_script_example.sh'
-
-
 # *****************************************************************************
 
-bash ${SCRIPT_RUNNER} SETUP "IMPORT PROVONE TRACE" << END_SCRIPT
+run_cell SETUP "IMPORT PROVONE TRACE" << END_CELL
 
 geist destroy --dataset kb --quiet
 geist create --dataset kb --quiet
 geist import --format jsonld --file ../data/branched-pipeline.jsonld
 
-END_SCRIPT
+END_CELL
 
 
-bash ${DOT_RUNNER} GRAPH-1 "EMPTY DOT FILE" \
-    << '__END_SCRIPT__'
+dot_cell GRAPH-1 "EMPTY DOT FILE" \
+    << '__END_CELL__'
 
 geist report << '__END_REPORT_TEMPLATE__'
                                                                     \\
@@ -30,11 +26,11 @@ geist report << '__END_REPORT_TEMPLATE__'
                                                                     \\
 __END_REPORT_TEMPLATE__
 
-__END_SCRIPT__
+__END_CELL__
 
 
-bash ${DOT_RUNNER} GRAPH-2 "TITLED EMPTY DOT FILE" \
-    << '__END_SCRIPT__'
+dot_cell GRAPH-2 "TITLED EMPTY DOT FILE" \
+    << '__END_CELL__'
 
 geist report << '__END_REPORT_TEMPLATE__'
                                                                     \\
@@ -54,11 +50,11 @@ geist report << '__END_REPORT_TEMPLATE__'
                                                                     \\
 __END_REPORT_TEMPLATE__
 
-__END_SCRIPT__
+__END_CELL__
 
 
-bash ${DOT_RUNNER} GRAPH-3 "Node for Tale Run" \
-    << '__END_SCRIPT__'
+dot_cell GRAPH-3 "Node for Tale Run" \
+    << '__END_CELL__'
 
 geist report << '__END_REPORT_TEMPLATE__'
                                                                     \\
@@ -79,11 +75,11 @@ geist report << '__END_REPORT_TEMPLATE__'
                                                                     \\
 __END_REPORT_TEMPLATE__
 
-__END_SCRIPT__
+__END_CELL__
 
 
-bash ${DOT_RUNNER} GRAPH-4 "Tale Run with Inputs and Outputs" \
-    << '__END_SCRIPT__'
+dot_cell GRAPH-4 "Tale Run with Inputs and Outputs" \
+    << '__END_CELL__'
 
 geist report << '__END_REPORT_TEMPLATE__'
                                                                                 \\
@@ -121,11 +117,11 @@ geist report << '__END_REPORT_TEMPLATE__'
                                                                                 \\
 __END_REPORT_TEMPLATE__
 
-__END_SCRIPT__
+__END_CELL__
 
 
-bash ${DOT_RUNNER} GRAPH-5 "Tale Processes and Data Files" \
-    << '__END_SCRIPT__'
+dot_cell GRAPH-5 "Tale Processes and Data Files" \
+    << '__END_CELL__'
 
 geist report << '__END_REPORT_TEMPLATE__'
                                                                                 \\
@@ -164,4 +160,4 @@ geist report << '__END_REPORT_TEMPLATE__'
                                                                                 \\
 __END_REPORT_TEMPLATE__
 
-__END_SCRIPT__
+__END_CELL__

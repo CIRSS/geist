@@ -29,7 +29,7 @@ temps = temps.assign(Kelvin=(temps.Celsius + 273))
 print(temps, '\n')
 
 print('Write A and B variables to df_updated.csv', '\n')
-df.to_csv('outputs/df_updated.csv', index=False)
+df.to_csv('products/df_updated.csv', index=False)
 
 print('Write Fahrenheit, Celsius, and Kelvin variables to temps_updated.csv', '\n')
-temps.to_csv('outputs/temps_updated.csv', index=False)
+temps.to_csv('products/temps_updated.csv', index=False)

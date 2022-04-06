@@ -1,5 +1,5 @@
 
-******************************************* EXAMPLE SETUP ************************************************
+********************************************** CELL SETUP ************************************************
 
 # IMPORT PROVONE TRACE
 
@@ -11,7 +11,7 @@ geist import --format jsonld --file ../data/branched-pipeline.jsonld
 
 
 
-******************************************* EXAMPLE RETROSPECTIVE-1 ************************************************
+********************************************** CELL RETROSPECTIVE-1 ************************************************
 
 # WHAT FILES WERE PROVIDED AS INPUT TO THE TALE?
 
@@ -41,7 +41,7 @@ tale_input_file_path
 ./inputs/i4.txt
 
 
-******************************************* EXAMPLE RETROSPECTIVE-1 ************************************************
+********************************************** CELL RETROSPECTIVE-1 ************************************************
 
 # WHAT FILES WERE PRODUCED AS OUTPUTS OF THE TALE?
 
@@ -64,8 +64,8 @@ END_QUERY
 ------------------------------------------- RETROSPECTIVE-1 OUTPUTS ------------------------------------------------
 
 tale_out_file_path
-==================
-./outputs/o12.txt
-./outputs/o1234.txt
-./outputs/o4.txt
+===================
+./products/o12.txt
+./products/o1234.txt
+./products/o4.txt
 

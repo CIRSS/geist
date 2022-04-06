@@ -1,22 +1,20 @@
 #!/usr/bin/env bash
 
-RUNNER='../../common/run_script_example.sh'
-
 # *****************************************************************************
 
-bash ${RUNNER} SETUP "IMPORT PROVONE TRACE" << END_SCRIPT
+run_cell SETUP "IMPORT PROVONE TRACE" << END_CELL
 
 geist destroy --dataset kb --quiet
 geist create --dataset kb --quiet --infer owl
 geist import --file ../data/wt-prov-rules.ttl
 geist import --format jsonld --file ../data/branched-pipeline.jsonld
 
-END_SCRIPT
+END_CELL
 
 # *****************************************************************************
 
-bash ${RUNNER} RETROSPECTIVE-1 "WHAT DATA WAS USED AS INPUT BY THE PROCESS AS A WHOLE?" \
-    << __END_SCRIPT__
+run_cell RETROSPECTIVE-1 "WHAT DATA WAS USED AS INPUT BY THE PROCESS AS A WHOLE?" \
+    << __END_CELL__
 
 geist query --format table << __END_QUERY__
 
@@ -39,7 +37,7 @@ __END_QUERY__
 
 #        ?read_file wt:FilePath ?tale_input_file_path .          # Get the file path for each of the input files.
 
-__END_SCRIPT__
+__END_CELL__
 
 
 #     }
@@ -48,8 +46,8 @@ __END_SCRIPT__
 
 # # *****************************************************************************
 
-# bash ${RUNNER} RETROSPECTIVE-2 "WHAT FILES WERE PRODUCED AS OUTPUTS OF THE TALE?" \
-#     << __END_SCRIPT__
+# run_cell RETROSPECTIVE-2 "WHAT FILES WERE PRODUCED AS OUTPUTS OF THE TALE?" \
+#     << __END_CELL__
 
 # geist query --format table << __END_QUERY__
 
@@ -71,4 +69,4 @@ __END_SCRIPT__
 
 # __END_QUERY__
 
-# __END_SCRIPT__
+# __END_CELL__

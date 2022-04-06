@@ -1,19 +1,17 @@
 #!/usr/bin/env bash
 
-RUNNER='../../common/run_script_example.sh'
-
 # *****************************************************************************
 
-bash ${RUNNER} SETUP "INITIALIZE BLAZEGRAPH INSTANCE" << END_SCRIPT
+run_cell SETUP "INITIALIZE BLAZEGRAPH INSTANCE" << END_CELL
 
 geist destroy --dataset kb --quiet
 geist create --dataset kb --quiet
 
-END_SCRIPT
+END_CELL
 
 # *****************************************************************************
 
-bash ${RUNNER} S1 "IMPORT TWO TRIPLES AS N-TRIPLES" << END_SCRIPT
+run_cell S1 "IMPORT TWO TRIPLES AS N-TRIPLES" << END_CELL
 
 geist import --format nt | sort << END_DATA
 
@@ -24,11 +22,11 @@ END_DATA
 
 geist export --format nt --sort=true
 
-END_SCRIPT
+END_CELL
 
 # *****************************************************************************
 
-bash ${RUNNER} S2 "IMPORT TWO TRIPLES AS TURTLE" << END_SCRIPT
+run_cell S2 "IMPORT TWO TRIPLES AS TURTLE" << END_CELL
 
 geist destroy --dataset kb --quiet
 geist create --dataset kb --quiet
@@ -45,11 +43,11 @@ END_DATA
 
 geist export --format nt --sort=true
 
-END_SCRIPT
+END_CELL
 
 # *****************************************************************************
 
-bash ${RUNNER} S3 "IMPORT TWO TRIPLES AS JSON-LD" << END_SCRIPT
+run_cell S3 "IMPORT TWO TRIPLES AS JSON-LD" << END_CELL
 
 geist destroy --dataset kb --quiet
 geist create --dataset kb --quiet
@@ -71,11 +69,11 @@ END_DATA
 
 geist export --format nt --sort=true
 
-END_SCRIPT
+END_CELL
 
 # *****************************************************************************
 
-bash ${RUNNER} S4 "IMPORT TWO TRIPLES AS RDF-XML" << END_SCRIPT
+run_cell S4 "IMPORT TWO TRIPLES AS RDF-XML" << END_CELL
 
 geist destroy --dataset kb --quiet
 geist create --dataset kb --quiet
@@ -98,4 +96,4 @@ END_DATA
 
 geist export --format nt --sort=true
 
-END_SCRIPT
+END_CELL

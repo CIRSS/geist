@@ -1,5 +1,5 @@
 
-******************************************* EXAMPLE SETUP ************************************************
+********************************************** CELL SETUP ************************************************
 
 # IMPORT SDTL-PROVONE TRACE
 
@@ -11,7 +11,7 @@ geist import --format jsonld --file ../data/single-command.jsonld
 
 
 
-******************************************* EXAMPLE PROSPECTIVE-1 ************************************************
+********************************************** CELL PROSPECTIVE-1 ************************************************
 
 # WHAT IS THE TOP-LEVEL PROGRAM IN THE TRACE?
 
@@ -34,7 +34,7 @@ program
 http://wholetale.org/tale38/run15#create_var.sps
 
 
-******************************************* EXAMPLE PROSPECTIVE-2 ************************************************
+********************************************** CELL PROSPECTIVE-2 ************************************************
 
 # WHAT ARE THE SUB-PROGRAMS IN THE TRACE?
 
@@ -56,7 +56,7 @@ subProgram
 http://wholetale.org/tale38/run15#create_variable_command
 
 
-******************************************* EXAMPLE PROSPECTIVE-3 ************************************************
+********************************************** CELL PROSPECTIVE-3 ************************************************
 
 # WHAT ARE THE OUTPUT PORTS AND ASSOCIATED VARIABLES IN THE TRACE?
 
