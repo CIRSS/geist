@@ -1,11 +1,10 @@
 #!/usr/bin/env bash
 
-run_query='../common/run_query.sh'
 data_file='../data/address-book.jsonld'
 
 cat ${data_file}
 
-bash ${run_query} ${data_file} Q1 "What is everyone's email addresses (and print them too)?" << END_QUERY
+arq_cell ${data_file} Q1 "What is everyone's email addresses (and print them too)?" << END_QUERY
 PREFIX afn: <http://jena.apache.org/ARQ/function#>
 PREFIX ab: <http://learningsparql.com/ns/addressbook#>
 SELECT ?firstname ?email
@@ -18,7 +17,7 @@ WHERE
 }
 END_QUERY
 
-bash ${run_query} ${data_file} Q2 "What is everyone's email addresses (and print them in subqueries)?" << END_QUERY
+arq_cell ${data_file} Q2 "What is everyone's email addresses (and print them in subqueries)?" << END_QUERY
 PREFIX afn: <http://jena.apache.org/ARQ/function#>
 PREFIX ab: <http://learningsparql.com/ns/addressbook#>
 SELECT *
@@ -40,7 +39,7 @@ WHERE {
 }
 END_QUERY
 
-bash ${run_query} ${data_file} Q3 "Construct new triples for everyone's name and email addresses (and print them in subqueries)?" << END_QUERY
+arq_cell ${data_file} Q3 "Construct new triples for everyone's name and email addresses (and print them in subqueries)?" << END_QUERY
 PREFIX afn: <http://jena.apache.org/ARQ/function#>
 PREFIX ab: <http://learningsparql.com/ns/addressbook#>
 PREFIX tm: <http://learningsparql.com/tm#>
