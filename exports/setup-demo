@@ -1,8 +1,8 @@
 
 repro.require shell-notebook master ${REPROS_DEV} --dot
+
 repro.require jena-runtime master ${REPROS_DEV} --util
 repro.env REPRO_DEMO_TMP_DIRNAME tmp
 
-sudo apt update
-sudo apt -y install python3 python3-pip
+repro.require python-dev master ${REPROS_DEV}
 pip3 install pandas
