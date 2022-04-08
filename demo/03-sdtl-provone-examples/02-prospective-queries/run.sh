@@ -2,7 +2,7 @@
 
 # *****************************************************************************
 
-run_cell SETUP "IMPORT SDTL-PROVONE TRACE" << END_CELL
+bash_cell SETUP "IMPORT SDTL-PROVONE TRACE" << END_CELL
 
 geist destroy --dataset kb --quiet
 geist create --dataset kb --quiet
@@ -12,7 +12,7 @@ END_CELL
 
 # *****************************************************************************
 
-run_cell PROSPECTIVE-1 "WHAT IS THE TOP-LEVEL PROGRAM IN THE TRACE?" \
+bash_cell PROSPECTIVE-1 "WHAT IS THE TOP-LEVEL PROGRAM IN THE TRACE?" \
     << END_CELL
 
 geist query --format table << END_QUERY
@@ -31,7 +31,7 @@ END_CELL
 
 # *****************************************************************************
 
-run_cell PROSPECTIVE-2 "WHAT ARE THE SUB-PROGRAMS IN THE TRACE?" \
+bash_cell PROSPECTIVE-2 "WHAT ARE THE SUB-PROGRAMS IN THE TRACE?" \
     << END_CELL
 
 geist query --format table << END_QUERY
@@ -49,7 +49,7 @@ END_CELL
 
 # *****************************************************************************
 
-run_cell PROSPECTIVE-3 "WHAT ARE THE OUTPUT PORTS AND ASSOCIATED VARIABLES IN THE TRACE?" \
+bash_cell PROSPECTIVE-3 "WHAT ARE THE OUTPUT PORTS AND ASSOCIATED VARIABLES IN THE TRACE?" \
     << END_CELL
 
 geist query --format table << END_QUERY

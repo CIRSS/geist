@@ -2,7 +2,7 @@
 
 # *****************************************************************************
 
-run_cell DUMP-1 "IMPORT SDTL AS JSON-LD AND EXPORT AS N-TRIPLES" << END_CELL
+bash_cell DUMP-1 "IMPORT SDTL AS JSON-LD AND EXPORT AS N-TRIPLES" << END_CELL
 
 geist destroy --dataset kb --quiet
 geist create --dataset kb --quiet
@@ -13,7 +13,7 @@ END_CELL
 
 # # *****************************************************************************
 
-# run_cell DUMP-2 "IMPORT SDTL OWL FILE AND EXPORT AS N-TRIPLES" << END_CELL
+# bash_cell DUMP-2 "IMPORT SDTL OWL FILE AND EXPORT AS N-TRIPLES" << END_CELL
 
 # geist destroy --dataset kb --quiet
 # geist create --dataset kb --quiet
@@ -24,7 +24,7 @@ END_CELL
 
 # # *****************************************************************************
 
-# run_cell DUMP-3 "EXPORT SDTL OWL AS TURTLE" << END_CELL
+# bash_cell DUMP-3 "EXPORT SDTL OWL AS TURTLE" << END_CELL
 
 # geist destroy --dataset kb --quiet
 # geist create --dataset kb --quiet
@@ -35,7 +35,7 @@ END_CELL
 
 # *****************************************************************************
 
-# run_cell DUMP-3 "IMPORT TOMMY'S JSON-LD FILE AND EXPORT AS N-TRIPLES" << END_CELL
+# bash_cell DUMP-3 "IMPORT TOMMY'S JSON-LD FILE AND EXPORT AS N-TRIPLES" << END_CELL
 
 # geist destroy --dataset kb --quiet
 # geist create --dataset kb --quiet

@@ -2,7 +2,7 @@
 
 # *****************************************************************************
 
-run_cell SETUP "IMPORT PROVONE TRACE" << END_CELL
+bash_cell SETUP "IMPORT PROVONE TRACE" << END_CELL
 
 geist destroy --dataset kb --quiet
 geist create --dataset kb --quiet
@@ -11,7 +11,7 @@ geist import --format jsonld --file ../data/branched-pipeline.jsonld
 END_CELL
 
 
-dot_cell GRAPH-1 "EMPTY DOT FILE" \
+bash_dot_cell GRAPH-1 "EMPTY DOT FILE" \
     << '__END_CELL__'
 
 geist report << '__END_REPORT_TEMPLATE__'
@@ -29,7 +29,7 @@ __END_REPORT_TEMPLATE__
 __END_CELL__
 
 
-dot_cell GRAPH-2 "TITLED EMPTY DOT FILE" \
+bash_dot_cell GRAPH-2 "TITLED EMPTY DOT FILE" \
     << '__END_CELL__'
 
 geist report << '__END_REPORT_TEMPLATE__'
@@ -53,7 +53,7 @@ __END_REPORT_TEMPLATE__
 __END_CELL__
 
 
-dot_cell GRAPH-3 "Node for Tale Run" \
+bash_dot_cell GRAPH-3 "Node for Tale Run" \
     << '__END_CELL__'
 
 geist report << '__END_REPORT_TEMPLATE__'
@@ -78,7 +78,7 @@ __END_REPORT_TEMPLATE__
 __END_CELL__
 
 
-dot_cell GRAPH-4 "Tale Run with Inputs and Outputs" \
+bash_dot_cell GRAPH-4 "Tale Run with Inputs and Outputs" \
     << '__END_CELL__'
 
 geist report << '__END_REPORT_TEMPLATE__'
@@ -120,7 +120,7 @@ __END_REPORT_TEMPLATE__
 __END_CELL__
 
 
-dot_cell GRAPH-5 "Tale Processes and Data Files" \
+bash_dot_cell GRAPH-5 "Tale Processes and Data Files" \
     << '__END_CELL__'
 
 geist report << '__END_REPORT_TEMPLATE__'

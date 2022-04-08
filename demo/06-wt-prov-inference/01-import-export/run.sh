@@ -2,7 +2,7 @@
 
 # *****************************************************************************
 
-run_cell SETUP "IMPORT PROVONE TRACE" << END_CELL
+bash_cell SETUP "IMPORT PROVONE TRACE" << END_CELL
 
 geist destroy --dataset kb --quiet
 geist create --dataset kb --quiet --infer owl
@@ -13,7 +13,7 @@ END_CELL
 
 # *****************************************************************************
 
-run_cell S1 "EXPORT AS N-TRIPLES WITHOUT INFERENCE" << END_CELL
+bash_cell S1 "EXPORT AS N-TRIPLES WITHOUT INFERENCE" << END_CELL
 
 geist export --format nt --includeinferred=false | sort
 
@@ -21,7 +21,7 @@ END_CELL
 
 # *****************************************************************************
 
-run_cell S2 "EXPORT AS N-TRIPLES WITH INFERENCE" << END_CELL
+bash_cell S2 "EXPORT AS N-TRIPLES WITH INFERENCE" << END_CELL
 
 geist export --format nt --includeinferred=true | sort
 

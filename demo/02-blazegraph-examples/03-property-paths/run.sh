@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-run_cell SETUP "INITIALIZE BLAZEGRAPH INSTANCE WITH CITATIONS" << END_CELL
+bash_cell SETUP "INITIALIZE BLAZEGRAPH INSTANCE WITH CITATIONS" << END_CELL
 
 geist destroy --dataset kb --quiet
 geist create --dataset kb --quiet
@@ -9,14 +9,14 @@ geist import --file ../data/citations.ttl --format ttl
 END_CELL
 
 
-run_cell S1 "EXPORT CITATIONS AS N-TRIPLES" << END_CELL
+bash_cell S1 "EXPORT CITATIONS AS N-TRIPLES" << END_CELL
 
 geist export --format nt | sort
 
 END_CELL
 
 
-run_cell S2 "WHICH PAPERS DIRECTLY CITE WHICH PAPERS?" \
+bash_cell S2 "WHICH PAPERS DIRECTLY CITE WHICH PAPERS?" \
     << END_CELL
 
 geist query --format table << END_QUERY
@@ -34,7 +34,7 @@ END_QUERY
 END_CELL
 
 
-run_cell S3 "WHICH PAPERS DEPEND ON WHICH PRIOR WORK?" \
+bash_cell S3 "WHICH PAPERS DEPEND ON WHICH PRIOR WORK?" \
     << END_CELL
 
 geist query --format table << END_QUERY
@@ -52,7 +52,7 @@ END_QUERY
 END_CELL
 
 
-run_cell S4 "WHICH PAPERS DEPEND ON PAPER A?" \
+bash_cell S4 "WHICH PAPERS DEPEND ON PAPER A?" \
     << END_CELL
 
 geist query --format table << END_QUERY
@@ -71,7 +71,7 @@ END_QUERY
 END_CELL
 
 
-run_cell S5 "WHICH PAPERS CITE A PAPER THAT CITES PAPER A?" \
+bash_cell S5 "WHICH PAPERS CITE A PAPER THAT CITES PAPER A?" \
     << END_CELL
 
 geist query --format table << END_QUERY
@@ -90,7 +90,7 @@ END_QUERY
 END_CELL
 
 
-run_cell S6 "WHICH PAPERS CITE A PAPER CITED BY PAPER D?" \
+bash_cell S6 "WHICH PAPERS CITE A PAPER CITED BY PAPER D?" \
     << END_CELL
 
 geist query --format table << END_QUERY
@@ -110,7 +110,7 @@ END_QUERY
 END_CELL
 
 
-run_cell S7 "WHAT RESULTS DEPEND DIRECTLY ON RESULTS REPORTED BY PAPER A?" \
+bash_cell S7 "WHAT RESULTS DEPEND DIRECTLY ON RESULTS REPORTED BY PAPER A?" \
     << END_CELL
 
 geist query --format table << END_QUERY
@@ -129,7 +129,7 @@ END_QUERY
 END_CELL
 
 
-run_cell S7 "WHAT RESULTS DEPEND DIRECTLY OR INDIRECTLY ON RESULTS REPORTED BY PAPER A?" \
+bash_cell S7 "WHAT RESULTS DEPEND DIRECTLY OR INDIRECTLY ON RESULTS REPORTED BY PAPER A?" \
     << END_CELL
 
 geist query --format table << END_QUERY
@@ -148,7 +148,7 @@ END_QUERY
 END_CELL
 
 
-dot_cell S8 "Visualization of Paper-Citation Graph" \
+bash_dot_cell S8 "Visualization of Paper-Citation Graph" \
     << '__END_CELL__'
 
 geist report << '__END_REPORT_TEMPLATE__'
@@ -195,7 +195,7 @@ __END_REPORT_TEMPLATE__
 
 __END_CELL__
 
-dot_cell S9 "Visualization of Paper-Citation Graph" \
+bash_dot_cell S9 "Visualization of Paper-Citation Graph" \
     << '__END_CELL__'
 
 geist report << '__END_REPORT_TEMPLATE__'
@@ -247,7 +247,7 @@ __END_REPORT_TEMPLATE__
 __END_CELL__
 
 
-dot_cell S10 "Visualization of Paper-Result Graph" \
+bash_dot_cell S10 "Visualization of Paper-Result Graph" \
     << '__END_CELL__'
 
 geist report << '__END_REPORT_TEMPLATE__'

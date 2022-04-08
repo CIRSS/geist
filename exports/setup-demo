@@ -1,8 +1,8 @@
-
-repro.require shell-notebook master ${REPROS_DEV} --dot
-
+repro.require shell-notebook master ${REPROS_DEV}
+repro.require graphviz-runtime master ${REPROS_DEV} --util
 repro.require jena-runtime master ${REPROS_DEV} --util
-repro.env REPRO_DEMO_TMP_DIRNAME tmp
-
 repro.require python-dev master ${REPROS_DEV}
+
 pip3 install pandas
+
+repro.env REPRO_DEMO_TMP_DIRNAME tmp

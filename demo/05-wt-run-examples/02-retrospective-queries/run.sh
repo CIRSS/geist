@@ -2,7 +2,7 @@
 
 # *****************************************************************************
 
-run_cell SETUP "IMPORT PROVONE TRACE" << END_CELL
+bash_cell SETUP "IMPORT PROVONE TRACE" << END_CELL
 
 geist destroy --dataset kb --quiet
 geist create --dataset kb --quiet
@@ -12,7 +12,7 @@ END_CELL
 
 # *****************************************************************************
 
-run_cell RETROSPECTIVE-1 "WHAT DATA FILES WERE USED AS INPUT BY THE TALE?" \
+bash_cell RETROSPECTIVE-1 "WHAT DATA FILES WERE USED AS INPUT BY THE TALE?" \
     << __END_CELL__
 
 geist query --format table << __END_QUERY__
@@ -41,7 +41,7 @@ __END_CELL__
 
 # *****************************************************************************
 
-run_cell RETROSPECTIVE-2 "WHAT FILES WERE PRODUCED AS OUTPUTS OF THE TALE?" \
+bash_cell RETROSPECTIVE-2 "WHAT FILES WERE PRODUCED AS OUTPUTS OF THE TALE?" \
     << __END_CELL__
 
 geist query --format table << __END_QUERY__

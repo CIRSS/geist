@@ -2,7 +2,7 @@
 
 # *****************************************************************************
 
-run_cell SETUP "INITIALIZE BLAZEGRAPH INSTANCE WITH ADDRESS BOOK" << END_CELL
+bash_cell SETUP "INITIALIZE BLAZEGRAPH INSTANCE WITH ADDRESS BOOK" << END_CELL
 
 geist destroy --dataset kb --quiet
 geist create --dataset kb --quiet
@@ -12,7 +12,7 @@ END_CELL
 
 # *****************************************************************************
 
-run_cell S1 "EXPORT ADDRESS BOOK AS JSON-LD" << END_CELL
+bash_cell S1 "EXPORT ADDRESS BOOK AS JSON-LD" << END_CELL
 
 geist export --format jsonld
 
@@ -20,7 +20,7 @@ END_CELL
 
 # *****************************************************************************
 
-run_cell S1 "EXPORT ADDRESS BOOK AS TURTLE" << END_CELL
+bash_cell S1 "EXPORT ADDRESS BOOK AS TURTLE" << END_CELL
 
 geist export --format ttl
 
@@ -28,7 +28,7 @@ END_CELL
 
 # *****************************************************************************
 
-run_cell S1 "EXPORT ADDRESS BOOK AS N-TRIPLES" << END_CELL
+bash_cell S1 "EXPORT ADDRESS BOOK AS N-TRIPLES" << END_CELL
 
 geist export --format nt | sort
 
@@ -36,7 +36,7 @@ END_CELL
 
 # *****************************************************************************
 
-run_cell S1 "EXPORT ADDRESS BOOK AS RDF-XML" << END_CELL
+bash_cell S1 "EXPORT ADDRESS BOOK AS RDF-XML" << END_CELL
 
 geist export --format xml
 

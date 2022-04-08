@@ -2,7 +2,7 @@
 
 # *****************************************************************************
 
-run_cell SETUP "IMPORT PROVONE TRACE" << END_CELL
+bash_cell SETUP "IMPORT PROVONE TRACE" << END_CELL
 
 geist destroy --dataset kb --quiet
 geist create --dataset kb --quiet
@@ -12,7 +12,7 @@ END_CELL
 
 # *****************************************************************************
 
-run_cell S1 "EXPORT AS N-TRIPLES" << END_CELL
+bash_cell S1 "EXPORT AS N-TRIPLES" << END_CELL
 
 geist export --format nt | sort
 

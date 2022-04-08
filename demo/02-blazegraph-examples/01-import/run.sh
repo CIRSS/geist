@@ -2,7 +2,7 @@
 
 # *****************************************************************************
 
-run_cell SETUP "INITIALIZE BLAZEGRAPH INSTANCE" << END_CELL
+bash_cell SETUP "INITIALIZE BLAZEGRAPH INSTANCE" << END_CELL
 
 geist destroy --dataset kb --quiet
 geist create --dataset kb --quiet
@@ -11,7 +11,7 @@ END_CELL
 
 # *****************************************************************************
 
-run_cell S1 "IMPORT TWO TRIPLES AS N-TRIPLES" << END_CELL
+bash_cell S1 "IMPORT TWO TRIPLES AS N-TRIPLES" << END_CELL
 
 geist import --format nt | sort << END_DATA
 
@@ -26,7 +26,7 @@ END_CELL
 
 # *****************************************************************************
 
-run_cell S2 "IMPORT TWO TRIPLES AS TURTLE" << END_CELL
+bash_cell S2 "IMPORT TWO TRIPLES AS TURTLE" << END_CELL
 
 geist destroy --dataset kb --quiet
 geist create --dataset kb --quiet
@@ -47,7 +47,7 @@ END_CELL
 
 # *****************************************************************************
 
-run_cell S3 "IMPORT TWO TRIPLES AS JSON-LD" << END_CELL
+bash_cell S3 "IMPORT TWO TRIPLES AS JSON-LD" << END_CELL
 
 geist destroy --dataset kb --quiet
 geist create --dataset kb --quiet
@@ -73,7 +73,7 @@ END_CELL
 
 # *****************************************************************************
 
-run_cell S4 "IMPORT TWO TRIPLES AS RDF-XML" << END_CELL
+bash_cell S4 "IMPORT TWO TRIPLES AS RDF-XML" << END_CELL
 
 geist destroy --dataset kb --quiet
 geist create --dataset kb --quiet

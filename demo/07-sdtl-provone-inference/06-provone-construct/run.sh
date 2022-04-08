@@ -2,7 +2,7 @@
 
 # *****************************************************************************
 
-run_cell SETUP "IMPORT SDTL AS JSON-LD" << END_CELL
+bash_cell SETUP "IMPORT SDTL AS JSON-LD" << END_CELL
 
 geist destroy --dataset kb --quiet
 geist create --dataset kb --quiet 
@@ -12,14 +12,14 @@ END_CELL
 
 # *****************************************************************************
 
-run_cell E1 "EXPORT ORIGINAL SDTL AS N-TRIPLES" << END_CELL
+bash_cell E1 "EXPORT ORIGINAL SDTL AS N-TRIPLES" << END_CELL
 
 geist export --format nt | sort
 
 END_CELL
 
 
-run_cell Q1 "CONSTRUCT PROVONE PROGRAMS VIA SPARQL CONSTRUCT QUERY" << END_CELL
+bash_cell Q1 "CONSTRUCT PROVONE PROGRAMS VIA SPARQL CONSTRUCT QUERY" << END_CELL
 
 geist query --format table << __END_QUERY__
 
@@ -48,7 +48,7 @@ __END_QUERY__
 END_CELL
 
 
-run_cell R1 "CONSTRUCT PROVONE PROGRAMS VIA GEIST REPORT" << '__END_CELL__'
+bash_cell R1 "CONSTRUCT PROVONE PROGRAMS VIA GEIST REPORT" << '__END_CELL__'
 
 geist report << '__END_REPORT_TEMPLATE__'
 
