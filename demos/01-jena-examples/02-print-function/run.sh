@@ -4,7 +4,10 @@ data_file='../data/address-book.jsonld'
 
 cat ${data_file}
 
-arq_cell ${data_file} Q1 "What is everyone's email addresses (and print them too)?" << END_QUERY
+arq_cell ${data_file} Q1 << END_QUERY
+
+# What is everyone's email addresses (and print them too)?
+
 PREFIX afn: <http://jena.apache.org/ARQ/function#>
 PREFIX ab: <http://learningsparql.com/ns/addressbook#>
 SELECT ?firstname ?email
@@ -17,7 +20,10 @@ WHERE
 }
 END_QUERY
 
-arq_cell ${data_file} Q2 "What is everyone's email addresses (and print them in subqueries)?" << END_QUERY
+arq_cell ${data_file} Q2 << END_QUERY
+
+# What is everyone's email addresses (and print them in subqueries)
+
 PREFIX afn: <http://jena.apache.org/ARQ/function#>
 PREFIX ab: <http://learningsparql.com/ns/addressbook#>
 SELECT *
@@ -39,7 +45,10 @@ WHERE {
 }
 END_QUERY
 
-arq_cell ${data_file} Q3 "Construct new triples for everyone's name and email addresses (and print them in subqueries)?" << END_QUERY
+arq_cell ${data_file} Q3 << END_QUERY
+
+# Construct new triples for everyone's name and email addresses (and print them in subqueries)
+
 PREFIX afn: <http://jena.apache.org/ARQ/function#>
 PREFIX ab: <http://learningsparql.com/ns/addressbook#>
 PREFIX tm: <http://learningsparql.com/tm#>
@@ -54,5 +63,3 @@ WHERE {
     FILTER(afn:print(?email))
 }
 END_QUERY
-
-

@@ -4,7 +4,10 @@ data_file='../data/address-book.jsonld'
 
 cat ${data_file}
 
-arq_cell ${data_file} Q1 "What are Craig's email addresses?" << END_QUERY
+arq_cell ${data_file} Q1 << END_QUERY
+
+# What are Craig's email addresses?
+
 PREFIX ab: <http://learningsparql.com/ns/addressbook#>
 SELECT ?email
 WHERE
@@ -14,7 +17,10 @@ WHERE
 }
 END_QUERY
 
-arq_cell ${data_file} Q2 "Whose telephone number is (245) 646-5488?" << END_QUERY
+arq_cell ${data_file} Q2 << END_QUERY
+
+# Whose telephone number is (245) 646-5488?
+
 PREFIX ab: <http://learningsparql.com/ns/addressbook#> 
 SELECT ?name
 WHERE
@@ -24,7 +30,10 @@ WHERE
 }
 END_QUERY
 
-arq_cell ${data_file} Q3 "List phone numbers by nickname or else first name." << END_QUERY
+arq_cell ${data_file} Q3 << END_QUERY
+
+# List phone numbers by nickname or else first name.
+
 PREFIX ab: <http://learningsparql.com/ns/addressbook#> 
 SELECT ?firstname ?phone
 WHERE
@@ -35,7 +44,10 @@ WHERE
 }
 END_QUERY
 
-arq_cell ${data_file} Q4 "List everything known about Cindy." << END_QUERY
+arq_cell ${data_file} Q4 << END_QUERY
+
+# List everything known about Cindy.
+
 PREFIX ab: <http://learningsparql.com/ns/addressbook#> 
 SELECT ?propertyName ?propertyValue
 WHERE
@@ -45,7 +57,10 @@ WHERE
 }
 END_QUERY
 
-arq_cell ${data_file} Q5 "List everyone who has a yahoo email address." << END_QUERY
+arq_cell ${data_file} Q5 << END_QUERY
+
+# List everyone who has a yahoo email address.
+
 PREFIX ab: <http://learningsparql.com/ns/addressbook#> 
 SELECT ?firstname ?lastname ?email
 WHERE
@@ -57,7 +72,10 @@ WHERE
 }
 END_QUERY
 
-arq_cell ${data_file} Q6 "List everyone's home and mobile phone number." << END_QUERY
+arq_cell ${data_file} Q6 << END_QUERY
+
+# List everyone's home and mobile phone number.
+
 PREFIX ab: <http://learningsparql.com/ns/addressbook#> 
 SELECT ?firstname ?lastname ?home ?mobile
 WHERE
@@ -71,7 +89,10 @@ WHERE
 }
 END_QUERY
 
-arq_cell ${data_file} Q6 "List everyone who does not have a mobile number." << END_QUERY
+arq_cell ${data_file} Q7 << END_QUERY
+
+# List everyone who does not have a mobile number.
+
 PREFIX ab: <http://learningsparql.com/ns/addressbook#> 
 SELECT ?firstname ?lastname
 WHERE
@@ -84,7 +105,10 @@ WHERE
 }
 END_QUERY
 
-arq_cell ${data_file} Q7 "List everyone who either has a nickname or a mobile number." << END_QUERY
+arq_cell ${data_file} Q8 << END_QUERY
+
+# List everyone who either has a nickname or a mobile number.
+
 PREFIX ab: <http://learningsparql.com/ns/addressbook#> 
 SELECT ?firstname ?lastname ?nickname ?mobile
 WHERE

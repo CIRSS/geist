@@ -2,7 +2,10 @@
 
 data_file='../data/address-book.jsonld'
 
-arq_cell ${data_file} Q1 "List all triples in blazegraph." << END_QUERY
+arq_cell ${data_file} Q1 << END_QUERY
+
+# List all triples in blazegraph.
+
 PREFIX ab: <http://learningsparql.com/ns/addressbook#>
 CONSTRUCT
 { ?s ?p ?o }
@@ -11,7 +14,10 @@ WHERE
 { ?s ?p ?o }
 END_QUERY
 
-arq_cell ${data_file} Q2 "Select all triples in blazegraph." << END_QUERY
+arq_cell ${data_file} Q2 << END_QUERY
+
+# Select all triples in blazegraph.
+
 PREFIX ab: <http://learningsparql.com/ns/addressbook#>
 SELECT ?s ?p ?o
 WHERE

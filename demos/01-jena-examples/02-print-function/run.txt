@@ -34,8 +34,7 @@
         }
     ]
 }
-
-**************************** QUERY Q1 **********************************
+============================================ ARQ CELL Q1 ==============================================
 
 # What is everyone's email addresses (and print them too)?
 
@@ -49,9 +48,7 @@ WHERE
     FILTER(CONTAINS(?firstname, "i"))
     FILTER(afn:print(?email))
 }
-
---------------------- RESULTS FOR QUERY Q1------------------------------
-
+--------------------------------------------- OUTPUTS -------------------------------------------------
 c.ellis@usairwaysgroup.com
 craigellis@yahoo.com
 richard49@hotmail.com
@@ -64,11 +61,12 @@ cindym@gmail.com
 | "Richard" | "richard49@hotmail.com"      |
 | "Cindy"   | "cindym@gmail.com"           |
 --------------------------------------------
+-------------------------------------------------------------------------------------------------------
 
 
-**************************** QUERY Q2 **********************************
+============================================ ARQ CELL Q2 ==============================================
 
-# What is everyone's email addresses (and print them in subqueries)?
+# What is everyone's email addresses (and print them in subqueries)
 
 PREFIX afn: <http://jena.apache.org/ARQ/function#>
 PREFIX ab: <http://learningsparql.com/ns/addressbook#>
@@ -89,9 +87,7 @@ WHERE {
         }
     }
 }
-
---------------------- RESULTS FOR QUERY Q2------------------------------
-
+--------------------------------------------- OUTPUTS -------------------------------------------------
 Craig
 c.ellis@usairwaysgroup.com
 cindym@gmail.com
@@ -123,11 +119,12 @@ craigellis@yahoo.com
 | "Cindy"   | "richard49@hotmail.com"      |
 | "Cindy"   | "craigellis@yahoo.com"       |
 --------------------------------------------
+-------------------------------------------------------------------------------------------------------
 
 
-**************************** QUERY Q3 **********************************
+============================================ ARQ CELL Q3 ==============================================
 
-# Construct new triples for everyone's name and email addresses (and print them in subqueries)?
+# Construct new triples for everyone's name and email addresses (and print them in subqueries)
 
 PREFIX afn: <http://jena.apache.org/ARQ/function#>
 PREFIX ab: <http://learningsparql.com/ns/addressbook#>
@@ -142,9 +139,7 @@ WHERE {
     FILTER(afn:print(?firstname))
     FILTER(afn:print(?email))
 }
-
---------------------- RESULTS FOR QUERY Q3------------------------------
-
+--------------------------------------------- OUTPUTS -------------------------------------------------
 c.ellis@usairwaysgroup.com
 Craig
 cindym@gmail.com
@@ -166,4 +161,6 @@ d:i0432  tm:email     "richard49@hotmail.com" ;
 
 d:i8301  tm:email     "craigellis@yahoo.com" , "c.ellis@usairwaysgroup.com" ;
         tm:firstname  "Craig" .
+-------------------------------------------------------------------------------------------------------
+
 
