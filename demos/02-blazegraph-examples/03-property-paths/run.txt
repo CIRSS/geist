@@ -1,0 +1,616 @@
+=========================================== BASH CELL SETUP ==============================================
+
+# INITIALIZE BLAZEGRAPH INSTANCE WITH CITATIONS
+
+geist destroy --dataset kb --quiet
+geist create --dataset kb --quiet
+geist import --file ../data/citations.ttl --format ttl
+
+--------------------------------------------- OUTPUTS -------------------------------------------------
+=======================================================================================================
+
+=========================================== BASH CELL S1 ==============================================
+
+# EXPORT CITATIONS AS N-TRIPLES
+
+geist export --format nt | sort
+
+--------------------------------------------- OUTPUTS -------------------------------------------------
+<http://learningsparql.com/ns/papers#paperA> <http://learningsparql.com/ns/citations#reports> <http://learningsparql.com/ns/papers#resultA> .
+<http://learningsparql.com/ns/papers#paperA> <http://purl.org/dc/elements/1.1/title> "Paper A" .
+<http://learningsparql.com/ns/papers#paperA> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://learningsparql.com/ns/citations#Paper> .
+<http://learningsparql.com/ns/papers#paperB> <http://learningsparql.com/ns/citations#cites> <http://learningsparql.com/ns/papers#paperA> .
+<http://learningsparql.com/ns/papers#paperB> <http://learningsparql.com/ns/citations#reports> <http://learningsparql.com/ns/papers#resultB> .
+<http://learningsparql.com/ns/papers#paperB> <http://learningsparql.com/ns/citations#uses> <http://learningsparql.com/ns/papers#resultA> .
+<http://learningsparql.com/ns/papers#paperB> <http://purl.org/dc/elements/1.1/title> "Paper B" .
+<http://learningsparql.com/ns/papers#paperB> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://learningsparql.com/ns/citations#Paper> .
+<http://learningsparql.com/ns/papers#paperC> <http://learningsparql.com/ns/citations#cites> <http://learningsparql.com/ns/papers#paperA> .
+<http://learningsparql.com/ns/papers#paperC> <http://learningsparql.com/ns/citations#reports> <http://learningsparql.com/ns/papers#resultC> .
+<http://learningsparql.com/ns/papers#paperC> <http://learningsparql.com/ns/citations#uses> <http://learningsparql.com/ns/papers#resultA> .
+<http://learningsparql.com/ns/papers#paperC> <http://purl.org/dc/elements/1.1/title> "Paper C" .
+<http://learningsparql.com/ns/papers#paperC> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://learningsparql.com/ns/citations#Paper> .
+<http://learningsparql.com/ns/papers#paperD> <http://learningsparql.com/ns/citations#cites> <http://learningsparql.com/ns/papers#paperA> .
+<http://learningsparql.com/ns/papers#paperD> <http://learningsparql.com/ns/citations#cites> <http://learningsparql.com/ns/papers#paperB> .
+<http://learningsparql.com/ns/papers#paperD> <http://learningsparql.com/ns/citations#reports> <http://learningsparql.com/ns/papers#resultD1> .
+<http://learningsparql.com/ns/papers#paperD> <http://learningsparql.com/ns/citations#reports> <http://learningsparql.com/ns/papers#resultD2> .
+<http://learningsparql.com/ns/papers#paperD> <http://learningsparql.com/ns/citations#reports> <http://learningsparql.com/ns/papers#resultD3> .
+<http://learningsparql.com/ns/papers#paperD> <http://learningsparql.com/ns/citations#uses> <http://learningsparql.com/ns/papers#resultB> .
+<http://learningsparql.com/ns/papers#paperD> <http://purl.org/dc/elements/1.1/title> "Paper D" .
+<http://learningsparql.com/ns/papers#paperD> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://learningsparql.com/ns/citations#Paper> .
+<http://learningsparql.com/ns/papers#paperE> <http://learningsparql.com/ns/citations#cites> <http://learningsparql.com/ns/papers#paperA> .
+<http://learningsparql.com/ns/papers#paperE> <http://learningsparql.com/ns/citations#reports> <http://learningsparql.com/ns/papers#resultE> .
+<http://learningsparql.com/ns/papers#paperE> <http://learningsparql.com/ns/citations#uses> <http://learningsparql.com/ns/papers#resultA> .
+<http://learningsparql.com/ns/papers#paperE> <http://purl.org/dc/elements/1.1/title> "Paper E" .
+<http://learningsparql.com/ns/papers#paperE> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://learningsparql.com/ns/citations#Paper> .
+<http://learningsparql.com/ns/papers#paperF> <http://learningsparql.com/ns/citations#cites> <http://learningsparql.com/ns/papers#paperC> .
+<http://learningsparql.com/ns/papers#paperF> <http://learningsparql.com/ns/citations#cites> <http://learningsparql.com/ns/papers#paperE> .
+<http://learningsparql.com/ns/papers#paperF> <http://learningsparql.com/ns/citations#reports> <http://learningsparql.com/ns/papers#resultF> .
+<http://learningsparql.com/ns/papers#paperF> <http://learningsparql.com/ns/citations#uses> <http://learningsparql.com/ns/papers#resultC> .
+<http://learningsparql.com/ns/papers#paperF> <http://purl.org/dc/elements/1.1/title> "Paper F" .
+<http://learningsparql.com/ns/papers#paperF> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://learningsparql.com/ns/citations#Paper> .
+<http://learningsparql.com/ns/papers#paperG> <http://learningsparql.com/ns/citations#cites> <http://learningsparql.com/ns/papers#paperC> .
+<http://learningsparql.com/ns/papers#paperG> <http://learningsparql.com/ns/citations#cites> <http://learningsparql.com/ns/papers#paperE> .
+<http://learningsparql.com/ns/papers#paperG> <http://learningsparql.com/ns/citations#reports> <http://learningsparql.com/ns/papers#resultG1> .
+<http://learningsparql.com/ns/papers#paperG> <http://learningsparql.com/ns/citations#reports> <http://learningsparql.com/ns/papers#resultG2> .
+<http://learningsparql.com/ns/papers#paperG> <http://learningsparql.com/ns/citations#uses> <http://learningsparql.com/ns/papers#resultE> .
+<http://learningsparql.com/ns/papers#paperG> <http://purl.org/dc/elements/1.1/title> "Paper G" .
+<http://learningsparql.com/ns/papers#paperG> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://learningsparql.com/ns/citations#Paper> .
+<http://learningsparql.com/ns/papers#paperH> <http://learningsparql.com/ns/citations#cites> <http://learningsparql.com/ns/papers#paperD> .
+<http://learningsparql.com/ns/papers#paperH> <http://learningsparql.com/ns/citations#reports> <http://learningsparql.com/ns/papers#resultH> .
+<http://learningsparql.com/ns/papers#paperH> <http://learningsparql.com/ns/citations#uses> <http://learningsparql.com/ns/papers#resultD2> .
+<http://learningsparql.com/ns/papers#paperH> <http://purl.org/dc/elements/1.1/title> "Paper H" .
+<http://learningsparql.com/ns/papers#paperH> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://learningsparql.com/ns/citations#Paper> .
+<http://learningsparql.com/ns/papers#paperI> <http://learningsparql.com/ns/citations#cites> <http://learningsparql.com/ns/papers#paperF> .
+<http://learningsparql.com/ns/papers#paperI> <http://learningsparql.com/ns/citations#cites> <http://learningsparql.com/ns/papers#paperG> .
+<http://learningsparql.com/ns/papers#paperI> <http://learningsparql.com/ns/citations#reports> <http://learningsparql.com/ns/papers#resultI> .
+<http://learningsparql.com/ns/papers#paperI> <http://learningsparql.com/ns/citations#uses> <http://learningsparql.com/ns/papers#resultF> .
+<http://learningsparql.com/ns/papers#paperI> <http://purl.org/dc/elements/1.1/title> "Paper I" .
+<http://learningsparql.com/ns/papers#paperI> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://learningsparql.com/ns/citations#Paper> .
+<http://learningsparql.com/ns/papers#resultA> <http://www.w3.org/2000/01/rdf-schema#label> "Result A" .
+<http://learningsparql.com/ns/papers#resultB> <http://www.w3.org/2000/01/rdf-schema#label> "Result B" .
+<http://learningsparql.com/ns/papers#resultC> <http://www.w3.org/2000/01/rdf-schema#label> "Result C" .
+<http://learningsparql.com/ns/papers#resultD1> <http://www.w3.org/2000/01/rdf-schema#label> "Result D1" .
+<http://learningsparql.com/ns/papers#resultD2> <http://www.w3.org/2000/01/rdf-schema#label> "Result D2" .
+<http://learningsparql.com/ns/papers#resultD3> <http://www.w3.org/2000/01/rdf-schema#label> "Result D3" .
+<http://learningsparql.com/ns/papers#resultE> <http://www.w3.org/2000/01/rdf-schema#label> "Result E" .
+<http://learningsparql.com/ns/papers#resultF> <http://www.w3.org/2000/01/rdf-schema#label> "Result F" .
+<http://learningsparql.com/ns/papers#resultG1> <http://www.w3.org/2000/01/rdf-schema#label> "Result G1" .
+<http://learningsparql.com/ns/papers#resultG2> <http://www.w3.org/2000/01/rdf-schema#label> "Result G2" .
+<http://learningsparql.com/ns/papers#resultH> <http://www.w3.org/2000/01/rdf-schema#label> "Result H" .
+<http://learningsparql.com/ns/papers#resultI> <http://www.w3.org/2000/01/rdf-schema#label> "Result I" .
+=======================================================================================================
+
+=========================================== BASH CELL S2 ==============================================
+
+# WHICH PAPERS DIRECTLY CITE WHICH PAPERS?
+
+geist query --format table << END_QUERY
+
+    prefix c: <http://learningsparql.com/ns/citations#>
+
+    SELECT DISTINCT ?citing_paper ?cited_paper
+    WHERE {
+        ?citing_paper c:cites ?cited_paper .
+    }
+    ORDER BY ?citing_paper ?cited_paper
+
+END_QUERY
+
+--------------------------------------------- OUTPUTS -------------------------------------------------
+citing_paper                               | cited_paper
+=======================================================================================
+http://learningsparql.com/ns/papers#paperB | http://learningsparql.com/ns/papers#paperA
+http://learningsparql.com/ns/papers#paperC | http://learningsparql.com/ns/papers#paperA
+http://learningsparql.com/ns/papers#paperD | http://learningsparql.com/ns/papers#paperA
+http://learningsparql.com/ns/papers#paperD | http://learningsparql.com/ns/papers#paperB
+http://learningsparql.com/ns/papers#paperE | http://learningsparql.com/ns/papers#paperA
+http://learningsparql.com/ns/papers#paperF | http://learningsparql.com/ns/papers#paperC
+http://learningsparql.com/ns/papers#paperF | http://learningsparql.com/ns/papers#paperE
+http://learningsparql.com/ns/papers#paperG | http://learningsparql.com/ns/papers#paperC
+http://learningsparql.com/ns/papers#paperG | http://learningsparql.com/ns/papers#paperE
+http://learningsparql.com/ns/papers#paperH | http://learningsparql.com/ns/papers#paperD
+http://learningsparql.com/ns/papers#paperI | http://learningsparql.com/ns/papers#paperF
+http://learningsparql.com/ns/papers#paperI | http://learningsparql.com/ns/papers#paperG
+=======================================================================================================
+
+=========================================== BASH CELL S3 ==============================================
+
+# WHICH PAPERS DEPEND ON WHICH PRIOR WORK?
+
+geist query --format table << END_QUERY
+
+    prefix c: <http://learningsparql.com/ns/citations#>
+
+    SELECT DISTINCT ?paper ?prior_work
+    WHERE {
+        ?paper c:cites+ ?prior_work .
+    }
+    ORDER BY ?paper ?prior_work
+
+END_QUERY
+
+--------------------------------------------- OUTPUTS -------------------------------------------------
+paper                                      | prior_work
+=======================================================================================
+http://learningsparql.com/ns/papers#paperB | http://learningsparql.com/ns/papers#paperA
+http://learningsparql.com/ns/papers#paperC | http://learningsparql.com/ns/papers#paperA
+http://learningsparql.com/ns/papers#paperD | http://learningsparql.com/ns/papers#paperA
+http://learningsparql.com/ns/papers#paperD | http://learningsparql.com/ns/papers#paperB
+http://learningsparql.com/ns/papers#paperE | http://learningsparql.com/ns/papers#paperA
+http://learningsparql.com/ns/papers#paperF | http://learningsparql.com/ns/papers#paperA
+http://learningsparql.com/ns/papers#paperF | http://learningsparql.com/ns/papers#paperC
+http://learningsparql.com/ns/papers#paperF | http://learningsparql.com/ns/papers#paperE
+http://learningsparql.com/ns/papers#paperG | http://learningsparql.com/ns/papers#paperA
+http://learningsparql.com/ns/papers#paperG | http://learningsparql.com/ns/papers#paperC
+http://learningsparql.com/ns/papers#paperG | http://learningsparql.com/ns/papers#paperE
+http://learningsparql.com/ns/papers#paperH | http://learningsparql.com/ns/papers#paperA
+http://learningsparql.com/ns/papers#paperH | http://learningsparql.com/ns/papers#paperB
+http://learningsparql.com/ns/papers#paperH | http://learningsparql.com/ns/papers#paperD
+http://learningsparql.com/ns/papers#paperI | http://learningsparql.com/ns/papers#paperA
+http://learningsparql.com/ns/papers#paperI | http://learningsparql.com/ns/papers#paperC
+http://learningsparql.com/ns/papers#paperI | http://learningsparql.com/ns/papers#paperE
+http://learningsparql.com/ns/papers#paperI | http://learningsparql.com/ns/papers#paperF
+http://learningsparql.com/ns/papers#paperI | http://learningsparql.com/ns/papers#paperG
+=======================================================================================================
+
+=========================================== BASH CELL S4 ==============================================
+
+# WHICH PAPERS DEPEND ON PAPER A?
+
+geist query --format table << END_QUERY
+
+    prefix c: <http://learningsparql.com/ns/citations#>
+    prefix : <http://learningsparql.com/ns/papers#>
+
+    SELECT DISTINCT ?paper
+    WHERE {
+        ?paper c:cites+ :paperA .
+    }
+    ORDER BY ?paper
+
+END_QUERY
+
+--------------------------------------------- OUTPUTS -------------------------------------------------
+paper
+=========================================
+http://learningsparql.com/ns/papers#paperB
+http://learningsparql.com/ns/papers#paperC
+http://learningsparql.com/ns/papers#paperD
+http://learningsparql.com/ns/papers#paperE
+http://learningsparql.com/ns/papers#paperF
+http://learningsparql.com/ns/papers#paperG
+http://learningsparql.com/ns/papers#paperH
+http://learningsparql.com/ns/papers#paperI
+=======================================================================================================
+
+=========================================== BASH CELL S5 ==============================================
+
+# WHICH PAPERS CITE A PAPER THAT CITES PAPER A?
+
+geist query --format table << END_QUERY
+
+    prefix c: <http://learningsparql.com/ns/citations#>
+    prefix : <http://learningsparql.com/ns/papers#>
+
+    SELECT DISTINCT ?paper
+    WHERE {
+        ?paper c:cites/c:cites :paperA .
+    }
+    ORDER BY ?paper
+
+END_QUERY
+
+--------------------------------------------- OUTPUTS -------------------------------------------------
+paper
+=========================================
+http://learningsparql.com/ns/papers#paperD
+http://learningsparql.com/ns/papers#paperF
+http://learningsparql.com/ns/papers#paperG
+http://learningsparql.com/ns/papers#paperH
+=======================================================================================================
+
+=========================================== BASH CELL S6 ==============================================
+
+# WHICH PAPERS CITE A PAPER CITED BY PAPER D?
+
+geist query --format table << END_QUERY
+
+    prefix c: <http://learningsparql.com/ns/citations#>
+    prefix : <http://learningsparql.com/ns/papers#>
+
+    SELECT DISTINCT ?paper
+    WHERE {
+        ?paper c:cites/^c:cites :paperD .
+        FILTER(?paper != :paperD)
+    }
+    ORDER BY ?paper
+
+END_QUERY
+
+--------------------------------------------- OUTPUTS -------------------------------------------------
+paper
+=========================================
+http://learningsparql.com/ns/papers#paperB
+http://learningsparql.com/ns/papers#paperC
+http://learningsparql.com/ns/papers#paperE
+=======================================================================================================
+
+=========================================== BASH CELL S7 ==============================================
+
+# WHAT RESULTS DEPEND DIRECTLY ON RESULTS REPORTED BY PAPER A?
+
+geist query --format table << END_QUERY
+
+    prefix c: <http://learningsparql.com/ns/citations#>
+    prefix : <http://learningsparql.com/ns/papers#>
+
+    SELECT DISTINCT ?result
+    WHERE {
+        :paperA c:reports/^c:uses/c:reports ?result
+    }
+    ORDER BY ?result
+
+END_QUERY
+
+--------------------------------------------- OUTPUTS -------------------------------------------------
+result
+==========================================
+http://learningsparql.com/ns/papers#resultB
+http://learningsparql.com/ns/papers#resultC
+http://learningsparql.com/ns/papers#resultE
+=======================================================================================================
+
+=========================================== BASH CELL S7 ==============================================
+
+# WHAT RESULTS DEPEND DIRECTLY OR INDIRECTLY ON RESULTS REPORTED BY PAPER A?
+
+geist query --format table << END_QUERY
+
+    prefix c: <http://learningsparql.com/ns/citations#>
+    prefix : <http://learningsparql.com/ns/papers#>
+
+    SELECT DISTINCT ?result
+    WHERE {
+        :paperA c:reports/(^c:uses/c:reports)+ ?result
+    }
+    ORDER BY ?result
+
+END_QUERY
+
+--------------------------------------------- OUTPUTS -------------------------------------------------
+result
+===========================================
+http://learningsparql.com/ns/papers#resultB
+http://learningsparql.com/ns/papers#resultC
+http://learningsparql.com/ns/papers#resultD1
+http://learningsparql.com/ns/papers#resultD2
+http://learningsparql.com/ns/papers#resultD3
+http://learningsparql.com/ns/papers#resultE
+http://learningsparql.com/ns/papers#resultF
+http://learningsparql.com/ns/papers#resultG1
+http://learningsparql.com/ns/papers#resultG2
+http://learningsparql.com/ns/papers#resultH
+http://learningsparql.com/ns/papers#resultI
+=======================================================================================================
+
+=========================================== BASH CELL S8 ==============================================
+
+# Visualization of Paper-Citation Graph
+
+geist report << '__END_REPORT_TEMPLATE__'
+    {{{
+        {{ include "graphviz.g" }}
+    }}}                                                             \
+                                                                    \
+    {{ prefix "dc" "http://purl.org/dc/elements/1.1/" }}            \
+    {{ prefix "c" "http://learningsparql.com/ns/citations#" }}      \
+                                                                    \
+    {{ gv_graph "wt_run" }}
+
+    {{ gv_title "Paper-Citation Graph" }}
+
+    {{ gv_cluster "citations" }}
+
+    # paper nodes
+    node[shape=box style="filled" fillcolor="#CCFFCC" peripheries=1 fontname=Courier]
+    {{ range $Paper := select '''
+        SELECT ?paper ?title
+        WHERE {
+            ?paper rdf:type c:Paper .
+            ?paper dc:title ?title .
+        } ''' | rows }}                                             \
+        {{ gv_labeled_node (index $Paper 0) (index $Paper 1) }}
+    {{ end }}
+                                                                    \
+    # citation edges
+    {{ range $Citation := select '''
+            SELECT DISTINCT ?citing_paper ?cited_paper
+            WHERE {
+                ?citing_paper c:cites ?cited_paper .
+            }
+            ORDER BY ?citing_paper ?cited_paper
+        ''' | rows }}                                                \
+        {{ gv_edge (index $Citation 0) (index $Citation 1) }}
+    {{ end }}
+                                                                    \
+    {{ gv_cluster_end }}
+
+    {{ gv_end }}
+
+__END_REPORT_TEMPLATE__
+
+--------------------------------------------- OUTPUTS -------------------------------------------------
+digraph wt_run {
+rankdir=BT
+
+fontname=Courier; fontsize=18; labelloc=t
+label="Paper-Citation Graph"
+
+subgraph cluster_citations { label=""; color=white; penwidth=0
+subgraph cluster_citations_inner { label=""; color=white
+
+# paper nodes
+node[shape=box style="filled" fillcolor="#CCFFCC" peripheries=1 fontname=Courier]
+"http://learningsparql.com/ns/papers#paperA" [label="Paper A"]
+"http://learningsparql.com/ns/papers#paperB" [label="Paper B"]
+"http://learningsparql.com/ns/papers#paperC" [label="Paper C"]
+"http://learningsparql.com/ns/papers#paperD" [label="Paper D"]
+"http://learningsparql.com/ns/papers#paperE" [label="Paper E"]
+"http://learningsparql.com/ns/papers#paperF" [label="Paper F"]
+"http://learningsparql.com/ns/papers#paperG" [label="Paper G"]
+"http://learningsparql.com/ns/papers#paperH" [label="Paper H"]
+"http://learningsparql.com/ns/papers#paperI" [label="Paper I"]
+
+# citation edges
+"http://learningsparql.com/ns/papers#paperB" -> "http://learningsparql.com/ns/papers#paperA"
+"http://learningsparql.com/ns/papers#paperC" -> "http://learningsparql.com/ns/papers#paperA"
+"http://learningsparql.com/ns/papers#paperD" -> "http://learningsparql.com/ns/papers#paperA"
+"http://learningsparql.com/ns/papers#paperD" -> "http://learningsparql.com/ns/papers#paperB"
+"http://learningsparql.com/ns/papers#paperE" -> "http://learningsparql.com/ns/papers#paperA"
+"http://learningsparql.com/ns/papers#paperF" -> "http://learningsparql.com/ns/papers#paperC"
+"http://learningsparql.com/ns/papers#paperF" -> "http://learningsparql.com/ns/papers#paperE"
+"http://learningsparql.com/ns/papers#paperG" -> "http://learningsparql.com/ns/papers#paperC"
+"http://learningsparql.com/ns/papers#paperG" -> "http://learningsparql.com/ns/papers#paperE"
+"http://learningsparql.com/ns/papers#paperH" -> "http://learningsparql.com/ns/papers#paperD"
+"http://learningsparql.com/ns/papers#paperI" -> "http://learningsparql.com/ns/papers#paperF"
+"http://learningsparql.com/ns/papers#paperI" -> "http://learningsparql.com/ns/papers#paperG"
+
+}}
+
+}
+
+=======================================================================================================
+
+=========================================== BASH CELL S9 ==============================================
+
+# Visualization of Paper-Citation Graph
+
+geist report << '__END_REPORT_TEMPLATE__'
+
+    {{{
+        {{ include "graphviz.g" }}
+    }}}
+                                                                \
+    {{ prefix "dc" "http://purl.org/dc/elements/1.1/" }}        \
+    {{ prefix "c" "http://learningsparql.com/ns/citations#" }}  \
+                                                                \
+    {{ gv_graph "wt_run" }}
+
+    {{ gv_title "Result-Dependency Graph" }}
+
+    {{ gv_cluster "citations" }}
+
+    # result nodes
+    node[shape=box style="rounded,filled" fillcolor="#FFFFCC" peripheries=1 fontname=Helvetica]
+    {{ range $Result := select '''
+        SELECT DISTINCT ?result ?label
+        WHERE {
+            ?paper rdf:type c:Paper .
+            ?paper c:reports ?result .
+            ?result rdfs:label ?label
+        }
+        ORDER BY ?result
+        ''' | rows }}                                             \
+        {{ gv_labeled_node (index $Result 0) (index $Result 1) }}
+    {{ end }}
+                                                                    \
+    # result dependency edges
+    {{ range $Dependency := select '''
+            SELECT DISTINCT ?result1 ?result2
+            WHERE {
+                 ?result2 ^c:uses/c:reports ?result1
+           }
+            ORDER BY ?result1 ?result2
+        ''' | rows }}                                               \
+        {{ gv_edge (index $Dependency 0) (index $Dependency 1) }}
+    {{ end }}
+                                                                    \
+    {{ gv_cluster_end }}
+
+    {{ gv_end }}
+                                                                    \
+__END_REPORT_TEMPLATE__
+
+--------------------------------------------- OUTPUTS -------------------------------------------------
+digraph wt_run {
+rankdir=BT
+
+fontname=Courier; fontsize=18; labelloc=t
+label="Result-Dependency Graph"
+
+subgraph cluster_citations { label=""; color=white; penwidth=0
+subgraph cluster_citations_inner { label=""; color=white
+
+# result nodes
+node[shape=box style="rounded,filled" fillcolor="#FFFFCC" peripheries=1 fontname=Helvetica]
+"http://learningsparql.com/ns/papers#resultA" [label="Result A"]
+"http://learningsparql.com/ns/papers#resultB" [label="Result B"]
+"http://learningsparql.com/ns/papers#resultC" [label="Result C"]
+"http://learningsparql.com/ns/papers#resultD1" [label="Result D1"]
+"http://learningsparql.com/ns/papers#resultD2" [label="Result D2"]
+"http://learningsparql.com/ns/papers#resultD3" [label="Result D3"]
+"http://learningsparql.com/ns/papers#resultE" [label="Result E"]
+"http://learningsparql.com/ns/papers#resultF" [label="Result F"]
+"http://learningsparql.com/ns/papers#resultG1" [label="Result G1"]
+"http://learningsparql.com/ns/papers#resultG2" [label="Result G2"]
+"http://learningsparql.com/ns/papers#resultH" [label="Result H"]
+"http://learningsparql.com/ns/papers#resultI" [label="Result I"]
+
+# result dependency edges
+"http://learningsparql.com/ns/papers#resultB" -> "http://learningsparql.com/ns/papers#resultA"
+"http://learningsparql.com/ns/papers#resultC" -> "http://learningsparql.com/ns/papers#resultA"
+"http://learningsparql.com/ns/papers#resultD1" -> "http://learningsparql.com/ns/papers#resultB"
+"http://learningsparql.com/ns/papers#resultD2" -> "http://learningsparql.com/ns/papers#resultB"
+"http://learningsparql.com/ns/papers#resultD3" -> "http://learningsparql.com/ns/papers#resultB"
+"http://learningsparql.com/ns/papers#resultE" -> "http://learningsparql.com/ns/papers#resultA"
+"http://learningsparql.com/ns/papers#resultF" -> "http://learningsparql.com/ns/papers#resultC"
+"http://learningsparql.com/ns/papers#resultG1" -> "http://learningsparql.com/ns/papers#resultE"
+"http://learningsparql.com/ns/papers#resultG2" -> "http://learningsparql.com/ns/papers#resultE"
+"http://learningsparql.com/ns/papers#resultH" -> "http://learningsparql.com/ns/papers#resultD2"
+"http://learningsparql.com/ns/papers#resultI" -> "http://learningsparql.com/ns/papers#resultF"
+
+}}
+
+}
+=======================================================================================================
+
+=========================================== BASH CELL S10 ==============================================
+
+# Visualization of Paper-Result Graph
+
+geist report << '__END_REPORT_TEMPLATE__'
+                                                                    \
+    {{{                                                             \
+        {{ include "graphviz.g" }}                                  \
+    }}}                                                             \
+                                                                    \
+    {{ prefix "dc" "http://purl.org/dc/elements/1.1/" }}            \
+    {{ prefix "c" "http://learningsparql.com/ns/citations#" }}      \
+                                                                    \
+    {{ gv_graph "wt_run" }}
+
+    {{ gv_title "Paper-Result Graph" }}
+
+    {{ gv_cluster "citations" }}
+
+    # paper nodes
+    node[shape=box style="filled" fillcolor="#CCFFCC" peripheries=1 fontname=Courier]
+    {{ range $Paper := select '''
+        SELECT ?paper ?title
+        WHERE {
+            ?paper rdf:type c:Paper .
+            ?paper dc:title ?title .
+        }
+        ORDER BY ?paper
+        ''' | rows }}                                             \
+        {{ gv_labeled_node (index $Paper 0) (index $Paper 1) }}
+    {{ end }}
+                                                                    \
+    # result nodes
+    node[shape=box style="rounded,filled" fillcolor="#FFFFCC" peripheries=1 fontname=Helvetica]
+    {{ range $Result := select '''
+        SELECT DISTINCT ?result ?label
+        WHERE {
+            ?paper rdf:type c:Paper .
+            ?paper c:reports ?result .
+            ?result rdfs:label ?label
+        }
+        ORDER BY ?result
+        ''' | rows }}                                             \
+        {{ gv_labeled_node (index $Result 0) (index $Result 1) }}
+    {{ end }}
+                                                                    \
+    # reports edges
+    {{ range $Report := select '''
+            SELECT DISTINCT ?paper ?result
+            WHERE {
+                ?paper c:reports ?result .
+            }
+            ORDER BY ?paper ?result
+        ''' | rows }}                                                \
+        {{ gv_edge (index $Report 0) (index $Report 1) }}
+    {{ end }}
+
+    # uses edges
+    {{ range $Use := select '''
+            SELECT DISTINCT ?result ?paper
+            WHERE {
+                ?paper c:uses ?result .
+            }
+            ORDER BY ?paper ?result
+        ''' | rows }}                                                \
+        {{ gv_edge (index $Use 0) (index $Use 1) }}
+    {{ end }}
+                                                                    \
+    {{ gv_cluster_end }}
+
+    {{ gv_end }}                                                    \
+                                                                    \
+__END_REPORT_TEMPLATE__
+
+--------------------------------------------- OUTPUTS -------------------------------------------------
+digraph wt_run {
+rankdir=BT
+
+fontname=Courier; fontsize=18; labelloc=t
+label="Paper-Result Graph"
+
+subgraph cluster_citations { label=""; color=white; penwidth=0
+subgraph cluster_citations_inner { label=""; color=white
+
+# paper nodes
+node[shape=box style="filled" fillcolor="#CCFFCC" peripheries=1 fontname=Courier]
+"http://learningsparql.com/ns/papers#paperA" [label="Paper A"]
+"http://learningsparql.com/ns/papers#paperB" [label="Paper B"]
+"http://learningsparql.com/ns/papers#paperC" [label="Paper C"]
+"http://learningsparql.com/ns/papers#paperD" [label="Paper D"]
+"http://learningsparql.com/ns/papers#paperE" [label="Paper E"]
+"http://learningsparql.com/ns/papers#paperF" [label="Paper F"]
+"http://learningsparql.com/ns/papers#paperG" [label="Paper G"]
+"http://learningsparql.com/ns/papers#paperH" [label="Paper H"]
+"http://learningsparql.com/ns/papers#paperI" [label="Paper I"]
+
+# result nodes
+node[shape=box style="rounded,filled" fillcolor="#FFFFCC" peripheries=1 fontname=Helvetica]
+"http://learningsparql.com/ns/papers#resultA" [label="Result A"]
+"http://learningsparql.com/ns/papers#resultB" [label="Result B"]
+"http://learningsparql.com/ns/papers#resultC" [label="Result C"]
+"http://learningsparql.com/ns/papers#resultD1" [label="Result D1"]
+"http://learningsparql.com/ns/papers#resultD2" [label="Result D2"]
+"http://learningsparql.com/ns/papers#resultD3" [label="Result D3"]
+"http://learningsparql.com/ns/papers#resultE" [label="Result E"]
+"http://learningsparql.com/ns/papers#resultF" [label="Result F"]
+"http://learningsparql.com/ns/papers#resultG1" [label="Result G1"]
+"http://learningsparql.com/ns/papers#resultG2" [label="Result G2"]
+"http://learningsparql.com/ns/papers#resultH" [label="Result H"]
+"http://learningsparql.com/ns/papers#resultI" [label="Result I"]
+
+# reports edges
+"http://learningsparql.com/ns/papers#paperA" -> "http://learningsparql.com/ns/papers#resultA"
+"http://learningsparql.com/ns/papers#paperB" -> "http://learningsparql.com/ns/papers#resultB"
+"http://learningsparql.com/ns/papers#paperC" -> "http://learningsparql.com/ns/papers#resultC"
+"http://learningsparql.com/ns/papers#paperD" -> "http://learningsparql.com/ns/papers#resultD1"
+"http://learningsparql.com/ns/papers#paperD" -> "http://learningsparql.com/ns/papers#resultD2"
+"http://learningsparql.com/ns/papers#paperD" -> "http://learningsparql.com/ns/papers#resultD3"
+"http://learningsparql.com/ns/papers#paperE" -> "http://learningsparql.com/ns/papers#resultE"
+"http://learningsparql.com/ns/papers#paperF" -> "http://learningsparql.com/ns/papers#resultF"
+"http://learningsparql.com/ns/papers#paperG" -> "http://learningsparql.com/ns/papers#resultG1"
+"http://learningsparql.com/ns/papers#paperG" -> "http://learningsparql.com/ns/papers#resultG2"
+"http://learningsparql.com/ns/papers#paperH" -> "http://learningsparql.com/ns/papers#resultH"
+"http://learningsparql.com/ns/papers#paperI" -> "http://learningsparql.com/ns/papers#resultI"
+
+
+# uses edges
+"http://learningsparql.com/ns/papers#resultA" -> "http://learningsparql.com/ns/papers#paperB"
+"http://learningsparql.com/ns/papers#resultA" -> "http://learningsparql.com/ns/papers#paperC"
+"http://learningsparql.com/ns/papers#resultB" -> "http://learningsparql.com/ns/papers#paperD"
+"http://learningsparql.com/ns/papers#resultA" -> "http://learningsparql.com/ns/papers#paperE"
+"http://learningsparql.com/ns/papers#resultC" -> "http://learningsparql.com/ns/papers#paperF"
+"http://learningsparql.com/ns/papers#resultE" -> "http://learningsparql.com/ns/papers#paperG"
+"http://learningsparql.com/ns/papers#resultD2" -> "http://learningsparql.com/ns/papers#paperH"
+"http://learningsparql.com/ns/papers#resultF" -> "http://learningsparql.com/ns/papers#paperI"
+
+}}
+
+}=======================================================================================================
+

@@ -7,7 +7,7 @@ RUN bash /repro/dist/setup
 
 USER repro
 
-RUN repro.require geist exports --code --demo
+RUN repro.require geist exports --code --demos
 RUN repro.require blaze 0.2.6 ${CIRSS_RELEASE}
 RUN repro.require blazegraph-service master ${CIRSS}
 

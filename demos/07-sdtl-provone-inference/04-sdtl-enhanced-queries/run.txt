@@ -1,0 +1,1367 @@
+=========================================== BASH CELL SETUP ==============================================
+
+# IMPORT SDTL
+
+geist destroy --dataset kb --quiet
+geist create --dataset kb --quiet --infer owl
+geist import --file ../data/sdtl-enhanced-rules.ttl
+geist import --format jsonld --file ../data/compute-sdtl.jsonld
+
+--------------------------------------------- OUTPUTS -------------------------------------------------
+=======================================================================================================
+
+=========================================== BASH CELL E1 ==============================================
+
+# EXPORT AS N-TRIPLES
+
+geist export --format nt | sort
+
+--------------------------------------------- OUTPUTS -------------------------------------------------
+<http://127.0.0.1:9999/blazegraph/namespace/kb/FunctionCallExpression> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Class> .
+<http://127.0.0.1:9999/blazegraph/namespace/kb/FunctionCallExpression> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://127.0.0.1:9999/blazegraph/namespace/kb/FunctionCallExpression> .
+<http://127.0.0.1:9999/blazegraph/namespace/kb/FunctionCallExpression> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://127.0.0.1:9999/blazegraph/namespace/kb/NumericConstantExpression> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Class> .
+<http://127.0.0.1:9999/blazegraph/namespace/kb/NumericConstantExpression> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://127.0.0.1:9999/blazegraph/namespace/kb/NumericConstantExpression> .
+<http://127.0.0.1:9999/blazegraph/namespace/kb/NumericConstantExpression> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://127.0.0.1:9999/blazegraph/namespace/kb/VariableSymbolExpression> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Class> .
+<http://127.0.0.1:9999/blazegraph/namespace/kb/VariableSymbolExpression> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://127.0.0.1:9999/blazegraph/namespace/kb/VariableSymbolExpression> .
+<http://127.0.0.1:9999/blazegraph/namespace/kb/VariableSymbolExpression> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://wholetale.org/program/1119/argument/10> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#FunctionArgument> .
+<http://wholetale.org/program/1119/argument/10> <https://rdf-vocabulary.ddialliance.org/sdtl#ArgumentName> "EXP2"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/argument/10> <https://rdf-vocabulary.ddialliance.org/sdtl#ArgumentValue> <http://wholetale.org/program/1119/argumentvalue/10> .
+<http://wholetale.org/program/1119/argument/10> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argumentvalue/10> .
+<http://wholetale.org/program/1119/argument/11> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#FunctionArgument> .
+<http://wholetale.org/program/1119/argument/11> <https://rdf-vocabulary.ddialliance.org/sdtl#ArgumentName> "EXP1"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/argument/11> <https://rdf-vocabulary.ddialliance.org/sdtl#ArgumentValue> <http://wholetale.org/program/1119/argumentvalue/11> .
+<http://wholetale.org/program/1119/argument/11> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argumentvalue/11> .
+<http://wholetale.org/program/1119/argument/12> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#FunctionArgument> .
+<http://wholetale.org/program/1119/argument/12> <https://rdf-vocabulary.ddialliance.org/sdtl#ArgumentName> "EXP2"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/argument/12> <https://rdf-vocabulary.ddialliance.org/sdtl#ArgumentValue> <http://wholetale.org/program/1119/argumentvalue/12> .
+<http://wholetale.org/program/1119/argument/12> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argumentvalue/12> .
+<http://wholetale.org/program/1119/argument/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#FunctionArgument> .
+<http://wholetale.org/program/1119/argument/1> <https://rdf-vocabulary.ddialliance.org/sdtl#ArgumentName> "EXP1"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/argument/1> <https://rdf-vocabulary.ddialliance.org/sdtl#ArgumentValue> <http://wholetale.org/program/1119/argumentvalue/1> .
+<http://wholetale.org/program/1119/argument/1> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argumentvalue/1> .
+<http://wholetale.org/program/1119/argument/2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#FunctionArgument> .
+<http://wholetale.org/program/1119/argument/2> <https://rdf-vocabulary.ddialliance.org/sdtl#ArgumentName> "EXP2"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/argument/2> <https://rdf-vocabulary.ddialliance.org/sdtl#ArgumentValue> <http://wholetale.org/program/1119/argumentvalue/2> .
+<http://wholetale.org/program/1119/argument/2> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argumentvalue/2> .
+<http://wholetale.org/program/1119/argument/3> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#FunctionArgument> .
+<http://wholetale.org/program/1119/argument/3> <https://rdf-vocabulary.ddialliance.org/sdtl#ArgumentName> "EXP1"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/argument/3> <https://rdf-vocabulary.ddialliance.org/sdtl#ArgumentValue> <http://wholetale.org/program/1119/argumentvalue/3> .
+<http://wholetale.org/program/1119/argument/3> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argumentvalue/3> .
+<http://wholetale.org/program/1119/argument/4> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#FunctionArgument> .
+<http://wholetale.org/program/1119/argument/4> <https://rdf-vocabulary.ddialliance.org/sdtl#ArgumentName> "EXP2"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/argument/4> <https://rdf-vocabulary.ddialliance.org/sdtl#ArgumentValue> <http://wholetale.org/program/1119/argumentvalue/4> .
+<http://wholetale.org/program/1119/argument/4> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argumentvalue/4> .
+<http://wholetale.org/program/1119/argument/5> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#FunctionArgument> .
+<http://wholetale.org/program/1119/argument/5> <https://rdf-vocabulary.ddialliance.org/sdtl#ArgumentName> "EXP1"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/argument/5> <https://rdf-vocabulary.ddialliance.org/sdtl#ArgumentValue> <http://wholetale.org/program/1119/argumentvalue/5> .
+<http://wholetale.org/program/1119/argument/5> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argument/6> .
+<http://wholetale.org/program/1119/argument/5> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argument/7> .
+<http://wholetale.org/program/1119/argument/5> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argument/8> .
+<http://wholetale.org/program/1119/argument/5> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argument/9> .
+<http://wholetale.org/program/1119/argument/5> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argumentvalue/5> .
+<http://wholetale.org/program/1119/argument/5> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argumentvalue/6> .
+<http://wholetale.org/program/1119/argument/5> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argumentvalue/7> .
+<http://wholetale.org/program/1119/argument/5> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argumentvalue/8> .
+<http://wholetale.org/program/1119/argument/5> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argumentvalue/9> .
+<http://wholetale.org/program/1119/argument/6> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#FunctionArgument> .
+<http://wholetale.org/program/1119/argument/6> <https://rdf-vocabulary.ddialliance.org/sdtl#ArgumentName> "EXP1"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/argument/6> <https://rdf-vocabulary.ddialliance.org/sdtl#ArgumentValue> <http://wholetale.org/program/1119/argumentvalue/6> .
+<http://wholetale.org/program/1119/argument/6> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argument/7> .
+<http://wholetale.org/program/1119/argument/6> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argument/8> .
+<http://wholetale.org/program/1119/argument/6> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argumentvalue/6> .
+<http://wholetale.org/program/1119/argument/6> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argumentvalue/7> .
+<http://wholetale.org/program/1119/argument/6> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argumentvalue/8> .
+<http://wholetale.org/program/1119/argument/7> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#FunctionArgument> .
+<http://wholetale.org/program/1119/argument/7> <https://rdf-vocabulary.ddialliance.org/sdtl#ArgumentName> "EXP1"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/argument/7> <https://rdf-vocabulary.ddialliance.org/sdtl#ArgumentValue> <http://wholetale.org/program/1119/argumentvalue/7> .
+<http://wholetale.org/program/1119/argument/7> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argumentvalue/7> .
+<http://wholetale.org/program/1119/argument/8> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#FunctionArgument> .
+<http://wholetale.org/program/1119/argument/8> <https://rdf-vocabulary.ddialliance.org/sdtl#ArgumentName> "EXP2"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/argument/8> <https://rdf-vocabulary.ddialliance.org/sdtl#ArgumentValue> <http://wholetale.org/program/1119/argumentvalue/8> .
+<http://wholetale.org/program/1119/argument/8> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argumentvalue/8> .
+<http://wholetale.org/program/1119/argument/9> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#FunctionArgument> .
+<http://wholetale.org/program/1119/argument/9> <https://rdf-vocabulary.ddialliance.org/sdtl#ArgumentName> "EXP2"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/argument/9> <https://rdf-vocabulary.ddialliance.org/sdtl#ArgumentValue> <http://wholetale.org/program/1119/argumentvalue/9> .
+<http://wholetale.org/program/1119/argument/9> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argumentvalue/9> .
+<http://wholetale.org/program/1119/argumentvalue/10> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#NumericConstantExpression> .
+<http://wholetale.org/program/1119/argumentvalue/10> <https://rdf-vocabulary.ddialliance.org/sdtl#NumericType> "Integer"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/argumentvalue/10> <https://rdf-vocabulary.ddialliance.org/sdtl#Value> "9"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/argumentvalue/11> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableSymbolExpression> .
+<http://wholetale.org/program/1119/argumentvalue/11> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableName> "Celsius"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/argumentvalue/12> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#NumericConstantExpression> .
+<http://wholetale.org/program/1119/argumentvalue/12> <https://rdf-vocabulary.ddialliance.org/sdtl#NumericType> "Integer"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/argumentvalue/12> <https://rdf-vocabulary.ddialliance.org/sdtl#Value> "273"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/argumentvalue/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://127.0.0.1:9999/blazegraph/namespace/kb/VariableSymbolExpression> .
+<http://wholetale.org/program/1119/argumentvalue/1> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableName> "B"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/argumentvalue/2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#NumericConstantExpression> .
+<http://wholetale.org/program/1119/argumentvalue/2> <https://rdf-vocabulary.ddialliance.org/sdtl#NumericType> "Real"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/argumentvalue/2> <https://rdf-vocabulary.ddialliance.org/sdtl#Value> "6.5"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/argumentvalue/3> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://127.0.0.1:9999/blazegraph/namespace/kb/VariableSymbolExpression> .
+<http://wholetale.org/program/1119/argumentvalue/3> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableName> "A"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/argumentvalue/4> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://127.0.0.1:9999/blazegraph/namespace/kb/VariableSymbolExpression> .
+<http://wholetale.org/program/1119/argumentvalue/4> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableName> "B"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/argumentvalue/5> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://127.0.0.1:9999/blazegraph/namespace/kb/FunctionCallExpression> .
+<http://wholetale.org/program/1119/argumentvalue/5> <https://rdf-vocabulary.ddialliance.org/sdtl#Arguments> <http://wholetale.org/program/1119/argument/6> .
+<http://wholetale.org/program/1119/argumentvalue/5> <https://rdf-vocabulary.ddialliance.org/sdtl#Arguments> <http://wholetale.org/program/1119/argument/9> .
+<http://wholetale.org/program/1119/argumentvalue/5> <https://rdf-vocabulary.ddialliance.org/sdtl#Function> "multiplication"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/argumentvalue/5> <https://rdf-vocabulary.ddialliance.org/sdtl#IsSdtlName> "true"^^<http://www.w3.org/2001/XMLSchema#boolean> .
+<http://wholetale.org/program/1119/argumentvalue/5> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argument/6> .
+<http://wholetale.org/program/1119/argumentvalue/5> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argument/7> .
+<http://wholetale.org/program/1119/argumentvalue/5> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argument/8> .
+<http://wholetale.org/program/1119/argumentvalue/5> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argument/9> .
+<http://wholetale.org/program/1119/argumentvalue/5> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argumentvalue/6> .
+<http://wholetale.org/program/1119/argumentvalue/5> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argumentvalue/7> .
+<http://wholetale.org/program/1119/argumentvalue/5> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argumentvalue/8> .
+<http://wholetale.org/program/1119/argumentvalue/5> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argumentvalue/9> .
+<http://wholetale.org/program/1119/argumentvalue/6> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#FunctionCallExpression> .
+<http://wholetale.org/program/1119/argumentvalue/6> <https://rdf-vocabulary.ddialliance.org/sdtl#Arguments> <http://wholetale.org/program/1119/argument/7> .
+<http://wholetale.org/program/1119/argumentvalue/6> <https://rdf-vocabulary.ddialliance.org/sdtl#Arguments> <http://wholetale.org/program/1119/argument/8> .
+<http://wholetale.org/program/1119/argumentvalue/6> <https://rdf-vocabulary.ddialliance.org/sdtl#Function> "subtraction"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/argumentvalue/6> <https://rdf-vocabulary.ddialliance.org/sdtl#IsSdtlName> "true"^^<http://www.w3.org/2001/XMLSchema#boolean> .
+<http://wholetale.org/program/1119/argumentvalue/6> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argument/7> .
+<http://wholetale.org/program/1119/argumentvalue/6> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argument/8> .
+<http://wholetale.org/program/1119/argumentvalue/6> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argumentvalue/7> .
+<http://wholetale.org/program/1119/argumentvalue/6> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argumentvalue/8> .
+<http://wholetale.org/program/1119/argumentvalue/7> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableSymbolExpression> .
+<http://wholetale.org/program/1119/argumentvalue/7> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableName> "Fahrenheit"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/argumentvalue/8> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#NumericConstantExpression> .
+<http://wholetale.org/program/1119/argumentvalue/8> <https://rdf-vocabulary.ddialliance.org/sdtl#NumericType> "Integer"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/argumentvalue/8> <https://rdf-vocabulary.ddialliance.org/sdtl#Value> "32"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/argumentvalue/9> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://127.0.0.1:9999/blazegraph/namespace/kb/NumericConstantExpression> .
+<http://wholetale.org/program/1119/argumentvalue/9> <https://rdf-vocabulary.ddialliance.org/sdtl#NumericType> "Integer"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/argumentvalue/9> <https://rdf-vocabulary.ddialliance.org/sdtl#Value> "5"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/commandinventory/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#_1> <http://wholetale.org/program/1119/load/1> .
+<http://wholetale.org/program/1119/commandinventory/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#_2> <http://wholetale.org/program/1119/compute/1> .
+<http://wholetale.org/program/1119/commandinventory/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#_3> <http://wholetale.org/program/1119/compute/2> .
+<http://wholetale.org/program/1119/commandinventory/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#_4> <http://wholetale.org/program/1119/compute/3> .
+<http://wholetale.org/program/1119/commandinventory/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#_5> <http://wholetale.org/program/1119/load/2> .
+<http://wholetale.org/program/1119/commandinventory/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#_6> <http://wholetale.org/program/1119/compute/4> .
+<http://wholetale.org/program/1119/commandinventory/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#_7> <http://wholetale.org/program/1119/compute/5> .
+<http://wholetale.org/program/1119/commandinventory/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#_8> <http://wholetale.org/program/1119/save/1> .
+<http://wholetale.org/program/1119/commandinventory/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#_9> <http://wholetale.org/program/1119/save/2> .
+<http://wholetale.org/program/1119/commandinventory/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq> .
+<http://wholetale.org/program/1119/commandinventory/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Container> .
+<http://wholetale.org/program/1119/commandinventory/1> <http://www.w3.org/2000/01/rdf-schema#member> <http://wholetale.org/program/1119/compute/1> .
+<http://wholetale.org/program/1119/commandinventory/1> <http://www.w3.org/2000/01/rdf-schema#member> <http://wholetale.org/program/1119/compute/2> .
+<http://wholetale.org/program/1119/commandinventory/1> <http://www.w3.org/2000/01/rdf-schema#member> <http://wholetale.org/program/1119/compute/3> .
+<http://wholetale.org/program/1119/commandinventory/1> <http://www.w3.org/2000/01/rdf-schema#member> <http://wholetale.org/program/1119/compute/4> .
+<http://wholetale.org/program/1119/commandinventory/1> <http://www.w3.org/2000/01/rdf-schema#member> <http://wholetale.org/program/1119/compute/5> .
+<http://wholetale.org/program/1119/commandinventory/1> <http://www.w3.org/2000/01/rdf-schema#member> <http://wholetale.org/program/1119/load/1> .
+<http://wholetale.org/program/1119/commandinventory/1> <http://www.w3.org/2000/01/rdf-schema#member> <http://wholetale.org/program/1119/load/2> .
+<http://wholetale.org/program/1119/commandinventory/1> <http://www.w3.org/2000/01/rdf-schema#member> <http://wholetale.org/program/1119/save/1> .
+<http://wholetale.org/program/1119/commandinventory/1> <http://www.w3.org/2000/01/rdf-schema#member> <http://wholetale.org/program/1119/save/2> .
+<http://wholetale.org/program/1119/compute/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#Compute> .
+<http://wholetale.org/program/1119/compute/1> <https://rdf-vocabulary.ddialliance.org/sdtl#ConsumesDataframe> <http://wholetale.org/program/1119/dataframe/1> .
+<http://wholetale.org/program/1119/compute/1> <https://rdf-vocabulary.ddialliance.org/sdtl#Expression> <http://wholetale.org/program/1119/expression/1> .
+<http://wholetale.org/program/1119/compute/1> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/expression/1> .
+<http://wholetale.org/program/1119/compute/1> <https://rdf-vocabulary.ddialliance.org/sdtl#ProducesDataframe> <http://wholetale.org/program/1119/dataframe/2> .
+<http://wholetale.org/program/1119/compute/1> <https://rdf-vocabulary.ddialliance.org/sdtl#SourceInformation> <http://wholetale.org/program/1119/sourceinfo/2> .
+<http://wholetale.org/program/1119/compute/1> <https://rdf-vocabulary.ddialliance.org/sdtl#Variable> <http://wholetale.org/program/1119/variable/1> .
+<http://wholetale.org/program/1119/compute/2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#Compute> .
+<http://wholetale.org/program/1119/compute/2> <https://rdf-vocabulary.ddialliance.org/sdtl#ConsumesDataframe> <http://wholetale.org/program/1119/dataframe/2> .
+<http://wholetale.org/program/1119/compute/2> <https://rdf-vocabulary.ddialliance.org/sdtl#Expression> <http://wholetale.org/program/1119/expression/2> .
+<http://wholetale.org/program/1119/compute/2> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argument/1> .
+<http://wholetale.org/program/1119/compute/2> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argument/2> .
+<http://wholetale.org/program/1119/compute/2> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argumentvalue/1> .
+<http://wholetale.org/program/1119/compute/2> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argumentvalue/2> .
+<http://wholetale.org/program/1119/compute/2> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/expression/2> .
+<http://wholetale.org/program/1119/compute/2> <https://rdf-vocabulary.ddialliance.org/sdtl#ProducesDataframe> <http://wholetale.org/program/1119/dataframe/3> .
+<http://wholetale.org/program/1119/compute/2> <https://rdf-vocabulary.ddialliance.org/sdtl#SourceInformation> <http://wholetale.org/program/1119/sourceinfo/3> .
+<http://wholetale.org/program/1119/compute/2> <https://rdf-vocabulary.ddialliance.org/sdtl#Variable> <http://wholetale.org/program/1119/variable/2> .
+<http://wholetale.org/program/1119/compute/3> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#Compute> .
+<http://wholetale.org/program/1119/compute/3> <https://rdf-vocabulary.ddialliance.org/sdtl#ConsumesDataframe> <http://wholetale.org/program/1119/dataframe/3> .
+<http://wholetale.org/program/1119/compute/3> <https://rdf-vocabulary.ddialliance.org/sdtl#Expression> <http://wholetale.org/program/1119/expression/3> .
+<http://wholetale.org/program/1119/compute/3> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argument/3> .
+<http://wholetale.org/program/1119/compute/3> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argument/4> .
+<http://wholetale.org/program/1119/compute/3> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argumentvalue/3> .
+<http://wholetale.org/program/1119/compute/3> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argumentvalue/4> .
+<http://wholetale.org/program/1119/compute/3> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/expression/3> .
+<http://wholetale.org/program/1119/compute/3> <https://rdf-vocabulary.ddialliance.org/sdtl#ProducesDataframe> <http://wholetale.org/program/1119/dataframe/4> .
+<http://wholetale.org/program/1119/compute/3> <https://rdf-vocabulary.ddialliance.org/sdtl#SourceInformation> <http://wholetale.org/program/1119/sourceinfo/4> .
+<http://wholetale.org/program/1119/compute/3> <https://rdf-vocabulary.ddialliance.org/sdtl#Variable> <http://wholetale.org/program/1119/variable/3> .
+<http://wholetale.org/program/1119/compute/4> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#Compute> .
+<http://wholetale.org/program/1119/compute/4> <https://rdf-vocabulary.ddialliance.org/sdtl#ConsumesDataframe> <http://wholetale.org/program/1119/dataframe/5> .
+<http://wholetale.org/program/1119/compute/4> <https://rdf-vocabulary.ddialliance.org/sdtl#Expression> <http://wholetale.org/program/1119/expression/4> .
+<http://wholetale.org/program/1119/compute/4> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argument/10> .
+<http://wholetale.org/program/1119/compute/4> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argument/5> .
+<http://wholetale.org/program/1119/compute/4> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argument/6> .
+<http://wholetale.org/program/1119/compute/4> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argument/7> .
+<http://wholetale.org/program/1119/compute/4> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argument/8> .
+<http://wholetale.org/program/1119/compute/4> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argument/9> .
+<http://wholetale.org/program/1119/compute/4> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argumentvalue/10> .
+<http://wholetale.org/program/1119/compute/4> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argumentvalue/5> .
+<http://wholetale.org/program/1119/compute/4> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argumentvalue/6> .
+<http://wholetale.org/program/1119/compute/4> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argumentvalue/7> .
+<http://wholetale.org/program/1119/compute/4> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argumentvalue/8> .
+<http://wholetale.org/program/1119/compute/4> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argumentvalue/9> .
+<http://wholetale.org/program/1119/compute/4> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/expression/4> .
+<http://wholetale.org/program/1119/compute/4> <https://rdf-vocabulary.ddialliance.org/sdtl#ProducesDataframe> <http://wholetale.org/program/1119/dataframe/6> .
+<http://wholetale.org/program/1119/compute/4> <https://rdf-vocabulary.ddialliance.org/sdtl#SourceInformation> <http://wholetale.org/program/1119/sourceinfo/6> .
+<http://wholetale.org/program/1119/compute/4> <https://rdf-vocabulary.ddialliance.org/sdtl#Variable> <http://wholetale.org/program/1119/variable/4> .
+<http://wholetale.org/program/1119/compute/5> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#Compute> .
+<http://wholetale.org/program/1119/compute/5> <https://rdf-vocabulary.ddialliance.org/sdtl#ConsumesDataframe> <http://wholetale.org/program/1119/dataframe/6> .
+<http://wholetale.org/program/1119/compute/5> <https://rdf-vocabulary.ddialliance.org/sdtl#Expression> <http://wholetale.org/program/1119/expression/5> .
+<http://wholetale.org/program/1119/compute/5> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argument/11> .
+<http://wholetale.org/program/1119/compute/5> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argument/12> .
+<http://wholetale.org/program/1119/compute/5> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argumentvalue/11> .
+<http://wholetale.org/program/1119/compute/5> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argumentvalue/12> .
+<http://wholetale.org/program/1119/compute/5> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/expression/5> .
+<http://wholetale.org/program/1119/compute/5> <https://rdf-vocabulary.ddialliance.org/sdtl#ProducesDataframe> <http://wholetale.org/program/1119/dataframe/7> .
+<http://wholetale.org/program/1119/compute/5> <https://rdf-vocabulary.ddialliance.org/sdtl#SourceInformation> <http://wholetale.org/program/1119/sourceinfo/7> .
+<http://wholetale.org/program/1119/compute/5> <https://rdf-vocabulary.ddialliance.org/sdtl#Variable> <http://wholetale.org/program/1119/variable/5> .
+<http://wholetale.org/program/1119/dataframe/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#DataframeDescription> .
+<http://wholetale.org/program/1119/dataframe/1> <https://rdf-vocabulary.ddialliance.org/sdtl#DataframeName> "df"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/dataframe/1> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableInventory> <http://wholetale.org/program/1119/variableinventory/1> .
+<http://wholetale.org/program/1119/dataframe/2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#DataframeDescription> .
+<http://wholetale.org/program/1119/dataframe/2> <https://rdf-vocabulary.ddialliance.org/sdtl#DataframeName> "df"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/dataframe/2> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableInventory> <http://wholetale.org/program/1119/variableinventory/2> .
+<http://wholetale.org/program/1119/dataframe/3> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#DataframeDescription> .
+<http://wholetale.org/program/1119/dataframe/3> <https://rdf-vocabulary.ddialliance.org/sdtl#DataframeName> "df"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/dataframe/3> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableInventory> <http://wholetale.org/program/1119/variableinventory/3> .
+<http://wholetale.org/program/1119/dataframe/4> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#DataframeDescription> .
+<http://wholetale.org/program/1119/dataframe/4> <https://rdf-vocabulary.ddialliance.org/sdtl#DataframeName> "df"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/dataframe/4> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableInventory> <http://wholetale.org/program/1119/variableinventory/4> .
+<http://wholetale.org/program/1119/dataframe/5> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#DataframeDescription> .
+<http://wholetale.org/program/1119/dataframe/5> <https://rdf-vocabulary.ddialliance.org/sdtl#DataframeName> "temps"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/dataframe/5> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableInventory> <http://wholetale.org/program/1119/variableinventory/5> .
+<http://wholetale.org/program/1119/dataframe/6> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#DataframeDescription> .
+<http://wholetale.org/program/1119/dataframe/6> <https://rdf-vocabulary.ddialliance.org/sdtl#DataframeName> "temps"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/dataframe/6> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableInventory> <http://wholetale.org/program/1119/variableinventory/6> .
+<http://wholetale.org/program/1119/dataframe/7> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#DataframeDescription> .
+<http://wholetale.org/program/1119/dataframe/7> <https://rdf-vocabulary.ddialliance.org/sdtl#DataframeName> "temps"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/dataframe/7> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableInventory> <http://wholetale.org/program/1119/variableinventory/7> .
+<http://wholetale.org/program/1119/dataframevariable/10> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableSymbolExpression> .
+<http://wholetale.org/program/1119/dataframevariable/10> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableName> "Fahrenheit"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/dataframevariable/11> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableSymbolExpression> .
+<http://wholetale.org/program/1119/dataframevariable/11> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableName> "Fahrenheit"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/dataframevariable/12> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableSymbolExpression> .
+<http://wholetale.org/program/1119/dataframevariable/12> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableName> "Celsius"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/dataframevariable/13> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableSymbolExpression> .
+<http://wholetale.org/program/1119/dataframevariable/13> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableName> "Fahrenheit"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/dataframevariable/14> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableSymbolExpression> .
+<http://wholetale.org/program/1119/dataframevariable/14> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableName> "Kelvin"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/dataframevariable/15> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableSymbolExpression> .
+<http://wholetale.org/program/1119/dataframevariable/15> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableName> "Celsius"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/dataframevariable/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableSymbolExpression> .
+<http://wholetale.org/program/1119/dataframevariable/1> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableName> "A"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/dataframevariable/2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableSymbolExpression> .
+<http://wholetale.org/program/1119/dataframevariable/2> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableName> "B"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/dataframevariable/3> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableSymbolExpression> .
+<http://wholetale.org/program/1119/dataframevariable/3> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableName> "A"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/dataframevariable/4> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableSymbolExpression> .
+<http://wholetale.org/program/1119/dataframevariable/4> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableName> "B"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/dataframevariable/5> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableSymbolExpression> .
+<http://wholetale.org/program/1119/dataframevariable/5> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableName> "A"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/dataframevariable/6> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableSymbolExpression> .
+<http://wholetale.org/program/1119/dataframevariable/6> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableName> "B"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/dataframevariable/7> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableSymbolExpression> .
+<http://wholetale.org/program/1119/dataframevariable/7> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableName> "A"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/dataframevariable/8> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableSymbolExpression> .
+<http://wholetale.org/program/1119/dataframevariable/8> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableName> "B"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/dataframevariable/9> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableSymbolExpression> .
+<http://wholetale.org/program/1119/dataframevariable/9> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableName> "C"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/expression/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#NumericConstantExpression> .
+<http://wholetale.org/program/1119/expression/1> <https://rdf-vocabulary.ddialliance.org/sdtl#NumericType> "Integer"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/expression/1> <https://rdf-vocabulary.ddialliance.org/sdtl#Value> "3"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/expression/2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#FunctionCallExpression> .
+<http://wholetale.org/program/1119/expression/2> <https://rdf-vocabulary.ddialliance.org/sdtl#Arguments> <http://wholetale.org/program/1119/argument/1> .
+<http://wholetale.org/program/1119/expression/2> <https://rdf-vocabulary.ddialliance.org/sdtl#Arguments> <http://wholetale.org/program/1119/argument/2> .
+<http://wholetale.org/program/1119/expression/2> <https://rdf-vocabulary.ddialliance.org/sdtl#Function> "addition"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/expression/2> <https://rdf-vocabulary.ddialliance.org/sdtl#IsSdtlName> "true"^^<http://www.w3.org/2001/XMLSchema#boolean> .
+<http://wholetale.org/program/1119/expression/2> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argument/1> .
+<http://wholetale.org/program/1119/expression/2> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argument/2> .
+<http://wholetale.org/program/1119/expression/2> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argumentvalue/1> .
+<http://wholetale.org/program/1119/expression/2> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argumentvalue/2> .
+<http://wholetale.org/program/1119/expression/3> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#FunctionCallExpression> .
+<http://wholetale.org/program/1119/expression/3> <https://rdf-vocabulary.ddialliance.org/sdtl#Arguments> <http://wholetale.org/program/1119/argument/3> .
+<http://wholetale.org/program/1119/expression/3> <https://rdf-vocabulary.ddialliance.org/sdtl#Arguments> <http://wholetale.org/program/1119/argument/4> .
+<http://wholetale.org/program/1119/expression/3> <https://rdf-vocabulary.ddialliance.org/sdtl#Function> "subtraction"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/expression/3> <https://rdf-vocabulary.ddialliance.org/sdtl#IsSdtlName> "true"^^<http://www.w3.org/2001/XMLSchema#boolean> .
+<http://wholetale.org/program/1119/expression/3> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argument/3> .
+<http://wholetale.org/program/1119/expression/3> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argument/4> .
+<http://wholetale.org/program/1119/expression/3> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argumentvalue/3> .
+<http://wholetale.org/program/1119/expression/3> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argumentvalue/4> .
+<http://wholetale.org/program/1119/expression/4> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#FunctionCallExpression> .
+<http://wholetale.org/program/1119/expression/4> <https://rdf-vocabulary.ddialliance.org/sdtl#Arguments> <http://wholetale.org/program/1119/argument/10> .
+<http://wholetale.org/program/1119/expression/4> <https://rdf-vocabulary.ddialliance.org/sdtl#Arguments> <http://wholetale.org/program/1119/argument/5> .
+<http://wholetale.org/program/1119/expression/4> <https://rdf-vocabulary.ddialliance.org/sdtl#Function> "division"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/expression/4> <https://rdf-vocabulary.ddialliance.org/sdtl#IsSdtlName> "true"^^<http://www.w3.org/2001/XMLSchema#boolean> .
+<http://wholetale.org/program/1119/expression/4> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argument/10> .
+<http://wholetale.org/program/1119/expression/4> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argument/5> .
+<http://wholetale.org/program/1119/expression/4> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argument/6> .
+<http://wholetale.org/program/1119/expression/4> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argument/7> .
+<http://wholetale.org/program/1119/expression/4> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argument/8> .
+<http://wholetale.org/program/1119/expression/4> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argument/9> .
+<http://wholetale.org/program/1119/expression/4> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argumentvalue/10> .
+<http://wholetale.org/program/1119/expression/4> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argumentvalue/5> .
+<http://wholetale.org/program/1119/expression/4> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argumentvalue/6> .
+<http://wholetale.org/program/1119/expression/4> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argumentvalue/7> .
+<http://wholetale.org/program/1119/expression/4> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argumentvalue/8> .
+<http://wholetale.org/program/1119/expression/4> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argumentvalue/9> .
+<http://wholetale.org/program/1119/expression/5> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://127.0.0.1:9999/blazegraph/namespace/kb/FunctionCallExpression> .
+<http://wholetale.org/program/1119/expression/5> <https://rdf-vocabulary.ddialliance.org/sdtl#Arguments> <http://wholetale.org/program/1119/argument/11> .
+<http://wholetale.org/program/1119/expression/5> <https://rdf-vocabulary.ddialliance.org/sdtl#Arguments> <http://wholetale.org/program/1119/argument/12> .
+<http://wholetale.org/program/1119/expression/5> <https://rdf-vocabulary.ddialliance.org/sdtl#Function> "addition"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/expression/5> <https://rdf-vocabulary.ddialliance.org/sdtl#IsSdtlName> "true"^^<http://www.w3.org/2001/XMLSchema#boolean> .
+<http://wholetale.org/program/1119/expression/5> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argument/11> .
+<http://wholetale.org/program/1119/expression/5> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argument/12> .
+<http://wholetale.org/program/1119/expression/5> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argumentvalue/11> .
+<http://wholetale.org/program/1119/expression/5> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://wholetale.org/program/1119/argumentvalue/12> .
+<http://wholetale.org/program/1119/load/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#Load> .
+<http://wholetale.org/program/1119/load/1> <https://rdf-vocabulary.ddialliance.org/sdtl#FileFormat> "csv"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/load/1> <https://rdf-vocabulary.ddialliance.org/sdtl#FileName> "df.csv"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/load/1> <https://rdf-vocabulary.ddialliance.org/sdtl#ProducesDataframe> <http://wholetale.org/program/1119/dataframe/1> .
+<http://wholetale.org/program/1119/load/1> <https://rdf-vocabulary.ddialliance.org/sdtl#SourceInformation> <http://wholetale.org/program/1119/sourceinfo/1> .
+<http://wholetale.org/program/1119/load/2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#Load> .
+<http://wholetale.org/program/1119/load/2> <https://rdf-vocabulary.ddialliance.org/sdtl#FileFormat> "csv"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/load/2> <https://rdf-vocabulary.ddialliance.org/sdtl#FileName> "temps.csv"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/load/2> <https://rdf-vocabulary.ddialliance.org/sdtl#ProducesDataframe> <http://wholetale.org/program/1119/dataframe/5> .
+<http://wholetale.org/program/1119/load/2> <https://rdf-vocabulary.ddialliance.org/sdtl#SourceInformation> <http://wholetale.org/program/1119/sourceinfo/5> .
+<http://wholetale.org/program/1119/program/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#Program> .
+<http://wholetale.org/program/1119/program/1> <https://rdf-vocabulary.ddialliance.org/sdtl#Commands> <http://wholetale.org/program/1119/commandinventory/1> .
+<http://wholetale.org/program/1119/save/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#Save> .
+<http://wholetale.org/program/1119/save/1> <https://rdf-vocabulary.ddialliance.org/sdtl#ConsumesDataframe> <http://wholetale.org/program/1119/dataframe/4> .
+<http://wholetale.org/program/1119/save/1> <https://rdf-vocabulary.ddialliance.org/sdtl#FileFormat> "csv"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/save/1> <https://rdf-vocabulary.ddialliance.org/sdtl#FileName> "df_updated.csv"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/save/1> <https://rdf-vocabulary.ddialliance.org/sdtl#SourceInformation> <http://wholetale.org/program/1119/sourceinfo/8> .
+<http://wholetale.org/program/1119/save/2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#Save> .
+<http://wholetale.org/program/1119/save/2> <https://rdf-vocabulary.ddialliance.org/sdtl#ConsumesDataframe> <http://wholetale.org/program/1119/dataframe/7> .
+<http://wholetale.org/program/1119/save/2> <https://rdf-vocabulary.ddialliance.org/sdtl#FileFormat> "csv"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/save/2> <https://rdf-vocabulary.ddialliance.org/sdtl#FileName> "temps_updated.csv"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/save/2> <https://rdf-vocabulary.ddialliance.org/sdtl#SourceInformation> <http://wholetale.org/program/1119/sourceinfo/9> .
+<http://wholetale.org/program/1119/sourceinfo/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#SourceInformation> .
+<http://wholetale.org/program/1119/sourceinfo/1> <https://rdf-vocabulary.ddialliance.org/sdtl#LineNumberStart> "4"^^<http://www.w3.org/2001/XMLSchema#integer> .
+<http://wholetale.org/program/1119/sourceinfo/1> <https://rdf-vocabulary.ddialliance.org/sdtl#OriginalSourceText> "df = pd.read_csv('../data/df.csv')"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/sourceinfo/2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#SourceInformation> .
+<http://wholetale.org/program/1119/sourceinfo/2> <https://rdf-vocabulary.ddialliance.org/sdtl#LineNumberStart> "8"^^<http://www.w3.org/2001/XMLSchema#integer> .
+<http://wholetale.org/program/1119/sourceinfo/2> <https://rdf-vocabulary.ddialliance.org/sdtl#OriginalSourceText> "df['A'] = 3"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/sourceinfo/3> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#SourceInformation> .
+<http://wholetale.org/program/1119/sourceinfo/3> <https://rdf-vocabulary.ddialliance.org/sdtl#LineNumberStart> "12"^^<http://www.w3.org/2001/XMLSchema#integer> .
+<http://wholetale.org/program/1119/sourceinfo/3> <https://rdf-vocabulary.ddialliance.org/sdtl#OriginalSourceText> "df['B'] = df.B + 6.5"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/sourceinfo/4> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#SourceInformation> .
+<http://wholetale.org/program/1119/sourceinfo/4> <https://rdf-vocabulary.ddialliance.org/sdtl#LineNumberStart> "16"^^<http://www.w3.org/2001/XMLSchema#integer> .
+<http://wholetale.org/program/1119/sourceinfo/4> <https://rdf-vocabulary.ddialliance.org/sdtl#OriginalSourceText> "df['C'] = df.A - df.B"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/sourceinfo/5> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#SourceInformation> .
+<http://wholetale.org/program/1119/sourceinfo/5> <https://rdf-vocabulary.ddialliance.org/sdtl#LineNumberStart> "20"^^<http://www.w3.org/2001/XMLSchema#integer> .
+<http://wholetale.org/program/1119/sourceinfo/5> <https://rdf-vocabulary.ddialliance.org/sdtl#OriginalSourceText> "temps = pd.read_csv('../data/temps.csv')"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/sourceinfo/6> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#SourceInformation> .
+<http://wholetale.org/program/1119/sourceinfo/6> <https://rdf-vocabulary.ddialliance.org/sdtl#LineNumberStart> "24"^^<http://www.w3.org/2001/XMLSchema#integer> .
+<http://wholetale.org/program/1119/sourceinfo/6> <https://rdf-vocabulary.ddialliance.org/sdtl#OriginalSourceText> "temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/sourceinfo/7> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#SourceInformation> .
+<http://wholetale.org/program/1119/sourceinfo/7> <https://rdf-vocabulary.ddialliance.org/sdtl#LineNumberStart> "28"^^<http://www.w3.org/2001/XMLSchema#integer> .
+<http://wholetale.org/program/1119/sourceinfo/7> <https://rdf-vocabulary.ddialliance.org/sdtl#OriginalSourceText> "temps = temps.assign(Kelvin=(temps.Celsius + 273))"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/sourceinfo/8> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#SourceInformation> .
+<http://wholetale.org/program/1119/sourceinfo/8> <https://rdf-vocabulary.ddialliance.org/sdtl#LineNumberStart> "32"^^<http://www.w3.org/2001/XMLSchema#integer> .
+<http://wholetale.org/program/1119/sourceinfo/8> <https://rdf-vocabulary.ddialliance.org/sdtl#OriginalSourceText> "df.to_csv('products/df_updated.csv', index=False)"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/sourceinfo/9> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#SourceInformation> .
+<http://wholetale.org/program/1119/sourceinfo/9> <https://rdf-vocabulary.ddialliance.org/sdtl#LineNumberStart> "35"^^<http://www.w3.org/2001/XMLSchema#integer> .
+<http://wholetale.org/program/1119/sourceinfo/9> <https://rdf-vocabulary.ddialliance.org/sdtl#OriginalSourceText> "temps.to_csv('products/temps_updated.csv', index=False)"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/variable/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableSymbolExpression> .
+<http://wholetale.org/program/1119/variable/1> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableName> "A"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/variable/2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableSymbolExpression> .
+<http://wholetale.org/program/1119/variable/2> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableName> "B"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/variable/3> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableSymbolExpression> .
+<http://wholetale.org/program/1119/variable/3> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableName> "C"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/variable/4> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableSymbolExpression> .
+<http://wholetale.org/program/1119/variable/4> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableName> "Celsius"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/variable/5> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableSymbolExpression> .
+<http://wholetale.org/program/1119/variable/5> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableName> "Kelvin"^^<http://www.w3.org/2001/XMLSchema#string> .
+<http://wholetale.org/program/1119/variableinventory/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#_1> <http://wholetale.org/program/1119/dataframevariable/1> .
+<http://wholetale.org/program/1119/variableinventory/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#_2> <http://wholetale.org/program/1119/dataframevariable/2> .
+<http://wholetale.org/program/1119/variableinventory/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq> .
+<http://wholetale.org/program/1119/variableinventory/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Container> .
+<http://wholetale.org/program/1119/variableinventory/1> <http://www.w3.org/2000/01/rdf-schema#member> <http://wholetale.org/program/1119/dataframevariable/1> .
+<http://wholetale.org/program/1119/variableinventory/1> <http://www.w3.org/2000/01/rdf-schema#member> <http://wholetale.org/program/1119/dataframevariable/2> .
+<http://wholetale.org/program/1119/variableinventory/2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#_1> <http://wholetale.org/program/1119/dataframevariable/3> .
+<http://wholetale.org/program/1119/variableinventory/2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#_2> <http://wholetale.org/program/1119/dataframevariable/4> .
+<http://wholetale.org/program/1119/variableinventory/2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq> .
+<http://wholetale.org/program/1119/variableinventory/2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Container> .
+<http://wholetale.org/program/1119/variableinventory/2> <http://www.w3.org/2000/01/rdf-schema#member> <http://wholetale.org/program/1119/dataframevariable/3> .
+<http://wholetale.org/program/1119/variableinventory/2> <http://www.w3.org/2000/01/rdf-schema#member> <http://wholetale.org/program/1119/dataframevariable/4> .
+<http://wholetale.org/program/1119/variableinventory/3> <http://www.w3.org/1999/02/22-rdf-syntax-ns#_1> <http://wholetale.org/program/1119/dataframevariable/5> .
+<http://wholetale.org/program/1119/variableinventory/3> <http://www.w3.org/1999/02/22-rdf-syntax-ns#_2> <http://wholetale.org/program/1119/dataframevariable/6> .
+<http://wholetale.org/program/1119/variableinventory/3> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq> .
+<http://wholetale.org/program/1119/variableinventory/3> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Container> .
+<http://wholetale.org/program/1119/variableinventory/3> <http://www.w3.org/2000/01/rdf-schema#member> <http://wholetale.org/program/1119/dataframevariable/5> .
+<http://wholetale.org/program/1119/variableinventory/3> <http://www.w3.org/2000/01/rdf-schema#member> <http://wholetale.org/program/1119/dataframevariable/6> .
+<http://wholetale.org/program/1119/variableinventory/4> <http://www.w3.org/1999/02/22-rdf-syntax-ns#_1> <http://wholetale.org/program/1119/dataframevariable/7> .
+<http://wholetale.org/program/1119/variableinventory/4> <http://www.w3.org/1999/02/22-rdf-syntax-ns#_2> <http://wholetale.org/program/1119/dataframevariable/8> .
+<http://wholetale.org/program/1119/variableinventory/4> <http://www.w3.org/1999/02/22-rdf-syntax-ns#_3> <http://wholetale.org/program/1119/dataframevariable/9> .
+<http://wholetale.org/program/1119/variableinventory/4> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq> .
+<http://wholetale.org/program/1119/variableinventory/4> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Container> .
+<http://wholetale.org/program/1119/variableinventory/4> <http://www.w3.org/2000/01/rdf-schema#member> <http://wholetale.org/program/1119/dataframevariable/7> .
+<http://wholetale.org/program/1119/variableinventory/4> <http://www.w3.org/2000/01/rdf-schema#member> <http://wholetale.org/program/1119/dataframevariable/8> .
+<http://wholetale.org/program/1119/variableinventory/4> <http://www.w3.org/2000/01/rdf-schema#member> <http://wholetale.org/program/1119/dataframevariable/9> .
+<http://wholetale.org/program/1119/variableinventory/5> <http://www.w3.org/1999/02/22-rdf-syntax-ns#_1> <http://wholetale.org/program/1119/dataframevariable/10> .
+<http://wholetale.org/program/1119/variableinventory/5> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq> .
+<http://wholetale.org/program/1119/variableinventory/5> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Container> .
+<http://wholetale.org/program/1119/variableinventory/5> <http://www.w3.org/2000/01/rdf-schema#member> <http://wholetale.org/program/1119/dataframevariable/10> .
+<http://wholetale.org/program/1119/variableinventory/6> <http://www.w3.org/1999/02/22-rdf-syntax-ns#_1> <http://wholetale.org/program/1119/dataframevariable/11> .
+<http://wholetale.org/program/1119/variableinventory/6> <http://www.w3.org/1999/02/22-rdf-syntax-ns#_2> <http://wholetale.org/program/1119/dataframevariable/12> .
+<http://wholetale.org/program/1119/variableinventory/6> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq> .
+<http://wholetale.org/program/1119/variableinventory/6> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Container> .
+<http://wholetale.org/program/1119/variableinventory/6> <http://www.w3.org/2000/01/rdf-schema#member> <http://wholetale.org/program/1119/dataframevariable/11> .
+<http://wholetale.org/program/1119/variableinventory/6> <http://www.w3.org/2000/01/rdf-schema#member> <http://wholetale.org/program/1119/dataframevariable/12> .
+<http://wholetale.org/program/1119/variableinventory/7> <http://www.w3.org/1999/02/22-rdf-syntax-ns#_1> <http://wholetale.org/program/1119/dataframevariable/13> .
+<http://wholetale.org/program/1119/variableinventory/7> <http://www.w3.org/1999/02/22-rdf-syntax-ns#_2> <http://wholetale.org/program/1119/dataframevariable/14> .
+<http://wholetale.org/program/1119/variableinventory/7> <http://www.w3.org/1999/02/22-rdf-syntax-ns#_3> <http://wholetale.org/program/1119/dataframevariable/15> .
+<http://wholetale.org/program/1119/variableinventory/7> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq> .
+<http://wholetale.org/program/1119/variableinventory/7> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Container> .
+<http://wholetale.org/program/1119/variableinventory/7> <http://www.w3.org/2000/01/rdf-schema#member> <http://wholetale.org/program/1119/dataframevariable/13> .
+<http://wholetale.org/program/1119/variableinventory/7> <http://www.w3.org/2000/01/rdf-schema#member> <http://wholetale.org/program/1119/dataframevariable/14> .
+<http://wholetale.org/program/1119/variableinventory/7> <http://www.w3.org/2000/01/rdf-schema#member> <http://wholetale.org/program/1119/dataframevariable/15> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#Alt> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Class> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#Alt> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#Alt> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Alt> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#Alt> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2000/01/rdf-schema#Container> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#Alt> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#Bag> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Class> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#Bag> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#Bag> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Bag> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#Bag> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2000/01/rdf-schema#Container> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#Bag> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#List> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Class> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#List> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#List> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/1999/02/22-rdf-syntax-ns#List> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#List> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Class> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Class> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2000/01/rdf-schema#Container> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Class> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Class> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Datatype> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2000/01/rdf-schema#Literal> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#_1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#_1> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/1999/02/22-rdf-syntax-ns#_1> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#_1> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/2000/01/rdf-schema#member> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#_2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#_2> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/1999/02/22-rdf-syntax-ns#_2> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#_2> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/2000/01/rdf-schema#member> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#_3> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#_3> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/1999/02/22-rdf-syntax-ns#_3> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#_3> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/2000/01/rdf-schema#member> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#_4> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#_4> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/1999/02/22-rdf-syntax-ns#_4> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#_4> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/2000/01/rdf-schema#member> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#_5> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#_5> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/1999/02/22-rdf-syntax-ns#_5> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#_5> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/2000/01/rdf-schema#member> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#_6> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#_6> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/1999/02/22-rdf-syntax-ns#_6> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#_6> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/2000/01/rdf-schema#member> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#_7> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#_7> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/1999/02/22-rdf-syntax-ns#_7> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#_7> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/2000/01/rdf-schema#member> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#_8> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#_8> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/1999/02/22-rdf-syntax-ns#_8> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#_8> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/2000/01/rdf-schema#member> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#_9> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#_9> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/1999/02/22-rdf-syntax-ns#_9> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#_9> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/2000/01/rdf-schema#member> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/1999/02/22-rdf-syntax-ns#List> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#first> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/1999/02/22-rdf-syntax-ns#first> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#List> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#nil> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#object> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#object> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#object> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#object> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#object> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/1999/02/22-rdf-syntax-ns#object> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#predicate> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#predicate> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#predicate> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#predicate> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#predicate> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/1999/02/22-rdf-syntax-ns#predicate> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/1999/02/22-rdf-syntax-ns#List> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/1999/02/22-rdf-syntax-ns#List> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/1999/02/22-rdf-syntax-ns#rest> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#subject> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#subject> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#subject> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#subject> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#subject> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/1999/02/22-rdf-syntax-ns#subject> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2000/01/rdf-schema#Class> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#value> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#value> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#value> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#value> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#value> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/1999/02/22-rdf-syntax-ns#value> .
+<http://www.w3.org/2000/01/rdf-schema#Class> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Class> .
+<http://www.w3.org/2000/01/rdf-schema#Class> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/2000/01/rdf-schema#Class> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2000/01/rdf-schema#Class> .
+<http://www.w3.org/2000/01/rdf-schema#Class> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/2000/01/rdf-schema#Container> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Class> .
+<http://www.w3.org/2000/01/rdf-schema#Container> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/2000/01/rdf-schema#Container> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2000/01/rdf-schema#Container> .
+<http://www.w3.org/2000/01/rdf-schema#Container> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/2000/01/rdf-schema#ContainerMembershipProperty> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Class> .
+<http://www.w3.org/2000/01/rdf-schema#ContainerMembershipProperty> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/2000/01/rdf-schema#ContainerMembershipProperty> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<http://www.w3.org/2000/01/rdf-schema#ContainerMembershipProperty> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2000/01/rdf-schema#ContainerMembershipProperty> .
+<http://www.w3.org/2000/01/rdf-schema#ContainerMembershipProperty> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/2000/01/rdf-schema#Datatype> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Class> .
+<http://www.w3.org/2000/01/rdf-schema#Datatype> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/2000/01/rdf-schema#Datatype> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2000/01/rdf-schema#Class> .
+<http://www.w3.org/2000/01/rdf-schema#Datatype> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2000/01/rdf-schema#Datatype> .
+<http://www.w3.org/2000/01/rdf-schema#Datatype> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/2000/01/rdf-schema#Literal> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Class> .
+<http://www.w3.org/2000/01/rdf-schema#Literal> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/2000/01/rdf-schema#Literal> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2000/01/rdf-schema#Literal> .
+<http://www.w3.org/2000/01/rdf-schema#Literal> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/2000/01/rdf-schema#Resource> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Class> .
+<http://www.w3.org/2000/01/rdf-schema#Resource> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/2000/01/rdf-schema#Resource> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/2000/01/rdf-schema#comment> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<http://www.w3.org/2000/01/rdf-schema#comment> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/2000/01/rdf-schema#comment> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/2000/01/rdf-schema#comment> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2000/01/rdf-schema#Literal> .
+<http://www.w3.org/2000/01/rdf-schema#comment> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/2000/01/rdf-schema#comment> .
+<http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2000/01/rdf-schema#Class> .
+<http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/2000/01/rdf-schema#domain> .
+<http://www.w3.org/2000/01/rdf-schema#isDefinedBy> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<http://www.w3.org/2000/01/rdf-schema#isDefinedBy> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/2000/01/rdf-schema#isDefinedBy> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/2000/01/rdf-schema#isDefinedBy> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/2000/01/rdf-schema#isDefinedBy> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/2000/01/rdf-schema#isDefinedBy> .
+<http://www.w3.org/2000/01/rdf-schema#isDefinedBy> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/2000/01/rdf-schema#seeAlso> .
+<http://www.w3.org/2000/01/rdf-schema#label> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<http://www.w3.org/2000/01/rdf-schema#label> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/2000/01/rdf-schema#label> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/2000/01/rdf-schema#label> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2000/01/rdf-schema#Literal> .
+<http://www.w3.org/2000/01/rdf-schema#label> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/2000/01/rdf-schema#label> .
+<http://www.w3.org/2000/01/rdf-schema#member> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<http://www.w3.org/2000/01/rdf-schema#member> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/2000/01/rdf-schema#member> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/2000/01/rdf-schema#member> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/2000/01/rdf-schema#member> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/2000/01/rdf-schema#member> .
+<http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2000/01/rdf-schema#Class> .
+<http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/2000/01/rdf-schema#range> .
+<http://www.w3.org/2000/01/rdf-schema#seeAlso> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<http://www.w3.org/2000/01/rdf-schema#seeAlso> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/2000/01/rdf-schema#seeAlso> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/2000/01/rdf-schema#seeAlso> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/2000/01/rdf-schema#seeAlso> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/2000/01/rdf-schema#seeAlso> .
+<http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/2000/01/rdf-schema#Class> .
+<http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2000/01/rdf-schema#Class> .
+<http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/2000/01/rdf-schema#subClassOf> .
+<http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/2000/01/rdf-schema#domain> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> .
+<http://www.w3.org/2002/07/owl#Class> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Class> .
+<http://www.w3.org/2002/07/owl#Class> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/2002/07/owl#Class> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2000/01/rdf-schema#Class> .
+<http://www.w3.org/2002/07/owl#Class> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/2002/07/owl#Class> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2002/07/owl#Class> .
+<http://www.w3.org/2002/07/owl#DatatypeProperty> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Class> .
+<http://www.w3.org/2002/07/owl#DatatypeProperty> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/2002/07/owl#DatatypeProperty> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<http://www.w3.org/2002/07/owl#DatatypeProperty> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/2002/07/owl#DatatypeProperty> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2002/07/owl#DatatypeProperty> .
+<http://www.w3.org/2002/07/owl#ObjectProperty> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Class> .
+<http://www.w3.org/2002/07/owl#ObjectProperty> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/2002/07/owl#ObjectProperty> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<http://www.w3.org/2002/07/owl#ObjectProperty> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/2002/07/owl#ObjectProperty> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2002/07/owl#ObjectProperty> .
+<http://www.w3.org/2002/07/owl#Restriction> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Class> .
+<http://www.w3.org/2002/07/owl#Restriction> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/2002/07/owl#Restriction> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2000/01/rdf-schema#Class> .
+<http://www.w3.org/2002/07/owl#Restriction> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/2002/07/owl#Restriction> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2002/07/owl#Restriction> .
+<http://www.w3.org/2002/07/owl#TransitiveProperty> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Class> .
+<http://www.w3.org/2002/07/owl#TransitiveProperty> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/2002/07/owl#TransitiveProperty> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<http://www.w3.org/2002/07/owl#TransitiveProperty> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/2002/07/owl#TransitiveProperty> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2002/07/owl#ObjectProperty> .
+<http://www.w3.org/2002/07/owl#TransitiveProperty> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2002/07/owl#TransitiveProperty> .
+<http://www.w3.org/2002/07/owl#equivalentClass> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<http://www.w3.org/2002/07/owl#equivalentClass> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/2002/07/owl#equivalentClass> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/2000/01/rdf-schema#subClassOf> .
+<http://www.w3.org/2002/07/owl#equivalentClass> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/2002/07/owl#equivalentClass> .
+<http://www.w3.org/2002/07/owl#equivalentProperty> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<http://www.w3.org/2002/07/owl#equivalentProperty> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/2002/07/owl#equivalentProperty> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> .
+<http://www.w3.org/2002/07/owl#equivalentProperty> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/2002/07/owl#equivalentProperty> .
+<http://www.w3.org/2002/07/owl#hasValue> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<http://www.w3.org/2002/07/owl#hasValue> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/2002/07/owl#hasValue> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/2002/07/owl#hasValue> .
+<http://www.w3.org/2002/07/owl#inverseOf> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<http://www.w3.org/2002/07/owl#inverseOf> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/2002/07/owl#inverseOf> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/2002/07/owl#inverseOf> .
+<http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/2002/07/owl#onProperty> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/2002/07/owl#onProperty> .
+<http://www.w3.org/2002/07/owl#sameAs> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<http://www.w3.org/2002/07/owl#sameAs> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<http://www.w3.org/2002/07/owl#sameAs> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/2002/07/owl#sameAs> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#ArgumentName> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#ArgumentName> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <https://rdf-vocabulary.ddialliance.org/sdtl#ArgumentName> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#ArgumentValue> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#ArgumentValue> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <https://rdf-vocabulary.ddialliance.org/sdtl#ArgumentValue> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#ArgumentValue> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#Arguments> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#Arguments> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <https://rdf-vocabulary.ddialliance.org/sdtl#Arguments> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#Arguments> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#Commands> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#Commands> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <https://rdf-vocabulary.ddialliance.org/sdtl#Commands> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#Compute> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Class> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#Compute> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#Compute> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://rdf-vocabulary.ddialliance.org/sdtl#Compute> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#ConsumesDataframe> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#ConsumesDataframe> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <https://rdf-vocabulary.ddialliance.org/sdtl#ConsumesDataframe> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#DataframeDescription> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Class> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#DataframeDescription> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#DataframeDescription> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://rdf-vocabulary.ddialliance.org/sdtl#DataframeDescription> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#DataframeName> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#DataframeName> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <https://rdf-vocabulary.ddialliance.org/sdtl#DataframeName> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#Expression> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#Expression> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <https://rdf-vocabulary.ddialliance.org/sdtl#Expression> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#Expression> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#FileFormat> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#FileFormat> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <https://rdf-vocabulary.ddialliance.org/sdtl#FileFormat> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#FileName> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#FileName> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <https://rdf-vocabulary.ddialliance.org/sdtl#FileName> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#Function> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#Function> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <https://rdf-vocabulary.ddialliance.org/sdtl#Function> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#FunctionArgument> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Class> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#FunctionArgument> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#FunctionArgument> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://rdf-vocabulary.ddialliance.org/sdtl#FunctionArgument> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#FunctionCallExpression> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Class> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#FunctionCallExpression> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#FunctionCallExpression> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://rdf-vocabulary.ddialliance.org/sdtl#FunctionCallExpression> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#IsSdtlName> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#IsSdtlName> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <https://rdf-vocabulary.ddialliance.org/sdtl#IsSdtlName> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#LineNumberStart> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#LineNumberStart> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <https://rdf-vocabulary.ddialliance.org/sdtl#LineNumberStart> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#Load> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Class> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#Load> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#Load> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://rdf-vocabulary.ddialliance.org/sdtl#Load> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#NumericConstantExpression> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Class> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#NumericConstantExpression> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#NumericConstantExpression> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://rdf-vocabulary.ddialliance.org/sdtl#NumericConstantExpression> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#NumericType> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#NumericType> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <https://rdf-vocabulary.ddialliance.org/sdtl#NumericType> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#ObjectProperty> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2002/07/owl#TransitiveProperty> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <https://rdf-vocabulary.ddialliance.org/sdtl#OperatesOn> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#OriginalSourceText> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#OriginalSourceText> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <https://rdf-vocabulary.ddialliance.org/sdtl#OriginalSourceText> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#ProducesDataframe> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#ProducesDataframe> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <https://rdf-vocabulary.ddialliance.org/sdtl#ProducesDataframe> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#Program> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Class> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#Program> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#Program> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://rdf-vocabulary.ddialliance.org/sdtl#Program> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#Save> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Class> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#Save> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#Save> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://rdf-vocabulary.ddialliance.org/sdtl#Save> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#SourceInformation> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#SourceInformation> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Class> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#SourceInformation> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#SourceInformation> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://rdf-vocabulary.ddialliance.org/sdtl#SourceInformation> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#SourceInformation> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <https://rdf-vocabulary.ddialliance.org/sdtl#SourceInformation> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#Value> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#Value> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <https://rdf-vocabulary.ddialliance.org/sdtl#Value> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#Variable> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#Variable> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <https://rdf-vocabulary.ddialliance.org/sdtl#Variable> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#VariableInventory> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#VariableInventory> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableInventory> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#VariableName> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#VariableName> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableName> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#VariableSymbolExpression> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Class> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#VariableSymbolExpression> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2000/01/rdf-schema#Resource> .
+<https://rdf-vocabulary.ddialliance.org/sdtl#VariableSymbolExpression> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableSymbolExpression> .
+=======================================================================================================
+
+=========================================== BASH CELL Q1 ==============================================
+
+# WHAT COMMANDS USE EACH VARIABLE?
+
+geist query --format table << __END_QUERY__
+
+    {{{
+
+    {{ include "../../common/sdtl.g" }}
+
+    }}}
+
+    PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
+
+    SELECT DISTINCT ?used_variable ?command ?source_line ?source_text
+    WHERE {
+        ?program rdf:type sdtl:Program .
+        ?program sdtl:Commands/rdfs:member ?command .
+        ?command sdtl:OperatesOn/sdtl:VariableName ?used_variable .
+        {{ command_source "?command" "?source_line" "?source_text" }}
+    } ORDER BY ?used_variable ?source_line
+
+__END_QUERY__
+
+--------------------------------------------- OUTPUTS -------------------------------------------------
+used_variable | command                                     | source_line | source_text
+=================================================================================================================================
+A             | http://wholetale.org/program/1119/compute/3 | 16          | df['C'] = df.A - df.B
+B             | http://wholetale.org/program/1119/compute/2 | 12          | df['B'] = df.B + 6.5
+B             | http://wholetale.org/program/1119/compute/3 | 16          | df['C'] = df.A - df.B
+Celsius       | http://wholetale.org/program/1119/compute/5 | 28          | temps = temps.assign(Kelvin=(temps.Celsius + 273))
+Fahrenheit    | http://wholetale.org/program/1119/compute/4 | 24          | temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))
+=======================================================================================================
+
+=========================================== BASH CELL Q2 ==============================================
+
+# WHAT VARIABLES DIRECTLY AFFECT OTHER VARIABLES?
+
+geist query --format table << __END_QUERY__
+
+    {{{
+
+    {{ include "../../common/sdtl.g" }}
+
+    }}}
+
+    PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
+
+    SELECT DISTINCT ?affecting_variable  ?affected_variable ?command ?source_line ?source_text
+    WHERE {
+        ?program rdf:type sdtl:Program .
+        ?program sdtl:Commands/rdfs:member ?command .
+        ?command sdtl:Variable/sdtl:VariableName ?affected_variable .
+        ?command sdtl:OperatesOn/sdtl:VariableName ?affecting_variable .
+        {{ command_source "?command" "?source_line" "?source_text" }}
+    } ORDER BY ?affecting_variable ?affected_variable ?source_line
+
+__END_QUERY__
+
+--------------------------------------------- OUTPUTS -------------------------------------------------
+affecting_variable | affected_variable | command                                     | source_line | source_text
+============================================================================================================================================
+A                  | C                 | http://wholetale.org/program/1119/compute/3 | 16          | df['C'] = df.A - df.B
+B                  | B                 | http://wholetale.org/program/1119/compute/2 | 12          | df['B'] = df.B + 6.5
+B                  | C                 | http://wholetale.org/program/1119/compute/3 | 16          | df['C'] = df.A - df.B
+Celsius            | Kelvin            | http://wholetale.org/program/1119/compute/5 | 28          | temps = temps.assign(Kelvin=(temps.Celsius + 273))
+Fahrenheit         | Celsius           | http://wholetale.org/program/1119/compute/4 | 24          | temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))
+=======================================================================================================
+
+=========================================== BASH CELL Q3 ==============================================
+
+# WHAT VARIABLES DIRECTLY AFFECT THE KELVIN VARIABLE?
+
+geist query --format table << __END_QUERY__
+
+    {{{
+
+    {{ include "../../common/sdtl.g" }}
+
+    }}}
+
+    PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
+
+    SELECT DISTINCT ?affecting_variable ?command ?source_line ?source_text
+    WHERE {
+        ?program rdf:type sdtl:Program .
+        ?program sdtl:Commands/rdfs:member ?command .
+        ?command sdtl:Variable/sdtl:VariableName "Kelvin"^^<http://www.w3.org/2001/XMLSchema#string> .
+        ?command sdtl:OperatesOn/sdtl:VariableName ?affecting_variable
+        {{ command_source "?command" "?source_line" "?source_text" }}
+    } ORDER BY ?affecting_variable ?source_line
+
+__END_QUERY__
+
+--------------------------------------------- OUTPUTS -------------------------------------------------
+affecting_variable | command                                     | source_line | source_text
+=================================================================================================================
+Celsius            | http://wholetale.org/program/1119/compute/5 | 28          | temps = temps.assign(Kelvin=(temps.Celsius + 273))
+=======================================================================================================
+
+=========================================== BASH CELL Q4 ==============================================
+
+# WHAT VARIABLES DIRECTLY AFFECT VARIABLES THAT DIRECTLY AFFECT THE KELVIN VARIABLE?
+
+geist query --format table << __END_QUERY__
+
+    {{{
+
+    {{ include "../../common/sdtl.g" }}
+
+    }}}
+
+    PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
+
+    SELECT DISTINCT ?indirectly_affecting_variable ?indirectly_affecting_command ?source_line ?source_text
+    WHERE {
+        ?program rdf:type sdtl:Program .
+
+        ?program sdtl:Commands ?commandinventory .
+        ?commandinventory rdfs:member ?directly_affecting_command .
+        ?commandinventory rdfs:member ?indirectly_affecting_command .
+        ?directly_affecting_command sdtl:Variable/sdtl:VariableName "Kelvin"^^<http://www.w3.org/2001/XMLSchema#string> .
+        ?directly_affecting_command sdtl:OperatesOn/sdtl:VariableName/^sdtl:VariableName/^sdtl:Variable ?indirectly_affecting_command  .
+        ?indirectly_affecting_command sdtl:OperatesOn/sdtl:VariableName ?indirectly_affecting_variable .
+        {{ command_source "?indirectly_affecting_command" "?source_line" "?source_text" }}
+    } ORDER BY ?affected_variable ?affecting_variable ?source_line
+
+__END_QUERY__
+
+--------------------------------------------- OUTPUTS -------------------------------------------------
+indirectly_affecting_variable | indirectly_affecting_command                | source_line | source_text
+=================================================================================================================================
+Fahrenheit                    | http://wholetale.org/program/1119/compute/4 | 24          | temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))
+=======================================================================================================
+
+=========================================== BASH CELL Q5 ==============================================
+
+# WHAT VARIABLES DIRECTLY OR INDIRECTLY AFFECT THE KELVIN VARIABLE?
+
+geist query --format table << __END_QUERY__
+
+    PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
+
+    SELECT DISTINCT ?variable
+    WHERE {
+        ?program rdf:type sdtl:Program .
+        ?program sdtl:Commands/rdfs:member ?command .
+        ?command sdtl:Variable/sdtl:VariableName "Kelvin"^^<http://www.w3.org/2001/XMLSchema#string> .
+        ?command sdtl:OperatesOn/sdtl:VariableName/(^sdtl:VariableName/^sdtl:Variable/sdtl:OperatesOn/sdtl:VariableName)* ?variable .
+    } ORDER BY ?variable
+
+__END_QUERY__
+
+--------------------------------------------- OUTPUTS -------------------------------------------------
+variable
+=========
+Celsius
+Fahrenheit
+=======================================================================================================
+
+=========================================== BASH CELL Q6 ==============================================
+
+# WHAT COMMANDS AFFECT EACH VARIABLE?
+
+geist query --format table << __END_QUERY__
+
+    {{{
+
+    {{ include "../../common/sdtl.g" }}
+
+    }}}
+
+    PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
+
+    SELECT DISTINCT ?affected_variable ?command ?source_line ?source_text
+    WHERE {
+        ?program rdf:type sdtl:Program .
+        ?program sdtl:Commands/rdfs:member ?command .
+        {
+            ?command sdtl:Variable ?variable .
+        }
+        UNION
+        {
+            ?command rdf:type sdtl:Load .
+            ?command sdtl:ProducesDataframe/sdtl:VariableInventory/rdfs:member ?variable .
+        }
+        ?variable sdtl:VariableName ?affected_variable .
+        {{ command_source "?command" "?source_line" "?source_text" }}
+    } ORDER BY ?affected_variable ?source_line
+
+__END_QUERY__
+
+--------------------------------------------- OUTPUTS -------------------------------------------------
+affected_variable | command                                     | source_line | source_text
+==============================================================================================================================
+A                 | http://wholetale.org/program/1119/load/1    | 4           | df = pd.read_csv('../data/df.csv')
+A                 | http://wholetale.org/program/1119/compute/1 | 8           | df['A'] = 3
+B                 | http://wholetale.org/program/1119/load/1    | 4           | df = pd.read_csv('../data/df.csv')
+B                 | http://wholetale.org/program/1119/compute/2 | 12          | df['B'] = df.B + 6.5
+C                 | http://wholetale.org/program/1119/compute/3 | 16          | df['C'] = df.A - df.B
+Celsius           | http://wholetale.org/program/1119/compute/4 | 24          | temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))
+Fahrenheit        | http://wholetale.org/program/1119/load/2    | 20          | temps = pd.read_csv('../data/temps.csv')
+Kelvin            | http://wholetale.org/program/1119/compute/5 | 28          | temps = temps.assign(Kelvin=(temps.Celsius + 273))
+=======================================================================================================
+
+=========================================== BASH CELL Q7 ==============================================
+
+# WHAT COMMANDS READ VARIABLE VALUES ASSIGNED BY OTHER COMMANDS?
+
+geist query --format table << __END_QUERY__
+
+    {{{
+
+    {{ include "../../common/sdtl.g" }}
+
+    }}}
+
+    PREFIX sdtl: <https://rdf-vocabulary.ddialliance.org/sdtl#>
+
+    SELECT DISTINCT ?variable ?writer_line ?writer_text ?reader_line ?reader_text
+    WHERE {
+        {{ program_command "?program" "?reader" }} .
+        {{ variable_write_read_edge "?variable" "?writer" "?reader" }} .
+        {{ command_source "?writer" "?writer_line" "?writer_text" }} .
+        {{ command_source "?reader" "?reader_line" "?reader_text" }}
+        FILTER ( ?variable = "A" )
+    } ORDER BY ?variable ?writer_line ?reader_line
+
+__END_QUERY__
+
+--------------------------------------------- OUTPUTS -------------------------------------------------
+variable | writer_line | writer_text | reader_line | reader_text
+===============================================================================
+A        | 8           | df['A'] = 3 | 16          | df['C'] = df.A - df.B
+A        | 8           | df['A'] = 3 | 32          | df.to_csv('products/df_updated.csv', index=False)
+=======================================================================================================
+
+=========================================== BASH CELL R1 ==============================================
+
+# REPORT HISTORY OF EACH VARIABLE
+
+geist report << '__END_REPORT_TEMPLATE__'
+
+{{{
+    {{ include "../../common/sdtl.g" }}
+}}}
+
+---------- VARIABLE HISTORY REPORT ----------
+                                                                                                    \
+{{ with $Program := sdtl_select_program | value }}                                                  \
+    {{ range $SaveCommand := sdtl_select_save_commands $Program | rows }}
+        ===================
+        Dataframe {{ index $SaveCommand 2 }}
+        ===================
+        {{ range $VariableName := sdtl_select_dataframe_variables (index $SaveCommand 1) | vector }}
+            Variable {{ $VariableName }}
+            -------------------
+            {{ range $LoadCommand := sdtl_select_load_commands $Program $VariableName | rows }}     \
+                Load    | Line {{ index $LoadCommand 3 }} | {{ index $LoadCommand 4 }}
+            {{ end }}                                                                               \
+            {{ range $UpdateCommand := sdtl_select_update_commands $Program $VariableName | rows }} \
+                Compute | Line {{ index $UpdateCommand 1 }} | {{ index $UpdateCommand 2 }}
+            {{ end }}                                                                               \
+                Save    | Line {{ index $SaveCommand 3 }} | {{ index $SaveCommand 4 }}
+        {{ end }}
+    {{ end }}
+{{ end }}
+
+__END_REPORT_TEMPLATE__
+
+--------------------------------------------- OUTPUTS -------------------------------------------------
+
+---------- VARIABLE HISTORY REPORT ----------
+
+===================
+Dataframe df
+===================
+
+Variable A
+-------------------
+Load    | Line 4 | df = pd.read_csv('../data/df.csv')
+Compute | Line 8 | df['A'] = 3
+Save    | Line 32 | df.to_csv('products/df_updated.csv', index=False)
+
+Variable B
+-------------------
+Load    | Line 4 | df = pd.read_csv('../data/df.csv')
+Compute | Line 12 | df['B'] = df.B + 6.5
+Save    | Line 32 | df.to_csv('products/df_updated.csv', index=False)
+
+Variable C
+-------------------
+Compute | Line 16 | df['C'] = df.A - df.B
+Save    | Line 32 | df.to_csv('products/df_updated.csv', index=False)
+
+
+===================
+Dataframe temps
+===================
+
+Variable Fahrenheit
+-------------------
+Load    | Line 20 | temps = pd.read_csv('../data/temps.csv')
+Save    | Line 35 | temps.to_csv('products/temps_updated.csv', index=False)
+
+Variable Kelvin
+-------------------
+Compute | Line 28 | temps = temps.assign(Kelvin=(temps.Celsius + 273))
+Save    | Line 35 | temps.to_csv('products/temps_updated.csv', index=False)
+
+Variable Celsius
+-------------------
+Compute | Line 24 | temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))
+Save    | Line 35 | temps.to_csv('products/temps_updated.csv', index=False)
+
+
+
+
+=======================================================================================================
+
+=========================================== BASH CELL R2 ==============================================
+
+# WHAT COMMANDS WRITE TO EACH VARIABLE?
+
+geist report << '__END_REPORT_TEMPLATE__'
+
+{{{
+    {{ include "../../common/sdtl.g" }}
+}}}
+
+---------- COMMANDS THAT WRITE TO EACH VARIABLE ----------
+
+{{ select '''
+    SELECT DISTINCT ?written_variable ?source_line ?source_text
+    WHERE {
+        {{ program_command "?program" "?command" }} .
+        {{ variable_writer  "?command" "?written_variable" }} .
+        {{ command_source "?command" "?source_line" "?source_text" }}
+    }
+    ORDER BY ?written_variable ?source_line
+''' | tabulate }}
+
+__END_REPORT_TEMPLATE__
+
+--------------------------------------------- OUTPUTS -------------------------------------------------
+
+---------- COMMANDS THAT WRITE TO EACH VARIABLE ----------
+
+written_variable | source_line | source_text
+===============================================================================
+A                | 4           | df = pd.read_csv('../data/df.csv')
+A                | 8           | df['A'] = 3
+B                | 4           | df = pd.read_csv('../data/df.csv')
+B                | 12          | df['B'] = df.B + 6.5
+C                | 16          | df['C'] = df.A - df.B
+Celsius          | 24          | temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))
+Fahrenheit       | 20          | temps = pd.read_csv('../data/temps.csv')
+Kelvin           | 28          | temps = temps.assign(Kelvin=(temps.Celsius + 273))
+
+
+=======================================================================================================
+
+=========================================== BASH CELL R3 ==============================================
+
+# WHAT COMMANDS READ FROM EACH VARIABLE?
+
+geist report << '__END_REPORT_TEMPLATE__'
+
+{{{
+    {{ include "../../common/sdtl.g" }}
+}}}
+
+---------- COMMANDS THAT READ FROM EACH VARIABLE ----------
+
+{{ select '''
+    SELECT DISTINCT ?read_variable ?source_line ?source_text
+    WHERE {
+        {{ program_command "?program" "?command" }} .
+        {{ variable_reader  "?command" "?read_variable" }} .
+        {{ command_source "?command" "?source_line" "?source_text" }}
+    }
+    ORDER BY ?read_variable ?source_line
+''' | tabulate }}
+
+__END_REPORT_TEMPLATE__
+
+--------------------------------------------- OUTPUTS -------------------------------------------------
+
+---------- COMMANDS THAT READ FROM EACH VARIABLE ----------
+
+read_variable | source_line | source_text
+==================================================================================
+A             | 16          | df['C'] = df.A - df.B
+A             | 32          | df.to_csv('products/df_updated.csv', index=False)
+B             | 12          | df['B'] = df.B + 6.5
+B             | 16          | df['C'] = df.A - df.B
+B             | 32          | df.to_csv('products/df_updated.csv', index=False)
+C             | 32          | df.to_csv('products/df_updated.csv', index=False)
+Celsius       | 28          | temps = temps.assign(Kelvin=(temps.Celsius + 273))
+Celsius       | 35          | temps.to_csv('products/temps_updated.csv', index=False)
+Fahrenheit    | 24          | temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))
+Fahrenheit    | 35          | temps.to_csv('products/temps_updated.csv', index=False)
+Kelvin        | 35          | temps.to_csv('products/temps_updated.csv', index=False)
+
+
+=======================================================================================================
+
+=========================================== BASH CELL R4 ==============================================
+
+# WHAT COMMANDS WRITE VARIABLES READ BY DOWNSTREAM COMMANDS?
+
+geist report << '__END_REPORT_TEMPLATE__'
+
+{{{
+    {{ include "../../common/sdtl.g" }}
+}}}
+
+---------- COMMANDS THAT WRITE VARIABLES READ BY DOWNSTREAM COMMANDS ----------
+
+{{ select '''
+    SELECT DISTINCT ?variable ?writer_line ?writer_text ?reader_line ?reader_text
+    WHERE {
+        {{ program_command "?program" "?reader" }} .
+        {{ variable_reader  "?reader" "?variable" }} .
+        {{ upstream_variable_writer "?variable" "?reader" "?writer" }} .
+        {{ command_source "?writer" "?writer_line" "?writer_text" }} .
+        {{ command_source "?reader" "?reader_line" "?reader_text" }}
+    }
+    ORDER BY ?variable ?writer_line
+''' | tabulate }}
+
+__END_REPORT_TEMPLATE__
+
+--------------------------------------------- OUTPUTS -------------------------------------------------
+
+---------- COMMANDS THAT WRITE VARIABLES READ BY DOWNSTREAM COMMANDS ----------
+
+variable   | writer_line | writer_text                                                     | reader_line | reader_text
+================================================================================================================================================
+A          | 4           | df = pd.read_csv('../data/df.csv')                              | 16          | df['C'] = df.A - df.B
+A          | 4           | df = pd.read_csv('../data/df.csv')                              | 32          | df.to_csv('products/df_updated.csv', index=False)
+A          | 8           | df['A'] = 3                                                     | 16          | df['C'] = df.A - df.B
+A          | 8           | df['A'] = 3                                                     | 32          | df.to_csv('products/df_updated.csv', index=False)
+B          | 4           | df = pd.read_csv('../data/df.csv')                              | 12          | df['B'] = df.B + 6.5
+B          | 4           | df = pd.read_csv('../data/df.csv')                              | 16          | df['C'] = df.A - df.B
+B          | 4           | df = pd.read_csv('../data/df.csv')                              | 32          | df.to_csv('products/df_updated.csv', index=False)
+B          | 12          | df['B'] = df.B + 6.5                                            | 16          | df['C'] = df.A - df.B
+B          | 12          | df['B'] = df.B + 6.5                                            | 32          | df.to_csv('products/df_updated.csv', index=False)
+C          | 16          | df['C'] = df.A - df.B                                           | 32          | df.to_csv('products/df_updated.csv', index=False)
+Celsius    | 24          | temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9)) | 28          | temps = temps.assign(Kelvin=(temps.Celsius + 273))
+Celsius    | 24          | temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9)) | 35          | temps.to_csv('products/temps_updated.csv', index=False)
+Fahrenheit | 20          | temps = pd.read_csv('../data/temps.csv')                        | 24          | temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))
+Fahrenheit | 20          | temps = pd.read_csv('../data/temps.csv')                        | 35          | temps.to_csv('products/temps_updated.csv', index=False)
+Kelvin     | 28          | temps = temps.assign(Kelvin=(temps.Celsius + 273))              | 35          | temps.to_csv('products/temps_updated.csv', index=False)
+
+
+=======================================================================================================
+
+=========================================== BASH CELL R5 ==============================================
+
+# WHAT COMMANDS READ VARIABLES WRITTEN BY MULTIPLE UPSTREAM COMMANDS?
+
+geist report << '__END_REPORT_TEMPLATE__'
+
+{{{
+    {{ include "../../common/sdtl.g" }}
+}}}
+
+---------- COMMANDS THAT READ VARIABLES WRITTEN BY MULTIPLE UPSTREAM COMMANDS ----------
+
+{{ select '''
+    SELECT DISTINCT ?variable ?writer_line ?writer_text ?intermediate_writer_line
+        ?intermediate_writer_text  ?reader_line ?reader_text
+    WHERE {
+        {{ program_command "?program" "?reader" }} .
+        {{ variable_reader  "?reader" "?variable" }} .
+        {{ upstream_variable_writer "?variable" "?reader" "?intermediate_writer" }} .
+        {{ variable_reader  "?intermediate_writer" "?variable" }} .
+        {{ upstream_variable_writer "?variable" "?intermediate_writer" "?writer" }} .
+        {{ command_source "?writer" "?writer_line" "?writer_text" }} .
+        {{ command_source "?intermediate_writer" "?intermediate_writer_line" "?intermediate_writer_text" }} .
+        {{ command_source "?reader" "?reader_line" "?reader_text" }}
+    }
+    ORDER BY ?variable ?writer_line
+''' | tabulate }}
+
+__END_REPORT_TEMPLATE__
+
+--------------------------------------------- OUTPUTS -------------------------------------------------
+
+---------- COMMANDS THAT READ VARIABLES WRITTEN BY MULTIPLE UPSTREAM COMMANDS ----------
+
+variable | writer_line | writer_text                        | intermediate_writer_line | intermediate_writer_text | reader_line | reader_text
+====================================================================================================================================
+B        | 4           | df = pd.read_csv('../data/df.csv') | 12                       | df['B'] = df.B + 6.5     | 16          | df['C'] = df.A - df.B
+B        | 4           | df = pd.read_csv('../data/df.csv') | 12                       | df['B'] = df.B + 6.5     | 32          | df.to_csv('products/df_updated.csv', index=False)
+
+
+=======================================================================================================
+
+=========================================== BASH CELL G1 ==============================================
+
+# DATAFRAME FLOW THROUGH COMMANDS
+
+geist report << '__END_REPORT_TEMPLATE__'
+
+    {{{
+        {{ include "../../common/graphviz.g" }}
+        {{ include "../../common/sdtl.g" }}
+    }}}
+
+    {{ gv_graph "sdtl_program" }}
+
+    {{ gv_title "Dataframe-flow through commands" }}
+
+    {{ gv_cluster "program_graph" }}
+
+    # command nodes
+    {{ sdtl_program_node_style }}
+    node[width=8]
+    {{ with $ProgramID := sdtl_select_program | value }}                                    \
+
+        {{ range $Command := (sdtl_select_commands $ProgramID | rows ) }}                   \
+            {{ gv_labeled_node (index $Command 0) (index $Command 1) }}
+        {{ end }}                                                                           \
+
+        # dataframe edges
+        {{ range $Edge := (sdtl_select_dataframe_edges $ProgramID | rows) }}                \
+            {{ gv_labeled_edge (index $Edge 0) (index $Edge 1) (index $Edge 3) }}
+        {{ end }}                                                                           \
+                                                                                            \
+    {{ end }}                                                                               \
+                                                                                            \
+    {{ gv_cluster_end }}
+
+    {{ gv_end }}                                                                            \
+
+__END_REPORT_TEMPLATE__
+
+--------------------------------------------- OUTPUTS -------------------------------------------------
+
+digraph sdtl_program {
+rankdir=TB
+
+fontname=Courier; fontsize=18; labelloc=t
+label="Dataframe-flow through commands"
+
+subgraph cluster_program_graph { label=""; color=white; penwidth=0
+subgraph cluster_program_graph_inner { label=""; color=white
+
+# command nodes
+node[shape=box style="filled" fillcolor="#CCFFCC" peripheries=1 fontname=Courier]
+node[width=8]
+
+"http://wholetale.org/program/1119/load/1" [label="df = pd.read_csv('../data/df.csv')"]
+"http://wholetale.org/program/1119/compute/1" [label="df['A'] = 3"]
+"http://wholetale.org/program/1119/compute/2" [label="df['B'] = df.B + 6.5"]
+"http://wholetale.org/program/1119/compute/3" [label="df['C'] = df.A - df.B"]
+"http://wholetale.org/program/1119/load/2" [label="temps = pd.read_csv('../data/temps.csv')"]
+"http://wholetale.org/program/1119/compute/4" [label="temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))"]
+"http://wholetale.org/program/1119/compute/5" [label="temps = temps.assign(Kelvin=(temps.Celsius + 273))"]
+"http://wholetale.org/program/1119/save/1" [label="df.to_csv('products/df_updated.csv', index=False)"]
+"http://wholetale.org/program/1119/save/2" [label="temps.to_csv('products/temps_updated.csv', index=False)"]
+
+# dataframe edges
+"http://wholetale.org/program/1119/load/1" -> "http://wholetale.org/program/1119/compute/1" [label="df"]
+"http://wholetale.org/program/1119/compute/1" -> "http://wholetale.org/program/1119/compute/2" [label="df"]
+"http://wholetale.org/program/1119/compute/2" -> "http://wholetale.org/program/1119/compute/3" [label="df"]
+"http://wholetale.org/program/1119/compute/3" -> "http://wholetale.org/program/1119/save/1" [label="df"]
+"http://wholetale.org/program/1119/load/2" -> "http://wholetale.org/program/1119/compute/4" [label="temps"]
+"http://wholetale.org/program/1119/compute/4" -> "http://wholetale.org/program/1119/compute/5" [label="temps"]
+"http://wholetale.org/program/1119/compute/5" -> "http://wholetale.org/program/1119/save/2" [label="temps"]
+}}
+
+}
+=======================================================================================================
+
+=========================================== BASH CELL G2 ==============================================
+
+# VARIABLE FLOW THROUGH COMMANDS
+
+geist report << '__END_REPORT_TEMPLATE__'
+
+    {{{
+        {{ include "../../common/graphviz.g" }}
+        {{ include "../../common/sdtl.g" }}
+    }}}
+
+    {{ gv_graph "sdtl_program" }}
+
+    {{ gv_title "Variable-flow through commands" }}
+
+    {{ gv_cluster "program_graph" }}
+
+    # command nodes
+    {{ sdtl_program_node_style }}
+    node[width=8]
+    {{ with $ProgramID := sdtl_select_program | value }}                                    \
+
+        {{ range $Command := (sdtl_select_commands $ProgramID | rows ) }}                   \
+            {{ gv_labeled_node (index $Command 0) (index $Command 1) }}
+        {{ end }}                                                                           \
+
+        # variable write->read edges
+        {{ range $Edge := (sdtl_select_variable_write_read_edges $ProgramID | rows) }} \
+            {{ gv_labeled_edge (index $Edge 1) (index $Edge 2) (index $Edge 0) }}
+        {{ end }}                                                                           \
+
+    {{ end }}                                                                               \
+                                                                                            \
+    {{ gv_cluster_end }}
+
+    {{ gv_end }}                                                                            \
+
+__END_REPORT_TEMPLATE__
+
+--------------------------------------------- OUTPUTS -------------------------------------------------
+
+digraph sdtl_program {
+rankdir=TB
+
+fontname=Courier; fontsize=18; labelloc=t
+label="Variable-flow through commands"
+
+subgraph cluster_program_graph { label=""; color=white; penwidth=0
+subgraph cluster_program_graph_inner { label=""; color=white
+
+# command nodes
+node[shape=box style="filled" fillcolor="#CCFFCC" peripheries=1 fontname=Courier]
+node[width=8]
+
+"http://wholetale.org/program/1119/load/1" [label="df = pd.read_csv('../data/df.csv')"]
+"http://wholetale.org/program/1119/compute/1" [label="df['A'] = 3"]
+"http://wholetale.org/program/1119/compute/2" [label="df['B'] = df.B + 6.5"]
+"http://wholetale.org/program/1119/compute/3" [label="df['C'] = df.A - df.B"]
+"http://wholetale.org/program/1119/load/2" [label="temps = pd.read_csv('../data/temps.csv')"]
+"http://wholetale.org/program/1119/compute/4" [label="temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))"]
+"http://wholetale.org/program/1119/compute/5" [label="temps = temps.assign(Kelvin=(temps.Celsius + 273))"]
+"http://wholetale.org/program/1119/save/1" [label="df.to_csv('products/df_updated.csv', index=False)"]
+"http://wholetale.org/program/1119/save/2" [label="temps.to_csv('products/temps_updated.csv', index=False)"]
+
+# variable write->read edges
+"http://wholetale.org/program/1119/compute/1" -> "http://wholetale.org/program/1119/compute/3" [label="A"]
+"http://wholetale.org/program/1119/compute/1" -> "http://wholetale.org/program/1119/save/1" [label="A"]
+"http://wholetale.org/program/1119/load/1" -> "http://wholetale.org/program/1119/compute/2" [label="B"]
+"http://wholetale.org/program/1119/compute/2" -> "http://wholetale.org/program/1119/compute/3" [label="B"]
+"http://wholetale.org/program/1119/compute/2" -> "http://wholetale.org/program/1119/save/1" [label="B"]
+"http://wholetale.org/program/1119/compute/3" -> "http://wholetale.org/program/1119/save/1" [label="C"]
+"http://wholetale.org/program/1119/compute/4" -> "http://wholetale.org/program/1119/compute/5" [label="Celsius"]
+"http://wholetale.org/program/1119/compute/4" -> "http://wholetale.org/program/1119/save/2" [label="Celsius"]
+"http://wholetale.org/program/1119/load/2" -> "http://wholetale.org/program/1119/compute/4" [label="Fahrenheit"]
+"http://wholetale.org/program/1119/load/2" -> "http://wholetale.org/program/1119/save/2" [label="Fahrenheit"]
+"http://wholetale.org/program/1119/compute/5" -> "http://wholetale.org/program/1119/save/2" [label="Kelvin"]
+
+}}
+
+}
+=======================================================================================================
+
