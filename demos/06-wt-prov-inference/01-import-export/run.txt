@@ -8,7 +8,8 @@ geist import --file ../data/wt-prov-rules.ttl
 geist import --format jsonld --file ../data/branched-pipeline.jsonld
 
 --------------------------------------------- OUTPUTS -------------------------------------------------
-=======================================================================================================
+-------------------------------------------------------------------------------------------------------
+
 
 =========================================== BASH CELL S1 ==============================================
 
@@ -109,7 +110,8 @@ geist export --format nt --includeinferred=false | sort
 <http://wholetale.org/tale/2035/version/1021/run/1119/programfile/2> <http://wholetale.org/ontology/wt/FileRole> <http://wholetale.org/ontology/wt/SystemSoftware> .
 <http://wholetale.org/tale/2035/version/1021/run/1119/programfile/2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://wholetale.org/ontology/wt/ProgramFile> .
 <http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.w3.org/2002/07/owl#inverseOf> <http://www.w3.org/ns/prov#generated> .
-=======================================================================================================
+-------------------------------------------------------------------------------------------------------
+
 
 =========================================== BASH CELL S2 ==============================================
 
@@ -467,5 +469,6 @@ geist export --format nt --includeinferred=true | sort
 <http://www.w3.org/ns/prov#used> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
 <http://www.w3.org/ns/prov#used> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://www.w3.org/ns/prov#used> .
 <http://www.w3.org/ns/prov#wasGeneratedBy> <http://www.w3.org/2002/07/owl#inverseOf> <http://www.w3.org/ns/prov#generated> .
-=======================================================================================================
+-------------------------------------------------------------------------------------------------------
+
 

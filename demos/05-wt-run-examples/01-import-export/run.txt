@@ -7,7 +7,8 @@ geist create --dataset kb --quiet
 geist import --format jsonld --file ../data/branched-pipeline.jsonld
 
 --------------------------------------------- OUTPUTS -------------------------------------------------
-=======================================================================================================
+-------------------------------------------------------------------------------------------------------
+
 
 =========================================== BASH CELL S1 ==============================================
 
@@ -100,5 +101,6 @@ geist export --format nt | sort
 <http://wholetale.org/tale_2035/version_1021/run_1119#program_file_i2> <http://wholetale.org/ontology/wt#FilePath> "/bin/cat"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://wholetale.org/tale_2035/version_1021/run_1119#program_file_i2> <http://wholetale.org/ontology/wt#FileRole> <http://wholetale.org/ontology/wt#SystemSoftware> .
 <http://wholetale.org/tale_2035/version_1021/run_1119#program_file_i2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://wholetale.org/ontology/wt#ProgramFile> .
-=======================================================================================================
+-------------------------------------------------------------------------------------------------------
+
 

@@ -8,7 +8,8 @@ geist import --file ../data/wt-prov-rules.ttl
 geist import --format jsonld --file ../data/branched-pipeline.jsonld
 
 --------------------------------------------- OUTPUTS -------------------------------------------------
-=======================================================================================================
+-------------------------------------------------------------------------------------------------------
+
 
 =========================================== BASH CELL RETROSPECTIVE-1 ==============================================
 
@@ -42,7 +43,8 @@ http://wholetale.org/tale/2035/version/1021/run/1119/ | ./inputs/i1.txt      | h
 http://wholetale.org/tale/2035/version/1021/run/1119/ | ./inputs/i2.txt      | http://wholetale.org/tale/2035/version/1021/run/1119/datafile/24
 http://wholetale.org/tale/2035/version/1021/run/1119/ | ./inputs/i3.txt      | http://wholetale.org/tale/2035/version/1021/run/1119/datafile/26
 http://wholetale.org/tale/2035/version/1021/run/1119/ | ./inputs/i4.txt      | http://wholetale.org/tale/2035/version/1021/run/1119/datafile/28
-=======================================================================================================
+-------------------------------------------------------------------------------------------------------
+
 
 =========================================== BASH CELL RETROSPECTIVE-2 ==============================================
 
@@ -74,5 +76,6 @@ tale_output_file_path | written_file
 ./products/o12.txt    | http://wholetale.org/tale/2035/version/1021/run/1119/datafile/29
 ./products/o1234.txt  | http://wholetale.org/tale/2035/version/1021/run/1119/datafile/30
 ./products/o4.txt     | http://wholetale.org/tale/2035/version/1021/run/1119/datafile/31
-=======================================================================================================
+-------------------------------------------------------------------------------------------------------
+
 

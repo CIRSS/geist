@@ -7,7 +7,8 @@ geist create --dataset kb --quiet
 geist import --file ../data/citations.ttl --format ttl
 
 --------------------------------------------- OUTPUTS -------------------------------------------------
-=======================================================================================================
+-------------------------------------------------------------------------------------------------------
+
 
 =========================================== BASH CELL S1 ==============================================
 
@@ -78,7 +79,8 @@ geist export --format nt | sort
 <http://learningsparql.com/ns/papers#resultG2> <http://www.w3.org/2000/01/rdf-schema#label> "Result G2" .
 <http://learningsparql.com/ns/papers#resultH> <http://www.w3.org/2000/01/rdf-schema#label> "Result H" .
 <http://learningsparql.com/ns/papers#resultI> <http://www.w3.org/2000/01/rdf-schema#label> "Result I" .
-=======================================================================================================
+-------------------------------------------------------------------------------------------------------
+
 
 =========================================== BASH CELL S2 ==============================================
 
@@ -111,7 +113,8 @@ http://learningsparql.com/ns/papers#paperG | http://learningsparql.com/ns/papers
 http://learningsparql.com/ns/papers#paperH | http://learningsparql.com/ns/papers#paperD
 http://learningsparql.com/ns/papers#paperI | http://learningsparql.com/ns/papers#paperF
 http://learningsparql.com/ns/papers#paperI | http://learningsparql.com/ns/papers#paperG
-=======================================================================================================
+-------------------------------------------------------------------------------------------------------
+
 
 =========================================== BASH CELL S3 ==============================================
 
@@ -151,7 +154,8 @@ http://learningsparql.com/ns/papers#paperI | http://learningsparql.com/ns/papers
 http://learningsparql.com/ns/papers#paperI | http://learningsparql.com/ns/papers#paperE
 http://learningsparql.com/ns/papers#paperI | http://learningsparql.com/ns/papers#paperF
 http://learningsparql.com/ns/papers#paperI | http://learningsparql.com/ns/papers#paperG
-=======================================================================================================
+-------------------------------------------------------------------------------------------------------
+
 
 =========================================== BASH CELL S4 ==============================================
 
@@ -181,7 +185,8 @@ http://learningsparql.com/ns/papers#paperF
 http://learningsparql.com/ns/papers#paperG
 http://learningsparql.com/ns/papers#paperH
 http://learningsparql.com/ns/papers#paperI
-=======================================================================================================
+-------------------------------------------------------------------------------------------------------
+
 
 =========================================== BASH CELL S5 ==============================================
 
@@ -207,7 +212,8 @@ http://learningsparql.com/ns/papers#paperD
 http://learningsparql.com/ns/papers#paperF
 http://learningsparql.com/ns/papers#paperG
 http://learningsparql.com/ns/papers#paperH
-=======================================================================================================
+-------------------------------------------------------------------------------------------------------
+
 
 =========================================== BASH CELL S6 ==============================================
 
@@ -233,7 +239,8 @@ paper
 http://learningsparql.com/ns/papers#paperB
 http://learningsparql.com/ns/papers#paperC
 http://learningsparql.com/ns/papers#paperE
-=======================================================================================================
+-------------------------------------------------------------------------------------------------------
+
 
 =========================================== BASH CELL S7 ==============================================
 
@@ -258,7 +265,8 @@ result
 http://learningsparql.com/ns/papers#resultB
 http://learningsparql.com/ns/papers#resultC
 http://learningsparql.com/ns/papers#resultE
-=======================================================================================================
+-------------------------------------------------------------------------------------------------------
+
 
 =========================================== BASH CELL S7 ==============================================
 
@@ -291,9 +299,10 @@ http://learningsparql.com/ns/papers#resultG1
 http://learningsparql.com/ns/papers#resultG2
 http://learningsparql.com/ns/papers#resultH
 http://learningsparql.com/ns/papers#resultI
-=======================================================================================================
+-------------------------------------------------------------------------------------------------------
 
-=========================================== BASH CELL S8 ==============================================
+
+========================================= BASH DOT CELL S8 ============================================
 
 # Visualization of Paper-Citation Graph
 
@@ -379,9 +388,10 @@ node[shape=box style="filled" fillcolor="#CCFFCC" peripheries=1 fontname=Courier
 
 }
 
-=======================================================================================================
+-------------------------------------------------------------------------------------------------------
 
-=========================================== BASH CELL S9 ==============================================
+
+========================================= BASH DOT CELL S9 ============================================
 
 # Visualization of Paper-Citation Graph
 
@@ -472,9 +482,10 @@ node[shape=box style="rounded,filled" fillcolor="#FFFFCC" peripheries=1 fontname
 }}
 
 }
-=======================================================================================================
+-------------------------------------------------------------------------------------------------------
 
-=========================================== BASH CELL S10 ==============================================
+
+========================================= BASH DOT CELL S10 ============================================
 
 # Visualization of Paper-Result Graph
 
@@ -612,5 +623,6 @@ node[shape=box style="rounded,filled" fillcolor="#FFFFCC" peripheries=1 fontname
 
 }}
 
-}=======================================================================================================
+}-------------------------------------------------------------------------------------------------------
+
 

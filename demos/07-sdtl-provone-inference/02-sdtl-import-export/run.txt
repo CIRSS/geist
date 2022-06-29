@@ -274,5 +274,6 @@ geist export --format nt | sort
 <http://wholetale.org/program/1119/variableinventory/7> <http://www.w3.org/1999/02/22-rdf-syntax-ns#_2> <http://wholetale.org/program/1119/dataframevariable/14> .
 <http://wholetale.org/program/1119/variableinventory/7> <http://www.w3.org/1999/02/22-rdf-syntax-ns#_3> <http://wholetale.org/program/1119/dataframevariable/15> .
 <http://wholetale.org/program/1119/variableinventory/7> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq> .
-=======================================================================================================
+-------------------------------------------------------------------------------------------------------
+
 

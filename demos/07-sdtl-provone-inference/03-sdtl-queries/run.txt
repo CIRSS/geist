@@ -7,7 +7,8 @@ geist create --dataset kb --quiet
 geist import --format jsonld --file ../data/compute-sdtl.jsonld
 
 --------------------------------------------- OUTPUTS -------------------------------------------------
-=======================================================================================================
+-------------------------------------------------------------------------------------------------------
+
 
 =========================================== BASH CELL E1 ==============================================
 
@@ -282,7 +283,8 @@ geist export --format nt | sort
 <http://wholetale.org/program/1119/variableinventory/7> <http://www.w3.org/1999/02/22-rdf-syntax-ns#_2> <http://wholetale.org/program/1119/dataframevariable/14> .
 <http://wholetale.org/program/1119/variableinventory/7> <http://www.w3.org/1999/02/22-rdf-syntax-ns#_3> <http://wholetale.org/program/1119/dataframevariable/15> .
 <http://wholetale.org/program/1119/variableinventory/7> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq> .
-=======================================================================================================
+-------------------------------------------------------------------------------------------------------
+
 
 =========================================== BASH CELL Q1 ==============================================
 
@@ -318,7 +320,8 @@ http://wholetale.org/program/1119/compute/4 | 24          | temps = temps.assign
 http://wholetale.org/program/1119/compute/5 | 28          | temps = temps.assign(Kelvin=(temps.Celsius + 273))
 http://wholetale.org/program/1119/save/1    | 32          | df.to_csv('products/df_updated.csv', index=False)
 http://wholetale.org/program/1119/save/2    | 35          | temps.to_csv('products/temps_updated.csv', index=False)
-=======================================================================================================
+-------------------------------------------------------------------------------------------------------
+
 
 =========================================== BASH CELL Q2 ==============================================
 
@@ -347,7 +350,8 @@ file_name | command                                  | source_line | source_text
 ======================================================================================================
 df.csv    | http://wholetale.org/program/1119/load/1 | 4           | df = pd.read_csv('../data/df.csv')
 temps.csv | http://wholetale.org/program/1119/load/2 | 20          | temps = pd.read_csv('../data/temps.csv')
-=======================================================================================================
+-------------------------------------------------------------------------------------------------------
+
 
 =========================================== BASH CELL Q3 ==============================================
 
@@ -376,7 +380,8 @@ file_name         | command                                  | source_line | sou
 =============================================================================================================================
 df_updated.csv    | http://wholetale.org/program/1119/save/1 | 32          | df.to_csv('products/df_updated.csv', index=False)
 temps_updated.csv | http://wholetale.org/program/1119/save/2 | 35          | temps.to_csv('products/temps_updated.csv', index=False)
-=======================================================================================================
+-------------------------------------------------------------------------------------------------------
+
 
 =========================================== BASH CELL Q4 ==============================================
 
@@ -409,7 +414,8 @@ loaded_variable | dataframe | source_line | source_text
 A               | df        | 4           | df = pd.read_csv('../data/df.csv')
 B               | df        | 4           | df = pd.read_csv('../data/df.csv')
 Fahrenheit      | temps     | 20          | temps = pd.read_csv('../data/temps.csv')
-=======================================================================================================
+-------------------------------------------------------------------------------------------------------
+
 
 =========================================== BASH CELL Q5 ==============================================
 
@@ -445,7 +451,8 @@ C              | df        | 32          | df.to_csv('products/df_updated.csv', 
 Celsius        | temps     | 35          | temps.to_csv('products/temps_updated.csv', index=False)
 Fahrenheit     | temps     | 35          | temps.to_csv('products/temps_updated.csv', index=False)
 Kelvin         | temps     | 35          | temps.to_csv('products/temps_updated.csv', index=False)
-=======================================================================================================
+-------------------------------------------------------------------------------------------------------
+
 
 =========================================== BASH CELL Q6 ==============================================
 
@@ -479,7 +486,8 @@ df        | http://wholetale.org/program/1119/compute/3 | 16          | df['C'] 
 temps     | http://wholetale.org/program/1119/load/2    | 20          | temps = pd.read_csv('../data/temps.csv')
 temps     | http://wholetale.org/program/1119/compute/4 | 24          | temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))
 temps     | http://wholetale.org/program/1119/compute/5 | 28          | temps = temps.assign(Kelvin=(temps.Celsius + 273))
-=======================================================================================================
+-------------------------------------------------------------------------------------------------------
+
 
 =========================================== BASH CELL Q7 ==============================================
 
@@ -511,7 +519,8 @@ B                | http://wholetale.org/program/1119/compute/2 | 12          | d
 C                | http://wholetale.org/program/1119/compute/3 | 16          | df['C'] = df.A - df.B
 Celsius          | http://wholetale.org/program/1119/compute/4 | 24          | temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))
 Kelvin           | http://wholetale.org/program/1119/compute/5 | 28          | temps = temps.assign(Kelvin=(temps.Celsius + 273))
-=======================================================================================================
+-------------------------------------------------------------------------------------------------------
+
 
 =========================================== BASH CELL Q8 ==============================================
 
@@ -543,7 +552,8 @@ B             | http://wholetale.org/program/1119/compute/2 | 12          | df['
 B             | http://wholetale.org/program/1119/compute/3 | 16          | df['C'] = df.A - df.B
 Celsius       | http://wholetale.org/program/1119/compute/5 | 28          | temps = temps.assign(Kelvin=(temps.Celsius + 273))
 Fahrenheit    | http://wholetale.org/program/1119/compute/4 | 24          | temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))
-=======================================================================================================
+-------------------------------------------------------------------------------------------------------
+
 
 =========================================== BASH CELL Q9 ==============================================
 
@@ -576,9 +586,10 @@ C                 | A                  | http://wholetale.org/program/1119/compu
 C                 | B                  | http://wholetale.org/program/1119/compute/3 | 16          | df['C'] = df.A - df.B
 Celsius           | Fahrenheit         | http://wholetale.org/program/1119/compute/4 | 24          | temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))
 Kelvin            | Celsius            | http://wholetale.org/program/1119/compute/5 | 28          | temps = temps.assign(Kelvin=(temps.Celsius + 273))
-=======================================================================================================
+-------------------------------------------------------------------------------------------------------
 
-=========================================== BASH CELL GRAPH-1 ==============================================
+
+========================================= BASH DOT CELL GRAPH-1 ============================================
 
 # DATAFRAME FLOW THROUGH COMMANDS
 
@@ -653,5 +664,6 @@ node[width=8]
 }}
 
 }
-=======================================================================================================
+-------------------------------------------------------------------------------------------------------
+
 
