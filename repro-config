@@ -1,0 +1,11 @@
+REPRO_NAME=geist
+REPRO_DOCKER_ORG=cirss
+REPRO_IMAGE_TAG=latest
+
+REPRO_DOCKER_OPTIONS=-p 9999:9999
+
+
+image:                  build-image   ## 
+start:                  start-repro   ## 
+
+## 
