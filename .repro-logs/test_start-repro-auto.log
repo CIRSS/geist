@@ -1,0 +1,33 @@
+I MESG Initialized REPRO logging system and macros
+I MESG Initializing REPRO session
+I MESG Building PATH variable
+I MESG Initializing modules
+I MESG Initializing module 'repro'
+I MESG Initializing trim files for module 'repro'
+I MESG Initializing module 'geist'
+I MESG Initializing trim files for module 'geist'
+I MESG Initializing module 'shell-notebook'
+I MESG Initializing trim files for module 'shell-notebook'
+I MESG Ensuring other files listed in the 'shell-notebook' module trim manifest are in the module trim directory (/mnt/geist/.shell-notebook)
+I MESG Initializing module 'graphviz-runtime'
+I MESG Initializing trim files for module 'graphviz-runtime'
+I MESG Initializing module 'jena-runtime'
+I MESG Initializing trim files for module 'jena-runtime'
+I MESG Initializing module 'java-runtime'
+I MESG Initializing trim files for module 'java-runtime'
+I MESG Initializing module 'python-dev'
+I MESG Initializing trim files for module 'python-dev'
+I MESG Initializing module 'go-dev'
+I MESG Initializing trim files for module 'go-dev'
+I MESG Initializing module 'blaze'
+I MESG Initializing trim files for module 'blaze'
+I MESG Initializing module 'blazegraph-service'
+I MESG Initializing trim files for module 'blazegraph-service'
+I MESG Ensuring other files listed in the 'blazegraph-service' module trim manifest are in the module trim directory (/mnt/geist/.blazegraph-service)
+I MESG Ensuring that the REPRO target mapping file exists (/mnt/geist/.repro/repro-targets)
+I MESG Starting services during session initialization because REPRO_SERVICES_STARTUP set to 'auto'
+I MESG Invoking implementations of REPRO target 'start-services'
+I MESG Invoking the 'blazegraph-service:base:start' target
+I MESG The Blazegraph service is now running.
+A MESG Connect to Blazegraph at http://localhost:9999.
+I MESG Done initializing REPRO session
