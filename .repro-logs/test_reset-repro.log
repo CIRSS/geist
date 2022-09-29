@@ -1,4 +1,6 @@
-I MESG Initialized REPRO logging system and macros
+I MESG Loaded repro logging functions
+I MESG Initialized repro logging system
+I MESG Loaded repro base functions
 I MESG Initializing REPRO session
 I MESG Building PATH variable
 I MESG Skipping rest of session initialization because REPRO_DEFER_INIT is set to 'true'
@@ -8,7 +10,7 @@ I MESG Resetting the 'repro' module
 I MESG Re-initializing trim files for module 'repro'
 I MESG Resetting the 'geist' module
 I MESG Re-initializing trim files for module 'geist'
-I MESG Copying /home/repro/repro-modules/geist-exports/Makefile-demos to the 'geist' trim directory (/mnt/geist/.geist)
+I MESG Copying /home/repro/repro-modules/geist-exports/demo-makefile to the 'geist' trim directory (/mnt/geist/.geist)
 I MESG Resetting the 'shell-notebook' module
 I MESG Re-initializing trim files for module 'shell-notebook'
 I MESG Ensuring other files listed in the 'shell-notebook' module trim manifest are in the module trim directory (/mnt/geist/.shell-notebook)
@@ -23,18 +25,18 @@ I MESG Resetting the 'python-dev' module
 I MESG Re-initializing trim files for module 'python-dev'
 I MESG Resetting the 'go-dev' module
 I MESG Re-initializing trim files for module 'go-dev'
-I MESG Copying /home/repro/repro-modules/go-dev-master/Makefile-base to the 'go-dev' trim directory (/mnt/geist/.go-dev)
+I MESG Copying /home/repro/repro-modules/go-dev-master/base-makefile to the 'go-dev' trim directory (/mnt/geist/.go-dev)
 I MESG Resetting the 'blaze' module
 I MESG Re-initializing trim files for module 'blaze'
 I MESG Resetting the 'blazegraph-service' module
 I MESG Re-initializing trim files for module 'blazegraph-service'
-I MESG Copying /home/repro/repro-modules/blazegraph-service-master/Makefile-base to the 'blazegraph-service' trim directory (/mnt/geist/.blazegraph-service)
+I MESG Copying /home/repro/repro-modules/blazegraph-service-master/base-makefile to the 'blazegraph-service' trim directory (/mnt/geist/.blazegraph-service)
 I MESG Ensuring other files listed in the 'blazegraph-service' module trim manifest are in the module trim directory (/mnt/geist/.blazegraph-service)
 I MESG Copying trim file blazegraph.properties from /home/repro/repro-modules/blazegraph-service-master to /mnt/geist/.blazegraph-service
 I MESG Resetting the REPRO target mapping file (/mnt/geist/.repro/repro-targets)
 I MESG Installing a default (empty) target mapping file to /mnt/geist/.repro/repro-targets
-I MESG Mapping the 'geist:demos:run' target to the REPRO 'run-demos' target
-I MESG Mapping the 'geist:demos:clean' target to the REPRO 'clean-demos' target
+I MESG Mapping the 'geist:demo:run' target to the REPRO 'run-demo' target
+I MESG Mapping the 'geist:demo:clean' target to the REPRO 'clean-demo' target
 I MESG Mapping the 'go-dev:base:clean' target to the REPRO 'clean-code' target
 I MESG Mapping the 'go-dev:base:purge' target to the REPRO 'purge-code' target
 I MESG Mapping the 'go-dev:base:build' target to the REPRO 'build-code' target

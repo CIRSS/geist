@@ -1,4 +1,6 @@
-I MESG Initialized REPRO logging system and macros
+I MESG Loaded repro logging functions
+I MESG Initialized repro logging system
+I MESG Loaded repro base functions
 I MESG Initializing REPRO session
 I MESG Building PATH variable
 I MESG Initializing modules
@@ -30,6 +32,8 @@ I MESG Done initializing REPRO session
 I MESG Starting services now because REPRO_SERVICES_STARTUP set to 'manual'
 I MESG Invoking implementations of REPRO target 'start-services'
 I MESG Invoking the 'blazegraph-service:base:start' target
+I MESG Loaded repro logging functions
+I MESG Loaded repro base functions
 I MESG The Blazegraph service is now running.
 A MESG Connect to Blazegraph at http://localhost:9999.
 A MESG Press the 'q' key to stop the REPRO and its services.

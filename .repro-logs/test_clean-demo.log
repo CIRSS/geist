@@ -1,4 +1,6 @@
-I MESG Initialized REPRO logging system and macros
+I MESG Loaded repro logging functions
+I MESG Initialized repro logging system
+I MESG Loaded repro base functions
 I MESG Initializing REPRO session
 I MESG Building PATH variable
 I MESG Initializing modules
@@ -28,8 +30,10 @@ I MESG Ensuring that the REPRO target mapping file exists (/mnt/geist/.repro/rep
 I MESG Starting services during session initialization because REPRO_SERVICES_STARTUP set to 'auto'
 I MESG Invoking implementations of REPRO target 'start-services'
 I MESG Invoking the 'blazegraph-service:base:start' target
+I MESG Loaded repro logging functions
+I MESG Loaded repro base functions
 I MESG The Blazegraph service is now running.
 A MESG Connect to Blazegraph at http://localhost:9999.
 I MESG Done initializing REPRO session
-I MESG Invoking implementations of REPRO target 'clean-demos'
-I MESG Invoking the 'geist:demos:clean' target
+I MESG Invoking implementations of REPRO target 'clean-demo'
+I MESG Invoking the 'geist:demo:clean' target
