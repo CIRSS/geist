@@ -1,6 +1,6 @@
 ========================================= BASH DOT CELL static_dot_file ============================================
 
-geist report << '__END_REPORT_TEMPLATE__'
+geist report << 'END_TEMPLATE'
 
     digraph static_dot_file {
     rankdir=BT
@@ -8,7 +8,7 @@ geist report << '__END_REPORT_TEMPLATE__'
     C -> A
     }
 
-__END_REPORT_TEMPLATE__
+END_TEMPLATE
 
 --------------------------------------------- OUTPUTS -------------------------------------------------
 

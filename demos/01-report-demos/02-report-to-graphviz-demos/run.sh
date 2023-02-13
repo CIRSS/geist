@@ -2,9 +2,9 @@
 
 # *****************************************************************************
 
-bash_dot_cell static_dot_file << END_CELL
+bash_dot_cell static_dot_file << 'END_CELL'
 
-geist report << '__END_REPORT_TEMPLATE__'
+geist report << 'END_TEMPLATE'
 
     digraph static_dot_file {
     rankdir=BT
@@ -12,7 +12,7 @@ geist report << '__END_REPORT_TEMPLATE__'
     C -> A
     }
 
-__END_REPORT_TEMPLATE__
+END_TEMPLATE
 
 END_CELL
 

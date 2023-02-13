@@ -2,15 +2,15 @@
 
 # *****************************************************************************
 
-bash_cell static_template << END_CELL
+bash_cell static_template << 'END_CELL'
 
-geist report << '__END_REPORT_TEMPLATE__'
+geist report << 'END_TEMPLATE'
 
     Materials report
     ================
     42 items are made of cotton
 
-__END_REPORT_TEMPLATE__
+END_TEMPLATE
 
 END_CELL
 
@@ -19,7 +19,7 @@ END_CELL
 
 bash_cell template_with_variable << 'END_CELL'
 
-geist report << '__END_REPORT_TEMPLATE__'
+geist report << 'END_TEMPLATE'
 
     {{ $CottonItemCount := 42 }}
 
@@ -27,22 +27,22 @@ geist report << '__END_REPORT_TEMPLATE__'
     ================
     {{ $CottonItemCount }} items are made of cotton
 
-__END_REPORT_TEMPLATE__
+END_TEMPLATE
 
 END_CELL
 
 
 # *****************************************************************************
 
-bash_cell printf_with_constant << END_CELL
+bash_cell printf_with_constant << 'END_CELL'
 
-geist report << '__END_REPORT_TEMPLATE__'
+geist report << 'END_TEMPLATE'
 
     Materials report
     ================
     {{ printf "%d items are made of cotton" 42 }}
 
-__END_REPORT_TEMPLATE__
+END_TEMPLATE
 
 END_CELL
 
@@ -51,7 +51,7 @@ END_CELL
 
 bash_cell printf_with_variable << 'END_CELL'
 
-geist report << '__END_REPORT_TEMPLATE__'
+geist report << 'END_TEMPLATE'
 
     {{ $CottonItemCount := 42 }}
 
@@ -59,7 +59,7 @@ geist report << '__END_REPORT_TEMPLATE__'
     ================
     {{ printf "%d items are made of cotton" $CottonItemCount }}
 
-__END_REPORT_TEMPLATE__
+END_TEMPLATE
 
 END_CELL
 
