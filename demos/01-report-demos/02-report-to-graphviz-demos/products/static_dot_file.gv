@@ -1,0 +1,7 @@
+
+digraph static_dot_file {
+rankdir=BT
+B -> A
+C -> A
+}
+
