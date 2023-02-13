@@ -1,0 +1,84 @@
+========================= bash cell | static_template ==========================
+
+geist report << '__END_REPORT_TEMPLATE__'
+
+    Materials report
+    ================
+    42 items are made of cotton
+
+__END_REPORT_TEMPLATE__
+
+--------------------------------- cell outputs ---------------------------------
+
+Materials report
+================
+42 items are made of cotton
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+====================== bash cell | template_with_variable ======================
+
+geist report << '__END_REPORT_TEMPLATE__'
+
+    {{ $CottonItemCount := 42 }}
+
+    Materials report
+    ================
+    {{ $CottonItemCount }} items are made of cotton
+
+__END_REPORT_TEMPLATE__
+
+--------------------------------- cell outputs ---------------------------------
+
+
+
+Materials report
+================
+42 items are made of cotton
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+======================= bash cell | printf_with_constant =======================
+
+geist report << '__END_REPORT_TEMPLATE__'
+
+    Materials report
+    ================
+    {{ printf "%d items are made of cotton" 42 }}
+
+__END_REPORT_TEMPLATE__
+
+--------------------------------- cell outputs ---------------------------------
+
+Materials report
+================
+42 items are made of cotton
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+======================= bash cell | printf_with_variable =======================
+
+geist report << '__END_REPORT_TEMPLATE__'
+
+    {{ $CottonItemCount := 42 }}
+
+    Materials report
+    ================
+    {{ printf "%d items are made of cotton" $CottonItemCount }}
+
+__END_REPORT_TEMPLATE__
+
+--------------------------------- cell outputs ---------------------------------
+
+
+
+Materials report
+================
+42 items are made of cotton
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
