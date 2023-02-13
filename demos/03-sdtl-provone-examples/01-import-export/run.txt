@@ -1,4 +1,4 @@
-=========================================== BASH CELL SETUP ==============================================
+============================== bash cell | SETUP ===============================
 
 # IMPORT SDTL-PROVONE TRACE
 
@@ -6,17 +6,17 @@ geist destroy --dataset kb --quiet
 geist create --dataset kb --quiet
 geist import --format jsonld --file ../data/single-command.jsonld
 
---------------------------------------------- OUTPUTS -------------------------------------------------
--------------------------------------------------------------------------------------------------------
+--------------------------------- cell outputs ---------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-=========================================== BASH CELL S1 ==============================================
+================================ bash cell | S1 ================================
 
 # EXPORT AS N-TRIPLES
 
 geist export --format nt | sort
 
---------------------------------------------- OUTPUTS -------------------------------------------------
+--------------------------------- cell outputs ---------------------------------
 <http://wholetale.org/tale38/run15#associated_plan> <http://purl.dataone.org/provone/2015/01/15/ontology#hadPlan> <http://wholetale.org/tale38/run15#create_var.sps> .
 <http://wholetale.org/tale38/run15#associated_plan> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://127.0.0.1:9999/blazegraph/namespace/kb/Association> .
 <http://wholetale.org/tale38/run15#create_var.sps> <http://SDTLnamespaceURL#commandCount> "1"^^<http://www.w3.org/2001/XMLSchema#integer> .
@@ -62,16 +62,16 @@ geist export --format nt | sort
 <http://wholetale.org/tale38/run15#sdtl_statement_1> <http://SDTLnamespaceURL#variable> <http://wholetale.org/tale38/run15#sdtl_variable_1> .
 <http://wholetale.org/tale38/run15#sdtl_variable_1> <http://SDTLnamespaceURL#type> "VariableSymbolExpression"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://wholetale.org/tale38/run15#sdtl_variable_1> <http://SDTLnamespaceURL#variableName> "newVar"^^<http://www.w3.org/2001/XMLSchema#string> .
--------------------------------------------------------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-=========================================== BASH CELL S2 ==============================================
+================================ bash cell | S2 ================================
 
 # EXPORT AS JSON-LD
 
 geist export --format jsonld
 
---------------------------------------------- OUTPUTS -------------------------------------------------
+--------------------------------- cell outputs ---------------------------------
 [ {
   "@id" : "http://wholetale.org/tale38/run15#associated_plan",
   "@type" : [ "http://127.0.0.1:9999/blazegraph/namespace/kb/Association" ],
@@ -223,6 +223,6 @@ geist export --format jsonld
     "@value" : "newVar"
   } ]
 } ]
--------------------------------------------------------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 

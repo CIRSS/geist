@@ -1,21 +1,21 @@
-=========================================== BASH CELL SETUP ==============================================
+============================== bash cell | SETUP ===============================
 
 # INITIALIZE BLAZEGRAPH INSTANCE WITH ADDRESS BOOK
 geist destroy --dataset kb --quiet
 geist create --dataset kb --quiet
 geist import --file ../data/address-book.jsonld --format jsonld
 
---------------------------------------------- OUTPUTS -------------------------------------------------
--------------------------------------------------------------------------------------------------------
+--------------------------------- cell outputs ---------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-=========================================== BASH CELL S1 ==============================================
+================================ bash cell | S1 ================================
 
 # EXPORT ADDRESS BOOK AS JSON-LD
 
 geist export --format jsonld
 
---------------------------------------------- OUTPUTS -------------------------------------------------
+--------------------------------- cell outputs ---------------------------------
 [ {
   "@id" : "http://learningsparql.com/ns/data#i0432",
   "http://learningsparql.com/ns/addressbook#email" : [ {
@@ -67,16 +67,16 @@ geist export --format jsonld
     "@value" : "(245) 732-8991"
   } ]
 } ]
--------------------------------------------------------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-=========================================== BASH CELL S1 ==============================================
+================================ bash cell | S1 ================================
 
 # EXPORT ADDRESS BOOK AS TURTLE
 
 geist export --format ttl
 
---------------------------------------------- OUTPUTS -------------------------------------------------
+--------------------------------- cell outputs ---------------------------------
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix sesame: <http://www.openrdf.org/schema/sesame#> .
@@ -105,16 +105,16 @@ geist export --format ttl
 	<http://learningsparql.com/ns/addressbook#homeTel> "(245) 646-5488"^^xsd:string ;
 	<http://learningsparql.com/ns/addressbook#lastname> "Marshall"^^xsd:string ;
 	<http://learningsparql.com/ns/addressbook#mobileTel> "(245) 732-8991"^^xsd:string .
--------------------------------------------------------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-=========================================== BASH CELL S1 ==============================================
+================================ bash cell | S1 ================================
 
 # EXPORT ADDRESS BOOK AS N-TRIPLES
 
 geist export --format nt | sort
 
---------------------------------------------- OUTPUTS -------------------------------------------------
+--------------------------------- cell outputs ---------------------------------
 <http://learningsparql.com/ns/data#i0432> <http://learningsparql.com/ns/addressbook#email> "richard49@hotmail.com"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://learningsparql.com/ns/data#i0432> <http://learningsparql.com/ns/addressbook#firstname> "Richard"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://learningsparql.com/ns/data#i0432> <http://learningsparql.com/ns/addressbook#homeTel> "(229) 276-5135"^^<http://www.w3.org/2001/XMLSchema#string> .
@@ -130,16 +130,16 @@ geist export --format nt | sort
 <http://learningsparql.com/ns/data#i9771> <http://learningsparql.com/ns/addressbook#homeTel> "(245) 646-5488"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://learningsparql.com/ns/data#i9771> <http://learningsparql.com/ns/addressbook#lastname> "Marshall"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://learningsparql.com/ns/data#i9771> <http://learningsparql.com/ns/addressbook#mobileTel> "(245) 732-8991"^^<http://www.w3.org/2001/XMLSchema#string> .
--------------------------------------------------------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-=========================================== BASH CELL S1 ==============================================
+================================ bash cell | S1 ================================
 
 # EXPORT ADDRESS BOOK AS RDF-XML
 
 geist export --format xml
 
---------------------------------------------- OUTPUTS -------------------------------------------------
+--------------------------------- cell outputs ---------------------------------
 <?xml version="1.0" encoding="UTF-8"?>
 <rdf:RDF
 	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -179,6 +179,6 @@ geist export --format xml
 </rdf:Description>
 
 </rdf:RDF>
--------------------------------------------------------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 

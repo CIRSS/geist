@@ -1,4 +1,4 @@
-=========================================== BASH CELL SETUP ==============================================
+============================== bash cell | SETUP ===============================
 
 # INITIALIZE BLAZEGRAPH INSTANCE WITH CITATIONS
 
@@ -6,17 +6,17 @@ geist destroy --dataset kb --quiet
 geist create --dataset kb --quiet
 geist import --file ../data/citations.ttl --format ttl
 
---------------------------------------------- OUTPUTS -------------------------------------------------
--------------------------------------------------------------------------------------------------------
+--------------------------------- cell outputs ---------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-=========================================== BASH CELL S1 ==============================================
+================================ bash cell | S1 ================================
 
 # EXPORT CITATIONS AS N-TRIPLES
 
 geist export --format nt | sort
 
---------------------------------------------- OUTPUTS -------------------------------------------------
+--------------------------------- cell outputs ---------------------------------
 <http://learningsparql.com/ns/papers#paperA> <http://learningsparql.com/ns/citations#reports> <http://learningsparql.com/ns/papers#resultA> .
 <http://learningsparql.com/ns/papers#paperA> <http://purl.org/dc/elements/1.1/title> "Paper A" .
 <http://learningsparql.com/ns/papers#paperA> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://learningsparql.com/ns/citations#Paper> .
@@ -79,10 +79,10 @@ geist export --format nt | sort
 <http://learningsparql.com/ns/papers#resultG2> <http://www.w3.org/2000/01/rdf-schema#label> "Result G2" .
 <http://learningsparql.com/ns/papers#resultH> <http://www.w3.org/2000/01/rdf-schema#label> "Result H" .
 <http://learningsparql.com/ns/papers#resultI> <http://www.w3.org/2000/01/rdf-schema#label> "Result I" .
--------------------------------------------------------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-=========================================== BASH CELL S2 ==============================================
+================================ bash cell | S2 ================================
 
 # WHICH PAPERS DIRECTLY CITE WHICH PAPERS?
 
@@ -98,7 +98,7 @@ geist query --format table << END_QUERY
 
 END_QUERY
 
---------------------------------------------- OUTPUTS -------------------------------------------------
+--------------------------------- cell outputs ---------------------------------
 citing_paper                               | cited_paper
 =======================================================================================
 http://learningsparql.com/ns/papers#paperB | http://learningsparql.com/ns/papers#paperA
@@ -113,10 +113,10 @@ http://learningsparql.com/ns/papers#paperG | http://learningsparql.com/ns/papers
 http://learningsparql.com/ns/papers#paperH | http://learningsparql.com/ns/papers#paperD
 http://learningsparql.com/ns/papers#paperI | http://learningsparql.com/ns/papers#paperF
 http://learningsparql.com/ns/papers#paperI | http://learningsparql.com/ns/papers#paperG
--------------------------------------------------------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-=========================================== BASH CELL S3 ==============================================
+================================ bash cell | S3 ================================
 
 # WHICH PAPERS DEPEND ON WHICH PRIOR WORK?
 
@@ -132,7 +132,7 @@ geist query --format table << END_QUERY
 
 END_QUERY
 
---------------------------------------------- OUTPUTS -------------------------------------------------
+--------------------------------- cell outputs ---------------------------------
 paper                                      | prior_work
 =======================================================================================
 http://learningsparql.com/ns/papers#paperB | http://learningsparql.com/ns/papers#paperA
@@ -154,10 +154,10 @@ http://learningsparql.com/ns/papers#paperI | http://learningsparql.com/ns/papers
 http://learningsparql.com/ns/papers#paperI | http://learningsparql.com/ns/papers#paperE
 http://learningsparql.com/ns/papers#paperI | http://learningsparql.com/ns/papers#paperF
 http://learningsparql.com/ns/papers#paperI | http://learningsparql.com/ns/papers#paperG
--------------------------------------------------------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-=========================================== BASH CELL S4 ==============================================
+================================ bash cell | S4 ================================
 
 # WHICH PAPERS DEPEND ON PAPER A?
 
@@ -174,7 +174,7 @@ geist query --format table << END_QUERY
 
 END_QUERY
 
---------------------------------------------- OUTPUTS -------------------------------------------------
+--------------------------------- cell outputs ---------------------------------
 paper
 =========================================
 http://learningsparql.com/ns/papers#paperB
@@ -185,10 +185,10 @@ http://learningsparql.com/ns/papers#paperF
 http://learningsparql.com/ns/papers#paperG
 http://learningsparql.com/ns/papers#paperH
 http://learningsparql.com/ns/papers#paperI
--------------------------------------------------------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-=========================================== BASH CELL S5 ==============================================
+================================ bash cell | S5 ================================
 
 # WHICH PAPERS CITE A PAPER THAT CITES PAPER A?
 
@@ -205,17 +205,17 @@ geist query --format table << END_QUERY
 
 END_QUERY
 
---------------------------------------------- OUTPUTS -------------------------------------------------
+--------------------------------- cell outputs ---------------------------------
 paper
 =========================================
 http://learningsparql.com/ns/papers#paperD
 http://learningsparql.com/ns/papers#paperF
 http://learningsparql.com/ns/papers#paperG
 http://learningsparql.com/ns/papers#paperH
--------------------------------------------------------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-=========================================== BASH CELL S6 ==============================================
+================================ bash cell | S6 ================================
 
 # WHICH PAPERS CITE A PAPER CITED BY PAPER D?
 
@@ -233,16 +233,16 @@ geist query --format table << END_QUERY
 
 END_QUERY
 
---------------------------------------------- OUTPUTS -------------------------------------------------
+--------------------------------- cell outputs ---------------------------------
 paper
 =========================================
 http://learningsparql.com/ns/papers#paperB
 http://learningsparql.com/ns/papers#paperC
 http://learningsparql.com/ns/papers#paperE
--------------------------------------------------------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-=========================================== BASH CELL S7 ==============================================
+================================ bash cell | S7 ================================
 
 # WHAT RESULTS DEPEND DIRECTLY ON RESULTS REPORTED BY PAPER A?
 
@@ -259,16 +259,16 @@ geist query --format table << END_QUERY
 
 END_QUERY
 
---------------------------------------------- OUTPUTS -------------------------------------------------
+--------------------------------- cell outputs ---------------------------------
 result
 ==========================================
 http://learningsparql.com/ns/papers#resultB
 http://learningsparql.com/ns/papers#resultC
 http://learningsparql.com/ns/papers#resultE
--------------------------------------------------------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-=========================================== BASH CELL S7 ==============================================
+================================ bash cell | S7 ================================
 
 # WHAT RESULTS DEPEND DIRECTLY OR INDIRECTLY ON RESULTS REPORTED BY PAPER A?
 
@@ -285,7 +285,7 @@ geist query --format table << END_QUERY
 
 END_QUERY
 
---------------------------------------------- OUTPUTS -------------------------------------------------
+--------------------------------- cell outputs ---------------------------------
 result
 ===========================================
 http://learningsparql.com/ns/papers#resultB
@@ -299,7 +299,7 @@ http://learningsparql.com/ns/papers#resultG1
 http://learningsparql.com/ns/papers#resultG2
 http://learningsparql.com/ns/papers#resultH
 http://learningsparql.com/ns/papers#resultI
--------------------------------------------------------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
 ========================================= BASH DOT CELL S8 ============================================

@@ -6,6 +6,13 @@ I MESG Building PATH variable
 I MESG Initializing modules
 I MESG Initializing module 'repro'
 I MESG Initializing trim files for module 'repro'
+I MESG Initializing module 'blaze'
+I MESG Initializing trim files for module 'blaze'
+I MESG Initializing module 'blazegraph-service'
+I MESG Initializing trim files for module 'blazegraph-service'
+I MESG Ensuring other files listed in the 'blazegraph-service' module trim manifest are in the module trim directory (/mnt/geist/.blazegraph-service)
+I MESG Initializing module 'java-runtime'
+I MESG Initializing trim files for module 'java-runtime'
 I MESG Initializing module 'geist'
 I MESG Initializing trim files for module 'geist'
 I MESG Initializing module 'shell-notebook'
@@ -15,17 +22,10 @@ I MESG Initializing module 'graphviz-runtime'
 I MESG Initializing trim files for module 'graphviz-runtime'
 I MESG Initializing module 'jena-runtime'
 I MESG Initializing trim files for module 'jena-runtime'
-I MESG Initializing module 'java-runtime'
-I MESG Initializing trim files for module 'java-runtime'
 I MESG Initializing module 'python-dev'
 I MESG Initializing trim files for module 'python-dev'
 I MESG Initializing module 'go-dev'
 I MESG Initializing trim files for module 'go-dev'
-I MESG Initializing module 'blaze'
-I MESG Initializing trim files for module 'blaze'
-I MESG Initializing module 'blazegraph-service'
-I MESG Initializing trim files for module 'blazegraph-service'
-I MESG Ensuring other files listed in the 'blazegraph-service' module trim manifest are in the module trim directory (/mnt/geist/.blazegraph-service)
 I MESG Ensuring that the REPRO target mapping file exists (/mnt/geist/.repro/repro-targets)
 I MESG Services not being started during session initialization because REPRO_SERVICES_STARTUP is not set to 'auto'
 I MESG Done initializing REPRO session

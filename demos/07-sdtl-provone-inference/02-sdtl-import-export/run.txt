@@ -1,4 +1,4 @@
-=========================================== BASH CELL DUMP-1 ==============================================
+============================== bash cell | DUMP-1 ==============================
 
 # IMPORT SDTL AS JSON-LD AND EXPORT AS N-TRIPLES
 
@@ -7,7 +7,7 @@ geist create --dataset kb --quiet
 geist import --format jsonld --file ../data/compute-sdtl.jsonld
 geist export --format nt | sort
 
---------------------------------------------- OUTPUTS -------------------------------------------------
+--------------------------------- cell outputs ---------------------------------
 <http://wholetale.org/program/1119/argument/10> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#FunctionArgument> .
 <http://wholetale.org/program/1119/argument/10> <https://rdf-vocabulary.ddialliance.org/sdtl#ArgumentName> "EXP2"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://wholetale.org/program/1119/argument/10> <https://rdf-vocabulary.ddialliance.org/sdtl#ArgumentValue> <http://wholetale.org/program/1119/argumentvalue/10> .
@@ -274,6 +274,6 @@ geist export --format nt | sort
 <http://wholetale.org/program/1119/variableinventory/7> <http://www.w3.org/1999/02/22-rdf-syntax-ns#_2> <http://wholetale.org/program/1119/dataframevariable/14> .
 <http://wholetale.org/program/1119/variableinventory/7> <http://www.w3.org/1999/02/22-rdf-syntax-ns#_3> <http://wholetale.org/program/1119/dataframevariable/15> .
 <http://wholetale.org/program/1119/variableinventory/7> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq> .
--------------------------------------------------------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 

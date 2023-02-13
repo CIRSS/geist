@@ -1,4 +1,4 @@
-=========================================== BASH CELL SETUP ==============================================
+============================== bash cell | SETUP ===============================
 
 # IMPORT SDTL
 
@@ -6,17 +6,17 @@ geist destroy --dataset kb --quiet
 geist create --dataset kb --quiet
 geist import --format jsonld --file ../data/compute-sdtl.jsonld
 
---------------------------------------------- OUTPUTS -------------------------------------------------
--------------------------------------------------------------------------------------------------------
+--------------------------------- cell outputs ---------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-=========================================== BASH CELL E1 ==============================================
+================================ bash cell | E1 ================================
 
 # EXPORT AS N-TRIPLES
 
 geist export --format nt | sort
 
---------------------------------------------- OUTPUTS -------------------------------------------------
+--------------------------------- cell outputs ---------------------------------
 <http://wholetale.org/program/1119/argument/10> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdtl#FunctionArgument> .
 <http://wholetale.org/program/1119/argument/10> <https://rdf-vocabulary.ddialliance.org/sdtl#ArgumentName> "EXP2"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://wholetale.org/program/1119/argument/10> <https://rdf-vocabulary.ddialliance.org/sdtl#ArgumentValue> <http://wholetale.org/program/1119/argumentvalue/10> .
@@ -283,10 +283,10 @@ geist export --format nt | sort
 <http://wholetale.org/program/1119/variableinventory/7> <http://www.w3.org/1999/02/22-rdf-syntax-ns#_2> <http://wholetale.org/program/1119/dataframevariable/14> .
 <http://wholetale.org/program/1119/variableinventory/7> <http://www.w3.org/1999/02/22-rdf-syntax-ns#_3> <http://wholetale.org/program/1119/dataframevariable/15> .
 <http://wholetale.org/program/1119/variableinventory/7> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Seq> .
--------------------------------------------------------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-=========================================== BASH CELL Q1 ==============================================
+================================ bash cell | Q1 ================================
 
 # WHAT COMMANDS ARE EXECUTED BY THE SCRIPT?
 
@@ -308,7 +308,7 @@ geist query --format table << __END_QUERY__
 
 __END_QUERY__
 
---------------------------------------------- OUTPUTS -------------------------------------------------
+--------------------------------- cell outputs ---------------------------------
 command                                     | source_line | source_text
 ===================================================================================================================
 http://wholetale.org/program/1119/load/1    | 4           | df = pd.read_csv('../data/df.csv')
@@ -320,10 +320,10 @@ http://wholetale.org/program/1119/compute/4 | 24          | temps = temps.assign
 http://wholetale.org/program/1119/compute/5 | 28          | temps = temps.assign(Kelvin=(temps.Celsius + 273))
 http://wholetale.org/program/1119/save/1    | 32          | df.to_csv('products/df_updated.csv', index=False)
 http://wholetale.org/program/1119/save/2    | 35          | temps.to_csv('products/temps_updated.csv', index=False)
--------------------------------------------------------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-=========================================== BASH CELL Q2 ==============================================
+================================ bash cell | Q2 ================================
 
 # WHAT DATA FILES ARE LOADED BY THE SCRIPT?
 
@@ -345,15 +345,15 @@ geist query --format table << __END_QUERY__
 
 __END_QUERY__
 
---------------------------------------------- OUTPUTS -------------------------------------------------
+--------------------------------- cell outputs ---------------------------------
 file_name | command                                  | source_line | source_text
 ======================================================================================================
 df.csv    | http://wholetale.org/program/1119/load/1 | 4           | df = pd.read_csv('../data/df.csv')
 temps.csv | http://wholetale.org/program/1119/load/2 | 20          | temps = pd.read_csv('../data/temps.csv')
--------------------------------------------------------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-=========================================== BASH CELL Q3 ==============================================
+================================ bash cell | Q3 ================================
 
 # WHAT DATA FILES ARE SAVED BY THE SCRIPT?
 
@@ -375,15 +375,15 @@ geist query --format table << __END_QUERY__
 
 __END_QUERY__
 
---------------------------------------------- OUTPUTS -------------------------------------------------
+--------------------------------- cell outputs ---------------------------------
 file_name         | command                                  | source_line | source_text
 =============================================================================================================================
 df_updated.csv    | http://wholetale.org/program/1119/save/1 | 32          | df.to_csv('products/df_updated.csv', index=False)
 temps_updated.csv | http://wholetale.org/program/1119/save/2 | 35          | temps.to_csv('products/temps_updated.csv', index=False)
--------------------------------------------------------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-=========================================== BASH CELL Q4 ==============================================
+================================ bash cell | Q4 ================================
 
 # WHAT VARIABLES ARE LOADED BY THE SCRIPT?
 
@@ -408,16 +408,16 @@ geist query --format table << __END_QUERY__
 
 __END_QUERY__
 
---------------------------------------------- OUTPUTS -------------------------------------------------
+--------------------------------- cell outputs ---------------------------------
 loaded_variable | dataframe | source_line | source_text
 ====================================================================
 A               | df        | 4           | df = pd.read_csv('../data/df.csv')
 B               | df        | 4           | df = pd.read_csv('../data/df.csv')
 Fahrenheit      | temps     | 20          | temps = pd.read_csv('../data/temps.csv')
--------------------------------------------------------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-=========================================== BASH CELL Q5 ==============================================
+================================ bash cell | Q5 ================================
 
 # WHAT VARIABLES ARE SAVED BY THE SCRIPT?
 
@@ -442,7 +442,7 @@ geist query --format table << __END_QUERY__
 
 __END_QUERY__
 
---------------------------------------------- OUTPUTS -------------------------------------------------
+--------------------------------- cell outputs ---------------------------------
 saved_variable | dataframe | source_line | source_text
 ===================================================================================
 A              | df        | 32          | df.to_csv('products/df_updated.csv', index=False)
@@ -451,10 +451,10 @@ C              | df        | 32          | df.to_csv('products/df_updated.csv', 
 Celsius        | temps     | 35          | temps.to_csv('products/temps_updated.csv', index=False)
 Fahrenheit     | temps     | 35          | temps.to_csv('products/temps_updated.csv', index=False)
 Kelvin         | temps     | 35          | temps.to_csv('products/temps_updated.csv', index=False)
--------------------------------------------------------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-=========================================== BASH CELL Q6 ==============================================
+================================ bash cell | Q6 ================================
 
 # WHAT COMMANDS UPDATE EACH DATAFRAME?
 
@@ -476,7 +476,7 @@ geist query --format table << __END_QUERY__
 
 __END_QUERY__
 
---------------------------------------------- OUTPUTS -------------------------------------------------
+--------------------------------- cell outputs ---------------------------------
 dataframe | command                                     | source_line | source_text
 ============================================================================================================================
 df        | http://wholetale.org/program/1119/load/1    | 4           | df = pd.read_csv('../data/df.csv')
@@ -486,10 +486,10 @@ df        | http://wholetale.org/program/1119/compute/3 | 16          | df['C'] 
 temps     | http://wholetale.org/program/1119/load/2    | 20          | temps = pd.read_csv('../data/temps.csv')
 temps     | http://wholetale.org/program/1119/compute/4 | 24          | temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))
 temps     | http://wholetale.org/program/1119/compute/5 | 28          | temps = temps.assign(Kelvin=(temps.Celsius + 273))
--------------------------------------------------------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-=========================================== BASH CELL Q7 ==============================================
+================================ bash cell | Q7 ================================
 
 # WHAT COMMANDS UPDATE EACH VARIABLE?
 
@@ -511,7 +511,7 @@ geist query --format table << __END_QUERY__
 
 __END_QUERY__
 
---------------------------------------------- OUTPUTS -------------------------------------------------
+--------------------------------- cell outputs ---------------------------------
 updated_variable | command                                     | source_line | source_text
 ==============================================================================================================================
 A                | http://wholetale.org/program/1119/compute/1 | 8           | df['A'] = 3
@@ -519,10 +519,10 @@ B                | http://wholetale.org/program/1119/compute/2 | 12          | d
 C                | http://wholetale.org/program/1119/compute/3 | 16          | df['C'] = df.A - df.B
 Celsius          | http://wholetale.org/program/1119/compute/4 | 24          | temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))
 Kelvin           | http://wholetale.org/program/1119/compute/5 | 28          | temps = temps.assign(Kelvin=(temps.Celsius + 273))
--------------------------------------------------------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-=========================================== BASH CELL Q8 ==============================================
+================================ bash cell | Q8 ================================
 
 # WHAT COMMANDS USE EACH VARIABLE?
 
@@ -544,7 +544,7 @@ geist query --format table << __END_QUERY__
 
 __END_QUERY__
 
---------------------------------------------- OUTPUTS -------------------------------------------------
+--------------------------------- cell outputs ---------------------------------
 used_variable | command                                     | source_line | source_text
 =================================================================================================================================
 A             | http://wholetale.org/program/1119/compute/3 | 16          | df['C'] = df.A - df.B
@@ -552,10 +552,10 @@ B             | http://wholetale.org/program/1119/compute/2 | 12          | df['
 B             | http://wholetale.org/program/1119/compute/3 | 16          | df['C'] = df.A - df.B
 Celsius       | http://wholetale.org/program/1119/compute/5 | 28          | temps = temps.assign(Kelvin=(temps.Celsius + 273))
 Fahrenheit    | http://wholetale.org/program/1119/compute/4 | 24          | temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))
--------------------------------------------------------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-=========================================== BASH CELL Q9 ==============================================
+================================ bash cell | Q9 ================================
 
 # WHAT VARIABLES WERE DIRECTLY AFFECTED BY OTHER VARIABLES?
 
@@ -578,7 +578,7 @@ geist query --format table << __END_QUERY__
 
 __END_QUERY__
 
---------------------------------------------- OUTPUTS -------------------------------------------------
+--------------------------------- cell outputs ---------------------------------
 affected_variable | affecting_variable | command                                     | source_line | source_text
 ============================================================================================================================================
 B                 | B                  | http://wholetale.org/program/1119/compute/2 | 12          | df['B'] = df.B + 6.5
@@ -586,7 +586,7 @@ C                 | A                  | http://wholetale.org/program/1119/compu
 C                 | B                  | http://wholetale.org/program/1119/compute/3 | 16          | df['C'] = df.A - df.B
 Celsius           | Fahrenheit         | http://wholetale.org/program/1119/compute/4 | 24          | temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))
 Kelvin            | Celsius            | http://wholetale.org/program/1119/compute/5 | 28          | temps = temps.assign(Kelvin=(temps.Celsius + 273))
--------------------------------------------------------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
 ========================================= BASH DOT CELL GRAPH-1 ============================================

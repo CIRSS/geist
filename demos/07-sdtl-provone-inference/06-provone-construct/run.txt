@@ -1,4 +1,4 @@
-=========================================== BASH CELL SETUP ==============================================
+============================== bash cell | SETUP ===============================
 
 # IMPORT SDTL AS JSON-LD
 
@@ -6,17 +6,17 @@ geist destroy --dataset kb --quiet
 geist create --dataset kb --quiet 
 geist import --format jsonld --file ../data/compute-sdth.jsonld
 
---------------------------------------------- OUTPUTS -------------------------------------------------
--------------------------------------------------------------------------------------------------------
+--------------------------------- cell outputs ---------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-=========================================== BASH CELL E1 ==============================================
+================================ bash cell | E1 ================================
 
 # EXPORT ORIGINAL SDTL AS N-TRIPLES
 
 geist export --format nt | sort
 
---------------------------------------------- OUTPUTS -------------------------------------------------
+--------------------------------- cell outputs ---------------------------------
 <http://wholetale.org/program/1119/dataframe/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdth#Dataframe> .
 <http://wholetale.org/program/1119/dataframe/1> <https://rdf-vocabulary.ddialliance.org/sdth#hasName> "df"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://wholetale.org/program/1119/dataframe/1> <https://rdf-vocabulary.ddialliance.org/sdth#includesVariable> <http://wholetale.org/program/1119/variable/1> .
@@ -46,10 +46,10 @@ geist export --format nt | sort
 <http://wholetale.org/program/1119/variable/1> <https://rdf-vocabulary.ddialliance.org/sdth#hasName> "A"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://wholetale.org/program/1119/variable/2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://rdf-vocabulary.ddialliance.org/sdth#Variable> .
 <http://wholetale.org/program/1119/variable/2> <https://rdf-vocabulary.ddialliance.org/sdth#hasName> "B"^^<http://www.w3.org/2001/XMLSchema#string> .
--------------------------------------------------------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-=========================================== BASH CELL Q1 ==============================================
+================================ bash cell | Q1 ================================
 
 # CONSTRUCT PROVONE PROGRAMS VIA SPARQL CONSTRUCT QUERY
 
@@ -77,16 +77,16 @@ geist query --format table << __END_QUERY__
 
 __END_QUERY__
 
---------------------------------------------- OUTPUTS -------------------------------------------------
+--------------------------------- cell outputs ---------------------------------
 subject                                     | predicate                                       | object                                                      | context
 ================================================================================================================================================================
 http://wholetale.org/program/1119/program/1 | http://www.w3.org/1999/02/22-rdf-syntax-ns#type | http://purl.dataone.org/provone/2015/01/15/ontology#Program | 
 http://wholetale.org/program/1119/step/1    | http://www.w3.org/1999/02/22-rdf-syntax-ns#type | http://purl.dataone.org/provone/2015/01/15/ontology#Program | 
 http://wholetale.org/program/1119/step/8    | http://www.w3.org/1999/02/22-rdf-syntax-ns#type | http://purl.dataone.org/provone/2015/01/15/ontology#Program | 
--------------------------------------------------------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-=========================================== BASH CELL R1 ==============================================
+================================ bash cell | R1 ================================
 
 # CONSTRUCT PROVONE PROGRAMS VIA GEIST REPORT
 
@@ -119,10 +119,10 @@ geist report << '__END_REPORT_TEMPLATE__'
 
 __END_REPORT_TEMPLATE__
 
---------------------------------------------- OUTPUTS -------------------------------------------------
+--------------------------------- cell outputs ---------------------------------
+<http://wholetale.org/program/1119/program/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.dataone.org/provone/2015/01/15/ontology#Program> .
 <http://wholetale.org/program/1119/step/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.dataone.org/provone/2015/01/15/ontology#Program> .
 <http://wholetale.org/program/1119/step/8> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.dataone.org/provone/2015/01/15/ontology#Program> .
-<http://wholetale.org/program/1119/program/1> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.dataone.org/provone/2015/01/15/ontology#Program> .
 <http://wholetale.org/program/1119/program/1> provone:hasSubProgram <http://wholetale.org/program/1119/step/1> .
 <http://wholetale.org/program/1119/program/1> provone:hasSubProgram <http://wholetale.org/program/1119/step/8> .
 
@@ -140,6 +140,6 @@ __END_REPORT_TEMPLATE__
 
 
 
--------------------------------------------------------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 

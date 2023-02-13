@@ -1,4 +1,4 @@
-=========================================== BASH CELL SETUP ==============================================
+============================== bash cell | SETUP ===============================
 
 # IMPORT PROVONE TRACE
 
@@ -6,17 +6,17 @@ geist destroy --dataset kb --quiet
 geist create --dataset kb --quiet
 geist import --format jsonld --file ../data/branched-pipeline.jsonld
 
---------------------------------------------- OUTPUTS -------------------------------------------------
--------------------------------------------------------------------------------------------------------
+--------------------------------- cell outputs ---------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-=========================================== BASH CELL S1 ==============================================
+================================ bash cell | S1 ================================
 
 # EXPORT AS N-TRIPLES
 
 geist export --format nt | sort
 
---------------------------------------------- OUTPUTS -------------------------------------------------
+--------------------------------- cell outputs ---------------------------------
 <http://wholetale.org/tale2035/version_1021/run_1119#> <http://wholetale.org/ontology/wt#TaleId> <http://wholetale.org/tale2035#> .
 <http://wholetale.org/tale2035/version_1021/run_1119#> <http://wholetale.org/ontology/wt#TaleName> "08-branched-pipeline"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://wholetale.org/tale2035/version_1021/run_1119#> <http://wholetale.org/ontology/wt#TaleRunScript> <http://wholetale.org/tale_2035/version_1021/run_1119#program_file_i1> .
@@ -101,6 +101,6 @@ geist export --format nt | sort
 <http://wholetale.org/tale_2035/version_1021/run_1119#program_file_i2> <http://wholetale.org/ontology/wt#FilePath> "/bin/cat"^^<http://www.w3.org/2001/XMLSchema#string> .
 <http://wholetale.org/tale_2035/version_1021/run_1119#program_file_i2> <http://wholetale.org/ontology/wt#FileRole> <http://wholetale.org/ontology/wt#SystemSoftware> .
 <http://wholetale.org/tale_2035/version_1021/run_1119#program_file_i2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://wholetale.org/ontology/wt#ProgramFile> .
--------------------------------------------------------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 

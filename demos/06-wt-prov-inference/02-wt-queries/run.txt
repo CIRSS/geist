@@ -1,4 +1,4 @@
-=========================================== BASH CELL SETUP ==============================================
+============================== bash cell | SETUP ===============================
 
 # IMPORT PROVONE TRACE
 
@@ -7,11 +7,11 @@ geist create --dataset kb --quiet --infer owl
 geist import --file ../data/wt-prov-rules.ttl
 geist import --format jsonld --file ../data/branched-pipeline.jsonld
 
---------------------------------------------- OUTPUTS -------------------------------------------------
--------------------------------------------------------------------------------------------------------
+--------------------------------- cell outputs ---------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-=========================================== BASH CELL RETROSPECTIVE-1 ==============================================
+========================= bash cell | RETROSPECTIVE-1 ==========================
 
 # WHAT DATA FILES WERE USED AS INPUT BY THE TALE?
 
@@ -36,17 +36,17 @@ geist query --format table << __END_QUERY__
 
 __END_QUERY__
 
---------------------------------------------- OUTPUTS -------------------------------------------------
+--------------------------------- cell outputs ---------------------------------
 run                                                   | tale_input_file_path | read_file
 ===========================================================================================================================================
 http://wholetale.org/tale/2035/version/1021/run/1119/ | ./inputs/i1.txt      | http://wholetale.org/tale/2035/version/1021/run/1119/datafile/23
 http://wholetale.org/tale/2035/version/1021/run/1119/ | ./inputs/i2.txt      | http://wholetale.org/tale/2035/version/1021/run/1119/datafile/24
 http://wholetale.org/tale/2035/version/1021/run/1119/ | ./inputs/i3.txt      | http://wholetale.org/tale/2035/version/1021/run/1119/datafile/26
 http://wholetale.org/tale/2035/version/1021/run/1119/ | ./inputs/i4.txt      | http://wholetale.org/tale/2035/version/1021/run/1119/datafile/28
--------------------------------------------------------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-=========================================== BASH CELL RETROSPECTIVE-2 ==============================================
+========================= bash cell | RETROSPECTIVE-2 ==========================
 
 # WHAT FILES WERE PRODUCED AS OUTPUTS OF THE TALE?
 
@@ -70,12 +70,12 @@ geist query --format table << __END_QUERY__
 
 __END_QUERY__
 
---------------------------------------------- OUTPUTS -------------------------------------------------
+--------------------------------- cell outputs ---------------------------------
 tale_output_file_path | written_file
 =======================================================================================
 ./products/o12.txt    | http://wholetale.org/tale/2035/version/1021/run/1119/datafile/29
 ./products/o1234.txt  | http://wholetale.org/tale/2035/version/1021/run/1119/datafile/30
 ./products/o4.txt     | http://wholetale.org/tale/2035/version/1021/run/1119/datafile/31
--------------------------------------------------------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 

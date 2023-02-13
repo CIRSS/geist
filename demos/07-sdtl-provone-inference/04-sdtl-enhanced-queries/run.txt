@@ -1,4 +1,4 @@
-=========================================== BASH CELL SETUP ==============================================
+============================== bash cell | SETUP ===============================
 
 # IMPORT SDTL
 
@@ -7,17 +7,17 @@ geist create --dataset kb --quiet --infer owl
 geist import --file ../data/sdtl-enhanced-rules.ttl
 geist import --format jsonld --file ../data/compute-sdtl.jsonld
 
---------------------------------------------- OUTPUTS -------------------------------------------------
--------------------------------------------------------------------------------------------------------
+--------------------------------- cell outputs ---------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-=========================================== BASH CELL E1 ==============================================
+================================ bash cell | E1 ================================
 
 # EXPORT AS N-TRIPLES
 
 geist export --format nt | sort
 
---------------------------------------------- OUTPUTS -------------------------------------------------
+--------------------------------- cell outputs ---------------------------------
 <http://127.0.0.1:9999/blazegraph/namespace/kb/FunctionCallExpression> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Class> .
 <http://127.0.0.1:9999/blazegraph/namespace/kb/FunctionCallExpression> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://127.0.0.1:9999/blazegraph/namespace/kb/FunctionCallExpression> .
 <http://127.0.0.1:9999/blazegraph/namespace/kb/FunctionCallExpression> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2000/01/rdf-schema#Resource> .
@@ -705,10 +705,10 @@ geist export --format nt | sort
 <https://rdf-vocabulary.ddialliance.org/sdtl#VariableSymbolExpression> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Class> .
 <https://rdf-vocabulary.ddialliance.org/sdtl#VariableSymbolExpression> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.w3.org/2000/01/rdf-schema#Resource> .
 <https://rdf-vocabulary.ddialliance.org/sdtl#VariableSymbolExpression> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <https://rdf-vocabulary.ddialliance.org/sdtl#VariableSymbolExpression> .
--------------------------------------------------------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-=========================================== BASH CELL Q1 ==============================================
+================================ bash cell | Q1 ================================
 
 # WHAT COMMANDS USE EACH VARIABLE?
 
@@ -732,7 +732,7 @@ geist query --format table << __END_QUERY__
 
 __END_QUERY__
 
---------------------------------------------- OUTPUTS -------------------------------------------------
+--------------------------------- cell outputs ---------------------------------
 used_variable | command                                     | source_line | source_text
 =================================================================================================================================
 A             | http://wholetale.org/program/1119/compute/3 | 16          | df['C'] = df.A - df.B
@@ -740,10 +740,10 @@ B             | http://wholetale.org/program/1119/compute/2 | 12          | df['
 B             | http://wholetale.org/program/1119/compute/3 | 16          | df['C'] = df.A - df.B
 Celsius       | http://wholetale.org/program/1119/compute/5 | 28          | temps = temps.assign(Kelvin=(temps.Celsius + 273))
 Fahrenheit    | http://wholetale.org/program/1119/compute/4 | 24          | temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))
--------------------------------------------------------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-=========================================== BASH CELL Q2 ==============================================
+================================ bash cell | Q2 ================================
 
 # WHAT VARIABLES DIRECTLY AFFECT OTHER VARIABLES?
 
@@ -768,7 +768,7 @@ geist query --format table << __END_QUERY__
 
 __END_QUERY__
 
---------------------------------------------- OUTPUTS -------------------------------------------------
+--------------------------------- cell outputs ---------------------------------
 affecting_variable | affected_variable | command                                     | source_line | source_text
 ============================================================================================================================================
 A                  | C                 | http://wholetale.org/program/1119/compute/3 | 16          | df['C'] = df.A - df.B
@@ -776,10 +776,10 @@ B                  | B                 | http://wholetale.org/program/1119/compu
 B                  | C                 | http://wholetale.org/program/1119/compute/3 | 16          | df['C'] = df.A - df.B
 Celsius            | Kelvin            | http://wholetale.org/program/1119/compute/5 | 28          | temps = temps.assign(Kelvin=(temps.Celsius + 273))
 Fahrenheit         | Celsius           | http://wholetale.org/program/1119/compute/4 | 24          | temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))
--------------------------------------------------------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-=========================================== BASH CELL Q3 ==============================================
+================================ bash cell | Q3 ================================
 
 # WHAT VARIABLES DIRECTLY AFFECT THE KELVIN VARIABLE?
 
@@ -804,14 +804,14 @@ geist query --format table << __END_QUERY__
 
 __END_QUERY__
 
---------------------------------------------- OUTPUTS -------------------------------------------------
+--------------------------------- cell outputs ---------------------------------
 affecting_variable | command                                     | source_line | source_text
 =================================================================================================================
 Celsius            | http://wholetale.org/program/1119/compute/5 | 28          | temps = temps.assign(Kelvin=(temps.Celsius + 273))
--------------------------------------------------------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-=========================================== BASH CELL Q4 ==============================================
+================================ bash cell | Q4 ================================
 
 # WHAT VARIABLES DIRECTLY AFFECT VARIABLES THAT DIRECTLY AFFECT THE KELVIN VARIABLE?
 
@@ -840,14 +840,14 @@ geist query --format table << __END_QUERY__
 
 __END_QUERY__
 
---------------------------------------------- OUTPUTS -------------------------------------------------
+--------------------------------- cell outputs ---------------------------------
 indirectly_affecting_variable | indirectly_affecting_command                | source_line | source_text
 =================================================================================================================================
 Fahrenheit                    | http://wholetale.org/program/1119/compute/4 | 24          | temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))
--------------------------------------------------------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-=========================================== BASH CELL Q5 ==============================================
+================================ bash cell | Q5 ================================
 
 # WHAT VARIABLES DIRECTLY OR INDIRECTLY AFFECT THE KELVIN VARIABLE?
 
@@ -865,15 +865,15 @@ geist query --format table << __END_QUERY__
 
 __END_QUERY__
 
---------------------------------------------- OUTPUTS -------------------------------------------------
+--------------------------------- cell outputs ---------------------------------
 variable
 =========
 Celsius
 Fahrenheit
--------------------------------------------------------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-=========================================== BASH CELL Q6 ==============================================
+================================ bash cell | Q6 ================================
 
 # WHAT COMMANDS AFFECT EACH VARIABLE?
 
@@ -905,7 +905,7 @@ geist query --format table << __END_QUERY__
 
 __END_QUERY__
 
---------------------------------------------- OUTPUTS -------------------------------------------------
+--------------------------------- cell outputs ---------------------------------
 affected_variable | command                                     | source_line | source_text
 ==============================================================================================================================
 A                 | http://wholetale.org/program/1119/load/1    | 4           | df = pd.read_csv('../data/df.csv')
@@ -916,10 +916,10 @@ C                 | http://wholetale.org/program/1119/compute/3 | 16          | 
 Celsius           | http://wholetale.org/program/1119/compute/4 | 24          | temps = temps.assign(Celsius=((temps.Fahrenheit - 32) * 5 / 9))
 Fahrenheit        | http://wholetale.org/program/1119/load/2    | 20          | temps = pd.read_csv('../data/temps.csv')
 Kelvin            | http://wholetale.org/program/1119/compute/5 | 28          | temps = temps.assign(Kelvin=(temps.Celsius + 273))
--------------------------------------------------------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-=========================================== BASH CELL Q7 ==============================================
+================================ bash cell | Q7 ================================
 
 # WHAT COMMANDS READ VARIABLE VALUES ASSIGNED BY OTHER COMMANDS?
 
@@ -944,15 +944,15 @@ geist query --format table << __END_QUERY__
 
 __END_QUERY__
 
---------------------------------------------- OUTPUTS -------------------------------------------------
+--------------------------------- cell outputs ---------------------------------
 variable | writer_line | writer_text | reader_line | reader_text
 ===============================================================================
 A        | 8           | df['A'] = 3 | 16          | df['C'] = df.A - df.B
 A        | 8           | df['A'] = 3 | 32          | df.to_csv('products/df_updated.csv', index=False)
--------------------------------------------------------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-=========================================== BASH CELL R1 ==============================================
+================================ bash cell | R1 ================================
 
 # REPORT HISTORY OF EACH VARIABLE
 
@@ -985,7 +985,7 @@ geist report << '__END_REPORT_TEMPLATE__'
 
 __END_REPORT_TEMPLATE__
 
---------------------------------------------- OUTPUTS -------------------------------------------------
+--------------------------------- cell outputs ---------------------------------
 
 ---------- VARIABLE HISTORY REPORT ----------
 
@@ -1033,10 +1033,10 @@ Save    | Line 35 | temps.to_csv('products/temps_updated.csv', index=False)
 
 
 
--------------------------------------------------------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-=========================================== BASH CELL R2 ==============================================
+================================ bash cell | R2 ================================
 
 # WHAT COMMANDS WRITE TO EACH VARIABLE?
 
@@ -1060,7 +1060,7 @@ geist report << '__END_REPORT_TEMPLATE__'
 
 __END_REPORT_TEMPLATE__
 
---------------------------------------------- OUTPUTS -------------------------------------------------
+--------------------------------- cell outputs ---------------------------------
 
 ---------- COMMANDS THAT WRITE TO EACH VARIABLE ----------
 
@@ -1076,10 +1076,10 @@ Fahrenheit       | 20          | temps = pd.read_csv('../data/temps.csv')
 Kelvin           | 28          | temps = temps.assign(Kelvin=(temps.Celsius + 273))
 
 
--------------------------------------------------------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-=========================================== BASH CELL R3 ==============================================
+================================ bash cell | R3 ================================
 
 # WHAT COMMANDS READ FROM EACH VARIABLE?
 
@@ -1103,7 +1103,7 @@ geist report << '__END_REPORT_TEMPLATE__'
 
 __END_REPORT_TEMPLATE__
 
---------------------------------------------- OUTPUTS -------------------------------------------------
+--------------------------------- cell outputs ---------------------------------
 
 ---------- COMMANDS THAT READ FROM EACH VARIABLE ----------
 
@@ -1122,10 +1122,10 @@ Fahrenheit    | 35          | temps.to_csv('products/temps_updated.csv', index=F
 Kelvin        | 35          | temps.to_csv('products/temps_updated.csv', index=False)
 
 
--------------------------------------------------------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-=========================================== BASH CELL R4 ==============================================
+================================ bash cell | R4 ================================
 
 # WHAT COMMANDS WRITE VARIABLES READ BY DOWNSTREAM COMMANDS?
 
@@ -1151,7 +1151,7 @@ geist report << '__END_REPORT_TEMPLATE__'
 
 __END_REPORT_TEMPLATE__
 
---------------------------------------------- OUTPUTS -------------------------------------------------
+--------------------------------- cell outputs ---------------------------------
 
 ---------- COMMANDS THAT WRITE VARIABLES READ BY DOWNSTREAM COMMANDS ----------
 
@@ -1174,10 +1174,10 @@ Fahrenheit | 20          | temps = pd.read_csv('../data/temps.csv')             
 Kelvin     | 28          | temps = temps.assign(Kelvin=(temps.Celsius + 273))              | 35          | temps.to_csv('products/temps_updated.csv', index=False)
 
 
--------------------------------------------------------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-=========================================== BASH CELL R5 ==============================================
+================================ bash cell | R5 ================================
 
 # WHAT COMMANDS READ VARIABLES WRITTEN BY MULTIPLE UPSTREAM COMMANDS?
 
@@ -1207,7 +1207,7 @@ geist report << '__END_REPORT_TEMPLATE__'
 
 __END_REPORT_TEMPLATE__
 
---------------------------------------------- OUTPUTS -------------------------------------------------
+--------------------------------- cell outputs ---------------------------------
 
 ---------- COMMANDS THAT READ VARIABLES WRITTEN BY MULTIPLE UPSTREAM COMMANDS ----------
 
@@ -1217,7 +1217,7 @@ B        | 4           | df = pd.read_csv('../data/df.csv') | 12                
 B        | 4           | df = pd.read_csv('../data/df.csv') | 12                       | df['B'] = df.B + 6.5     | 32          | df.to_csv('products/df_updated.csv', index=False)
 
 
--------------------------------------------------------------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
 ========================================= BASH DOT CELL G1 ============================================
