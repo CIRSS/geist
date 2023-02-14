@@ -96,7 +96,7 @@ bash_dot_cell dot_file_with_included_macros << 'END_CELL'
 geist report << 'END_TEMPLATE'
 
     {{{
-        {{ include "graphviz_macros.g" }}
+        {{ include "macros.g" }}
     }}}
 
     {{ $ParentClass := "A" }}
