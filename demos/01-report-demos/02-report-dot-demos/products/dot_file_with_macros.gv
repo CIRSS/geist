@@ -1,11 +1,13 @@
 
-digraph static_dot_file {
 
+
+
+
+digraph dot_file_with_macros {
 rankdir=BT
 fontname=Courier; fontsize=12; labelloc=t
 label="Class Hierarchy"
-
-B -> A
-C -> A
+"B" -> "A"
+"C" -> "A"
 }
 
