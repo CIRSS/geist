@@ -110,13 +110,13 @@ http://learningsparql.com/ns/papers#paperI | http://learningsparql.com/ns/papers
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
-=============== bash cell | select_direct_citations_from_report ================
+============== bash cell | tabulate_direct_citations_from_report ===============
 
 geist report << END_TEMPLATE
 
-    {{ select '''
+    {{ prefix "c" "http://learningsparql.com/ns/citations#" }}
 
-        prefix c: <http://learningsparql.com/ns/citations#>
+    {{ select '''
 
         SELECT DISTINCT ?citing_paper ?cited_paper
         WHERE {
@@ -129,6 +129,8 @@ geist report << END_TEMPLATE
 END_TEMPLATE
 
 --------------------------------- cell outputs ---------------------------------
+
+
 
 citing_paper                               | cited_paper
 =======================================================================================
@@ -144,6 +146,47 @@ http://learningsparql.com/ns/papers#paperG | http://learningsparql.com/ns/papers
 http://learningsparql.com/ns/papers#paperH | http://learningsparql.com/ns/papers#paperD
 http://learningsparql.com/ns/papers#paperI | http://learningsparql.com/ns/papers#paperF
 http://learningsparql.com/ns/papers#paperI | http://learningsparql.com/ns/papers#paperG
+
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+=============== bash cell | format_direct_citations_from_report ================
+
+geist report << 'END_TEMPLATE'
+
+    {{ prefix "c" "http://learningsparql.com/ns/citations#" }}              \
+                                                                            \
+    {{ range $Citation := select '''
+
+            SELECT DISTINCT ?citing_paper ?cited_paper
+            WHERE {
+                ?citing_paper c:cites ?cited_paper .
+            }
+            ORDER BY ?citing_paper ?cited_paper
+
+        ''' | rows }}                                                       \
+                                                                            \
+        {{ index $Citation 0 }} ---cites--> {{ index $Citation 1 }}
+                                                                            \
+    {{ end }}
+
+END_TEMPLATE
+
+--------------------------------- cell outputs ---------------------------------
+
+http://learningsparql.com/ns/papers#paperB ---cites--> http://learningsparql.com/ns/papers#paperA
+http://learningsparql.com/ns/papers#paperC ---cites--> http://learningsparql.com/ns/papers#paperA
+http://learningsparql.com/ns/papers#paperD ---cites--> http://learningsparql.com/ns/papers#paperA
+http://learningsparql.com/ns/papers#paperD ---cites--> http://learningsparql.com/ns/papers#paperB
+http://learningsparql.com/ns/papers#paperE ---cites--> http://learningsparql.com/ns/papers#paperA
+http://learningsparql.com/ns/papers#paperF ---cites--> http://learningsparql.com/ns/papers#paperC
+http://learningsparql.com/ns/papers#paperF ---cites--> http://learningsparql.com/ns/papers#paperE
+http://learningsparql.com/ns/papers#paperG ---cites--> http://learningsparql.com/ns/papers#paperC
+http://learningsparql.com/ns/papers#paperG ---cites--> http://learningsparql.com/ns/papers#paperE
+http://learningsparql.com/ns/papers#paperH ---cites--> http://learningsparql.com/ns/papers#paperD
+http://learningsparql.com/ns/papers#paperI ---cites--> http://learningsparql.com/ns/papers#paperF
+http://learningsparql.com/ns/papers#paperI ---cites--> http://learningsparql.com/ns/papers#paperG
 
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

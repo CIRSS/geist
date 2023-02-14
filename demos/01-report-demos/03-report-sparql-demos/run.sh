@@ -38,13 +38,13 @@ END_CELL
 
 # *****************************************************************************
 
-bash_cell select_direct_citations_from_report << END_CELL
+bash_cell tabulate_direct_citations_from_report << END_CELL
 
 geist report << END_TEMPLATE
 
-    {{ select '''
+    {{ prefix "c" "http://learningsparql.com/ns/citations#" }}
 
-        prefix c: <http://learningsparql.com/ns/citations#>
+    {{ select '''
 
         SELECT DISTINCT ?citing_paper ?cited_paper
         WHERE {
@@ -53,6 +53,33 @@ geist report << END_TEMPLATE
         ORDER BY ?citing_paper ?cited_paper
 
     ''' | tabulate }}
+
+END_TEMPLATE
+
+END_CELL
+
+
+# *****************************************************************************
+
+bash_cell format_direct_citations_from_report << 'END_CELL'
+
+geist report << 'END_TEMPLATE'
+
+    {{ prefix "c" "http://learningsparql.com/ns/citations#" }}              \\
+                                                                            \\
+    {{ range $Citation := select '''
+
+            SELECT DISTINCT ?citing_paper ?cited_paper
+            WHERE {
+                ?citing_paper c:cites ?cited_paper .
+            }
+            ORDER BY ?citing_paper ?cited_paper
+
+        ''' | rows }}                                                       \\
+                                                                            \\
+        {{ index $Citation 0 }} ---cites--> {{ index $Citation 1 }}
+                                                                            \\
+    {{ end }}
 
 END_TEMPLATE
 
