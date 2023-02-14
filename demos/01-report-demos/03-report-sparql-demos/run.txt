@@ -192,3 +192,128 @@ http://learningsparql.com/ns/papers#paperI ---cites--> http://learningsparql.com
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 
+=============== bash cell | format_direct_citations_using_query ================
+
+geist report << 'END_TEMPLATE'
+
+    {{{
+        {{ query "select_direct_citations" '''
+            SELECT DISTINCT ?citing_paper ?cited_paper
+            WHERE {
+                ?citing_paper c:cites ?cited_paper .
+            }
+            ORDER BY ?citing_paper ?cited_paper
+        '''}}
+    }}}
+
+    {{ prefix "c" "http://learningsparql.com/ns/citations#" }}              \
+                                                                            \
+    {{ range $Citation := select_direct_citations | rows }}                 \
+        {{ index $Citation 0 }} ---cites--> {{ index $Citation 1 }}
+    {{ end }}
+
+END_TEMPLATE
+
+--------------------------------- cell outputs ---------------------------------
+
+http://learningsparql.com/ns/papers#paperB ---cites--> http://learningsparql.com/ns/papers#paperA
+http://learningsparql.com/ns/papers#paperC ---cites--> http://learningsparql.com/ns/papers#paperA
+http://learningsparql.com/ns/papers#paperD ---cites--> http://learningsparql.com/ns/papers#paperA
+http://learningsparql.com/ns/papers#paperD ---cites--> http://learningsparql.com/ns/papers#paperB
+http://learningsparql.com/ns/papers#paperE ---cites--> http://learningsparql.com/ns/papers#paperA
+http://learningsparql.com/ns/papers#paperF ---cites--> http://learningsparql.com/ns/papers#paperC
+http://learningsparql.com/ns/papers#paperF ---cites--> http://learningsparql.com/ns/papers#paperE
+http://learningsparql.com/ns/papers#paperG ---cites--> http://learningsparql.com/ns/papers#paperC
+http://learningsparql.com/ns/papers#paperG ---cites--> http://learningsparql.com/ns/papers#paperE
+http://learningsparql.com/ns/papers#paperH ---cites--> http://learningsparql.com/ns/papers#paperD
+http://learningsparql.com/ns/papers#paperI ---cites--> http://learningsparql.com/ns/papers#paperF
+http://learningsparql.com/ns/papers#paperI ---cites--> http://learningsparql.com/ns/papers#paperG
+
+
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+========================================= BASH DOT CELL visualize_direct_citations_using_graphviz ============================================
+
+geist report << 'END_TEMPLATE'
+
+    {{{
+        {{ include "graphviz.g" }}
+
+        {{ query "select_papers" '''
+            SELECT ?paper ?title
+            WHERE {
+                ?paper rdf:type c:Paper .
+                ?paper dc:title ?title .
+            }
+            ORDER BY ?paper ?title
+        ''' }}
+
+        {{ query "select_direct_citations" '''
+            SELECT DISTINCT ?citing_paper ?cited_paper
+            WHERE {
+                ?citing_paper c:cites ?cited_paper .
+            }
+            ORDER BY ?citing_paper ?cited_paper
+        '''}}
+    }}}                                                             \
+                                                                    \
+    {{ prefix "dc" "http://purl.org/dc/elements/1.1/" }}            \
+    {{ prefix "c" "http://learningsparql.com/ns/citations#" }}      \
+                                                                    \
+    {{ gv_graph "citation_graph" "BT" }}
+    {{ gv_title "Paper-Citation Graph" }}
+    {{ gv_cluster "citations" }}
+
+    node[shape=box style="filled" fillcolor="#CCFFCC" peripheries=1 fontname=Courier]
+    {{ range $Paper := select_papers | rows }}                      \
+        {{ gv_labeled_node (index $Paper 0) (index $Paper 1) }}
+    {{ end }}
+                                                                    \
+    {{ range $Citation := select_direct_citations | rows }}         \
+        {{ gv_edge (index $Citation 0) (index $Citation 1) }}
+    {{ end }}
+                                                                    \
+    {{ gv_cluster_end }}
+    {{ gv_end }}
+
+END_TEMPLATE
+
+--------------------------------------------- OUTPUTS -------------------------------------------------
+digraph citation_graph {
+rankdir=BT
+fontname=Courier; fontsize=12; labelloc=t
+label="Paper-Citation Graph"
+subgraph cluster_citations { label=""; color=white; penwidth=0
+subgraph cluster_citations_inner { label=""; color=white
+
+node[shape=box style="filled" fillcolor="#CCFFCC" peripheries=1 fontname=Courier]
+"http://learningsparql.com/ns/papers#paperA" [label="Paper A"]
+"http://learningsparql.com/ns/papers#paperB" [label="Paper B"]
+"http://learningsparql.com/ns/papers#paperC" [label="Paper C"]
+"http://learningsparql.com/ns/papers#paperD" [label="Paper D"]
+"http://learningsparql.com/ns/papers#paperE" [label="Paper E"]
+"http://learningsparql.com/ns/papers#paperF" [label="Paper F"]
+"http://learningsparql.com/ns/papers#paperG" [label="Paper G"]
+"http://learningsparql.com/ns/papers#paperH" [label="Paper H"]
+"http://learningsparql.com/ns/papers#paperI" [label="Paper I"]
+
+"http://learningsparql.com/ns/papers#paperB" -> "http://learningsparql.com/ns/papers#paperA"
+"http://learningsparql.com/ns/papers#paperC" -> "http://learningsparql.com/ns/papers#paperA"
+"http://learningsparql.com/ns/papers#paperD" -> "http://learningsparql.com/ns/papers#paperA"
+"http://learningsparql.com/ns/papers#paperD" -> "http://learningsparql.com/ns/papers#paperB"
+"http://learningsparql.com/ns/papers#paperE" -> "http://learningsparql.com/ns/papers#paperA"
+"http://learningsparql.com/ns/papers#paperF" -> "http://learningsparql.com/ns/papers#paperC"
+"http://learningsparql.com/ns/papers#paperF" -> "http://learningsparql.com/ns/papers#paperE"
+"http://learningsparql.com/ns/papers#paperG" -> "http://learningsparql.com/ns/papers#paperC"
+"http://learningsparql.com/ns/papers#paperG" -> "http://learningsparql.com/ns/papers#paperE"
+"http://learningsparql.com/ns/papers#paperH" -> "http://learningsparql.com/ns/papers#paperD"
+"http://learningsparql.com/ns/papers#paperI" -> "http://learningsparql.com/ns/papers#paperF"
+"http://learningsparql.com/ns/papers#paperI" -> "http://learningsparql.com/ns/papers#paperG"
+
+}}
+}
+
+-------------------------------------------------------------------------------------------------------
+
+
